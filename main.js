@@ -3,7 +3,7 @@ import Expo from 'expo';
 import React, {Component} from 'react';
 // import firebase from 'firebase';
 import { StyleSheet, Text, View, Alert } from 'react-native';
-// import { TabNavigator, StackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 // import { Provider } from 'react-redux';
 
 // Relative Imports
@@ -11,6 +11,8 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 // import store from './store';
 // import AuthScreen from './screens/AuthScreen';
 // import WelcomeScreen from './screens/WelcomeScreen';
+import InitialAuthScreen from './screens/InitialAuthScreen';
+import HomeScreen from './screens/HomeScreen';
 // import MapScreen from './screens/MapScreen';
 // import DeckScreen from './screens/DeckScreen';
 // import SettingsScreen from './screens/SettingsScreen';
@@ -43,35 +45,19 @@ class App extends Component {
   }
 
   render() {
-    // const MainNavigator = TabNavigator({
-    //   welcome: { screen: WelcomeScreen },
-    //   auth: { screen: AuthScreen },
-    //   main: {
-    //     screen: TabNavigator({
-    //       map: { screen: MapScreen },
-    //       deck: { screen: DeckScreen },
-    //       review: {
-    //         screen: StackNavigator({
-    //           review: { screen: ReviewScreen },
-    //           settings: { screen: SettingsScreen }
-    //         })
-    //       }
-    //     }, {
-    //       tabBarPosition: 'bottom',
-    //       tabBarOptions: {
-    //         labelStyle: { fontSize: 12 }
-    //       }
-    //     })
-    //   }
-    // }, {
-    //   tabBarOptions: {
-    //     tabBar: { visible: false }
-    //   },
-    //   lazy: true
-    // }); // Note: as of react navigation beta 9, lazyLoad has become lazy!
+    const MainNavigator = StackNavigator({
+      home: { screen: HomeScreen },
+    }, {
+      // tabBarOptions: {
+      //   tabBar: { visible: false }
+      // },
+      // lazy: true
+    }); // Note: as of react navigation beta 9, lazyLoad has become lazy!
 
     return (
-        <View><Text>Hello</Text></View>
+      <View style={{flex: 1}}>
+        <MainNavigator />
+      </View>
     );
   }
 }
