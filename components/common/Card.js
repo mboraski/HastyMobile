@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Card = (props) => {
-  return (
+// The purpose of this card component is to add styling
+// note: must add reference to props.children so we can put components in there
+const Card = (props) => (
     <View style={styles.containerStyle}>
       {props.children}
     </View>
-  );
-};
+);
 
 const styles = {
   containerStyle: {
@@ -26,4 +26,4 @@ const styles = {
   }
 };
 
-export { Card };
+export default Card;

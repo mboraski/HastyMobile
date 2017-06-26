@@ -6,7 +6,6 @@ import { Icon } from 'react-native-elements';
 
 // import axios from 'axios';
 import ProductList from '../components/ProductList';
-import ProductDetail from '../components/ProductDetail';
 // import Menu from '../components/Menu';
 // import CartScreen from './CartScreen';
 // import SearchBar from '../components/common/SearchBar';
@@ -52,6 +51,8 @@ class Home extends Component {
     console.log('All');
   }
 
+  renderProducts
+
   render() {
     // console.log(this.state);
 
@@ -72,9 +73,7 @@ class Home extends Component {
             <Text style={styles.filterButtonText}>All</Text>
           </TouchableOpacity>
         </ScrollView>
-        <ProductList>
-          <ProductDetail />
-        </ProductList>
+        <ProductList />
       </View>
     );
   }

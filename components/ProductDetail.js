@@ -1,48 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, Image, Linking } from 'react-native';
-import Card from './Card';
-import CardSection from './CardSection';
-import Button from './Button';
+import Card from './common/Card';
+import CardSection from './common/CardSection';
+import Button from './common/Button';
 
-const AlbumDetail = ({ album }) => {
-  const { title, artist, thumbnail_image, image, url } = album;
-  const {
-    thumbnailStyle,
-    headerContentStyle,
-    thumbnailContainerStyle,
-    headerTextStyle,
-    imageStyle
-  } = styles;
+class ProductDetail extends Component {
+  static defaultProps = {
+    product: {
+      title: '',
+      thumbnail_image: '',
+      price: ''
+    }
+  }
 
-  return (
-    <Card>
-      <CardSection>
-        <View style={thumbnailContainerStyle}>
+  constructor(props) {
+    super(props);
+  }
+
+
+  render() {
+    const { title, thumbnail_image, price } = this.props.product;
+    const {
+      thumbnailStyle,
+      headerContentStyle,
+      thumbnailContainerStyle,
+      headerTextStyle,
+      imageStyle
+    } = styles;
+
+    return (
+      <Card>
+        <CardSection>
+          <View style={thumbnailContainerStyle}>
+            <Image
+              style={thumbnailStyle}
+              source={{ uri: thumbnail_image }}
+            />
+          </View>
+          <View style={headerContentStyle}>
+            <Text style={headerTextStyle}>{title}</Text>
+            <Text>{price}</Text>
+          </View>
+        </CardSection>
+
+        <CardSection>
           <Image
-            style={thumbnailStyle}
+            style={imageStyle}
             source={{ uri: thumbnail_image }}
           />
-        </View>
-        <View style={headerContentStyle}>
-          <Text style={headerTextStyle}>{title}</Text>
-          <Text>{artist}</Text>
-        </View>
-      </CardSection>
+        </CardSection>
 
-      <CardSection>
-        <Image
-          style={imageStyle}
-          source={{ uri: image }}
-        />
-      </CardSection>
-
-      <CardSection>
-        <Button onPress={() => Linking.openURL(url)}>
-          Buy Now
-        </Button>
-      </CardSection>
-    </Card>
-  );
+        <CardSection>
+          <Button onPress={() => Linking.openURL()}>
+            Buy Now
+          </Button>
+        </CardSection>
+      </Card>
+    );
+  }
 };
 
 const styles = {
@@ -70,4 +85,4 @@ const styles = {
   }
 };
 
-export default AlbumDetail;
+export default ProductDetail;

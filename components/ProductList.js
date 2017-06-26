@@ -4,7 +4,25 @@ import { ScrollView } from 'react-native';
 import ProductDetail from './ProductDetail';
 
 class ProductList extends Component {
-  state = { products: [] };
+  state = {
+    products: [{
+      title: 'Redbull',
+      thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+      price: '$3.49'
+    }, {
+      title: 'Monster',
+      thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+      price: '$3.49'
+    }, {
+      title: 'Gatorade',
+      thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+      price: '$2.49'
+    }, {
+      title: 'Water',
+      thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+      price: '$0.99'
+    }]
+  };
 
   componentWillMount() {
     // fetch album data with http request
