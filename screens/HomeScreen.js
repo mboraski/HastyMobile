@@ -1,5 +1,3 @@
-
-
 // bc JSX uses react.createElement etc, we need react in this file
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native'; // need for scrolling
@@ -7,7 +5,8 @@ import { StyleSheet, Text, View, Alert, TextInput, Image, TouchableOpacity } fro
 import { Icon } from 'react-native-elements';
 
 // import axios from 'axios';
-// import AlbumDetail from './AlbumDetail';
+import ProductList from '../components/ProductList';
+import ProductDetail from '../components/ProductDetail';
 // import Menu from '../components/Menu';
 // import CartScreen from './CartScreen';
 // import SearchBar from '../components/common/SearchBar';
@@ -20,7 +19,7 @@ class Home extends Component {
     headerTitle: (<TextInput
       style={{height: 40}}
       onChangeText={(text) => {console.log(text)}}
-      value={'Search Bah'}
+      value={'Search Bar'}
     />),
     headerLeft: (<Icon name="menu" size={40} />),
     headerRight: (<Icon name="shopping-cart" size={40} />)
@@ -62,17 +61,20 @@ class Home extends Component {
           style={styles.image}
           source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
         />
-        <ScrollView horizontal={true}>
-          <TouchableOpacity onPress={this._onPressForYou}>
-            <Text>For You</Text>
+        <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScrollView}>
+          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressForYou}>
+            <Text style={styles.filterButtonText}>For You</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this._onPressInstant}>
-            <Text>Instant</Text>
+          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressInstant}>
+            <Text style={styles.filterButtonText}>Instant</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this._onPressAll}>
-            <Text>All</Text>
+          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressAll}>
+            <Text style={styles.filterButtonText}>All</Text>
           </TouchableOpacity>
         </ScrollView>
+        <ProductList>
+          <ProductDetail />
+        </ProductList>
       </View>
     );
   }
@@ -88,15 +90,23 @@ const styles = StyleSheet.create({
   },
   horizontalScrollView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-around',
+    alignItems: 'flex-start'
   },
   filterButtons: {
     opacity: 0.38,
-    border: '4 solid #000000',
+    width: 100,
+    borderColor: '#000000',
+    borderWidth: 4,
+    borderStyle: 'solid',
     borderRadius: 100,
-    marginLeft: 10,
-    marginRight: 10
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  filterButtonText: {
+    color: '#000000',
+    fontSize: 18
   }
 })
 
