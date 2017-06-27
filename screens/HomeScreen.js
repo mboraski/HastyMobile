@@ -57,7 +57,7 @@ class Home extends Component {
     // console.log(this.state);
 
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <Image
           style={styles.image}
           source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
@@ -81,14 +81,19 @@ class Home extends Component {
 // {this.renderProducts()}
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column'
+  },
   image: {
     flex: 1,
-    height: 20,
+    minHeight: 90,
     width: null,
     backgroundColor: 'rgba(0,0,0,0.75)'
   },
   horizontalScrollView: {
     flex: 1,
+    height: 60,
     justifyContent: 'space-around',
     alignItems: 'flex-start'
   },
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderStyle: 'solid',
     borderRadius: 100,
-    margin: 10,
+    margin: 5,
     justifyContent: 'center',
     alignItems: 'center'
   },

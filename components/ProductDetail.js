@@ -4,60 +4,45 @@ import Card from './common/Card';
 import CardSection from './common/CardSection';
 import Button from './common/Button';
 
-class ProductDetail extends Component {
-  static defaultProps = {
-    product: {
-      title: '',
-      thumbnail_image: '',
-      price: ''
-    }
-  }
+const ProductDetail = (props) => {
+  const { title, thumbnail_image, price } = props.product;
+  const {
+    thumbnailStyle,
+    headerContentStyle,
+    thumbnailContainerStyle,
+    headerTextStyle,
+    imageStyle
+  } = styles;
 
-  constructor(props) {
-    super(props);
-  }
-
-
-  render() {
-    const { title, thumbnail_image, price } = this.props.product;
-    const {
-      thumbnailStyle,
-      headerContentStyle,
-      thumbnailContainerStyle,
-      headerTextStyle,
-      imageStyle
-    } = styles;
-
-    return (
-      <Card>
-        <CardSection>
-          <View style={thumbnailContainerStyle}>
-            <Image
-              style={thumbnailStyle}
-              source={{ uri: thumbnail_image }}
-            />
-          </View>
-          <View style={headerContentStyle}>
-            <Text style={headerTextStyle}>{title}</Text>
-            <Text>{price}</Text>
-          </View>
-        </CardSection>
-
-        <CardSection>
+  return (
+    <Card>
+      <CardSection>
+        <View style={thumbnailContainerStyle}>
           <Image
-            style={imageStyle}
+            style={thumbnailStyle}
             source={{ uri: thumbnail_image }}
           />
-        </CardSection>
+        </View>
+        <View style={headerContentStyle}>
+          <Text style={headerTextStyle}>{title}</Text>
+          <Text>{price}</Text>
+        </View>
+      </CardSection>
 
-        <CardSection>
-          <Button onPress={() => Linking.openURL()}>
-            Buy Now
-          </Button>
-        </CardSection>
-      </Card>
-    );
-  }
+      <CardSection>
+        <Image
+          style={imageStyle}
+          source={{ uri: thumbnail_image }}
+        />
+      </CardSection>
+
+      <CardSection>
+        <Button onPress={() => Linking.openURL()}>
+          Buy Now
+        </Button>
+      </CardSection>
+    </Card>
+  );
 };
 
 const styles = {
