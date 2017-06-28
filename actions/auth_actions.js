@@ -17,6 +17,7 @@ export const facebookLogin = () => async dispatch => {
 
   if (token) {
     // Dispatch an action saying FB login is done
+    console.log('fb_token', token);
     dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload: token });
   } else {
     // Start up FB Login process
@@ -26,9 +27,12 @@ export const facebookLogin = () => async dispatch => {
 
 const doFacebookLogin = async dispatch => {
   // remember redux thunk is allowing use to call actions at some later time here
-  let { type, token } = await Facebook.logInWithReadPermissionsAsync('1873998396207588', {
+  // also, this number is Hasty's fb number associated with Expo
+  let { response } = await Facebook.logInWithReadPermissionsAsync('1873998396207588', {
     permissions: ['public_profile', 'email', 'user_friends']
   });
+  console.log('fb auth response ', response);
+  let { type, token } = response;
 
   if (type === 'cancel') {
     return dispatch({ type: FACEBOOK_LOGIN_FAIL });

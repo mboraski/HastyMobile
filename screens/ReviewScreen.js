@@ -9,25 +9,21 @@ class ReviewScreen extends Component {
   // navigationOptions is a prop that our router uses to configure the route
   static navigationOptions = {
     title: 'Review Jobs',
-    tabBar: {
-      icon: ({ tintColor }) => {
-        return <Icon name="favorite" size={30} color={tintColor} />;
-      }
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="favorite" size={30} color={tintColor} />;
     },
-    header: ({ navigate }) => {
-      return {
-        right: (
-          <Button
-            title="Settings"
-            onPress={() => navigate('settings')}
-            backgroundColor="rgba(0,0,0,0)"
-            color="rgba(0, 122, 255, 1)"
-          />
-        ),
-        style: {
-          marginTop: Platform.OS === 'android' ? 24 : 0
-        }
-      };
+    headerRight: ({ navigate }) => {
+      return (
+        <Button
+          title="Settings"
+          onPress={() => navigate('settings')}
+          backgroundColor="rgba(0,0,0,0)"
+          color="rgba(0, 122, 255, 1)"
+        />
+      )
+    },
+    headerStyle: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
     }
   }
 

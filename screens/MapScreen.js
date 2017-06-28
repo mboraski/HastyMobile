@@ -9,20 +9,18 @@ import * as actions from '../actions';
 class MapScreen extends Component {
   static navigationOptions = {
     title: 'Map',
-    tabBar: {
-      icon: ({ tintColor }) => {
-        return <Icon name="my-location" size={30} color={tintColor} />;
-      }
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="my-location" size={30} color={tintColor} />;
     }
   }
 
   state = {
     mapLoaded: false,
     region: {
-      longitude: -122,
-      latitude: 37,
-      longitudeDelta: 0.04,
-      latitudeDelta: 0.09
+      longitude: -97,
+      latitude: 30,
+      longitudeDelta: 0.05,
+      latitudeDelta: 0.11
     }
   }
 
