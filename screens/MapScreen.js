@@ -17,10 +17,10 @@ class MapScreen extends Component {
   state = {
     mapLoaded: false,
     region: {
-      longitude: -97,
-      latitude: 30,
-      longitudeDelta: 0.05,
-      latitudeDelta: 0.11
+      longitude: -97.76,
+      latitude: 30.26,
+      longitudeDelta: 0.10,
+      latitudeDelta: 0.25
     }
   }
 
@@ -29,14 +29,18 @@ class MapScreen extends Component {
   }
 
   onRegionChangeComplete = (region) => {
+    console.log('region: ', region);
     this.setState({ region });
   }
 
   onButtonPress = () => {
-    this.props.fetchJobs(this.state.region, () => {
-      this.props.navigation.navigate('deck'); // This is how we navigate when fetching // with action creators
-      // this is used in fetchjobs of job actions
-    });
+    // fetch products
+    // navigate to products page
+    this.props.navigation('home');
+    // this.props.fetchJobs(this.state.region, () => {
+    //   this.props.navigation.navigate('deck'); // This is how we navigate when fetching // with action creators
+    //   // this is used in fetchjobs of job actions
+    // });
   }
 
   render() {
@@ -54,11 +58,20 @@ class MapScreen extends Component {
           region={this.state.region}
           style={{ flex: 1 }}
           onRegionChangeComplete={this.onRegionChangeComplete}
-        />
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: 30.26,
+              longitude: -97.76
+            }}
+            title='You'
+            description='Your Delivery Location'
+          />
+        </MapView>
         <View style={styles.buttonContainer}>
           <Button
             large
-            title="Search This Area"
+            title="Use This Location"
             backgroundColor="#009688"
             icon={{ name: 'search' }}
             onPress={this.onButtonPress}

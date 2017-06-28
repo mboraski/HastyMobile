@@ -45,11 +45,10 @@ class App extends Component {
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       auth: { screen: AuthScreen },
-      // home: { screen: HomeScreen },
       main: {
         screen: TabNavigator({
           map: { screen: MapScreen },
-          deck: { screen: DeckScreen },
+          home: { screen: HomeScreen },
           review: {
             screen: StackNavigator({
               review: { screen: ReviewScreen },

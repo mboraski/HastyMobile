@@ -15,14 +15,20 @@ class Home extends Component {
   // This gives our state and initial value
   // state = { albums: [] };
   static navigationOptions = {
-    headerTitle: (<TextInput
-      style={{height: 40}}
-      onChangeText={(text) => {console.log(text)}}
-      value={'Search Bar'}
-    />),
-    headerLeft: (<Icon name="menu" size={40} />),
-    headerRight: (<Icon name="shopping-cart" size={40} />)
+    title: 'Products',
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="description" size={30} color={tintColor} />;
+    }
   }
+  // static navigationOptions = {
+  //   headerTitle: (<TextInput
+  //     style={{height: 40}}
+  //     onChangeText={(text) => {console.log(text)}}
+  //     value={'Search Bar'}
+  //   />),
+  //   headerLeft: (<Icon name="menu" size={40} />),
+  //   headerRight: (<Icon name="shopping-cart" size={40} />)
+  // }
 
   componentWillMount() {
     // fetch album data with http request
