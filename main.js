@@ -15,6 +15,7 @@ import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/DeckScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ReviewScreen from './screens/ReviewScreen';
+import SearchForHeroScreen from './screens/SearchForHeroScreen';
 
 class App extends Component {
   componentDidMount() {
@@ -49,12 +50,7 @@ class App extends Component {
         screen: TabNavigator({
           map: { screen: MapScreen },
           home: { screen: HomeScreen },
-          review: {
-            screen: StackNavigator({
-              review: { screen: ReviewScreen },
-              settings: { screen: SettingsScreen }
-            })
-          }
+          searchForHero: { screen: SearchForHeroScreen }
         }, {
           tabBarPosition: 'bottom',
           tabBarOptions: {

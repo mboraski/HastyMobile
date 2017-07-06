@@ -6,6 +6,7 @@ import Button from './common/Button';
 
 const ProductDetail = (props) => {
   const { title, thumbnail_image, price } = props.product;
+  const callAddToCart = props.callAddToCart;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -37,7 +38,7 @@ const ProductDetail = (props) => {
       </CardSection>
 
       <CardSection>
-        <Button onPress={() => Linking.openURL()}>
+        <Button onPress={callAddToCart}>
           Buy Now
         </Button>
       </CardSection>

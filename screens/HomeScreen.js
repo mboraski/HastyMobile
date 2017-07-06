@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native'; // need for scrolling
 import { StyleSheet, Text, View, Alert, TextInput, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 // import axios from 'axios';
 import ProductList from '../components/ProductList';
+import { addToCart } from '../actions';
 // import Menu from '../components/Menu';
 // import CartScreen from './CartScreen';
 // import SearchBar from '../components/common/SearchBar';
@@ -57,7 +59,11 @@ class Home extends Component {
     console.log('All');
   }
 
-  renderProducts
+  callAddToCart = () => {
+    console.log('callAddToCart ran', this.props.cart);
+    this.props.navigation.navigate('searchForHero');
+    this.props.addToCart(this.props.cart);
+  }
 
   render() {
     // console.log(this.state);
@@ -79,7 +85,7 @@ class Home extends Component {
             <Text style={styles.filterButtonText}>All</Text>
           </TouchableOpacity>
         </ScrollView>
-        <ProductList />
+        <ProductList callAddToCart={this.callAddToCart}/>
       </View>
     );
   }
@@ -120,4 +126,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home;
+export default connect(null, {addToCart})(Home);
