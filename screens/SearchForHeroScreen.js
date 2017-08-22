@@ -18,8 +18,17 @@ class SearchForHeroScreen extends Component {
 
   componentDidMount() {
     setTimeout(function(){
-      console.log('goToOrderStatus ran');
-    }, 4000);
+      console.log('Hero found');
+    }, 8000);
+    setTimeout(function(){
+      console.log('Hero accepted');
+    }, 12000);
+    setTimeout(function(){
+      console.log('Hero on the way!');
+    }, 18000);
+    setTimeout(function(){
+      console.log('Hero has arrived!');
+    }, 30000);
   }
 
   goToOrderStatus = () => {

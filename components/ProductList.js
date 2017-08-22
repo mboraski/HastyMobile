@@ -1,9 +1,7 @@
-// 3rd Party Libraries
+// Third Party Imports
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import _ from 'lodash';
-// import axios from 'axios';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
@@ -15,11 +13,7 @@ class ProductList extends Component {
   };
 
   componentWillMount() {
-    // fetch album data with http request
-    // we use this life cycle method here so that if runs immediately
-    // when this component is going to be mounted to screen
-    // axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-    //   .then(response => this.setState({ products: response.data }));
+    // TODO: fetch available products once endpoint complete
     this.setState({
       products: [{
         title: 'Redbull',
@@ -53,8 +47,6 @@ class ProductList extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <ScrollView>
         {this.renderProducts()}
@@ -62,10 +54,5 @@ class ProductList extends Component {
     );
   }
 }
-
-
-// const mapStateToProps = (state) => {
-//   return { name, phone, shift };
-// };
 
 export default ProductList;

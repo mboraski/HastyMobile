@@ -1,61 +1,22 @@
-// bc JSX uses react.createElement etc, we need react in this file
+// Third Party Imports
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native'; // need for scrolling
-import { StyleSheet, Text, View, Alert, TextInput, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-// import axios from 'axios';
+// Relative Imports
 import ProductList from '../components/ProductList';
 import { addToCart } from '../actions';
-// import Menu from '../components/Menu';
-// import CartScreen from './CartScreen';
-// import SearchBar from '../components/common/SearchBar';
 
 class Home extends Component {
-  // This is a more recent way that state can be initialized in react
-  // This gives our state and initial value
-  // state = { albums: [] };
-  static navigationOptions = {
-    title: 'Products',
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="description" size={30} color={tintColor} />;
-    }
-  }
-  // static navigationOptions = {
-  //   headerTitle: (<TextInput
-  //     style={{height: 40}}
-  //     onChangeText={(text) => {console.log(text)}}
-  //     value={'Search Bar'}
-  //   />),
-  //   headerLeft: (<Icon name="menu" size={40} />),
-  //   headerRight: (<Icon name="shopping-cart" size={40} />)
-  // }
-
-  componentWillMount() {
-    // fetch album data with http request
-    // we use this life cycle method here so that if runs immediately
-    // when this component is going to be mounted to screen
-    // axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-    //   .then(response => this.setState({ albums: response.data }));
-  }
-
-  // renderProducts() {
-  //   // whenever we render a list of components, we need to add a key property
-  //   // react uses this for performance reasons
-  //   return this.state.albums.map(album =>
-  //     <AlbumDetail key={album.title} album={album} />
-  //   );
-  // }
-  _onPressForYou() {
+  onPressForYou() {
     console.log('For You');
   }
 
-  _onPressInstant() {
+  onPressInstant() {
     console.log('Instant');
   }
 
-  _onPressAll() {
+  onPressAll() {
     console.log('All');
   }
 
@@ -72,20 +33,20 @@ class Home extends Component {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+          source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
         />
-        <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScrollView}>
-          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressForYou}>
+        <ScrollView horizontal contentContainerStyle={styles.horizontalScrollView}>
+          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressForYou}>
             <Text style={styles.filterButtonText}>For You</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressInstant}>
+          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressInstant}>
             <Text style={styles.filterButtonText}>Instant</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButtons} onPress={this._onPressAll}>
+          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressAll}>
             <Text style={styles.filterButtonText}>All</Text>
           </TouchableOpacity>
         </ScrollView>
-        <ProductList callAddToCart={this.callAddToCart}/>
+        <ProductList callAddToCart={this.callAddToCart} />
       </View>
     );
   }
@@ -124,6 +85,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 18
   }
-})
+});
 
-export default connect(null, {addToCart})(Home);
+export default connect(null, { addToCart })(Home);

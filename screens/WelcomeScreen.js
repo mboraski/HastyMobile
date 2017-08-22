@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import Slides from '../components/Slides';
 
@@ -10,13 +10,12 @@ const SLIDE_DATA = [
   { text: 'Now start accelerating your life!', color: '#03A9F4' }
 ];
 
-// Note: this component uses logic in react over redux just for show.
-// In redux app, this should be done with actions
+// Note: Just experimenting with this screen series, so it is out of redux flow
 class WelcomeScreen extends Component {
   state = { token: null }
 
   async componentWillMount() {
-    let token = await AsyncStorage.getItem('fb_token');
+    const token = await AsyncStorage.getItem('fb_token');
 
     if (token) {
       this.props.navigation.navigate('map');
@@ -27,15 +26,12 @@ class WelcomeScreen extends Component {
   }
 
   onSlidesComplete = () => {
-    // the navigation library automatically passes down navigation prop
     this.props.navigation.navigate('auth');
   }
 
   render() {
-    // using isNull bc the token can be null or false and both would
-    // not enter into the if statement
     if (_.isNull(this.state.token)) {
-      return <AppLoading />; // keeps loading screen open
+      return <AppLoading />;
     }
 
     return (

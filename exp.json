@@ -1,7 +1,7 @@
 {
-  "name": "My New Project",
-  "description": "An empty new project",
-  "slug": "my-new-project",
+  "name": "Hasty Mobile App",
+  "description": "An instant delivery retail app",
+  "slug": "hasty-mobile",
   "privacy": "public",
   "sdkVersion": "17.0.0",
   "version": "1.0.0",

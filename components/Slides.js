@@ -7,8 +7,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 class Slides extends Component {
   renderLastSlide(index) {
     if (index === this.props.data.length - 1) {
-      // remember we get specific styling for particular parts of native elements
-      // e.g. buttonStyle v textStyle
       return (
         <Button
           title="Onwards!"
@@ -21,8 +19,7 @@ class Slides extends Component {
   }
 
   renderSlides() {
-    return this.props.data.map((slide, index) => {
-      return (
+    return this.props.data.map((slide, index) =>
         <View
           key={slide.text}
           style={[styles.slideStyle, { backgroundColor: slide.color }]}
@@ -31,7 +28,6 @@ class Slides extends Component {
           {this.renderLastSlide(index)}
         </View>
       );
-    });
   }
 
   render() {

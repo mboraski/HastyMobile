@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'react-native-elements';
@@ -34,13 +34,7 @@ class MapScreen extends Component {
   }
 
   onButtonPress = () => {
-    // fetch products
-    // navigate to products page
     this.props.navigation.navigate('home');
-    // this.props.fetchJobs(this.state.region, () => {
-    //   this.props.navigation.navigate('deck'); // This is how we navigate when fetching // with action creators
-    //   // this is used in fetchjobs of job actions
-    // });
   }
 
   render() {
@@ -89,6 +83,6 @@ const styles = {
     left: 0,
     right: 0
   }
-}
+};
 
 export default connect(null, actions)(MapScreen);
