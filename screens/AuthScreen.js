@@ -1,40 +1,110 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
+import { Button } from 'react-native-elements';
 
 // Relative Imports
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 
+const COLOR_GREY_100 = '#9A9A9A';
+const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
 class AuthScreen extends Component {
-  componentWillReceiveProps(nextProps) {
-    this.onAuthComplete(nextProps);
-  }
+    state = { signUp: true };
 
-  onAuthComplete(props) {
-    if (props.token) {
-      this.props.navigation.navigate('map');
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
     }
-  }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <SignUpForm />
-        <SignInForm />
-      </View>
-    );
-  }
+    onAuthComplete(props) {
+        if (props.token) {
+            this.props.navigation.navigate('map');
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image source={SOURCE} style={[styles.image]}>
+                        <Text style={styles.imageText}>HELLO</Text>
+                    </Image>
+                </View>
+                <View style={styles.buttonsRow}>
+                    <Button
+                        title="Sign Up"
+                        backgroundColor={this.state.signUp ? COLOR_GREY_100 : '#fff'}
+                        buttonStyle={[styles.button, this.state.signUp && styles.buttonHighlighted]}
+                        textStyle={[
+                            styles.buttonText,
+                            this.state.signUp && styles.buttonTextHighlighted
+                        ]}
+                        onPress={() => this.setState({ signUp: true })}
+                    />
+                    <Button
+                        title="Log In"
+                        backgroundColor={!this.state.signUp ? COLOR_GREY_100 : '#fff'}
+                        buttonStyle={[
+                            styles.button,
+                            !this.state.signUp && styles.buttonHighlighted
+                        ]}
+                        textStyle={[
+                            styles.buttonText,
+                            !this.state.signUp && styles.buttonTextHighlighted
+                        ]}
+                        onPress={() => this.setState({ signUp: false })}
+                    />
+                </View>
+                {this.state.signUp ? <SignUpForm /> : <SignInForm />}
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
+    imageContainer: {
+
+    },
+    image: {
+        flexGrow: 1,
+        height: 250,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    imageText: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: 35,
+        textAlign: 'center',
+        letterSpacing: 5
+    },
+    buttonsRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: 40
+    },
+    button: {
+        minWidth: 120,
+        borderRadius: 25,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: COLOR_GREY_100
+    },
+    buttonText: {
+        color: COLOR_GREY_100,
+        fontSize: 14
+    },
+    buttonHighlighted: {
+        backgroundColor: COLOR_GREY_100,
+        borderColor: '#fff'
+    },
+    buttonTextHighlighted: {
+        color: '#fff'
+    }
 });
 
 export default AuthScreen;
