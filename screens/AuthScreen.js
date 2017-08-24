@@ -6,8 +6,8 @@ import { Button } from 'react-native-elements';
 // Relative Imports
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
+import Color from '../constants/Color';
 
-const COLOR_GREY_100 = '#9A9A9A';
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
 class AuthScreen extends Component {
@@ -23,7 +23,21 @@ class AuthScreen extends Component {
         }
     }
 
+    openSignUpForm = () => {
+        this.setState({ signUp: true });
+    };
+
+    openSignInForm = () => {
+        this.setState({ signUp: false });
+    };
+
     render() {
+        const signUp = this.state.signUp;
+        const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
+        const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
+        const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
+        const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
+        const form = signUp ? <SignUpForm /> : <SignInForm />;
         return (
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
@@ -34,29 +48,18 @@ class AuthScreen extends Component {
                 <View style={styles.buttonsRow}>
                     <Button
                         title="Sign Up"
-                        backgroundColor={this.state.signUp ? COLOR_GREY_100 : '#fff'}
-                        buttonStyle={[styles.button, this.state.signUp && styles.buttonHighlighted]}
-                        textStyle={[
-                            styles.buttonText,
-                            this.state.signUp && styles.buttonTextHighlighted
-                        ]}
-                        onPress={() => this.setState({ signUp: true })}
+                        buttonStyle={[styles.button, signUpButtonHighlighted]}
+                        textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
+                        onPress={this.openSignUpForm}
                     />
                     <Button
                         title="Log In"
-                        backgroundColor={!this.state.signUp ? COLOR_GREY_100 : '#fff'}
-                        buttonStyle={[
-                            styles.button,
-                            !this.state.signUp && styles.buttonHighlighted
-                        ]}
-                        textStyle={[
-                            styles.buttonText,
-                            !this.state.signUp && styles.buttonTextHighlighted
-                        ]}
-                        onPress={() => this.setState({ signUp: false })}
+                        buttonStyle={[styles.button, loginButtonHighlighted]}
+                        textStyle={[styles.buttonText, loginButtonTextHighlighted]}
+                        onPress={this.openSignInForm}
                     />
                 </View>
-                {this.state.signUp ? <SignUpForm /> : <SignInForm />}
+                {form}
             </View>
         );
     }
@@ -67,9 +70,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
-    imageContainer: {
-
-    },
+    imageContainer: {},
     image: {
         flexGrow: 1,
         height: 250,
@@ -92,14 +93,15 @@ const styles = StyleSheet.create({
         minWidth: 120,
         borderRadius: 25,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: COLOR_GREY_100
+        borderColor: Color.GREY_100,
+        backgroundColor: '#fff'
     },
     buttonText: {
-        color: COLOR_GREY_100,
+        color: Color.GREY_100,
         fontSize: 14
     },
     buttonHighlighted: {
-        backgroundColor: COLOR_GREY_100,
+        backgroundColor: Color.GREY_100,
         borderColor: '#fff'
     },
     buttonTextHighlighted: {
