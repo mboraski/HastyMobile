@@ -3,10 +3,20 @@ import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import firebase from 'firebase';
 
+import Color from '../constants/Color';
+
 // const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
 class SignInForm extends Component {
     state = { phone: '', code: '' };
+
+    handleEmail = email => {
+        this.setState({ email });
+    };
+
+    handlePassword = password => {
+        this.setState({ password });
+    };
 
     handleSubmit = async () => {
         try {
@@ -28,7 +38,7 @@ class SignInForm extends Component {
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 value={this.state.email}
-                                onChangeText={email => this.setState({ email })}
+                                onChangeText={this.handleEmail}
                                 style={styles.textInput}
                                 keyboardType="email-address"
                             />
@@ -38,7 +48,7 @@ class SignInForm extends Component {
                         <Text style={styles.label}>Password</Text>
                         <TextInput
                             value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
+                            onChangeText={this.handlePassword}
                             style={styles.textInput}
                             secureTextEntry
                         />
@@ -47,19 +57,18 @@ class SignInForm extends Component {
                 <Button
                     onPress={this.handleSubmit}
                     title="Continue"
-                    backgroundColor="#000"
-                    buttonStyle={{ marginBottom: 10 }}
+                    buttonStyle={[styles.button, styles.buttonMargin]}
                 />
                 <Button
                     onPress={this.facebookLogin}
                     title="Login with Facebook"
-                    backgroundColor="#000"
                     icon={{
                         type: 'material-community',
                         name: 'facebook-box',
                         color: '#fff',
                         size: 25
                     }}
+                    buttonStyle={styles.button}
                 />
             </View>
         );
@@ -71,10 +80,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 15
     },
-    formInputs: { flex: 1, paddingHorizontal: 15 },
+    formInputs: {
+        flex: 1,
+        paddingHorizontal: 15
+    },
     formInputGroup: {
         flexDirection: 'row',
-        borderColor: '#9A9A9A',
+        borderColor: Color.GREY_100,
         borderBottomWidth: StyleSheet.hairlineWidth,
         alignItems: 'center'
     },
@@ -87,14 +99,19 @@ const styles = StyleSheet.create({
     textInputContainer: {
         flex: 1
     },
-    textInput: { flex: 1, textAlign: 'right' },
+    textInput: {
+        flex: 1,
+        textAlign: 'right'
+    },
     button: {
-        width: 120,
-        borderRadius: 25
+        backgroundColor: '#000'
     },
     buttonText: {
         color: '#fff',
         fontSize: 14
+    },
+    buttonMargin: {
+        marginBottom: 10
     }
 });
 

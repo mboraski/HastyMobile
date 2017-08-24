@@ -3,10 +3,32 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import axios from 'axios';
 
+import Color from '../constants/Color';
+
 const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
 class SignUpForm extends Component {
     state = { phone: '' };
+
+    handleName = name => {
+        this.setState({ name });
+    };
+
+    handleEmail = email => {
+        this.setState({ email });
+    };
+
+    handlePhoneNumber = phoneNumber => {
+        this.setState({ phoneNumber });
+    };
+
+    handlePassword = password => {
+        this.setState({ password });
+    };
+
+    handleConfirmPassword = confirmPassword => {
+        this.setState({ confirmPassword });
+    };
 
     handleSubmit = async () => {
         try {
@@ -26,7 +48,7 @@ class SignUpForm extends Component {
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 value={this.state.name}
-                                onChangeText={name => this.setState({ name })}
+                                onChangeText={this.handleName}
                                 style={styles.textInput}
                             />
                         </View>
@@ -36,7 +58,7 @@ class SignUpForm extends Component {
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 value={this.state.email}
-                                onChangeText={email => this.setState({ email })}
+                                onChangeText={this.handleEmail}
                                 style={styles.textInput}
                                 keyboardType="email-address"
                             />
@@ -47,7 +69,7 @@ class SignUpForm extends Component {
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 value={this.state.phoneNumber}
-                                onChangeText={phoneNumber => this.setState({ phoneNumber })}
+                                onChangeText={this.handlePhoneNumber}
                                 style={styles.textInput}
                                 keyboardType="phone-pad"
                             />
@@ -57,22 +79,26 @@ class SignUpForm extends Component {
                         <Text style={styles.label}>Password</Text>
                         <TextInput
                             value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
+                            onChangeText={this.handlePassword}
                             style={styles.textInput}
                             secureTextEntry
                         />
                     </View>
-                    <View style={[styles.formInputGroup, { marginBottom: 20 }]}>
+                    <View style={[styles.formInputGroup, styles.formInputGroupMargin]}>
                         <Text style={styles.label}>Confirm Password</Text>
                         <TextInput
                             value={this.state.confirmPassword}
-                            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+                            onChangeText={this.handleConfirmPassword}
                             style={styles.textInput}
                             secureTextEntry
                         />
                     </View>
                 </View>
-                <Button onPress={this.handleSubmit} title="Create Account" backgroundColor="#000" />
+                <Button
+                    onPress={this.handleSubmit}
+                    title="Create Account"
+                    buttonStyle={styles.button}
+                />
             </View>
         );
     }
@@ -83,12 +109,18 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 15
     },
-    formInputs: { flex: 1, paddingHorizontal: 15 },
+    formInputs: {
+        flex: 1,
+        paddingHorizontal: 15
+    },
     formInputGroup: {
         flexDirection: 'row',
-        borderColor: '#9A9A9A',
+        borderColor: Color.GREY_100,
         borderBottomWidth: StyleSheet.hairlineWidth,
         alignItems: 'center'
+    },
+    formInputGroupMargin: {
+        marginBottom: 20
     },
     label: {
         color: '#000',
@@ -99,14 +131,12 @@ const styles = StyleSheet.create({
     textInputContainer: {
         flex: 1
     },
-    textInput: { flex: 1, textAlign: 'right' },
-    button: {
-        width: 120,
-        borderRadius: 25
+    textInput: {
+        flex: 1,
+        textAlign: 'right'
     },
-    buttonText: {
-        color: '#fff',
-        fontSize: 14
+    button: {
+        backgroundColor: '#000'
     }
 });
 
