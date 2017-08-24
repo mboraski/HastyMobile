@@ -37,7 +37,6 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
-        const form = signUp ? <SignUpForm /> : <SignInForm />;
         return (
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
@@ -59,7 +58,7 @@ class AuthScreen extends Component {
                         onPress={this.openSignInForm}
                     />
                 </View>
-                {form}
+                {signUp ? <SignUpForm /> : <SignInForm />}
             </View>
         );
     }
