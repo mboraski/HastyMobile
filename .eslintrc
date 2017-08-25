@@ -1,3 +1,6 @@
 {
-  "extends": "hasty"
+  "extends": "hasty",
+  "env": {
+      "jest": true
+  }
 }
