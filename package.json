@@ -24,9 +24,10 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "1.9.0",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "20.0.3",
     "enzyme": "2.9.1",
-    "eslint": "^4.2.0",
+    "eslint": "^3.19.0",
     "eslint-config-hasty": "1.0.1",
     "jest": "20.0.4",
     "jest-expo": "20.0.0",

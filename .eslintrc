@@ -1,6 +1,7 @@
 {
-  "extends": "hasty",
-  "env": {
-      "jest": true
-  }
+    "extends": "hasty",
+    "env": {
+        "jest": true
+    },
+    "parser": "babel-eslint"
 }
