@@ -7,6 +7,7 @@ import Color from '../constants/Color';
 
 class LocationButton extends Component {
     onPress = () => {};
+
     render() {
         return (
             <Icon
@@ -27,19 +28,22 @@ const styles = StyleSheet.create({
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
-                // shadowColor: Color.GREY_400,
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.3,
-                // shadowOpacity: 1,
                 shadowRadius: 1
             },
             android: {
-                elevation: 2
+                elevation: 4
             }
         })
     },
     icon: {
-        color: Color.GREY_600
+        color: Color.GREY_600,
+        transform: [
+            {
+                rotate: '45deg'
+            }
+        ]
     }
 });
 

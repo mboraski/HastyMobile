@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon } from 'react-native-elements';
-
-import Color from '../constants/Color';
 
 class MenuButton extends Component {
     onPress = () => {};
+
     render() {
-        return <Icon name="menu" size={30} iconStyle={styles.icon} onPress={this.onPress} />;
+        return (
+            <TouchableOpacity onPress={this.onPress} style={styles.container}>
+                <Image source={require('../assets/icons/menu.png')} style={styles.image} />
+            </TouchableOpacity>
+        );
     }
 }
 
 const styles = StyleSheet.create({
-    icon: {
-        color: Color.GREY_600,
+    container: {
         marginLeft: 20
+    },
+    image: {
+        width: 30,
+        height: 30
     }
 });
 

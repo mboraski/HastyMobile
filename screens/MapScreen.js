@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, StyleSheet, Text, TextInput } from 'react-native';
-import { MapView } from 'expo';
+import {
+    View,
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    TextInput,
+    Platform,
+    StatusBar
+} from 'react-native';
+import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -10,16 +18,6 @@ import MenuButton from '../components/MenuButton';
 import Color from '../constants/Color';
 
 class MapScreen extends Component {
-    static navigationOptions = {
-        title: 'Hasty Logo',
-        headerLeft: <MenuButton />,
-        headerRight: <LocationButton />,
-        headerStyle: {
-            height: 95,
-            backgroundColor: '#fff'
-        }
-    };
-
     state = {
         mapLoaded: false,
         region: {
@@ -79,6 +77,7 @@ class MapScreen extends Component {
                         value={this.state.address}
                         onChangeText={this.handleAddress}
                         style={styles.textInput}
+                        underlineColorAndroid="transparent"
                     />
                 </View>
                 <View style={styles.buttonContainer}>
@@ -96,6 +95,18 @@ class MapScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    header: {
+        backgroundColor: '#fff',
+        height: 95,
+        ...Platform.select({
+            android: {
+                paddingTop: StatusBar.currentHeight,
+            }
+        })
+    },
+    headerTitle: {
+        alignSelf: 'center'
+    },
     container: {
         flex: 1
     },
@@ -123,13 +134,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingHorizontal: 20,
-        paddingVertical: 15,
         margin: 10,
         borderRadius: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 7 },
-        shadowOpacity: 0.17,
-        shadowRadius: 8
+        height: 55,
+        alignItems: 'center',
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 7 },
+                shadowOpacity: 0.17,
+                shadowRadius: 8
+            },
+            android: {
+                elevation: 2
+            }
+        })
     },
     inputLabel: {
         fontSize: 20,
@@ -142,5 +161,13 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 });
+
+MapScreen.navigationOptions = {
+    title: 'Hasty Logo',
+    headerLeft: <MenuButton />,
+    headerRight: <LocationButton />,
+    headerStyle: styles.header,
+    headerTitleStyle: styles.headerTitle
+};
 
 export default connect(() => ({}), actions)(MapScreen);
