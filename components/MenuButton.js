@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 
+import Color from '../constants/Color';
+
 class MenuButton extends Component {
     onPress = () => {};
     render() {
@@ -12,7 +14,7 @@ class MenuButton extends Component {
 
 const styles = StyleSheet.create({
     icon: {
-        color: 'rgba(0, 0, 0, 0.70)',
+        color: Color.GREY_600,
         marginLeft: 20
     }
 });

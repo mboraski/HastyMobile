@@ -3,6 +3,8 @@ import { StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 
+import Color from '../constants/Color';
+
 class LocationButton extends Component {
     onPress = () => {};
     render() {
@@ -21,11 +23,11 @@ class LocationButton extends Component {
 
 const styles = StyleSheet.create({
     iconContainer: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: Color.GREY_400,
         ...Platform.select({
             ios: {
-                // shadowColor: '#000',
-                shadowColor: 'rgba(0, 0, 0, 1)',
+                shadowColor: '#000',
+                // shadowColor: 'rgba(0, 0, 0, 0.3)',
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.3,
                 // shadowOpacity: 1,
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
         })
     },
     icon: {
-        color: 'rgba(0,0,0,0.70)'
+        color: Color.GREY_600
     }
 });
 
