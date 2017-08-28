@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null, actions)(MapScreen);
+export default connect(() => ({}), actions)(MapScreen);
