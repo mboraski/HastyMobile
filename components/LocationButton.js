@@ -23,11 +23,11 @@ class LocationButton extends Component {
 
 const styles = StyleSheet.create({
     iconContainer: {
-        backgroundColor: Color.GREY_400,
+        backgroundColor: Color.GREY_300,
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
-                // shadowColor: 'rgba(0, 0, 0, 0.3)',
+                // shadowColor: Color.GREY_400,
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.3,
                 // shadowOpacity: 1,

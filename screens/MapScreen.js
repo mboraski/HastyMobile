@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 import * as actions from '../actions';
 import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
+import Color from '../constants/Color';
 
 class MapScreen extends Component {
     static navigationOptions = {
@@ -101,16 +102,6 @@ const styles = StyleSheet.create({
     map: {
         flex: 1
     },
-    fab: {
-        width: 65,
-        height: 65,
-        borderRadius: 65 / 2,
-        backgroundColor: 'rgba(0, 0, 0, 0.80)',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.27,
-        shadowRadius: 5
-    },
     buttonContainer: {
         position: 'absolute',
         bottom: 20,
@@ -143,7 +134,7 @@ const styles = StyleSheet.create({
     inputLabel: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'rgba(0, 0, 0, 0.3)',
+        color: Color.GREY_400,
         marginRight: 50
     },
     textInput: {
