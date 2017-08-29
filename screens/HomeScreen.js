@@ -25,6 +25,8 @@ const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = ['For You', 'Food', 'Drinks'];
 
 class HomeScreen extends Component {
+    state = { filter: FILTERS[0] };
+
     onPressFilter(filter) {
         console.log(filter);
     }
@@ -36,14 +38,16 @@ class HomeScreen extends Component {
     };
 
     renderFilter = filter => {
-        console.log(filter);
+        const selectedFilter = this.state.filter === filter;
+        const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
+        const filterButtonTextSelected = selectedFilter ? styles.filterButtonTextSelected : null;
         return (
             <TouchableOpacity
                 key={filter}
-                style={styles.filterButton}
+                style={[styles.filterButton, filterButtonSelected]}
                 onPress={() => this.onPressFilter(filter)}
             >
-                <Text style={styles.filterButtonText}>
+                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>
                     {filter}
                 </Text>
             </TouchableOpacity>
@@ -125,9 +129,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    filterButtonSelected: {
+        backgroundColor: Color.GREY_500
+    },
     filterButtonText: {
         color: Color.GREY_500,
         fontSize: 18
+    },
+    filterButtonTextSelected: {
+        color: '#fff'
     }
 });
 
