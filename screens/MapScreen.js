@@ -16,6 +16,7 @@ import * as actions from '../actions';
 import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Color from '../constants/Color';
+import { emX, emY } from '../utils/em';
 
 class MapScreen extends Component {
     state = {
@@ -97,7 +98,7 @@ class MapScreen extends Component {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: '#fff',
-        height: 95,
+        height: emY(5.95),
         ...Platform.select({
             android: {
                 paddingTop: StatusBar.currentHeight,
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
         })
     },
     headerTitle: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontSize: emY(1.375)
     },
     container: {
         flex: 1
@@ -115,16 +117,17 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         position: 'absolute',
-        bottom: 20,
+        bottom: emY(1.25),
         left: 0,
         right: 0
     },
     button: {
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        paddingVertical: emY(1.25)
     },
     buttonText: {
         fontWeight: 'bold',
-        fontSize: 17
+        fontSize: emY(1.25)
     },
     inputContainer: {
         position: 'absolute',
@@ -133,10 +136,10 @@ const styles = StyleSheet.create({
         right: 0,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        paddingHorizontal: 20,
-        margin: 10,
+        paddingHorizontal: emX(1.25),
+        margin: emY(0.625),
         borderRadius: 5,
-        height: 55,
+        height: emY(3.5),
         alignItems: 'center',
         ...Platform.select({
             ios: {
@@ -151,14 +154,14 @@ const styles = StyleSheet.create({
         })
     },
     inputLabel: {
-        fontSize: 20,
+        fontSize: emY(1.25),
         fontWeight: 'bold',
         color: Color.GREY_400,
-        marginRight: 50
+        marginRight: emX(3.125)
     },
     textInput: {
         flex: 1,
-        fontSize: 20
+        fontSize: emY(1.25)
     }
 });
 

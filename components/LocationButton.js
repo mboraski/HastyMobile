@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 
 import Color from '../constants/Color';
+import { emX, emY } from '../utils/em';
+
+const SIZE = emY(1.5625);
 
 class LocationButton extends Component {
     onPress = () => {};
@@ -12,7 +15,7 @@ class LocationButton extends Component {
         return (
             <Icon
                 name="navigation"
-                size={25}
+                size={SIZE}
                 containerStyle={styles.iconContainer}
                 iconStyle={styles.icon}
                 onPress={this.onPress}
@@ -25,6 +28,7 @@ class LocationButton extends Component {
 const styles = StyleSheet.create({
     iconContainer: {
         backgroundColor: Color.GREY_300,
+        marginRight: emX(0.75),
         ...Platform.select({
             ios: {
                 shadowColor: '#000',

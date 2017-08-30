@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+import { emX, emY } from '../utils/em';
+
 class MenuButton extends Component {
     onPress = () => {};
 
@@ -16,11 +18,11 @@ class MenuButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 20
+        marginLeft: emX(1.25)
     },
     image: {
-        width: 30,
-        height: 30
+        width: emY(1.875),
+        height: emY(1.875)
     }
 });
 
