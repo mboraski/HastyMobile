@@ -18,7 +18,7 @@ class MenuButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: emX(1.25)
+        marginLeft: 20
     },
     image: {
         width: emY(1.875),

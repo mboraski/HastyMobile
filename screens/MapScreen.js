@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         height: emY(5.95),
         ...Platform.select({
             android: {
-                paddingTop: StatusBar.currentHeight,
+                paddingTop: StatusBar.currentHeight
             }
         })
     },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         right: 0,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        paddingHorizontal: emX(1.25),
+        paddingHorizontal: 20,
         margin: emY(0.625),
         borderRadius: 5,
         height: emY(3.5),
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: emY(1.25),
         fontWeight: 'bold',
         color: Color.GREY_400,
-        marginRight: emX(3.125)
+        marginRight: 50
     },
     textInput: {
         flex: 1,
