@@ -2,7 +2,7 @@ import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import mockStore from 'redux-mock-store';
+import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
 import { NativeModules } from 'react-native';
 
@@ -13,6 +13,8 @@ const initialState = {
 };
 
 describe('AuthScreen', () => {
+    const middlewares = [];
+    const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
         const tree = renderer.create(<AuthScreen />).toJSON();
         expect(tree).toMatchSnapshot();
