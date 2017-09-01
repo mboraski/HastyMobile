@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     formInputGroup: {
         flexDirection: 'row',
-        borderColor: Color.GREY_100,
+        borderColor: Color.GREY_500,
         borderBottomWidth: StyleSheet.hairlineWidth,
         alignItems: 'center'
     },

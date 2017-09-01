@@ -92,15 +92,15 @@ const styles = StyleSheet.create({
         minWidth: 120,
         borderRadius: 25,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_100,
+        borderColor: Color.GREY_500,
         backgroundColor: '#fff'
     },
     buttonText: {
-        color: Color.GREY_100,
+        color: Color.GREY_500,
         fontSize: 14
     },
     buttonHighlighted: {
-        backgroundColor: Color.GREY_100,
+        backgroundColor: Color.GREY_500,
         borderColor: '#fff'
     },
     buttonTextHighlighted: {
