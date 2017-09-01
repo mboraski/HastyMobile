@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { emX, emY } from '../utils/em';
 
-const SIZE = emX(1.5);
+const SIZE = emY(1.5);
 
 class SearchBar extends Component {
     state = {

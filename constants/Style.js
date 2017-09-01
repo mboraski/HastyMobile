@@ -1,9 +1,11 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 
+import { emY } from '../utils/em';
+
 export default StyleSheet.create({
     header: {
         backgroundColor: '#fff',
-        height: 95,
+        height: emY(5.9375),
         ...Platform.select({
             android: {
                 paddingTop: StatusBar.currentHeight
