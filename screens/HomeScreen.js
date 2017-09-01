@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     filterButton: {
         minWidth: 130,
         height: emY(2.6875),
-        borderColor: Color.GREY_500,
+        borderColor: Color.GREY_400,
         borderWidth: StyleSheet.hairlineWidth * 2,
         borderRadius: 50,
         paddingVertical: emY(0.75),
@@ -131,10 +131,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     filterButtonSelected: {
-        backgroundColor: Color.GREY_500
+        borderColor: Color.GREY_300,
+        backgroundColor: Color.GREY_300
     },
     filterButtonText: {
-        color: Color.GREY_500,
+        color: Color.GREY_400,
         fontSize: emY(1.125)
     },
     filterButtonTextSelected: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emX, emY } from '../utils/em';
 
@@ -57,10 +58,10 @@ const styles = StyleSheet.create({
         marginBottom: emY(1.125)
     },
     icon: {
-        color: '#E4E4E4'
+        color: Color.GREY_200
     },
     iconAdded: {
-        color: '#3aa2fc'
+        color: Color.BLUE_500
     },
     imageContainer: {
         marginBottom: emY(2.1875)
@@ -81,11 +82,11 @@ const styles = StyleSheet.create({
     title: {},
     price: {
         fontWeight: 'bold',
-        color: '#3aa2fc'
+        color: Color.BLUE_500
     },
     discountPriceContainer: {
         marginRight: 12,
-        backgroundColor: '#3aa2fc',
+        backgroundColor: Color.BLUE_500,
         borderRadius: 50,
         overflow: 'hidden'
     },
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     regularPrice: {
-        color: '#cccccc',
+        color: Color.GREY_300,
         textDecorationLine: 'line-through'
     }
 });

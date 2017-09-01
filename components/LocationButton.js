@@ -27,7 +27,7 @@ class LocationButton extends Component {
 
 const styles = StyleSheet.create({
     iconContainer: {
-        backgroundColor: Color.GREY_300,
+        backgroundColor: Color.GREY_100,
         marginRight: 12,
         ...Platform.select({
             ios: {
