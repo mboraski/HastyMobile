@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import Style from '../constants/Style';
+import { emX, emY } from '../utils/em';
 
 const ProductDetail = props => {
     const { title, thumbnail_image, price, added } = props.product;
@@ -46,13 +47,14 @@ const ProductDetail = props => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        padding: 15,
+        paddingHorizontal: 15,
+        paddingVertical: emY(0.9375),
         borderRadius: 11
     },
     iconContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginBottom: 18
+        marginBottom: emY(1.125)
     },
     icon: {
         color: '#E4E4E4'
@@ -61,10 +63,10 @@ const styles = StyleSheet.create({
         color: '#3aa2fc'
     },
     imageContainer: {
-        marginBottom: 35
+        marginBottom: emY(2.1875)
     },
     image: {
-        minHeight: 100
+        minHeight: emY(6.25)
     },
     meta: {
         flexDirection: 'row',
@@ -72,9 +74,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     metaItem: {
-        fontSize: 16,
+        fontSize: emY(1),
         marginRight: 12,
-        marginBottom: 6
+        marginBottom: emY(0.375)
     },
     title: {},
     price: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     },
     discountPrice: {
         marginHorizontal: 12,
-        marginVertical: 6,
+        marginVertical: emY(0.375),
         color: '#fff'
     },
     regularPrice: {

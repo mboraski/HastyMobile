@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+import { emX, emY } from '../utils/em';
+
+const SIZE = emX(1.5);
+
 class SearchBar extends Component {
     state = {
         value: '',
@@ -60,20 +64,21 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginHorizontal: 20,
         paddingHorizontal: 20,
-        paddingVertical: 10
+        paddingVertical: emY(0.625),
+        width: '100%'
     },
     input: {
         flex: 1,
         textAlign: 'center',
-        height: 24
+        height: SIZE
     },
     imageContainer: {
         alignItems: 'center',
         justifyContent: 'center'
     },
     image: {
-        width: 24,
-        height: 24
+        width: SIZE,
+        height: SIZE
     }
 });
 

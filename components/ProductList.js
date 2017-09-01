@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
+import { emX, emY } from '../utils/em';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -52,7 +53,7 @@ class ProductList extends Component {
                 style={{
                     width: SCREEN_WIDTH / 2 - 21,
                     marginRight: 8,
-                    marginBottom: 10
+                    marginBottom: emY(0.625)
                 }}
             />
         );

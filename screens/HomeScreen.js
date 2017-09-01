@@ -13,12 +13,13 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
-// import MenuButton from '../components/MenuButton';
+import MenuButton from '../components/MenuButton';
 import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { addToCart } from '../actions';
+import { emX, emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: 200,
+        height: emY(12.5),
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -94,22 +95,22 @@ const styles = StyleSheet.create({
     imageTitle: {
         color: 'white',
         backgroundColor: 'transparent',
-        fontSize: 30,
+        fontSize: emY(1.875),
         textAlign: 'center'
     },
     imageMeta: {
         color: 'white',
         backgroundColor: 'transparent',
-        fontSize: 16,
+        fontSize: emY(1),
         textAlign: 'center'
     },
     filters: {
         ...Platform.select({
             ios: {
-                height: 100
+                height: emY(6.25)
             },
             android: {
-                height: 130
+                height: emY(6.25) + 30
             }
         })
     },
@@ -120,11 +121,11 @@ const styles = StyleSheet.create({
     },
     filterButton: {
         minWidth: 130,
-        height: 43,
+        height: emY(2.6875),
         borderColor: Color.GREY_500,
         borderWidth: StyleSheet.hairlineWidth * 2,
         borderRadius: 50,
-        paddingVertical: 12,
+        paddingVertical: emY(0.75),
         marginRight: 15,
         alignItems: 'center',
         justifyContent: 'center'
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: Color.GREY_500,
-        fontSize: 18
+        fontSize: emY(1.125)
     },
     filterButtonTextSelected: {
         color: '#fff'
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
 
 HomeScreen.navigationOptions = {
     title: 'Hasty Logo',
-    headerLeft: <CartButton />,
+    headerLeft: <MenuButton />,
     headerTitle: <SearchBar />,
     headerRight: <CartButton />,
     headerStyle: Style.header,

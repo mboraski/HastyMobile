@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { emX, emY } from '../utils/em';
 
+const SIZE = emY(1.875);
+
 class MenuButton extends Component {
     onPress = () => {};
 
@@ -21,8 +23,8 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     image: {
-        width: emY(1.875),
-        height: emY(1.875)
+        width: SIZE,
+        height: SIZE
     }
 });
 
