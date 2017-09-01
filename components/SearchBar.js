@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
+import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 const SIZE = emY(1.5);
@@ -32,7 +33,7 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[Style.headerTitle, styles.container]}>
                 <TextInput
                     ref={c => (this.input = c)}
                     style={styles.input}
@@ -42,7 +43,7 @@ class SearchBar extends Component {
                     onBlur={this.handleBlur}
                     underlineColorAndroid="transparent"
                 />
-                {!this.state.focused &&
+                {!this.state.focused && !this.state.value &&
                     <TouchableOpacity
                         onPress={this.focusInput}
                         style={[StyleSheet.absoluteFill, styles.imageContainer]}
@@ -62,10 +63,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#f2f2f2',
         borderRadius: 50,
-        marginHorizontal: 20,
         paddingHorizontal: 20,
         paddingVertical: emY(0.625),
-        width: '100%'
+        ...Platform.select({
+            ios: {
+                width: '100%'
+            },
+            android: {
+                width: '90%'
+            }
+        })
     },
     input: {
         flex: 1,
