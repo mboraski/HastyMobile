@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 
 import Color from '../constants/Color';
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 const SIZE = emY(1.5625);
 

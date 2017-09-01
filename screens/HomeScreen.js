@@ -19,7 +19,7 @@ import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { addToCart } from '../actions';
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 

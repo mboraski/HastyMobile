@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 const ProductDetail = props => {
     const { title, thumbnail_image, price, added } = props.product;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 const SIZE = emY(1.5);
 

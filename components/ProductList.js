@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
