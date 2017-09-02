@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
+import searchIcon from '../assets/icons/search@1x.png';
 
 const SIZE = emY(1.5);
 
@@ -49,7 +50,7 @@ class SearchBar extends Component {
                         style={[StyleSheet.absoluteFill, styles.imageContainer]}
                     >
                         <Image
-                            source={require('../assets/icons/search.png')}
+                            source={searchIcon}
                             style={styles.image}
                         />
                     </TouchableOpacity>}

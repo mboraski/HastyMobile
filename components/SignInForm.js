@@ -19,15 +19,20 @@ class SignInForm extends Component {
     };
 
     handleSubmit = async () => {
-        try {
-            const data = { token: '209nv2049vm' };
-
-            // use the returned JWT
-            firebase.auth().signInWithCustomToken(data.token);
-        } catch (err) {
-            console.log(err);
-        }
+        // try {
+        //     const data = { token: '209nv2049vm' };
+        //
+        //     // use the returned JWT
+        //     firebase.auth().signInWithCustomToken(data.token);
+        // } catch (err) {
+        //     console.log(err);
+        // }
     };
+
+    facebookLogin = () => {
+        console.log('facebookLogin ran');
+        this.props.navigation.navigate('map');
+    }
 
     render() {
         return (

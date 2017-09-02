@@ -58,7 +58,7 @@ class AuthScreen extends Component {
                         onPress={this.openSignInForm}
                     />
                 </View>
-                {signUp ? <SignUpForm /> : <SignInForm />}
+                {signUp ? <SignUpForm /> : <SignInForm navigation={this.props.navigation} />}
             </View>
         );
     }

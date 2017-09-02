@@ -1,8 +1,11 @@
+// Third Party Imports
 import React, { Component } from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+// Relative Imports
 import { emY } from '../utils/em';
+import mapIcon from '../assets/icons/menu@1x.png';
 
 const SIZE = emY(1.875);
 
@@ -12,7 +15,7 @@ class MenuButton extends Component {
     render() {
         return (
             <TouchableOpacity onPress={this.onPress} style={styles.container}>
-                <Image source={require('../assets/icons/menu.png')} style={styles.image} />
+                <Image source={mapIcon} style={styles.image} />
             </TouchableOpacity>
         );
     }

@@ -1,8 +1,7 @@
 // Third Party Imports
 import React, { Component } from 'react';
 import Expo from 'expo';
-import { StyleSheet } from 'react-native';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 
 // Relative Imports
@@ -22,18 +21,9 @@ class App extends Component {
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       auth: { screen: AuthScreen },
-      main: {
-        screen: TabNavigator({
-          map: { screen: MapScreen },
-          home: { screen: HomeScreen },
-          searchForHero: { screen: SearchForHeroScreen }
-        }, {
-          tabBarPosition: 'bottom',
-          tabBarOptions: {
-            labelStyle: styles.labelStyle
-          }
-        })
-      }
+      map: { screen: MapScreen },
+      home: { screen: HomeScreen },
+      searchForHero: { screen: SearchForHeroScreen }
     }, {
       navigationOptions: {
         tabBarVisible: false
@@ -48,11 +38,5 @@ class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  labelStyle: {
-    fontSize: 12
-  }
-});
 
 Expo.registerRootComponent(App);
