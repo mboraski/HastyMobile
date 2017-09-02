@@ -18,7 +18,7 @@ class WelcomeScreen extends Component {
     const token = await AsyncStorage.getItem('fb_token');
 
     if (token) {
-      this.props.navigation.navigate('auth');
+      this.props.navigation.navigate('map');
       this.setState({ token }); // we set state here to close AppLoading (lazyLoad gotcha)
     } else {
       this.setState({ token: false });
@@ -26,7 +26,7 @@ class WelcomeScreen extends Component {
   }
 
   onSlidesComplete = () => {
-    this.props.navigation.navigate('home');
+    this.props.navigation.navigate('map');
   }
 
   render() {
