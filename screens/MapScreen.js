@@ -8,7 +8,7 @@ import {
     Platform,
     StatusBar
 } from 'react-native';
-import { MapView, Constants } from 'expo';
+import { MapView } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -16,7 +16,7 @@ import * as actions from '../actions';
 import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Color from '../constants/Color';
-import { emX, emY } from '../utils/em';
+import { emY } from '../utils/em';
 
 class MapScreen extends Component {
     state = {

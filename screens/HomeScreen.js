@@ -1,90 +1,155 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    Platform
+} from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
+import MenuButton from '../components/MenuButton';
+import CartButton from '../components/CartButton';
+import SearchBar from '../components/SearchBar';
+import Color from '../constants/Color';
+import Style from '../constants/Style';
 import { addToCart } from '../actions';
+import { emY } from '../utils/em';
 
-class Home extends Component {
-  onPressForYou() {
-    console.log('For You');
-  }
+const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
-  onPressInstant() {
-    console.log('Instant');
-  }
+const FILTERS = ['For You', 'Food', 'Drinks'];
 
-  onPressAll() {
-    console.log('All');
-  }
+class HomeScreen extends Component {
+    state = { filter: FILTERS[0] };
 
-  callAddToCart = () => {
-    console.log('callAddToCart ran', this.props.cart);
-    this.props.navigation.navigate('searchForHero');
-    this.props.addToCart(this.props.cart);
-  }
+    onPressFilter(filter) {
+        console.log(filter);
+    }
 
-  render() {
-    // console.log(this.state);
+    callAddToCart = () => {
+        console.log('callAddToCart ran', this.props.cart);
+        this.props.navigation.navigate('searchForHero');
+        this.props.addToCart(this.props.cart);
+    };
 
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
-        />
-        <ScrollView horizontal contentContainerStyle={styles.horizontalScrollView}>
-          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressForYou}>
-            <Text style={styles.filterButtonText}>For You</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressInstant}>
-            <Text style={styles.filterButtonText}>Instant</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButtons} onPress={this.onPressAll}>
-            <Text style={styles.filterButtonText}>All</Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <ProductList callAddToCart={this.callAddToCart} />
-      </View>
-    );
-  }
+    renderFilter = filter => {
+        const selectedFilter = this.state.filter === filter;
+        const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
+        const filterButtonTextSelected = selectedFilter ? styles.filterButtonTextSelected : null;
+        return (
+            <TouchableOpacity
+                key={filter}
+                style={[styles.filterButton, filterButtonSelected]}
+                onPress={() => this.onPressFilter(filter)}
+            >
+                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>
+                    {filter}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    render() {
+        // console.log(this.state);
+
+        return (
+            <View style={styles.container}>
+                <Image source={SOURCE} style={styles.image}>
+                    <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
+                    <Text style={styles.imageTitle}>Recommended</Text>
+                    <Text style={styles.imageMeta}>215 items</Text>
+                </Image>
+                <ScrollView
+                    horizontal
+                    style={styles.filters}
+                    contentContainerStyle={styles.filtersContent}
+                >
+                    {FILTERS.map(this.renderFilter)}
+                </ScrollView>
+                <ProductList callAddToCart={this.callAddToCart} />
+            </View>
+        );
+    }
 }
 // {this.renderProducts()}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  image: {
-    flex: 1,
-    minHeight: 90,
-    width: null,
-    backgroundColor: 'rgba(0,0,0,0.75)'
-  },
-  horizontalScrollView: {
-    flex: 1,
-    height: 60,
-    justifyContent: 'space-around',
-    alignItems: 'flex-start'
-  },
-  filterButtons: {
-    opacity: 0.38,
-    width: 100,
-    borderColor: '#000000',
-    borderWidth: 4,
-    borderStyle: 'solid',
-    borderRadius: 100,
-    margin: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  filterButtonText: {
-    color: '#000000',
-    fontSize: 18
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
+    image: {
+        height: emY(12.5),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    imageTint: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    imageTitle: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1.875),
+        textAlign: 'center'
+    },
+    imageMeta: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1),
+        textAlign: 'center'
+    },
+    filters: {
+        ...Platform.select({
+            ios: {
+                height: emY(6.25)
+            },
+            android: {
+                height: emY(6.25) + 30
+            }
+        })
+    },
+    filtersContent: {
+        paddingLeft: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    filterButton: {
+        minWidth: 130,
+        height: emY(2.6875),
+        borderColor: Color.GREY_400,
+        borderWidth: StyleSheet.hairlineWidth * 2,
+        borderRadius: 50,
+        paddingVertical: emY(0.75),
+        marginRight: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    filterButtonSelected: {
+        borderColor: Color.GREY_300,
+        backgroundColor: Color.GREY_300
+    },
+    filterButtonText: {
+        color: Color.GREY_400,
+        fontSize: emY(1.125)
+    },
+    filterButtonTextSelected: {
+        color: '#fff'
+    }
 });
 
-export default connect(null, { addToCart })(Home);
+HomeScreen.navigationOptions = {
+    title: 'Hasty Logo',
+    headerLeft: <MenuButton />,
+    headerTitle: <SearchBar />,
+    headerRight: <CartButton />,
+    headerStyle: Style.header,
+    headerTitleStyle: Style.headerTitle
+};
+
+export default connect(null, { addToCart })(HomeScreen);
