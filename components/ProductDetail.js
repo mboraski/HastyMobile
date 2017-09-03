@@ -1,14 +1,15 @@
+// Third Part Imports
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+// Relative Imports
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 const ProductDetail = props => {
     const { title, thumbnail_image, price, added } = props.product;
-    const discount_price = (regular_price = price);
     const callAddToCart = props.callAddToCart;
 
     return (
@@ -31,14 +32,6 @@ const ProductDetail = props => {
                 </Text>
                 <Text style={[styles.metaItem, styles.price]}>
                     {price}
-                </Text>
-                <View style={styles.discountPriceContainer}>
-                    <Text style={[styles.metaItem, styles.discountPrice]}>
-                        {discount_price}
-                    </Text>
-                </View>
-                <Text style={styles.regularPrice}>
-                    {regular_price}
                 </Text>
             </View>
         </View>
@@ -72,6 +65,7 @@ const styles = StyleSheet.create({
     meta: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'space-between',
         alignItems: 'center'
     },
     metaItem: {
