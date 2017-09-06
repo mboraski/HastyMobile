@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
-import mapIcon from '../assets/icons/menu-2@1x.png';
+import mapIcon from '../assets/icons/menu-2.png';
 
 const SIZE = emY(1.4375);
 
