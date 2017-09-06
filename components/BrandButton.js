@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -27,7 +27,11 @@ class BrandButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        top: -10,
+        ...Platform.select({
+            ios: {
+                top: -10
+            }
+        }),
         marginLeft: 20
     },
     image: {
