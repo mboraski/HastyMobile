@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, Image, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 
 // Relative Imports
-import thumbnailGradient from '../assets/thumbnail-gradient.png';
-import thumbnailTicks from '../assets/thumbnail-ticks.png';
+import loaderGradient from '../assets/loader-gradient.png';
+import loaderTicks from '../assets/loader-ticks.png';
 import BrandButton from '../components/BrandButton';
 import MenuButtonRight from '../components/MenuButtonRight';
 import HeroList from '../components/HeroList';
@@ -24,8 +24,8 @@ class DeliveryStatusScreen extends Component {
                     <View style={styles.imageContainer}>
                         <Image source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }} style={styles.image} />
                     </View>
-                    <Image source={thumbnailGradient} style={styles.gradient} />
-                    <Image source={thumbnailTicks} style={styles.ticks} />
+                    <Image source={loaderGradient} style={styles.gradient} />
+                    <Image source={loaderTicks} style={styles.ticks} />
                 </View>
                 <Text style={styles.searching}>Searching...</Text>
                 <View style={styles.alert}>
