@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import searchIcon from '../assets/icons/search@1x.png';
+import searchIcon from '../assets/icons/search.png';
 
 const SIZE = emY(1.5);
 
