@@ -12,7 +12,6 @@ import { MapView } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import * as actions from '../actions';
 import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Color from '../constants/Color';
@@ -173,4 +172,4 @@ MapScreen.navigationOptions = {
     headerTitleStyle: styles.headerTitle
 };
 
-export default connect(() => ({}), actions)(MapScreen);
+export default connect(() => ({}), null)(MapScreen);
