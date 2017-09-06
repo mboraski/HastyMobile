@@ -18,7 +18,7 @@ import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { addToCart } from '../actions';
+import { addToCart } from '../actions/cartActions';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };

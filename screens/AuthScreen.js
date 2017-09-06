@@ -1,27 +1,26 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import { Button } from 'react-native-elements';
+import { bindActionCreators } from 'redux';
 
 // Relative Imports
+import AuthActions from '../actions/authActions';
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import Color from '../constants/Color';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
+type Props = { token: string };
+
 class AuthScreen extends Component {
+    static defaultProps = { token: '' };
+
     state = { signUp: true };
 
-    componentWillReceiveProps(nextProps) {
-        this.onAuthComplete(nextProps);
-    }
-
-    onAuthComplete(props) {
-        if (props.token) {
-            this.props.navigation.navigate('map');
-        }
-    }
+    props: Props;
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -32,11 +31,13 @@ class AuthScreen extends Component {
     };
 
     render() {
+        const { actions } = this.props;
         const signUp = this.state.signUp;
         const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
+
         return (
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
@@ -58,7 +59,13 @@ class AuthScreen extends Component {
                         onPress={this.openSignInForm}
                     />
                 </View>
-                {signUp ? <SignUpForm /> : <SignInForm navigation={this.props.navigation} />}
+                {signUp
+                    ? <SignUpForm {...actions} />
+                    : <SignInForm
+                        {...actions}
+                        token={this.props.token}
+                        navigation={this.props.navigation}
+                    />}
             </View>
         );
     }
@@ -108,4 +115,16 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthScreen;
+const mapStateToProps = ({ auth }) => ({ token: auth.token });
+
+const mapDispatchToProps = (dispatch) => {
+    const authActions = bindActionCreators(AuthActions, dispatch);
+
+    return {
+        actions: {
+            facebookLogin: authActions.facebookLogin
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

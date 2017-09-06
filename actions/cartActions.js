@@ -1,6 +1,4 @@
-import {
-  ADD_TO_CART
-} from './types';
+export const ADD_TO_CART = 'add_to_cart';
 
 export const addToCart = () => {
   return (dispatch) => {

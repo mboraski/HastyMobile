@@ -10,6 +10,16 @@ import Color from '../constants/Color';
 class SignInForm extends Component {
     state = { phone: '', code: '' };
 
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
+    }
+
+    onAuthComplete = props => {
+        if (props.token) {
+            this.props.navigation.navigate('map');
+        }
+    }
+
     handleEmail = email => {
         this.setState({ email });
     };
@@ -29,12 +39,9 @@ class SignInForm extends Component {
         // }
     };
 
-    facebookLogin = () => {
-        console.log('facebookLogin ran');
-        this.props.navigation.navigate('map');
-    }
-
     render() {
+        const { facebookLogin } = this.props;
+
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
@@ -65,7 +72,7 @@ class SignInForm extends Component {
                     buttonStyle={[styles.button, styles.buttonMargin]}
                 />
                 <Button
-                    onPress={this.facebookLogin}
+                    onPress={facebookLogin}
                     title="Login with Facebook"
                     icon={{
                         type: 'material-community',
