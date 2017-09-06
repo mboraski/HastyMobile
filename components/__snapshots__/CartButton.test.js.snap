@@ -14,16 +14,17 @@ ShallowWrapper {
     onPress={[Function]}
     style={
         Object {
-            "marginLeft": 20,
+            "marginRight": 20,
           }
     }
 >
     <Image
+        resizeMode="contain"
         source={1}
         style={
             Object {
-                "height": 30,
-                "width": 30,
+                "height": 35,
+                "width": 35,
               }
         }
     />
@@ -35,16 +36,17 @@ ShallowWrapper {
       onPress={[Function]}
       style={
             Object {
-                  "marginLeft": 20,
+                  "marginRight": 20,
                 }
       }
 >
       <Image
+            resizeMode="contain"
             source={1}
             style={
                   Object {
-                        "height": 30,
-                        "width": 30,
+                        "height": 35,
+                        "width": 35,
                       }
             }
       />
@@ -111,16 +113,17 @@ ShallowWrapper {
           onPress={[Function]}
           style={
                     Object {
-                              "marginLeft": 20,
+                              "marginRight": 20,
                             }
           }
 >
           <Image
+                    resizeMode="contain"
                     source={1}
                     style={
                               Object {
-                                        "height": 30,
-                                        "width": 30,
+                                        "height": 35,
+                                        "width": 35,
                                       }
                     }
           />
@@ -132,16 +135,17 @@ ShallowWrapper {
           onPress={[Function]}
           style={
                     Object {
-                              "marginLeft": 20,
+                              "marginRight": 20,
                             }
           }
 >
           <Image
+                    resizeMode="contain"
                     source={1}
                     style={
                               Object {
-                                        "height": 30,
-                                        "width": 30,
+                                        "height": 35,
+                                        "width": 35,
                                       }
                     }
           />

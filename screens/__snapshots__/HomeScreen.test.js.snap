@@ -97,17 +97,23 @@ ShallowWrapper {
             focusedOpacity={0.7}
             onPress={[Function]}
             style={
-                Object {
-                    "alignItems": "center",
-                    "borderColor": undefined,
-                    "borderRadius": 50,
-                    "borderWidth": 1,
-                    "height": 43,
-                    "justifyContent": "center",
-                    "marginRight": 15,
-                    "minWidth": 130,
-                    "paddingVertical": 12,
-                  }
+                Array [
+                    Object {
+                      "alignItems": "center",
+                      "borderColor": "#b2b2b2",
+                      "borderRadius": 50,
+                      "borderWidth": 1,
+                      "height": 43,
+                      "justifyContent": "center",
+                      "marginRight": 15,
+                      "minWidth": 130,
+                      "paddingVertical": 12,
+                    },
+                    Object {
+                      "backgroundColor": "#cccccc",
+                      "borderColor": "#cccccc",
+                    },
+                  ]
             }
         >
             <Text
@@ -115,10 +121,15 @@ ShallowWrapper {
                 allowFontScaling={true}
                 ellipsizeMode="tail"
                 style={
-                    Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      }
+                    Array [
+                        Object {
+                          "color": "#b2b2b2",
+                          "fontSize": 18,
+                        },
+                        Object {
+                          "color": "#fff",
+                        },
+                      ]
                 }
             >
                 For You
@@ -129,17 +140,20 @@ ShallowWrapper {
             focusedOpacity={0.7}
             onPress={[Function]}
             style={
-                Object {
-                    "alignItems": "center",
-                    "borderColor": undefined,
-                    "borderRadius": 50,
-                    "borderWidth": 1,
-                    "height": 43,
-                    "justifyContent": "center",
-                    "marginRight": 15,
-                    "minWidth": 130,
-                    "paddingVertical": 12,
-                  }
+                Array [
+                    Object {
+                      "alignItems": "center",
+                      "borderColor": "#b2b2b2",
+                      "borderRadius": 50,
+                      "borderWidth": 1,
+                      "height": 43,
+                      "justifyContent": "center",
+                      "marginRight": 15,
+                      "minWidth": 130,
+                      "paddingVertical": 12,
+                    },
+                    null,
+                  ]
             }
         >
             <Text
@@ -147,10 +161,13 @@ ShallowWrapper {
                 allowFontScaling={true}
                 ellipsizeMode="tail"
                 style={
-                    Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      }
+                    Array [
+                        Object {
+                          "color": "#b2b2b2",
+                          "fontSize": 18,
+                        },
+                        null,
+                      ]
                 }
             >
                 Food
@@ -161,17 +178,20 @@ ShallowWrapper {
             focusedOpacity={0.7}
             onPress={[Function]}
             style={
-                Object {
-                    "alignItems": "center",
-                    "borderColor": undefined,
-                    "borderRadius": 50,
-                    "borderWidth": 1,
-                    "height": 43,
-                    "justifyContent": "center",
-                    "marginRight": 15,
-                    "minWidth": 130,
-                    "paddingVertical": 12,
-                  }
+                Array [
+                    Object {
+                      "alignItems": "center",
+                      "borderColor": "#b2b2b2",
+                      "borderRadius": 50,
+                      "borderWidth": 1,
+                      "height": 43,
+                      "justifyContent": "center",
+                      "marginRight": 15,
+                      "minWidth": 130,
+                      "paddingVertical": 12,
+                    },
+                    null,
+                  ]
             }
         >
             <Text
@@ -179,10 +199,13 @@ ShallowWrapper {
                 allowFontScaling={true}
                 ellipsizeMode="tail"
                 style={
-                    Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      }
+                    Array [
+                        Object {
+                          "color": "#b2b2b2",
+                          "fontSize": 18,
+                        },
+                        null,
+                      ]
                 }
             >
                 Drinks
@@ -283,17 +306,23 @@ ShallowWrapper {
                   focusedOpacity={0.7}
                   onPress={[Function]}
                   style={
-                        Object {
-                              "alignItems": "center",
-                              "borderColor": undefined,
-                              "borderRadius": 50,
-                              "borderWidth": 1,
-                              "height": 43,
-                              "justifyContent": "center",
-                              "marginRight": 15,
-                              "minWidth": 130,
-                              "paddingVertical": 12,
-                            }
+                        Array [
+                              Object {
+                                "alignItems": "center",
+                                "borderColor": "#b2b2b2",
+                                "borderRadius": 50,
+                                "borderWidth": 1,
+                                "height": 43,
+                                "justifyContent": "center",
+                                "marginRight": 15,
+                                "minWidth": 130,
+                                "paddingVertical": 12,
+                              },
+                              Object {
+                                "backgroundColor": "#cccccc",
+                                "borderColor": "#cccccc",
+                              },
+                            ]
                   }
             >
                   <Text
@@ -301,10 +330,15 @@ ShallowWrapper {
                         allowFontScaling={true}
                         ellipsizeMode="tail"
                         style={
-                              Object {
-                                    "color": undefined,
-                                    "fontSize": 18,
-                                  }
+                              Array [
+                                    Object {
+                                      "color": "#b2b2b2",
+                                      "fontSize": 18,
+                                    },
+                                    Object {
+                                      "color": "#fff",
+                                    },
+                                  ]
                         }
                   >
                         For You
@@ -315,17 +349,20 @@ ShallowWrapper {
                   focusedOpacity={0.7}
                   onPress={[Function]}
                   style={
-                        Object {
-                              "alignItems": "center",
-                              "borderColor": undefined,
-                              "borderRadius": 50,
-                              "borderWidth": 1,
-                              "height": 43,
-                              "justifyContent": "center",
-                              "marginRight": 15,
-                              "minWidth": 130,
-                              "paddingVertical": 12,
-                            }
+                        Array [
+                              Object {
+                                "alignItems": "center",
+                                "borderColor": "#b2b2b2",
+                                "borderRadius": 50,
+                                "borderWidth": 1,
+                                "height": 43,
+                                "justifyContent": "center",
+                                "marginRight": 15,
+                                "minWidth": 130,
+                                "paddingVertical": 12,
+                              },
+                              null,
+                            ]
                   }
             >
                   <Text
@@ -333,10 +370,13 @@ ShallowWrapper {
                         allowFontScaling={true}
                         ellipsizeMode="tail"
                         style={
-                              Object {
-                                    "color": undefined,
-                                    "fontSize": 18,
-                                  }
+                              Array [
+                                    Object {
+                                      "color": "#b2b2b2",
+                                      "fontSize": 18,
+                                    },
+                                    null,
+                                  ]
                         }
                   >
                         Food
@@ -347,17 +387,20 @@ ShallowWrapper {
                   focusedOpacity={0.7}
                   onPress={[Function]}
                   style={
-                        Object {
-                              "alignItems": "center",
-                              "borderColor": undefined,
-                              "borderRadius": 50,
-                              "borderWidth": 1,
-                              "height": 43,
-                              "justifyContent": "center",
-                              "marginRight": 15,
-                              "minWidth": 130,
-                              "paddingVertical": 12,
-                            }
+                        Array [
+                              Object {
+                                "alignItems": "center",
+                                "borderColor": "#b2b2b2",
+                                "borderRadius": 50,
+                                "borderWidth": 1,
+                                "height": 43,
+                                "justifyContent": "center",
+                                "marginRight": 15,
+                                "minWidth": 130,
+                                "paddingVertical": 12,
+                              },
+                              null,
+                            ]
                   }
             >
                   <Text
@@ -365,10 +408,13 @@ ShallowWrapper {
                         allowFontScaling={true}
                         ellipsizeMode="tail"
                         style={
-                              Object {
-                                    "color": undefined,
-                                    "fontSize": 18,
-                                  }
+                              Array [
+                                    Object {
+                                      "color": "#b2b2b2",
+                                      "fontSize": 18,
+                                    },
+                                    null,
+                                  ]
                         }
                   >
                         Drinks
@@ -421,7 +467,9 @@ ShallowWrapper {
         },
         "refs": Object {},
         "renderFilter": [Function],
-        "state": null,
+        "state": Object {
+          "filter": "For You",
+        },
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -529,17 +577,23 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "#cccccc",
+                                                    "borderColor": "#cccccc",
+                                                  },
+                                                ]
                               }
                     >
                               <Text
@@ -547,10 +601,15 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            Object {
+                                                              "color": "#fff",
+                                                            },
+                                                          ]
                                         }
                               >
                                         For You
@@ -561,17 +620,20 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  null,
+                                                ]
                               }
                     >
                               <Text
@@ -579,10 +641,13 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            null,
+                                                          ]
                                         }
                               >
                                         Food
@@ -593,17 +658,20 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  null,
+                                                ]
                               }
                     >
                               <Text
@@ -611,10 +679,13 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            null,
+                                                          ]
                                         }
                               >
                                         Drinks
@@ -715,17 +786,23 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "#cccccc",
+                                                    "borderColor": "#cccccc",
+                                                  },
+                                                ]
                               }
                     >
                               <Text
@@ -733,10 +810,15 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            Object {
+                                                              "color": "#fff",
+                                                            },
+                                                          ]
                                         }
                               >
                                         For You
@@ -747,17 +829,20 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  null,
+                                                ]
                               }
                     >
                               <Text
@@ -765,10 +850,13 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            null,
+                                                          ]
                                         }
                               >
                                         Food
@@ -779,17 +867,20 @@ ShallowWrapper {
                               focusedOpacity={0.7}
                               onPress={[Function]}
                               style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "borderColor": undefined,
-                                                  "borderRadius": 50,
-                                                  "borderWidth": 1,
-                                                  "height": 43,
-                                                  "justifyContent": "center",
-                                                  "marginRight": 15,
-                                                  "minWidth": 130,
-                                                  "paddingVertical": 12,
-                                                }
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "borderColor": "#b2b2b2",
+                                                    "borderRadius": 50,
+                                                    "borderWidth": 1,
+                                                    "height": 43,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "minWidth": 130,
+                                                    "paddingVertical": 12,
+                                                  },
+                                                  null,
+                                                ]
                               }
                     >
                               <Text
@@ -797,10 +888,13 @@ ShallowWrapper {
                                         allowFontScaling={true}
                                         ellipsizeMode="tail"
                                         style={
-                                                  Object {
-                                                            "color": undefined,
-                                                            "fontSize": 18,
-                                                          }
+                                                  Array [
+                                                            Object {
+                                                              "color": "#b2b2b2",
+                                                              "fontSize": 18,
+                                                            },
+                                                            null,
+                                                          ]
                                         }
                               >
                                         Drinks
