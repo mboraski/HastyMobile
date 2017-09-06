@@ -100,14 +100,21 @@ const styles = StyleSheet.create({
         marginBottom: emY(3)
     },
     alert: {
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: emY(0.375) },
+                shadowOpacity: 0.25,
+                shadowRadius: emY(0.8125)
+            },
+            android: {
+                elevation: 6
+            }
+        }),
         backgroundColor: Color.YELLOW_500,
         paddingVertical: emY(1.25),
         marginHorizontal: 27,
-        marginBottom: emY(6),
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: emY(0.375) },
-        shadowOpacity: 0.25,
-        shadowRadius: emY(0.8125)
+        marginBottom: emY(6)
     },
     alertText: {
         fontSize: emY(1.0625),
