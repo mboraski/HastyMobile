@@ -10,6 +10,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
+import DeliveryStatusScreen from './screens/DeliveryStatusScreen';
 import store from './store';
 
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
       auth: { screen: AuthScreen },
       map: { screen: MapScreen },
       home: { screen: HomeScreen },
-      searchForHero: { screen: SearchForHeroScreen }
+      searchForHero: { screen: SearchForHeroScreen },
+      deliveryStatus: { screen: DeliveryStatusScreen }
     }, {
       navigationOptions: {
         tabBarVisible: false
