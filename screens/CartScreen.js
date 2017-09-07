@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements';
 
 // Relative Imports
 import BackButton from '../components/BackButton';
+import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
@@ -14,6 +15,7 @@ class CartScreen extends Component {
     static navigationOptions = {
         title: 'Cart',
         headerLeft: <BackButton />,
+        headerRight: <TransparentButton />,
         headerStyle: Style.header,
         headerTitleStyle: Style.headerTitle
     };

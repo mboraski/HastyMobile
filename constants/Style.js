@@ -5,9 +5,17 @@ import { emY } from '../utils/em';
 const header = {
     backgroundColor: '#fff',
     height: emY(5.3125),
+    shadowRadius: 0,
+    shadowOffset: {
+        height: 0
+    },
+    shadowColor: 'transparent',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'rgba(0, 0, 0, .3)',
     ...Platform.select({
         android: {
-            paddingTop: StatusBar.currentHeight
+            paddingTop: StatusBar.currentHeight,
+            elevation: 0
         }
     })
 };
@@ -20,23 +28,12 @@ export default StyleSheet.create({
     },
     headerBorderless: {
         ...header,
-        ...Platform.select({
-            ios: {
-                borderBottomWidth: 0,
-                borderBottomColor: 'transparent'
-            },
-            android: {
-                elevation: 0
-            }
-        }),
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0
-        },
-        shadowColor: 'transparent'
+        borderBottomWidth: 0,
+        borderBottomColor: 'transparent'
     },
     headerTitle: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontWeight: 'normal'
     },
     shadow: Platform.select({
         ios: {

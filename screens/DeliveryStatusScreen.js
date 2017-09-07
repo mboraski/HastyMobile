@@ -135,7 +135,7 @@ DeliveryStatusScreen.navigationOptions = {
     title: 'Hasty',
     headerLeft: <BrandButton />,
     headerRight: <MenuButtonRight />,
-    headerStyle: Style.header,
+    headerStyle: Style.headerBorderless,
     headerTitleStyle: Style.headerTitle
 };
 
