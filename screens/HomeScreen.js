@@ -148,7 +148,7 @@ HomeScreen.navigationOptions = {
     headerLeft: <MenuButton />,
     headerTitle: <SearchBar />,
     headerRight: <CartButton />,
-    headerStyle: Style.header,
+    headerStyle: Style.headerLarge,
     headerTitleStyle: Style.headerTitle
 };
 
