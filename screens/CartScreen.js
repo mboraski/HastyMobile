@@ -11,6 +11,17 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
+const ORDERS = Array(10)
+    .fill()
+    .map((e, i) => ({
+        id: i,
+        name: `Item ${i}`,
+        price: 99.99,
+        delivery_type: 'Instant',
+        image: 'https://facebook.github.io/react/img/logo_og.png',
+        quantity: 1
+    }));
+
 class CartScreen extends Component {
     static navigationOptions = {
         title: 'Cart',
@@ -21,18 +32,9 @@ class CartScreen extends Component {
     };
 
     state = {
-        quantity: 5,
-        cost: 499.95,
-        orders: Array(5)
-            .fill()
-            .map((e, i) => ({
-                id: i,
-                name: `Item ${i}`,
-                price: 99.99,
-                delivery_type: 'Instant',
-                image: 'https://facebook.github.io/react/img/logo_og.png',
-                quantity: 1
-            }))
+        quantity: ORDERS.length,
+        cost: ORDERS.reduce((total, order) => total + order.price, 0),
+        orders: ORDERS
     };
 
     handleAddOrder = order => {
@@ -56,7 +58,7 @@ class CartScreen extends Component {
         const { orders, quantity, cost } = this.state;
         if (order.quantity === 1) {
             this.setState({
-                orders: orders.filter((item) => item.id !== order.id),
+                orders: orders.filter(item => item.id !== order.id),
                 quantity: quantity - 1,
                 cost: Math.max(0, (cost - order.price).toFixed(2))
             });
@@ -109,6 +111,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     cart: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
         paddingHorizontal: 27,
         paddingTop: emY(1.6875),
         paddingBottom: emY(1),
@@ -120,7 +127,7 @@ const styles = StyleSheet.create({
                 shadowRadius: emY(1.5)
             },
             android: {
-                elevation: 6
+                elevation: 10
             }
         })
     },

@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
 // Relative Imports
@@ -19,8 +19,18 @@ class OrderList extends Component {
     }
 
     render() {
-        return <ScrollView>{this.renderOrders()}</ScrollView>;
+        return (
+            <ScrollView contentContainerStyle={styles.contentContainer}>
+                {this.renderOrders()}
+            </ScrollView>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    contentContainer: {
+        paddingBottom: 200
+    }
+});
 
 export default OrderList;
