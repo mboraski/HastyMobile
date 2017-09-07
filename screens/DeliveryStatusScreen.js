@@ -41,10 +41,6 @@ class DeliveryStatusScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        ...StyleSheet.flatten(Style.headerBorderless),
-        height: emY(5.3125)
-    },
     container: {
         flex: 1,
         backgroundColor: '#fff'
@@ -139,7 +135,7 @@ DeliveryStatusScreen.navigationOptions = {
     title: 'Hasty',
     headerLeft: <BrandButton />,
     headerRight: <MenuButtonRight />,
-    headerStyle: styles.header,
+    headerStyle: Style.header,
     headerTitleStyle: Style.headerTitle
 };
 

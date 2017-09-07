@@ -4,7 +4,7 @@ import { emY } from '../utils/em';
 
 const header = {
     backgroundColor: '#fff',
-    height: emY(5.9375),
+    height: emY(5.3125),
     ...Platform.select({
         android: {
             paddingTop: StatusBar.currentHeight
@@ -14,6 +14,10 @@ const header = {
 
 export default StyleSheet.create({
     header,
+    headerLarge: {
+        ...header,
+        height: emY(5.9375)
+    },
     headerBorderless: {
         ...header,
         ...Platform.select({
