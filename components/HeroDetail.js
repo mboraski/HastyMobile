@@ -19,8 +19,8 @@ const HeroDetail = props => {
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: image }} />
-            <View style={styles.flex}>
-                <View style={styles.row}>
+            <View style={styles.content}>
+                <View style={styles.contentPrimary}>
                     <View style={styles.meta}>
                         <Text style={[styles.metaItem, styles.name]}>{name.toUpperCase()}</Text>
                         <Text style={[styles.metaItem, styles.type]}>
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 3,
         borderColor: Color.GREY_300
     },
-    flex: { flex: 1 },
-    row: { flexDirection: 'row' },
+    content: { flex: 1 },
+    contentPrimary: { flexDirection: 'row' },
     meta: {
         flex: 1,
         marginTop: emY(1)

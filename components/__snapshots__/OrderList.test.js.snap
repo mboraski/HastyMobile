@@ -8,13 +8,25 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <Unknown>
+  "node": <Unknown
+    contentContainerStyle={
+        Object {
+            "paddingBottom": 200,
+          }
+    }
+>
     <View>
         
     </View>
 </Unknown>,
   "nodes": Array [
-    <Unknown>
+    <Unknown
+      contentContainerStyle={
+            Object {
+                  "paddingBottom": 200,
+                }
+      }
+>
       <View>
             
       </View>
@@ -46,7 +58,13 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <ScrollViewMock>
+      "_currentElement": <ScrollViewMock
+        contentContainerStyle={
+                Object {
+                        "paddingBottom": 200,
+                      }
+        }
+>
         
 </ScrollViewMock>,
       "_debugID": 3,
@@ -57,6 +75,9 @@ ShallowWrapper {
         "context": Object {},
         "props": Object {
           "children": Array [],
+          "contentContainerStyle": Object {
+            "paddingBottom": 200,
+          },
         },
         "refs": Object {},
         "state": null,
@@ -78,13 +99,25 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Unknown>
+        "_currentElement": <Unknown
+          contentContainerStyle={
+                    Object {
+                              "paddingBottom": 200,
+                            }
+          }
+>
           <View>
                     
           </View>
 </Unknown>,
         "_debugID": 4,
-        "_renderedOutput": <Unknown>
+        "_renderedOutput": <Unknown
+          contentContainerStyle={
+                    Object {
+                              "paddingBottom": 200,
+                            }
+          }
+>
           <View>
                     
           </View>
@@ -100,7 +133,13 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <ScrollViewMock>
+  "unrendered": <ScrollViewMock
+    contentContainerStyle={
+        Object {
+            "paddingBottom": 200,
+          }
+    }
+>
     
 </ScrollViewMock>,
 }

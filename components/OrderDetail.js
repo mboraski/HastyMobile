@@ -18,9 +18,9 @@ const OrderDetail = props => {
             <Image style={styles.image} source={{ uri: image }} />
             <View style={styles.content}>
                 <Text style={styles.name}>{name}</Text>
-                <View style={styles.row}>
+                <View style={styles.deliveryType}>
                     <Text style={styles.deliveryTypeLabel}>Delivery Type:</Text>
-                    <Text style={styles.deliveryType}>{delivery_type}</Text>
+                    <Text style={styles.deliveryTypeValue}>{delivery_type}</Text>
                 </View>
                 <TouchableOpacity>
                     <Text style={styles.changeDeliveryTypeText}>Change delivery type</Text>
@@ -28,7 +28,7 @@ const OrderDetail = props => {
             </View>
             <View style={styles.actions}>
                 <Text style={styles.price}>${price}</Text>
-                <View style={styles.row}>
+                <View style={styles.quantityContainer}>
                     <Icon
                         name="remove"
                         size={ICON_SIZE}
@@ -59,14 +59,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_300
     },
-    row: { flexDirection: 'row' },
     content: { flex: 1 },
     actions: {},
     image: {
         width: 75,
         height: emY(3.4375),
         marginRight: 15,
-        alignSelf: 'center' 
+        alignSelf: 'center'
     },
     name: {
         fontSize: emY(1.25),
@@ -79,13 +78,16 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginBottom: emY(1.375)
     },
+    deliveryType: {
+        flexDirection: 'row'
+    },
     deliveryTypeLabel: {
         fontSize: emY(1),
         color: Color.GREY_600,
         marginRight: 8,
         marginBottom: emY(0.375)
     },
-    deliveryType: {
+    deliveryTypeValue: {
         fontSize: emY(1)
     },
     changeDeliveryTypeText: {
@@ -99,6 +101,9 @@ const styles = StyleSheet.create({
         width: ICON_CONTAINER_SIZE
     },
     icon: {},
+    quantityContainer: {
+        flexDirection: 'row'
+    },
     quantity: {
         alignSelf: 'center',
         textAlign: 'center',

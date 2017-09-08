@@ -61,15 +61,60 @@ ShallowWrapper {
                   "price": 99.99,
                   "quantity": 1,
                 },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 5,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 5",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 6,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 6",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 7,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 7",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 8,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 8",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 9,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 9",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
               ]
         }
     />
     <View
         style={
             Object {
+                "backgroundColor": "#fff",
+                "bottom": 0,
+                "left": 0,
                 "paddingBottom": 16,
                 "paddingHorizontal": 27,
                 "paddingTop": 27,
+                "position": "absolute",
+                "right": 0,
                 "shadowColor": "#000",
                 "shadowOffset": Object {
                   "height": 10,
@@ -114,7 +159,7 @@ ShallowWrapper {
                       }
                 }
             >
-                5
+                10
                  items
             </Text>
             <Text
@@ -128,7 +173,7 @@ ShallowWrapper {
                 }
             >
                 $
-                499.95
+                999.9
             </Text>
         </View>
         <Button
@@ -207,15 +252,60 @@ ShallowWrapper {
                           "price": 99.99,
                           "quantity": 1,
                         },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 5,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 5",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 6,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 6",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 7,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 7",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 8,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 8",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 9,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 9",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
                       ]
             }
       />
       <View
             style={
                   Object {
+                        "backgroundColor": "#fff",
+                        "bottom": 0,
+                        "left": 0,
                         "paddingBottom": 16,
                         "paddingHorizontal": 27,
                         "paddingTop": 27,
+                        "position": "absolute",
+                        "right": 0,
                         "shadowColor": "#000",
                         "shadowOffset": Object {
                           "height": 10,
@@ -260,7 +350,7 @@ ShallowWrapper {
                                   }
                         }
                   >
-                        5
+                        10
                          items
                   </Text>
                   <Text
@@ -274,7 +364,7 @@ ShallowWrapper {
                         }
                   >
                         $
-                        499.95
+                        999.9
                   </Text>
             </View>
             <Button
@@ -379,15 +469,60 @@ ShallowWrapper {
                                   "price": 99.99,
                                   "quantity": 1,
                                 },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 5,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 5",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 6,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 6",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 7,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 7",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 8,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 8",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 9,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 9",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
                               ]
                 }
         />
         <View
                 style={
                         Object {
+                                "backgroundColor": "#fff",
+                                "bottom": 0,
+                                "left": 0,
                                 "paddingBottom": 16,
                                 "paddingHorizontal": 27,
                                 "paddingTop": 27,
+                                "position": "absolute",
+                                "right": 0,
                                 "shadowColor": "#000",
                                 "shadowOffset": Object {
                                   "height": 10,
@@ -432,7 +567,7 @@ ShallowWrapper {
                                               }
                                 }
                         >
-                                5
+                                10
                                  items
                         </Text>
                         <Text
@@ -446,7 +581,7 @@ ShallowWrapper {
                                 }
                         >
                                 $
-                                499.95
+                                999.9
                         </Text>
                 </View>
                 <Button
@@ -531,15 +666,60 @@ ShallowWrapper {
                                             "price": 99.99,
                                             "quantity": 1,
                                           },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 5,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 5",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 6,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 6",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 7,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 7",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 8,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 8",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 9,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 9",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
                                         ]
               }
 />,
             <View
               style={
                             Object {
+                                          "backgroundColor": "#fff",
+                                          "bottom": 0,
+                                          "left": 0,
                                           "paddingBottom": 16,
                                           "paddingHorizontal": 27,
                                           "paddingTop": 27,
+                                          "position": "absolute",
+                                          "right": 0,
                                           "shadowColor": "#000",
                                           "shadowOffset": Object {
                                             "height": 10,
@@ -584,7 +764,7 @@ ShallowWrapper {
                                                                     }
                                           }
                             >
-                                          5
+                                          10
                                            items
                             </Text>
                             <Text
@@ -598,7 +778,7 @@ ShallowWrapper {
                                           }
                             >
                                           $
-                                          499.95
+                                          999.9
                             </Text>
               </View>
               <Button
@@ -702,15 +882,60 @@ ShallowWrapper {
                                           "price": 99.99,
                                           "quantity": 1,
                                         },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 5,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 5",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 6,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 6",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 7,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 7",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 8,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 8",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 9,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 9",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
                                       ]
                     }
           />
           <View
                     style={
                               Object {
+                                        "backgroundColor": "#fff",
+                                        "bottom": 0,
+                                        "left": 0,
                                         "paddingBottom": 16,
                                         "paddingHorizontal": 27,
                                         "paddingTop": 27,
+                                        "position": "absolute",
+                                        "right": 0,
                                         "shadowColor": "#000",
                                         "shadowOffset": Object {
                                           "height": 10,
@@ -755,7 +980,7 @@ ShallowWrapper {
                                                           }
                                         }
                               >
-                                        5
+                                        10
                                          items
                               </Text>
                               <Text
@@ -769,7 +994,7 @@ ShallowWrapper {
                                         }
                               >
                                         $
-                                        499.95
+                                        999.9
                               </Text>
                     </View>
                     <Button
@@ -848,15 +1073,60 @@ ShallowWrapper {
                                           "price": 99.99,
                                           "quantity": 1,
                                         },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 5,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 5",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 6,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 6",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 7,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 7",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 8,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 8",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 9,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 9",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
                                       ]
                     }
           />
           <View
                     style={
                               Object {
+                                        "backgroundColor": "#fff",
+                                        "bottom": 0,
+                                        "left": 0,
                                         "paddingBottom": 16,
                                         "paddingHorizontal": 27,
                                         "paddingTop": 27,
+                                        "position": "absolute",
+                                        "right": 0,
                                         "shadowColor": "#000",
                                         "shadowOffset": Object {
                                           "height": 10,
@@ -901,7 +1171,7 @@ ShallowWrapper {
                                                           }
                                         }
                               >
-                                        5
+                                        10
                                          items
                               </Text>
                               <Text
@@ -915,7 +1185,7 @@ ShallowWrapper {
                                         }
                               >
                                         $
-                                        499.95
+                                        999.9
                               </Text>
                     </View>
                     <Button
@@ -1004,15 +1274,60 @@ ShallowWrapper {
                   "price": 99.99,
                   "quantity": 1,
                 },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 5,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 5",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 6,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 6",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 7,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 7",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 8,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 8",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 9,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 9",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
               ]
         }
     />
     <View
         style={
             Object {
+                "backgroundColor": "#fff",
+                "bottom": 0,
+                "left": 0,
                 "paddingBottom": 16,
                 "paddingHorizontal": 27,
                 "paddingTop": 27,
+                "position": "absolute",
+                "right": 0,
                 "shadowColor": "#000",
                 "shadowOffset": Object {
                   "height": 10,
@@ -1057,7 +1372,7 @@ ShallowWrapper {
                       }
                 }
             >
-                5
+                10
                  items
             </Text>
             <Text
@@ -1071,7 +1386,7 @@ ShallowWrapper {
                 }
             >
                 $
-                499.95
+                999.9
             </Text>
         </View>
         <Button
