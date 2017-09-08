@@ -1,0 +1,1415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CartScreen renders correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <View
+    style={
+        Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+          }
+    }
+>
+    <OrderList
+        onAddOrder={[Function]}
+        onRemoveOrder={[Function]}
+        orders={
+            Array [
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 0,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 0",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 1,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 1",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 2,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 2",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 3,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 3",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 4,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 4",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 5,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 5",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 6,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 6",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 7,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 7",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 8,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 8",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 9,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 9",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+              ]
+        }
+    />
+    <View
+        style={
+            Object {
+                "backgroundColor": "#fff",
+                "bottom": 0,
+                "left": 0,
+                "paddingBottom": 16,
+                "paddingHorizontal": 27,
+                "paddingTop": 27,
+                "position": "absolute",
+                "right": 0,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 10,
+                  "width": 0,
+                },
+                "shadowOpacity": 0.5,
+                "shadowRadius": 24,
+              }
+        }
+    >
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginBottom": 22,
+                  }
+            }
+        >
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#7f7f7f",
+                        "fontSize": 16,
+                        "marginRight": 11,
+                      }
+                }
+            >
+                Order Total:
+            </Text>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "flex": 1,
+                        "fontSize": 16,
+                      }
+                }
+            >
+                10
+                 items
+            </Text>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "fontSize": 20,
+                      }
+                }
+            >
+                $
+                999.9
+            </Text>
+        </View>
+        <Button
+            buttonStyle={
+                Object {
+                    "backgroundColor": "#000",
+                    "paddingVertical": 14,
+                  }
+            }
+            containerViewStyle={
+                Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
+                  }
+            }
+            textStyle={
+                Object {
+                    "fontSize": 13,
+                  }
+            }
+            title="CONFIRM ORDER"
+        />
+    </View>
+</View>,
+  "nodes": Array [
+    <View
+      style={
+            Object {
+                  "backgroundColor": "#fff",
+                  "flex": 1,
+                }
+      }
+>
+      <OrderList
+            onAddOrder={[Function]}
+            onRemoveOrder={[Function]}
+            orders={
+                  Array [
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 0,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 0",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 1,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 1",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 2,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 2",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 3,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 3",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 4,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 4",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 5,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 5",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 6,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 6",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 7,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 7",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 8,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 8",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                        Object {
+                          "delivery_type": "Instant",
+                          "id": 9,
+                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                          "name": "Item 9",
+                          "price": 99.99,
+                          "quantity": 1,
+                        },
+                      ]
+            }
+      />
+      <View
+            style={
+                  Object {
+                        "backgroundColor": "#fff",
+                        "bottom": 0,
+                        "left": 0,
+                        "paddingBottom": 16,
+                        "paddingHorizontal": 27,
+                        "paddingTop": 27,
+                        "position": "absolute",
+                        "right": 0,
+                        "shadowColor": "#000",
+                        "shadowOffset": Object {
+                          "height": 10,
+                          "width": 0,
+                        },
+                        "shadowOpacity": 0.5,
+                        "shadowRadius": 24,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "marginBottom": 22,
+                            }
+                  }
+            >
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#7f7f7f",
+                                    "fontSize": 16,
+                                    "marginRight": 11,
+                                  }
+                        }
+                  >
+                        Order Total:
+                  </Text>
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "flex": 1,
+                                    "fontSize": 16,
+                                  }
+                        }
+                  >
+                        10
+                         items
+                  </Text>
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "fontSize": 20,
+                                  }
+                        }
+                  >
+                        $
+                        999.9
+                  </Text>
+            </View>
+            <Button
+                  buttonStyle={
+                        Object {
+                              "backgroundColor": "#000",
+                              "paddingVertical": 14,
+                            }
+                  }
+                  containerViewStyle={
+                        Object {
+                              "marginLeft": 0,
+                              "marginRight": 0,
+                            }
+                  }
+                  textStyle={
+                        Object {
+                              "fontSize": 13,
+                            }
+                  }
+                  title="CONFIRM ORDER"
+            />
+      </View>
+</View>,
+  ],
+  "options": Object {
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+      },
+      "_currentElement": <View
+        style={
+                Object {
+                        "backgroundColor": "#fff",
+                        "flex": 1,
+                      }
+        }
+>
+        <OrderList
+                onAddOrder={[Function]}
+                onRemoveOrder={[Function]}
+                orders={
+                        Array [
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 0,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 0",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 1,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 1",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 2,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 2",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 3,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 3",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 4,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 4",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 5,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 5",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 6,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 6",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 7,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 7",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 8,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 8",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                                Object {
+                                  "delivery_type": "Instant",
+                                  "id": 9,
+                                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                                  "name": "Item 9",
+                                  "price": 99.99,
+                                  "quantity": 1,
+                                },
+                              ]
+                }
+        />
+        <View
+                style={
+                        Object {
+                                "backgroundColor": "#fff",
+                                "bottom": 0,
+                                "left": 0,
+                                "paddingBottom": 16,
+                                "paddingHorizontal": 27,
+                                "paddingTop": 27,
+                                "position": "absolute",
+                                "right": 0,
+                                "shadowColor": "#000",
+                                "shadowOffset": Object {
+                                  "height": 10,
+                                  "width": 0,
+                                },
+                                "shadowOpacity": 0.5,
+                                "shadowRadius": 24,
+                              }
+                }
+        >
+                <View
+                        style={
+                                Object {
+                                        "alignItems": "center",
+                                        "flexDirection": "row",
+                                        "marginBottom": 22,
+                                      }
+                        }
+                >
+                        <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                ellipsizeMode="tail"
+                                style={
+                                        Object {
+                                                "color": "#7f7f7f",
+                                                "fontSize": 16,
+                                                "marginRight": 11,
+                                              }
+                                }
+                        >
+                                Order Total:
+                        </Text>
+                        <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                ellipsizeMode="tail"
+                                style={
+                                        Object {
+                                                "flex": 1,
+                                                "fontSize": 16,
+                                              }
+                                }
+                        >
+                                10
+                                 items
+                        </Text>
+                        <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                ellipsizeMode="tail"
+                                style={
+                                        Object {
+                                                "fontSize": 20,
+                                              }
+                                }
+                        >
+                                $
+                                999.9
+                        </Text>
+                </View>
+                <Button
+                        buttonStyle={
+                                Object {
+                                        "backgroundColor": "#000",
+                                        "paddingVertical": 14,
+                                      }
+                        }
+                        containerViewStyle={
+                                Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                        }
+                        textStyle={
+                                Object {
+                                        "fontSize": 13,
+                                      }
+                        }
+                        title="CONFIRM ORDER"
+                />
+        </View>
+</View>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Component {
+        "_reactInternalInstance": [Circular],
+        "blur": [Function],
+        "context": Object {
+          "isInAParentText": undefined,
+        },
+        "focus": [Function],
+        "measure": [Function],
+        "measureInWindow": [Function],
+        "measureLayout": [Function],
+        "props": Object {
+          "children": Array [
+            <OrderList
+              onAddOrder={[Function]}
+              onRemoveOrder={[Function]}
+              orders={
+                            Array [
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 0,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 0",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 1,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 1",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 2,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 2",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 3,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 3",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 4,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 4",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 5,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 5",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 6,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 6",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 7,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 7",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 8,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 8",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                          Object {
+                                            "delivery_type": "Instant",
+                                            "id": 9,
+                                            "image": "https://facebook.github.io/react/img/logo_og.png",
+                                            "name": "Item 9",
+                                            "price": 99.99,
+                                            "quantity": 1,
+                                          },
+                                        ]
+              }
+/>,
+            <View
+              style={
+                            Object {
+                                          "backgroundColor": "#fff",
+                                          "bottom": 0,
+                                          "left": 0,
+                                          "paddingBottom": 16,
+                                          "paddingHorizontal": 27,
+                                          "paddingTop": 27,
+                                          "position": "absolute",
+                                          "right": 0,
+                                          "shadowColor": "#000",
+                                          "shadowOffset": Object {
+                                            "height": 10,
+                                            "width": 0,
+                                          },
+                                          "shadowOpacity": 0.5,
+                                          "shadowRadius": 24,
+                                        }
+              }
+>
+              <View
+                            style={
+                                          Object {
+                                                        "alignItems": "center",
+                                                        "flexDirection": "row",
+                                                        "marginBottom": 22,
+                                                      }
+                            }
+              >
+                            <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                                        Object {
+                                                                      "color": "#7f7f7f",
+                                                                      "fontSize": 16,
+                                                                      "marginRight": 11,
+                                                                    }
+                                          }
+                            >
+                                          Order Total:
+                            </Text>
+                            <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                                        Object {
+                                                                      "flex": 1,
+                                                                      "fontSize": 16,
+                                                                    }
+                                          }
+                            >
+                                          10
+                                           items
+                            </Text>
+                            <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                                        Object {
+                                                                      "fontSize": 20,
+                                                                    }
+                                          }
+                            >
+                                          $
+                                          999.9
+                            </Text>
+              </View>
+              <Button
+                            buttonStyle={
+                                          Object {
+                                                        "backgroundColor": "#000",
+                                                        "paddingVertical": 14,
+                                                      }
+                            }
+                            containerViewStyle={
+                                          Object {
+                                                        "marginLeft": 0,
+                                                        "marginRight": 0,
+                                                      }
+                            }
+                            textStyle={
+                                          Object {
+                                                        "fontSize": 13,
+                                                      }
+                            }
+                            title="CONFIRM ORDER"
+              />
+</View>,
+          ],
+          "style": Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+          },
+        },
+        "refs": Object {},
+        "setNativeProps": [Function],
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <View
+          style={
+                    Object {
+                              "backgroundColor": "#fff",
+                              "flex": 1,
+                            }
+          }
+>
+          <OrderList
+                    onAddOrder={[Function]}
+                    onRemoveOrder={[Function]}
+                    orders={
+                              Array [
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 0,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 0",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 1,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 1",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 2,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 2",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 3,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 3",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 4,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 4",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 5,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 5",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 6,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 6",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 7,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 7",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 8,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 8",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 9,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 9",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                      ]
+                    }
+          />
+          <View
+                    style={
+                              Object {
+                                        "backgroundColor": "#fff",
+                                        "bottom": 0,
+                                        "left": 0,
+                                        "paddingBottom": 16,
+                                        "paddingHorizontal": 27,
+                                        "paddingTop": 27,
+                                        "position": "absolute",
+                                        "right": 0,
+                                        "shadowColor": "#000",
+                                        "shadowOffset": Object {
+                                          "height": 10,
+                                          "width": 0,
+                                        },
+                                        "shadowOpacity": 0.5,
+                                        "shadowRadius": 24,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "flexDirection": "row",
+                                                  "marginBottom": 22,
+                                                }
+                              }
+                    >
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#7f7f7f",
+                                                            "fontSize": 16,
+                                                            "marginRight": 11,
+                                                          }
+                                        }
+                              >
+                                        Order Total:
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "flex": 1,
+                                                            "fontSize": 16,
+                                                          }
+                                        }
+                              >
+                                        10
+                                         items
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "fontSize": 20,
+                                                          }
+                                        }
+                              >
+                                        $
+                                        999.9
+                              </Text>
+                    </View>
+                    <Button
+                              buttonStyle={
+                                        Object {
+                                                  "backgroundColor": "#000",
+                                                  "paddingVertical": 14,
+                                                }
+                              }
+                              containerViewStyle={
+                                        Object {
+                                                  "marginLeft": 0,
+                                                  "marginRight": 0,
+                                                }
+                              }
+                              textStyle={
+                                        Object {
+                                                  "fontSize": 13,
+                                                }
+                              }
+                              title="CONFIRM ORDER"
+                    />
+          </View>
+</View>,
+        "_debugID": 4,
+        "_renderedOutput": <View
+          style={
+                    Object {
+                              "backgroundColor": "#fff",
+                              "flex": 1,
+                            }
+          }
+>
+          <OrderList
+                    onAddOrder={[Function]}
+                    onRemoveOrder={[Function]}
+                    orders={
+                              Array [
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 0,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 0",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 1,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 1",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 2,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 2",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 3,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 3",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 4,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 4",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 5,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 5",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 6,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 6",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 7,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 7",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 8,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 8",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                        Object {
+                                          "delivery_type": "Instant",
+                                          "id": 9,
+                                          "image": "https://facebook.github.io/react/img/logo_og.png",
+                                          "name": "Item 9",
+                                          "price": 99.99,
+                                          "quantity": 1,
+                                        },
+                                      ]
+                    }
+          />
+          <View
+                    style={
+                              Object {
+                                        "backgroundColor": "#fff",
+                                        "bottom": 0,
+                                        "left": 0,
+                                        "paddingBottom": 16,
+                                        "paddingHorizontal": 27,
+                                        "paddingTop": 27,
+                                        "position": "absolute",
+                                        "right": 0,
+                                        "shadowColor": "#000",
+                                        "shadowOffset": Object {
+                                          "height": 10,
+                                          "width": 0,
+                                        },
+                                        "shadowOpacity": 0.5,
+                                        "shadowRadius": 24,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "flexDirection": "row",
+                                                  "marginBottom": 22,
+                                                }
+                              }
+                    >
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#7f7f7f",
+                                                            "fontSize": 16,
+                                                            "marginRight": 11,
+                                                          }
+                                        }
+                              >
+                                        Order Total:
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "flex": 1,
+                                                            "fontSize": 16,
+                                                          }
+                                        }
+                              >
+                                        10
+                                         items
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "fontSize": 20,
+                                                          }
+                                        }
+                              >
+                                        $
+                                        999.9
+                              </Text>
+                    </View>
+                    <Button
+                              buttonStyle={
+                                        Object {
+                                                  "backgroundColor": "#000",
+                                                  "paddingVertical": 14,
+                                                }
+                              }
+                              containerViewStyle={
+                                        Object {
+                                                  "marginLeft": 0,
+                                                  "marginRight": 0,
+                                                }
+                              }
+                              textStyle={
+                                        Object {
+                                                  "fontSize": 13,
+                                                }
+                              }
+                              title="CONFIRM ORDER"
+                    />
+          </View>
+</View>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <View
+    style={
+        Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+          }
+    }
+>
+    <OrderList
+        onAddOrder={[Function]}
+        onRemoveOrder={[Function]}
+        orders={
+            Array [
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 0,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 0",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 1,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 1",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 2,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 2",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 3,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 3",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 4,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 4",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 5,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 5",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 6,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 6",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 7,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 7",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 8,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 8",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+                Object {
+                  "delivery_type": "Instant",
+                  "id": 9,
+                  "image": "https://facebook.github.io/react/img/logo_og.png",
+                  "name": "Item 9",
+                  "price": 99.99,
+                  "quantity": 1,
+                },
+              ]
+        }
+    />
+    <View
+        style={
+            Object {
+                "backgroundColor": "#fff",
+                "bottom": 0,
+                "left": 0,
+                "paddingBottom": 16,
+                "paddingHorizontal": 27,
+                "paddingTop": 27,
+                "position": "absolute",
+                "right": 0,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 10,
+                  "width": 0,
+                },
+                "shadowOpacity": 0.5,
+                "shadowRadius": 24,
+              }
+        }
+    >
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginBottom": 22,
+                  }
+            }
+        >
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#7f7f7f",
+                        "fontSize": 16,
+                        "marginRight": 11,
+                      }
+                }
+            >
+                Order Total:
+            </Text>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "flex": 1,
+                        "fontSize": 16,
+                      }
+                }
+            >
+                10
+                 items
+            </Text>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "fontSize": 20,
+                      }
+                }
+            >
+                $
+                999.9
+            </Text>
+        </View>
+        <Button
+            buttonStyle={
+                Object {
+                    "backgroundColor": "#000",
+                    "paddingVertical": 14,
+                  }
+            }
+            containerViewStyle={
+                Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
+                  }
+            }
+            textStyle={
+                Object {
+                    "fontSize": 13,
+                  }
+            }
+            title="CONFIRM ORDER"
+        />
+    </View>
+</View>,
+}
+`;

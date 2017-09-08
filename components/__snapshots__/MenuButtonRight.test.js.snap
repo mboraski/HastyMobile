@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CartButton renders correctly 1`] = `
+exports[`MenuButtonRight renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -23,8 +23,8 @@ ShallowWrapper {
         source={1}
         style={
             Object {
-                "height": 35,
-                "width": 35,
+                "height": 23,
+                "width": 23,
               }
         }
     />
@@ -45,8 +45,8 @@ ShallowWrapper {
             source={1}
             style={
                   Object {
-                        "height": 35,
-                        "width": 35,
+                        "height": 23,
+                        "width": 23,
                       }
             }
       />
@@ -78,11 +78,11 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <CartButton />,
+      "_currentElement": <MenuButton2 />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": CartButton {
+      "_instance": MenuButton2 {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "onPress": [Function],
@@ -122,8 +122,8 @@ ShallowWrapper {
                     source={1}
                     style={
                               Object {
-                                        "height": 35,
-                                        "width": 35,
+                                        "height": 23,
+                                        "width": 23,
                                       }
                     }
           />
@@ -144,8 +144,8 @@ ShallowWrapper {
                     source={1}
                     style={
                               Object {
-                                        "height": 35,
-                                        "width": 35,
+                                        "height": 23,
+                                        "width": 23,
                                       }
                     }
           />
@@ -161,6 +161,6 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <CartButton />,
+  "unrendered": <MenuButton2 />,
 }
 `;

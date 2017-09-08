@@ -1,21 +1,25 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
-import mapIcon from '../assets/icons/menu.png';
+import brandIcon from '../assets/icons/brand.png';
 
-const SIZE = emY(1.875);
+const SIZE = emY(2);
 
-class MenuButton extends Component {
+class BrandButton extends Component {
     onPress = () => {};
 
     render() {
         return (
             <TouchableOpacity onPress={this.onPress} style={styles.container}>
-                <Image source={mapIcon} style={styles.image} />
+                <Image
+                    source={brandIcon}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
             </TouchableOpacity>
         );
     }
@@ -23,6 +27,11 @@ class MenuButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        ...Platform.select({
+            ios: {
+                top: -10
+            }
+        }),
         marginLeft: 20
     },
     image: {
@@ -35,4 +44,4 @@ const mapDispatchToProps = function (dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(MenuButton);
+export default connect(null, mapDispatchToProps)(BrandButton);

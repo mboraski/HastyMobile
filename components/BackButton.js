@@ -5,17 +5,21 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
-import mapIcon from '../assets/icons/menu.png';
+import leftArrowIcon from '../assets/icons/left-arrow.png';
 
-const SIZE = emY(1.875);
+const SIZE = emY(1.25);
 
-class MenuButton extends Component {
+class BackButton extends Component {
     onPress = () => {};
 
     render() {
         return (
             <TouchableOpacity onPress={this.onPress} style={styles.container}>
-                <Image source={mapIcon} style={styles.image} />
+                <Image
+                    source={leftArrowIcon}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
             </TouchableOpacity>
         );
     }
@@ -35,4 +39,4 @@ const mapDispatchToProps = function (dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(MenuButton);
+export default connect(null, mapDispatchToProps)(BackButton);

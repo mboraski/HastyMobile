@@ -57,222 +57,250 @@ exports[`AuthScreen renders correctly 1`] = `
     }
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
             "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
           },
+          undefined,
           undefined,
         ]
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 15,
-              "marginRight": 15,
-              "padding": 19,
+              "backgroundColor": "transparent",
             },
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "padding": 12,
-            },
-            Array [
-              Object {
-                "backgroundColor": "#fff",
-                "borderColor": "rgba(0,0,0,0.40)",
-                "borderRadius": 25,
-                "borderWidth": 0.5,
-                "minWidth": 120,
-              },
-              Object {
-                "backgroundColor": "rgba(0,0,0,0.40)",
-                "borderColor": "#fff",
-              },
-            ],
-            undefined,
             undefined,
           ]
         }
+        testID={undefined}
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
+              undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
               undefined,
               Array [
                 Object {
-                  "color": "white",
-                  "fontSize": 20,
+                  "backgroundColor": "#fff",
+                  "borderColor": "#999999",
+                  "borderRadius": 25,
+                  "borderWidth": 0.5,
+                  "minWidth": 120,
                 },
-                undefined,
                 Object {
-                  "fontSize": 17.5,
+                  "backgroundColor": "#999999",
+                  "borderColor": "#fff",
                 },
-                undefined,
-                Array [
-                  Object {
-                    "color": "rgba(0,0,0,0.40)",
-                    "fontSize": 14,
-                  },
-                  Object {
-                    "color": "#fff",
-                  },
-                ],
-                undefined,
-                undefined,
               ],
+              undefined,
+              undefined,
             ]
           }
         >
-          Sign Up
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 20,
+                  },
+                  undefined,
+                  Object {
+                    "fontSize": 17.5,
+                  },
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "#999999",
+                      "fontSize": 14,
+                    },
+                    Object {
+                      "color": "#fff",
+                    },
+                  ],
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Sign Up
+          </Text>
+        </View>
       </View>
     </View>
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
             "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
           },
+          undefined,
           undefined,
         ]
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 15,
-              "marginRight": 15,
-              "padding": 19,
+              "backgroundColor": "transparent",
             },
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "padding": 12,
-            },
-            Array [
-              Object {
-                "backgroundColor": "#fff",
-                "borderColor": "rgba(0,0,0,0.40)",
-                "borderRadius": 25,
-                "borderWidth": 0.5,
-                "minWidth": 120,
-              },
-              null,
-            ],
-            undefined,
             undefined,
           ]
         }
+        testID={undefined}
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
+              undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
               undefined,
               Array [
                 Object {
-                  "color": "white",
-                  "fontSize": 20,
+                  "backgroundColor": "#fff",
+                  "borderColor": "#999999",
+                  "borderRadius": 25,
+                  "borderWidth": 0.5,
+                  "minWidth": 120,
                 },
-                undefined,
-                Object {
-                  "fontSize": 17.5,
-                },
-                undefined,
-                Array [
-                  Object {
-                    "color": "rgba(0,0,0,0.40)",
-                    "fontSize": 14,
-                  },
-                  null,
-                ],
-                undefined,
-                undefined,
+                null,
               ],
+              undefined,
+              undefined,
             ]
           }
         >
-          Log In
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 20,
+                  },
+                  undefined,
+                  Object {
+                    "fontSize": 17.5,
+                  },
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "#999999",
+                      "fontSize": 14,
+                    },
+                    null,
+                  ],
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Log In
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -297,7 +325,7 @@ exports[`AuthScreen renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "borderBottomWidth": 0.5,
-            "borderColor": "rgba(0,0,0,0.40)",
+            "borderColor": "#999999",
             "flexDirection": "row",
           }
         }
@@ -353,7 +381,7 @@ exports[`AuthScreen renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "borderBottomWidth": 0.5,
-            "borderColor": "rgba(0,0,0,0.40)",
+            "borderColor": "#999999",
             "flexDirection": "row",
           }
         }
@@ -410,7 +438,7 @@ exports[`AuthScreen renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "borderBottomWidth": 0.5,
-            "borderColor": "rgba(0,0,0,0.40)",
+            "borderColor": "#999999",
             "flexDirection": "row",
           }
         }
@@ -467,7 +495,7 @@ exports[`AuthScreen renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "borderBottomWidth": 0.5,
-            "borderColor": "rgba(0,0,0,0.40)",
+            "borderColor": "#999999",
             "flexDirection": "row",
           }
         }
@@ -517,7 +545,7 @@ exports[`AuthScreen renders correctly 1`] = `
             Object {
               "alignItems": "center",
               "borderBottomWidth": 0.5,
-              "borderColor": "rgba(0,0,0,0.40)",
+              "borderColor": "#999999",
               "flexDirection": "row",
             },
             Object {
@@ -567,69 +595,54 @@ exports[`AuthScreen renders correctly 1`] = `
       </View>
     </View>
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
             "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
           },
+          undefined,
           undefined,
         ]
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 15,
-              "marginRight": 15,
-              "padding": 19,
+              "backgroundColor": "transparent",
             },
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "padding": 12,
-            },
-            Object {
-              "backgroundColor": "#000",
-            },
-            undefined,
             undefined,
           ]
         }
+        testID={undefined}
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
@@ -637,27 +650,56 @@ exports[`AuthScreen renders correctly 1`] = `
               undefined,
               undefined,
               undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
-              Array [
-                Object {
-                  "color": "white",
-                  "fontSize": 20,
-                },
-                undefined,
-                Object {
-                  "fontSize": 17.5,
-                },
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-              ],
+              undefined,
+              Object {
+                "backgroundColor": "#000",
+              },
+              undefined,
+              undefined,
             ]
           }
         >
-          Create Account
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 20,
+                  },
+                  undefined,
+                  Object {
+                    "fontSize": 17.5,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Create Account
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -732,13 +774,13 @@ ShallowWrapper {
                 Array [
                     Object {
                       "backgroundColor": "#fff",
-                      "borderColor": "rgba(0,0,0,0.40)",
+                      "borderColor": "#999999",
                       "borderRadius": 25,
                       "borderWidth": 0.5,
                       "minWidth": 120,
                     },
                     Object {
-                      "backgroundColor": "rgba(0,0,0,0.40)",
+                      "backgroundColor": "#999999",
                       "borderColor": "#fff",
                     },
                   ]
@@ -747,7 +789,7 @@ ShallowWrapper {
             textStyle={
                 Array [
                     Object {
-                      "color": "rgba(0,0,0,0.40)",
+                      "color": "#999999",
                       "fontSize": 14,
                     },
                     Object {
@@ -762,7 +804,7 @@ ShallowWrapper {
                 Array [
                     Object {
                       "backgroundColor": "#fff",
-                      "borderColor": "rgba(0,0,0,0.40)",
+                      "borderColor": "#999999",
                       "borderRadius": 25,
                       "borderWidth": 0.5,
                       "minWidth": 120,
@@ -774,7 +816,7 @@ ShallowWrapper {
             textStyle={
                 Array [
                     Object {
-                      "color": "rgba(0,0,0,0.40)",
+                      "color": "#999999",
                       "fontSize": 14,
                     },
                     null,
@@ -846,13 +888,13 @@ ShallowWrapper {
                         Array [
                               Object {
                                 "backgroundColor": "#fff",
-                                "borderColor": "rgba(0,0,0,0.40)",
+                                "borderColor": "#999999",
                                 "borderRadius": 25,
                                 "borderWidth": 0.5,
                                 "minWidth": 120,
                               },
                               Object {
-                                "backgroundColor": "rgba(0,0,0,0.40)",
+                                "backgroundColor": "#999999",
                                 "borderColor": "#fff",
                               },
                             ]
@@ -861,7 +903,7 @@ ShallowWrapper {
                   textStyle={
                         Array [
                               Object {
-                                "color": "rgba(0,0,0,0.40)",
+                                "color": "#999999",
                                 "fontSize": 14,
                               },
                               Object {
@@ -876,7 +918,7 @@ ShallowWrapper {
                         Array [
                               Object {
                                 "backgroundColor": "#fff",
-                                "borderColor": "rgba(0,0,0,0.40)",
+                                "borderColor": "#999999",
                                 "borderRadius": 25,
                                 "borderWidth": 0.5,
                                 "minWidth": 120,
@@ -888,7 +930,7 @@ ShallowWrapper {
                   textStyle={
                         Array [
                               Object {
-                                "color": "rgba(0,0,0,0.40)",
+                                "color": "#999999",
                                 "fontSize": 14,
                               },
                               null,
@@ -907,7 +949,7 @@ ShallowWrapper {
       "_compositeType": 0,
       "_context": Object {},
       "_currentElement": <AuthScreen />,
-      "_debugID": 94,
+      "_debugID": 100,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": AuthScreen {
@@ -998,13 +1040,13 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
                                                   },
                                                   Object {
-                                                    "backgroundColor": "rgba(0,0,0,0.40)",
+                                                    "backgroundColor": "#999999",
                                                     "borderColor": "#fff",
                                                   },
                                                 ]
@@ -1013,7 +1055,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   Object {
@@ -1028,7 +1070,7 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
@@ -1040,7 +1082,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   null,
@@ -1051,7 +1093,7 @@ ShallowWrapper {
           </View>
           <SignUpForm />
 </View>,
-        "_debugID": 95,
+        "_debugID": 101,
         "_renderedOutput": <View
           style={
                     Object {
@@ -1112,13 +1154,13 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
                                                   },
                                                   Object {
-                                                    "backgroundColor": "rgba(0,0,0,0.40)",
+                                                    "backgroundColor": "#999999",
                                                     "borderColor": "#fff",
                                                   },
                                                 ]
@@ -1127,7 +1169,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   Object {
@@ -1142,7 +1184,7 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
@@ -1154,7 +1196,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   null,
@@ -1248,13 +1290,13 @@ ShallowWrapper {
                 Array [
                     Object {
                       "backgroundColor": "#fff",
-                      "borderColor": "rgba(0,0,0,0.40)",
+                      "borderColor": "#999999",
                       "borderRadius": 25,
                       "borderWidth": 0.5,
                       "minWidth": 120,
                     },
                     Object {
-                      "backgroundColor": "rgba(0,0,0,0.40)",
+                      "backgroundColor": "#999999",
                       "borderColor": "#fff",
                     },
                   ]
@@ -1263,7 +1305,7 @@ ShallowWrapper {
             textStyle={
                 Array [
                     Object {
-                      "color": "rgba(0,0,0,0.40)",
+                      "color": "#999999",
                       "fontSize": 14,
                     },
                     Object {
@@ -1278,7 +1320,7 @@ ShallowWrapper {
                 Array [
                     Object {
                       "backgroundColor": "#fff",
-                      "borderColor": "rgba(0,0,0,0.40)",
+                      "borderColor": "#999999",
                       "borderRadius": 25,
                       "borderWidth": 0.5,
                       "minWidth": 120,
@@ -1290,7 +1332,7 @@ ShallowWrapper {
             textStyle={
                 Array [
                     Object {
-                      "color": "rgba(0,0,0,0.40)",
+                      "color": "#999999",
                       "fontSize": 14,
                     },
                     null,
@@ -1362,13 +1404,13 @@ ShallowWrapper {
                         Array [
                               Object {
                                 "backgroundColor": "#fff",
-                                "borderColor": "rgba(0,0,0,0.40)",
+                                "borderColor": "#999999",
                                 "borderRadius": 25,
                                 "borderWidth": 0.5,
                                 "minWidth": 120,
                               },
                               Object {
-                                "backgroundColor": "rgba(0,0,0,0.40)",
+                                "backgroundColor": "#999999",
                                 "borderColor": "#fff",
                               },
                             ]
@@ -1377,7 +1419,7 @@ ShallowWrapper {
                   textStyle={
                         Array [
                               Object {
-                                "color": "rgba(0,0,0,0.40)",
+                                "color": "#999999",
                                 "fontSize": 14,
                               },
                               Object {
@@ -1392,7 +1434,7 @@ ShallowWrapper {
                         Array [
                               Object {
                                 "backgroundColor": "#fff",
-                                "borderColor": "rgba(0,0,0,0.40)",
+                                "borderColor": "#999999",
                                 "borderRadius": 25,
                                 "borderWidth": 0.5,
                                 "minWidth": 120,
@@ -1404,7 +1446,7 @@ ShallowWrapper {
                   textStyle={
                         Array [
                               Object {
-                                "color": "rgba(0,0,0,0.40)",
+                                "color": "#999999",
                                 "fontSize": 14,
                               },
                               null,
@@ -1418,7 +1460,14 @@ ShallowWrapper {
   ],
   "options": Object {
     "context": Object {
-      "store": [Function],
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
     },
   },
   "renderer": ReactShallowRenderer {
@@ -1426,10 +1475,17 @@ ShallowWrapper {
       "_calledComponentWillUnmount": false,
       "_compositeType": 0,
       "_context": Object {
-        "store": [Function],
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
       },
       "_currentElement": <AuthScreen />,
-      "_debugID": 96,
+      "_debugID": 102,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": AuthScreen {
@@ -1520,13 +1576,13 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
                                                   },
                                                   Object {
-                                                    "backgroundColor": "rgba(0,0,0,0.40)",
+                                                    "backgroundColor": "#999999",
                                                     "borderColor": "#fff",
                                                   },
                                                 ]
@@ -1535,7 +1591,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   Object {
@@ -1550,7 +1606,7 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
@@ -1562,7 +1618,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   null,
@@ -1573,7 +1629,7 @@ ShallowWrapper {
           </View>
           <SignUpForm />
 </View>,
-        "_debugID": 97,
+        "_debugID": 103,
         "_renderedOutput": <View
           style={
                     Object {
@@ -1634,13 +1690,13 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
                                                   },
                                                   Object {
-                                                    "backgroundColor": "rgba(0,0,0,0.40)",
+                                                    "backgroundColor": "#999999",
                                                     "borderColor": "#fff",
                                                   },
                                                 ]
@@ -1649,7 +1705,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   Object {
@@ -1664,7 +1720,7 @@ ShallowWrapper {
                                         Array [
                                                   Object {
                                                     "backgroundColor": "#fff",
-                                                    "borderColor": "rgba(0,0,0,0.40)",
+                                                    "borderColor": "#999999",
                                                     "borderRadius": 25,
                                                     "borderWidth": 0.5,
                                                     "minWidth": 120,
@@ -1676,7 +1732,7 @@ ShallowWrapper {
                               textStyle={
                                         Array [
                                                   Object {
-                                                    "color": "rgba(0,0,0,0.40)",
+                                                    "color": "#999999",
                                                     "fontSize": 14,
                                                   },
                                                   null,

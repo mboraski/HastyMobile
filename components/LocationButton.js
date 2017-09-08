@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         })
     },
     icon: {
-        color: Color.GREY_600,
+        color: Color.GREY_700,
         transform: [
             {
                 rotate: '45deg'

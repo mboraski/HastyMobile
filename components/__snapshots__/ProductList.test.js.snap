@@ -11,6 +11,7 @@ ShallowWrapper {
   "node": <Unknown
     contentContainerStyle={
         Object {
+            "alignItems": "flex-start",
             "flexDirection": "row",
             "flexWrap": "wrap",
             "paddingLeft": 20,
@@ -94,6 +95,7 @@ ShallowWrapper {
     <Unknown
       contentContainerStyle={
             Object {
+                  "alignItems": "flex-start",
                   "flexDirection": "row",
                   "flexWrap": "wrap",
                   "paddingLeft": 20,
@@ -203,6 +205,7 @@ ShallowWrapper {
       "_currentElement": <ScrollViewMock
         contentContainerStyle={
                 Object {
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "flexWrap": "wrap",
                         "paddingLeft": 20,
@@ -359,6 +362,7 @@ ShallowWrapper {
 />,
           ],
           "contentContainerStyle": Object {
+            "alignItems": "flex-start",
             "flexDirection": "row",
             "flexWrap": "wrap",
             "paddingLeft": 20,
@@ -388,6 +392,7 @@ ShallowWrapper {
         "_currentElement": <Unknown
           contentContainerStyle={
                     Object {
+                              "alignItems": "flex-start",
                               "flexDirection": "row",
                               "flexWrap": "wrap",
                               "paddingLeft": 20,
@@ -471,6 +476,7 @@ ShallowWrapper {
         "_renderedOutput": <Unknown
           contentContainerStyle={
                     Object {
+                              "alignItems": "flex-start",
                               "flexDirection": "row",
                               "flexWrap": "wrap",
                               "paddingLeft": 20,
@@ -564,6 +570,7 @@ ShallowWrapper {
   "unrendered": <ScrollViewMock
     contentContainerStyle={
         Object {
+            "alignItems": "flex-start",
             "flexDirection": "row",
             "flexWrap": "wrap",
             "paddingLeft": 20,

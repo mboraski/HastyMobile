@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CartButton renders correctly 1`] = `
+exports[`BrandButton renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -14,7 +14,8 @@ ShallowWrapper {
     onPress={[Function]}
     style={
         Object {
-            "marginRight": 20,
+            "marginLeft": 20,
+            "top": -10,
           }
     }
 >
@@ -23,8 +24,8 @@ ShallowWrapper {
         source={1}
         style={
             Object {
-                "height": 35,
-                "width": 35,
+                "height": 32,
+                "width": 32,
               }
         }
     />
@@ -36,7 +37,8 @@ ShallowWrapper {
       onPress={[Function]}
       style={
             Object {
-                  "marginRight": 20,
+                  "marginLeft": 20,
+                  "top": -10,
                 }
       }
 >
@@ -45,8 +47,8 @@ ShallowWrapper {
             source={1}
             style={
                   Object {
-                        "height": 35,
-                        "width": 35,
+                        "height": 32,
+                        "width": 32,
                       }
             }
       />
@@ -78,11 +80,11 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <CartButton />,
+      "_currentElement": <BrandButton />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": CartButton {
+      "_instance": BrandButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "onPress": [Function],
@@ -113,7 +115,8 @@ ShallowWrapper {
           onPress={[Function]}
           style={
                     Object {
-                              "marginRight": 20,
+                              "marginLeft": 20,
+                              "top": -10,
                             }
           }
 >
@@ -122,8 +125,8 @@ ShallowWrapper {
                     source={1}
                     style={
                               Object {
-                                        "height": 35,
-                                        "width": 35,
+                                        "height": 32,
+                                        "width": 32,
                                       }
                     }
           />
@@ -135,7 +138,8 @@ ShallowWrapper {
           onPress={[Function]}
           style={
                     Object {
-                              "marginRight": 20,
+                              "marginLeft": 20,
+                              "top": -10,
                             }
           }
 >
@@ -144,8 +148,8 @@ ShallowWrapper {
                     source={1}
                     style={
                               Object {
-                                        "height": 35,
-                                        "width": 35,
+                                        "height": 32,
+                                        "width": 32,
                                       }
                     }
           />
@@ -161,6 +165,6 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <CartButton />,
+  "unrendered": <BrandButton />,
 }
 `;
