@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { emY } from '../utils/em';
 
-const RADIO_ICON_SIZE = 25;
+const RADIO_ICON_SIZE = emY(1.4375);
 
 const Radio = ({ input, ...rest }) => (
     <TouchableOpacity {...input} {...rest} onPress={() => input.onChange(!input.value)}>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
-        paddingVertical: emY(30 / 16),
+        paddingVertical: emY(1.875),
     },
     iconContainer: {
         width: RADIO_ICON_SIZE,
@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
     },
     icon: {},
     iconSelected: {},
-    radioText: {}
+    radioText: {
+        fontSize: emY(1)
+    }
 });
 
 export default Radio;

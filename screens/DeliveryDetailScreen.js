@@ -18,7 +18,7 @@ class DeliveryDetailScreen extends Component {
             <ScrollView style={styles.container}>
                 <Text style={styles.formSection}>INFORMATION</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField name="name" label="Name" />
+                    <InlineLabelTextInputField name="name" label="Full Name" />
                     <InlineLabelTextInputField name="number" label="Phone Number" />
                     <InlineLabelTextInputField name="email" label="Email" keyboardType="email-address" />
                 </View>
@@ -49,38 +49,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     formSection: {
-        fontSize: emY(12 / 16),
+        fontSize: emY(0.8125),
         color: Color.GREY_600,
         paddingHorizontal: 15,
-        paddingTop: emY(45 / 16),
-        paddingBottom: emY(20 / 16)
+        paddingTop: emY(2.1875),
+        paddingBottom: emY(1)
     },
     formInputs: {},
-    formInputGroup: {
-        flexDirection: 'row',
-        paddingHorizontal: 15,
-        backgroundColor: Color.GREY_100,
-        borderColor: Color.GREY_300,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        alignItems: 'center'
-    },
-    label: {
-        color: '#000',
-        fontWeight: 'normal',
-        paddingVertical: 10,
-        marginRight: 15
-    },
-    textInputContainer: {
-        flex: 1
-    },
-    textInput: {
-        flex: 1,
-        textAlign: 'right'
-    },
     buttonContainer: {},
     button: {
         backgroundColor: '#000',
-        paddingVertical: emY(0.875)
+        paddingVertical: emY(1)
     },
     buttonText: {
         fontSize: emY(0.8125)

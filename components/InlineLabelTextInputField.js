@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 
 import Color from '../constants/Color';
+import { emY } from '../utils/em';
 
 const renderInput = ({ input: { onChange, ...restInput } }) => (
     <TextInput style={styles.textInput} onChangeText={onChange} {...restInput} />
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
     },
     label: {
         color: '#000',
-        fontWeight: 'normal',
-        paddingVertical: 10,
+        fontSize: emY(1),
+        paddingVertical: emY(0.875),
         marginRight: 15
     },
     textInputContainer: {
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         flex: 1,
+        fontSize: emY(1),
         textAlign: 'right'
     }
 });

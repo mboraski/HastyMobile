@@ -27,9 +27,9 @@ ShallowWrapper {
         style={
             Object {
                 "color": "#000",
-                "fontWeight": "normal",
+                "fontSize": 16,
                 "marginRight": 15,
-                "paddingVertical": 10,
+                "paddingVertical": 14,
               }
         }
     />
@@ -45,6 +45,7 @@ ShallowWrapper {
             style={
                 Object {
                     "flex": 1,
+                    "fontSize": 16,
                     "textAlign": "right",
                   }
             }
@@ -71,9 +72,9 @@ ShallowWrapper {
             style={
                   Object {
                         "color": "#000",
-                        "fontWeight": "normal",
+                        "fontSize": 16,
                         "marginRight": 15,
-                        "paddingVertical": 10,
+                        "paddingVertical": 14,
                       }
             }
       />
@@ -89,6 +90,7 @@ ShallowWrapper {
                   style={
                         Object {
                               "flex": 1,
+                              "fontSize": 16,
                               "textAlign": "right",
                             }
                   }
@@ -149,9 +151,9 @@ ShallowWrapper {
                     style={
                               Object {
                                         "color": "#000",
-                                        "fontWeight": "normal",
+                                        "fontSize": 16,
                                         "marginRight": 15,
-                                        "paddingVertical": 10,
+                                        "paddingVertical": 14,
                                       }
                     }
           />
@@ -167,6 +169,7 @@ ShallowWrapper {
                               style={
                                         Object {
                                                   "flex": 1,
+                                                  "fontSize": 16,
                                                   "textAlign": "right",
                                                 }
                               }
@@ -193,9 +196,9 @@ ShallowWrapper {
                     style={
                               Object {
                                         "color": "#000",
-                                        "fontWeight": "normal",
+                                        "fontSize": 16,
                                         "marginRight": 15,
-                                        "paddingVertical": 10,
+                                        "paddingVertical": 14,
                                       }
                     }
           />
@@ -211,6 +214,7 @@ ShallowWrapper {
                               style={
                                         Object {
                                                   "flex": 1,
+                                                  "fontSize": 16,
                                                   "textAlign": "right",
                                                 }
                               }

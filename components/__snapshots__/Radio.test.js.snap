@@ -31,13 +31,13 @@ ShallowWrapper {
                       "alignItems": "center",
                       "backgroundColor": "white",
                       "borderColor": "#000",
-                      "borderRadius": 12.5,
+                      "borderRadius": 11.5,
                       "borderWidth": 0.5,
-                      "height": 25,
+                      "height": 23,
                       "justifyContent": "center",
                       "marginRight": 15,
                       "overflow": "hidden",
-                      "width": 25,
+                      "width": 23,
                     },
                     false,
                   ]
@@ -47,7 +47,7 @@ ShallowWrapper {
                 allowFontScaling={false}
                 color="#fff"
                 name="check"
-                size={20}
+                size={18}
                 style={
                     Array [
                         undefined,
@@ -60,7 +60,11 @@ ShallowWrapper {
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            style={Object {}}
+            style={
+                Object {
+                    "fontSize": 16,
+                  }
+            }
         >
             Save information
         </Text>
@@ -90,13 +94,13 @@ ShallowWrapper {
                                 "alignItems": "center",
                                 "backgroundColor": "white",
                                 "borderColor": "#000",
-                                "borderRadius": 12.5,
+                                "borderRadius": 11.5,
                                 "borderWidth": 0.5,
-                                "height": 25,
+                                "height": 23,
                                 "justifyContent": "center",
                                 "marginRight": 15,
                                 "overflow": "hidden",
-                                "width": 25,
+                                "width": 23,
                               },
                               false,
                             ]
@@ -106,7 +110,7 @@ ShallowWrapper {
                         allowFontScaling={false}
                         color="#fff"
                         name="check"
-                        size={20}
+                        size={18}
                         style={
                               Array [
                                     undefined,
@@ -119,7 +123,11 @@ ShallowWrapper {
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  style={Object {}}
+                  style={
+                        Object {
+                              "fontSize": 16,
+                            }
+                  }
             >
                   Save information
             </Text>
@@ -193,13 +201,13 @@ ShallowWrapper {
                                                     "alignItems": "center",
                                                     "backgroundColor": "white",
                                                     "borderColor": "#000",
-                                                    "borderRadius": 12.5,
+                                                    "borderRadius": 11.5,
                                                     "borderWidth": 0.5,
-                                                    "height": 25,
+                                                    "height": 23,
                                                     "justifyContent": "center",
                                                     "marginRight": 15,
                                                     "overflow": "hidden",
-                                                    "width": 25,
+                                                    "width": 23,
                                                   },
                                                   false,
                                                 ]
@@ -209,7 +217,7 @@ ShallowWrapper {
                                         allowFontScaling={false}
                                         color="#fff"
                                         name="check"
-                                        size={20}
+                                        size={18}
                                         style={
                                                   Array [
                                                             undefined,
@@ -222,7 +230,11 @@ ShallowWrapper {
                               accessible={true}
                               allowFontScaling={true}
                               ellipsizeMode="tail"
-                              style={Object {}}
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
                     >
                               Save information
                     </Text>
@@ -252,13 +264,13 @@ ShallowWrapper {
                                                     "alignItems": "center",
                                                     "backgroundColor": "white",
                                                     "borderColor": "#000",
-                                                    "borderRadius": 12.5,
+                                                    "borderRadius": 11.5,
                                                     "borderWidth": 0.5,
-                                                    "height": 25,
+                                                    "height": 23,
                                                     "justifyContent": "center",
                                                     "marginRight": 15,
                                                     "overflow": "hidden",
-                                                    "width": 25,
+                                                    "width": 23,
                                                   },
                                                   false,
                                                 ]
@@ -268,7 +280,7 @@ ShallowWrapper {
                                         allowFontScaling={false}
                                         color="#fff"
                                         name="check"
-                                        size={20}
+                                        size={18}
                                         style={
                                                   Array [
                                                             undefined,
@@ -281,7 +293,11 @@ ShallowWrapper {
                               accessible={true}
                               allowFontScaling={true}
                               ellipsizeMode="tail"
-                              style={Object {}}
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
                     >
                               Save information
                     </Text>
@@ -339,13 +355,13 @@ ShallowWrapper {
                       "alignItems": "center",
                       "backgroundColor": "white",
                       "borderColor": "#000",
-                      "borderRadius": 12.5,
+                      "borderRadius": 11.5,
                       "borderWidth": 0.5,
-                      "height": 25,
+                      "height": 23,
                       "justifyContent": "center",
                       "marginRight": 15,
                       "overflow": "hidden",
-                      "width": 25,
+                      "width": 23,
                     },
                     Object {
                       "backgroundColor": "black",
@@ -357,7 +373,7 @@ ShallowWrapper {
                 allowFontScaling={false}
                 color="#fff"
                 name="check"
-                size={20}
+                size={18}
                 style={
                     Array [
                         undefined,
@@ -370,7 +386,11 @@ ShallowWrapper {
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            style={Object {}}
+            style={
+                Object {
+                    "fontSize": 16,
+                  }
+            }
         >
             Save information
         </Text>
@@ -400,13 +420,13 @@ ShallowWrapper {
                                 "alignItems": "center",
                                 "backgroundColor": "white",
                                 "borderColor": "#000",
-                                "borderRadius": 12.5,
+                                "borderRadius": 11.5,
                                 "borderWidth": 0.5,
-                                "height": 25,
+                                "height": 23,
                                 "justifyContent": "center",
                                 "marginRight": 15,
                                 "overflow": "hidden",
-                                "width": 25,
+                                "width": 23,
                               },
                               Object {
                                 "backgroundColor": "black",
@@ -418,7 +438,7 @@ ShallowWrapper {
                         allowFontScaling={false}
                         color="#fff"
                         name="check"
-                        size={20}
+                        size={18}
                         style={
                               Array [
                                     undefined,
@@ -431,7 +451,11 @@ ShallowWrapper {
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  style={Object {}}
+                  style={
+                        Object {
+                              "fontSize": 16,
+                            }
+                  }
             >
                   Save information
             </Text>
@@ -505,13 +529,13 @@ ShallowWrapper {
                                                     "alignItems": "center",
                                                     "backgroundColor": "white",
                                                     "borderColor": "#000",
-                                                    "borderRadius": 12.5,
+                                                    "borderRadius": 11.5,
                                                     "borderWidth": 0.5,
-                                                    "height": 25,
+                                                    "height": 23,
                                                     "justifyContent": "center",
                                                     "marginRight": 15,
                                                     "overflow": "hidden",
-                                                    "width": 25,
+                                                    "width": 23,
                                                   },
                                                   Object {
                                                     "backgroundColor": "black",
@@ -523,7 +547,7 @@ ShallowWrapper {
                                         allowFontScaling={false}
                                         color="#fff"
                                         name="check"
-                                        size={20}
+                                        size={18}
                                         style={
                                                   Array [
                                                             undefined,
@@ -536,7 +560,11 @@ ShallowWrapper {
                               accessible={true}
                               allowFontScaling={true}
                               ellipsizeMode="tail"
-                              style={Object {}}
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
                     >
                               Save information
                     </Text>
@@ -566,13 +594,13 @@ ShallowWrapper {
                                                     "alignItems": "center",
                                                     "backgroundColor": "white",
                                                     "borderColor": "#000",
-                                                    "borderRadius": 12.5,
+                                                    "borderRadius": 11.5,
                                                     "borderWidth": 0.5,
-                                                    "height": 25,
+                                                    "height": 23,
                                                     "justifyContent": "center",
                                                     "marginRight": 15,
                                                     "overflow": "hidden",
-                                                    "width": 25,
+                                                    "width": 23,
                                                   },
                                                   Object {
                                                     "backgroundColor": "black",
@@ -584,7 +612,7 @@ ShallowWrapper {
                                         allowFontScaling={false}
                                         color="#fff"
                                         name="check"
-                                        size={20}
+                                        size={18}
                                         style={
                                                   Array [
                                                             undefined,
@@ -597,7 +625,11 @@ ShallowWrapper {
                               accessible={true}
                               allowFontScaling={true}
                               ellipsizeMode="tail"
-                              style={Object {}}
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
                     >
                               Save information
                     </Text>
