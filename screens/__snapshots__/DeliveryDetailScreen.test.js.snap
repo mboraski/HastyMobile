@@ -8,7 +8,7 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <Form(DeliveryDetailScreen)
+  "node": <Form(InformationSummary)
     anyTouched={false}
     array={
         Object {
@@ -91,7 +91,7 @@ ShallowWrapper {
     warning={undefined}
 />,
   "nodes": Array [
-    <Form(DeliveryDetailScreen)
+    <Form(InformationSummary)
       anyTouched={false}
       array={
             Object {
@@ -200,7 +200,7 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <Connect(Form(DeliveryDetailScreen))
+      "_currentElement": <Connect(Form(InformationSummary))
         destroyOnUnmount={true}
         enableReinitialize={false}
         forceUnregisterOnUnmount={false}
@@ -380,7 +380,7 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Form(DeliveryDetailScreen)
+        "_currentElement": <Form(InformationSummary)
           anyTouched={false}
           array={
                     Object {
@@ -463,7 +463,7 @@ ShallowWrapper {
           warning={undefined}
 />,
         "_debugID": 4,
-        "_renderedOutput": <Form(DeliveryDetailScreen)
+        "_renderedOutput": <Form(InformationSummary)
           anyTouched={false}
           array={
                     Object {
@@ -556,7 +556,7 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <Connect(Form(DeliveryDetailScreen))
+  "unrendered": <Connect(Form(InformationSummary))
     destroyOnUnmount={true}
     enableReinitialize={false}
     forceUnregisterOnUnmount={false}
