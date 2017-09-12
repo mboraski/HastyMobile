@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { Field, reduxForm } from 'redux-form';
 
 // Relative Imports
-import CloseButton from '../components/BrandButton';
+import CloseButton from '../components/CloseButton';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Radio from '../components/Radio';
 import Color from '../constants/Color';
@@ -18,17 +18,42 @@ class DeliveryDetailScreen extends Component {
             <ScrollView style={styles.container}>
                 <Text style={styles.formSection}>INFORMATION</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField name="name" label="Full Name" />
-                    <InlineLabelTextInputField name="number" label="Phone Number" />
-                    <InlineLabelTextInputField name="email" label="Email" keyboardType="email-address" />
+                    <InlineLabelTextInputField 
+                        name="name" 
+                        label="Full Name" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="number" 
+                        label="Phone Number" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="email" 
+                        label="Email" 
+                        keyboardType="email-address" 
+                    />
                 </View>
                 <Text style={styles.formSection}>ADDRESS</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField name="country" label="Country" />
-                    <InlineLabelTextInputField name="state" label="State" />
-                    <InlineLabelTextInputField name="city" label="City" />
-                    <InlineLabelTextInputField name="address" label="Address" />
-                    <InlineLabelTextInputField name="zip" label="ZIP code" />
+                    <InlineLabelTextInputField 
+                        name="country" 
+                        label="Country" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="state" 
+                        label="State" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="city" 
+                        label="City" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="address" 
+                        label="Address" 
+                    />
+                    <InlineLabelTextInputField 
+                        name="zip" 
+                        label="ZIP code" 
+                    />
                 </View>
                 <Field name="save" component={Radio} />
                 <Button
