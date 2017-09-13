@@ -29,7 +29,8 @@ class App extends Component {
       searchForHero: { screen: SearchForHeroScreen },
       deliveryDetail: { screen: DeliveryDetailScreen },
       deliveryStatus: { screen: DeliveryStatusScreen },
-      cart: { screen: CartScreen }
+      cart: { screen: CartScreen },
+      creditCard: { screen: CreditCardScreen },
     }, {
       navigationOptions: {
         tabBarVisible: false
