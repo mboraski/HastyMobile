@@ -13,6 +13,7 @@ import MapScreen from './screens/MapScreen';
 import DeliveryDetailScreen from './screens/DeliveryDetailScreen';
 import DeliveryStatusScreen from './screens/DeliveryStatusScreen';
 import CartScreen from './screens/CartScreen';
+import CreditCardScreen from './screens/CreditCardScreen';
 import store from './store';
 
 class App extends Component {
