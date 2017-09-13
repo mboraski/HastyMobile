@@ -1,0 +1,657 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Radio renders correctly false 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <TouchableOpacity
+    activeOpacity={0.2}
+    focusedOpacity={0.7}
+    onPress={[Function]}
+    value={false}
+>
+    <View
+        style={
+            Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 30,
+              }
+        }
+    >
+        <View
+            style={
+                Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "white",
+                      "borderColor": "#000",
+                      "borderRadius": 11.5,
+                      "borderWidth": 0.5,
+                      "height": 23,
+                      "justifyContent": "center",
+                      "marginRight": 15,
+                      "overflow": "hidden",
+                      "width": 23,
+                    },
+                    false,
+                  ]
+            }
+        >
+            <Icon
+                allowFontScaling={false}
+                color="#fff"
+                name="check"
+                size={18}
+                style={
+                    Array [
+                        undefined,
+                        false,
+                      ]
+                }
+            />
+        </View>
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "fontSize": 16,
+                  }
+            }
+        >
+            Save information
+        </Text>
+    </View>
+</TouchableOpacity>,
+  "nodes": Array [
+    <TouchableOpacity
+      activeOpacity={0.2}
+      focusedOpacity={0.7}
+      onPress={[Function]}
+      value={false}
+>
+      <View
+            style={
+                  Object {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "paddingHorizontal": 15,
+                        "paddingVertical": 30,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Array [
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "white",
+                                "borderColor": "#000",
+                                "borderRadius": 11.5,
+                                "borderWidth": 0.5,
+                                "height": 23,
+                                "justifyContent": "center",
+                                "marginRight": 15,
+                                "overflow": "hidden",
+                                "width": 23,
+                              },
+                              false,
+                            ]
+                  }
+            >
+                  <Icon
+                        allowFontScaling={false}
+                        color="#fff"
+                        name="check"
+                        size={18}
+                        style={
+                              Array [
+                                    undefined,
+                                    false,
+                                  ]
+                        }
+                  />
+            </View>
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "fontSize": 16,
+                            }
+                  }
+            >
+                  Save information
+            </Text>
+      </View>
+</TouchableOpacity>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 2,
+      "_context": Object {},
+      "_currentElement": <Radio
+        input={
+                Object {
+                        "value": false,
+                      }
+        }
+/>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": StatelessComponent {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "input": Object {
+            "value": false,
+          },
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
+          value={false}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "flexDirection": "row",
+                                        "paddingHorizontal": 15,
+                                        "paddingVertical": 30,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "backgroundColor": "white",
+                                                    "borderColor": "#000",
+                                                    "borderRadius": 11.5,
+                                                    "borderWidth": 0.5,
+                                                    "height": 23,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "overflow": "hidden",
+                                                    "width": 23,
+                                                  },
+                                                  false,
+                                                ]
+                              }
+                    >
+                              <Icon
+                                        allowFontScaling={false}
+                                        color="#fff"
+                                        name="check"
+                                        size={18}
+                                        style={
+                                                  Array [
+                                                            undefined,
+                                                            false,
+                                                          ]
+                                        }
+                              />
+                    </View>
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
+                    >
+                              Save information
+                    </Text>
+          </View>
+</TouchableOpacity>,
+        "_debugID": 4,
+        "_renderedOutput": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
+          value={false}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "flexDirection": "row",
+                                        "paddingHorizontal": 15,
+                                        "paddingVertical": 30,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "backgroundColor": "white",
+                                                    "borderColor": "#000",
+                                                    "borderRadius": 11.5,
+                                                    "borderWidth": 0.5,
+                                                    "height": 23,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "overflow": "hidden",
+                                                    "width": 23,
+                                                  },
+                                                  false,
+                                                ]
+                              }
+                    >
+                              <Icon
+                                        allowFontScaling={false}
+                                        color="#fff"
+                                        name="check"
+                                        size={18}
+                                        style={
+                                                  Array [
+                                                            undefined,
+                                                            false,
+                                                          ]
+                                        }
+                              />
+                    </View>
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
+                    >
+                              Save information
+                    </Text>
+          </View>
+</TouchableOpacity>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Radio
+    input={
+        Object {
+            "value": false,
+          }
+    }
+/>,
+}
+`;
+
+exports[`Radio renders correctly true 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <TouchableOpacity
+    activeOpacity={0.2}
+    focusedOpacity={0.7}
+    onPress={[Function]}
+    value={true}
+>
+    <View
+        style={
+            Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 30,
+              }
+        }
+    >
+        <View
+            style={
+                Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "white",
+                      "borderColor": "#000",
+                      "borderRadius": 11.5,
+                      "borderWidth": 0.5,
+                      "height": 23,
+                      "justifyContent": "center",
+                      "marginRight": 15,
+                      "overflow": "hidden",
+                      "width": 23,
+                    },
+                    Object {
+                      "backgroundColor": "black",
+                    },
+                  ]
+            }
+        >
+            <Icon
+                allowFontScaling={false}
+                color="#fff"
+                name="check"
+                size={18}
+                style={
+                    Array [
+                        undefined,
+                        undefined,
+                      ]
+                }
+            />
+        </View>
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "fontSize": 16,
+                  }
+            }
+        >
+            Save information
+        </Text>
+    </View>
+</TouchableOpacity>,
+  "nodes": Array [
+    <TouchableOpacity
+      activeOpacity={0.2}
+      focusedOpacity={0.7}
+      onPress={[Function]}
+      value={true}
+>
+      <View
+            style={
+                  Object {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "paddingHorizontal": 15,
+                        "paddingVertical": 30,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Array [
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "white",
+                                "borderColor": "#000",
+                                "borderRadius": 11.5,
+                                "borderWidth": 0.5,
+                                "height": 23,
+                                "justifyContent": "center",
+                                "marginRight": 15,
+                                "overflow": "hidden",
+                                "width": 23,
+                              },
+                              Object {
+                                "backgroundColor": "black",
+                              },
+                            ]
+                  }
+            >
+                  <Icon
+                        allowFontScaling={false}
+                        color="#fff"
+                        name="check"
+                        size={18}
+                        style={
+                              Array [
+                                    undefined,
+                                    undefined,
+                                  ]
+                        }
+                  />
+            </View>
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "fontSize": 16,
+                            }
+                  }
+            >
+                  Save information
+            </Text>
+      </View>
+</TouchableOpacity>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 2,
+      "_context": Object {},
+      "_currentElement": <Radio
+        input={
+                Object {
+                        "value": true,
+                      }
+        }
+/>,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": StatelessComponent {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "input": Object {
+            "value": true,
+          },
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
+          value={true}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "flexDirection": "row",
+                                        "paddingHorizontal": 15,
+                                        "paddingVertical": 30,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "backgroundColor": "white",
+                                                    "borderColor": "#000",
+                                                    "borderRadius": 11.5,
+                                                    "borderWidth": 0.5,
+                                                    "height": 23,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "overflow": "hidden",
+                                                    "width": 23,
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "black",
+                                                  },
+                                                ]
+                              }
+                    >
+                              <Icon
+                                        allowFontScaling={false}
+                                        color="#fff"
+                                        name="check"
+                                        size={18}
+                                        style={
+                                                  Array [
+                                                            undefined,
+                                                            undefined,
+                                                          ]
+                                        }
+                              />
+                    </View>
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
+                    >
+                              Save information
+                    </Text>
+          </View>
+</TouchableOpacity>,
+        "_debugID": 2,
+        "_renderedOutput": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
+          value={true}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "flexDirection": "row",
+                                        "paddingHorizontal": 15,
+                                        "paddingVertical": 30,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Array [
+                                                  Object {
+                                                    "alignItems": "center",
+                                                    "backgroundColor": "white",
+                                                    "borderColor": "#000",
+                                                    "borderRadius": 11.5,
+                                                    "borderWidth": 0.5,
+                                                    "height": 23,
+                                                    "justifyContent": "center",
+                                                    "marginRight": 15,
+                                                    "overflow": "hidden",
+                                                    "width": 23,
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "black",
+                                                  },
+                                                ]
+                              }
+                    >
+                              <Icon
+                                        allowFontScaling={false}
+                                        color="#fff"
+                                        name="check"
+                                        size={18}
+                                        style={
+                                                  Array [
+                                                            undefined,
+                                                            undefined,
+                                                          ]
+                                        }
+                              />
+                    </View>
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                }
+                              }
+                    >
+                              Save information
+                    </Text>
+          </View>
+</TouchableOpacity>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Radio
+    input={
+        Object {
+            "value": true,
+          }
+    }
+/>,
+}
+`;

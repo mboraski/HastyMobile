@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapScreen renders correctly 1`] = `
+exports[`CloseButton renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -8,37 +8,49 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <View
+  "node": <TouchableOpacity
+    activeOpacity={0.2}
+    focusedOpacity={0.7}
+    onPress={[Function]}
     style={
         Object {
-            "flex": 1,
-            "justifyContent": "center",
+            "marginLeft": 20,
           }
     }
 >
-    <ActivityIndicator
-        animating={true}
-        color="#999999"
-        hidesWhenStopped={true}
-        size="large"
+    <Image
+        resizeMode="contain"
+        source={1}
+        style={
+            Object {
+                "height": 20,
+                "width": 20,
+              }
+        }
     />
-</View>,
+</TouchableOpacity>,
   "nodes": Array [
-    <View
+    <TouchableOpacity
+      activeOpacity={0.2}
+      focusedOpacity={0.7}
+      onPress={[Function]}
       style={
             Object {
-                  "flex": 1,
-                  "justifyContent": "center",
+                  "marginLeft": 20,
                 }
       }
 >
-      <ActivityIndicator
-            animating={true}
-            color="#999999"
-            hidesWhenStopped={true}
-            size="large"
+      <Image
+            resizeMode="contain"
+            source={1}
+            style={
+                  Object {
+                        "height": 20,
+                        "width": 20,
+                      }
+            }
       />
-</View>,
+</TouchableOpacity>,
   ],
   "options": Object {
     "context": Object {
@@ -66,32 +78,17 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <MapScreen
-        dispatch={[Function]}
-/>,
+      "_currentElement": <CloseButton />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": MapScreen {
+      "_instance": CloseButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "handleAddress": [Function],
-        "onButtonPress": [Function],
-        "onRegionChangeComplete": [Function],
-        "props": Object {
-          "dispatch": [Function],
-        },
+        "onPress": [Function],
+        "props": Object {},
         "refs": Object {},
-        "state": Object {
-          "address": "",
-          "mapLoaded": false,
-          "region": Object {
-            "latitude": 30.26,
-            "latitudeDelta": 0.25,
-            "longitude": -97.76,
-            "longitudeDelta": 0.1,
-          },
-        },
+        "state": null,
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -110,37 +107,49 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <View
+        "_currentElement": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
           style={
                     Object {
-                              "flex": 1,
-                              "justifyContent": "center",
+                              "marginLeft": 20,
                             }
           }
 >
-          <ActivityIndicator
-                    animating={true}
-                    color="#999999"
-                    hidesWhenStopped={true}
-                    size="large"
+          <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                              Object {
+                                        "height": 20,
+                                        "width": 20,
+                                      }
+                    }
           />
-</View>,
+</TouchableOpacity>,
         "_debugID": 4,
-        "_renderedOutput": <View
+        "_renderedOutput": <TouchableOpacity
+          activeOpacity={0.2}
+          focusedOpacity={0.7}
+          onPress={[Function]}
           style={
                     Object {
-                              "flex": 1,
-                              "justifyContent": "center",
+                              "marginLeft": 20,
                             }
           }
 >
-          <ActivityIndicator
-                    animating={true}
-                    color="#999999"
-                    hidesWhenStopped={true}
-                    size="large"
+          <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                              Object {
+                                        "height": 20,
+                                        "width": 20,
+                                      }
+                    }
           />
-</View>,
+</TouchableOpacity>,
       },
       "_renderedNodeType": 1,
       "_rootNodeID": 0,
@@ -152,8 +161,6 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <MapScreen
-    dispatch={[Function]}
-/>,
+  "unrendered": <CloseButton />,
 }
 `;
