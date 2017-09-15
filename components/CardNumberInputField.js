@@ -1,48 +1,17 @@
 import React from 'react';
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 import valid from 'card-validator';
 
 import { styles as baseStyles } from './TextInputField';
-import bankAmericaIcon from '../assets/icons/bank-america.png';
-import masterCardIcon from '../assets/icons/master-card.png';
-import visaIcon from '../assets/icons/visa.png';
+import CardImage from './CardImage';
 import formatCardNumber from '../formatting/formatCardNumber';
-
-const VISA = 'visa';
-const MASTERCARD = 'master-card';
-const AMERICAN_EXPRESS = 'american-express';
-const DINERS_CLUB = 'diners-club';
-const DISCOVER = 'discover';
-const JCB = 'jcb';
-const UNIONPAY = 'unionpay';
-const MAESTRO = 'maestro';
-// not supported
-const BANK_AMERICA = 'bank-america';
-
-const sources = {
-    [BANK_AMERICA]: bankAmericaIcon,
-    [MASTERCARD]: masterCardIcon,
-    // [AMERICAN_EXPRESS]: americanExpressIcon,
-    // [DINERS_CLUB]: dinersClubIcon,
-    // [DISCOVER]: discoverIcon,
-    // [JCB]: jcbIcon,
-    // [UNIONPAY]: unionpayIcon,
-    // [MAESTRO]: maestroIcon,
-    [VISA]: visaIcon,
-    // discover: discoverIcon,
-    // maestro: maestroIcon
-};
 
 const renderInput = ({ input: { onChange, ...restInput }, style, ...props }) => {
     const { card } = valid.number(restInput.value);
-    let source = null;
-    if (card) {
-        source = sources[card.type];
-    }
     return (
         <View style={[baseStyles.textInputContainer, styles.textInputContainer]}>
-            <Image source={source} style={styles.card} resizeMode="contain" />
+            {card ? <CardImage type={card.type} style={styles.card} /> : null}
             <TextInput
                 style={[baseStyles.textInput, styles.textInput, style]}
                 onChangeText={onChange}
@@ -70,9 +39,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     card: {
-        alignSelf: 'center',
-        width: 50,
-        height: 20,
         marginLeft: 10
     }
 });
