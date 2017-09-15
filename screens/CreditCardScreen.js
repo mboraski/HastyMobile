@@ -9,6 +9,7 @@ import BackButton from '../components/BackButton';
 import TextButton from '../components/TextButton';
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
+import DismissKeyboardView from '../components/DismissKeyboardView';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
@@ -18,20 +19,23 @@ import formatCardExpiry from '../formatting/formatCardExpiry';
 class CreditCardScreen extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <DismissKeyboardView style={styles.container}>
                 <View style={styles.form}>
                     <View style={styles.formInputs}>
                         <CardNumberInputField
                             name="number"
                             label="CARD NUMBER"
-                            containerStyle={styles.number}
+                            containerStyle={styles.numberContainer}
                             normalize={formatCardNumber}
                             keyboardType="number-pad"
                         />
                         <TextInputField 
                             name="exp" 
                             label="EXP. DATE" 
-                            normalize={formatCardExpiry} 
+                            containerStyle={styles.expiryContainer}
+                            style={styles.expiry}
+                            normalize={formatCardExpiry}
+                            keyboardType="number-pad"
                         />
                     </View>
                     <TextInputField name="name" label="CARDHOLDER NAME" />
@@ -50,7 +54,7 @@ class CreditCardScreen extends Component {
                     buttonStyle={styles.button}
                     textStyle={styles.buttonText}
                 />
-            </View>
+            </DismissKeyboardView>
         );
     }
 }
@@ -66,8 +70,14 @@ const styles = StyleSheet.create({
     formInputs: {
         flexDirection: 'row'
     },
-    number: {
+    numberContainer: {
         flex: 1
+    },
+    expiryContainer: {
+        width: 120
+    },
+    expiry: {
+        textAlign: 'center'
     },
     cvcContainer: {
         width: 120

@@ -55,7 +55,7 @@ class DeliveryDetailScreen extends Component {
                         label="ZIP code" 
                     />
                 </View>
-                <Field name="save" component={Radio} />
+                <Field name="save" component={Radio} text="Save Information" />
                 <Button
                     title="PAY"
                     onPress={this.onButtonPress}

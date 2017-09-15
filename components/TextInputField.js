@@ -9,7 +9,7 @@ const renderInput = ({ input: { onChange, ...restInput }, ...props }) => (
     <TextInput style={styles.textInput} onChangeText={onChange} {...restInput} {...props} />
 );
 
-const LabelTextInputField = ({ label, containerStyle, labelStyle, style, ...props }) => (
+const TextInputField = ({ label, containerStyle, labelStyle, style, ...props }) => (
     <View style={[styles.formInputGroup, containerStyle]}>
         <Text style={[styles.label, labelStyle]}>{label}</Text>
         <View style={styles.textInputContainer}>
@@ -38,4 +38,4 @@ export const styles = StyleSheet.create({
     }
 });
 
-export default LabelTextInputField;
+export default TextInputField;
