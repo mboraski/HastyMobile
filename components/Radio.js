@@ -5,19 +5,21 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { emY } from '../utils/em';
 
 const RADIO_ICON_SIZE = emY(1.4375);
+const RADIO_ICON_PADDING = 5;
+const RADIO_ICON_SIZE_INNER = RADIO_ICON_SIZE - RADIO_ICON_PADDING;
 
-const Radio = ({ input, ...rest }) => (
-    <TouchableOpacity {...input} {...rest} onPress={() => input.onChange(!input.value)}>
+const Radio = ({ input, text, ...rest, onPress = () => input.onChange(!input.value) }) => (
+    <TouchableOpacity {...input} {...rest} onPress={onPress}>
         <View style={styles.container}>
             <View style={[styles.iconContainer, input.value && styles.iconContainerSelected]}>
                 <MaterialIcons
                     name="check"
-                    size={RADIO_ICON_SIZE - 5}
+                    size={RADIO_ICON_SIZE_INNER}
                     color="#fff"
                     style={[styles.radioIcon, input.value && styles.radioIconSelected]}
                 />
             </View>
-            <Text style={styles.radioText}>Save information</Text>
+            <Text style={styles.radioText}>{text}</Text>
         </View>
     </TouchableOpacity>
 );
