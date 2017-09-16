@@ -14,6 +14,7 @@ import DeliveryDetailScreen from './screens/DeliveryDetailScreen';
 import DeliveryStatusScreen from './screens/DeliveryStatusScreen';
 import CartScreen from './screens/CartScreen';
 import CreditCardScreen from './screens/CreditCardScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import store from './store';
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
       deliveryStatus: { screen: DeliveryStatusScreen },
       cart: { screen: CartScreen },
       creditCard: { screen: CreditCardScreen },
+      paymentMethod: { screen: PaymentMethodScreen }
     }, {
       navigationOptions: {
         tabBarVisible: false
