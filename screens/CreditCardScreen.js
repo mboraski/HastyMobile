@@ -29,9 +29,9 @@ class CreditCardScreen extends Component {
                             normalize={formatCardNumber}
                             keyboardType="number-pad"
                         />
-                        <TextInputField 
-                            name="exp" 
-                            label="EXP. DATE" 
+                        <TextInputField
+                            name="exp"
+                            label="EXP. DATE"
                             containerStyle={styles.expiryContainer}
                             style={styles.expiry}
                             normalize={formatCardExpiry}
