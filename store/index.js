@@ -12,6 +12,6 @@ if (__DEV__) {
 
 const store = createStore(reducers, {}, compose(applyMiddleware(...middlewares), autoRehydrate()));
 
-persistStore(store, { storage: AsyncStorage, example: ['example'] });
+persistStore(store, { storage: AsyncStorage, example: ['example'], blacklist: ['ui'] });
 
 export default store;

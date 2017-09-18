@@ -12,11 +12,13 @@ class LocationButton extends Component {
     onPress = () => {};
 
     render() {
+        const { style, ...props } = this.props;
         return (
             <Icon
+                {...props}
                 name="navigation"
                 size={SIZE}
-                containerStyle={styles.iconContainer}
+                containerStyle={[styles.iconContainer, style]}
                 iconStyle={styles.icon}
                 onPress={this.onPress}
                 raised

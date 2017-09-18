@@ -4,6 +4,7 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import mapIcon from '../assets/icons/menu.png';
 
@@ -13,8 +14,9 @@ class MenuButton extends Component {
     onPress = () => {};
 
     render() {
+        const { style, ...props } = this.props;
         return (
-            <TouchableOpacity onPress={this.onPress} style={styles.container}>
+            <TouchableOpacity {...props} style={[Style.headerLeft, styles.container, style]}>
                 <Image source={mapIcon} style={styles.image} />
             </TouchableOpacity>
         );
@@ -22,9 +24,7 @@ class MenuButton extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginLeft: 20
-    },
+    container: {},
     image: {
         width: SIZE,
         height: SIZE

@@ -13,8 +13,9 @@ class BackButton extends Component {
     onPress = () => {};
 
     render() {
+        const { style, ...props } = this.props;
         return (
-            <TouchableOpacity onPress={this.onPress} style={styles.container}>
+            <TouchableOpacity {...props} onPress={this.onPress} style={[styles.container, style]}>
                 <Image
                     source={leftArrowIcon}
                     style={styles.image}
