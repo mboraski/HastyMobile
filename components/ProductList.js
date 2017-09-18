@@ -1,7 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Dimensions } from 'react-native';
-import _ from 'lodash';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
@@ -9,54 +8,54 @@ import { emY } from '../utils/em';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class ProductList extends Component {
-    state = {
-        products: []
-    };
-
-    componentWillMount() {
-        // TODO: fetch available products once endpoint complete
-        this.setState({
-            products: [
-                {
-                    title: 'Redbull',
-                    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-                    price: '$3.49'
-                },
-                {
-                    title: 'Monster',
-                    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-                    price: '$3.49',
-                    added: true
-                },
-                {
-                    title: 'Gatorade',
-                    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-                    price: '$2.49'
-                },
-                {
-                    title: 'Water',
-                    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-                    price: '$0.99'
-                }
-            ]
-        });
+const PRODUCTS = [
+    {
+        title: 'Redbull',
+        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+        price: '$3.49',
+        deliveryType: 1,
+        productCode: 1
+    },
+    {
+        title: 'Monster',
+        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+        price: '$3.49',
+        deliveryType: 2,
+        productCode: 2
+    },
+    {
+        title: 'Gatorade',
+        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+        price: '$2.49',
+        deliveryType: 1,
+        productCode: 3
+    },
+    {
+        title: 'Water',
+        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
+        price: '$0.99',
+        deliveryType: 2,
+        productCode: 4
     }
+];
 
+class ProductList extends Component {
     renderProducts() {
-        // TODO: change key to some other id
-        return _.map(this.state.products, product =>
-            <ProductDetail
-                key={product.title}
-                product={product}
-                callAddToCart={this.props.callAddToCart}
-                style={{
-                    width: SCREEN_WIDTH / 2 - 21,
-                    marginRight: 8,
-                    marginBottom: emY(0.625)
-                }}
-            />
-        );
+        return PRODUCTS.map(product => {
+            const onPress = () => this.props.callAddToCart(product);
+            const type = this.props.cart[product.deliveryType];
+            const added =
+                type && type[product.productCode] && type[product.productCode].quantity > 0;
+            return (
+                <ProductDetail
+                    key={product.title}
+                    product={product}
+                    onPress={onPress}
+                    added={added}
+                    style={styles.product}
+                />
+            );
+        });
     }
 
     render() {
@@ -75,6 +74,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingLeft: 20,
         paddingRight: 5
+    },
+    product: {
+        width: SCREEN_WIDTH / 2 - 21,
+        marginRight: 8,
+        marginBottom: emY(0.625)
     }
 });
 
