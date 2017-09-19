@@ -65,9 +65,7 @@ ShallowWrapper {
                     "fontSize": 16,
                   }
             }
-        >
-            Save information
-        </Text>
+        />
     </View>
 </TouchableOpacity>,
   "nodes": Array [
@@ -128,9 +126,7 @@ ShallowWrapper {
                               "fontSize": 16,
                             }
                   }
-            >
-                  Save information
-            </Text>
+            />
       </View>
 </TouchableOpacity>,
   ],
@@ -235,9 +231,7 @@ ShallowWrapper {
                                                   "fontSize": 16,
                                                 }
                               }
-                    >
-                              Save information
-                    </Text>
+                    />
           </View>
 </TouchableOpacity>,
         "_debugID": 4,
@@ -298,9 +292,7 @@ ShallowWrapper {
                                                   "fontSize": 16,
                                                 }
                               }
-                    >
-                              Save information
-                    </Text>
+                    />
           </View>
 </TouchableOpacity>,
       },
@@ -391,9 +383,7 @@ ShallowWrapper {
                     "fontSize": 16,
                   }
             }
-        >
-            Save information
-        </Text>
+        />
     </View>
 </TouchableOpacity>,
   "nodes": Array [
@@ -456,9 +446,7 @@ ShallowWrapper {
                               "fontSize": 16,
                             }
                   }
-            >
-                  Save information
-            </Text>
+            />
       </View>
 </TouchableOpacity>,
   ],
@@ -565,9 +553,7 @@ ShallowWrapper {
                                                   "fontSize": 16,
                                                 }
                               }
-                    >
-                              Save information
-                    </Text>
+                    />
           </View>
 </TouchableOpacity>,
         "_debugID": 2,
@@ -630,9 +616,7 @@ ShallowWrapper {
                                                   "fontSize": 16,
                                                 }
                               }
-                    >
-                              Save information
-                    </Text>
+                    />
           </View>
 </TouchableOpacity>,
       },
