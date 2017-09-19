@@ -16,6 +16,7 @@ import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
+import pinIcon from '../assets/icons/pin.png';
 
 class MapScreen extends Component {
     state = {
@@ -63,6 +64,7 @@ class MapScreen extends Component {
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 >
                     <MapView.Marker
+                        image={pinIcon}
                         coordinate={{
                             latitude: 30.26,
                             longitude: -97.76

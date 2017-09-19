@@ -9,11 +9,16 @@ const renderInput = ({ input: { onChange, ...restInput } }) => (
     <TextInput style={styles.textInput} onChangeText={onChange} {...restInput} />
 );
 
-const InlineLabelTextInputField = ({ label, ...props }) => (
+const InlineLabelTextInputField = ({ label, textInputName, ...props }) => (
     <View style={styles.formInputGroup}>
         <Text style={styles.label}>{label}</Text>
         <View style={styles.textInputContainer}>
-            <Field component={renderInput} style={styles.textInput} {...props} />
+            <Field
+                name={textInputName}
+                component={renderInput}
+                style={styles.textInput}
+                {...props}
+            />
         </View>
     </View>
 );
