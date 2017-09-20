@@ -4,19 +4,27 @@ import {
     ActivityIndicator,
     StyleSheet,
     Text,
-    TextInput,
+    TouchableWithoutFeedback,
     Platform,
-    StatusBar
+    Animated
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import LocationButton from '../components/LocationButton';
-import MenuButton from '../components/MenuButton';
+import { saveAddress } from '../actions/addressActions';
+import { toggleSearch } from '../actions/uiActions';
+import PredictionList from '../components/PredictionList';
+import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import pinIcon from '../assets/icons/pin.png';
+
+const OPACITY_DURATION = 300;
+const REVERSE_CONFIG = {
+    inputRange: [0, 1],
+    outputRange: [1, 0]
+};
 
 class MapScreen extends Component {
     state = {
@@ -27,11 +35,20 @@ class MapScreen extends Component {
             longitudeDelta: 0.1,
             latitudeDelta: 0.25
         },
-        address: ''
+        address: '',
+        translateY: new Animated.Value(0),
+        opacity: new Animated.Value(1),
+        searchRendered: false
     };
 
     componentDidMount() {
         this.setState({ mapLoaded: true });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.searchVisible !== nextProps.searchVisible) {
+            this.animate(nextProps.searchVisible);
+        }
     }
 
     onRegionChangeComplete = region => {
@@ -47,7 +64,44 @@ class MapScreen extends Component {
         this.setState({ address });
     };
 
+    handleAddressFocus = () => {
+        this.props.toggleSearch();
+    };
+
+    selectPrediction = prediction => {
+        this.props.saveAddress(prediction.description);
+    };
+
+    animate = searchVisible => {
+        if (this.state.searchRendered) {
+            this.afterSetState(searchVisible);
+        } else {
+            this.setState({ searchRendered: searchVisible }, () =>
+                this.afterSetState(searchVisible)
+            );
+        }
+    };
+
+    afterSetState = searchVisible => {
+        Animated.parallel([
+            Animated.timing(this.state.translateY, {
+                toValue: searchVisible ? -100 : 0,
+                duration: OPACITY_DURATION
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: searchVisible ? 0 : 1,
+                duration: OPACITY_DURATION
+            })
+        ]).start(() => {
+            this.setState({
+                searchRendered: searchVisible
+            });
+        });
+    };
+
     render() {
+        const { searchVisible, predictions } = this.props;
+
         if (!this.state.mapLoaded) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -73,16 +127,28 @@ class MapScreen extends Component {
                         description="Your Delivery Location"
                     />
                 </MapView>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputLabel}>To</Text>
-                    <TextInput
-                        value={this.state.address}
-                        onChangeText={this.handleAddress}
-                        style={styles.textInput}
-                        underlineColorAndroid="transparent"
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
+                <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
+                    <Animated.View
+                        style={[
+                            styles.inputContainer,
+                            { zIndex: 2 },
+                            {
+                                opacity: this.state.opacity,
+                                transform: [{ translateY: this.state.translateY }]
+                            }
+                        ]}
+                    >
+                        <Text style={styles.inputLabel}>To</Text>
+                    </Animated.View>
+                </TouchableWithoutFeedback>
+                <Animated.View
+                    style={[
+                        styles.buttonContainer,
+                        {
+                            opacity: this.state.opacity
+                        }
+                    ]}
+                >
                     <Button
                         large
                         title="Use Current Location"
@@ -90,31 +156,32 @@ class MapScreen extends Component {
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                     />
-                </View>
+                </Animated.View>
+                {this.state.searchRendered ? (
+                    <PredictionList
+                        predictions={predictions}
+                        selectPrediction={this.selectPrediction}
+                        style={[
+                            styles.predictions,
+                            {
+                                opacity: this.state.opacity.interpolate(REVERSE_CONFIG)
+                            }
+                        ]}
+                    />
+                ) : null}
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: '#fff',
-        height: emY(5.95),
-        ...Platform.select({
-            android: {
-                paddingTop: StatusBar.currentHeight
-            }
-        })
-    },
-    headerTitle: {
-        alignSelf: 'center',
-        fontSize: emY(1.375)
-    },
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
     map: {
-        flex: 1
+        flex: 1,
+        shadowColor: 'transparent'
     },
     buttonContainer: {
         position: 'absolute',
@@ -163,15 +230,29 @@ const styles = StyleSheet.create({
     textInput: {
         flex: 1,
         fontSize: emY(1.25)
+    },
+    predictions: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
     }
 });
 
 MapScreen.navigationOptions = {
     title: 'Hasty Logo',
-    headerLeft: <MenuButton />,
-    headerRight: <LocationButton />,
-    headerStyle: styles.header,
-    headerTitleStyle: styles.headerTitle
+    header: <MapHeader />
 };
 
-export default connect(() => ({}), null)(MapScreen);
+const mapStateToProps = state => ({
+    predictions: state.address.predictions,
+    searchVisible: state.ui.searchVisible
+});
+
+const mapDispatchToProps = dispatch => ({
+    saveAddress: address => dispatch(saveAddress(address)),
+    toggleSearch: () => dispatch(toggleSearch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);

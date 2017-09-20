@@ -10,16 +10,11 @@ import closeIcon from '../assets/icons/close.png';
 const SIZE = emY(1.25);
 
 class CloseButton extends Component {
-    onPress = () => {};
-
     render() {
+        const { style, ...props } = this.props;
         return (
-            <TouchableOpacity onPress={this.onPress} style={styles.container}>
-                <Image
-                    source={closeIcon}
-                    style={styles.image}
-                    resizeMode="contain"
-                />
+            <TouchableOpacity {...props} style={[styles.container, style]}>
+                <Image source={closeIcon} style={styles.image} resizeMode="contain" />
             </TouchableOpacity>
         );
     }
