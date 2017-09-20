@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 import debounce from 'lodash/debounce';
 
-import Style from '../constants/Style';
 import { emY } from '../utils/em';
-
-const SIZE = emY(1.5);
 
 class DebounceTextInput extends Component {
     static defaultProps = {
         onChangeText: () => {}
-    };
-
-    handleText = text => {
-        this.props.onChangeText(text);
-        this.onDebounce(text);
     };
 
     onDebounce = text => {
@@ -22,6 +14,11 @@ class DebounceTextInput extends Component {
     };
 
     onDebounce = debounce(this.onDebounce, 500);
+
+    handleText = text => {
+        this.props.onChangeText(text);
+        this.onDebounce(text);
+    };
 
     render() {
         const { style, ...props } = this.props;

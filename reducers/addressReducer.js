@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                predictions: null,
+                predictions: [],
                 error: action.error
             };
         case SAVE_ADDRESS:

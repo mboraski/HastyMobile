@@ -14,11 +14,16 @@ import { emY } from '../utils/em';
 
 const OPACITY_DURATION = 300;
 const APPBAR_HEIGHT = emY(5.95);
+const REVERSE_CONFIG = {
+    inputRange: [0, 1],
+    outputRange: [1, 0]
+};
 
 class MapHeader extends Component {
     state = {
         opacity: new Animated.Value(1),
-        searchOpacity: new Animated.Value(0)
+        inputText: '',
+        searchRendered: false
     };
 
     componentWillReceiveProps(nextProps) {
@@ -27,7 +32,7 @@ class MapHeader extends Component {
         }
     }
 
-    animate(searchVisible) {
+    animate = searchVisible => {
         if (this.state.searchRendered) {
             this.afterSetState(searchVisible);
         } else {
@@ -35,16 +40,12 @@ class MapHeader extends Component {
                 this.afterSetState(searchVisible)
             );
         }
-    }
+    };
 
     afterSetState = searchVisible => {
         Animated.parallel([
             Animated.timing(this.state.opacity, {
                 toValue: searchVisible ? 0 : 1,
-                duration: OPACITY_DURATION
-            }),
-            Animated.timing(this.state.searchOpacity, {
-                toValue: searchVisible ? 1 : 0,
                 duration: OPACITY_DURATION
             })
         ]).start(() => {
@@ -58,11 +59,23 @@ class MapHeader extends Component {
     };
 
     placesAutocomplete = text => {
-        this.props.dispatch(placesAutocomplete(text));
+        this.props.placesAutocomplete(text);
     };
 
     closeSearch = () => {
-        this.props.dispatch(toggleSearch());
+        this.props.toggleSearch();
+    };
+
+    clearSearch = () => {
+        this.setState({
+            inputText: ''
+        });
+    };
+
+    handleInput = inputText => {
+        this.setState({
+            inputText
+        });
     };
 
     render() {
@@ -85,20 +98,26 @@ class MapHeader extends Component {
                 </Animated.View>
                 {this.state.searchRendered ? (
                     <Animated.View
-                        style={[Style.header, styles.header, { opacity: this.state.searchOpacity }]}
+                        style={[
+                            Style.header,
+                            styles.header,
+                            { opacity: this.state.opacity.interpolate(REVERSE_CONFIG) }
+                        ]}
                     >
                         <View style={Style.appBar}>
                             <View style={Style.headerLeftContainer}>
-                                <BackButton style={Style.headerLeft} />
+                                <BackButton style={Style.headerLeft} onPress={this.closeSearch} />
                             </View>
                             <DebounceTextInput
                                 ref={c => (this.input = c)}
                                 style={Style.headerTitleContainer}
                                 placeholder="Enter Address"
                                 onDebounce={this.placesAutocomplete}
+                                value={this.state.inputText}
+                                onChangeText={this.handleInput}
                             />
                             <View style={Style.headerRightContainer}>
-                                <CloseButton onPress={this.closeSearch} style={Style.headerRight} />
+                                <CloseButton style={Style.headerRight} onPress={this.clearSearch} />
                             </View>
                         </View>
                     </Animated.View>
@@ -130,4 +149,9 @@ const mapStateToProps = state => ({
     searchVisible: state.ui.searchVisible
 });
 
-export default connect(mapStateToProps)(MapHeader);
+const mapDispatchToProps = dispatch => ({
+    placesAutocomplete: text => dispatch(placesAutocomplete(text)),
+    toggleSearch: () => dispatch(toggleSearch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapHeader);

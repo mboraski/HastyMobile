@@ -4,10 +4,8 @@ import {
     ActivityIndicator,
     StyleSheet,
     Text,
-    TextInput,
     TouchableWithoutFeedback,
     Platform,
-    StatusBar,
     Animated
 } from 'react-native';
 import { MapView } from 'expo';
@@ -22,6 +20,12 @@ import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import pinIcon from '../assets/icons/pin.png';
 
+const OPACITY_DURATION = 300;
+const REVERSE_CONFIG = {
+    inputRange: [0, 1],
+    outputRange: [1, 0]
+};
+
 class MapScreen extends Component {
     state = {
         mapLoaded: false,
@@ -33,7 +37,8 @@ class MapScreen extends Component {
         },
         address: '',
         translateY: new Animated.Value(0),
-        opacity: new Animated.Value(1)
+        opacity: new Animated.Value(1),
+        searchRendered: false
     };
 
     componentDidMount() {
@@ -60,31 +65,39 @@ class MapScreen extends Component {
     };
 
     handleAddressFocus = () => {
-        this.props.dispatch(toggleSearch());
+        this.props.toggleSearch();
     };
 
     selectPrediction = prediction => {
-        this.props.dispatch(saveAddress(prediction.description));
+        this.props.saveAddress(prediction.description);
     };
 
-    animate(searchVisible) {
-        this.setState({ searchRendered: searchVisible }, () => {
-            Animated.parallel([
-                Animated.timing(this.state.translateY, {
-                    toValue: searchVisible ? -100 : 0,
-                    duration: 300
-                }),
-                Animated.timing(this.state.opacity, {
-                    toValue: searchVisible ? 0 : 1,
-                    duration: 300
-                })
-            ]).start(() => {
-                this.setState({
-                    searchRendered: searchVisible
-                });
+    animate = searchVisible => {
+        if (this.state.searchRendered) {
+            this.afterSetState(searchVisible);
+        } else {
+            this.setState({ searchRendered: searchVisible }, () =>
+                this.afterSetState(searchVisible)
+            );
+        }
+    };
+
+    afterSetState = searchVisible => {
+        Animated.parallel([
+            Animated.timing(this.state.translateY, {
+                toValue: searchVisible ? -100 : 0,
+                duration: OPACITY_DURATION
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: searchVisible ? 0 : 1,
+                duration: OPACITY_DURATION
+            })
+        ]).start(() => {
+            this.setState({
+                searchRendered: searchVisible
             });
         });
-    }
+    };
 
     render() {
         const { searchVisible, predictions } = this.props;
@@ -128,7 +141,14 @@ class MapScreen extends Component {
                         <Text style={styles.inputLabel}>To</Text>
                     </Animated.View>
                 </TouchableWithoutFeedback>
-                <View style={styles.buttonContainer}>
+                <Animated.View
+                    style={[
+                        styles.buttonContainer,
+                        {
+                            opacity: this.state.opacity
+                        }
+                    ]}
+                >
                     <Button
                         large
                         title="Use Current Location"
@@ -136,12 +156,17 @@ class MapScreen extends Component {
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                     />
-                </View>
-                {searchVisible && predictions.length > 0 ? (
+                </Animated.View>
+                {this.state.searchRendered ? (
                     <PredictionList
                         predictions={predictions}
-                        selectPrediction={this.props.selectPrediction}
-                        style={styles.predictions}
+                        selectPrediction={this.selectPrediction}
+                        style={[
+                            styles.predictions,
+                            {
+                                opacity: this.state.opacity.interpolate(REVERSE_CONFIG)
+                            }
+                        ]}
                     />
                 ) : null}
             </View>
@@ -225,4 +250,9 @@ const mapStateToProps = state => ({
     searchVisible: state.ui.searchVisible
 });
 
-export default connect(mapStateToProps)(MapScreen);
+const mapDispatchToProps = dispatch => ({
+    saveAddress: address => dispatch(saveAddress(address)),
+    toggleSearch: () => dispatch(toggleSearch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
