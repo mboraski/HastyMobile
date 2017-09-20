@@ -1,6 +1,6 @@
 import googleMapsClient from '../api/googleMaps';
 
-const KEY = 'AIzaSyDqrzisPO0B76kk7M7PYGemAgaHEvr7uBA';
+const KEY = 'AIzaSyB6jHNd8EuHCPh0DG4dauA4ntSkAfJKF5I';
 
 export const MAPS_PLACES_AUTOCOMPLETE_REQUEST = 'google_maps_places_autocomplete_request';
 export const MAPS_PLACES_AUTOCOMPLETE_SUCCESS = 'google_maps_places_autocomplete_success';
