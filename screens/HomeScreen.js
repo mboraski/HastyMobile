@@ -10,6 +10,7 @@ import {
     Platform
 } from 'react-native';
 import { connect } from 'react-redux';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
@@ -32,10 +33,12 @@ class HomeScreen extends Component {
         console.log(filter);
     }
 
-    callAddToCart = () => {
-        console.log('callAddToCart ran', this.props.cart);
-        this.props.navigation.navigate('searchForHero');
-        this.props.addToCart(this.props.cart);
+    callAddToCart = product => {
+        this.props.addToCart(product);
+    };
+
+    goToCheckout = () => {
+        this.props.navigation.navigate('cart');
     };
 
     renderFilter = filter => {
@@ -48,23 +51,36 @@ class HomeScreen extends Component {
                 style={[styles.filterButton, filterButtonSelected]}
                 onPress={() => this.onPressFilter(filter)}
             >
-                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>
-                    {filter}
-                </Text>
+                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>{filter}</Text>
             </TouchableOpacity>
         );
     };
 
     render() {
-        // console.log(this.state);
-
+        const { cart } = this.props;
         return (
             <View style={styles.container}>
-                <Image source={SOURCE} style={styles.image}>
-                    <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
-                    <Text style={styles.imageTitle}>Recommended</Text>
-                    <Text style={styles.imageMeta}>215 items</Text>
-                </Image>
+                {cart.totalProducts > 0 ? (
+                    <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
+                        <Text style={styles.imageTitle}>Go to Checkout</Text>
+                        <View style={styles.checkoutIconContainer}>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                color="#fff"
+                                size={50}
+                                style={styles.checkoutIcon}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                ) : (
+                    <Image source={SOURCE} style={styles.image}>
+                        <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
+                        <View>
+                            <Text style={styles.imageTitle}>Recommended</Text>
+                            <Text style={styles.imageMeta}>215 items</Text>
+                        </View>
+                    </Image>
+                )}
                 <ScrollView
                     horizontal
                     style={styles.filters}
@@ -72,7 +88,7 @@ class HomeScreen extends Component {
                 >
                     {FILTERS.map(this.renderFilter)}
                 </ScrollView>
-                <ProductList callAddToCart={this.callAddToCart} />
+                <ProductList cart={cart} callAddToCart={this.callAddToCart} />
             </View>
         );
     }
@@ -103,6 +119,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         fontSize: emY(1),
         textAlign: 'center'
+    },
+    checkout: {
+        height: emY(12.5),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Color.GREEN_500
+    },
+    checkoutIconContainer: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        width: 50,
+        justifyContent: 'center'
+    },
+    checkoutIcon: {
+        backgroundColor: 'transparent'
     },
     filters: {
         ...Platform.select({
@@ -152,4 +185,8 @@ HomeScreen.navigationOptions = {
     headerTitleStyle: Style.headerTitle
 };
 
-export default connect(null, { addToCart })(HomeScreen);
+const mapStateToProps = state => ({
+    cart: state.cart
+});
+
+export default connect(mapStateToProps, { addToCart })(HomeScreen);

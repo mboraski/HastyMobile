@@ -8,18 +8,19 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-const ProductDetail = props => {
-    const { title, thumbnail_image, price, added } = props.product;
-    const callAddToCart = props.callAddToCart;
+const ICON_SIZE = 35;
+
+const ProductDetail = ({ product, onPress, added, style }) => {
+    const { title, thumbnail_image, price } = product;
 
     return (
-        <View style={[Style.shadow, styles.container, props.style]}>
+        <View style={[Style.shadow, styles.container, style]}>
             <View style={styles.iconContainer}>
                 <Icon
-                    onPress={callAddToCart}
+                    onPress={onPress}
                     type="foundation"
                     name="plus"
-                    size={35}
+                    size={ICON_SIZE}
                     iconStyle={[styles.icon, added && styles.iconAdded]}
                 />
             </View>
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
         color: Color.GREY_200
     },
     iconAdded: {
-        color: Color.BLUE_500
+        color: Color.GREEN_500
     },
     imageContainer: {
         marginBottom: emY(2.1875)
