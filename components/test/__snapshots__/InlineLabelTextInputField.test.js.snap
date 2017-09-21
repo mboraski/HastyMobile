@@ -42,6 +42,7 @@ ShallowWrapper {
     >
         <Field
             component={[Function]}
+            name="Test_Input_Name"
             style={
                 Object {
                     "flex": 1,
@@ -87,6 +88,7 @@ ShallowWrapper {
       >
             <Field
                   component={[Function]}
+                  name="Test_Input_Name"
                   style={
                         Object {
                               "flex": 1,
@@ -104,14 +106,18 @@ ShallowWrapper {
       "_calledComponentWillUnmount": false,
       "_compositeType": 2,
       "_context": Object {},
-      "_currentElement": <InlineLabelTextInputField />,
+      "_currentElement": <InlineLabelTextInputField
+        textInputName="Test_Input_Name"
+/>,
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": StatelessComponent {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "props": Object {},
+        "props": Object {
+          "textInputName": "Test_Input_Name",
+        },
         "refs": Object {},
         "state": null,
         "updater": Object {
@@ -166,6 +172,7 @@ ShallowWrapper {
           >
                     <Field
                               component={[Function]}
+                              name="Test_Input_Name"
                               style={
                                         Object {
                                                   "flex": 1,
@@ -211,6 +218,7 @@ ShallowWrapper {
           >
                     <Field
                               component={[Function]}
+                              name="Test_Input_Name"
                               style={
                                         Object {
                                                   "flex": 1,
@@ -232,6 +240,8 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <InlineLabelTextInputField />,
+  "unrendered": <InlineLabelTextInputField
+    textInputName="Test_Input_Name"
+/>,
 }
 `;

@@ -1,6 +1,6 @@
 import { ADD_TO_CART } from '../actions/cartActions';
 
-const INITIAL_STATE = {
+export const initialState = {
     totalProducts: 0
 };
 
@@ -25,12 +25,14 @@ function addToQuantity(state = { quantity: 0 }) {
     };
 }
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = initialState, action) => {
+    console.log(state, action);
     switch (action.type) {
         case ADD_TO_CART:
+            console.log(addToType(state, action.payload));
             return {
                 ...addToType(state, action.payload),
-                totalProducts: state.totalProducts + 1,
+                totalProducts: state.totalProducts + 1
             };
         default:
             return state;

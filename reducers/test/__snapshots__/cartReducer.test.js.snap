@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cartReducer handles addToCart action 1`] = `
+Object {
+  "1": Object {
+    "1": Object {
+      "quantity": 1,
+    },
+  },
+  "totalProducts": 1,
+}
+`;

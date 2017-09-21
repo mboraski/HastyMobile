@@ -5,7 +5,14 @@ import configureStore from 'redux-mock-store';
 
 import MapScreen from '../MapScreen';
 
-const initialState = {};
+const initialState = {
+    address: {
+        predictions: []
+    },
+    ui: {
+        searchVisible: false
+    }
+};
 
 describe('MapScreen', () => {
     const middlewares = [];
