@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_FAIL action 1`] = `
+Object {
+  "deliveryType": "1",
+  "error": [Error: error],
+  "list": Object {},
+  "pending": false,
+}
+`;
+
+exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_REQUEST action 1`] = `
+Object {
+  "deliveryType": "1",
+  "error": null,
+  "list": Object {},
+  "pending": true,
+}
+`;
+
+exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_SUCCESS action 1`] = `
+Object {
+  "deliveryType": "1",
+  "error": null,
+  "list": Object {
+    "1": Object {
+      "1": Object {},
+    },
+  },
+  "pending": false,
+}
+`;
+
+exports[`productReducer handles selectDeliveryType action 1`] = `
+Object {
+  "deliveryType": "deliveryType",
+  "error": null,
+  "list": Object {},
+  "pending": false,
+}
+`;
