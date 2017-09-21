@@ -42,7 +42,9 @@ class App extends Component {
       navigationOptions: {
         tabBarVisible: false
       },
-      lazy: true
+      lazy: true,
+      // TODO: HAMO-43: Test for deliveryStatus
+      initialRouteName: 'deliveryStatus'
     });
 
     return (
