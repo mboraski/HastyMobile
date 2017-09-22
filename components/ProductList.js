@@ -12,7 +12,7 @@ class ProductList extends Component {
     renderProducts() {
         return this.props.products.map(product => {
             const onPress = () => this.props.callAddToCart(product);
-            const type = this.props.cart[product.deliveryType];
+            const type = this.props.cart.products[product.deliveryType];
             const added =
                 type && type[product.productCode] && type[product.productCode].quantity > 0;
             return (

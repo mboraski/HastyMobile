@@ -1,7 +1,14 @@
-import { ADD_TO_CART } from '../actions/cartActions';
+import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
+
+function normalizeCurrency(currency) {
+    if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
+    return currency;
+}
 
 export const initialState = {
-    totalProducts: 0
+    totalOrders: 0,
+    totalCost: 0,
+    products: {}
 };
 
 function addToType(state = {}, product) {
@@ -14,14 +21,40 @@ function addToType(state = {}, product) {
 function addToCode(state = {}, product) {
     return {
         ...state,
-        [product.productCode]: addToQuantity(state[product.productCode])
+        [product.productCode]: addToOrder(state[product.productCode], product)
     };
 }
 
-function addToQuantity(state = { quantity: 0 }) {
+function addToOrder(state = { quantity: 0 }, product) {
+    return {
+        ...product,
+        ...state,
+        price: !state.price ? normalizeCurrency(product.price) : state.price,
+        quantity: state.quantity + 1
+    };
+}
+
+function removeFromType(state, product) {
     return {
         ...state,
-        quantity: state.quantity + 1
+        [product.deliveryType]: removeFromCode(state[product.deliveryType], product)
+    };
+}
+
+function removeFromCode(state, product) {
+    return {
+        ...state,
+        [product.productCode]: removeFromOrder(state[product.productCode])
+    };
+}
+
+function removeFromOrder(state) {
+    if (state.quantity === 0) {
+        return state;
+    }
+    return {
+        ...state,
+        quantity: state.quantity - 1
     };
 }
 
@@ -29,8 +62,21 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             return {
-                ...addToType(state, action.payload),
-                totalProducts: state.totalProducts + 1
+                products: addToType(state.products, action.payload),
+                totalOrders: state.totalOrders + 1,
+                totalCost: Math.max(
+                    0,
+                    (state.totalCost + normalizeCurrency(action.payload.price)).toFixed(2)
+                )
+            };
+        case REMOVE_FROM_CART:
+            return {
+                products: removeFromType(state.products, action.payload),
+                totalOrders: Math.max(0, state.totalOrders - 1),
+                totalCost: Math.max(
+                    0,
+                    (state.totalCost - normalizeCurrency(action.payload.price)).toFixed(2)
+                )
             };
         default:
             return state;

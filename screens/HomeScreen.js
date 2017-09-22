@@ -26,10 +26,7 @@ import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
-const FILTERS = [
-    { name: 'For You', id: '1' },
-    { name: 'Food', id: '2' }
-];
+const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
 class HomeScreen extends Component {
     callAddToCart = product => {
@@ -62,7 +59,7 @@ class HomeScreen extends Component {
         const { cart, products } = this.props;
         return (
             <View style={styles.container}>
-                {cart.totalProducts > 0 ? (
+                {cart.totalOrders > 0 ? (
                     <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>

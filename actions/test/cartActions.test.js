@@ -1,6 +1,14 @@
-import { addToCart } from '../cartActions';
+import { addToCart, removeFromCart } from '../cartActions';
 
 describe('cartActions', () => {
+    const product = {
+        quantity: 1,
+        title: 'Type 1 code 1',
+        thumbnail_image: 'image',
+        price: '$3.49',
+        productCode: '1',
+        deliveryType: '1'
+    };
     it('creates addToCart action', () => {
         expect(
             addToCart({
@@ -12,5 +20,9 @@ describe('cartActions', () => {
                 deliveryType: '1'
             })
         ).toMatchSnapshot();
+        expect(addToCart(product)).toMatchSnapshot();
+    });
+    it('creates removeFromCart action', () => {
+        expect(removeFromCart(product)).toMatchSnapshot();
     });
 });
