@@ -26,10 +26,8 @@ function addToQuantity(state = { quantity: 0 }) {
 }
 
 export default (state = initialState, action) => {
-    console.log(state, action);
     switch (action.type) {
         case ADD_TO_CART:
-            console.log(addToType(state, action.payload));
             return {
                 ...addToType(state, action.payload),
                 totalProducts: state.totalProducts + 1

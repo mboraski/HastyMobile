@@ -10,7 +10,8 @@ export const getProductsByDeliveryType = createSelector(
         const productsByDeliveryType = products[deliveryType];
         return Object.keys(productsByDeliveryType).map(productCode => ({
             ...productsByDeliveryType[productCode],
-            productCode
+            productCode,
+            deliveryType
         }));
     }
 );

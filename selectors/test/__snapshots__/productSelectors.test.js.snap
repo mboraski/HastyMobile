@@ -3,6 +3,7 @@
 exports[`productSelector getProductsByDeliveryType 1`] = `
 Array [
   Object {
+    "deliveryType": "1",
     "price": "$3.49",
     "productCode": "1",
     "quantity": 1,
