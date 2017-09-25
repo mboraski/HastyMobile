@@ -50,6 +50,13 @@ class MapScreen extends Component {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
         }
+        if (this.props.isMenuOpen !== nextProps.isMenuOpen) {
+            if (nextProps.isMenuOpen) {
+                this.props.navigation.navigate('DrawerOpen');
+            } else {
+                this.props.navigation.navigate('DrawerClose');
+            }
+        }
     }
 
     onRegionChangeComplete = region => {
@@ -249,7 +256,8 @@ MapScreen.navigationOptions = {
 
 const mapStateToProps = state => ({
     predictions: state.address.predictions,
-    searchVisible: state.ui.searchVisible
+    searchVisible: state.ui.searchVisible,
+    isMenuOpen: state.header.isMenuOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -258,4 +266,4 @@ const mapDispatchToProps = dispatch => ({
     toggleSearch: () => dispatch(toggleSearch())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MapScreen); 

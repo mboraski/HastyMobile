@@ -14,4 +14,6 @@ const MenuNavgiator = DrawerNavigator({
     contentComponent: () => <MenuContent />
 });
 
+  
 export default MenuNavgiator;
+

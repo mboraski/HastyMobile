@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 import MenuItem from '../components/MenuItem';
-
+import BackButton from '../components/BackButton';
 import heroIcon from '../assets/icons/hero.png';
 import historyIcon from '../assets/icons/history.png';
 import favoriteIcon from '../assets/icons/favorite.png';
@@ -35,39 +35,45 @@ class MenuContent extends Component {
 		const { name, avatar } = this.state;
 
 		return (
-			<ScrollView style={styles.container}>
-				<View style={styles.container}>
-					<View style={styles.headerContainer}>
-						<View style={styles.imageContainer}>
-							<Image source={{ uri: avatar }} style={styles.image} />
+				<ScrollView style={styles.scrollContainer}>
+					<View style={styles.container}>
+						<View style={styles.headerContainer}>
+							<View style={styles.imageContainer}>
+								<Image source={{ uri: avatar }} style={styles.image} />
+							</View>
+							<Text style={styles.name}>{name}</Text>
 						</View>
-						<Text style={styles.name}>{name}</Text>
+						<View style={styles.profileTitleContainer}>
+							<Text style={styles.title}>View Profile</Text>
+						</View>
+						<View style={styles.listContainer}>
+							<MenuItem image={heroIcon} title="Heroes Needed!" />
+							<MenuItem image={historyIcon} title="History" />
+							<MenuItem image={favoriteIcon} title="Favorites & Recommended" />
+							<MenuItem image={notificationIcon} title="Notifications" badge="3" />
+							<MenuItem image={cartIcon} title="Cart" />
+							<MenuItem image={paymentIcon} title="Payment Info" />
+							<MenuItem image={promotionIcon} title="Promotions" />
+							<MenuItem image={helpIcon} title="Help" />
+						</View>
+						
 					</View>
-					<View style={styles.profileTitleContainer}>
-						<Text style={styles.title}>View Profile</Text>
-					</View>
-					<View style={styles.listContainer}>
-						<MenuItem image={heroIcon} title="Heroes Needed!" />
-						<MenuItem image={historyIcon} title="History" />
-						<MenuItem image={favoriteIcon} title="Favorites & Recommended" />
-						<MenuItem image={notificationIcon} title="Notifications" badge="3" />
-                        <MenuItem image={cartIcon} title="Cart" />
-						<MenuItem image={paymentIcon} title="Payment Info" />
-						<MenuItem image={promotionIcon} title="Promotions" />
-						<MenuItem image={helpIcon} title="Help" />
-					</View>
-					
-				</View>
-				<Text style={styles.copyright}>@2017 Hasty</Text>		
-			</ScrollView>
+					<BackButton style={styles.backButton} />
+					<Text style={styles.copyright}>@2017 Hasty</Text>		
+				</ScrollView>
 		);
     }
 }
   
 const styles = StyleSheet.create({
-    container: {
+    scrollContainer: {
 		flex: 1,
-		backgroundColor: Color.WHITE
+		backgroundColor: Color.WHITE,
+		borderRightWidth: 2, 
+		borderRightColor: Color.YELLOW_500 
+	},
+	container: {
+		flex: 1
 	},
 	headerContainer: {
 		alignItems: 'center',
@@ -113,7 +119,12 @@ const styles = StyleSheet.create({
 		fontSize: emY(0.831),
         color: Color.GREY_700,
         textAlign: 'center',
-	}
+    },
+    backButton: {
+        position: 'absolute',
+        left: 0,
+        top: emY(2.1)
+    }
 });
 
 const mapDispatchToProps = function (dispatch) {
