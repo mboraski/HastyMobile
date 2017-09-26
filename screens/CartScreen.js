@@ -12,7 +12,7 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { getCartOrders } from '../selectors/cartSelectors';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import * as actions from '../actions/cartActions';
 
 class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -24,18 +24,15 @@ class CartScreen extends Component {
     });
 
     render() {
+        const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
         return (
             <View style={styles.container}>
-                <OrderList
-                    orders={this.props.orders}
-                    onAddOrder={this.props.addToCart}
-                    onRemoveOrder={this.props.removeFromCart}
-                />
+                <OrderList orders={orders} onAddOrder={addToCart} onRemoveOrder={removeFromCart} />
                 <View style={styles.cart}>
                     <View style={styles.meta}>
                         <Text style={styles.label}>Order Total:</Text>
-                        <Text style={styles.quantity}>{this.props.totalOrders} items</Text>
-                        <Text style={styles.cost}>${this.props.totalCost}</Text>
+                        <Text style={styles.quantity}>{totalOrders} items</Text>
+                        <Text style={styles.cost}>${totalCost}</Text>
                     </View>
                     <Button
                         title="CONFIRM ORDER"
@@ -109,12 +106,12 @@ const mapStateToProps = state => ({
     cart: state.cart,
     orders: getCartOrders(state),
     totalCost: state.cart.totalCost,
-    totalOrders: state.cart.totalOrders,
+    totalOrders: state.cart.totalOrders
 });
 
 const mapDispatchToProps = {
-    addToCart,
-    removeFromCart
+    addToCart: actions.addToCart,
+    removeFromCart: actions.removeFromCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

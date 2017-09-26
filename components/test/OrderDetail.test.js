@@ -11,7 +11,7 @@ const order = {
     name: 'Nike Air Max',
     price: 99.99,
     delivery_type: 'Instant',
-    image: 'https://facebook.github.io/react/img/logo_og.png'
+    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png'
 };
 
 describe('OrderDetail', () => {
