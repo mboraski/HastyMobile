@@ -23,7 +23,7 @@ ShallowWrapper {
     <Image
         source={
             Object {
-                "uri": undefined,
+                "uri": "https://facebook.github.io/react/img/logo_og.png",
               }
         }
         style={
@@ -201,7 +201,7 @@ ShallowWrapper {
       <Image
             source={
                   Object {
-                        "uri": undefined,
+                        "uri": "https://facebook.github.io/react/img/logo_og.png",
                       }
             }
             style={
@@ -405,7 +405,7 @@ ShallowWrapper {
         <Image
                 source={
                         Object {
-                                "uri": undefined,
+                                "uri": "https://facebook.github.io/react/img/logo_og.png",
                               }
                 }
                 style={
@@ -585,7 +585,7 @@ ShallowWrapper {
             <Image
               source={
                             Object {
-                                          "uri": undefined,
+                                          "uri": "https://facebook.github.io/react/img/logo_og.png",
                                         }
               }
               style={
@@ -792,7 +792,7 @@ ShallowWrapper {
           <Image
                     source={
                               Object {
-                                        "uri": undefined,
+                                        "uri": "https://facebook.github.io/react/img/logo_og.png",
                                       }
                     }
                     style={
@@ -970,7 +970,7 @@ ShallowWrapper {
           <Image
                     source={
                               Object {
-                                        "uri": undefined,
+                                        "uri": "https://facebook.github.io/react/img/logo_og.png",
                                       }
                     }
                     style={
@@ -1158,7 +1158,7 @@ ShallowWrapper {
     <Image
         source={
             Object {
-                "uri": undefined,
+                "uri": "https://facebook.github.io/react/img/logo_og.png",
               }
         }
         style={
