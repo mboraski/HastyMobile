@@ -1,4 +1,4 @@
-import api from '../api/hasty';
+import * as api from '../api/hasty';
 
 export const GET_PRODUCTS_BY_ADDRESS_REQUEST = 'get_products_by_address_request';
 export const GET_PRODUCTS_BY_ADDRESS_SUCCESS = 'get_products_by_address_success';

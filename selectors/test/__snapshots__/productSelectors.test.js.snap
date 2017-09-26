@@ -12,3 +12,5 @@ Array [
   },
 ]
 `;
+
+exports[`productSelector getProductsByDeliveryType with empty list 1`] = `Array []`;

@@ -186,6 +186,7 @@ ShallowWrapper {
         products={
             Array [
                 Object {
+                  "deliveryType": "1",
                   "price": "$3.49",
                   "productCode": "1",
                   "quantity": 1,
@@ -375,6 +376,7 @@ ShallowWrapper {
             products={
                   Array [
                         Object {
+                          "deliveryType": "1",
                           "price": "$3.49",
                           "productCode": "1",
                           "quantity": 1,
@@ -423,6 +425,7 @@ ShallowWrapper {
         products={
                 Array [
                         Object {
+                          "deliveryType": "1",
                           "price": "$3.49",
                           "productCode": "1",
                           "quantity": 1,
@@ -449,6 +452,7 @@ ShallowWrapper {
           "deliveryType": "1",
           "products": Array [
             Object {
+              "deliveryType": "1",
               "price": "$3.49",
               "productCode": "1",
               "quantity": 1,
@@ -657,6 +661,7 @@ ShallowWrapper {
                     products={
                               Array [
                                         Object {
+                                          "deliveryType": "1",
                                           "price": "$3.49",
                                           "productCode": "1",
                                           "quantity": 1,
@@ -846,6 +851,7 @@ ShallowWrapper {
                     products={
                               Array [
                                         Object {
+                                          "deliveryType": "1",
                                           "price": "$3.49",
                                           "productCode": "1",
                                           "quantity": 1,
@@ -878,6 +884,7 @@ ShallowWrapper {
     products={
         Array [
             Object {
+              "deliveryType": "1",
               "price": "$3.49",
               "productCode": "1",
               "quantity": 1,

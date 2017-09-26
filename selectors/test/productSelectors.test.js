@@ -27,4 +27,13 @@ describe('productSelector', () => {
         };
         expect(getProductsByDeliveryType(state)).toMatchSnapshot();
     });
+    it('getProductsByDeliveryType with empty list', () => {
+        const state = {
+            product: {
+                list: {},
+                deliveryType: '1'
+            }
+        };
+        expect(getProductsByDeliveryType(state)).toMatchSnapshot();
+    });
 });
