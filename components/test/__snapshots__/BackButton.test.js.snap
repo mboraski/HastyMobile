@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CloseButton renders correctly 1`] = `
+exports[`BackButton renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -11,11 +11,13 @@ ShallowWrapper {
   "node": <TouchableOpacity
     activeOpacity={0.2}
     focusedOpacity={0.7}
-    onPress={[Function]}
     style={
-        Object {
-            "marginLeft": 20,
-          }
+        Array [
+            Object {
+              "marginLeft": 20,
+            },
+            undefined,
+          ]
     }
 >
     <Image
@@ -33,11 +35,13 @@ ShallowWrapper {
     <TouchableOpacity
       activeOpacity={0.2}
       focusedOpacity={0.7}
-      onPress={[Function]}
       style={
-            Object {
-                  "marginLeft": 20,
-                }
+            Array [
+                  Object {
+                    "marginLeft": 20,
+                  },
+                  undefined,
+                ]
       }
 >
       <Image
@@ -78,14 +82,13 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <CloseButton />,
+      "_currentElement": <BackButton />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": CloseButton {
+      "_instance": BackButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "onPress": [Function],
         "props": Object {},
         "refs": Object {},
         "state": null,
@@ -110,11 +113,13 @@ ShallowWrapper {
         "_currentElement": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
-                    Object {
-                              "marginLeft": 20,
-                            }
+                    Array [
+                              Object {
+                                "marginLeft": 20,
+                              },
+                              undefined,
+                            ]
           }
 >
           <Image
@@ -132,11 +137,13 @@ ShallowWrapper {
         "_renderedOutput": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
-                    Object {
-                              "marginLeft": 20,
-                            }
+                    Array [
+                              Object {
+                                "marginLeft": 20,
+                              },
+                              undefined,
+                            ]
           }
 >
           <Image
@@ -161,6 +168,6 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <CloseButton />,
+  "unrendered": <BackButton />,
 }
 `;

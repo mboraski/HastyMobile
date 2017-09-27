@@ -1,20 +1,46 @@
 import 'react-native';
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
 
 import ProductList from '../ProductList';
 
-const initialState = {};
-
 describe('ProductList', () => {
-    const middlewares = [];
-    const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<ProductList />, {
-            context: { store: mockStore(initialState) }
-        });
-        const render = wrapper.dive();
-        expect(render).toMatchSnapshot();
+        const cart = {
+            totalProducts: 0
+        };
+        const products = [
+            {
+                quantity: 1,
+                title: 'Type 1 code 1',
+                thumbnail_image: 'image',
+                price: '$3.49',
+                productCode: '1'
+            }
+        ];
+        const wrapper = shallow(<ProductList cart={cart} products={products} />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('renders correctly with selected item', () => {
+        const cart = {
+            totalProducts: 1,
+            1: {
+                1: {
+                    quantity: 1
+                }
+            }
+        };
+        const products = [
+            {
+                quantity: 1,
+                title: 'Type 1 code 1',
+                thumbnail_image: 'image',
+                price: '$3.49',
+                productCode: '1'
+            }
+        ];
+        const wrapper = shallow(<ProductList cart={cart} products={products} />);
+        expect(wrapper).toMatchSnapshot();
     });
 });

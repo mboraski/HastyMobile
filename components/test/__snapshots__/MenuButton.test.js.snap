@@ -11,11 +11,15 @@ ShallowWrapper {
   "node": <TouchableOpacity
     activeOpacity={0.2}
     focusedOpacity={0.7}
-    onPress={[Function]}
     style={
-        Object {
-            "marginLeft": 20,
-          }
+        Array [
+            Object {
+              "marginLeft": 20,
+              "marginRight": 0,
+            },
+            Object {},
+            undefined,
+          ]
     }
 >
     <Image
@@ -32,11 +36,15 @@ ShallowWrapper {
     <TouchableOpacity
       activeOpacity={0.2}
       focusedOpacity={0.7}
-      onPress={[Function]}
       style={
-            Object {
-                  "marginLeft": 20,
-                }
+            Array [
+                  Object {
+                    "marginLeft": 20,
+                    "marginRight": 0,
+                  },
+                  Object {},
+                  undefined,
+                ]
       }
 >
       <Image
@@ -108,11 +116,15 @@ ShallowWrapper {
         "_currentElement": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
-                    Object {
-                              "marginLeft": 20,
-                            }
+                    Array [
+                              Object {
+                                "marginLeft": 20,
+                                "marginRight": 0,
+                              },
+                              Object {},
+                              undefined,
+                            ]
           }
 >
           <Image
@@ -129,11 +141,15 @@ ShallowWrapper {
         "_renderedOutput": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
-                    Object {
-                              "marginLeft": 20,
-                            }
+                    Array [
+                              Object {
+                                "marginLeft": 20,
+                                "marginRight": 0,
+                              },
+                              Object {},
+                              undefined,
+                            ]
           }
 >
           <Image

@@ -20,19 +20,18 @@ import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { addToCart } from '../actions/cartActions';
+import { selectDeliveryType } from '../actions/productActions';
+import { getProductsByDeliveryType } from '../selectors/productSelectors';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 
-const FILTERS = ['For You', 'Food', 'Drinks'];
+const FILTERS = [
+    { name: 'For You', id: '1' },
+    { name: 'Food', id: '2' }
+];
 
 class HomeScreen extends Component {
-    state = { filter: FILTERS[0] };
-
-    onPressFilter(filter) {
-        console.log(filter);
-    }
-
     callAddToCart = product => {
         this.props.addToCart(product);
     };
@@ -42,22 +41,25 @@ class HomeScreen extends Component {
     };
 
     renderFilter = filter => {
-        const selectedFilter = this.state.filter === filter;
+        const selectedFilter = this.props.deliveryType === filter.id;
         const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
         const filterButtonTextSelected = selectedFilter ? styles.filterButtonTextSelected : null;
+        const onPress = () => this.props.selectFilter(filter.id);
         return (
             <TouchableOpacity
-                key={filter}
+                key={filter.id}
                 style={[styles.filterButton, filterButtonSelected]}
-                onPress={() => this.onPressFilter(filter)}
+                onPress={onPress}
             >
-                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>{filter}</Text>
+                <Text style={[styles.filterButtonText, filterButtonTextSelected]}>
+                    {filter.name}
+                </Text>
             </TouchableOpacity>
         );
     };
 
     render() {
-        const { cart } = this.props;
+        const { cart, products } = this.props;
         return (
             <View style={styles.container}>
                 {cart.totalProducts > 0 ? (
@@ -88,7 +90,7 @@ class HomeScreen extends Component {
                 >
                     {FILTERS.map(this.renderFilter)}
                 </ScrollView>
-                <ProductList cart={cart} callAddToCart={this.callAddToCart} />
+                <ProductList cart={cart} products={products} callAddToCart={this.callAddToCart} />
             </View>
         );
     }
@@ -186,7 +188,14 @@ HomeScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart,
+    products: getProductsByDeliveryType(state),
+    deliveryType: state.product.deliveryType
 });
 
-export default connect(mapStateToProps, { addToCart })(HomeScreen);
+const mapDispatchToProps = dispatch => ({
+    selectFilter: filter => dispatch(selectDeliveryType(filter)),
+    addToCart: product => dispatch(addToCart(product))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
