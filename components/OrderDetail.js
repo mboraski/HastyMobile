@@ -12,15 +12,15 @@ const ICON_SIZE = emY(0.75);
 
 const OrderDetail = props => {
     const { onAddOrder, onRemoveOrder } = props;
-    const { name, price, delivery_type, image, quantity } = props.order;
+    const { title, price, deliveryType, thumbnail_image, quantity } = props.order;
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={{ uri: image }} />
+            <Image style={styles.image} source={{ uri: thumbnail_image }} />
             <View style={styles.content}>
-                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.title}>{title}</Text>
                 <View style={styles.deliveryType}>
                     <Text style={styles.deliveryTypeLabel}>Delivery Type:</Text>
-                    <Text style={styles.deliveryTypeValue}>{delivery_type}</Text>
+                    <Text style={styles.deliveryTypeValue}>{deliveryType}</Text>
                 </View>
                 <TouchableOpacity>
                     <Text style={styles.changeDeliveryTypeText}>Change delivery type</Text>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         alignSelf: 'center'
     },
-    name: {
+    title: {
         fontSize: emY(1.25),
         flex: 1,
         marginBottom: emY(0.5)

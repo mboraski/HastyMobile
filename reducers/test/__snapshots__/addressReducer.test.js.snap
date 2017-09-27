@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addressReducer handles saveAddress action 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "predictions": Array [],
+  "saved": Array [
+    "address",
+  ],
+}
+`;

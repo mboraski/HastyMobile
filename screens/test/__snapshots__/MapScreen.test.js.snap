@@ -67,30 +67,45 @@ ShallowWrapper {
         },
       },
       "_currentElement": <MapScreen
-        dispatch={[Function]}
+        getProductsByAddress={[Function]}
+        predictions={Array []}
+        saveAddress={[Function]}
+        searchVisible={false}
+        toggleSearch={[Function]}
 />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": MapScreen {
         "_reactInternalInstance": [Circular],
+        "afterSetState": [Function],
+        "animate": [Function],
         "context": Object {},
         "handleAddress": [Function],
+        "handleAddressFocus": [Function],
         "onButtonPress": [Function],
         "onRegionChangeComplete": [Function],
         "props": Object {
-          "dispatch": [Function],
+          "getProductsByAddress": [Function],
+          "predictions": Array [],
+          "saveAddress": [Function],
+          "searchVisible": false,
+          "toggleSearch": [Function],
         },
         "refs": Object {},
+        "selectPrediction": [Function],
         "state": Object {
           "address": "",
           "mapLoaded": false,
+          "opacity": 1,
           "region": Object {
             "latitude": 30.26,
             "latitudeDelta": 0.25,
             "longitude": -97.76,
             "longitudeDelta": 0.1,
           },
+          "searchRendered": false,
+          "translateY": 0,
         },
         "updater": Object {
           "enqueueCallback": [Function],
@@ -153,7 +168,11 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <MapScreen
-    dispatch={[Function]}
+    getProductsByAddress={[Function]}
+    predictions={Array []}
+    saveAddress={[Function]}
+    searchVisible={false}
+    toggleSearch={[Function]}
 />,
 }
 `;

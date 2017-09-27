@@ -5,8 +5,9 @@ import {
     MAPS_PLACES_AUTOCOMPLETE_FAIL
 } from '../actions/googleMapsActions';
 import { SAVE_ADDRESS } from '../actions/addressActions';
+import { GET_PRODUCTS_BY_ADDRESS_SUCCESS } from '../actions/productActions';
 
-const initialState = {
+export const initialState = {
     pending: false,
     predictions: [],
     saved: [],
@@ -51,6 +52,12 @@ export default function (state = initialState, action) {
                 };
             }
             return state;
+        case GET_PRODUCTS_BY_ADDRESS_SUCCESS:
+            return {
+                ...state,
+                currentSetAddress: action.payload.currentSetAddress,
+                currentSetLatLon: action.payload.currentSetLatLon
+            };
         default:
             return state;
     }

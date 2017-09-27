@@ -40,7 +40,8 @@ class App extends Component {
       navigationOptions: {
         tabBarVisible: false
       },
-      lazy: true
+      lazy: true,
+      initialRouteName: 'promotionShare'
     });
 
     return (
