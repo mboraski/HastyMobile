@@ -15,6 +15,7 @@ import DeliveryStatusScreen from './screens/DeliveryStatusScreen';
 import CartScreen from './screens/CartScreen';
 import CreditCardScreen from './screens/CreditCardScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import GeneralShareScreen from './screens/GeneralShareScreen';
 import PromotionShareScreen from './screens/PromotionShareScreen';
 import store from './store';
 
@@ -35,13 +36,13 @@ class App extends Component {
       cart: { screen: CartScreen },
       creditCard: { screen: CreditCardScreen },
       paymentMethod: { screen: PaymentMethodScreen },
+      generalShare: { screen: GeneralShareScreen },
       promotionShare: { screen: PromotionShareScreen }
     }, {
       navigationOptions: {
         tabBarVisible: false
       },
-      lazy: true,
-      initialRouteName: 'promotionShare'
+      lazy: true
     });
 
     return (
