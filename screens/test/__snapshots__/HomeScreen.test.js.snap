@@ -46,36 +46,38 @@ ShallowWrapper {
                   ]
             }
         />
-        <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                Object {
-                    "backgroundColor": "transparent",
-                    "color": "white",
-                    "fontSize": 30,
-                    "textAlign": "center",
-                  }
-            }
-        >
-            Recommended
-        </Text>
-        <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                Object {
-                    "backgroundColor": "transparent",
-                    "color": "white",
-                    "fontSize": 16,
-                    "textAlign": "center",
-                  }
-            }
-        >
-            215 items
-        </Text>
+        <View>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "backgroundColor": "transparent",
+                        "color": "white",
+                        "fontSize": 30,
+                        "textAlign": "center",
+                      }
+                }
+            >
+                Recommended
+            </Text>
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "backgroundColor": "transparent",
+                        "color": "white",
+                        "fontSize": 16,
+                        "textAlign": "center",
+                      }
+                }
+            >
+                215 items
+            </Text>
+        </View>
     </Image>
     <ScrollViewMock
         contentContainerStyle={
@@ -173,47 +175,26 @@ ShallowWrapper {
                 Food
             </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-            activeOpacity={0.2}
-            focusedOpacity={0.7}
-            onPress={[Function]}
-            style={
-                Array [
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "#b2b2b2",
-                      "borderRadius": 50,
-                      "borderWidth": 1,
-                      "height": 43,
-                      "justifyContent": "center",
-                      "marginRight": 15,
-                      "minWidth": 130,
-                      "paddingVertical": 12,
-                    },
-                    null,
-                  ]
-            }
-        >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Array [
-                        Object {
-                          "color": "#b2b2b2",
-                          "fontSize": 18,
-                        },
-                        null,
-                      ]
-                }
-            >
-                Drinks
-            </Text>
-        </TouchableOpacity>
     </ScrollViewMock>
     <ProductList
         callAddToCart={[Function]}
+        cart={
+            Object {
+                "totalProducts": 0,
+              }
+        }
+        products={
+            Array [
+                Object {
+                  "deliveryType": "1",
+                  "price": "$3.49",
+                  "productCode": "1",
+                  "quantity": 1,
+                  "thumbnail_image": "image",
+                  "title": "Type 1 code 1",
+                },
+              ]
+        }
     />
 </View>,
   "nodes": Array [
@@ -255,36 +236,38 @@ ShallowWrapper {
                             ]
                   }
             />
-            <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                        Object {
-                              "backgroundColor": "transparent",
-                              "color": "white",
-                              "fontSize": 30,
-                              "textAlign": "center",
-                            }
-                  }
-            >
-                  Recommended
-            </Text>
-            <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                        Object {
-                              "backgroundColor": "transparent",
-                              "color": "white",
-                              "fontSize": 16,
-                              "textAlign": "center",
-                            }
-                  }
-            >
-                  215 items
-            </Text>
+            <View>
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "backgroundColor": "transparent",
+                                    "color": "white",
+                                    "fontSize": 30,
+                                    "textAlign": "center",
+                                  }
+                        }
+                  >
+                        Recommended
+                  </Text>
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "backgroundColor": "transparent",
+                                    "color": "white",
+                                    "fontSize": 16,
+                                    "textAlign": "center",
+                                  }
+                        }
+                  >
+                        215 items
+                  </Text>
+            </View>
       </Image>
       <ScrollViewMock
             contentContainerStyle={
@@ -382,47 +365,26 @@ ShallowWrapper {
                         Food
                   </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-                  activeOpacity={0.2}
-                  focusedOpacity={0.7}
-                  onPress={[Function]}
-                  style={
-                        Array [
-                              Object {
-                                "alignItems": "center",
-                                "borderColor": "#b2b2b2",
-                                "borderRadius": 50,
-                                "borderWidth": 1,
-                                "height": 43,
-                                "justifyContent": "center",
-                                "marginRight": 15,
-                                "minWidth": 130,
-                                "paddingVertical": 12,
-                              },
-                              null,
-                            ]
-                  }
-            >
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Array [
-                                    Object {
-                                      "color": "#b2b2b2",
-                                      "fontSize": 18,
-                                    },
-                                    null,
-                                  ]
-                        }
-                  >
-                        Drinks
-                  </Text>
-            </TouchableOpacity>
       </ScrollViewMock>
       <ProductList
             callAddToCart={[Function]}
+            cart={
+                  Object {
+                        "totalProducts": 0,
+                      }
+            }
+            products={
+                  Array [
+                        Object {
+                          "deliveryType": "1",
+                          "price": "$3.49",
+                          "productCode": "1",
+                          "quantity": 1,
+                          "thumbnail_image": "image",
+                          "title": "Type 1 code 1",
+                        },
+                      ]
+            }
       />
 </View>,
   ],
@@ -454,6 +416,25 @@ ShallowWrapper {
       },
       "_currentElement": <HomeScreen
         addToCart={[Function]}
+        cart={
+                Object {
+                        "totalProducts": 0,
+                      }
+        }
+        deliveryType="1"
+        products={
+                Array [
+                        Object {
+                          "deliveryType": "1",
+                          "price": "$3.49",
+                          "productCode": "1",
+                          "quantity": 1,
+                          "thumbnail_image": "image",
+                          "title": "Type 1 code 1",
+                        },
+                      ]
+        }
+        selectFilter={[Function]}
 />,
       "_debugID": 3,
       "_hostContainerInfo": null,
@@ -462,14 +443,28 @@ ShallowWrapper {
         "_reactInternalInstance": [Circular],
         "callAddToCart": [Function],
         "context": Object {},
+        "goToCheckout": [Function],
         "props": Object {
           "addToCart": [Function],
+          "cart": Object {
+            "totalProducts": 0,
+          },
+          "deliveryType": "1",
+          "products": Array [
+            Object {
+              "deliveryType": "1",
+              "price": "$3.49",
+              "productCode": "1",
+              "quantity": 1,
+              "thumbnail_image": "image",
+              "title": "Type 1 code 1",
+            },
+          ],
+          "selectFilter": [Function],
         },
         "refs": Object {},
         "renderFilter": [Function],
-        "state": Object {
-          "filter": "For You",
-        },
+        "state": null,
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -526,36 +521,38 @@ ShallowWrapper {
                                                 ]
                               }
                     />
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "backgroundColor": "transparent",
-                                                  "color": "white",
-                                                  "fontSize": 30,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              Recommended
-                    </Text>
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "backgroundColor": "transparent",
-                                                  "color": "white",
-                                                  "fontSize": 16,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              215 items
-                    </Text>
+                    <View>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "transparent",
+                                                            "color": "white",
+                                                            "fontSize": 30,
+                                                            "textAlign": "center",
+                                                          }
+                                        }
+                              >
+                                        Recommended
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "transparent",
+                                                            "color": "white",
+                                                            "fontSize": 16,
+                                                            "textAlign": "center",
+                                                          }
+                                        }
+                              >
+                                        215 items
+                              </Text>
+                    </View>
           </Image>
           <ScrollViewMock
                     contentContainerStyle={
@@ -653,47 +650,26 @@ ShallowWrapper {
                                         Food
                               </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                        Array [
-                                                  Object {
-                                                    "alignItems": "center",
-                                                    "borderColor": "#b2b2b2",
-                                                    "borderRadius": 50,
-                                                    "borderWidth": 1,
-                                                    "height": 43,
-                                                    "justifyContent": "center",
-                                                    "marginRight": 15,
-                                                    "minWidth": 130,
-                                                    "paddingVertical": 12,
-                                                  },
-                                                  null,
-                                                ]
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#b2b2b2",
-                                                              "fontSize": 18,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                              >
-                                        Drinks
-                              </Text>
-                    </TouchableOpacity>
           </ScrollViewMock>
           <ProductList
                     callAddToCart={[Function]}
+                    cart={
+                              Object {
+                                        "totalProducts": 0,
+                                      }
+                    }
+                    products={
+                              Array [
+                                        Object {
+                                          "deliveryType": "1",
+                                          "price": "$3.49",
+                                          "productCode": "1",
+                                          "quantity": 1,
+                                          "thumbnail_image": "image",
+                                          "title": "Type 1 code 1",
+                                        },
+                                      ]
+                    }
           />
 </View>,
         "_debugID": 4,
@@ -735,36 +711,38 @@ ShallowWrapper {
                                                 ]
                               }
                     />
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "backgroundColor": "transparent",
-                                                  "color": "white",
-                                                  "fontSize": 30,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              Recommended
-                    </Text>
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "backgroundColor": "transparent",
-                                                  "color": "white",
-                                                  "fontSize": 16,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              215 items
-                    </Text>
+                    <View>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "transparent",
+                                                            "color": "white",
+                                                            "fontSize": 30,
+                                                            "textAlign": "center",
+                                                          }
+                                        }
+                              >
+                                        Recommended
+                              </Text>
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "transparent",
+                                                            "color": "white",
+                                                            "fontSize": 16,
+                                                            "textAlign": "center",
+                                                          }
+                                        }
+                              >
+                                        215 items
+                              </Text>
+                    </View>
           </Image>
           <ScrollViewMock
                     contentContainerStyle={
@@ -862,47 +840,26 @@ ShallowWrapper {
                                         Food
                               </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                        Array [
-                                                  Object {
-                                                    "alignItems": "center",
-                                                    "borderColor": "#b2b2b2",
-                                                    "borderRadius": 50,
-                                                    "borderWidth": 1,
-                                                    "height": 43,
-                                                    "justifyContent": "center",
-                                                    "marginRight": 15,
-                                                    "minWidth": 130,
-                                                    "paddingVertical": 12,
-                                                  },
-                                                  null,
-                                                ]
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#b2b2b2",
-                                                              "fontSize": 18,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                              >
-                                        Drinks
-                              </Text>
-                    </TouchableOpacity>
           </ScrollViewMock>
           <ProductList
                     callAddToCart={[Function]}
+                    cart={
+                              Object {
+                                        "totalProducts": 0,
+                                      }
+                    }
+                    products={
+                              Array [
+                                        Object {
+                                          "deliveryType": "1",
+                                          "price": "$3.49",
+                                          "productCode": "1",
+                                          "quantity": 1,
+                                          "thumbnail_image": "image",
+                                          "title": "Type 1 code 1",
+                                        },
+                                      ]
+                    }
           />
 </View>,
       },
@@ -918,6 +875,25 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <HomeScreen
     addToCart={[Function]}
+    cart={
+        Object {
+            "totalProducts": 0,
+          }
+    }
+    deliveryType="1"
+    products={
+        Array [
+            Object {
+              "deliveryType": "1",
+              "price": "$3.49",
+              "productCode": "1",
+              "quantity": 1,
+              "thumbnail_image": "image",
+              "title": "Type 1 code 1",
+            },
+          ]
+    }
+    selectFilter={[Function]}
 />,
 }
 `;

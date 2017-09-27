@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 import { saveAddress } from '../actions/addressActions';
+import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
@@ -56,7 +57,8 @@ class MapScreen extends Component {
         this.setState({ region });
     };
 
-    onButtonPress = () => {
+    onButtonPress = async () => {
+        await this.props.getProductsByAddress('1004 S Congress Ave, Austin, TX 78704');
         this.props.navigation.navigate('home');
     };
 
@@ -151,7 +153,7 @@ class MapScreen extends Component {
                 >
                     <Button
                         large
-                        title="Use Current Location"
+                        title="Use This Location"
                         onPress={this.onButtonPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
@@ -252,6 +254,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     saveAddress: address => dispatch(saveAddress(address)),
+    getProductsByAddress: address => dispatch(getProductsByAddress(address)),
     toggleSearch: () => dispatch(toggleSearch())
 });
 

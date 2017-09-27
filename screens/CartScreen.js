@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 // Relative Imports
 import BackButton from '../components/BackButton';
@@ -10,88 +11,28 @@ import OrderList from '../components/OrderList';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-
-const ORDERS = Array(10)
-    .fill()
-    .map((e, i) => ({
-        id: i,
-        name: `Item ${i}`,
-        price: 99.99,
-        delivery_type: 'Instant',
-        image: 'https://facebook.github.io/react/img/logo_og.png',
-        quantity: 1
-    }));
+import { getCartOrders } from '../selectors/cartSelectors';
+import * as actions from '../actions/cartActions';
 
 class CartScreen extends Component {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         title: 'Cart',
-        headerLeft: <BackButton />,
+        headerLeft: <BackButton onPress={() => navigation.goBack()} />,
         headerRight: <TransparentButton />,
         headerStyle: Style.header,
         headerTitleStyle: Style.headerTitle
-    };
-
-    state = {
-        quantity: ORDERS.length,
-        cost: ORDERS.reduce((total, order) => total + order.price, 0),
-        orders: ORDERS
-    };
-
-    handleAddOrder = order => {
-        const { orders, quantity, cost } = this.state;
-        this.setState({
-            orders: orders.map(item => {
-                if (item.id !== order.id) {
-                    return item;
-                }
-                return {
-                    ...item,
-                    quantity: item.quantity + 1
-                };
-            }),
-            quantity: quantity + 1,
-            cost: Math.max(0, (cost + order.price).toFixed(2))
-        });
-    };
-
-    handleRemoveOrder = order => {
-        const { orders, quantity, cost } = this.state;
-        if (order.quantity === 1) {
-            this.setState({
-                orders: orders.filter(item => item.id !== order.id),
-                quantity: quantity - 1,
-                cost: Math.max(0, (cost - order.price).toFixed(2))
-            });
-        } else {
-            this.setState({
-                orders: orders.map(item => {
-                    if (item.id !== order.id) {
-                        return item;
-                    }
-                    return {
-                        ...item,
-                        quantity: item.quantity - 1
-                    };
-                }),
-                quantity: quantity - 1,
-                cost: Math.max(0, (cost - order.price).toFixed(2))
-            });
-        }
-    };
+    });
 
     render() {
+        const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
         return (
             <View style={styles.container}>
-                <OrderList
-                    orders={this.state.orders}
-                    onAddOrder={this.handleAddOrder}
-                    onRemoveOrder={this.handleRemoveOrder}
-                />
+                <OrderList orders={orders} onAddOrder={addToCart} onRemoveOrder={removeFromCart} />
                 <View style={styles.cart}>
                     <View style={styles.meta}>
                         <Text style={styles.label}>Order Total:</Text>
-                        <Text style={styles.quantity}>{this.state.quantity} items</Text>
-                        <Text style={styles.cost}>${this.state.cost}</Text>
+                        <Text style={styles.quantity}>{totalOrders} items</Text>
+                        <Text style={styles.cost}>${totalCost}</Text>
                     </View>
                     <Button
                         title="CONFIRM ORDER"
@@ -161,4 +102,16 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CartScreen;
+const mapStateToProps = state => ({
+    cart: state.cart,
+    orders: getCartOrders(state),
+    totalCost: state.cart.totalCost,
+    totalOrders: state.cart.totalOrders
+});
+
+const mapDispatchToProps = {
+    addToCart: actions.addToCart,
+    removeFromCart: actions.removeFromCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

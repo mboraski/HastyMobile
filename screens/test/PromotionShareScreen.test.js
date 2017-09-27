@@ -3,22 +3,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
-import OrderDetail from '../OrderDetail';
+import PromotionShareScreen from '../PromotionShareScreen';
 
 const initialState = {};
 
-const order = {
-    name: 'Nike Air Max',
-    price: 99.99,
-    delivery_type: 'Instant',
-    thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png'
-};
-
-describe('OrderDetail', () => {
+describe('PromotionShareScreen', () => {
     const middlewares = [];
     const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<OrderDetail order={order} />, {
+        const wrapper = shallow(<PromotionShareScreen />, {
             context: { store: mockStore(initialState) }
         });
         const render = wrapper.dive();

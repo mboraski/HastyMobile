@@ -8,47 +8,16 @@ import { emY } from '../utils/em';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const PRODUCTS = [
-    {
-        title: 'Redbull',
-        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-        price: '$3.49',
-        deliveryType: 1,
-        productCode: 1
-    },
-    {
-        title: 'Monster',
-        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-        price: '$3.49',
-        deliveryType: 2,
-        productCode: 2
-    },
-    {
-        title: 'Gatorade',
-        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-        price: '$2.49',
-        deliveryType: 1,
-        productCode: 3
-    },
-    {
-        title: 'Water',
-        thumbnail_image: 'https://facebook.github.io/react/img/logo_og.png',
-        price: '$0.99',
-        deliveryType: 2,
-        productCode: 4
-    }
-];
-
 class ProductList extends Component {
     renderProducts() {
-        return PRODUCTS.map(product => {
+        return this.props.products.map(product => {
             const onPress = () => this.props.callAddToCart(product);
-            const type = this.props.cart[product.deliveryType];
+            const type = this.props.cart.products[product.deliveryType];
             const added =
                 type && type[product.productCode] && type[product.productCode].quantity > 0;
             return (
                 <ProductDetail
-                    key={product.title}
+                    key={product.productCode}
                     product={product}
                     onPress={onPress}
                     added={added}
