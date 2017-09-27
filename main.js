@@ -40,8 +40,7 @@ class App extends Component {
       navigationOptions: {
         tabBarVisible: false
       },
-      lazy: true,
-      initialRouteName: 'generalShare'
+      lazy: true
     });
 
     return (
