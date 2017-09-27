@@ -2,11 +2,57 @@
 
 exports[`cartReducer handles addToCart action 1`] = `
 Object {
-  "1": Object {
+  "products": Object {
     "1": Object {
-      "quantity": 1,
+      "1": Object {
+        "deliveryType": "1",
+        "price": 3.49,
+        "productCode": "1",
+        "quantity": 1,
+        "thumbnail_image": "image",
+        "title": "Type 1 code 1",
+      },
     },
   },
-  "totalProducts": 1,
+  "totalCost": 3.49,
+  "totalOrders": 1,
+}
+`;
+
+exports[`cartReducer handles addToCart then removeFromCart 1`] = `
+Object {
+  "products": Object {
+    "1": Object {
+      "1": Object {
+        "deliveryType": "1",
+        "price": 3.49,
+        "productCode": "1",
+        "quantity": 0,
+        "thumbnail_image": "image",
+        "title": "Type 1 code 1",
+      },
+    },
+  },
+  "totalCost": 0,
+  "totalOrders": 0,
+}
+`;
+
+exports[`cartReducer handles removeFromCart action 1`] = `
+Object {
+  "products": Object {
+    "1": Object {
+      "1": Object {
+        "deliveryType": "1",
+        "price": 3.49,
+        "productCode": "1",
+        "quantity": 1,
+        "thumbnail_image": "image",
+        "title": "Type 1 code 1",
+      },
+    },
+  },
+  "totalCost": 3.49,
+  "totalOrders": 1,
 }
 `;

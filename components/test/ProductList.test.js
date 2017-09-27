@@ -7,7 +7,8 @@ import ProductList from '../ProductList';
 describe('ProductList', () => {
     it('renders correctly', () => {
         const cart = {
-            totalProducts: 0
+            totalProducts: 0,
+            products: {}
         };
         const products = [
             {
@@ -25,9 +26,11 @@ describe('ProductList', () => {
     it('renders correctly with selected item', () => {
         const cart = {
             totalProducts: 1,
-            1: {
+            products: {
                 1: {
-                    quantity: 1
+                    1: {
+                        quantity: 1
+                    }
                 }
             }
         };
