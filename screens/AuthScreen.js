@@ -1,26 +1,67 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Text,
+    Animated,
+    Keyboard,
+    KeyboardAvoidingView,
+    ScrollView
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
 
 // Relative Imports
 import AuthActions from '../actions/authActions';
-import SignUpForm from '../components/SignUpForm';
-import SignInForm from '../components/SignInForm';
+import SignUpForm from '../containers/SignUpForm';
+import SignInForm from '../containers/SignInForm';
 import Color from '../constants/Color';
+import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
+const IMAGE_HEIGHT = emY(15.625);
+const IMAGE_HEIGHT_SMALL = emY(6.25);
 
 type Props = { token: string };
 
 class AuthScreen extends Component {
+    static navigationOptions = {
+        header: null
+    };
+
     static defaultProps = { token: '' };
 
     state = { signUp: true };
 
     props: Props;
+
+    imageHeight = new Animated.Value(IMAGE_HEIGHT);
+
+    componentWillMount() {
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+    }
+
+    componentWillUnmount() {
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
+    }
+
+    keyboardWillShow = event => {
+        Animated.timing(this.imageHeight, {
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT_SMALL
+        }).start();
+    };
+
+    keyboardWillHide = event => {
+        Animated.timing(this.imageHeight, {
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT
+        }).start();
+    };
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -39,34 +80,41 @@ class AuthScreen extends Component {
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
 
         return (
-            <View style={styles.container}>
-                <View style={styles.imageContainer}>
-                    <Image source={SOURCE} style={[styles.image]}>
-                        <Text style={styles.imageText}>HELLO</Text>
-                    </Image>
-                </View>
-                <View style={styles.buttonsRow}>
-                    <Button
-                        title="Sign Up"
-                        buttonStyle={[styles.button, signUpButtonHighlighted]}
-                        textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
-                        onPress={this.openSignUpForm}
-                    />
-                    <Button
-                        title="Log In"
-                        buttonStyle={[styles.button, loginButtonHighlighted]}
-                        textStyle={[styles.buttonText, loginButtonTextHighlighted]}
-                        onPress={this.openSignInForm}
-                    />
-                </View>
-                {signUp
-                    ? <SignUpForm {...actions} />
-                    : <SignInForm
-                        {...actions}
-                        token={this.props.token}
-                        navigation={this.props.navigation}
-                    />}
-            </View>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <ScrollView style={styles.container} keyboardDismissMode="on-drag">
+                    <View style={styles.imageContainer}>
+                        <Animated.Image
+                            source={SOURCE}
+                            style={[styles.image, { height: this.imageHeight }]}
+                        >
+                            <Text style={styles.imageText}>HELLO</Text>
+                        </Animated.Image>
+                    </View>
+                    <View style={styles.buttonsRow}>
+                        <Button
+                            title="Sign Up"
+                            buttonStyle={[styles.button, signUpButtonHighlighted]}
+                            textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
+                            onPress={this.openSignUpForm}
+                        />
+                        <Button
+                            title="Log In"
+                            buttonStyle={[styles.button, loginButtonHighlighted]}
+                            textStyle={[styles.buttonText, loginButtonTextHighlighted]}
+                            onPress={this.openSignInForm}
+                        />
+                    </View>
+                    {signUp ? (
+                        <SignUpForm {...actions} />
+                    ) : (
+                        <SignInForm
+                            {...actions}
+                            token={this.props.token}
+                            navigation={this.props.navigation}
+                        />
+                    )}
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -78,8 +126,6 @@ const styles = StyleSheet.create({
     },
     imageContainer: {},
     image: {
-        flexGrow: 1,
-        height: 250,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -117,7 +163,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ auth }) => ({ token: auth.token });
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     const authActions = bindActionCreators(AuthActions, dispatch);
 
     return {

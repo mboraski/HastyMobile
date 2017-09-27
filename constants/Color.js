@@ -11,5 +11,6 @@ export default {
     YELLOW_500: '#fcc937',
     GREEN_500: '#8AD835',
     BLACK: '#000000',
-    WHITE: '#ffffff'
+    WHITE: '#ffffff',
+    RED_500: 'rgb(243, 108, 96)'
 };
