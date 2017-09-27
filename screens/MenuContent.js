@@ -33,40 +33,38 @@ class MenuContent extends Component {
 	
     render() {
 		const { name, avatar } = this.state;
-
 		return (
-				<ScrollView style={styles.scrollContainer}>
-					<View style={styles.container}>
-						<View style={styles.headerContainer}>
-							<View style={styles.imageContainer}>
-								<Image source={{ uri: avatar }} style={styles.image} />
-							</View>
-							<Text style={styles.name}>{name}</Text>
+			<View style={styles.topContainer}>
+				<View style={styles.container}>
+					<View style={styles.headerContainer}>
+						<View style={styles.imageContainer}>
+							<Image source={{ uri: avatar }} style={styles.image} />
 						</View>
-						<View style={styles.profileTitleContainer}>
-							<Text style={styles.title}>View Profile</Text>
-						</View>
-						<View style={styles.listContainer}>
-							<MenuItem image={heroIcon} title="Heroes Needed!" />
-							<MenuItem image={historyIcon} title="History" />
-							<MenuItem image={favoriteIcon} title="Favorites & Recommended" />
-							<MenuItem image={notificationIcon} title="Notifications" badge="3" />
-							<MenuItem image={cartIcon} title="Cart" />
-							<MenuItem image={paymentIcon} title="Payment Info" />
-							<MenuItem image={promotionIcon} title="Promotions" />
-							<MenuItem image={helpIcon} title="Help" />
-						</View>
-						
+						<Text style={styles.name}>{name}</Text>
 					</View>
-					<BackButton style={styles.backButton} />
-					<Text style={styles.copyright}>@2017 Hasty</Text>		
+					<View style={styles.profileTitleContainer}>
+						<Text style={styles.title}>View Profile</Text>
+					</View>
+				</View>
+				<ScrollView style={styles.listContainer}>
+					<MenuItem image={heroIcon} title="Heroes Needed!" />
+					<MenuItem image={historyIcon} title="History" />
+					<MenuItem image={favoriteIcon} title="Favorites & Recommended" />
+					<MenuItem image={notificationIcon} title="Notifications" badge="3" />
+					<MenuItem image={cartIcon} title="Cart" />
+					<MenuItem image={paymentIcon} title="Payment Info" />
+					<MenuItem image={promotionIcon} title="Promotions" />
+					<MenuItem image={helpIcon} title="Help" />
 				</ScrollView>
+				<BackButton style={styles.backButton} />
+				<Text style={styles.copyright}>@2017 Hasty</Text>		
+			</View>
 		);
     }
 }
   
 const styles = StyleSheet.create({
-    scrollContainer: {
+    topContainer: {
 		flex: 1,
 		backgroundColor: Color.WHITE,
 		borderRightWidth: 2, 
@@ -109,6 +107,11 @@ const styles = StyleSheet.create({
 		marginBottom: emY(1)
 	},
 	listContainer: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: emY(15),
+		bottom: emY(9.2),
 		flexDirection: 'column',
 		marginLeft: emY(1.2)
 	},

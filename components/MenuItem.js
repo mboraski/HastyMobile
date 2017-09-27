@@ -4,7 +4,8 @@ import {
     StyleSheet,
     View,
     Image,
-    Text
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 // Relative Imports
@@ -29,9 +30,9 @@ class MenuItem extends Component {
 
         if (badge) {
             badgeElement = (
-                <View style={styles.badgeContainer}>
+                <TouchableOpacity style={styles.badgeContainer}>
                     <Text style={styles.badge}>{badge}</Text>   
-                </View>
+                </TouchableOpacity>
             );
         }
         return (
