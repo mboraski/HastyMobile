@@ -5,6 +5,7 @@ import cart from './cartReducer';
 import address from './addressReducer';
 import ui from './uiReducer';
 import product from './productReducer';
+import header from './navigationReducer';
 
 export default combineReducers({
     address,
@@ -12,5 +13,6 @@ export default combineReducers({
     cart,
     form,
     product,
-    ui
+    ui,
+    header
 });

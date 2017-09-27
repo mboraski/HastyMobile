@@ -29,6 +29,22 @@ const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
 class HomeScreen extends Component {
+    state = { filter: FILTERS[0] };
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isMenuOpen !== nextProps.isMenuOpen) {
+            if (nextProps.isMenuOpen) {
+                this.props.navigation.navigate('DrawerOpen');
+            } else {
+                this.props.navigation.navigate('DrawerClose');
+            }
+        }
+    }
+
+    onPressFilter(filter) {
+        console.log(filter);
+    }
+
     callAddToCart = product => {
         this.props.addToCart(product);
     };
@@ -187,7 +203,8 @@ HomeScreen.navigationOptions = {
 const mapStateToProps = state => ({
     cart: state.cart,
     products: getProductsByDeliveryType(state),
-    deliveryType: state.product.deliveryType
+    deliveryType: state.product.deliveryType,
+    isMenuOpen: state.header.isMenuOpen
 });
 
 const mapDispatchToProps = dispatch => ({
