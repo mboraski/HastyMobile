@@ -9,6 +9,7 @@ import { reduxForm } from 'redux-form';
 import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
+import Spinner from '../components/Spinner';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';
@@ -79,6 +80,9 @@ export class SignUpForm extends Component {
                         secureTextEntry
                         validate={[required, validPassword]}
                     />
+                    {submitting ? (
+                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                    ) : null}
                 </View>
                 <TouchableOpacity
                     onPress={submit}
@@ -148,6 +152,9 @@ const styles = StyleSheet.create({
     },
     buttonMargin: {
         marginBottom: 10
+    },
+    spinner: {
+        backgroundColor: Color.WHITE
     }
 });
 
@@ -161,6 +168,7 @@ const formOptions = {
         return errors;
     },
     async onSubmit(values) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await axios.post(`${ROOT_URL}/createUser`, { phone: values.number });
         return axios.post(`${ROOT_URL}/requestOneTimePassword`, { phone: values.number });
     }

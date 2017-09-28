@@ -8,6 +8,7 @@ import { reduxForm } from 'redux-form';
 import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
+import Spinner from '../components/Spinner';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPassword from '../validation/validPassword';
@@ -57,6 +58,9 @@ export class SignInForm extends Component {
                         secureTextEntry
                         validate={[required, validPassword]}
                     />
+                    {submitting ? (
+                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                    ) : null}
                 </View>
                 <TouchableOpacity
                     onPress={submit}
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
     },
     formInputs: {
         paddingHorizontal: 15,
-        marginBottom: 50
+        paddingBottom: emY(8)
     },
     fieldContainer: {
         backgroundColor: '#fff'
@@ -123,11 +127,17 @@ const styles = StyleSheet.create({
     },
     buttonMargin: {
         marginBottom: 10
+    },
+    spinner: {
+        backgroundColor: Color.WHITE
     }
 });
 
 const formOptions = {
-    form: 'SignIn'
+    form: 'SignIn',
+    async onSubmit() {
+        return new Promise(resolve => setTimeout(resolve, 1000));
+    }
 };
 
 const mapStateToProps = ({ auth }) => ({ token: auth.token });
