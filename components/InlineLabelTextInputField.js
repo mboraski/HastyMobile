@@ -39,14 +39,15 @@ const InlineLabelTextInputField = ({ textInputName, ...props }) => (
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 15,
-        backgroundColor: Color.GREY_100,
-        borderColor: Color.GREY_300,
-        borderBottomWidth: StyleSheet.hairlineWidth
+        backgroundColor: Color.GREY_100
     },
     formInputGroup: {
+        paddingHorizontal: 15,
+        borderColor: Color.GREY_300,
+        borderBottomWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 5
     },
     label: {
         color: '#000',
@@ -69,7 +70,8 @@ const styles = StyleSheet.create({
         color: Color.RED_500
     },
     error: {
-        fontSize: emY(1),
+        paddingHorizontal: 15,
+        fontSize: emY(0.8),
         color: Color.RED_500,
         marginBottom: 10
     }
