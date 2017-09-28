@@ -103,4 +103,29 @@ describe('SignUpForm', () => {
         const render = shallow(<SignUpForm {...props} />);
         expect(render).toMatchSnapshot();
     });
+    it('should render correctly with submitSuccess', () => {
+        const props = {
+            anyTouched: true,
+            pending: false,
+            submitting: false,
+            submitSucceeded: true,
+            asyncValidating: false,
+            invalid: false,
+            pristine: false,
+            fields: {
+                email: {
+                    value: '',
+                    touched: false,
+                    error: null
+                },
+                password: {
+                    value: '',
+                    touched: false,
+                    error: null
+                }
+            }
+        };
+        const render = shallow(<SignUpForm {...props} />);
+        expect(render).toMatchSnapshot();
+    });
 });

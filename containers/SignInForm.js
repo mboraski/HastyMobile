@@ -9,6 +9,7 @@ import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Spinner from '../components/Spinner';
+import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPassword from '../validation/validPassword';
@@ -34,6 +35,7 @@ export class SignInForm extends Component {
             anyTouched,
             pending,
             submitting,
+            submitSucceeded,
             asyncValidating,
             invalid,
             pristine
@@ -60,6 +62,12 @@ export class SignInForm extends Component {
                     />
                     {submitting ? (
                         <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                    ) : null}
+                    {submitSucceeded ? (
+                        <SuccessState
+                            style={StyleSheet.absoluteFill}
+                            onAnimationEnd={this.props.onAuthSuccess}
+                        />
                     ) : null}
                 </View>
                 <TouchableOpacity
