@@ -50,7 +50,7 @@ class HomeScreen extends Component {
     };
 
     goToCheckout = () => {
-        this.props.navigation.navigate('cart');
+        this.props.navigation.navigate('checkout');
     };
 
     renderFilter = filter => {

@@ -1,0 +1,255 @@
+// 3rd Party Libraries
+import React, { Component } from 'react';
+import { 
+    StyleSheet, 
+    ScrollView,
+    View, 
+    Text,
+    TouchableOpacity,
+    Platform,
+    Animated,
+    Dimensions
+} from 'react-native';
+import { MapView } from 'expo';
+import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+// Relative Imports
+import BackButton from '../components/BackButton';
+import TransparentButton from '../components/TransparentButton';
+import OrderList from '../components/OrderList';
+import DropDown from '../components/DropDown';
+import PaymentDropDownItem from '../components/PaymentDropDownItem';
+import Color from '../constants/Color';
+import Style from '../constants/Style';
+import { emY } from '../utils/em';
+import { getCartOrders } from '../selectors/cartSelectors';
+import * as actions from '../actions/cartActions';
+
+import pinIcon from '../assets/icons/pin.png';
+
+class CheckoutScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Your Order',
+        headerLeft: <BackButton onPress={() => navigation.goBack()} />,
+        headerRight: <TransparentButton />,
+        headerStyle: Style.header,
+        headerTitleStyle: Style.headerTitle
+    });
+
+    state = {
+        mapLoaded: false,
+        region: {
+            longitude: -97.76,
+            latitude: 30.26,
+            longitudeDelta: 0.1,
+            latitudeDelta: 0.25
+        },
+        address: '',
+        translateY: new Animated.Value(0),
+        opacity: new Animated.Value(1)
+    };
+
+    onRegionChangeComplete = region => {
+        console.log('region: ', region);
+        this.setState({ region });
+    };
+
+    render() {
+        const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
+        console.log('orders =====> ', orders);
+        return (
+            <View style={styles.container}>
+                <ScrollView style={styles.scrollContainer}>
+                    <View style={styles.container}>
+                        <MapView
+                            region={this.state.region}
+                            style={styles.map}
+                            onRegionChangeComplete={this.onRegionChangeComplete}
+                        >
+                            <MapView.Marker
+                                image={pinIcon}
+                                coordinate={{
+                                    latitude: 30.26,
+                                    longitude: -97.76
+                                }}
+                                title="You"
+                                description="Your Delivery Location"
+                            />
+                        </MapView>
+                        <View style={styles.itemHeader}>
+                            <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
+                        </View>
+                        <View style={styles.itemBody}>
+                            <Text style={styles.itemBodyLabel}>
+                                3004 N Lamar Blvd.
+                            </Text>
+                            <TouchableOpacity style={styles.itemButton}>
+                                <Text style={styles.itemButtonText}>Change</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.itemHeader}>
+                            <Text stye={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
+                        </View>
+                        <View style={styles.itemBody}>
+                            <Text style={styles.itemBodyLabel}>
+                                Bring extra sauce! When you get to the complex, 
+                                make your first left. Go up the stairs. We are the 
+                                last unit on the right.
+                            </Text>
+                            <TouchableOpacity style={styles.itemButton}>
+                                <Text style={styles.itemButtonText}>Change</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.itemHeader}>
+                            <Text stye={styles.itemHeaderLabel}>PRODUCT SUMMARY</Text>
+                        </View>
+                        <OrderList 
+                            orders={orders} onAddOrder={addToCart} onRemoveOrder={removeFromCart} 
+                        />
+                        <View style={styles.itemHeader}>
+                            <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
+                        </View>
+                        <View style={styles.dropdownContainer}>
+                            <DropDown 
+                                header={<PaymentDropDownItem isHeaderItem={true} />}
+                            >
+                                <PaymentDropDownItem isHeaderItem={false} />
+                                <PaymentDropDownItem isHeaderItem={false} />
+                            </DropDown>
+                        </View>
+                    </View>
+                </ScrollView>
+                <View style={styles.cart}>
+                    <View style={styles.meta}>
+                        <Text style={styles.label}>Delivery Fee:</Text>
+                        <Text style={styles.cost}>${totalCost}</Text>
+                    </View>
+                    <View style={styles.meta}>
+                        <Text style={styles.label}>Tax:</Text>
+                        <Text style={styles.cost}>$14.78</Text>
+                    </View>
+                    <View style={styles.meta}>
+                        <Text style={styles.label}>Order Total:</Text>
+                        <Text style={styles.cost}>${totalCost}</Text>
+                    </View>
+                    <Button
+                        title="LIGHT A BEACON!" 
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
+                    />
+                </View> 
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    scrollContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingBottom: emY(13.81)
+    },
+    map: {
+        height: emY(9.25),
+        shadowColor: 'transparent'
+    },
+    itemHeader: {
+        paddingHorizontal: 20,
+        paddingVertical: emY(0.8)
+    },
+    itemHeaderLabel: {
+        fontSize: emY(0.83),
+        color: Color.GREY_600
+    },
+    itemBody: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        paddingVertical: emY(0.8),
+        backgroundColor: Color.GREY_100
+    },
+    itemBodyLabel: {
+        width: Dimensions.get('window').width - 160,
+        fontSize: emY(1.08),
+        color: Color.GREY_800
+    },
+    itemButton: {
+        width: 80,
+        height: emY(1.5),
+        alignItems: 'flex-end'
+    },
+    itemButtonText: {
+        fontSize: emY(1.08),
+        color: Color.BLUE_500
+    },
+    dropdownContainer: {
+        marginBottom: emY(19.19)
+    },
+    cart: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
+        paddingHorizontal: 23,
+        paddingTop: emY(1.25),
+        paddingBottom: emY(1.32),
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: emY(0.625) },
+                shadowOpacity: 0.5,
+                shadowRadius: emY(1.5)
+            },
+            android: {
+                elevation: 10
+            }
+        })
+    },
+    meta: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: emY(0.5),
+        alignItems: 'center'
+    },
+    label: {
+        fontSize: emY(1),
+        color: Color.GREY_600,
+        marginRight: 11
+    },
+    cost: {
+        fontSize: emY(1.25)
+    },
+    buttonContainer: {
+        marginLeft: 0,
+        marginRight: 0,
+        marginTop: emY(1)
+    },
+    button: {
+        backgroundColor: '#000',
+        height: emY(3.75)
+    },
+    buttonText: {
+        fontSize: emY(0.8125)
+    }
+});
+
+const mapStateToProps = state => ({
+    cart: state.cart,
+    orders: getCartOrders(state),
+    totalCost: state.cart.totalCost,
+    totalOrders: state.cart.totalOrders
+});
+
+const mapDispatchToProps = {
+    addToCart: actions.addToCart,
+    removeFromCart: actions.removeFromCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);
