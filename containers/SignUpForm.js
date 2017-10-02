@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-elements';
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
+import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import required from '../validation/required';
@@ -15,8 +18,19 @@ import { emY } from '../utils/em';
 const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
 export class SignUpForm extends Component {
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
+    }
+
+    onAuthComplete = props => {
+        if (props.token) {
+            this.props.onAuthSuccess();
+        }
+    };
+
     render() {
         const {
+            facebookLogin,
             submit,
             anyTouched,
             pending,
@@ -68,11 +82,29 @@ export class SignUpForm extends Component {
                 </View>
                 <TouchableOpacity
                     onPress={submit}
-                    style={[styles.button, anyTouched && invalid && styles.buttonInvalid]}
+                    style={[
+                        styles.button,
+                        styles.buttonMargin,
+                        !anyTouched && invalid && styles.buttonDisabled,
+                        anyTouched && invalid && styles.buttonInvalid
+                    ]}
                     disabled={disabled}
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
+                <Button
+                    onPress={facebookLogin}
+                    title="Login with Facebook"
+                    icon={{
+                        type: 'material-community',
+                        name: 'facebook-box',
+                        color: '#fff',
+                        size: 25
+                    }}
+                    containerViewStyle={styles.buttonContainer}
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
+                />
             </View>
         );
     }
@@ -90,18 +122,32 @@ const styles = StyleSheet.create({
     fieldContainer: {
         backgroundColor: '#fff'
     },
+    buttonContainer: {
+        marginLeft: 0,
+        marginRight: 0
+    },
     button: {
         backgroundColor: '#000',
         marginHorizontal: 25,
-        paddingVertical: emY(1)
+        justifyContent: 'center',
+        height: emY(3)
+    },
+    buttonDisabled: {
+        backgroundColor: Color.GREY_500
     },
     buttonInvalid: {
         backgroundColor: Color.RED_500
+    },
+    buttonIcon: {
+        marginRight: 10
     },
     buttonText: {
         color: '#fff',
         textAlign: 'center',
         fontSize: emY(0.9)
+    },
+    buttonMargin: {
+        marginBottom: 10
     }
 });
 
@@ -120,4 +166,16 @@ const formOptions = {
     }
 };
 
-export default reduxForm(formOptions)(SignUpForm);
+const mapStateToProps = ({ auth }) => ({ token: auth.token });
+
+const mapDispatchToProps = dispatch => {
+    const authActions = bindActionCreators(AuthActions, dispatch);
+
+    return {
+        actions: {
+            facebookLogin: authActions.facebookLogin
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignUpForm));

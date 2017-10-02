@@ -66,12 +66,14 @@ ShallowWrapper {
             Array [
                 Object {
                   "backgroundColor": "#000",
+                  "height": 48,
+                  "justifyContent": "center",
                   "marginHorizontal": 25,
-                  "paddingVertical": 16,
                 },
                 Object {
                   "marginBottom": 10,
                 },
+                false,
                 false,
               ]
         }
@@ -95,8 +97,9 @@ ShallowWrapper {
         buttonStyle={
             Object {
                 "backgroundColor": "#000",
+                "height": 48,
+                "justifyContent": "center",
                 "marginHorizontal": 25,
-                "paddingVertical": 16,
               }
         }
         containerViewStyle={
@@ -183,12 +186,14 @@ ShallowWrapper {
                   Array [
                         Object {
                           "backgroundColor": "#000",
+                          "height": 48,
+                          "justifyContent": "center",
                           "marginHorizontal": 25,
-                          "paddingVertical": 16,
                         },
                         Object {
                           "marginBottom": 10,
                         },
+                        false,
                         false,
                       ]
             }
@@ -212,8 +217,9 @@ ShallowWrapper {
             buttonStyle={
                   Object {
                         "backgroundColor": "#000",
+                        "height": 48,
+                        "justifyContent": "center",
                         "marginHorizontal": 25,
-                        "paddingVertical": 16,
                       }
             }
             containerViewStyle={
@@ -375,12 +381,14 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
                                         Object {
                                           "marginBottom": 10,
                                         },
+                                        false,
                                         false,
                                       ]
                     }
@@ -404,8 +412,9 @@ ShallowWrapper {
                     buttonStyle={
                               Object {
                                         "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
                                         "marginHorizontal": 25,
-                                        "paddingVertical": 16,
                                       }
                     }
                     containerViewStyle={
@@ -492,12 +501,14 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
                                         Object {
                                           "marginBottom": 10,
                                         },
+                                        false,
                                         false,
                                       ]
                     }
@@ -521,8 +532,9 @@ ShallowWrapper {
                     buttonStyle={
                               Object {
                                         "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
                                         "marginHorizontal": 25,
-                                        "paddingVertical": 16,
                                       }
                     }
                     containerViewStyle={
@@ -652,12 +664,14 @@ ShallowWrapper {
             Array [
                 Object {
                   "backgroundColor": "#000",
+                  "height": 48,
+                  "justifyContent": "center",
                   "marginHorizontal": 25,
-                  "paddingVertical": 16,
                 },
                 Object {
                   "marginBottom": 10,
                 },
+                false,
                 Object {
                   "backgroundColor": "rgb(243, 108, 96)",
                 },
@@ -683,8 +697,9 @@ ShallowWrapper {
         buttonStyle={
             Object {
                 "backgroundColor": "#000",
+                "height": 48,
+                "justifyContent": "center",
                 "marginHorizontal": 25,
-                "paddingVertical": 16,
               }
         }
         containerViewStyle={
@@ -771,12 +786,14 @@ ShallowWrapper {
                   Array [
                         Object {
                           "backgroundColor": "#000",
+                          "height": 48,
+                          "justifyContent": "center",
                           "marginHorizontal": 25,
-                          "paddingVertical": 16,
                         },
                         Object {
                           "marginBottom": 10,
                         },
+                        false,
                         Object {
                           "backgroundColor": "rgb(243, 108, 96)",
                         },
@@ -802,8 +819,9 @@ ShallowWrapper {
             buttonStyle={
                   Object {
                         "backgroundColor": "#000",
+                        "height": 48,
+                        "justifyContent": "center",
                         "marginHorizontal": 25,
-                        "paddingVertical": 16,
                       }
             }
             containerViewStyle={
@@ -965,12 +983,14 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
                                         Object {
                                           "marginBottom": 10,
                                         },
+                                        false,
                                         Object {
                                           "backgroundColor": "rgb(243, 108, 96)",
                                         },
@@ -996,8 +1016,9 @@ ShallowWrapper {
                     buttonStyle={
                               Object {
                                         "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
                                         "marginHorizontal": 25,
-                                        "paddingVertical": 16,
                                       }
                     }
                     containerViewStyle={
@@ -1084,12 +1105,14 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
                                         Object {
                                           "marginBottom": 10,
                                         },
+                                        false,
                                         Object {
                                           "backgroundColor": "rgb(243, 108, 96)",
                                         },
@@ -1115,8 +1138,9 @@ ShallowWrapper {
                     buttonStyle={
                               Object {
                                         "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
                                         "marginHorizontal": 25,
-                                        "paddingVertical": 16,
                                       }
                     }
                     containerViewStyle={

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
+import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import required from '../validation/required';
@@ -19,7 +22,7 @@ export class SignInForm extends Component {
 
     onAuthComplete = props => {
         if (props.token) {
-            this.props.navigation.navigate('map');
+            this.props.onAuthSuccess();
         }
     };
 
@@ -60,6 +63,7 @@ export class SignInForm extends Component {
                     style={[
                         styles.button,
                         styles.buttonMargin,
+                        !anyTouched && invalid && styles.buttonDisabled,
                         anyTouched && invalid && styles.buttonInvalid
                     ]}
                     disabled={disabled}
@@ -103,7 +107,11 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#000',
         marginHorizontal: 25,
-        paddingVertical: emY(1)
+        justifyContent: 'center',
+        height: emY(3)
+    },
+    buttonDisabled: {
+        backgroundColor: Color.GREY_500
     },
     buttonInvalid: {
         backgroundColor: Color.RED_500
@@ -122,4 +130,16 @@ const formOptions = {
     form: 'SignIn'
 };
 
-export default reduxForm(formOptions)(SignInForm);
+const mapStateToProps = ({ auth }) => ({ token: auth.token });
+
+const mapDispatchToProps = dispatch => {
+    const authActions = bindActionCreators(AuthActions, dispatch);
+
+    return {
+        actions: {
+            facebookLogin: authActions.facebookLogin
+        }
+    };
+};
+
+export default reduxForm(formOptions)(connect(mapStateToProps, mapDispatchToProps)(SignInForm));

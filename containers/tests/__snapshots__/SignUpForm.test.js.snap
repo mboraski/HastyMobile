@@ -112,14 +112,22 @@ ShallowWrapper {
             Array [
                 Object {
                   "backgroundColor": "#000",
+                  "height": 48,
+                  "justifyContent": "center",
                   "marginHorizontal": 25,
-                  "paddingVertical": 16,
                 },
+                Object {
+                  "marginBottom": 10,
+                },
+                false,
                 false,
               ]
         }
     >
-        <TextElement
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
                 Object {
                     "color": "#fff",
@@ -129,8 +137,41 @@ ShallowWrapper {
             }
         >
             Create Account
-        </TextElement>
+        </Text>
     </TouchableOpacity>
+    <Button
+        buttonStyle={
+            Object {
+                "backgroundColor": "#000",
+                "height": 48,
+                "justifyContent": "center",
+                "marginHorizontal": 25,
+              }
+        }
+        containerViewStyle={
+            Object {
+                "marginLeft": 0,
+                "marginRight": 0,
+              }
+        }
+        icon={
+            Object {
+                "color": "#fff",
+                "name": "facebook-box",
+                "size": 25,
+                "type": "material-community",
+              }
+        }
+        onPress={undefined}
+        textStyle={
+            Object {
+                "color": "#fff",
+                "fontSize": 14.4,
+                "textAlign": "center",
+              }
+        }
+        title="Login with Facebook"
+    />
 </View>,
   "nodes": Array [
     <View
@@ -237,14 +278,22 @@ ShallowWrapper {
                   Array [
                         Object {
                           "backgroundColor": "#000",
+                          "height": 48,
+                          "justifyContent": "center",
                           "marginHorizontal": 25,
-                          "paddingVertical": 16,
                         },
+                        Object {
+                          "marginBottom": 10,
+                        },
+                        false,
                         false,
                       ]
             }
       >
-            <TextElement
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
                   style={
                         Object {
                               "color": "#fff",
@@ -254,8 +303,41 @@ ShallowWrapper {
                   }
             >
                   Create Account
-            </TextElement>
+            </Text>
       </TouchableOpacity>
+      <Button
+            buttonStyle={
+                  Object {
+                        "backgroundColor": "#000",
+                        "height": 48,
+                        "justifyContent": "center",
+                        "marginHorizontal": 25,
+                      }
+            }
+            containerViewStyle={
+                  Object {
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                      }
+            }
+            icon={
+                  Object {
+                        "color": "#fff",
+                        "name": "facebook-box",
+                        "size": 25,
+                        "type": "material-community",
+                      }
+            }
+            onPress={undefined}
+            textStyle={
+                  Object {
+                        "color": "#fff",
+                        "fontSize": 14.4,
+                        "textAlign": "center",
+                      }
+            }
+            title="Login with Facebook"
+      />
 </View>,
   ],
   "options": Object {},
@@ -292,6 +374,7 @@ ShallowWrapper {
       "_instance": SignUpForm {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "onAuthComplete": [Function],
         "props": Object {
           "anyTouched": false,
           "asyncValidating": false,
@@ -436,14 +519,22 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        false,
                                         false,
                                       ]
                     }
           >
-                    <TextElement
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
                               style={
                                         Object {
                                                   "color": "#fff",
@@ -453,8 +544,41 @@ ShallowWrapper {
                               }
                     >
                               Create Account
-                    </TextElement>
+                    </Text>
           </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
 </View>,
         "_debugID": 2,
         "_renderedOutput": <View
@@ -561,14 +685,22 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        false,
                                         false,
                                       ]
                     }
           >
-                    <TextElement
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
                               style={
                                         Object {
                                                   "color": "#fff",
@@ -578,8 +710,41 @@ ShallowWrapper {
                               }
                     >
                               Create Account
-                    </TextElement>
+                    </Text>
           </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
 </View>,
       },
       "_renderedNodeType": 1,
@@ -729,16 +894,24 @@ ShallowWrapper {
             Array [
                 Object {
                   "backgroundColor": "#000",
+                  "height": 48,
+                  "justifyContent": "center",
                   "marginHorizontal": 25,
-                  "paddingVertical": 16,
                 },
+                Object {
+                  "marginBottom": 10,
+                },
+                false,
                 Object {
                   "backgroundColor": "rgb(243, 108, 96)",
                 },
               ]
         }
     >
-        <TextElement
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
                 Object {
                     "color": "#fff",
@@ -748,8 +921,41 @@ ShallowWrapper {
             }
         >
             Please fix issues before continuing
-        </TextElement>
+        </Text>
     </TouchableOpacity>
+    <Button
+        buttonStyle={
+            Object {
+                "backgroundColor": "#000",
+                "height": 48,
+                "justifyContent": "center",
+                "marginHorizontal": 25,
+              }
+        }
+        containerViewStyle={
+            Object {
+                "marginLeft": 0,
+                "marginRight": 0,
+              }
+        }
+        icon={
+            Object {
+                "color": "#fff",
+                "name": "facebook-box",
+                "size": 25,
+                "type": "material-community",
+              }
+        }
+        onPress={undefined}
+        textStyle={
+            Object {
+                "color": "#fff",
+                "fontSize": 14.4,
+                "textAlign": "center",
+              }
+        }
+        title="Login with Facebook"
+    />
 </View>,
   "nodes": Array [
     <View
@@ -856,16 +1062,24 @@ ShallowWrapper {
                   Array [
                         Object {
                           "backgroundColor": "#000",
+                          "height": 48,
+                          "justifyContent": "center",
                           "marginHorizontal": 25,
-                          "paddingVertical": 16,
                         },
+                        Object {
+                          "marginBottom": 10,
+                        },
+                        false,
                         Object {
                           "backgroundColor": "rgb(243, 108, 96)",
                         },
                       ]
             }
       >
-            <TextElement
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
                   style={
                         Object {
                               "color": "#fff",
@@ -875,8 +1089,41 @@ ShallowWrapper {
                   }
             >
                   Please fix issues before continuing
-            </TextElement>
+            </Text>
       </TouchableOpacity>
+      <Button
+            buttonStyle={
+                  Object {
+                        "backgroundColor": "#000",
+                        "height": 48,
+                        "justifyContent": "center",
+                        "marginHorizontal": 25,
+                      }
+            }
+            containerViewStyle={
+                  Object {
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                      }
+            }
+            icon={
+                  Object {
+                        "color": "#fff",
+                        "name": "facebook-box",
+                        "size": 25,
+                        "type": "material-community",
+                      }
+            }
+            onPress={undefined}
+            textStyle={
+                  Object {
+                        "color": "#fff",
+                        "fontSize": 14.4,
+                        "textAlign": "center",
+                      }
+            }
+            title="Login with Facebook"
+      />
 </View>,
   ],
   "options": Object {},
@@ -913,6 +1160,7 @@ ShallowWrapper {
       "_instance": SignUpForm {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "onAuthComplete": [Function],
         "props": Object {
           "anyTouched": true,
           "asyncValidating": false,
@@ -1057,16 +1305,24 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        false,
                                         Object {
                                           "backgroundColor": "rgb(243, 108, 96)",
                                         },
                                       ]
                     }
           >
-                    <TextElement
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
                               style={
                                         Object {
                                                   "color": "#fff",
@@ -1076,8 +1332,41 @@ ShallowWrapper {
                               }
                     >
                               Please fix issues before continuing
-                    </TextElement>
+                    </Text>
           </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
 </View>,
         "_debugID": 4,
         "_renderedOutput": <View
@@ -1184,16 +1473,24 @@ ShallowWrapper {
                               Array [
                                         Object {
                                           "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
                                           "marginHorizontal": 25,
-                                          "paddingVertical": 16,
                                         },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        false,
                                         Object {
                                           "backgroundColor": "rgb(243, 108, 96)",
                                         },
                                       ]
                     }
           >
-                    <TextElement
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
                               style={
                                         Object {
                                                   "color": "#fff",
@@ -1203,8 +1500,41 @@ ShallowWrapper {
                               }
                     >
                               Please fix issues before continuing
-                    </TextElement>
+                    </Text>
           </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
 </View>,
       },
       "_renderedNodeType": 1,

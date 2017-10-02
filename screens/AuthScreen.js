@@ -5,63 +5,28 @@ import {
     View,
     StyleSheet,
     Text,
-    Animated,
-    Keyboard,
+    Image,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Dimensions
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { bindActionCreators } from 'redux';
 
 // Relative Imports
-import AuthActions from '../actions/authActions';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
-const IMAGE_HEIGHT = emY(15.625);
-const IMAGE_HEIGHT_SMALL = emY(6.25);
-
-type Props = { token: string };
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class AuthScreen extends Component {
     static navigationOptions = {
         header: null
     };
 
-    static defaultProps = { token: '' };
-
     state = { signUp: true };
-
-    props: Props;
-
-    imageHeight = new Animated.Value(IMAGE_HEIGHT);
-
-    componentWillMount() {
-        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-    }
-
-    componentWillUnmount() {
-        this.keyboardWillShowSub.remove();
-        this.keyboardWillHideSub.remove();
-    }
-
-    keyboardWillShow = event => {
-        Animated.timing(this.imageHeight, {
-            duration: event.duration,
-            toValue: IMAGE_HEIGHT_SMALL
-        }).start();
-    };
-
-    keyboardWillHide = event => {
-        Animated.timing(this.imageHeight, {
-            duration: event.duration,
-            toValue: IMAGE_HEIGHT
-        }).start();
-    };
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -71,8 +36,11 @@ class AuthScreen extends Component {
         this.setState({ signUp: false });
     };
 
+    goToMap = () => {
+        this.props.navigation.navigate('map');
+    };
+
     render() {
-        const { actions } = this.props;
         const signUp = this.state.signUp;
         const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
@@ -80,16 +48,11 @@ class AuthScreen extends Component {
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
 
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <ScrollView style={styles.container} keyboardDismissMode="on-drag">
-                    <View style={styles.imageContainer}>
-                        <Animated.Image
-                            source={SOURCE}
-                            style={[styles.image, { height: this.imageHeight }]}
-                        >
-                            <Text style={styles.imageText}>HELLO</Text>
-                        </Animated.Image>
-                    </View>
+            <ScrollView style={styles.container} keyboardDismissMode="on-drag">
+                <KeyboardAvoidingView style={styles.container} behavior="position">
+                    <Image source={SOURCE} style={styles.image}>
+                        <Text style={styles.imageText}>HELLO</Text>
+                    </Image>
                     <View style={styles.buttonsRow}>
                         <Button
                             title="Sign Up"
@@ -105,16 +68,12 @@ class AuthScreen extends Component {
                         />
                     </View>
                     {signUp ? (
-                        <SignUpForm {...actions} />
+                        <SignUpForm onAuthSuccess={this.goToMap} />
                     ) : (
-                        <SignInForm
-                            {...actions}
-                            token={this.props.token}
-                            navigation={this.props.navigation}
-                        />
+                        <SignInForm onAuthSuccess={this.goToMap} />
                     )}
-                </ScrollView>
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </ScrollView>
         );
     }
 }
@@ -124,8 +83,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
-    imageContainer: {},
     image: {
+        height: SCREEN_HEIGHT / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -139,7 +98,7 @@ const styles = StyleSheet.create({
     buttonsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingVertical: 40
+        paddingVertical: emY(1.8)
     },
     button: {
         minWidth: 120,
@@ -161,16 +120,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
-
-const mapDispatchToProps = dispatch => {
-    const authActions = bindActionCreators(AuthActions, dispatch);
-
-    return {
-        actions: {
-            facebookLogin: authActions.facebookLogin
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+export default AuthScreen;
