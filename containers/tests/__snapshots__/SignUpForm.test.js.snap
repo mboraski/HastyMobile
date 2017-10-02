@@ -1154,7 +1154,7 @@ ShallowWrapper {
         pristine={false}
         submitting={false}
 />,
-      "_debugID": 3,
+      "_debugID": 5,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": SignUpForm {
@@ -1194,7 +1194,7 @@ ShallowWrapper {
           "validateCallback": [Function],
         },
       },
-      "_mountOrder": 2,
+      "_mountOrder": 3,
       "_pendingCallbacks": null,
       "_pendingElement": null,
       "_pendingForceUpdate": false,
@@ -1368,7 +1368,7 @@ ShallowWrapper {
                     title="Login with Facebook"
           />
 </View>,
-        "_debugID": 4,
+        "_debugID": 6,
         "_renderedOutput": <View
           style={
                     Object {
@@ -1555,6 +1555,796 @@ ShallowWrapper {
             "email": Object {
               "error": "error",
               "touched": true,
+              "value": "",
+            },
+            "password": Object {
+              "error": null,
+              "touched": false,
+              "value": "",
+            },
+          }
+    }
+    invalid={true}
+    pending={false}
+    pristine={false}
+    submitting={false}
+/>,
+}
+`;
+
+exports[`SignUpForm should render correctly with untouched disabled 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <View
+    style={
+        Object {
+            "flex": 1,
+            "marginBottom": 15,
+          }
+    }
+>
+    <View
+        style={
+            Object {
+                "marginBottom": 50,
+                "paddingHorizontal": 15,
+              }
+        }
+    >
+        <InlineLabelTextInputField
+            containerStyle={
+                Object {
+                    "backgroundColor": "#fff",
+                  }
+            }
+            label="Name"
+            name="name"
+            validate={
+                Array [
+                    [Function],
+                  ]
+            }
+        />
+        <InlineLabelTextInputField
+            containerStyle={
+                Object {
+                    "backgroundColor": "#fff",
+                  }
+            }
+            keyboardType="email-address"
+            label="Email"
+            name="email"
+            validate={
+                Array [
+                    [Function],
+                    [Function],
+                  ]
+            }
+        />
+        <InlineLabelTextInputField
+            containerStyle={
+                Object {
+                    "backgroundColor": "#fff",
+                  }
+            }
+            keyboardType="phone-pad"
+            label="Phone Number"
+            name="number"
+            validate={
+                Array [
+                    [Function],
+                    [Function],
+                  ]
+            }
+        />
+        <InlineLabelTextInputField
+            containerStyle={
+                Object {
+                    "backgroundColor": "#fff",
+                  }
+            }
+            label="Password"
+            name="password"
+            secureTextEntry={true}
+            validate={
+                Array [
+                    [Function],
+                    [Function],
+                  ]
+            }
+        />
+        <InlineLabelTextInputField
+            containerStyle={
+                Object {
+                    "backgroundColor": "#fff",
+                  }
+            }
+            label="Confirm Password"
+            name="confirmPassword"
+            secureTextEntry={true}
+            validate={
+                Array [
+                    [Function],
+                    [Function],
+                  ]
+            }
+        />
+    </View>
+    <TouchableOpacity
+        activeOpacity={0.2}
+        disabled={true}
+        focusedOpacity={0.7}
+        onPress={undefined}
+        style={
+            Array [
+                Object {
+                  "backgroundColor": "#000",
+                  "height": 48,
+                  "justifyContent": "center",
+                  "marginHorizontal": 25,
+                },
+                Object {
+                  "marginBottom": 10,
+                },
+                Object {
+                  "backgroundColor": "#999999",
+                },
+                false,
+              ]
+        }
+    >
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "color": "#fff",
+                    "fontSize": 14.4,
+                    "textAlign": "center",
+                  }
+            }
+        >
+            Create Account
+        </Text>
+    </TouchableOpacity>
+    <Button
+        buttonStyle={
+            Object {
+                "backgroundColor": "#000",
+                "height": 48,
+                "justifyContent": "center",
+                "marginHorizontal": 25,
+              }
+        }
+        containerViewStyle={
+            Object {
+                "marginLeft": 0,
+                "marginRight": 0,
+              }
+        }
+        icon={
+            Object {
+                "color": "#fff",
+                "name": "facebook-box",
+                "size": 25,
+                "type": "material-community",
+              }
+        }
+        onPress={undefined}
+        textStyle={
+            Object {
+                "color": "#fff",
+                "fontSize": 14.4,
+                "textAlign": "center",
+              }
+        }
+        title="Login with Facebook"
+    />
+</View>,
+  "nodes": Array [
+    <View
+      style={
+            Object {
+                  "flex": 1,
+                  "marginBottom": 15,
+                }
+      }
+>
+      <View
+            style={
+                  Object {
+                        "marginBottom": 50,
+                        "paddingHorizontal": 15,
+                      }
+            }
+      >
+            <InlineLabelTextInputField
+                  containerStyle={
+                        Object {
+                              "backgroundColor": "#fff",
+                            }
+                  }
+                  label="Name"
+                  name="name"
+                  validate={
+                        Array [
+                              [Function],
+                            ]
+                  }
+            />
+            <InlineLabelTextInputField
+                  containerStyle={
+                        Object {
+                              "backgroundColor": "#fff",
+                            }
+                  }
+                  keyboardType="email-address"
+                  label="Email"
+                  name="email"
+                  validate={
+                        Array [
+                              [Function],
+                              [Function],
+                            ]
+                  }
+            />
+            <InlineLabelTextInputField
+                  containerStyle={
+                        Object {
+                              "backgroundColor": "#fff",
+                            }
+                  }
+                  keyboardType="phone-pad"
+                  label="Phone Number"
+                  name="number"
+                  validate={
+                        Array [
+                              [Function],
+                              [Function],
+                            ]
+                  }
+            />
+            <InlineLabelTextInputField
+                  containerStyle={
+                        Object {
+                              "backgroundColor": "#fff",
+                            }
+                  }
+                  label="Password"
+                  name="password"
+                  secureTextEntry={true}
+                  validate={
+                        Array [
+                              [Function],
+                              [Function],
+                            ]
+                  }
+            />
+            <InlineLabelTextInputField
+                  containerStyle={
+                        Object {
+                              "backgroundColor": "#fff",
+                            }
+                  }
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  secureTextEntry={true}
+                  validate={
+                        Array [
+                              [Function],
+                              [Function],
+                            ]
+                  }
+            />
+      </View>
+      <TouchableOpacity
+            activeOpacity={0.2}
+            disabled={true}
+            focusedOpacity={0.7}
+            onPress={undefined}
+            style={
+                  Array [
+                        Object {
+                          "backgroundColor": "#000",
+                          "height": 48,
+                          "justifyContent": "center",
+                          "marginHorizontal": 25,
+                        },
+                        Object {
+                          "marginBottom": 10,
+                        },
+                        Object {
+                          "backgroundColor": "#999999",
+                        },
+                        false,
+                      ]
+            }
+      >
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "color": "#fff",
+                              "fontSize": 14.4,
+                              "textAlign": "center",
+                            }
+                  }
+            >
+                  Create Account
+            </Text>
+      </TouchableOpacity>
+      <Button
+            buttonStyle={
+                  Object {
+                        "backgroundColor": "#000",
+                        "height": 48,
+                        "justifyContent": "center",
+                        "marginHorizontal": 25,
+                      }
+            }
+            containerViewStyle={
+                  Object {
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                      }
+            }
+            icon={
+                  Object {
+                        "color": "#fff",
+                        "name": "facebook-box",
+                        "size": 25,
+                        "type": "material-community",
+                      }
+            }
+            onPress={undefined}
+            textStyle={
+                  Object {
+                        "color": "#fff",
+                        "fontSize": 14.4,
+                        "textAlign": "center",
+                      }
+            }
+            title="Login with Facebook"
+      />
+</View>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <SignUpForm
+        anyTouched={false}
+        asyncValidating={false}
+        fields={
+                Object {
+                        "email": Object {
+                          "error": null,
+                          "touched": false,
+                          "value": "",
+                        },
+                        "password": Object {
+                          "error": null,
+                          "touched": false,
+                          "value": "",
+                        },
+                      }
+        }
+        invalid={true}
+        pending={false}
+        pristine={false}
+        submitting={false}
+/>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": SignUpForm {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "onAuthComplete": [Function],
+        "props": Object {
+          "anyTouched": false,
+          "asyncValidating": false,
+          "fields": Object {
+            "email": Object {
+              "error": null,
+              "touched": false,
+              "value": "",
+            },
+            "password": Object {
+              "error": null,
+              "touched": false,
+              "value": "",
+            },
+          },
+          "invalid": true,
+          "pending": false,
+          "pristine": false,
+          "submitting": false,
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <View
+          style={
+                    Object {
+                              "flex": 1,
+                              "marginBottom": 15,
+                            }
+          }
+>
+          <View
+                    style={
+                              Object {
+                                        "marginBottom": 50,
+                                        "paddingHorizontal": 15,
+                                      }
+                    }
+          >
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Name"
+                              name="name"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              keyboardType="email-address"
+                              label="Email"
+                              name="email"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              keyboardType="phone-pad"
+                              label="Phone Number"
+                              name="number"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Password"
+                              name="password"
+                              secureTextEntry={true}
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Confirm Password"
+                              name="confirmPassword"
+                              secureTextEntry={true}
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+          </View>
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    disabled={true}
+                    focusedOpacity={0.7}
+                    onPress={undefined}
+                    style={
+                              Array [
+                                        Object {
+                                          "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
+                                          "marginHorizontal": 25,
+                                        },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        Object {
+                                          "backgroundColor": "#999999",
+                                        },
+                                        false,
+                                      ]
+                    }
+          >
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "color": "#fff",
+                                                  "fontSize": 14.4,
+                                                  "textAlign": "center",
+                                                }
+                              }
+                    >
+                              Create Account
+                    </Text>
+          </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
+</View>,
+        "_debugID": 4,
+        "_renderedOutput": <View
+          style={
+                    Object {
+                              "flex": 1,
+                              "marginBottom": 15,
+                            }
+          }
+>
+          <View
+                    style={
+                              Object {
+                                        "marginBottom": 50,
+                                        "paddingHorizontal": 15,
+                                      }
+                    }
+          >
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Name"
+                              name="name"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              keyboardType="email-address"
+                              label="Email"
+                              name="email"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              keyboardType="phone-pad"
+                              label="Phone Number"
+                              name="number"
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Password"
+                              name="password"
+                              secureTextEntry={true}
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+                    <InlineLabelTextInputField
+                              containerStyle={
+                                        Object {
+                                                  "backgroundColor": "#fff",
+                                                }
+                              }
+                              label="Confirm Password"
+                              name="confirmPassword"
+                              secureTextEntry={true}
+                              validate={
+                                        Array [
+                                                  [Function],
+                                                  [Function],
+                                                ]
+                              }
+                    />
+          </View>
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    disabled={true}
+                    focusedOpacity={0.7}
+                    onPress={undefined}
+                    style={
+                              Array [
+                                        Object {
+                                          "backgroundColor": "#000",
+                                          "height": 48,
+                                          "justifyContent": "center",
+                                          "marginHorizontal": 25,
+                                        },
+                                        Object {
+                                          "marginBottom": 10,
+                                        },
+                                        Object {
+                                          "backgroundColor": "#999999",
+                                        },
+                                        false,
+                                      ]
+                    }
+          >
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "color": "#fff",
+                                                  "fontSize": 14.4,
+                                                  "textAlign": "center",
+                                                }
+                              }
+                    >
+                              Create Account
+                    </Text>
+          </TouchableOpacity>
+          <Button
+                    buttonStyle={
+                              Object {
+                                        "backgroundColor": "#000",
+                                        "height": 48,
+                                        "justifyContent": "center",
+                                        "marginHorizontal": 25,
+                                      }
+                    }
+                    containerViewStyle={
+                              Object {
+                                        "marginLeft": 0,
+                                        "marginRight": 0,
+                                      }
+                    }
+                    icon={
+                              Object {
+                                        "color": "#fff",
+                                        "name": "facebook-box",
+                                        "size": 25,
+                                        "type": "material-community",
+                                      }
+                    }
+                    onPress={undefined}
+                    textStyle={
+                              Object {
+                                        "color": "#fff",
+                                        "fontSize": 14.4,
+                                        "textAlign": "center",
+                                      }
+                    }
+                    title="Login with Facebook"
+          />
+</View>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <SignUpForm
+    anyTouched={false}
+    asyncValidating={false}
+    fields={
+        Object {
+            "email": Object {
+              "error": null,
+              "touched": false,
               "value": "",
             },
             "password": Object {
