@@ -45,33 +45,29 @@ class CheckoutScreen extends Component {
             longitudeDelta: 0.1,
             latitudeDelta: 0.25
         },
-        address: '',
+        address: '3004 N Lamar Blvd',
+        description: 'Bring extra sauce! When you get to the complex, make your first left. Go up the stairs. We are the last unit on the right.',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1)
     };
 
-    onRegionChangeComplete = region => {
-        console.log('region: ', region);
-        this.setState({ region });
-    };
-
     render() {
         const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
-        console.log('orders =====> ', orders);
+        const { region, address, description } = this.state;
+        console.log('this.props =====> ', this.props);
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
                     <View style={styles.container}>
                         <MapView
-                            region={this.state.region}
+                            region={region}
                             style={styles.map}
-                            onRegionChangeComplete={this.onRegionChangeComplete}
                         >
                             <MapView.Marker
                                 image={pinIcon}
                                 coordinate={{
-                                    latitude: 30.26,
-                                    longitude: -97.76
+                                    latitude: region.latitude,
+                                    longitude: region.longitude
                                 }}
                                 title="You"
                                 description="Your Delivery Location"
@@ -82,7 +78,7 @@ class CheckoutScreen extends Component {
                         </View>
                         <View style={styles.itemBody}>
                             <Text style={styles.itemBodyLabel}>
-                                3004 N Lamar Blvd.
+                                {address}
                             </Text>
                             <TouchableOpacity style={styles.itemButton}>
                                 <Text style={styles.itemButtonText}>Change</Text>
@@ -93,9 +89,7 @@ class CheckoutScreen extends Component {
                         </View>
                         <View style={styles.itemBody}>
                             <Text style={styles.itemBodyLabel}>
-                                Bring extra sauce! When you get to the complex, 
-                                make your first left. Go up the stairs. We are the 
-                                last unit on the right.
+                                {description}
                             </Text>
                             <TouchableOpacity style={styles.itemButton}>
                                 <Text style={styles.itemButtonText}>Change</Text>
@@ -119,27 +113,27 @@ class CheckoutScreen extends Component {
                             </DropDown>
                         </View>
                     </View>
+                    <View style={styles.cart}>
+                        <View style={styles.meta}>
+                            <Text style={styles.label}>Delivery Fee:</Text>
+                            <Text style={styles.cost}>${totalCost}</Text>
+                        </View>
+                        <View style={styles.meta}>
+                            <Text style={styles.label}>Tax:</Text>
+                            <Text style={styles.cost}>$14.78</Text>
+                        </View>
+                        <View style={styles.meta}>
+                            <Text style={styles.label}>Order Total:</Text>
+                            <Text style={styles.cost}>${totalCost}</Text>
+                        </View>
+                        <Button
+                            title="LIGHT A BEACON!" 
+                            containerViewStyle={styles.buttonContainer}
+                            buttonStyle={styles.button}
+                            textStyle={styles.buttonText}
+                        />
+                    </View> 
                 </ScrollView>
-                <View style={styles.cart}>
-                    <View style={styles.meta}>
-                        <Text style={styles.label}>Delivery Fee:</Text>
-                        <Text style={styles.cost}>${totalCost}</Text>
-                    </View>
-                    <View style={styles.meta}>
-                        <Text style={styles.label}>Tax:</Text>
-                        <Text style={styles.cost}>$14.78</Text>
-                    </View>
-                    <View style={styles.meta}>
-                        <Text style={styles.label}>Order Total:</Text>
-                        <Text style={styles.cost}>${totalCost}</Text>
-                    </View>
-                    <Button
-                        title="LIGHT A BEACON!" 
-                        containerViewStyle={styles.buttonContainer}
-                        buttonStyle={styles.button}
-                        textStyle={styles.buttonText}
-                    />
-                </View> 
             </View>
         );
     }

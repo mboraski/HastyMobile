@@ -42,7 +42,7 @@ class PaymentDropDownItem extends Component {
                     resizeMode="contain"
                 />
                 <Text style={styles.paymentNumber}>***3463</Text>
-                {arrowIconMark}
+                {/* {arrowIconMark} */}
             </TouchableOpacity>
         );
     }
@@ -68,13 +68,7 @@ const styles = StyleSheet.create({
         fontSize: emY(1.08),
         marginLeft: 10
     },
-    arrowIcon: {
-        position: 'absolute',
-        right: 16,
-        top: emY(1),
-        width: emY(0.9),
-        height: emY(0.9)
-    }
+
 });
 
 const mapDispatchToProps = function (dispatch) {
