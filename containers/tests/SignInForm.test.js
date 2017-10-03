@@ -79,4 +79,28 @@ describe('SignInForm', () => {
         const render = shallow(<SignInForm {...props} />);
         expect(render).toMatchSnapshot();
     });
+    it('should render correctly with submitting', () => {
+        const props = {
+            anyTouched: true,
+            pending: false,
+            submitting: true,
+            asyncValidating: false,
+            invalid: false,
+            pristine: false,
+            fields: {
+                email: {
+                    value: '',
+                    touched: false,
+                    error: null
+                },
+                password: {
+                    value: '',
+                    touched: false,
+                    error: null
+                }
+            }
+        };
+        const render = shallow(<SignInForm {...props} />);
+        expect(render).toMatchSnapshot();
+    });
 });
