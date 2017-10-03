@@ -12,6 +12,7 @@ import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
 import CartScreen from '../screens/CartScreen';
 import CreditCardScreen from '../screens/CreditCardScreen';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const MainNavigator = StackNavigator({
     welcome: { screen: WelcomeScreen },
@@ -23,7 +24,8 @@ const MainNavigator = StackNavigator({
     deliveryStatus: { screen: DeliveryStatusScreen },
     cart: { screen: CartScreen },
     creditCard: { screen: CreditCardScreen },
-    paymentMethod: { screen: PaymentMethodScreen }
+    paymentMethod: { screen: PaymentMethodScreen },
+    checkout: { screen: CheckoutScreen },
     }, {
         navigationOptions: {
             tabBarVisible: false
