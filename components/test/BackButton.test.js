@@ -5,7 +5,12 @@ import configureStore from 'redux-mock-store';
 
 import BackButton from '../BackButton';
 
-const initialState = {};
+const initialState = {
+    header: {
+        isMenuOpen: false
+    }
+};
+
 
 describe('BackButton', () => {
     const middlewares = [];

@@ -422,6 +422,7 @@ ShallowWrapper {
                       }
         }
         deliveryType="1"
+        isMenuOpen={false}
         products={
                 Array [
                         Object {
@@ -450,6 +451,7 @@ ShallowWrapper {
             "totalProducts": 0,
           },
           "deliveryType": "1",
+          "isMenuOpen": false,
           "products": Array [
             Object {
               "deliveryType": "1",
@@ -464,7 +466,12 @@ ShallowWrapper {
         },
         "refs": Object {},
         "renderFilter": [Function],
-        "state": null,
+        "state": Object {
+          "filter": Object {
+            "id": "1",
+            "name": "For You",
+          },
+        },
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -881,6 +888,7 @@ ShallowWrapper {
           }
     }
     deliveryType="1"
+    isMenuOpen={false}
     products={
         Array [
             Object {

@@ -1,0 +1,420 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropDown renders correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <View
+    style={
+        Object {
+            "overflow": "hidden",
+          }
+    }
+>
+    <AnimatedComponent
+        style={
+            Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "height": NaN,
+                },
+              ]
+        }
+    >
+        <View
+            onLayout={[Function]}
+        >
+            <TouchableOpacity
+                activeOpacity={0.2}
+                focusedOpacity={0.7}
+                onPress={[Function]}
+            >
+                <Connect(PaymentDropDownItem)
+                    isHeaderItem={true}
+                />
+            </TouchableOpacity>
+        </View>
+        <View
+            onLayout={[Function]}
+        >
+            <Connect(PaymentDropDownItem)
+                isHeaderItem={false}
+            />
+            <Connect(PaymentDropDownItem)
+                isHeaderItem={false}
+            />
+        </View>
+    </AnimatedComponent>
+    <TouchableOpacity
+        activeOpacity={0.2}
+        focusedOpacity={0.7}
+        onPress={[Function]}
+        style={
+            Object {
+                "position": "absolute",
+                "right": 16,
+                "top": 0,
+              }
+        }
+    >
+        <AnimatedComponent
+            source={1}
+            style={
+                Array [
+                    1,
+                    Object {
+                      "backgroundColor": "rgba(0, 0, 0, 0)",
+                      "transform": Array [
+                        Object {
+                          "rotate": "0deg",
+                        },
+                      ],
+                    },
+                  ]
+            }
+        />
+    </TouchableOpacity>
+</View>,
+  "nodes": Array [
+    <View
+      style={
+            Object {
+                  "overflow": "hidden",
+                }
+      }
+>
+      <AnimatedComponent
+            style={
+                  Array [
+                        Object {
+                          "overflow": "hidden",
+                        },
+                        Object {
+                          "height": NaN,
+                        },
+                      ]
+            }
+      >
+            <View
+                  onLayout={[Function]}
+            >
+                  <TouchableOpacity
+                        activeOpacity={0.2}
+                        focusedOpacity={0.7}
+                        onPress={[Function]}
+                  >
+                        <Connect(PaymentDropDownItem)
+                              isHeaderItem={true}
+                        />
+                  </TouchableOpacity>
+            </View>
+            <View
+                  onLayout={[Function]}
+            >
+                  <Connect(PaymentDropDownItem)
+                        isHeaderItem={false}
+                  />
+                  <Connect(PaymentDropDownItem)
+                        isHeaderItem={false}
+                  />
+            </View>
+      </AnimatedComponent>
+      <TouchableOpacity
+            activeOpacity={0.2}
+            focusedOpacity={0.7}
+            onPress={[Function]}
+            style={
+                  Object {
+                        "position": "absolute",
+                        "right": 16,
+                        "top": 0,
+                      }
+            }
+      >
+            <AnimatedComponent
+                  source={1}
+                  style={
+                        Array [
+                              1,
+                              Object {
+                                "backgroundColor": "rgba(0, 0, 0, 0)",
+                                "transform": Array [
+                                  Object {
+                                    "rotate": "0deg",
+                                  },
+                                ],
+                              },
+                            ]
+                  }
+            />
+      </TouchableOpacity>
+</View>,
+  ],
+  "options": Object {
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+      },
+      "_currentElement": <DropDown
+        header={
+                <Connect(PaymentDropDownItem)
+                        isHeaderItem={true}
+                />
+        }
+>
+        <Connect(PaymentDropDownItem)
+                isHeaderItem={false}
+        />
+        <Connect(PaymentDropDownItem)
+                isHeaderItem={false}
+        />
+</DropDown>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": DropDown {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "children": Array [
+            <Connect(PaymentDropDownItem)
+              isHeaderItem={false}
+/>,
+            <Connect(PaymentDropDownItem)
+              isHeaderItem={false}
+/>,
+          ],
+          "header": <Connect(PaymentDropDownItem)
+            isHeaderItem={true}
+/>,
+        },
+        "refs": Object {},
+        "setMaxHeight": [Function],
+        "setMinHeight": [Function],
+        "state": Object {
+          "animation": NaN,
+          "expanded": true,
+          "maxHeight": 0,
+          "minHeight": 52.8,
+          "spinValue": 0,
+        },
+        "toggle": [Function],
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <View
+          style={
+                    Object {
+                              "overflow": "hidden",
+                            }
+          }
+>
+          <AnimatedComponent
+                    style={
+                              Array [
+                                        Object {
+                                          "overflow": "hidden",
+                                        },
+                                        Object {
+                                          "height": NaN,
+                                        },
+                                      ]
+                    }
+          >
+                    <View
+                              onLayout={[Function]}
+                    >
+                              <TouchableOpacity
+                                        activeOpacity={0.2}
+                                        focusedOpacity={0.7}
+                                        onPress={[Function]}
+                              >
+                                        <Connect(PaymentDropDownItem)
+                                                  isHeaderItem={true}
+                                        />
+                              </TouchableOpacity>
+                    </View>
+                    <View
+                              onLayout={[Function]}
+                    >
+                              <Connect(PaymentDropDownItem)
+                                        isHeaderItem={false}
+                              />
+                              <Connect(PaymentDropDownItem)
+                                        isHeaderItem={false}
+                              />
+                    </View>
+          </AnimatedComponent>
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    focusedOpacity={0.7}
+                    onPress={[Function]}
+                    style={
+                              Object {
+                                        "position": "absolute",
+                                        "right": 16,
+                                        "top": 0,
+                                      }
+                    }
+          >
+                    <AnimatedComponent
+                              source={1}
+                              style={
+                                        Array [
+                                                  1,
+                                                  Object {
+                                                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                    "transform": Array [
+                                                      Object {
+                                                        "rotate": "0deg",
+                                                      },
+                                                    ],
+                                                  },
+                                                ]
+                              }
+                    />
+          </TouchableOpacity>
+</View>,
+        "_debugID": 4,
+        "_renderedOutput": <View
+          style={
+                    Object {
+                              "overflow": "hidden",
+                            }
+          }
+>
+          <AnimatedComponent
+                    style={
+                              Array [
+                                        Object {
+                                          "overflow": "hidden",
+                                        },
+                                        Object {
+                                          "height": NaN,
+                                        },
+                                      ]
+                    }
+          >
+                    <View
+                              onLayout={[Function]}
+                    >
+                              <TouchableOpacity
+                                        activeOpacity={0.2}
+                                        focusedOpacity={0.7}
+                                        onPress={[Function]}
+                              >
+                                        <Connect(PaymentDropDownItem)
+                                                  isHeaderItem={true}
+                                        />
+                              </TouchableOpacity>
+                    </View>
+                    <View
+                              onLayout={[Function]}
+                    >
+                              <Connect(PaymentDropDownItem)
+                                        isHeaderItem={false}
+                              />
+                              <Connect(PaymentDropDownItem)
+                                        isHeaderItem={false}
+                              />
+                    </View>
+          </AnimatedComponent>
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    focusedOpacity={0.7}
+                    onPress={[Function]}
+                    style={
+                              Object {
+                                        "position": "absolute",
+                                        "right": 16,
+                                        "top": 0,
+                                      }
+                    }
+          >
+                    <AnimatedComponent
+                              source={1}
+                              style={
+                                        Array [
+                                                  1,
+                                                  Object {
+                                                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                    "transform": Array [
+                                                      Object {
+                                                        "rotate": "0deg",
+                                                      },
+                                                    ],
+                                                  },
+                                                ]
+                              }
+                    />
+          </TouchableOpacity>
+</View>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <DropDown
+    header={
+        <Connect(PaymentDropDownItem)
+            isHeaderItem={true}
+        />
+    }
+>
+    <Connect(PaymentDropDownItem)
+        isHeaderItem={false}
+    />
+    <Connect(PaymentDropDownItem)
+        isHeaderItem={false}
+    />
+</DropDown>,
+}
+`;
