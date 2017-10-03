@@ -1,26 +1,32 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Text,
+    Image,
+    KeyboardAvoidingView,
+    ScrollView,
+    Dimensions
+} from 'react-native';
 import { Button } from 'react-native-elements';
-import { bindActionCreators } from 'redux';
 
 // Relative Imports
-import AuthActions from '../actions/authActions';
-import SignUpForm from '../components/SignUpForm';
-import SignInForm from '../components/SignInForm';
+import SignUpForm from '../containers/SignUpForm';
+import SignInForm from '../containers/SignInForm';
 import Color from '../constants/Color';
+import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
-
-type Props = { token: string };
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class AuthScreen extends Component {
-    static defaultProps = { token: '' };
+    static navigationOptions = {
+        header: null
+    };
 
     state = { signUp: true };
-
-    props: Props;
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -30,8 +36,11 @@ class AuthScreen extends Component {
         this.setState({ signUp: false });
     };
 
+    goToMap = () => {
+        this.props.navigation.navigate('map');
+    };
+
     render() {
-        const { actions } = this.props;
         const signUp = this.state.signUp;
         const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
@@ -39,34 +48,32 @@ class AuthScreen extends Component {
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
 
         return (
-            <View style={styles.container}>
-                <View style={styles.imageContainer}>
-                    <Image source={SOURCE} style={[styles.image]}>
+            <ScrollView style={styles.container} keyboardDismissMode="on-drag">
+                <KeyboardAvoidingView style={styles.container} behavior="position">
+                    <Image source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </Image>
-                </View>
-                <View style={styles.buttonsRow}>
-                    <Button
-                        title="Sign Up"
-                        buttonStyle={[styles.button, signUpButtonHighlighted]}
-                        textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
-                        onPress={this.openSignUpForm}
-                    />
-                    <Button
-                        title="Log In"
-                        buttonStyle={[styles.button, loginButtonHighlighted]}
-                        textStyle={[styles.buttonText, loginButtonTextHighlighted]}
-                        onPress={this.openSignInForm}
-                    />
-                </View>
-                {signUp
-                    ? <SignUpForm {...actions} />
-                    : <SignInForm
-                        {...actions}
-                        token={this.props.token}
-                        navigation={this.props.navigation}
-                    />}
-            </View>
+                    <View style={styles.buttonsRow}>
+                        <Button
+                            title="Sign Up"
+                            buttonStyle={[styles.button, signUpButtonHighlighted]}
+                            textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
+                            onPress={this.openSignUpForm}
+                        />
+                        <Button
+                            title="Log In"
+                            buttonStyle={[styles.button, loginButtonHighlighted]}
+                            textStyle={[styles.buttonText, loginButtonTextHighlighted]}
+                            onPress={this.openSignInForm}
+                        />
+                    </View>
+                    {signUp ? (
+                        <SignUpForm onAuthSuccess={this.goToMap} />
+                    ) : (
+                        <SignInForm onAuthSuccess={this.goToMap} />
+                    )}
+                </KeyboardAvoidingView>
+            </ScrollView>
         );
     }
 }
@@ -76,10 +83,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
-    imageContainer: {},
     image: {
-        flexGrow: 1,
-        height: 250,
+        height: SCREEN_HEIGHT / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
     buttonsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingVertical: 40
+        paddingVertical: emY(1.8)
     },
     button: {
         minWidth: 120,
@@ -115,16 +120,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
-
-const mapDispatchToProps = (dispatch) => {
-    const authActions = bindActionCreators(AuthActions, dispatch);
-
-    return {
-        actions: {
-            facebookLogin: authActions.facebookLogin
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+export default AuthScreen;
