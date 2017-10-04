@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { Button } from 'react-native-elements';
 
 // Relative Imports
 import CloseButton from '../components/CloseButton';
@@ -36,19 +37,28 @@ class FeedbackScreen extends Component {
         const productTitle = numProducts > 1 ? 'How were your products?' : 'How was your product?';
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>How was {name}?</Text>
-                <Rating style={styles.rating} value={userRating} onChange={this.handleUserRating} />
-                <Text style={styles.title}>{productTitle}</Text>
-                <Rating
-                    style={styles.rating}
-                    value={productRating}
-                    onChange={this.handleProductRating}
-                />
-                <Text style={styles.title}>How was your experience overall?</Text>
-                <Rating
-                    style={styles.rating}
-                    value={overallRating}
-                    onChange={this.handleOverallRating}
+                <View style={styles.ratings}>
+                    <Text style={styles.title}>How was {name}?</Text>
+                    <Rating style={styles.rating} value={userRating} onChange={this.handleUserRating} />
+                    <Text style={styles.title}>{productTitle}</Text>
+                    <Rating
+                        style={styles.rating}
+                        value={productRating}
+                        onChange={this.handleProductRating}
+                    />
+                    <Text style={styles.title}>How was your experience overall?</Text>
+                    <Rating
+                        style={styles.rating}
+                        value={overallRating}
+                        onChange={this.handleOverallRating}
+                    />
+                </View>
+                <Button
+                    title="SEND"
+                    onPress={this.onButtonPress}
+                    containerViewStyle={styles.buttonContainer}
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
                 />
             </View>
         );
@@ -58,8 +68,6 @@ class FeedbackScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
         backgroundColor: Color.WHITE,
         paddingTop: emY(2)
     },
@@ -67,8 +75,20 @@ const styles = StyleSheet.create({
         marginBottom: emY(1),
         fontSize: emY(1)
     },
+    ratings: {
+        alignItems: 'center',
+        flex: 1
+    },
     rating: {
         marginBottom: emY(4)
+    },
+    button: {
+        backgroundColor: '#000',
+        paddingVertical: emY(1),
+        marginBottom: emY(1)
+    },
+    buttonText: {
+        fontSize: emY(1)
     }
 });
 

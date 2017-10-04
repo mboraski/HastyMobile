@@ -11,186 +11,234 @@ ShallowWrapper {
   "node": <View
     style={
         Object {
-            "alignItems": "center",
             "backgroundColor": "#ffffff",
             "flex": 1,
-            "flexDirection": "column",
             "paddingTop": 32,
           }
     }
 >
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
+    <View
         style={
             Object {
-                "fontSize": 16,
-                "marginBottom": 16,
+                "alignItems": "center",
+                "flex": 1,
               }
         }
     >
-        How was 
-        Jessica
-        ?
-    </Text>
-    <BackButton
-        emptyImage={1}
-        fillImage={1}
-        onChange={[Function]}
-        ratingCount={5}
-        size={30}
-        style={
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "fontSize": 16,
+                    "marginBottom": 16,
+                  }
+            }
+        >
+            How was 
+            Jessica
+            ?
+        </Text>
+        <BackButton
+            emptyImage={1}
+            fillImage={1}
+            onChange={[Function]}
+            ratingCount={5}
+            size={30}
+            style={
+                Object {
+                    "marginBottom": 64,
+                  }
+            }
+            value={0}
+        />
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "fontSize": 16,
+                    "marginBottom": 16,
+                  }
+            }
+        >
+            How was your product?
+        </Text>
+        <BackButton
+            emptyImage={1}
+            fillImage={1}
+            onChange={[Function]}
+            ratingCount={5}
+            size={30}
+            style={
+                Object {
+                    "marginBottom": 64,
+                  }
+            }
+            value={0}
+        />
+        <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+                Object {
+                    "fontSize": 16,
+                    "marginBottom": 16,
+                  }
+            }
+        >
+            How was your experience overall?
+        </Text>
+        <BackButton
+            emptyImage={1}
+            fillImage={1}
+            onChange={[Function]}
+            ratingCount={5}
+            size={30}
+            style={
+                Object {
+                    "marginBottom": 64,
+                  }
+            }
+            value={0}
+        />
+    </View>
+    <Button
+        buttonStyle={
             Object {
-                "marginBottom": 64,
+                "backgroundColor": "#000",
+                "marginBottom": 16,
+                "paddingVertical": 16,
               }
         }
-        value={0}
-    />
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
+        containerViewStyle={undefined}
+        onPress={undefined}
+        textStyle={
             Object {
                 "fontSize": 16,
-                "marginBottom": 16,
               }
         }
-    >
-        How was your product?
-    </Text>
-    <BackButton
-        emptyImage={1}
-        fillImage={1}
-        onChange={[Function]}
-        ratingCount={5}
-        size={30}
-        style={
-            Object {
-                "marginBottom": 64,
-              }
-        }
-        value={0}
-    />
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-            Object {
-                "fontSize": 16,
-                "marginBottom": 16,
-              }
-        }
-    >
-        How was your experience overall?
-    </Text>
-    <BackButton
-        emptyImage={1}
-        fillImage={1}
-        onChange={[Function]}
-        ratingCount={5}
-        size={30}
-        style={
-            Object {
-                "marginBottom": 64,
-              }
-        }
-        value={0}
+        title="SEND"
     />
 </View>,
   "nodes": Array [
     <View
       style={
             Object {
-                  "alignItems": "center",
                   "backgroundColor": "#ffffff",
                   "flex": 1,
-                  "flexDirection": "column",
                   "paddingTop": 32,
                 }
       }
 >
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
+      <View
             style={
                   Object {
-                        "fontSize": 16,
-                        "marginBottom": 16,
+                        "alignItems": "center",
+                        "flex": 1,
                       }
             }
       >
-            How was 
-            Jessica
-            ?
-      </Text>
-      <BackButton
-            emptyImage={1}
-            fillImage={1}
-            onChange={[Function]}
-            ratingCount={5}
-            size={30}
-            style={
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "fontSize": 16,
+                              "marginBottom": 16,
+                            }
+                  }
+            >
+                  How was 
+                  Jessica
+                  ?
+            </Text>
+            <BackButton
+                  emptyImage={1}
+                  fillImage={1}
+                  onChange={[Function]}
+                  ratingCount={5}
+                  size={30}
+                  style={
+                        Object {
+                              "marginBottom": 64,
+                            }
+                  }
+                  value={0}
+            />
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "fontSize": 16,
+                              "marginBottom": 16,
+                            }
+                  }
+            >
+                  How was your product?
+            </Text>
+            <BackButton
+                  emptyImage={1}
+                  fillImage={1}
+                  onChange={[Function]}
+                  ratingCount={5}
+                  size={30}
+                  style={
+                        Object {
+                              "marginBottom": 64,
+                            }
+                  }
+                  value={0}
+            />
+            <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                        Object {
+                              "fontSize": 16,
+                              "marginBottom": 16,
+                            }
+                  }
+            >
+                  How was your experience overall?
+            </Text>
+            <BackButton
+                  emptyImage={1}
+                  fillImage={1}
+                  onChange={[Function]}
+                  ratingCount={5}
+                  size={30}
+                  style={
+                        Object {
+                              "marginBottom": 64,
+                            }
+                  }
+                  value={0}
+            />
+      </View>
+      <Button
+            buttonStyle={
                   Object {
-                        "marginBottom": 64,
+                        "backgroundColor": "#000",
+                        "marginBottom": 16,
+                        "paddingVertical": 16,
                       }
             }
-            value={0}
-      />
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
+            containerViewStyle={undefined}
+            onPress={undefined}
+            textStyle={
                   Object {
                         "fontSize": 16,
-                        "marginBottom": 16,
                       }
             }
-      >
-            How was your product?
-      </Text>
-      <BackButton
-            emptyImage={1}
-            fillImage={1}
-            onChange={[Function]}
-            ratingCount={5}
-            size={30}
-            style={
-                  Object {
-                        "marginBottom": 64,
-                      }
-            }
-            value={0}
-      />
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                  Object {
-                        "fontSize": 16,
-                        "marginBottom": 16,
-                      }
-            }
-      >
-            How was your experience overall?
-      </Text>
-      <BackButton
-            emptyImage={1}
-            fillImage={1}
-            onChange={[Function]}
-            ratingCount={5}
-            size={30}
-            style={
-                  Object {
-                        "marginBottom": 64,
-                      }
-            }
-            value={0}
+            title="SEND"
       />
 </View>,
   ],
@@ -264,186 +312,234 @@ ShallowWrapper {
         "_currentElement": <View
           style={
                     Object {
-                              "alignItems": "center",
                               "backgroundColor": "#ffffff",
                               "flex": 1,
-                              "flexDirection": "column",
                               "paddingTop": 32,
                             }
           }
 >
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
+          <View
                     style={
                               Object {
-                                        "fontSize": 16,
-                                        "marginBottom": 16,
+                                        "alignItems": "center",
+                                        "flex": 1,
                                       }
                     }
           >
-                    How was 
-                    Jessica
-                    ?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was 
+                              Jessica
+                              ?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was your product?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was your experience overall?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+          </View>
+          <Button
+                    buttonStyle={
                               Object {
-                                        "marginBottom": 64,
+                                        "backgroundColor": "#000",
+                                        "marginBottom": 16,
+                                        "paddingVertical": 16,
                                       }
                     }
-                    value={0}
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
+                    containerViewStyle={undefined}
+                    onPress={undefined}
+                    textStyle={
                               Object {
                                         "fontSize": 16,
-                                        "marginBottom": 16,
                                       }
                     }
-          >
-                    How was your product?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
-                              Object {
-                                        "marginBottom": 64,
-                                      }
-                    }
-                    value={0}
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Object {
-                                        "fontSize": 16,
-                                        "marginBottom": 16,
-                                      }
-                    }
-          >
-                    How was your experience overall?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
-                              Object {
-                                        "marginBottom": 64,
-                                      }
-                    }
-                    value={0}
+                    title="SEND"
           />
 </View>,
         "_debugID": 4,
         "_renderedOutput": <View
           style={
                     Object {
-                              "alignItems": "center",
                               "backgroundColor": "#ffffff",
                               "flex": 1,
-                              "flexDirection": "column",
                               "paddingTop": 32,
                             }
           }
 >
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
+          <View
                     style={
                               Object {
-                                        "fontSize": 16,
-                                        "marginBottom": 16,
+                                        "alignItems": "center",
+                                        "flex": 1,
                                       }
                     }
           >
-                    How was 
-                    Jessica
-                    ?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was 
+                              Jessica
+                              ?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was your product?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "fontSize": 16,
+                                                  "marginBottom": 16,
+                                                }
+                              }
+                    >
+                              How was your experience overall?
+                    </Text>
+                    <BackButton
+                              emptyImage={1}
+                              fillImage={1}
+                              onChange={[Function]}
+                              ratingCount={5}
+                              size={30}
+                              style={
+                                        Object {
+                                                  "marginBottom": 64,
+                                                }
+                              }
+                              value={0}
+                    />
+          </View>
+          <Button
+                    buttonStyle={
                               Object {
-                                        "marginBottom": 64,
+                                        "backgroundColor": "#000",
+                                        "marginBottom": 16,
+                                        "paddingVertical": 16,
                                       }
                     }
-                    value={0}
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
+                    containerViewStyle={undefined}
+                    onPress={undefined}
+                    textStyle={
                               Object {
                                         "fontSize": 16,
-                                        "marginBottom": 16,
                                       }
                     }
-          >
-                    How was your product?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
-                              Object {
-                                        "marginBottom": 64,
-                                      }
-                    }
-                    value={0}
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Object {
-                                        "fontSize": 16,
-                                        "marginBottom": 16,
-                                      }
-                    }
-          >
-                    How was your experience overall?
-          </Text>
-          <BackButton
-                    emptyImage={1}
-                    fillImage={1}
-                    onChange={[Function]}
-                    ratingCount={5}
-                    size={30}
-                    style={
-                              Object {
-                                        "marginBottom": 64,
-                                      }
-                    }
-                    value={0}
+                    title="SEND"
           />
 </View>,
       },
