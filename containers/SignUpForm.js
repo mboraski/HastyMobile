@@ -19,7 +19,7 @@ import { emY } from '../utils/em';
 
 const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
-export class SignUpForm extends Component {
+class SignUpForm extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
