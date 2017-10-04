@@ -15,6 +15,7 @@ import { Button } from 'react-native-elements';
 // Relative Imports
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
+import RatingPopup from '../components/RatingPopup';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
@@ -26,19 +27,29 @@ class AuthScreen extends Component {
         header: null
     };
 
-    state = { signUp: true };
+    state = {
+        signUp: true,
+        openModal: false
+    };
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
     };
 
     openSignInForm = () => {
-        this.setState({ signUp: false });
+        this.setState({
+            signUp: false,
+            openModal: true,
+        });
     };
 
     goToMap = () => {
         this.props.navigation.navigate('map');
     };
+
+    closeModal = () => {
+        this.setState({ openModal: false });
+    }
 
     render() {
         const signUp = this.state.signUp;
@@ -46,6 +57,7 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
+        const { openModal } = this.state;
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
@@ -73,6 +85,7 @@ class AuthScreen extends Component {
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
+                <RatingPopup openModal={openModal} closeModal={this.closeModal} />
             </ScrollView>
         );
     }
