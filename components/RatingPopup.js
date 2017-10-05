@@ -18,7 +18,7 @@ import { emY } from '../utils/em';
 import starIcon from '../assets/icons/star.png';
 
 const SIZE = emY(1.58);
-const message = 'Tap the number of stars you would give us on scale from 1-5.';
+const rates = [1, 2, 3, 4];
 type Props = {
     openModal: boolean,
     closeModal: () => {}
@@ -27,6 +27,7 @@ type Props = {
 class RatingPopup extends Component {
     state = {
         modalVisible: false,
+        rate: 0,
     }
 
     componentDidMount() {
@@ -44,6 +45,10 @@ class RatingPopup extends Component {
         }
     }
 
+    setRate(rateVal) {
+        this.setState({ rate: rateVal });
+    }
+
     closeModal(isApply) {
         this.props.closeModal();
     }
@@ -52,6 +57,26 @@ class RatingPopup extends Component {
 
     render() {
         const { modalVisible } = this.state;
+        const rateButtons = rates.map((val, index) => {
+            const { rate } = this.state;
+            let rateStyle = null;
+            if (index < rate) {
+                rateStyle = { tintColor: Color.YELLOW_500 };
+            }
+            return (
+                <TouchableOpacity
+                    key={index.toString()}
+                    style={styles.button} 
+                    onPress={() => this.setRate(val)}
+                >
+                    <Image
+                        source={starIcon}
+                        style={[styles.starIcon, rateStyle]} 
+                        resizeMode="contain" 
+                    />
+                </TouchableOpacity>
+            );
+        });
         return (
             <Modal
                 animationType="slide" 
@@ -64,27 +89,15 @@ class RatingPopup extends Component {
                     <TouchableOpacity 
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
-                        activeOpacity="1"
+                        activeOpacity={1.0}
                     >
                         <Text style={Style.clearText}>.</Text>
                     </TouchableOpacity>
                     <View style={styles.innerContainer}>
                         <Text style={styles.label}>How would you like to rate us?</Text>
                         <View style={styles.rattingContainer}>
-                            <TouchableOpacity style={styles.button}>
-                                <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button}>
-                                <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button}>
-                                <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button}>
-                                <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
-                            </TouchableOpacity>
+                            {rateButtons}
                         </View>
-                        
                         <Text style={styles.label}>
                             Tap the number of stars you would give us on scale from 1-5
                         </Text>
