@@ -13,8 +13,9 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import Color from '../constants/Color';
+import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import checkIcon from '../assets/icons/check.png';
+import closeIcon from '../assets/icons/close-circle.png';
 
 const SIZE = emY(3.44);
 const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
@@ -60,21 +61,22 @@ class OopsPopup extends Component {
                 transparent
             >
                 <View style={styles.container}>
+                    <TouchableOpacity 
+                        style={Style.backdropContainer}
+                        onPress={() => this.closeModal()}
+                        activeOpacity={1}
+                    >
+                        <Text style={Style.clearText}>.</Text>
+                    </TouchableOpacity>
                     <View style={styles.innerContainer}>
-                        <Text style={styles.label}>Successful</Text>
-                        <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
+                        <Text style={styles.label}>Oops</Text>
+                        <Image source={closeIcon} style={styles.checkIcon} resizeMode="contain" />
                         <Text style={styles.label}>{message}</Text>
                         <TouchableOpacity
                             onPress={() => this.closeModal(true)}
                             style={[styles.button, { backgroundColor: Color.BLACK }]}
                         >
-                            <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>Apply</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.closeModal(false)}
-                            style={[styles.button, { backgroundColor: Color.CLEAR }]}
-                        >
-                            <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>Cancel</Text>
+                            <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>OK</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
