@@ -64,7 +64,7 @@ class SuccessPopup extends Component {
                     <TouchableOpacity 
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
-                        activeOpacity="1"
+                        activeOpacity={1}
                     >
                         <Text style={Style.clearText}>.</Text>
                     </TouchableOpacity>
