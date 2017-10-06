@@ -95,5 +95,15 @@ export default StyleSheet.create({
         android: {
             elevation: 2
         }
-    })
+    }),
+    backdropContainer: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+    },
+    clearText: {
+        color: 'rgba(0, 0, 0, 0)',
+    },
 });
