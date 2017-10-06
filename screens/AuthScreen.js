@@ -15,6 +15,7 @@ import { Button } from 'react-native-elements';
 // Relative Imports
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
+import RatingPopup from '../components/RatingPopup';
 import CustomerPopup from '../components/CustomerPopup';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
@@ -58,7 +59,7 @@ class AuthScreen extends Component {
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
         const { openModal } = this.state;
-        
+
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
                 <KeyboardAvoidingView style={styles.container} behavior="position">
@@ -85,6 +86,7 @@ class AuthScreen extends Component {
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
+                <RatingPopup openModal={openModal} closeModal={this.closeModal} />
                 <CustomerPopup openModal={openModal} closeModal={this.closeModal} />
             </ScrollView>
         );
