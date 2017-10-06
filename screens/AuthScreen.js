@@ -16,6 +16,7 @@ import { Button } from 'react-native-elements';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 import RatingPopup from '../components/RatingPopup';
+import CustomerPopup from '../components/CustomerPopup';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
@@ -49,7 +50,7 @@ class AuthScreen extends Component {
 
     closeModal = () => {
         this.setState({ openModal: false });
-    }
+    };
 
     render() {
         const signUp = this.state.signUp;
@@ -86,6 +87,7 @@ class AuthScreen extends Component {
                     )}
                 </KeyboardAvoidingView>
                 <RatingPopup openModal={openModal} closeModal={this.closeModal} />
+                <CustomerPopup openModal={openModal} closeModal={this.closeModal} />
             </ScrollView>
         );
     }
