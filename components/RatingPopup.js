@@ -18,7 +18,8 @@ import { emY } from '../utils/em';
 import starIcon from '../assets/icons/star.png';
 
 const SIZE = emY(1.58);
-const rates = [1, 2, 3, 4];
+const rates = [1, 2, 3, 4, 5];
+
 type Props = {
     openModal: boolean,
     closeModal: () => {}
@@ -49,7 +50,7 @@ class RatingPopup extends Component {
         this.setState({ rate: rateVal });
     }
 
-    closeModal(isApply) {
+    closeModal() {
         this.props.closeModal();
     }
 
@@ -66,27 +67,27 @@ class RatingPopup extends Component {
             return (
                 <TouchableOpacity
                     key={index.toString()}
-                    style={styles.button} 
+                    style={styles.button}
                     onPress={() => this.setRate(val)}
                 >
                     <Image
                         source={starIcon}
-                        style={[styles.starIcon, rateStyle]} 
-                        resizeMode="contain" 
+                        style={[styles.starIcon, rateStyle]}
+                        resizeMode="contain"
                     />
                 </TouchableOpacity>
             );
         });
         return (
             <Modal
-                animationType="slide" 
-                transparent={true}
+                animationType="slide"
                 visible={modalVisible}
                 onRequestClose={() => {}}
                 style={styles.modalContainer}
+                transparent
             >
                 <View style={styles.container}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
                         activeOpacity={1.0}
@@ -95,7 +96,7 @@ class RatingPopup extends Component {
                     </TouchableOpacity>
                     <View style={styles.innerContainer}>
                         <Text style={styles.label}>How would you like to rate us?</Text>
-                        <View style={styles.rattingContainer}>
+                        <View style={styles.ratingContainer}>
                             {rateButtons}
                         </View>
                         <Text style={styles.label}>
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
-        paddingVertical: emY(1.13), 
+        paddingVertical: emY(1.13),
         paddingHorizontal: 17,
         marginHorizontal: 22,
         borderRadius: 4,
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
         fontSize: emY(1.08),
         marginVertical: emY(1.58),
     },
-    rattingContainer: {
+    ratingContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

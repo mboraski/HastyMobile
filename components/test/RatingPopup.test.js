@@ -11,7 +11,7 @@ describe('RatingPopup', () => {
     const middlewares = [];
     const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<RatingPopup openModal={true} closeModal={() => {}} />, {
+        const wrapper = shallow(<RatingPopup openModal closeModal={() => {}} />, {
             context: { store: mockStore(initialState) }
         });
         const render = wrapper.dive();
