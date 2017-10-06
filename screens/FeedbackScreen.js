@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -8,15 +8,19 @@ import { Button } from 'react-native-elements';
 import CloseButton from '../components/CloseButton';
 import DoneButton from '../components/DoneButton';
 import Rating from '../components/Rating';
+import FeedbackForm from '../containers/FeedbackForm';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
+
+const keyboardVerticalOffset = emY(1);
 
 class FeedbackScreen extends Component {
     state = {
         userRating: 0,
         productRating: 0,
-        overallRating: 0
+        overallRating: 0,
+        showForm: false
     };
 
     handleUserRating = userRating => {
@@ -31,15 +35,39 @@ class FeedbackScreen extends Component {
         this.setState({ overallRating });
     };
 
+    onButtonPress = () => {
+        if (!this.state.showForm) {
+            if (
+                this.state.userRating <= 3 ||
+                this.state.productRating <= 3 ||
+                this.state.overallRating <= 3
+            ) {
+                this.setState({ showForm: true });
+            }
+        }
+    };
+
     render() {
         const { name, numProducts } = this.props;
-        const { userRating, productRating, overallRating } = this.state;
+        const { userRating, productRating, overallRating, showForm } = this.state;
         const productTitle = numProducts > 1 ? 'How were your products?' : 'How was your product?';
-        return (
+        return showForm ? (
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior="padding"
+                keyboardVerticalOffset={keyboardVerticalOffset}
+            >
+                <FeedbackForm />
+            </KeyboardAvoidingView>
+        ) : (
             <View style={styles.container}>
                 <View style={styles.ratings}>
                     <Text style={styles.title}>How was {name}?</Text>
-                    <Rating style={styles.rating} value={userRating} onChange={this.handleUserRating} />
+                    <Rating
+                        style={styles.rating}
+                        value={userRating}
+                        onChange={this.handleUserRating}
+                    />
                     <Text style={styles.title}>{productTitle}</Text>
                     <Rating
                         style={styles.rating}
@@ -68,8 +96,7 @@ class FeedbackScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Color.WHITE,
-        paddingTop: emY(2)
+        backgroundColor: Color.WHITE
     },
     title: {
         marginBottom: emY(1),
@@ -77,7 +104,8 @@ const styles = StyleSheet.create({
     },
     ratings: {
         alignItems: 'center',
-        flex: 1
+        flex: 1,
+        paddingTop: emY(2)
     },
     rating: {
         marginBottom: emY(4)
