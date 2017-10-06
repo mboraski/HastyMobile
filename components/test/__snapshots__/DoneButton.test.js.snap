@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MenuButton renders correctly 1`] = `
+exports[`DoneButton renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -11,55 +11,55 @@ ShallowWrapper {
   "node": <TouchableOpacity
     activeOpacity={0.2}
     focusedOpacity={0.7}
-    onPress={[Function]}
     style={
         Array [
             Object {
-              "marginLeft": 20,
-              "marginRight": 0,
+              "marginRight": 20,
             },
-            Object {},
             undefined,
           ]
     }
-    toggleMenu={[Function]}
 >
-    <Image
-        source={1}
+    <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
         style={
             Object {
-                "height": 30,
-                "width": 30,
+                "color": "#000000",
+                "fontSize": 16,
               }
         }
-    />
+    >
+        Done
+    </Text>
 </TouchableOpacity>,
   "nodes": Array [
     <TouchableOpacity
       activeOpacity={0.2}
       focusedOpacity={0.7}
-      onPress={[Function]}
       style={
             Array [
                   Object {
-                    "marginLeft": 20,
-                    "marginRight": 0,
+                    "marginRight": 20,
                   },
-                  Object {},
                   undefined,
                 ]
       }
-      toggleMenu={[Function]}
 >
-      <Image
-            source={1}
+      <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
                   Object {
-                        "height": 30,
-                        "width": 30,
+                        "color": "#000000",
+                        "fontSize": 16,
                       }
             }
-      />
+      >
+            Done
+      </Text>
 </TouchableOpacity>,
   ],
   "options": Object {
@@ -88,18 +88,14 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <MenuButton
-        toggleMenu={[Function]}
-/>,
+      "_currentElement": <DoneButton />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": MenuButton {
+      "_instance": DoneButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "props": Object {
-          "toggleMenu": [Function],
-        },
+        "props": Object {},
         "refs": Object {},
         "state": null,
         "updater": Object {
@@ -123,55 +119,55 @@ ShallowWrapper {
         "_currentElement": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
                     Array [
                               Object {
-                                "marginLeft": 20,
-                                "marginRight": 0,
+                                "marginRight": 20,
                               },
-                              Object {},
                               undefined,
                             ]
           }
-          toggleMenu={[Function]}
 >
-          <Image
-                    source={1}
+          <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
                     style={
                               Object {
-                                        "height": 30,
-                                        "width": 30,
+                                        "color": "#000000",
+                                        "fontSize": 16,
                                       }
                     }
-          />
+          >
+                    Done
+          </Text>
 </TouchableOpacity>,
         "_debugID": 4,
         "_renderedOutput": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
-          onPress={[Function]}
           style={
                     Array [
                               Object {
-                                "marginLeft": 20,
-                                "marginRight": 0,
+                                "marginRight": 20,
                               },
-                              Object {},
                               undefined,
                             ]
           }
-          toggleMenu={[Function]}
 >
-          <Image
-                    source={1}
+          <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
                     style={
                               Object {
-                                        "height": 30,
-                                        "width": 30,
+                                        "color": "#000000",
+                                        "fontSize": 16,
                                       }
                     }
-          />
+          >
+                    Done
+          </Text>
 </TouchableOpacity>,
       },
       "_renderedNodeType": 1,
@@ -184,8 +180,6 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <MenuButton
-    toggleMenu={[Function]}
-/>,
+  "unrendered": <DoneButton />,
 }
 `;

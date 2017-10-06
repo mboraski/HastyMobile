@@ -11,6 +11,9 @@ const initialState = {
     },
     ui: {
         searchVisible: false
+    },
+    header: {
+        isMenuOpen: false
     }
 };
 

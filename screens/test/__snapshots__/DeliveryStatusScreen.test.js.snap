@@ -16,93 +16,99 @@ ShallowWrapper {
           }
     }
 >
-    <View
-        style={
-            Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "height": 176,
-                "justifyContent": "center",
-                "marginBottom": 16,
-              }
-        }
+    <TouchableOpacity
+        activeOpacity={0.2}
+        focusedOpacity={0.7}
+        onPress={[Function]}
     >
         <View
             style={
                 Object {
                     "alignItems": "center",
-                    "borderColor": "#cccccc",
-                    "borderRadius": 66,
-                    "borderWidth": 5,
                     "flexDirection": "row",
-                    "height": 132,
+                    "height": 176,
                     "justifyContent": "center",
-                    "width": 132,
+                    "marginBottom": 16,
                   }
             }
         >
-            <Image
-                source={
-                    Object {
-                        "uri": "https://facebook.github.io/react/img/logo_og.png",
-                      }
-                }
+            <View
                 style={
                     Object {
-                        "borderRadius": 56,
+                        "alignItems": "center",
+                        "borderColor": "#cccccc",
+                        "borderRadius": 66,
+                        "borderWidth": 5,
+                        "flexDirection": "row",
+                        "height": 132,
+                        "justifyContent": "center",
+                        "width": 132,
+                      }
+                }
+            >
+                <Image
+                    source={
+                        Object {
+                            "uri": "https://facebook.github.io/react/img/logo_og.png",
+                          }
+                    }
+                    style={
+                        Object {
+                            "borderRadius": 56,
+                            "height": 112,
+                            "width": 112,
+                          }
+                    }
+                />
+            </View>
+            <Image
+                source={1}
+                style={
+                    Object {
                         "height": 112,
+                        "left": "50%",
+                        "position": "absolute",
+                        "top": "50%",
+                        "transform": Array [
+                          Object {
+                            "translate": Array [
+                              0,
+                              -112,
+                            ],
+                          },
+                          Object {
+                            "scale": 1,
+                          },
+                        ],
+                        "width": 112,
+                      }
+                }
+            />
+            <Image
+                source={1}
+                style={
+                    Object {
+                        "height": 112,
+                        "left": "50%",
+                        "position": "absolute",
+                        "top": "50%",
+                        "transform": Array [
+                          Object {
+                            "translate": Array [
+                              -56,
+                              -56,
+                            ],
+                          },
+                          Object {
+                            "scale": 1.4,
+                          },
+                        ],
                         "width": 112,
                       }
                 }
             />
         </View>
-        <Image
-            source={1}
-            style={
-                Object {
-                    "height": 112,
-                    "left": "50%",
-                    "position": "absolute",
-                    "top": "50%",
-                    "transform": Array [
-                      Object {
-                        "translate": Array [
-                          0,
-                          -112,
-                        ],
-                      },
-                      Object {
-                        "scale": 1,
-                      },
-                    ],
-                    "width": 112,
-                  }
-            }
-        />
-        <Image
-            source={1}
-            style={
-                Object {
-                    "height": 112,
-                    "left": "50%",
-                    "position": "absolute",
-                    "top": "50%",
-                    "transform": Array [
-                      Object {
-                        "translate": Array [
-                          -56,
-                          -56,
-                        ],
-                      },
-                      Object {
-                        "scale": 1.4,
-                      },
-                    ],
-                    "width": 112,
-                  }
-            }
-        />
-    </View>
+    </TouchableOpacity>
     <Text
         accessible={true}
         allowFontScaling={true}
@@ -118,41 +124,13 @@ ShallowWrapper {
     >
         Searching...
     </Text>
+    <Connect(Notification)
+        onRef={[Function]}
+    />
     <View
         style={
             Object {
-                "backgroundColor": "#fcc937",
-                "marginBottom": 96,
-                "marginHorizontal": 27,
-                "paddingVertical": 20,
-                "shadowColor": "#000",
-                "shadowOffset": Object {
-                  "height": 6,
-                  "width": 0,
-                },
-                "shadowOpacity": 0.25,
-                "shadowRadius": 13,
-              }
-        }
-    >
-        <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                Object {
-                    "color": "#fff",
-                    "fontSize": 17,
-                    "textAlign": "center",
-                  }
-            }
-        >
-            New Hero Found!
-        </Text>
-    </View>
-    <View
-        style={
-            Object {
+                "backgroundColor": "#ffffff",
                 "borderBottomWidth": 1.5,
                 "borderColor": "#cccccc",
                 "marginLeft": 27,
@@ -187,93 +165,99 @@ ShallowWrapper {
                 }
       }
 >
-      <View
-            style={
-                  Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "height": 176,
-                        "justifyContent": "center",
-                        "marginBottom": 16,
-                      }
-            }
+      <TouchableOpacity
+            activeOpacity={0.2}
+            focusedOpacity={0.7}
+            onPress={[Function]}
       >
             <View
                   style={
                         Object {
                               "alignItems": "center",
-                              "borderColor": "#cccccc",
-                              "borderRadius": 66,
-                              "borderWidth": 5,
                               "flexDirection": "row",
-                              "height": 132,
+                              "height": 176,
                               "justifyContent": "center",
-                              "width": 132,
+                              "marginBottom": 16,
                             }
                   }
             >
-                  <Image
-                        source={
-                              Object {
-                                    "uri": "https://facebook.github.io/react/img/logo_og.png",
-                                  }
-                        }
+                  <View
                         style={
                               Object {
-                                    "borderRadius": 56,
+                                    "alignItems": "center",
+                                    "borderColor": "#cccccc",
+                                    "borderRadius": 66,
+                                    "borderWidth": 5,
+                                    "flexDirection": "row",
+                                    "height": 132,
+                                    "justifyContent": "center",
+                                    "width": 132,
+                                  }
+                        }
+                  >
+                        <Image
+                              source={
+                                    Object {
+                                          "uri": "https://facebook.github.io/react/img/logo_og.png",
+                                        }
+                              }
+                              style={
+                                    Object {
+                                          "borderRadius": 56,
+                                          "height": 112,
+                                          "width": 112,
+                                        }
+                              }
+                        />
+                  </View>
+                  <Image
+                        source={1}
+                        style={
+                              Object {
                                     "height": 112,
+                                    "left": "50%",
+                                    "position": "absolute",
+                                    "top": "50%",
+                                    "transform": Array [
+                                      Object {
+                                        "translate": Array [
+                                          0,
+                                          -112,
+                                        ],
+                                      },
+                                      Object {
+                                        "scale": 1,
+                                      },
+                                    ],
+                                    "width": 112,
+                                  }
+                        }
+                  />
+                  <Image
+                        source={1}
+                        style={
+                              Object {
+                                    "height": 112,
+                                    "left": "50%",
+                                    "position": "absolute",
+                                    "top": "50%",
+                                    "transform": Array [
+                                      Object {
+                                        "translate": Array [
+                                          -56,
+                                          -56,
+                                        ],
+                                      },
+                                      Object {
+                                        "scale": 1.4,
+                                      },
+                                    ],
                                     "width": 112,
                                   }
                         }
                   />
             </View>
-            <Image
-                  source={1}
-                  style={
-                        Object {
-                              "height": 112,
-                              "left": "50%",
-                              "position": "absolute",
-                              "top": "50%",
-                              "transform": Array [
-                                Object {
-                                  "translate": Array [
-                                    0,
-                                    -112,
-                                  ],
-                                },
-                                Object {
-                                  "scale": 1,
-                                },
-                              ],
-                              "width": 112,
-                            }
-                  }
-            />
-            <Image
-                  source={1}
-                  style={
-                        Object {
-                              "height": 112,
-                              "left": "50%",
-                              "position": "absolute",
-                              "top": "50%",
-                              "transform": Array [
-                                Object {
-                                  "translate": Array [
-                                    -56,
-                                    -56,
-                                  ],
-                                },
-                                Object {
-                                  "scale": 1.4,
-                                },
-                              ],
-                              "width": 112,
-                            }
-                  }
-            />
-      </View>
+      </TouchableOpacity>
       <Text
             accessible={true}
             allowFontScaling={true}
@@ -289,41 +273,13 @@ ShallowWrapper {
       >
             Searching...
       </Text>
+      <Connect(Notification)
+            onRef={[Function]}
+      />
       <View
             style={
                   Object {
-                        "backgroundColor": "#fcc937",
-                        "marginBottom": 96,
-                        "marginHorizontal": 27,
-                        "paddingVertical": 20,
-                        "shadowColor": "#000",
-                        "shadowOffset": Object {
-                          "height": 6,
-                          "width": 0,
-                        },
-                        "shadowOpacity": 0.25,
-                        "shadowRadius": 13,
-                      }
-            }
-      >
-            <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                        Object {
-                              "color": "#fff",
-                              "fontSize": 17,
-                              "textAlign": "center",
-                            }
-                  }
-            >
-                  New Hero Found!
-            </Text>
-      </View>
-      <View
-            style={
-                  Object {
+                        "backgroundColor": "#ffffff",
                         "borderBottomWidth": 1.5,
                         "borderColor": "#cccccc",
                         "marginLeft": 27,
@@ -384,93 +340,99 @@ ShallowWrapper {
                       }
         }
 >
-        <View
-                style={
-                        Object {
-                                "alignItems": "center",
-                                "flexDirection": "row",
-                                "height": 176,
-                                "justifyContent": "center",
-                                "marginBottom": 16,
-                              }
-                }
+        <TouchableOpacity
+                activeOpacity={0.2}
+                focusedOpacity={0.7}
+                onPress={[Function]}
         >
                 <View
                         style={
                                 Object {
                                         "alignItems": "center",
-                                        "borderColor": "#cccccc",
-                                        "borderRadius": 66,
-                                        "borderWidth": 5,
                                         "flexDirection": "row",
-                                        "height": 132,
+                                        "height": 176,
                                         "justifyContent": "center",
-                                        "width": 132,
+                                        "marginBottom": 16,
                                       }
                         }
                 >
-                        <Image
-                                source={
-                                        Object {
-                                                "uri": "https://facebook.github.io/react/img/logo_og.png",
-                                              }
-                                }
+                        <View
                                 style={
                                         Object {
-                                                "borderRadius": 56,
+                                                "alignItems": "center",
+                                                "borderColor": "#cccccc",
+                                                "borderRadius": 66,
+                                                "borderWidth": 5,
+                                                "flexDirection": "row",
+                                                "height": 132,
+                                                "justifyContent": "center",
+                                                "width": 132,
+                                              }
+                                }
+                        >
+                                <Image
+                                        source={
+                                                Object {
+                                                        "uri": "https://facebook.github.io/react/img/logo_og.png",
+                                                      }
+                                        }
+                                        style={
+                                                Object {
+                                                        "borderRadius": 56,
+                                                        "height": 112,
+                                                        "width": 112,
+                                                      }
+                                        }
+                                />
+                        </View>
+                        <Image
+                                source={1}
+                                style={
+                                        Object {
                                                 "height": 112,
+                                                "left": "50%",
+                                                "position": "absolute",
+                                                "top": "50%",
+                                                "transform": Array [
+                                                  Object {
+                                                    "translate": Array [
+                                                      0,
+                                                      -112,
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "scale": 1,
+                                                  },
+                                                ],
+                                                "width": 112,
+                                              }
+                                }
+                        />
+                        <Image
+                                source={1}
+                                style={
+                                        Object {
+                                                "height": 112,
+                                                "left": "50%",
+                                                "position": "absolute",
+                                                "top": "50%",
+                                                "transform": Array [
+                                                  Object {
+                                                    "translate": Array [
+                                                      -56,
+                                                      -56,
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "scale": 1.4,
+                                                  },
+                                                ],
                                                 "width": 112,
                                               }
                                 }
                         />
                 </View>
-                <Image
-                        source={1}
-                        style={
-                                Object {
-                                        "height": 112,
-                                        "left": "50%",
-                                        "position": "absolute",
-                                        "top": "50%",
-                                        "transform": Array [
-                                          Object {
-                                            "translate": Array [
-                                              0,
-                                              -112,
-                                            ],
-                                          },
-                                          Object {
-                                            "scale": 1,
-                                          },
-                                        ],
-                                        "width": 112,
-                                      }
-                        }
-                />
-                <Image
-                        source={1}
-                        style={
-                                Object {
-                                        "height": 112,
-                                        "left": "50%",
-                                        "position": "absolute",
-                                        "top": "50%",
-                                        "transform": Array [
-                                          Object {
-                                            "translate": Array [
-                                              -56,
-                                              -56,
-                                            ],
-                                          },
-                                          Object {
-                                            "scale": 1.4,
-                                          },
-                                        ],
-                                        "width": 112,
-                                      }
-                        }
-                />
-        </View>
+        </TouchableOpacity>
         <Text
                 accessible={true}
                 allowFontScaling={true}
@@ -486,41 +448,13 @@ ShallowWrapper {
         >
                 Searching...
         </Text>
+        <Connect(Notification)
+                onRef={[Function]}
+        />
         <View
                 style={
                         Object {
-                                "backgroundColor": "#fcc937",
-                                "marginBottom": 96,
-                                "marginHorizontal": 27,
-                                "paddingVertical": 20,
-                                "shadowColor": "#000",
-                                "shadowOffset": Object {
-                                  "height": 6,
-                                  "width": 0,
-                                },
-                                "shadowOpacity": 0.25,
-                                "shadowRadius": 13,
-                              }
-                }
-        >
-                <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                                Object {
-                                        "color": "#fff",
-                                        "fontSize": 17,
-                                        "textAlign": "center",
-                                      }
-                        }
-                >
-                        New Hero Found!
-                </Text>
-        </View>
-        <View
-                style={
-                        Object {
+                                "backgroundColor": "#ffffff",
                                 "borderBottomWidth": 1.5,
                                 "borderColor": "#cccccc",
                                 "marginLeft": 27,
@@ -561,93 +495,99 @@ ShallowWrapper {
         "measureLayout": [Function],
         "props": Object {
           "children": Array [
-            <View
-              style={
-                            Object {
-                                          "alignItems": "center",
-                                          "flexDirection": "row",
-                                          "height": 176,
-                                          "justifyContent": "center",
-                                          "marginBottom": 16,
-                                        }
-              }
+            <TouchableOpacity
+              activeOpacity={0.2}
+              focusedOpacity={0.7}
+              onPress={[Function]}
 >
               <View
                             style={
                                           Object {
                                                         "alignItems": "center",
-                                                        "borderColor": "#cccccc",
-                                                        "borderRadius": 66,
-                                                        "borderWidth": 5,
                                                         "flexDirection": "row",
-                                                        "height": 132,
+                                                        "height": 176,
                                                         "justifyContent": "center",
-                                                        "width": 132,
+                                                        "marginBottom": 16,
                                                       }
                             }
               >
-                            <Image
-                                          source={
-                                                        Object {
-                                                                      "uri": "https://facebook.github.io/react/img/logo_og.png",
-                                                                    }
-                                          }
+                            <View
                                           style={
                                                         Object {
-                                                                      "borderRadius": 56,
+                                                                      "alignItems": "center",
+                                                                      "borderColor": "#cccccc",
+                                                                      "borderRadius": 66,
+                                                                      "borderWidth": 5,
+                                                                      "flexDirection": "row",
+                                                                      "height": 132,
+                                                                      "justifyContent": "center",
+                                                                      "width": 132,
+                                                                    }
+                                          }
+                            >
+                                          <Image
+                                                        source={
+                                                                      Object {
+                                                                                    "uri": "https://facebook.github.io/react/img/logo_og.png",
+                                                                                  }
+                                                        }
+                                                        style={
+                                                                      Object {
+                                                                                    "borderRadius": 56,
+                                                                                    "height": 112,
+                                                                                    "width": 112,
+                                                                                  }
+                                                        }
+                                          />
+                            </View>
+                            <Image
+                                          source={1}
+                                          style={
+                                                        Object {
                                                                       "height": 112,
+                                                                      "left": "50%",
+                                                                      "position": "absolute",
+                                                                      "top": "50%",
+                                                                      "transform": Array [
+                                                                        Object {
+                                                                          "translate": Array [
+                                                                            0,
+                                                                            -112,
+                                                                          ],
+                                                                        },
+                                                                        Object {
+                                                                          "scale": 1,
+                                                                        },
+                                                                      ],
+                                                                      "width": 112,
+                                                                    }
+                                          }
+                            />
+                            <Image
+                                          source={1}
+                                          style={
+                                                        Object {
+                                                                      "height": 112,
+                                                                      "left": "50%",
+                                                                      "position": "absolute",
+                                                                      "top": "50%",
+                                                                      "transform": Array [
+                                                                        Object {
+                                                                          "translate": Array [
+                                                                            -56,
+                                                                            -56,
+                                                                          ],
+                                                                        },
+                                                                        Object {
+                                                                          "scale": 1.4,
+                                                                        },
+                                                                      ],
                                                                       "width": 112,
                                                                     }
                                           }
                             />
               </View>
-              <Image
-                            source={1}
-                            style={
-                                          Object {
-                                                        "height": 112,
-                                                        "left": "50%",
-                                                        "position": "absolute",
-                                                        "top": "50%",
-                                                        "transform": Array [
-                                                          Object {
-                                                            "translate": Array [
-                                                              0,
-                                                              -112,
-                                                            ],
-                                                          },
-                                                          Object {
-                                                            "scale": 1,
-                                                          },
-                                                        ],
-                                                        "width": 112,
-                                                      }
-                            }
-              />
-              <Image
-                            source={1}
-                            style={
-                                          Object {
-                                                        "height": 112,
-                                                        "left": "50%",
-                                                        "position": "absolute",
-                                                        "top": "50%",
-                                                        "transform": Array [
-                                                          Object {
-                                                            "translate": Array [
-                                                              -56,
-                                                              -56,
-                                                            ],
-                                                          },
-                                                          Object {
-                                                            "scale": 1.4,
-                                                          },
-                                                        ],
-                                                        "width": 112,
-                                                      }
-                            }
-              />
-</View>,
+</TouchableOpacity>,
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -663,41 +603,13 @@ ShallowWrapper {
 >
               Searching...
 </Text>,
+            <Connect(Notification)
+              onRef={[Function]}
+/>,
             <View
               style={
                             Object {
-                                          "backgroundColor": "#fcc937",
-                                          "marginBottom": 96,
-                                          "marginHorizontal": 27,
-                                          "paddingVertical": 20,
-                                          "shadowColor": "#000",
-                                          "shadowOffset": Object {
-                                            "height": 6,
-                                            "width": 0,
-                                          },
-                                          "shadowOpacity": 0.25,
-                                          "shadowRadius": 13,
-                                        }
-              }
->
-              <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            ellipsizeMode="tail"
-                            style={
-                                          Object {
-                                                        "color": "#fff",
-                                                        "fontSize": 17,
-                                                        "textAlign": "center",
-                                                      }
-                            }
-              >
-                            New Hero Found!
-              </Text>
-</View>,
-            <View
-              style={
-                            Object {
+                                          "backgroundColor": "#ffffff",
                                           "borderBottomWidth": 1.5,
                                           "borderColor": "#cccccc",
                                           "marginLeft": 27,
@@ -757,93 +669,99 @@ ShallowWrapper {
                             }
           }
 >
-          <View
-                    style={
-                              Object {
-                                        "alignItems": "center",
-                                        "flexDirection": "row",
-                                        "height": 176,
-                                        "justifyContent": "center",
-                                        "marginBottom": 16,
-                                      }
-                    }
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    focusedOpacity={0.7}
+                    onPress={[Function]}
           >
                     <View
                               style={
                                         Object {
                                                   "alignItems": "center",
-                                                  "borderColor": "#cccccc",
-                                                  "borderRadius": 66,
-                                                  "borderWidth": 5,
                                                   "flexDirection": "row",
-                                                  "height": 132,
+                                                  "height": 176,
                                                   "justifyContent": "center",
-                                                  "width": 132,
+                                                  "marginBottom": 16,
                                                 }
                               }
                     >
-                              <Image
-                                        source={
-                                                  Object {
-                                                            "uri": "https://facebook.github.io/react/img/logo_og.png",
-                                                          }
-                                        }
+                              <View
                                         style={
                                                   Object {
-                                                            "borderRadius": 56,
+                                                            "alignItems": "center",
+                                                            "borderColor": "#cccccc",
+                                                            "borderRadius": 66,
+                                                            "borderWidth": 5,
+                                                            "flexDirection": "row",
+                                                            "height": 132,
+                                                            "justifyContent": "center",
+                                                            "width": 132,
+                                                          }
+                                        }
+                              >
+                                        <Image
+                                                  source={
+                                                            Object {
+                                                                      "uri": "https://facebook.github.io/react/img/logo_og.png",
+                                                                    }
+                                                  }
+                                                  style={
+                                                            Object {
+                                                                      "borderRadius": 56,
+                                                                      "height": 112,
+                                                                      "width": 112,
+                                                                    }
+                                                  }
+                                        />
+                              </View>
+                              <Image
+                                        source={1}
+                                        style={
+                                                  Object {
                                                             "height": 112,
+                                                            "left": "50%",
+                                                            "position": "absolute",
+                                                            "top": "50%",
+                                                            "transform": Array [
+                                                              Object {
+                                                                "translate": Array [
+                                                                  0,
+                                                                  -112,
+                                                                ],
+                                                              },
+                                                              Object {
+                                                                "scale": 1,
+                                                              },
+                                                            ],
+                                                            "width": 112,
+                                                          }
+                                        }
+                              />
+                              <Image
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "height": 112,
+                                                            "left": "50%",
+                                                            "position": "absolute",
+                                                            "top": "50%",
+                                                            "transform": Array [
+                                                              Object {
+                                                                "translate": Array [
+                                                                  -56,
+                                                                  -56,
+                                                                ],
+                                                              },
+                                                              Object {
+                                                                "scale": 1.4,
+                                                              },
+                                                            ],
                                                             "width": 112,
                                                           }
                                         }
                               />
                     </View>
-                    <Image
-                              source={1}
-                              style={
-                                        Object {
-                                                  "height": 112,
-                                                  "left": "50%",
-                                                  "position": "absolute",
-                                                  "top": "50%",
-                                                  "transform": Array [
-                                                    Object {
-                                                      "translate": Array [
-                                                        0,
-                                                        -112,
-                                                      ],
-                                                    },
-                                                    Object {
-                                                      "scale": 1,
-                                                    },
-                                                  ],
-                                                  "width": 112,
-                                                }
-                              }
-                    />
-                    <Image
-                              source={1}
-                              style={
-                                        Object {
-                                                  "height": 112,
-                                                  "left": "50%",
-                                                  "position": "absolute",
-                                                  "top": "50%",
-                                                  "transform": Array [
-                                                    Object {
-                                                      "translate": Array [
-                                                        -56,
-                                                        -56,
-                                                      ],
-                                                    },
-                                                    Object {
-                                                      "scale": 1.4,
-                                                    },
-                                                  ],
-                                                  "width": 112,
-                                                }
-                              }
-                    />
-          </View>
+          </TouchableOpacity>
           <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -859,41 +777,13 @@ ShallowWrapper {
           >
                     Searching...
           </Text>
+          <Connect(Notification)
+                    onRef={[Function]}
+          />
           <View
                     style={
                               Object {
-                                        "backgroundColor": "#fcc937",
-                                        "marginBottom": 96,
-                                        "marginHorizontal": 27,
-                                        "paddingVertical": 20,
-                                        "shadowColor": "#000",
-                                        "shadowOffset": Object {
-                                          "height": 6,
-                                          "width": 0,
-                                        },
-                                        "shadowOpacity": 0.25,
-                                        "shadowRadius": 13,
-                                      }
-                    }
-          >
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "color": "#fff",
-                                                  "fontSize": 17,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              New Hero Found!
-                    </Text>
-          </View>
-          <View
-                    style={
-                              Object {
+                                        "backgroundColor": "#ffffff",
                                         "borderBottomWidth": 1.5,
                                         "borderColor": "#cccccc",
                                         "marginLeft": 27,
@@ -928,93 +818,99 @@ ShallowWrapper {
                             }
           }
 >
-          <View
-                    style={
-                              Object {
-                                        "alignItems": "center",
-                                        "flexDirection": "row",
-                                        "height": 176,
-                                        "justifyContent": "center",
-                                        "marginBottom": 16,
-                                      }
-                    }
+          <TouchableOpacity
+                    activeOpacity={0.2}
+                    focusedOpacity={0.7}
+                    onPress={[Function]}
           >
                     <View
                               style={
                                         Object {
                                                   "alignItems": "center",
-                                                  "borderColor": "#cccccc",
-                                                  "borderRadius": 66,
-                                                  "borderWidth": 5,
                                                   "flexDirection": "row",
-                                                  "height": 132,
+                                                  "height": 176,
                                                   "justifyContent": "center",
-                                                  "width": 132,
+                                                  "marginBottom": 16,
                                                 }
                               }
                     >
-                              <Image
-                                        source={
-                                                  Object {
-                                                            "uri": "https://facebook.github.io/react/img/logo_og.png",
-                                                          }
-                                        }
+                              <View
                                         style={
                                                   Object {
-                                                            "borderRadius": 56,
+                                                            "alignItems": "center",
+                                                            "borderColor": "#cccccc",
+                                                            "borderRadius": 66,
+                                                            "borderWidth": 5,
+                                                            "flexDirection": "row",
+                                                            "height": 132,
+                                                            "justifyContent": "center",
+                                                            "width": 132,
+                                                          }
+                                        }
+                              >
+                                        <Image
+                                                  source={
+                                                            Object {
+                                                                      "uri": "https://facebook.github.io/react/img/logo_og.png",
+                                                                    }
+                                                  }
+                                                  style={
+                                                            Object {
+                                                                      "borderRadius": 56,
+                                                                      "height": 112,
+                                                                      "width": 112,
+                                                                    }
+                                                  }
+                                        />
+                              </View>
+                              <Image
+                                        source={1}
+                                        style={
+                                                  Object {
                                                             "height": 112,
+                                                            "left": "50%",
+                                                            "position": "absolute",
+                                                            "top": "50%",
+                                                            "transform": Array [
+                                                              Object {
+                                                                "translate": Array [
+                                                                  0,
+                                                                  -112,
+                                                                ],
+                                                              },
+                                                              Object {
+                                                                "scale": 1,
+                                                              },
+                                                            ],
+                                                            "width": 112,
+                                                          }
+                                        }
+                              />
+                              <Image
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "height": 112,
+                                                            "left": "50%",
+                                                            "position": "absolute",
+                                                            "top": "50%",
+                                                            "transform": Array [
+                                                              Object {
+                                                                "translate": Array [
+                                                                  -56,
+                                                                  -56,
+                                                                ],
+                                                              },
+                                                              Object {
+                                                                "scale": 1.4,
+                                                              },
+                                                            ],
                                                             "width": 112,
                                                           }
                                         }
                               />
                     </View>
-                    <Image
-                              source={1}
-                              style={
-                                        Object {
-                                                  "height": 112,
-                                                  "left": "50%",
-                                                  "position": "absolute",
-                                                  "top": "50%",
-                                                  "transform": Array [
-                                                    Object {
-                                                      "translate": Array [
-                                                        0,
-                                                        -112,
-                                                      ],
-                                                    },
-                                                    Object {
-                                                      "scale": 1,
-                                                    },
-                                                  ],
-                                                  "width": 112,
-                                                }
-                              }
-                    />
-                    <Image
-                              source={1}
-                              style={
-                                        Object {
-                                                  "height": 112,
-                                                  "left": "50%",
-                                                  "position": "absolute",
-                                                  "top": "50%",
-                                                  "transform": Array [
-                                                    Object {
-                                                      "translate": Array [
-                                                        -56,
-                                                        -56,
-                                                      ],
-                                                    },
-                                                    Object {
-                                                      "scale": 1.4,
-                                                    },
-                                                  ],
-                                                  "width": 112,
-                                                }
-                              }
-                    />
-          </View>
+          </TouchableOpacity>
           <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -1030,41 +926,13 @@ ShallowWrapper {
           >
                     Searching...
           </Text>
+          <Connect(Notification)
+                    onRef={[Function]}
+          />
           <View
                     style={
                               Object {
-                                        "backgroundColor": "#fcc937",
-                                        "marginBottom": 96,
-                                        "marginHorizontal": 27,
-                                        "paddingVertical": 20,
-                                        "shadowColor": "#000",
-                                        "shadowOffset": Object {
-                                          "height": 6,
-                                          "width": 0,
-                                        },
-                                        "shadowOpacity": 0.25,
-                                        "shadowRadius": 13,
-                                      }
-                    }
-          >
-                    <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                        Object {
-                                                  "color": "#fff",
-                                                  "fontSize": 17,
-                                                  "textAlign": "center",
-                                                }
-                              }
-                    >
-                              New Hero Found!
-                    </Text>
-          </View>
-          <View
-                    style={
-                              Object {
+                                        "backgroundColor": "#ffffff",
                                         "borderBottomWidth": 1.5,
                                         "borderColor": "#cccccc",
                                         "marginLeft": 27,
@@ -1109,93 +977,99 @@ ShallowWrapper {
           }
     }
 >
-    <View
-        style={
-            Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "height": 176,
-                "justifyContent": "center",
-                "marginBottom": 16,
-              }
-        }
+    <TouchableOpacity
+        activeOpacity={0.2}
+        focusedOpacity={0.7}
+        onPress={[Function]}
     >
         <View
             style={
                 Object {
                     "alignItems": "center",
-                    "borderColor": "#cccccc",
-                    "borderRadius": 66,
-                    "borderWidth": 5,
                     "flexDirection": "row",
-                    "height": 132,
+                    "height": 176,
                     "justifyContent": "center",
-                    "width": 132,
+                    "marginBottom": 16,
                   }
             }
         >
-            <Image
-                source={
-                    Object {
-                        "uri": "https://facebook.github.io/react/img/logo_og.png",
-                      }
-                }
+            <View
                 style={
                     Object {
-                        "borderRadius": 56,
+                        "alignItems": "center",
+                        "borderColor": "#cccccc",
+                        "borderRadius": 66,
+                        "borderWidth": 5,
+                        "flexDirection": "row",
+                        "height": 132,
+                        "justifyContent": "center",
+                        "width": 132,
+                      }
+                }
+            >
+                <Image
+                    source={
+                        Object {
+                            "uri": "https://facebook.github.io/react/img/logo_og.png",
+                          }
+                    }
+                    style={
+                        Object {
+                            "borderRadius": 56,
+                            "height": 112,
+                            "width": 112,
+                          }
+                    }
+                />
+            </View>
+            <Image
+                source={1}
+                style={
+                    Object {
                         "height": 112,
+                        "left": "50%",
+                        "position": "absolute",
+                        "top": "50%",
+                        "transform": Array [
+                          Object {
+                            "translate": Array [
+                              0,
+                              -112,
+                            ],
+                          },
+                          Object {
+                            "scale": 1,
+                          },
+                        ],
+                        "width": 112,
+                      }
+                }
+            />
+            <Image
+                source={1}
+                style={
+                    Object {
+                        "height": 112,
+                        "left": "50%",
+                        "position": "absolute",
+                        "top": "50%",
+                        "transform": Array [
+                          Object {
+                            "translate": Array [
+                              -56,
+                              -56,
+                            ],
+                          },
+                          Object {
+                            "scale": 1.4,
+                          },
+                        ],
                         "width": 112,
                       }
                 }
             />
         </View>
-        <Image
-            source={1}
-            style={
-                Object {
-                    "height": 112,
-                    "left": "50%",
-                    "position": "absolute",
-                    "top": "50%",
-                    "transform": Array [
-                      Object {
-                        "translate": Array [
-                          0,
-                          -112,
-                        ],
-                      },
-                      Object {
-                        "scale": 1,
-                      },
-                    ],
-                    "width": 112,
-                  }
-            }
-        />
-        <Image
-            source={1}
-            style={
-                Object {
-                    "height": 112,
-                    "left": "50%",
-                    "position": "absolute",
-                    "top": "50%",
-                    "transform": Array [
-                      Object {
-                        "translate": Array [
-                          -56,
-                          -56,
-                        ],
-                      },
-                      Object {
-                        "scale": 1.4,
-                      },
-                    ],
-                    "width": 112,
-                  }
-            }
-        />
-    </View>
+    </TouchableOpacity>
     <Text
         accessible={true}
         allowFontScaling={true}
@@ -1211,41 +1085,13 @@ ShallowWrapper {
     >
         Searching...
     </Text>
+    <Connect(Notification)
+        onRef={[Function]}
+    />
     <View
         style={
             Object {
-                "backgroundColor": "#fcc937",
-                "marginBottom": 96,
-                "marginHorizontal": 27,
-                "paddingVertical": 20,
-                "shadowColor": "#000",
-                "shadowOffset": Object {
-                  "height": 6,
-                  "width": 0,
-                },
-                "shadowOpacity": 0.25,
-                "shadowRadius": 13,
-              }
-        }
-    >
-        <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                Object {
-                    "color": "#fff",
-                    "fontSize": 17,
-                    "textAlign": "center",
-                  }
-            }
-        >
-            New Hero Found!
-        </Text>
-    </View>
-    <View
-        style={
-            Object {
+                "backgroundColor": "#ffffff",
                 "borderBottomWidth": 1.5,
                 "borderColor": "#cccccc",
                 "marginLeft": 27,

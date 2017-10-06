@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MenuButton renders correctly 1`] = `
+exports[`ShareButton renders correctly 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -15,23 +15,23 @@ ShallowWrapper {
     style={
         Array [
             Object {
-              "marginLeft": 20,
-              "marginRight": 0,
+              "alignItems": "center",
+              "borderRadius": 36.8,
+              "height": 73.6,
+              "justifyContent": "center",
+              "padding": 11.52,
+              "width": 73.6,
             },
-            Object {},
-            undefined,
+            Object {
+              "borderColor": "#000000",
+              "borderWidth": 1,
+            },
           ]
     }
-    toggleMenu={[Function]}
 >
     <Image
-        source={1}
-        style={
-            Object {
-                "height": 30,
-                "width": 30,
-              }
-        }
+        resizeMode="contain"
+        source="../assets/icons/instagram.png"
     />
 </TouchableOpacity>,
   "nodes": Array [
@@ -42,23 +42,23 @@ ShallowWrapper {
       style={
             Array [
                   Object {
-                    "marginLeft": 20,
-                    "marginRight": 0,
+                    "alignItems": "center",
+                    "borderRadius": 36.8,
+                    "height": 73.6,
+                    "justifyContent": "center",
+                    "padding": 11.52,
+                    "width": 73.6,
                   },
-                  Object {},
-                  undefined,
+                  Object {
+                    "borderColor": "#000000",
+                    "borderWidth": 1,
+                  },
                 ]
       }
-      toggleMenu={[Function]}
 >
       <Image
-            source={1}
-            style={
-                  Object {
-                        "height": 30,
-                        "width": 30,
-                      }
-            }
+            resizeMode="contain"
+            source="../assets/icons/instagram.png"
       />
 </TouchableOpacity>,
   ],
@@ -88,17 +88,28 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <MenuButton
-        toggleMenu={[Function]}
+      "_currentElement": <ShareButton
+        source="../assets/icons/instagram.png"
+        style={
+                Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+        }
 />,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": MenuButton {
+      "_instance": ShareButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "onPress": [Function],
         "props": Object {
-          "toggleMenu": [Function],
+          "source": "../assets/icons/instagram.png",
+          "style": Object {
+            "borderColor": "#000000",
+            "borderWidth": 1,
+          },
         },
         "refs": Object {},
         "state": null,
@@ -127,23 +138,23 @@ ShallowWrapper {
           style={
                     Array [
                               Object {
-                                "marginLeft": 20,
-                                "marginRight": 0,
+                                "alignItems": "center",
+                                "borderRadius": 36.8,
+                                "height": 73.6,
+                                "justifyContent": "center",
+                                "padding": 11.52,
+                                "width": 73.6,
                               },
-                              Object {},
-                              undefined,
+                              Object {
+                                "borderColor": "#000000",
+                                "borderWidth": 1,
+                              },
                             ]
           }
-          toggleMenu={[Function]}
 >
           <Image
-                    source={1}
-                    style={
-                              Object {
-                                        "height": 30,
-                                        "width": 30,
-                                      }
-                    }
+                    resizeMode="contain"
+                    source="../assets/icons/instagram.png"
           />
 </TouchableOpacity>,
         "_debugID": 4,
@@ -154,23 +165,23 @@ ShallowWrapper {
           style={
                     Array [
                               Object {
-                                "marginLeft": 20,
-                                "marginRight": 0,
+                                "alignItems": "center",
+                                "borderRadius": 36.8,
+                                "height": 73.6,
+                                "justifyContent": "center",
+                                "padding": 11.52,
+                                "width": 73.6,
                               },
-                              Object {},
-                              undefined,
+                              Object {
+                                "borderColor": "#000000",
+                                "borderWidth": 1,
+                              },
                             ]
           }
-          toggleMenu={[Function]}
 >
           <Image
-                    source={1}
-                    style={
-                              Object {
-                                        "height": 30,
-                                        "width": 30,
-                                      }
-                    }
+                    resizeMode="contain"
+                    source="../assets/icons/instagram.png"
           />
 </TouchableOpacity>,
       },
@@ -184,8 +195,14 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <MenuButton
-    toggleMenu={[Function]}
+  "unrendered": <ShareButton
+    source="../assets/icons/instagram.png"
+    style={
+        Object {
+            "borderColor": "#000000",
+            "borderWidth": 1,
+          }
+    }
 />,
 }
 `;

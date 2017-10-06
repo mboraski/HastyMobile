@@ -30,6 +30,9 @@ const initialState = {
     },
     cart: {
         totalProducts: 0
+    },
+    header: {
+        isMenuOpen: false
     }
 };
 
