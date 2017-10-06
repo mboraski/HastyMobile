@@ -1,0 +1,1145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralShareScreen renders correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <View
+    style={
+        Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "flex": 1,
+            "flexDirection": "column",
+            "justifyContent": "center",
+          }
+    }
+>
+    <View
+        style={
+            Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 25.6,
+              }
+        }
+    >
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Instagram
+            </Text>
+        </View>
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Twitter
+            </Text>
+        </View>
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Facebook
+            </Text>
+        </View>
+    </View>
+    <View
+        style={
+            Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 25.6,
+              }
+        }
+    >
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Tumblr
+            </Text>
+        </View>
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Pinterest
+            </Text>
+        </View>
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Messages
+            </Text>
+        </View>
+    </View>
+    <View
+        style={
+            Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 25.6,
+              }
+        }
+    >
+        <View
+            style={
+                Object {
+                    "alignItems": "center",
+                    "marginHorizontal": 22,
+                  }
+            }
+        >
+            <Connect(ShareButton)
+                source={1}
+                style={
+                    Object {
+                        "borderColor": "#000000",
+                        "borderWidth": 1,
+                      }
+                }
+            />
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "#000000",
+                        "fontSize": 13.28,
+                        "marginTop": 12,
+                      }
+                }
+            >
+                Mail
+            </Text>
+        </View>
+    </View>
+</View>,
+  "nodes": Array [
+    <View
+      style={
+            Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#ffffff",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+      }
+>
+      <View
+            style={
+                  Object {
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginBottom": 25.6,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Instagram
+                  </Text>
+            </View>
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Twitter
+                  </Text>
+            </View>
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Facebook
+                  </Text>
+            </View>
+      </View>
+      <View
+            style={
+                  Object {
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginBottom": 25.6,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Tumblr
+                  </Text>
+            </View>
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Pinterest
+                  </Text>
+            </View>
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Messages
+                  </Text>
+            </View>
+      </View>
+      <View
+            style={
+                  Object {
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginBottom": 25.6,
+                      }
+            }
+      >
+            <View
+                  style={
+                        Object {
+                              "alignItems": "center",
+                              "marginHorizontal": 22,
+                            }
+                  }
+            >
+                  <Connect(ShareButton)
+                        source={1}
+                        style={
+                              Object {
+                                    "borderColor": "#000000",
+                                    "borderWidth": 1,
+                                  }
+                        }
+                  />
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "#000000",
+                                    "fontSize": 13.28,
+                                    "marginTop": 12,
+                                  }
+                        }
+                  >
+                        Mail
+                  </Text>
+            </View>
+      </View>
+</View>,
+  ],
+  "options": Object {
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+      },
+      "_currentElement": <GeneralShareScreen />,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": GeneralShareScreen {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {},
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <View
+          style={
+                    Object {
+                              "alignItems": "center",
+                              "backgroundColor": "#ffffff",
+                              "flex": 1,
+                              "flexDirection": "column",
+                              "justifyContent": "center",
+                            }
+          }
+>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Instagram
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Twitter
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Facebook
+                              </Text>
+                    </View>
+          </View>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Tumblr
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Pinterest
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Messages
+                              </Text>
+                    </View>
+          </View>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Mail
+                              </Text>
+                    </View>
+          </View>
+</View>,
+        "_debugID": 4,
+        "_renderedOutput": <View
+          style={
+                    Object {
+                              "alignItems": "center",
+                              "backgroundColor": "#ffffff",
+                              "flex": 1,
+                              "flexDirection": "column",
+                              "justifyContent": "center",
+                            }
+          }
+>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Instagram
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Twitter
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Facebook
+                              </Text>
+                    </View>
+          </View>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Tumblr
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Pinterest
+                              </Text>
+                    </View>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Messages
+                              </Text>
+                    </View>
+          </View>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "marginBottom": 25.6,
+                                      }
+                    }
+          >
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "marginHorizontal": 22,
+                                                }
+                              }
+                    >
+                              <Connect(ShareButton)
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "borderColor": "#000000",
+                                                            "borderWidth": 1,
+                                                          }
+                                        }
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#000000",
+                                                            "fontSize": 13.28,
+                                                            "marginTop": 12,
+                                                          }
+                                        }
+                              >
+                                        Mail
+                              </Text>
+                    </View>
+          </View>
+</View>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <GeneralShareScreen />,
+}
+`;

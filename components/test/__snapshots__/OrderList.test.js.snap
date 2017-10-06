@@ -9,11 +9,7 @@ ShallowWrapper {
   },
   "length": 1,
   "node": <Unknown
-    contentContainerStyle={
-        Object {
-            "paddingBottom": 200,
-          }
-    }
+    contentContainerStyle={undefined}
 >
     <View>
         
@@ -21,11 +17,7 @@ ShallowWrapper {
 </Unknown>,
   "nodes": Array [
     <Unknown
-      contentContainerStyle={
-            Object {
-                  "paddingBottom": 200,
-                }
-      }
+      contentContainerStyle={undefined}
 >
       <View>
             
@@ -59,11 +51,7 @@ ShallowWrapper {
         },
       },
       "_currentElement": <ScrollViewMock
-        contentContainerStyle={
-                Object {
-                        "paddingBottom": 200,
-                      }
-        }
+        contentContainerStyle={undefined}
 >
         
 </ScrollViewMock>,
@@ -75,9 +63,7 @@ ShallowWrapper {
         "context": Object {},
         "props": Object {
           "children": Array [],
-          "contentContainerStyle": Object {
-            "paddingBottom": 200,
-          },
+          "contentContainerStyle": undefined,
         },
         "refs": Object {},
         "state": null,
@@ -100,11 +86,7 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <Unknown
-          contentContainerStyle={
-                    Object {
-                              "paddingBottom": 200,
-                            }
-          }
+          contentContainerStyle={undefined}
 >
           <View>
                     
@@ -112,11 +94,7 @@ ShallowWrapper {
 </Unknown>,
         "_debugID": 4,
         "_renderedOutput": <Unknown
-          contentContainerStyle={
-                    Object {
-                              "paddingBottom": 200,
-                            }
-          }
+          contentContainerStyle={undefined}
 >
           <View>
                     
@@ -134,11 +112,7 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <ScrollViewMock
-    contentContainerStyle={
-        Object {
-            "paddingBottom": 200,
-          }
-    }
+    contentContainerStyle={undefined}
 >
     
 </ScrollViewMock>,

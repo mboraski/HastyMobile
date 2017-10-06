@@ -11,6 +11,8 @@ ShallowWrapper {
   "node": <TouchableOpacity
     activeOpacity={0.2}
     focusedOpacity={0.7}
+    isMenuOpen={false}
+    onPress={[Function]}
     style={
         Array [
             Object {
@@ -19,6 +21,7 @@ ShallowWrapper {
             undefined,
           ]
     }
+    toggleMenu={[Function]}
 >
     <Image
         resizeMode="contain"
@@ -35,6 +38,8 @@ ShallowWrapper {
     <TouchableOpacity
       activeOpacity={0.2}
       focusedOpacity={0.7}
+      isMenuOpen={false}
+      onPress={[Function]}
       style={
             Array [
                   Object {
@@ -43,6 +48,7 @@ ShallowWrapper {
                   undefined,
                 ]
       }
+      toggleMenu={[Function]}
 >
       <Image
             resizeMode="contain"
@@ -82,14 +88,21 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <BackButton />,
+      "_currentElement": <BackButton
+        isMenuOpen={false}
+        toggleMenu={[Function]}
+/>,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": BackButton {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "props": Object {},
+        "onBackPress": [Function],
+        "props": Object {
+          "isMenuOpen": false,
+          "toggleMenu": [Function],
+        },
         "refs": Object {},
         "state": null,
         "updater": Object {
@@ -113,6 +126,8 @@ ShallowWrapper {
         "_currentElement": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
+          isMenuOpen={false}
+          onPress={[Function]}
           style={
                     Array [
                               Object {
@@ -121,6 +136,7 @@ ShallowWrapper {
                               undefined,
                             ]
           }
+          toggleMenu={[Function]}
 >
           <Image
                     resizeMode="contain"
@@ -137,6 +153,8 @@ ShallowWrapper {
         "_renderedOutput": <TouchableOpacity
           activeOpacity={0.2}
           focusedOpacity={0.7}
+          isMenuOpen={false}
+          onPress={[Function]}
           style={
                     Array [
                               Object {
@@ -145,6 +163,7 @@ ShallowWrapper {
                               undefined,
                             ]
           }
+          toggleMenu={[Function]}
 >
           <Image
                     resizeMode="contain"
@@ -168,6 +187,9 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <BackButton />,
+  "unrendered": <BackButton
+    isMenuOpen={false}
+    toggleMenu={[Function]}
+/>,
 }
 `;

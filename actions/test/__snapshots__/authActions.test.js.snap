@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Auth Actions facebookLogin 1`] = `
+Array [
+  Object {
+    "payload": "token",
+    "type": "facebook_login_success",
+  },
+]
+`;
