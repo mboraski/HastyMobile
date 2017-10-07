@@ -44,8 +44,8 @@ class SuccessPopup extends Component {
         }
     }
 
-    closeModal(isApply) {
-        this.props.closeModal();
+    closeModal(apply) {
+        this.props.closeModal(apply);
     }
 
     props: Props;
@@ -54,14 +54,14 @@ class SuccessPopup extends Component {
         const { modalVisible } = this.state;
         return (
             <Modal
-                animationType="slide" 
-                transparent={true}
+                animationType="slide"
                 visible={modalVisible}
                 onRequestClose={() => {}}
                 style={styles.modalContainer}
+                transparent
             >
                 <View style={styles.container}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
                         activeOpacity={1}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
-        paddingVertical: emY(1.13), 
+        paddingVertical: emY(1.13),
         paddingHorizontal: 17,
         marginHorizontal: 22,
         borderRadius: 4,
