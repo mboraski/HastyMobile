@@ -15,35 +15,16 @@ import { connect } from 'react-redux';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import callIcon from '../assets/icons/call.png';
-import messageIcon from '../assets/icons/multi_message.png';
-import emailIcon from '../assets/icons/mail_close.png';
-
+import checkIcon from '../assets/icons/check-wrap.png';
 
 const SIZE = emY(5.62);
-const buttonData = [
-    {
-        index: 0,
-        icon: callIcon,
-        title: 'CALL'
-    },
-    {
-        index: 1,
-        icon: messageIcon,
-        title: 'LIVE CHAT'
-    },
-    {
-        index: 2,
-        icon: emailIcon,
-        title: 'EMAIL'
-    },
-];
+const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 type Props = {
     openModal: boolean,
     closeModal: () => {}
 };
 
-class CustomerServicePopup extends Component {
+class ContinuePopup extends Component {
     state = {
         modalVisible: false,
     }
@@ -67,35 +48,10 @@ class CustomerServicePopup extends Component {
         this.props.closeModal(apply);
     }
 
-    buttonClickHandler(index) {
-        switch (index) {
-            case 0:
-                //Navigate to phone call page.
-                break;
-            case 1:
-                //Navigate to chat page
-                break;
-            case 2:
-                //Navigate to Email page
-                break;
-            default:
-        }
-    }
     props: Props;
 
     render() {
         const { modalVisible } = this.state;
-        const buttonGroup = buttonData.map(item => (
-            <View key={item.index}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.buttonClickHandler(item.index)}
-                >
-                    <Image source={item.icon} style={styles.icon} resizeMode="contain" />
-                </TouchableOpacity>
-                <Text style={styles.buttonLabel}>{item.title}</Text>
-            </View>
-        ));
         return (
             <Modal
                 animationType="slide"
@@ -112,15 +68,21 @@ class CustomerServicePopup extends Component {
                     >
                         <Text style={Style.clearText}>.</Text>
                     </TouchableOpacity>
-                    <View style={styles.innerContainer}>
-                        <Text
-                            style={styles.label}
-                        >
-                            Select the way you want to connect with customer service
-                        </Text>
-                        <View style={styles.buttonGroupContainer}>
-                            {buttonGroup}
+                    <View style={styles.outerContainer}>
+                        <View style={styles.innerContainer}>
+                            <Text style={styles.label}>{message}</Text>
+                            <TouchableOpacity
+                                onPress={() => this.closeModal(true)}
+                                style={[styles.button, { backgroundColor: Color.BLACK }]}
+                            >
+                                <Text
+                                    style={[styles.buttonLabel, { color: Color.WHITE }]}
+                                >
+                                    CONTINUE
+                                </Text>
+                            </TouchableOpacity>
                         </View>
+                        <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
                     </View>
                 </View>
             </Modal>
@@ -135,14 +97,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    outerContainer: {
+        paddingTop: SIZE / 2.0,
+        backgroundColor: Color.CLEAR,
+        marginHorizontal: 22,
+        alignSelf: 'stretch',
+    },
     innerContainer: {
         backgroundColor: Color.WHITE,
-        paddingVertical: emY(1.5),
-        paddingHorizontal: 17,
-        marginHorizontal: 22,
-        borderRadius: 6,
+        paddingTop: emY(5),
+        borderRadius: 4,
         justifyContent: 'center',
-        alignSelf: 'stretch',
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
@@ -158,39 +123,29 @@ const styles = StyleSheet.create({
     label: {
         textAlign: 'center',
         fontSize: emY(1.08),
-        marginVertical: emY(1),
+        marginHorizontal: 70,
         lineHeight: emY(1.5),
-        marginHorizontal: 30,
     },
-    buttonGroupContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: emY(1),
-    },
-    icon: {
-        height: SIZE / 3.0,
-        width: SIZE / 3.0,
+    checkIcon: {
+        position: 'absolute',
+        top: 0,
+        width: SIZE,
+        height: SIZE,
         alignSelf: 'center'
     },
     button: {
-        height: SIZE,
-        width: SIZE,
-        borderRadius: SIZE / 2.0,
+        height: emY(2.88),
+        marginTop: emY(2.3),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Color.BLACK
     },
     buttonLabel: {
-        fontSize: emY(0.83),
-        alignSelf: 'center',
-        marginTop: emY(1),
+        fontSize: emY(0.96),
     }
 });
-
 
 const mapDispatchToProps = function (dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(CustomerServicePopup);
+export default connect(null, mapDispatchToProps)(ContinuePopup);
