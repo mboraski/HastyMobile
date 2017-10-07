@@ -44,8 +44,8 @@ class ContinuePopup extends Component {
         }
     }
 
-    closeModal(isApply) {
-        this.props.closeModal();
+    closeModal(apply) {
+        this.props.closeModal(apply);
     }
 
     props: Props;
@@ -54,14 +54,14 @@ class ContinuePopup extends Component {
         const { modalVisible } = this.state;
         return (
             <Modal
-                animationType="slide" 
-                transparent={true}
+                animationType="slide"
                 visible={modalVisible}
                 onRequestClose={() => {}}
                 style={styles.modalContainer}
+                transparent
             >
                 <View style={styles.container}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
                         activeOpacity={1}
@@ -75,7 +75,11 @@ class ContinuePopup extends Component {
                                 onPress={() => this.closeModal(true)}
                                 style={[styles.button, { backgroundColor: Color.BLACK }]}
                             >
-                                <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>CONTINUE</Text>
+                                <Text
+                                    style={[styles.buttonLabel, { color: Color.WHITE }]}
+                                >
+                                    CONTINUE
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
-        paddingTop: emY(5), 
+        paddingTop: emY(5),
         borderRadius: 4,
         justifyContent: 'center',
         ...Platform.select({

@@ -16,7 +16,7 @@ import { Button } from 'react-native-elements';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 import RatingPopup from '../components/RatingPopup';
-import CustomerPopup from '../components/CustomerPopup';
+import CustomerServicePopup from '../components/CustomerPopup';
 import SuccessPopup from '../components/SuccessPopup';
 import OopsPopup from '../components/OopsPopup';
 import ContinuePopup from '../components/ContinuePopup';
@@ -89,11 +89,11 @@ class AuthScreen extends Component {
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
-                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
-                <CustomerPopup openModal={openModal} closeModal={this.closeModal} />
-                <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
-                <OopsPopup openModal={openModal} closeModal={this.closeModal} /> */}
-                <ContinuePopup openModal={openModal} closeModal={this.closeModal} />
+                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} /> */}
+                <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} />
+                {/* <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
+                <OopsPopup openModal={openModal} closeModal={this.closeModal} />
+                <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}
             </ScrollView>
         );
     }
