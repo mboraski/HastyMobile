@@ -88,9 +88,9 @@ class AuthScreen extends Component {
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
-                <RatingPopup openModal={openModal} closeModal={this.closeModal} />
+                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
                 <CustomerPopup openModal={openModal} closeModal={this.closeModal} />
-                <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
+                <SuccessPopup openModal={openModal} closeModal={this.closeModal} /> */}
                 <OopsPopup openModal={openModal} closeModal={this.closeModal} />
             </ScrollView>
         );
