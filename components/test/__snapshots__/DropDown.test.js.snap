@@ -59,7 +59,7 @@ ShallowWrapper {
             Object {
                 "position": "absolute",
                 "right": 16,
-                "top": 0,
+                "top": 24,
               }
         }
     >
@@ -133,7 +133,7 @@ ShallowWrapper {
                   Object {
                         "position": "absolute",
                         "right": 16,
-                        "top": 0,
+                        "top": 24,
                       }
             }
       >
@@ -295,7 +295,7 @@ ShallowWrapper {
                               Object {
                                         "position": "absolute",
                                         "right": 16,
-                                        "top": 0,
+                                        "top": 24,
                                       }
                     }
           >
@@ -369,7 +369,7 @@ ShallowWrapper {
                               Object {
                                         "position": "absolute",
                                         "right": 16,
-                                        "top": 0,
+                                        "top": 24,
                                       }
                     }
           >

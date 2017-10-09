@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     arrowContainer: {
         position: 'absolute',
         right: 16,
-        top: 0
+        top: emY(1.5)
     },
     arrowIcon: {
         width: emY(0.9),
