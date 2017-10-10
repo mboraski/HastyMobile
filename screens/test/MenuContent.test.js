@@ -11,8 +11,15 @@ const initialState = {};
 describe('MenuContent', () => {
     const middlewares = [];
     const mockStore = configureStore(middlewares);
+    const props = {
+        items: [
+            { key: 'cart' }
+        ],
+        activeItemKey: 'activeItemKey',
+        onItemPress: jest.fn()
+    };
     it('renders correctly', () => {
-        const wrapper = shallow(<MenuContent />, {
+        const wrapper = shallow(<MenuContent {...props} />, {
             context: { store: mockStore(initialState) }
         });
         const render = wrapper.dive();

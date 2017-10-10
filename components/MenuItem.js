@@ -1,12 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { 
-    StyleSheet,
-    View,
-    Image,
-    Text,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -24,23 +18,29 @@ type Props = {
 class MenuItem extends Component {
     props: Props;
 
+    onPress = () => {
+        const { route, activeItemKey, onPress } = this.props;
+        const focused = route && activeItemKey === route.key;
+        onPress({ route, focused });
+    };
+
     render() {
-        const { image, title, badge } = this.props;
+        const { image, title, badge, ...props } = this.props;
         let badgeElement = null;
 
         if (badge) {
             badgeElement = (
-                <TouchableOpacity style={styles.badgeContainer}>
-                    <Text style={styles.badge}>{badge}</Text>   
+                <TouchableOpacity {...props} onPress={this.onPress} style={styles.badgeContainer}>
+                    <Text style={styles.badge}>{badge}</Text>
                 </TouchableOpacity>
             );
         }
         return (
-            <View style={styles.container}>
-                <Image style={styles.image} source={image} />  
-                <Text style={styles.title}>{title}</Text> 
-                { badgeElement }
-            </View>
+            <TouchableOpacity {...props} onPress={this.onPress} style={styles.container}>
+                <Image style={styles.image} source={image} />
+                <Text style={styles.title}>{title}</Text>
+                {badgeElement}
+            </TouchableOpacity>
         );
     }
 }
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         width: BADGE_SIZE,
         height: BADGE_SIZE,
         borderRadius: BADGE_SIZE / 2,
-        backgroundColor: Color.GREY_300,
+        backgroundColor: Color.GREY_300
     },
     badge: {
         backgroundColor: 'transparent',

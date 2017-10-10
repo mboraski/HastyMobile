@@ -191,14 +191,14 @@ const styles = StyleSheet.create({
     }
 });
 
-HomeScreen.navigationOptions = {
+HomeScreen.navigationOptions = (props) => ({
     title: 'Hasty Logo',
     headerLeft: <MenuButton />,
     headerTitle: <SearchBar />,
-    headerRight: <CartButton />,
+    headerRight: <CartButton {...props} />,
     headerStyle: Style.headerLarge,
     headerTitleStyle: Style.headerTitle
-};
+});
 
 const mapStateToProps = state => ({
     cart: state.cart,

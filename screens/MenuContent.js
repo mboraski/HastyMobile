@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-	Text,
-	Image,
-	View
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, Image, View } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -22,106 +16,155 @@ import paymentIcon from '../assets/icons/payment.png';
 import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
 
-
 const IMAGE_CONTAINER_SIZE = emY(6.25);
-  
+
+const getRoute = (items, routeName) => items.find(item => item.key === routeName);
+
 class MenuContent extends Component {
-	state = {
-		name: 'Hanna Morgan',
-		avatar: 'https://facebook.github.io/react/img/logo_og.png'
-	};
-	
+    state = {
+        name: 'Hanna Morgan',
+        avatar: 'https://facebook.github.io/react/img/logo_og.png'
+    };
+
+    cartPress = () => {
+        this.props.navigation.navigate('cart');
+    };
+
     render() {
-		const { name, avatar } = this.state;
-		return (
-			<View style={styles.topContainer}>
-				<View style={styles.container}>
-					<View style={styles.headerContainer}>
-						<View style={styles.imageContainer}>
-							<Image source={{ uri: avatar }} style={styles.image} />
-						</View>
-						<Text style={styles.name}>{name}</Text>
-					</View>
-					<View style={styles.profileTitleContainer}>
-						<Text style={styles.title}>View Profile</Text>
-					</View>
-				</View>
-				<ScrollView style={styles.listContainer}>
-					<MenuItem image={heroIcon} title="Heroes Needed!" />
-					<MenuItem image={historyIcon} title="History" />
-					<MenuItem image={favoriteIcon} title="Favorites & Recommended" />
-					<MenuItem image={notificationIcon} title="Notifications" badge="3" />
-					<MenuItem image={cartIcon} title="Cart" />
-					<MenuItem image={paymentIcon} title="Payment Info" />
-					<MenuItem image={promotionIcon} title="Promotions" />
-					<MenuItem image={helpIcon} title="Help" />
-				</ScrollView>
-				<BackButton style={styles.backButton} />
-				<Text style={styles.copyright}>@2017 Hasty</Text>		
-			</View>
-		);
+        const { items, activeItemKey, onItemPress } = this.props;
+        const { name, avatar } = this.state;
+        return (
+            <View style={styles.topContainer}>
+                <View style={styles.container}>
+                    <View style={styles.headerContainer}>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: avatar }} style={styles.image} />
+                        </View>
+                        <Text style={styles.name}>{name}</Text>
+                    </View>
+                    <View style={styles.profileTitleContainer}>
+                        <Text style={styles.title}>View Profile</Text>
+                    </View>
+                </View>
+                <ScrollView style={styles.listContainer}>
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={heroIcon}
+                        title="Heroes Needed!"
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={historyIcon}
+                        title="History"
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={favoriteIcon}
+                        title="Favorites & Recommended"
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={notificationIcon}
+                        title="Notifications"
+                        badge="3"
+                    />
+                    <MenuItem
+						route={getRoute(items, 'cart')}
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={cartIcon}
+                        title="Cart"
+                        onPress={this.cartPress}
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={paymentIcon}
+                        title="Payment Info"
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={promotionIcon}
+                        title="Promotions"
+                    />
+                    <MenuItem
+                        activeItemKey={activeItemKey}
+                        onPress={onItemPress}
+                        image={helpIcon}
+                        title="Help"
+                    />
+                </ScrollView>
+                <BackButton style={styles.backButton} />
+                <Text style={styles.copyright}>@2017 Hasty</Text>
+            </View>
+        );
     }
 }
-  
+
 const styles = StyleSheet.create({
     topContainer: {
-		flex: 1,
-		backgroundColor: Color.WHITE,
-		borderRightWidth: 2, 
-		borderRightColor: Color.YELLOW_500 
-	},
-	container: {
-		flex: 1
-	},
-	headerContainer: {
-		alignItems: 'center',
-		marginTop: emY(2.68)
-	},
-	imageContainer: {
+        flex: 1,
+        backgroundColor: Color.WHITE,
+        borderRightWidth: 2,
+        borderRightColor: Color.YELLOW_500
+    },
+    container: {
+        flex: 1
+    },
+    headerContainer: {
+        alignItems: 'center',
+        marginTop: emY(2.68)
+    },
+    imageContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-		justifyContent: 'center',
-		width: IMAGE_CONTAINER_SIZE,
-        height: IMAGE_CONTAINER_SIZE,
-		marginBottom: emY(1)
-	},
-	image: {
+        justifyContent: 'center',
         width: IMAGE_CONTAINER_SIZE,
         height: IMAGE_CONTAINER_SIZE,
-		borderRadius: IMAGE_CONTAINER_SIZE / 2,
-	},
-	name: {
+        marginBottom: emY(1)
+    },
+    image: {
+        width: IMAGE_CONTAINER_SIZE,
+        height: IMAGE_CONTAINER_SIZE,
+        borderRadius: IMAGE_CONTAINER_SIZE / 2
+    },
+    name: {
         color: Color.GREY_700,
         fontSize: emY(1.25),
         textAlign: 'center',
         marginBottom: emY(0.606)
-	},
-	title: {
+    },
+    title: {
         fontSize: emY(0.831),
         color: Color.GREY_700,
-        textAlign: 'center',
-	},
-	profileTitleContainer: {
-		justifyContent: 'center',
-		marginTop: emY(0.5),
-		marginBottom: emY(1)
-	},
-	listContainer: {
-		position: 'absolute',
-		left: 0,
-		right: 0,
-		top: emY(15),
-		bottom: emY(9.2),
-		flexDirection: 'column',
-		marginLeft: emY(1.2)
-	},
-	copyright: {
-		height: emY(1),
+        textAlign: 'center'
+    },
+    profileTitleContainer: {
+        justifyContent: 'center',
+        marginTop: emY(0.5),
+        marginBottom: emY(1)
+    },
+    listContainer: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: emY(15),
+        bottom: emY(9.2),
+        flexDirection: 'column',
+        marginLeft: emY(1.2)
+    },
+    copyright: {
+        height: emY(1),
         marginTop: emY(4.56),
         marginBottom: emY(0.9),
-		fontSize: emY(0.831),
+        fontSize: emY(0.831),
         color: Color.GREY_700,
-        textAlign: 'center',
+        textAlign: 'center'
     },
     backButton: {
         position: 'absolute',
@@ -134,4 +177,4 @@ const mapDispatchToProps = function (dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(MenuContent); 
+export default connect(null, mapDispatchToProps)(MenuContent);

@@ -7,7 +7,9 @@ import { emY } from '../utils/em';
 const SIZE = emY(2.1875);
 
 class CartButton extends Component {
-    onPress = () => {};
+    onPress = () => {
+        this.props.navigation.navigate('cart');
+    };
 
     render() {
         return (
