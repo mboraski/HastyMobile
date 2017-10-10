@@ -38,6 +38,36 @@ ShallowWrapper {
                 <Connect(PaymentDropDownItem)
                     isHeaderItem={true}
                 />
+                <View
+                    onPress={[Function]}
+                    style={
+                        Object {
+                            "alignItems": "center",
+                            "bottom": 0,
+                            "justifyContent": "center",
+                            "position": "absolute",
+                            "right": 16,
+                            "top": 0,
+                          }
+                    }
+                >
+                    <AnimatedComponent
+                        source={1}
+                        style={
+                            Array [
+                                1,
+                                Object {
+                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                  "transform": Array [
+                                    Object {
+                                      "rotate": "0deg",
+                                    },
+                                  ],
+                                },
+                              ]
+                        }
+                    />
+                </View>
             </TouchableOpacity>
         </View>
         <View
@@ -51,35 +81,6 @@ ShallowWrapper {
             />
         </View>
     </AnimatedComponent>
-    <TouchableOpacity
-        activeOpacity={0.2}
-        focusedOpacity={0.7}
-        onPress={[Function]}
-        style={
-            Object {
-                "position": "absolute",
-                "right": 16,
-                "top": 24,
-              }
-        }
-    >
-        <AnimatedComponent
-            source={1}
-            style={
-                Array [
-                    1,
-                    Object {
-                      "backgroundColor": "rgba(0, 0, 0, 0)",
-                      "transform": Array [
-                        Object {
-                          "rotate": "0deg",
-                        },
-                      ],
-                    },
-                  ]
-            }
-        />
-    </TouchableOpacity>
 </View>,
   "nodes": Array [
     <View
@@ -112,6 +113,36 @@ ShallowWrapper {
                         <Connect(PaymentDropDownItem)
                               isHeaderItem={true}
                         />
+                        <View
+                              onPress={[Function]}
+                              style={
+                                    Object {
+                                          "alignItems": "center",
+                                          "bottom": 0,
+                                          "justifyContent": "center",
+                                          "position": "absolute",
+                                          "right": 16,
+                                          "top": 0,
+                                        }
+                              }
+                        >
+                              <AnimatedComponent
+                                    source={1}
+                                    style={
+                                          Array [
+                                                1,
+                                                Object {
+                                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                  "transform": Array [
+                                                    Object {
+                                                      "rotate": "0deg",
+                                                    },
+                                                  ],
+                                                },
+                                              ]
+                                    }
+                              />
+                        </View>
                   </TouchableOpacity>
             </View>
             <View
@@ -125,35 +156,6 @@ ShallowWrapper {
                   />
             </View>
       </AnimatedComponent>
-      <TouchableOpacity
-            activeOpacity={0.2}
-            focusedOpacity={0.7}
-            onPress={[Function]}
-            style={
-                  Object {
-                        "position": "absolute",
-                        "right": 16,
-                        "top": 24,
-                      }
-            }
-      >
-            <AnimatedComponent
-                  source={1}
-                  style={
-                        Array [
-                              1,
-                              Object {
-                                "backgroundColor": "rgba(0, 0, 0, 0)",
-                                "transform": Array [
-                                  Object {
-                                    "rotate": "0deg",
-                                  },
-                                ],
-                              },
-                            ]
-                  }
-            />
-      </TouchableOpacity>
 </View>,
   ],
   "options": Object {
@@ -274,6 +276,36 @@ ShallowWrapper {
                                         <Connect(PaymentDropDownItem)
                                                   isHeaderItem={true}
                                         />
+                                        <View
+                                                  onPress={[Function]}
+                                                  style={
+                                                            Object {
+                                                                      "alignItems": "center",
+                                                                      "bottom": 0,
+                                                                      "justifyContent": "center",
+                                                                      "position": "absolute",
+                                                                      "right": 16,
+                                                                      "top": 0,
+                                                                    }
+                                                  }
+                                        >
+                                                  <AnimatedComponent
+                                                            source={1}
+                                                            style={
+                                                                      Array [
+                                                                                1,
+                                                                                Object {
+                                                                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                                                  "transform": Array [
+                                                                                    Object {
+                                                                                      "rotate": "0deg",
+                                                                                    },
+                                                                                  ],
+                                                                                },
+                                                                              ]
+                                                            }
+                                                  />
+                                        </View>
                               </TouchableOpacity>
                     </View>
                     <View
@@ -287,35 +319,6 @@ ShallowWrapper {
                               />
                     </View>
           </AnimatedComponent>
-          <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                              Object {
-                                        "position": "absolute",
-                                        "right": 16,
-                                        "top": 24,
-                                      }
-                    }
-          >
-                    <AnimatedComponent
-                              source={1}
-                              style={
-                                        Array [
-                                                  1,
-                                                  Object {
-                                                    "backgroundColor": "rgba(0, 0, 0, 0)",
-                                                    "transform": Array [
-                                                      Object {
-                                                        "rotate": "0deg",
-                                                      },
-                                                    ],
-                                                  },
-                                                ]
-                              }
-                    />
-          </TouchableOpacity>
 </View>,
         "_debugID": 4,
         "_renderedOutput": <View
@@ -348,6 +351,36 @@ ShallowWrapper {
                                         <Connect(PaymentDropDownItem)
                                                   isHeaderItem={true}
                                         />
+                                        <View
+                                                  onPress={[Function]}
+                                                  style={
+                                                            Object {
+                                                                      "alignItems": "center",
+                                                                      "bottom": 0,
+                                                                      "justifyContent": "center",
+                                                                      "position": "absolute",
+                                                                      "right": 16,
+                                                                      "top": 0,
+                                                                    }
+                                                  }
+                                        >
+                                                  <AnimatedComponent
+                                                            source={1}
+                                                            style={
+                                                                      Array [
+                                                                                1,
+                                                                                Object {
+                                                                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                                                  "transform": Array [
+                                                                                    Object {
+                                                                                      "rotate": "0deg",
+                                                                                    },
+                                                                                  ],
+                                                                                },
+                                                                              ]
+                                                            }
+                                                  />
+                                        </View>
                               </TouchableOpacity>
                     </View>
                     <View
@@ -361,35 +394,6 @@ ShallowWrapper {
                               />
                     </View>
           </AnimatedComponent>
-          <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                              Object {
-                                        "position": "absolute",
-                                        "right": 16,
-                                        "top": 24,
-                                      }
-                    }
-          >
-                    <AnimatedComponent
-                              source={1}
-                              style={
-                                        Array [
-                                                  1,
-                                                  Object {
-                                                    "backgroundColor": "rgba(0, 0, 0, 0)",
-                                                    "transform": Array [
-                                                      Object {
-                                                        "rotate": "0deg",
-                                                      },
-                                                    ],
-                                                  },
-                                                ]
-                              }
-                    />
-          </TouchableOpacity>
 </View>,
       },
       "_renderedNodeType": 1,
