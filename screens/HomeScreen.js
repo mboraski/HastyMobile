@@ -20,7 +20,7 @@ import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { selectDeliveryType } from '../actions/productActions';
 import { getProductsByDeliveryType } from '../selectors/productSelectors';
 import { emY } from '../utils/em';
@@ -48,6 +48,10 @@ class HomeScreen extends Component {
 
     callAddToCart = product => {
         this.props.addToCart(product);
+    };
+
+    callRemoveFromCart = product => {
+        this.props.removeFromCart(product);
     };
 
     goToCheckout = () => {
@@ -104,12 +108,16 @@ class HomeScreen extends Component {
                 >
                     {FILTERS.map(this.renderFilter)}
                 </ScrollView>
-                <ProductList cart={cart} products={products} callAddToCart={this.callAddToCart} />
+                <ProductList
+                    cart={cart}
+                    products={products}
+                    callAddToCart={this.callAddToCart}
+                    callRemoveFromCart={this.callRemoveFromCart}
+                />
             </View>
         );
     }
 }
-// {this.renderProducts()}
 
 const styles = StyleSheet.create({
     container: {
@@ -210,7 +218,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     selectFilter: filter => dispatch(selectDeliveryType(filter)),
-    addToCart: product => dispatch(addToCart(product))
+    addToCart: product => dispatch(addToCart(product)),
+    removeFromCart: product => dispatch(removeFromCart(product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

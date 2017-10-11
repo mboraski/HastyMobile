@@ -1,6 +1,6 @@
 // Third Part Imports
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Relative Imports
@@ -14,10 +14,9 @@ const ProductDetail = ({ product, onPress, added, style }) => {
     const { title, thumbnail_image, price } = product;
 
     return (
-        <View style={[Style.shadow, styles.container, style]}>
+        <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
             <View style={styles.iconContainer}>
                 <Icon
-                    onPress={onPress}
                     type="foundation"
                     name="plus"
                     size={ICON_SIZE}
@@ -28,14 +27,10 @@ const ProductDetail = ({ product, onPress, added, style }) => {
                 <Image style={styles.image} source={{ uri: thumbnail_image }} />
             </View>
             <View style={styles.meta}>
-                <Text style={[styles.metaItem, styles.title]}>
-                    {title}
-                </Text>
-                <Text style={[styles.metaItem, styles.price]}>
-                    {price}
-                </Text>
+                <Text style={[styles.metaItem, styles.title]}>{title}</Text>
+                <Text style={[styles.metaItem, styles.price]}>{price}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
