@@ -95,24 +95,22 @@ class DropDown extends Component {
                     <View onLayout={this.setMinHeight}>
                         <TouchableOpacity onPress={this.toggle}>
                             {header}
+                            <View style={styles.arrowContainer} onPress={this.toggle}>
+                                <Animated.Image
+                                    source={arrowIcon}
+                                    style={[
+                                        arrowIcon,
+                                        {
+                                            transform: [{ rotate: spin }],
+                                            backgroundColor: 'rgba(0, 0, 0, 0)'
+                                        }
+                                    ]}
+                                />
+                            </View>
                         </TouchableOpacity>
                     </View>
-                    <View onLayout={this.setMaxHeight}>
-                        {this.props.children}
-                    </View>
+                    <View onLayout={this.setMaxHeight}>{this.props.children}</View>
                 </Animated.View>
-                <TouchableOpacity style={styles.arrowContainer} onPress={this.toggle}>
-                    <Animated.Image 
-                        source={arrowIcon}
-                        style={[
-                            arrowIcon,
-                            {
-                                transform: [{ rotate: spin }],
-                                backgroundColor: 'rgba(0, 0, 0, 0)' 
-                            }
-                        ]}
-                    />
-                </TouchableOpacity>
             </View>
         );
     }
@@ -125,7 +123,10 @@ const styles = StyleSheet.create({
     arrowContainer: {
         position: 'absolute',
         right: 16,
-        top: 0
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     arrowIcon: {
         width: emY(0.9),
