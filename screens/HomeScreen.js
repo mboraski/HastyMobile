@@ -10,6 +10,7 @@ import {
     Platform
 } from 'react-native';
 import { connect } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
@@ -191,14 +192,14 @@ const styles = StyleSheet.create({
     }
 });
 
-HomeScreen.navigationOptions = {
+HomeScreen.navigationOptions = ({ navigation }) => ({
     title: 'Hasty Logo',
     headerLeft: <MenuButton />,
     headerTitle: <SearchBar />,
-    headerRight: <CartButton />,
+    headerRight: <CartButton navigation={navigation} />,
     headerStyle: Style.headerLarge,
     headerTitleStyle: Style.headerTitle
-};
+});
 
 const mapStateToProps = state => ({
     cart: state.cart,

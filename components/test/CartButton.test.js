@@ -17,4 +17,15 @@ describe('CartButton', () => {
         const render = wrapper.dive();
         expect(render).toMatchSnapshot();
     });
+    it('navigates to cart on press', () => {
+        const navigation = {
+            navigate: jest.fn()
+        };
+        const wrapper = shallow(<CartButton navigation={navigation} />, {
+            context: { store: mockStore(initialState) }
+        });
+        const render = wrapper.dive();
+        render.instance().onPress();
+        expect(navigation.navigate.mock.calls[0][0]).toEqual('cart');
+    });
 });

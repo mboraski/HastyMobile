@@ -115,36 +115,57 @@ ShallowWrapper {
         }
     >
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="Heroes Needed!"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="History"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="Favorites & Recommended"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             badge="3"
             image={1}
+            onPress={[Function]}
             title="Notifications"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
+            route={
+                Object {
+                    "key": "cart",
+                  }
+            }
             title="Cart"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="Payment Info"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="Promotions"
         />
         <MenuItem
+            activeItemKey="activeItemKey"
             image={1}
+            onPress={[Function]}
             title="Help"
         />
     </ScrollViewMock>
@@ -283,36 +304,57 @@ ShallowWrapper {
             }
       >
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="Heroes Needed!"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="History"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="Favorites & Recommended"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   badge="3"
                   image={1}
+                  onPress={[Function]}
                   title="Notifications"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
+                  route={
+                        Object {
+                              "key": "cart",
+                            }
+                  }
                   title="Cart"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="Payment Info"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="Promotions"
             />
             <MenuItem
+                  activeItemKey="activeItemKey"
                   image={1}
+                  onPress={[Function]}
                   title="Help"
             />
       </ScrollViewMock>
@@ -370,14 +412,33 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <MenuContent />,
+      "_currentElement": <MenuContent
+        activeItemKey="activeItemKey"
+        items={
+                Array [
+                        Object {
+                          "key": "cart",
+                        },
+                      ]
+        }
+        onItemPress={[Function]}
+/>,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": MenuContent {
         "_reactInternalInstance": [Circular],
+        "cartPress": [Function],
         "context": Object {},
-        "props": Object {},
+        "props": Object {
+          "activeItemKey": "activeItemKey",
+          "items": Array [
+            Object {
+              "key": "cart",
+            },
+          ],
+          "onItemPress": [Function],
+        },
         "refs": Object {},
         "state": Object {
           "avatar": "https://facebook.github.io/react/img/logo_og.png",
@@ -508,36 +569,57 @@ ShallowWrapper {
                     }
           >
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Heroes Needed!"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="History"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Favorites & Recommended"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               badge="3"
                               image={1}
+                              onPress={[Function]}
                               title="Notifications"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
+                              route={
+                                        Object {
+                                                  "key": "cart",
+                                                }
+                              }
                               title="Cart"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Payment Info"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Promotions"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Help"
                     />
           </ScrollViewMock>
@@ -676,36 +758,57 @@ ShallowWrapper {
                     }
           >
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Heroes Needed!"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="History"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Favorites & Recommended"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               badge="3"
                               image={1}
+                              onPress={[Function]}
                               title="Notifications"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
+                              route={
+                                        Object {
+                                                  "key": "cart",
+                                                }
+                              }
                               title="Cart"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Payment Info"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Promotions"
                     />
                     <MenuItem
+                              activeItemKey="activeItemKey"
                               image={1}
+                              onPress={[Function]}
                               title="Help"
                     />
           </ScrollViewMock>
@@ -747,6 +850,16 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <MenuContent />,
+  "unrendered": <MenuContent
+    activeItemKey="activeItemKey"
+    items={
+        Array [
+            Object {
+              "key": "cart",
+            },
+          ]
+    }
+    onItemPress={[Function]}
+/>,
 }
 `;

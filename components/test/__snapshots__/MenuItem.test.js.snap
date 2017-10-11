@@ -8,16 +8,36 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <View
+  "node": <AnimatedComponent
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-        Object {
-            "alignItems": "center",
-            "borderBottomColor": "#E4E4E4",
-            "borderBottomWidth": 1,
-            "flexDirection": "row",
-            "height": 56,
-          }
+        Array [
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#E4E4E4",
+              "borderBottomWidth": 1,
+              "flexDirection": "row",
+              "height": 56,
+            },
+            Object {
+              "opacity": 1,
+            },
+          ]
     }
+    testID={undefined}
+    tvParallaxProperties={undefined}
 >
     <Image
         source={1}
@@ -47,6 +67,7 @@ ShallowWrapper {
     <TouchableOpacity
         activeOpacity={0.2}
         focusedOpacity={0.7}
+        onPress={[Function]}
         style={
             Object {
                 "alignItems": "center",
@@ -75,18 +96,38 @@ ShallowWrapper {
             3
         </Text>
     </TouchableOpacity>
-</View>,
+</AnimatedComponent>,
   "nodes": Array [
-    <View
+    <AnimatedComponent
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-            Object {
-                  "alignItems": "center",
-                  "borderBottomColor": "#E4E4E4",
-                  "borderBottomWidth": 1,
-                  "flexDirection": "row",
-                  "height": 56,
-                }
+            Array [
+                  Object {
+                    "alignItems": "center",
+                    "borderBottomColor": "#E4E4E4",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "height": 56,
+                  },
+                  Object {
+                    "opacity": 1,
+                  },
+                ]
       }
+      testID={undefined}
+      tvParallaxProperties={undefined}
 >
       <Image
             source={1}
@@ -116,6 +157,7 @@ ShallowWrapper {
       <TouchableOpacity
             activeOpacity={0.2}
             focusedOpacity={0.7}
+            onPress={[Function]}
             style={
                   Object {
                         "alignItems": "center",
@@ -144,7 +186,7 @@ ShallowWrapper {
                   3
             </Text>
       </TouchableOpacity>
-</View>,
+</AnimatedComponent>,
   ],
   "options": Object {
     "context": Object {
@@ -172,7 +214,10 @@ ShallowWrapper {
           "subscribe": [Function],
         },
       },
-      "_currentElement": <View
+      "_currentElement": <TouchableOpacity
+        activeOpacity={0.2}
+        focusedOpacity={0.7}
+        onPress={[Function]}
         style={
                 Object {
                         "alignItems": "center",
@@ -211,6 +256,7 @@ ShallowWrapper {
         <TouchableOpacity
                 activeOpacity={0.2}
                 focusedOpacity={0.7}
+                onPress={[Function]}
                 style={
                         Object {
                                 "alignItems": "center",
@@ -239,21 +285,40 @@ ShallowWrapper {
                         3
                 </Text>
         </TouchableOpacity>
-</View>,
+</TouchableOpacity>,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": Component {
+      "_instance":  {
+        "_cancelLongPressDelayTimeout": [Function],
+        "_endHighlight": [Function],
+        "_getChildStyleOpacityWithDefault": [Function],
+        "_getDistanceBetweenPoints": [Function],
+        "_handleDelay": [Function],
+        "_handleLongDelay": [Function],
+        "_handleQueryLayout": [Function],
+        "_isHighlight": [Function],
+        "_opacityActive": [Function],
+        "_opacityFocused": [Function],
+        "_opacityInactive": [Function],
+        "_performSideEffectsForTransition": [Function],
         "_reactInternalInstance": [Circular],
+        "_receiveSignal": [Function],
+        "_remeasureMetricsOnActivation": [Function],
+        "_savePressInLocation": [Function],
+        "_startHighlight": [Function],
         "blur": [Function],
-        "context": Object {
-          "isInAParentText": undefined,
-        },
+        "cancelAnimationFrame": [Function],
+        "clearImmediate": [Function],
+        "clearInterval": [Function],
+        "clearTimeout": [Function],
+        "context": Object {},
         "focus": [Function],
         "measure": [Function],
         "measureInWindow": [Function],
         "measureLayout": [Function],
         "props": Object {
+          "activeOpacity": 0.2,
           "children": Array [
             <Image
               source={1}
@@ -283,6 +348,7 @@ ShallowWrapper {
             <TouchableOpacity
               activeOpacity={0.2}
               focusedOpacity={0.7}
+              onPress={[Function]}
               style={
                             Object {
                                           "alignItems": "center",
@@ -312,6 +378,8 @@ ShallowWrapper {
               </Text>
 </TouchableOpacity>,
           ],
+          "focusedOpacity": 0.7,
+          "onPress": [Function],
           "style": Object {
             "alignItems": "center",
             "borderBottomColor": "#E4E4E4",
@@ -321,8 +389,36 @@ ShallowWrapper {
           },
         },
         "refs": Object {},
+        "requestAnimationFrame": [Function],
+        "setImmediate": [Function],
+        "setInterval": [Function],
         "setNativeProps": [Function],
-        "state": null,
+        "setOpacityTo": [Function],
+        "setTimeout": [Function],
+        "state": Object {
+          "anim": 1,
+          "touchable": Object {
+            "responderID": null,
+            "touchState": undefined,
+          },
+        },
+        "touchableGetHighlightDelayMS": [Function],
+        "touchableGetHitSlop": [Function],
+        "touchableGetInitialState": [Function],
+        "touchableGetLongPressDelayMS": [Function],
+        "touchableGetPressOutDelayMS": [Function],
+        "touchableGetPressRectOffset": [Function],
+        "touchableHandleActivePressIn": [Function],
+        "touchableHandleActivePressOut": [Function],
+        "touchableHandleLongPress": [Function],
+        "touchableHandlePress": [Function],
+        "touchableHandleResponderGrant": [Function],
+        "touchableHandleResponderMove": [Function],
+        "touchableHandleResponderRelease": [Function],
+        "touchableHandleResponderTerminate": [Function],
+        "touchableHandleResponderTerminationRequest": [Function],
+        "touchableHandleStartShouldSetResponder": [Function],
+        "touchableLongPressCancelsPress": [Function],
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -341,16 +437,36 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <View
+        "_currentElement": <AnimatedComponent
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-                    Object {
-                              "alignItems": "center",
-                              "borderBottomColor": "#E4E4E4",
-                              "borderBottomWidth": 1,
-                              "flexDirection": "row",
-                              "height": 56,
-                            }
+                    Array [
+                              Object {
+                                "alignItems": "center",
+                                "borderBottomColor": "#E4E4E4",
+                                "borderBottomWidth": 1,
+                                "flexDirection": "row",
+                                "height": 56,
+                              },
+                              Object {
+                                "opacity": 1,
+                              },
+                            ]
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
 >
           <Image
                     source={1}
@@ -380,6 +496,7 @@ ShallowWrapper {
           <TouchableOpacity
                     activeOpacity={0.2}
                     focusedOpacity={0.7}
+                    onPress={[Function]}
                     style={
                               Object {
                                         "alignItems": "center",
@@ -408,18 +525,38 @@ ShallowWrapper {
                               3
                     </Text>
           </TouchableOpacity>
-</View>,
+</AnimatedComponent>,
         "_debugID": 4,
-        "_renderedOutput": <View
+        "_renderedOutput": <AnimatedComponent
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-                    Object {
-                              "alignItems": "center",
-                              "borderBottomColor": "#E4E4E4",
-                              "borderBottomWidth": 1,
-                              "flexDirection": "row",
-                              "height": 56,
-                            }
+                    Array [
+                              Object {
+                                "alignItems": "center",
+                                "borderBottomColor": "#E4E4E4",
+                                "borderBottomWidth": 1,
+                                "flexDirection": "row",
+                                "height": 56,
+                              },
+                              Object {
+                                "opacity": 1,
+                              },
+                            ]
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
 >
           <Image
                     source={1}
@@ -449,6 +586,7 @@ ShallowWrapper {
           <TouchableOpacity
                     activeOpacity={0.2}
                     focusedOpacity={0.7}
+                    onPress={[Function]}
                     style={
                               Object {
                                         "alignItems": "center",
@@ -477,9 +615,9 @@ ShallowWrapper {
                               3
                     </Text>
           </TouchableOpacity>
-</View>,
+</AnimatedComponent>,
       },
-      "_renderedNodeType": 0,
+      "_renderedNodeType": 1,
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
@@ -489,7 +627,10 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <View
+  "unrendered": <TouchableOpacity
+    activeOpacity={0.2}
+    focusedOpacity={0.7}
+    onPress={[Function]}
     style={
         Object {
             "alignItems": "center",
@@ -528,6 +669,7 @@ ShallowWrapper {
     <TouchableOpacity
         activeOpacity={0.2}
         focusedOpacity={0.7}
+        onPress={[Function]}
         style={
             Object {
                 "alignItems": "center",
@@ -556,6 +698,6 @@ ShallowWrapper {
             3
         </Text>
     </TouchableOpacity>
-</View>,
+</TouchableOpacity>,
 }
 `;
