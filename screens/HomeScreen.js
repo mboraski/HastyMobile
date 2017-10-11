@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
     }
 });
 
-HomeScreen.navigationOptions = (props) => ({
+HomeScreen.navigationOptions = ({ navigation }) => ({
     title: 'Hasty Logo',
     headerLeft: <MenuButton />,
     headerTitle: <SearchBar />,
-    headerRight: <CartButton {...props} />,
+    headerRight: <CartButton navigation={navigation} />,
     headerStyle: Style.headerLarge,
     headerTitleStyle: Style.headerTitle
 });
