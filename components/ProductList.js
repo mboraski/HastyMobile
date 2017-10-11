@@ -13,14 +13,14 @@ class ProductList extends Component {
         return this.props.products.map(product => {
             const onPress = () => this.props.callAddToCart(product);
             const type = this.props.cart.products[product.deliveryType];
-            const added =
-                type && type[product.productCode] && type[product.productCode].quantity > 0;
+            const quantity =
+                type && type[product.productCode] && type[product.productCode].quantity;
             return (
                 <ProductDetail
                     key={product.productCode}
                     product={product}
                     onPress={onPress}
-                    added={added}
+                    quantity={quantity}
                     style={styles.product}
                 />
             );
