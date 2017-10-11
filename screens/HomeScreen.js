@@ -33,7 +33,7 @@ class HomeScreen extends Component {
     state = { filter: FILTERS[0] };
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.isMenuOpen !== nextProps.isMenuOpen) {
+        if (this.props.toggleState !== nextProps.toggleState) {
             if (nextProps.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
             } else {
@@ -205,7 +205,8 @@ const mapStateToProps = state => ({
     cart: state.cart,
     products: getProductsByDeliveryType(state),
     deliveryType: state.product.deliveryType,
-    isMenuOpen: state.header.isMenuOpen
+    isMenuOpen: state.header.isMenuOpen,
+    toggleState: state.header.toggleState,
 });
 
 const mapDispatchToProps = dispatch => ({
