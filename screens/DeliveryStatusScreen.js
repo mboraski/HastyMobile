@@ -1,12 +1,18 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { Animated, StyleSheet, View, Text, Image, Platform, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    Image,
+    TouchableOpacity
+} from 'react-native';
+import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 // Relative Imports
 import loaderGradient from '../assets/loader-gradient.png';
 import loaderTicks from '../assets/loader-ticks.png';
-import BrandButton from '../components/BrandButton';
 import MenuButtonRight from '../components/MenuButtonRight';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
@@ -18,6 +24,16 @@ const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 
 class DeliveryStatusScreen extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (this.props.header.toggleState !== nextProps.header.toggleState) {
+            if (nextProps.header.isMenuOpen) {
+                this.props.navigation.navigate('DrawerOpen');
+            } else {
+                this.props.navigation.navigate('DrawerClose');
+            }
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}> 
@@ -113,10 +129,17 @@ const styles = StyleSheet.create({
 
 DeliveryStatusScreen.navigationOptions = {
     title: 'Hasty',
-    headerLeft: <BrandButton />,
-    headerRight: <MenuButtonRight />,
+    headerLeft: <MenuButtonRight />,
+    headerRight: null,
     headerStyle: Style.headerBorderless,
     headerTitleStyle: Style.headerTitle
 };
 
-export default DeliveryStatusScreen;
+const mapStateToProps = state => ({
+    header: state.header,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);

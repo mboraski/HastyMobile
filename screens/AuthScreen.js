@@ -90,7 +90,7 @@ class AuthScreen extends Component {
                     )}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} /> */}
-                <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} />
+                {/* <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} /> */}
                 {/* <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
                 <OopsPopup openModal={openModal} closeModal={this.closeModal} />
                 <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}

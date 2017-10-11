@@ -50,8 +50,8 @@ class MapScreen extends Component {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
         }
-        if (this.props.toggleState !== nextProps.toggleState) {
-            if (nextProps.isMenuOpen) {
+        if (this.props.header.toggleState !== nextProps.header.toggleState) {
+            if (nextProps.header.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
             } else {
                 this.props.navigation.navigate('DrawerClose');
@@ -257,8 +257,7 @@ MapScreen.navigationOptions = {
 const mapStateToProps = state => ({
     predictions: state.address.predictions,
     searchVisible: state.ui.searchVisible,
-    isMenuOpen: state.header.isMenuOpen,
-    toggleState: state.header.toggleState,
+    header: state.header,
 });
 
 const mapDispatchToProps = dispatch => ({

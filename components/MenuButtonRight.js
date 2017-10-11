@@ -4,17 +4,16 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { openToggle } from '../actions/navigationActions';
 import { emY } from '../utils/em';
 import mapIcon from '../assets/icons/menu-2.png';
 
 const SIZE = emY(1.4375);
 
 class MenuButton2 extends Component {
-    onPress = () => {};
-
     render() {
         return (
-            <TouchableOpacity onPress={this.onPress} style={styles.container}>
+            <TouchableOpacity onPress={() => this.props.openToggle()} style={styles.container}>
                 <Image source={mapIcon} style={styles.image} resizeMode="contain" />
             </TouchableOpacity>
         );
@@ -23,7 +22,7 @@ class MenuButton2 extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginRight: 20
+        marginHorizontal: 20,
     },
     image: {
         width: SIZE,
@@ -31,8 +30,8 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
+const mapDispatchToProps = dispatch => ({
+    openToggle: () => dispatch(openToggle())
+});
 
 export default connect(null, mapDispatchToProps)(MenuButton2);

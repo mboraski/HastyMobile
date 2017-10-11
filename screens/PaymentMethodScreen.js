@@ -1,6 +1,10 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    ScrollView
+} from 'react-native';
+import { connect } from 'react-redux';
 
 // Relative Imports
 import MenuButton from '../components/MenuButton';
@@ -35,6 +39,16 @@ class PaymentMethodScreen extends Component {
             email: 'johndoe@gmail.com'
         }
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.header.toggleState !== nextProps.header.toggleState) {
+            if (nextProps.header.isMenuOpen) {
+                this.props.navigation.navigate('DrawerOpen');
+            } else {
+                this.props.navigation.navigate('DrawerClose');
+            }
+        }
+    }
 
     addCard = () => {};
 
@@ -94,4 +108,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PaymentMethodScreen;
+const mapStateToProps = state => ({
+    header: state.header,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethodScreen);
