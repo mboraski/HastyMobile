@@ -10,6 +10,7 @@ import {
     Platform
 } from 'react-native';
 import { connect } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports

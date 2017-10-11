@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -16,13 +16,13 @@ type Props = {
 };
 
 class MenuItem extends Component {
-    props: Props;
-
     onPress = () => {
         const { route, activeItemKey, onPress } = this.props;
         const focused = route && activeItemKey === route.key;
         onPress({ route, focused });
     };
+
+    props: Props;
 
     render() {
         const { image, title, badge, ...props } = this.props;

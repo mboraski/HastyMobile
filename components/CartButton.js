@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+// eslint-disable-next-line import/no-unresolved
+import cartIcon from '../assets/icons/cart.png';
 import { emY } from '../utils/em';
 
 const SIZE = emY(2.1875);
@@ -15,7 +17,7 @@ class CartButton extends Component {
         return (
             <TouchableOpacity onPress={this.onPress} style={styles.container}>
                 <Image
-                    source={require('../assets/icons/cart.png')}
+                    source={cartIcon}
                     style={styles.image}
                     resizeMode="contain"
                 />

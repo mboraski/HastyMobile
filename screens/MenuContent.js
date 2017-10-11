@@ -11,6 +11,7 @@ import heroIcon from '../assets/icons/hero.png';
 import historyIcon from '../assets/icons/history.png';
 import favoriteIcon from '../assets/icons/favorite.png';
 import notificationIcon from '../assets/icons/notification.png';
+// eslint-disable-next-line import/no-unresolved
 import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
 import promotionIcon from '../assets/icons/promotion.png';
