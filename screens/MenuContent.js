@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-	Text,
-	Image,
-	View,
-    TouchableOpacity
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -24,6 +17,7 @@ import paymentIcon from '../assets/icons/payment.png';
 import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
 import tempAvatar from '../assets/profile.png';
+import { openCustomerPopup } from '../actions/uiActions';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
@@ -37,10 +31,15 @@ class MenuContent extends Component {
 
     handleViewProfile = () => {
         this.props.navigation.navigate('profile');
-    }
+    };
 
     cartPress = () => {
         this.props.navigation.navigate('cart');
+    };
+
+    handleHelpPress = () => {
+        this.props.navigation.navigate('DrawerClose');
+        this.props.openCustomerPopup();
     };
 
     render() {
@@ -88,7 +87,7 @@ class MenuContent extends Component {
                         badge="3"
                     />
                     <MenuItem
-						route={getRoute(items, 'cart')}
+                        route={getRoute(items, 'cart')}
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={cartIcon}
@@ -109,7 +108,7 @@ class MenuContent extends Component {
                     />
                     <MenuItem
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.handleHelpPress}
                         image={helpIcon}
                         title="Help"
                     />
@@ -123,19 +122,19 @@ class MenuContent extends Component {
 
 const styles = StyleSheet.create({
     topContainer: {
-		flex: 1,
-		backgroundColor: Color.WHITE,
-		borderRightWidth: 2,
-		borderRightColor: Color.YELLOW_500
-	},
-	container: {
-		flex: 1
-	},
-	headerContainer: {
-		alignItems: 'center',
-		marginTop: emY(2.68)
-	},
-	imageContainer: {
+        flex: 1,
+        backgroundColor: Color.WHITE,
+        borderRightWidth: 2,
+        borderRightColor: Color.YELLOW_500
+    },
+    container: {
+        flex: 1
+    },
+    headerContainer: {
+        alignItems: 'center',
+        marginTop: emY(2.68)
+    },
+    imageContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -188,8 +187,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
+const mapDispatchToProps = { openCustomerPopup };
 
 export default connect(null, mapDispatchToProps)(MenuContent);
