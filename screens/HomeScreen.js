@@ -209,7 +209,6 @@ const styles = StyleSheet.create({
     }
 });
 
-<<<<<<< HEAD
 HomeScreen.navigationOptions = ({ navigation }) => ({
     title: 'Hasty Logo',
     headerLeft: <MenuButton />,
@@ -219,8 +218,6 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
     headerTitleStyle: Style.headerTitle
 });
 
-=======
->>>>>>> fbc8e0d... hamo-2: User can create account in firebase with email or FB
 const mapStateToProps = state => ({
     cart: state.cart,
     products: getProductsByDeliveryType(state),
