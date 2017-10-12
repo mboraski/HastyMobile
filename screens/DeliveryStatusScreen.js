@@ -16,6 +16,7 @@ import loaderTicks from '../assets/loader-ticks.png';
 import MenuButtonRight from '../components/MenuButtonRight';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
+import Spinner from '../components/Spinner';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
@@ -39,13 +40,7 @@ class DeliveryStatusScreen extends Component {
         return (
             <View style={styles.container}> 
                 <TouchableOpacity onPress={() => this.notRef.receiveNotification()} >
-                    <View style={styles.loader}>    
-                        <View style={styles.imageContainer}>
-                            <Image source={tempAvatar} style={styles.image} />
-                        </View>
-                        <Image source={loaderGradient} style={styles.gradient} />
-                        <Image source={loaderTicks} style={styles.ticks} />
-                    </View>
+                    <Spinner image={tempAvatar} style={styles.loader} />
                 </TouchableOpacity>
                 <Text style={styles.searching}>Searching...</Text>
                 <Notification onRef={ref => (this.notRef = ref)} />
