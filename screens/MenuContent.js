@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, Image, View } from 'react-native';
+import {
+    ScrollView,
+    StyleSheet,
+	Text,
+	Image,
+	View,
+    TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -27,6 +34,10 @@ class MenuContent extends Component {
         avatar: 'https://facebook.github.io/react/img/logo_og.png'
     };
 
+    handleViewProfile = () => {
+        this.props.navigation.navigate('profile');
+    }
+
     cartPress = () => {
         this.props.navigation.navigate('cart');
     };
@@ -43,9 +54,11 @@ class MenuContent extends Component {
                         </View>
                         <Text style={styles.name}>{name}</Text>
                     </View>
-                    <View style={styles.profileTitleContainer}>
-                        <Text style={styles.title}>View Profile</Text>
-                    </View>
+                    <TouchableOpacity onPress={this.handleViewProfile}>
+                        <View style={styles.profileTitleContainer}>
+                            <Text style={styles.title}>View Profile</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView style={styles.listContainer}>
                     <MenuItem
@@ -109,19 +122,19 @@ class MenuContent extends Component {
 
 const styles = StyleSheet.create({
     topContainer: {
-        flex: 1,
-        backgroundColor: Color.WHITE,
-        borderRightWidth: 2,
-        borderRightColor: Color.YELLOW_500
-    },
-    container: {
-        flex: 1
-    },
-    headerContainer: {
-        alignItems: 'center',
-        marginTop: emY(2.68)
-    },
-    imageContainer: {
+		flex: 1,
+		backgroundColor: Color.WHITE,
+		borderRightWidth: 2,
+		borderRightColor: Color.YELLOW_500
+	},
+	container: {
+		flex: 1
+	},
+	headerContainer: {
+		alignItems: 'center',
+		marginTop: emY(2.68)
+	},
+	imageContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

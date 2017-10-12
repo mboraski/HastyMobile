@@ -30,6 +30,26 @@ const headerItem = {
     alignItems: 'center'
 };
 
+export const statusBarOnly = Platform.select({
+    android: {
+        headerLeft: null,
+        headerRight: null,
+        headerStyle: {
+            height: 0
+        },
+        paddingTop: StatusBar.currentHeight,
+        elevation: 0
+    },
+    ios: {
+        headerLeft: null,
+        headerRight: null,
+        headerStyle: {
+            height: 0
+        },
+        paddingTop: STATUSBAR_HEIGHT
+    }
+});
+
 export default StyleSheet.create({
     header,
     headerLarge: {
@@ -105,5 +125,5 @@ export default StyleSheet.create({
     },
     clearText: {
         color: 'rgba(0, 0, 0, 0)',
-    },
+    }
 });

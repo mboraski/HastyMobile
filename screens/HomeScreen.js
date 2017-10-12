@@ -30,6 +30,15 @@ const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
 class HomeScreen extends Component {
+    static navigationOptions = {
+        title: 'Hasty Logo',
+        headerLeft: <MenuButton />,
+        headerTitle: <SearchBar />,
+        headerRight: <CartButton />,
+        headerStyle: Style.headerLarge,
+        headerTitleStyle: Style.headerTitle
+    };
+
     state = { filter: FILTERS[0] };
 
     componentWillReceiveProps(nextProps) {
@@ -200,6 +209,7 @@ const styles = StyleSheet.create({
     }
 });
 
+<<<<<<< HEAD
 HomeScreen.navigationOptions = ({ navigation }) => ({
     title: 'Hasty Logo',
     headerLeft: <MenuButton />,
@@ -209,6 +219,8 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
     headerTitleStyle: Style.headerTitle
 });
 
+=======
+>>>>>>> fbc8e0d... hamo-2: User can create account in firebase with email or FB
 const mapStateToProps = state => ({
     cart: state.cart,
     products: getProductsByDeliveryType(state),

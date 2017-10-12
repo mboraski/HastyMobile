@@ -8,7 +8,7 @@ import {
     Platform,
     Animated
 } from 'react-native';
-import { MapView } from 'expo';
+import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -42,6 +42,16 @@ class MapScreen extends Component {
         searchRendered: false
     };
 
+    componentWillMount() {
+        if (Platform.OS === 'android' && !Constants.isDevice) {
+            this.setState({
+                errorMessage: 'Oops, this will only work on a device'
+            });
+        } else {
+            this.getLocationAsync();
+        }
+    }
+
     componentDidMount() {
         this.setState({ mapLoaded: true });
     }
@@ -59,14 +69,43 @@ class MapScreen extends Component {
         }
     }
 
+    onRegionChange = region => {
+        this.setState({ region });
+    }
+
     onRegionChangeComplete = region => {
         console.log('region: ', region);
-        this.setState({ region });
     };
 
     onButtonPress = async () => {
         await this.props.getProductsByAddress('1004 S Congress Ave, Austin, TX 78704');
         this.props.navigation.navigate('home');
+    };
+
+    // onButtonPress = () => {
+    //     this.props.fetchProducts(this.state.region, () => {
+    //         this.props.navigation.navigate('home');
+    //     });
+    // };
+
+    getLocationAsync = async () => {
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            this.setState({
+                errorMessage: 'Permission to access location was denied',
+            });
+        }
+
+        const location = await Location.getCurrentPositionAsync({});
+        console.log('location: ', location);
+        this.setState({
+            region: {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                longitudeDelta: 0.1,
+                latitudeDelta: 0.25
+            }
+        });
     };
 
     handleAddress = address => {
@@ -110,6 +149,7 @@ class MapScreen extends Component {
 
     render() {
         const { searchVisible, predictions } = this.props;
+        const region = this.state.region;
 
         if (!this.state.mapLoaded) {
             return (
@@ -122,15 +162,16 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    region={this.state.region}
+                    region={region}
                     style={styles.map}
+                    onRegionChange={this.onRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 >
                     <MapView.Marker
                         image={pinIcon}
                         coordinate={{
-                            latitude: 30.26,
-                            longitude: -97.76
+                            latitude: region.latitude,
+                            longitude: region.longitude
                         }}
                         title="You"
                         description="Your Delivery Location"
@@ -266,4 +307,4 @@ const mapDispatchToProps = dispatch => ({
     toggleSearch: () => dispatch(toggleSearch())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapScreen); 
+export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);

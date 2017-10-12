@@ -56,7 +56,7 @@ const styles = {
     textAlign: 'center'
   },
   buttonStyle: {
-    backgroundColor: '#0288D1',
+    backgroundColor: '#8AD835',
     marginTop: 15
   }
 };

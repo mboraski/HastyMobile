@@ -11,9 +11,8 @@ const MenuNavgiator = DrawerNavigator({
 }, {
     drawerWidth: 320,
     drawerPosition: 'left',
-    contentComponent: (props) => <MenuContent {...props} />
+    contentComponent: props => <MenuContent {...props} />
 });
 
-  
-export default MenuNavgiator;
 
+export default MenuNavgiator;
