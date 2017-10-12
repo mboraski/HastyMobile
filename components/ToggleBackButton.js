@@ -10,9 +10,9 @@ import leftArrowIcon from '../assets/icons/left-arrow.png';
 
 const SIZE = emY(1.25);
 
-class BackButton extends Component {
+class ToggleBackButton extends Component {
     onBackPress = () => {
-        this.props.onPress();
+        this.props.closeToggle();
     };
 
     render() {
@@ -44,11 +44,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    isMenuOpen: state.header.isMenuOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     closeToggle: () => dispatch(closeToggle())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BackButton);
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleBackButton);

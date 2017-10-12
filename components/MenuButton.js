@@ -4,7 +4,7 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import { toggleMenu } from '../actions/navigationActions';
+import { openToggle } from '../actions/navigationActions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import mapIcon from '../assets/icons/menu.png';
@@ -18,7 +18,7 @@ class MenuButton extends Component {
             <TouchableOpacity 
                 {...props} 
                 style={[Style.headerLeft, styles.container, style]}
-                onPress={() => this.props.toggleMenu(true)}
+                onPress={() => this.props.openToggle()}
             >
                 <Image source={mapIcon} style={styles.image} />
             </TouchableOpacity>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleMenu: (toggleFlag) => dispatch(toggleMenu(toggleFlag))
+    openToggle: () => dispatch(openToggle())
 });
 
 export default connect(null, mapDispatchToProps)(MenuButton);

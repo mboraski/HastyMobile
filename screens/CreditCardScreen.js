@@ -106,12 +106,12 @@ CreditCardScreen = reduxForm({
     form: 'CreditCard'
 })(CreditCardScreen);
 
-CreditCardScreen.navigationOptions = {
+CreditCardScreen.navigationOptions = ({ navigation }) => ({
     title: 'Edit Card',
-    headerLeft: <BackButton />,
+    headerLeft: <BackButton onPress={() => navigation.goBack()} />,
     headerRight: <TextButton title="Save" />,
     headerStyle: Style.header,
-    headerTitleStyle: Style.headerTitle
-};
+    headerTitleStyle: Style.headerTitle,
+});
 
 export default CreditCardScreen;

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 import MenuItem from '../components/MenuItem';
-import BackButton from '../components/BackButton';
+import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/hero.png';
 import historyIcon from '../assets/icons/history.png';
 import favoriteIcon from '../assets/icons/favorite.png';
@@ -100,7 +100,7 @@ class MenuContent extends Component {
                         title="Help"
                     />
                 </ScrollView>
-                <BackButton style={styles.backButton} />
+                <ToggleBackButton style={styles.backButton} />
                 <Text style={styles.copyright}>@2017 Hasty</Text>
             </View>
         );
