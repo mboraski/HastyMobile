@@ -7,6 +7,7 @@ import ui from './uiReducer';
 import product from './productReducer';
 import header from './navigationReducer';
 import notification from './notificationReducer';
+import nav from './navReducer';
 
 export default combineReducers({
     address,
@@ -16,5 +17,6 @@ export default combineReducers({
     product,
     ui,
     header,
-    notification
+    notification,
+    nav
 });
