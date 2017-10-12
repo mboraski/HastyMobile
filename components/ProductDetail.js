@@ -8,10 +8,23 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
+import productImage0 from '../assets/product-0.png';
+import productImage1 from '../assets/product-1.png';
+import productImage2 from '../assets/product-2.png';
+import productImage3 from '../assets/product-3.png';
+
+const images = [
+    productImage0,
+    productImage1,
+    productImage2,
+    productImage3
+];
+
 const ICON_SIZE = 35;
 
 const ProductDetail = ({ product, onPress, quantity, style }) => {
     const { title, thumbnail_image, price } = product;
+    const temp_thumbnail_image = images[product.productCode % 4];
     const added = quantity > 0;
     return (
         <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
@@ -25,9 +38,7 @@ const ProductDetail = ({ product, onPress, quantity, style }) => {
                     style={[styles.icon, added && styles.iconAdded]}
                 />
             </View>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{ uri: thumbnail_image }} />
-            </View>
+            <Image style={styles.image} source={temp_thumbnail_image} resizeMode="contain" />
             <View style={styles.meta}>
                 <Text style={[styles.metaItem, styles.title]}>{title}</Text>
                 <Text style={[styles.metaItem, styles.price]}>{price}</Text>
@@ -71,11 +82,10 @@ const styles = StyleSheet.create({
     iconAdded: {
         color: Color.GREEN_500
     },
-    imageContainer: {
-        marginBottom: emY(2.1875)
-    },
     image: {
-        minHeight: emY(6.25)
+        height: emY(6.2),
+        width: '100%',
+        marginBottom: emY(2.2)
     },
     meta: {
         flexDirection: 'row',

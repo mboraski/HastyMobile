@@ -19,6 +19,7 @@ import HeroList from '../components/HeroList';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
+import tempAvatar from '../assets/profile.png';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -40,7 +41,7 @@ class DeliveryStatusScreen extends Component {
                 <TouchableOpacity onPress={() => this.notRef.receiveNotification()} >
                     <View style={styles.loader}>    
                         <View style={styles.imageContainer}>
-                            <Image source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }} style={styles.image} />
+                            <Image source={tempAvatar} style={styles.image} />
                         </View>
                         <Image source={loaderGradient} style={styles.gradient} />
                         <Image source={loaderTicks} style={styles.ticks} />
