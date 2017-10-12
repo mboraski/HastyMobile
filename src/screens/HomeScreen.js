@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
     ScrollView,
+    Animated,
     StyleSheet,
     Text,
     View,
@@ -14,34 +15,37 @@ import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
-import ProductList from '../components/ProductList';
-import MenuButton from '../components/MenuButton';
-import CartButton from '../components/CartButton';
-import SearchBar from '../components/SearchBar';
-import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
-import Style from '../constants/Style';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { selectDeliveryType } from '../actions/productActions';
+import { toggleSearch } from '../actions/uiActions';
+import ProductList from '../components/ProductList';
+import HomeHeader from '../containers/HomeHeader';
 import { getProductsByDeliveryType } from '../selectors/productSelectors';
+import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
+const OPACITY_DURATION = 300;
 
-export class HomeScreen extends Component {
-    static navigationOptions = {
-        title: 'Hasty Logo',
-        headerLeft: <MenuButton />,
-        headerTitle: <SearchBar />,
-        headerRight: <CartButton />,
-        headerStyle: Style.headerLarge,
-        headerTitleStyle: Style.headerTitle
+class HomeScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: null,
+        header: <HomeHeader navigation={navigation} />,
+    });
+
+    state = {
+        filter: FILTERS[0],
+        translateY: new Animated.Value(0),
+        opacity: new Animated.Value(1),
+        searchRendered: false
     };
 
-    state = { filter: FILTERS[0] };
-
     componentWillReceiveProps(nextProps) {
+        if (this.props.searchVisible !== nextProps.searchVisible) {
+            this.animate(nextProps.searchVisible);
+        }
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
@@ -67,6 +71,37 @@ export class HomeScreen extends Component {
         this.props.navigation.navigate('checkout');
     };
 
+    animate = searchVisible => {
+        if (this.state.searchRendered) {
+            this.afterSetState(searchVisible);
+        } else {
+            this.setState({ searchRendered: searchVisible }, () =>
+                this.afterSetState(searchVisible)
+            );
+        }
+    };
+
+    afterSetState = searchVisible => {
+        Animated.parallel([
+            Animated.timing(this.state.translateY, {
+                toValue: searchVisible ? -100 : 0,
+                duration: OPACITY_DURATION
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: searchVisible ? 0 : 1,
+                duration: OPACITY_DURATION
+            })
+        ]).start(() => {
+            this.setState({
+                searchRendered: searchVisible
+            });
+        });
+    };
+
+    handleAddressFocus = () => {
+        this.props.toggleSearch();
+    };
+
     renderFilter = filter => {
         const selectedFilter = this.props.deliveryType === filter.id;
         const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
@@ -87,6 +122,11 @@ export class HomeScreen extends Component {
 
     render() {
         const { cart, products } = this.props;
+        const { homeSearch } = this.props;
+        const searchText = homeSearch.searchText.toLowerCase();
+        const filteredProducts = (searchText === '') ?
+            products : 
+            products.filter(product => product.title.toLowerCase().indexOf(searchText) > -1);
         return (
             <View style={styles.container}>
                 {cart.totalQuantity > 0 ? (
@@ -119,7 +159,7 @@ export class HomeScreen extends Component {
                 </ScrollView>
                 <ProductList
                     cart={cart}
-                    products={products}
+                    products={filteredProducts}
                     callAddToCart={this.callAddToCart}
                     callRemoveFromCart={this.callRemoveFromCart}
                 />
@@ -209,26 +249,20 @@ const styles = StyleSheet.create({
     }
 });
 
-HomeScreen.navigationOptions = ({ navigation }) => ({
-    title: 'Hasty Logo',
-    headerLeft: <MenuButton />,
-    headerTitle: <SearchBar />,
-    headerRight: <CartButton navigation={navigation} />,
-    headerStyle: Style.headerLarge,
-    headerTitleStyle: Style.headerTitle
-});
-
 const mapStateToProps = state => ({
     cart: state.cart,
     products: getProductsByDeliveryType(state),
     deliveryType: state.product.deliveryType,
+    searchVisible: state.ui.searchVisible,
     header: state.header,
+    homeSearch: state.homeSearch,
 });
 
 const mapDispatchToProps = dispatch => ({
     selectFilter: filter => dispatch(selectDeliveryType(filter)),
     addToCart: product => dispatch(addToCart(product)),
     removeFromCart: product => dispatch(removeFromCart(product)),
+    toggleSearch: () => dispatch(toggleSearch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

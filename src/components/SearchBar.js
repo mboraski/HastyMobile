@@ -8,13 +8,26 @@ import searchIcon from '../assets/icons/search.png';
 
 const SIZE = emY(1.5);
 
+type Props = {
+    onFocus: () => {}
+};
+
 class SearchBar extends Component {
+    
     state = {
         value: '',
         focused: false
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.homeSearch.searchText !== nextProps.homeSearch.searchText) {
+            this.setState({ value: nextProps.homeSearch.searchText });
+        }
+    }
+
     onPress = () => {};
+
+    props: Props;
 
     handleValue = value => {
         this.setState({ value });
@@ -22,6 +35,7 @@ class SearchBar extends Component {
 
     handleFocus = () => {
         this.setState({ focused: true });
+        this.props.onFocus();
     };
 
     handleBlur = () => {
@@ -90,8 +104,12 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = state => ({
+    homeSearch: state.homeSearch,
+});
+
 const mapDispatchToProps = function (dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
