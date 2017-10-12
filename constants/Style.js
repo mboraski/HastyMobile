@@ -9,7 +9,7 @@ const header = {
     flexDirection: 'row',
     paddingTop: STATUSBAR_HEIGHT,
     backgroundColor: '#fff',
-    height: emY(5.3125),
+    height: emY(5.25),
     shadowRadius: 0,
     shadowOffset: {
         height: 0
@@ -54,7 +54,7 @@ export default StyleSheet.create({
     header,
     headerLarge: {
         ...header,
-        height: emY(5.9375)
+        height: emY(5.25),
     },
     headerBorderless: {
         ...header,
