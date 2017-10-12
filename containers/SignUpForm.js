@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
-import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
@@ -17,7 +16,7 @@ import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 
-const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
+// const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
 class SignUpForm extends Component {
     componentWillReceiveProps(nextProps) {
@@ -32,29 +31,35 @@ class SignUpForm extends Component {
 
     render() {
         const {
-            facebookLogin,
-            submit,
+            actions,
             anyTouched,
             pending,
             submitting,
             submitSucceeded,
             asyncValidating,
             invalid,
-            pristine
+            pristine,
+            error,
+            handleSubmit
         } = this.props;
+        console.log('SignUpForm render error: ', error);
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
-            anyTouched && invalid ? 'Please fix issues before continuing' : 'Create Account';
+            anyTouched && invalid ?
+            'Please fill out form with no errors or empty fields.' :
+            'Create Account';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
                     <InlineLabelTextInputField
+                        autoCapitalize={'words'}
                         containerStyle={styles.fieldContainer}
                         name="name"
                         label="Name"
                         validate={[required]}
                     />
                     <InlineLabelTextInputField
+                        autoCapitalize={'none'}
                         containerStyle={styles.fieldContainer}
                         name="email"
                         label="Email"
@@ -69,6 +74,7 @@ class SignUpForm extends Component {
                         validate={[required, validPhoneNumber]}
                     />
                     <InlineLabelTextInputField
+                        autoCapitalize={'none'}
                         containerStyle={styles.fieldContainer}
                         name="password"
                         label="Password"
@@ -76,6 +82,7 @@ class SignUpForm extends Component {
                         validate={[required, validPassword]}
                     />
                     <InlineLabelTextInputField
+                        autoCapitalize={'none'}
                         containerStyle={styles.fieldContainer}
                         name="confirmPassword"
                         label="Confirm Password"
@@ -92,8 +99,9 @@ class SignUpForm extends Component {
                         />
                     ) : null}
                 </View>
+                {error && <Text style={styles.signUpError}>{error}</Text>}
                 <TouchableOpacity
-                    onPress={submit}
+                    onPress={handleSubmit(actions.createUser)}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -105,7 +113,7 @@ class SignUpForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={facebookLogin}
+                    onPress={actions.facebookLogin}
                     title="Login with Facebook"
                     icon={{
                         type: 'material-community',
@@ -129,7 +137,7 @@ const styles = StyleSheet.create({
     },
     formInputs: {
         paddingHorizontal: 15,
-        marginBottom: 50
+        paddingBottom: emY(1.5)
     },
     fieldContainer: {
         backgroundColor: '#fff'
@@ -163,6 +171,13 @@ const styles = StyleSheet.create({
     },
     spinner: {
         backgroundColor: Color.WHITE
+    },
+    signUpError: {
+        color: Color.RED_500,
+        textAlign: 'center',
+        fontSize: emY(0.9),
+        paddingHorizontal: 15,
+        paddingBottom: emY(1.5)
     }
 });
 
@@ -172,13 +187,22 @@ const formOptions = {
         const errors = {};
         if (values.password !== values.confirmPassword) {
             errors.confirmPassword = 'Passwords must match';
+        } else if (
+            !values.name ||
+            !values.email ||
+            !values.number ||
+            !values.password ||
+            !values.confirmPassword
+        ) {
+            errors.missingValues = 'Some form field values are missing';
         }
+        console.log('validate errors: ', errors);
         return errors;
     },
-    async onSubmit(values) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        await axios.post(`${ROOT_URL}/createUser`, { phone: values.number });
-        return axios.post(`${ROOT_URL}/requestOneTimePassword`, { phone: values.number });
+    onSubmitFail(errors, dispatch, submitError, props) {
+        console.log('onSubmitFail errors: ', errors);
+        console.log('onSubmitFail submitError: ', submitError);
+        console.log('onSubmitFail props: ', props);
     }
 };
 
@@ -189,7 +213,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         actions: {
-            facebookLogin: authActions.facebookLogin
+            facebookLogin: authActions.facebookLogin,
+            createUser: authActions.createUser
         }
     };
 };

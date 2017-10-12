@@ -1,18 +1,34 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
 import { Button } from 'react-native-elements';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 // Relative Imports
-import CloseButton from '../components/CloseButton';
+import BackButton from '../components/BackButton';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import Radio from '../components/Radio';
+import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-class DeliveryDetailScreen extends Component {
+class ProfileScreen extends Component {
+    state = {
+        editMode: false
+    }
+
+    handleLogout = () => {
+        this.props.actions.logout();
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -20,7 +36,7 @@ class DeliveryDetailScreen extends Component {
                 <View style={styles.formInputs}>
                     <InlineLabelTextInputField
                         name="name"
-                        label="Full Name" 
+                        label="Full Name"
                     />
                     <InlineLabelTextInputField
                         name="number"
@@ -55,14 +71,19 @@ class DeliveryDetailScreen extends Component {
                         label="ZIP code"
                     />
                 </View>
-                <Field name="save" component={Radio} text="Save Information" />
-                <Button
-                    title="PAY"
-                    onPress={this.onButtonPress}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
+                <TouchableOpacity onPress={this.handleLogout}>
+                    <Text style={styles.logout}>LOGOUT?</Text>
+                </TouchableOpacity>
+                {this.state.editMode ?
+                    <Button
+                        title="Save Changes"
+                        onPress={this.onButtonPress}
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
+                    /> :
+                    null
+                }
             </ScrollView>
         );
     }
@@ -81,25 +102,54 @@ const styles = StyleSheet.create({
         paddingBottom: emY(1)
     },
     formInputs: {},
-    buttonContainer: {},
+    buttonContainer: {
+        marginTop: emY(1)
+    },
     button: {
         backgroundColor: '#000',
         paddingVertical: emY(1)
     },
     buttonText: {
         fontSize: emY(0.8125)
+    },
+    logout: {
+        textDecorationLine: 'underline',
+        fontSize: emY(0.8125),
+        color: Color.GREY_600,
+        paddingHorizontal: 15,
+        paddingTop: emY(2.1875),
+        paddingBottom: emY(1)
     }
 });
 
-DeliveryDetailScreen = reduxForm({
-    form: 'deliveryDetail'
-})(DeliveryDetailScreen);
+const formOptions = {
+    form: 'Profile',
+    onSubmitFail(errors, dispatch, submitError, props) {
+        console.log('onSubmitFail errors: ', errors);
+        console.log('onSubmitFail submitError: ', submitError);
+        console.log('onSubmitFail props: ', props);
+    }
+};
 
-DeliveryDetailScreen.navigationOptions = {
-    title: 'Payment Details',
-    headerLeft: <CloseButton />,
+const mapStateToProps = ({ auth }) => ({ token: auth.token });
+
+
+const mapDispatchToProps = dispatch => {
+    const authActions = bindActionCreators(AuthActions, dispatch);
+
+    return {
+        actions: {
+            logout: authActions.logout
+        }
+    };
+};
+
+ProfileScreen.navigationOptions = {
+    title: 'Profile Details',
+    headerLeft: <BackButton />,
+    // headerRight: <EditButton />,
     headerStyle: Style.header,
     headerTitleStyle: Style.headerTitle
 };
 
-export default DeliveryDetailScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(ProfileScreen));

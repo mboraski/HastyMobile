@@ -30,6 +30,15 @@ const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
 class HomeScreen extends Component {
+    static navigationOptions = {
+        title: 'Hasty Logo',
+        headerLeft: <MenuButton />,
+        headerTitle: <SearchBar />,
+        headerRight: <CartButton />,
+        headerStyle: Style.headerLarge,
+        headerTitleStyle: Style.headerTitle
+    };
+
     state = { filter: FILTERS[0] };
 
     componentWillReceiveProps(nextProps) {

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { openToggle } from '../actions/navigationActions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
+// eslint-disable-next-line import/no-unresolved
 import mapIcon from '../assets/icons/menu.png';
 
 const SIZE = emY(1.875);
@@ -15,8 +16,8 @@ class MenuButton extends Component {
     render() {
         const { style, ...props } = this.props;
         return (
-            <TouchableOpacity 
-                {...props} 
+            <TouchableOpacity
+                {...props}
                 style={[Style.headerLeft, styles.container, style]}
                 onPress={() => this.props.openToggle()}
             >

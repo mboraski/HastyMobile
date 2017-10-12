@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
@@ -18,6 +19,7 @@ import FeedbackScreen from '../screens/FeedbackScreen';
 const MainNavigator = StackNavigator({
     welcome: { screen: WelcomeScreen },
     auth: { screen: AuthScreen },
+    profile: { screen: ProfileScreen },
     map: { screen: MapScreen },
     home: { screen: HomeScreen },
     searchForHero: { screen: SearchForHeroScreen },

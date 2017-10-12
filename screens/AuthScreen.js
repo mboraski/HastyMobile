@@ -1,6 +1,5 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
     View,
     StyleSheet,
@@ -15,21 +14,20 @@ import { Button } from 'react-native-elements';
 // Relative Imports
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
-import RatingPopup from '../components/RatingPopup';
-import CustomerServicePopup from '../components/CustomerPopup';
-import SuccessPopup from '../components/SuccessPopup';
-import OopsPopup from '../components/OopsPopup';
-import ContinuePopup from '../components/ContinuePopup';
+// import RatingPopup from '../components/RatingPopup';
+// import CustomerServicePopup from '../components/CustomerPopup';
+// import SuccessPopup from '../components/SuccessPopup';
+// import OopsPopup from '../components/OopsPopup';
+// import ContinuePopup from '../components/ContinuePopup';
 import Color from '../constants/Color';
+import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class AuthScreen extends Component {
-    static navigationOptions = {
-        header: null
-    };
+    static navigationOptions = statusBarOnly;
 
     state = {
         signUp: true,
@@ -61,7 +59,7 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
-        const { openModal } = this.state;
+        // const { openModal } = this.state;
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
@@ -89,9 +87,9 @@ class AuthScreen extends Component {
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
-                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} /> */}
-                {/* <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} /> */}
-                {/* <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
+                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
+                <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} />
+                <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
                 <OopsPopup openModal={openModal} closeModal={this.closeModal} />
                 <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}
             </ScrollView>
@@ -119,14 +117,15 @@ const styles = StyleSheet.create({
     buttonsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingVertical: emY(1.8)
+        paddingVertical: emY(1)
     },
     button: {
         minWidth: 120,
         borderRadius: 25,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_500,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        height: emY(2.5)
     },
     buttonText: {
         color: Color.GREY_500,
