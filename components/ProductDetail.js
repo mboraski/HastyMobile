@@ -1,7 +1,7 @@
 // Third Part Imports
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Foundation } from '@expo/vector-icons';
 
 // Relative Imports
 import Color from '../constants/Color';
@@ -10,32 +10,29 @@ import { emY } from '../utils/em';
 
 const ICON_SIZE = 35;
 
-const ProductDetail = ({ product, onPress, added, style }) => {
+const ProductDetail = ({ product, onPress, quantity, style }) => {
     const { title, thumbnail_image, price } = product;
-
+    const added = quantity > 0;
     return (
-        <View style={[Style.shadow, styles.container, style]}>
-            <View style={styles.iconContainer}>
-                <Icon
-                    onPress={onPress}
-                    type="foundation"
+        <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
+            <View style={[styles.quantityRow, added && styles.quantityRowAdded]}>
+                {added ? <View style={styles.quantityContainer}>
+                    <Text style={styles.quantity}>{quantity}</Text>
+                </View> : null}
+                <Foundation
                     name="plus"
                     size={ICON_SIZE}
-                    iconStyle={[styles.icon, added && styles.iconAdded]}
+                    style={[styles.icon, added && styles.iconAdded]}
                 />
             </View>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{ uri: thumbnail_image }} />
             </View>
             <View style={styles.meta}>
-                <Text style={[styles.metaItem, styles.title]}>
-                    {title}
-                </Text>
-                <Text style={[styles.metaItem, styles.price]}>
-                    {price}
-                </Text>
+                <Text style={[styles.metaItem, styles.title]}>{title}</Text>
+                <Text style={[styles.metaItem, styles.price]}>{price}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -46,10 +43,27 @@ const styles = StyleSheet.create({
         paddingVertical: emY(0.9375),
         borderRadius: 11
     },
-    iconContainer: {
+    quantityRow: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        alignItems: 'center',
         marginBottom: emY(1.125)
+    },
+    quantityRowAdded: {
+        justifyContent: 'space-between',
+    },
+    quantityContainer: {
+        backgroundColor: Color.GREEN_500,
+        borderRadius: 20,
+        overflow: 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 13,
+        paddingVertical: emY(0.5)
+    },
+    quantity: {
+        fontSize: emY(1),
+        color: '#fff'
     },
     icon: {
         color: Color.GREY_200

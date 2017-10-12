@@ -114,6 +114,12 @@ ShallowWrapper {
             title="CONFIRM ORDER"
         />
     </View>
+    <Connect(OopsPopup)
+        closeModal={[Function]}
+        message="Are you sure you want to remove this product from your cart?"
+        openModal={false}
+        showIcon={false}
+    />
 </View>,
   "nodes": Array [
     <View
@@ -222,6 +228,12 @@ ShallowWrapper {
                   title="CONFIRM ORDER"
             />
       </View>
+      <Connect(OopsPopup)
+            closeModal={[Function]}
+            message="Are you sure you want to remove this product from your cart?"
+            openModal={false}
+            showIcon={false}
+      />
 </View>,
   ],
   "options": Object {
@@ -270,6 +282,7 @@ ShallowWrapper {
       "_instance": CartScreen {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "handleRemoveOrder": [Function],
         "props": Object {
           "addToCart": [Function],
           "cart": Object {
@@ -283,7 +296,10 @@ ShallowWrapper {
           "totalOrders": 0,
         },
         "refs": Object {},
-        "state": null,
+        "removeOrderConfirmed": [Function],
+        "state": Object {
+          "removeOrderPopupVisible": false,
+        },
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -408,6 +424,12 @@ ShallowWrapper {
                               title="CONFIRM ORDER"
                     />
           </View>
+          <Connect(OopsPopup)
+                    closeModal={[Function]}
+                    message="Are you sure you want to remove this product from your cart?"
+                    openModal={false}
+                    showIcon={false}
+          />
 </View>,
         "_debugID": 4,
         "_renderedOutput": <View
@@ -516,6 +538,12 @@ ShallowWrapper {
                               title="CONFIRM ORDER"
                     />
           </View>
+          <Connect(OopsPopup)
+                    closeModal={[Function]}
+                    message="Are you sure you want to remove this product from your cart?"
+                    openModal={false}
+                    showIcon={false}
+          />
 </View>,
       },
       "_renderedNodeType": 1,
@@ -670,6 +698,12 @@ ShallowWrapper {
             title="CONFIRM ORDER"
         />
     </View>
+    <Connect(OopsPopup)
+        closeModal={[Function]}
+        message="Are you sure you want to remove this product from your cart?"
+        openModal={false}
+        showIcon={false}
+    />
 </View>,
   "nodes": Array [
     <View
@@ -789,6 +823,12 @@ ShallowWrapper {
                   title="CONFIRM ORDER"
             />
       </View>
+      <Connect(OopsPopup)
+            closeModal={[Function]}
+            message="Are you sure you want to remove this product from your cart?"
+            openModal={false}
+            showIcon={false}
+      />
 </View>,
   ],
   "options": Object {
@@ -859,6 +899,7 @@ ShallowWrapper {
       "_instance": CartScreen {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "handleRemoveOrder": [Function],
         "props": Object {
           "addToCart": [Function],
           "cart": Object {
@@ -892,7 +933,10 @@ ShallowWrapper {
           "totalOrders": 1,
         },
         "refs": Object {},
-        "state": null,
+        "removeOrderConfirmed": [Function],
+        "state": Object {
+          "removeOrderPopupVisible": false,
+        },
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -1028,6 +1072,12 @@ ShallowWrapper {
                               title="CONFIRM ORDER"
                     />
           </View>
+          <Connect(OopsPopup)
+                    closeModal={[Function]}
+                    message="Are you sure you want to remove this product from your cart?"
+                    openModal={false}
+                    showIcon={false}
+          />
 </View>,
         "_debugID": 8,
         "_renderedOutput": <View
@@ -1147,6 +1197,12 @@ ShallowWrapper {
                               title="CONFIRM ORDER"
                     />
           </View>
+          <Connect(OopsPopup)
+                    closeModal={[Function]}
+                    message="Are you sure you want to remove this product from your cart?"
+                    openModal={false}
+                    showIcon={false}
+          />
 </View>,
       },
       "_renderedNodeType": 1,
@@ -1195,5 +1251,26 @@ ShallowWrapper {
     totalCost={3.49}
     totalOrders={1}
 />,
+}
+`;
+
+exports[`CartScreen shows remove order popup for order quantity === 1 1`] = `
+Object {
+  "orderToRemove": Object {
+    "deliveryType": "1",
+    "price": 3.49,
+    "productCode": "1",
+    "quantity": 1,
+    "thumbnail_image": "image",
+    "title": "Type 1 code 1",
+  },
+  "removeOrderPopupVisible": true,
+}
+`;
+
+exports[`CartScreen shows remove order popup for order quantity === 1 2`] = `
+Object {
+  "orderToRemove": null,
+  "removeOrderPopupVisible": false,
 }
 `;

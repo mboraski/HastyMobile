@@ -1,14 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Modal,
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    Platform
-} from 'react-native';
+import { StyleSheet, Modal, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -18,21 +10,26 @@ import { emY } from '../utils/em';
 import closeIcon from '../assets/icons/close-circle.png';
 
 const SIZE = emY(3.44);
-const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 type Props = {
     openModal: boolean,
-    closeModal: () => {}
+    closeModal: () => {},
+    message: string,
+    showIcon: boolean
 };
 
 class OopsPopup extends Component {
+    static defaultProps = {
+        showIcon: true
+    };
+
     state = {
-        modalVisible: false,
-    }
+        modalVisible: false
+    };
 
     componentDidMount() {
         const { openModal } = this.props;
         this.setState({
-            modalVisible: openModal,
+            modalVisible: openModal
         });
     }
 
@@ -45,12 +42,13 @@ class OopsPopup extends Component {
     }
 
     closeModal(isApply) {
-        this.props.closeModal();
+        this.props.closeModal(isApply);
     }
 
     props: Props;
 
     render() {
+        const { message, showIcon } = this.props;
         const { modalVisible } = this.state;
         return (
             <Modal
@@ -61,7 +59,7 @@ class OopsPopup extends Component {
                 transparent
             >
                 <View style={styles.container}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={Style.backdropContainer}
                         onPress={() => this.closeModal()}
                         activeOpacity={1}
@@ -70,8 +68,14 @@ class OopsPopup extends Component {
                     </TouchableOpacity>
                     <View style={styles.innerContainer}>
                         <Text style={styles.label}>Oops</Text>
-                        <Image source={closeIcon} style={styles.checkIcon} resizeMode="contain" />
-                        <Text style={styles.label}>{message}</Text>
+                        {showIcon ? (
+                            <Image
+                                source={closeIcon}
+                                style={styles.checkIcon}
+                                resizeMode="contain"
+                            />
+                        ) : null}
+                        <Text style={styles.message}>{message}</Text>
                         <TouchableOpacity
                             onPress={() => this.closeModal(true)}
                             style={[styles.button, { backgroundColor: Color.BLACK }]}
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Color.CLEAR,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
@@ -115,12 +119,18 @@ const styles = StyleSheet.create({
     label: {
         textAlign: 'center',
         fontSize: emY(1.08),
-        marginVertical: emY(1.58),
+        marginVertical: emY(1.58)
+    },
+    message: {
+        textAlign: 'center',
+        fontSize: emY(1.08),
+        marginBottom: emY(1.58)
     },
     checkIcon: {
         width: SIZE,
         height: SIZE,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: emY(1.58)
     },
     button: {
         height: emY(2.5),
@@ -128,10 +138,10 @@ const styles = StyleSheet.create({
         marginVertical: emY(0.75),
         borderRadius: emY(1.25),
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     buttonLabel: {
-        fontSize: emY(0.96),
+        fontSize: emY(0.96)
     }
 });
 

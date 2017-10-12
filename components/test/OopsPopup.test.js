@@ -11,9 +11,19 @@ describe('OopsPopup', () => {
     const middlewares = [];
     const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<OopsPopup openModal={true} closeModal={() => {}} />, {
+        const wrapper = shallow(<OopsPopup openModal closeModal={() => {}} message="message" />, {
             context: { store: mockStore(initialState) }
         });
+        const render = wrapper.dive();
+        expect(render).toMatchSnapshot();
+    });
+    it('renders correctly no icon', () => {
+        const wrapper = shallow(
+            <OopsPopup openModal closeModal={() => {}} message="message" showIcon={false} />,
+            {
+                context: { store: mockStore(initialState) }
+            }
+        );
         const render = wrapper.dive();
         expect(render).toMatchSnapshot();
     });

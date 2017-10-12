@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
+import OopsPopup from '../components/OopsPopup';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { getCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
 
-class CartScreen extends Component {
+export class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Cart',
         headerLeft: <BackButton onPress={() => navigation.goBack()} />,
@@ -23,11 +24,35 @@ class CartScreen extends Component {
         headerTitleStyle: Style.headerTitle
     });
 
+    state = {
+        removeOrderPopupVisible: false
+    };
+
+    handleRemoveOrder = order => {
+        if (order.quantity === 1) {
+            this.setState({ removeOrderPopupVisible: true, orderToRemove: order });
+        } else {
+            this.props.removeFromCart(order);
+        }
+    };
+
+    removeOrderConfirmed = confirmed => {
+        if (confirmed) {
+            this.props.removeFromCart(this.state.orderToRemove);
+            this.setState({ removeOrderPopupVisible: false, orderToRemove: null });
+        }
+    };
+
     render() {
         const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
+        const { removeOrderPopupVisible } = this.state;
         return (
             <View style={styles.container}>
-                <OrderList orders={orders} onAddOrder={addToCart} onRemoveOrder={removeFromCart} />
+                <OrderList
+                    orders={orders}
+                    onAddOrder={addToCart}
+                    onRemoveOrder={this.handleRemoveOrder}
+                />
                 <View style={styles.cart}>
                     <View style={styles.meta}>
                         <Text style={styles.label}>Order Total:</Text>
@@ -41,6 +66,12 @@ class CartScreen extends Component {
                         textStyle={styles.buttonText}
                     />
                 </View>
+                <OopsPopup
+                    openModal={removeOrderPopupVisible}
+                    closeModal={this.removeOrderConfirmed}
+                    message="Are you sure you want to remove this product from your cart?"
+                    showIcon={false}
+                />
             </View>
         );
     }

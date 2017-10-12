@@ -1,9 +1,9 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { 
-    StyleSheet, 
+import {
+    StyleSheet,
     ScrollView,
-    View, 
+    View,
     Text,
     TouchableOpacity,
     Platform,
@@ -20,6 +20,7 @@ import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
 import DropDown from '../components/DropDown';
 import PaymentDropDownItem from '../components/PaymentDropDownItem';
+import OopsPopup from '../components/OopsPopup';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
@@ -28,7 +29,7 @@ import * as actions from '../actions/cartActions';
 
 import pinIcon from '../assets/icons/pin.png';
 
-class CheckoutScreen extends Component {
+export class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Your Order',
         headerLeft: <BackButton onPress={() => navigation.goBack()} />,
@@ -46,23 +47,36 @@ class CheckoutScreen extends Component {
             latitudeDelta: 0.25
         },
         address: '3004 N Lamar Blvd',
-        description: 'Bring extra sauce! When you get to the complex, make your first left. Go up the stairs. We are the last unit on the right.',
+        description:
+            'Bring extra sauce! When you get to the complex, make your first left. Go up the stairs. We are the last unit on the right.',
         translateY: new Animated.Value(0),
-        opacity: new Animated.Value(1)
+        opacity: new Animated.Value(1),
+        removeOrderPopupVisible: false
+    };
+
+    handleRemoveOrder = order => {
+        if (order.quantity === 1) {
+            this.setState({ removeOrderPopupVisible: true, orderToRemove: order });
+        } else {
+            this.props.removeFromCart(order);
+        }
+    };
+
+    removeOrderConfirmed = confirmed => {
+        if (confirmed) {
+            this.props.removeFromCart(this.state.orderToRemove);
+            this.setState({ removeOrderPopupVisible: false, orderToRemove: null });
+        }
     };
 
     render() {
-        const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
-        const { region, address, description } = this.state;
-        console.log('this.props =====> ', this.props);
+        const { orders, addToCart, totalOrders, totalCost } = this.props;
+        const { region, address, description, removeOrderPopupVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
                     <View style={styles.container}>
-                        <MapView
-                            region={region}
-                            style={styles.map}
-                        >
+                        <MapView region={region} style={styles.map}>
                             <MapView.Marker
                                 image={pinIcon}
                                 coordinate={{
@@ -77,9 +91,7 @@ class CheckoutScreen extends Component {
                             <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
                         </View>
                         <View style={styles.itemBody}>
-                            <Text style={styles.itemBodyLabel}>
-                                {address}
-                            </Text>
+                            <Text style={styles.itemBodyLabel}>{address}</Text>
                             <TouchableOpacity style={styles.itemButton}>
                                 <Text style={styles.itemButtonText}>Change</Text>
                             </TouchableOpacity>
@@ -88,9 +100,7 @@ class CheckoutScreen extends Component {
                             <Text stye={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
                         </View>
                         <View style={styles.itemBody}>
-                            <Text style={styles.itemBodyLabel}>
-                                {description}
-                            </Text>
+                            <Text style={styles.itemBodyLabel}>{description}</Text>
                             <TouchableOpacity style={styles.itemButton}>
                                 <Text style={styles.itemButtonText}>Change</Text>
                             </TouchableOpacity>
@@ -98,16 +108,16 @@ class CheckoutScreen extends Component {
                         <View style={styles.itemHeader}>
                             <Text stye={styles.itemHeaderLabel}>PRODUCT SUMMARY</Text>
                         </View>
-                        <OrderList 
-                            orders={orders} onAddOrder={addToCart} onRemoveOrder={removeFromCart} 
+                        <OrderList
+                            orders={orders}
+                            onAddOrder={addToCart}
+                            onRemoveOrder={this.handleRemoveOrder}
                         />
                         <View style={styles.itemHeader}>
                             <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
                         </View>
                         <View style={styles.dropdownContainer}>
-                            <DropDown 
-                                header={<PaymentDropDownItem isHeaderItem={true} />}
-                            >
+                            <DropDown header={<PaymentDropDownItem isHeaderItem />}>
                                 <PaymentDropDownItem isHeaderItem={false} />
                                 <PaymentDropDownItem isHeaderItem={false} />
                             </DropDown>
@@ -127,13 +137,19 @@ class CheckoutScreen extends Component {
                             <Text style={styles.cost}>${totalCost}</Text>
                         </View>
                         <Button
-                            title="LIGHT A BEACON!" 
+                            title="LIGHT A BEACON!"
                             containerViewStyle={styles.buttonContainer}
                             buttonStyle={styles.button}
                             textStyle={styles.buttonText}
                         />
-                    </View> 
+                    </View>
                 </ScrollView>
+                <OopsPopup
+                    openModal={removeOrderPopupVisible}
+                    closeModal={this.removeOrderConfirmed}
+                    message="Are you sure you want to remove this product from your cart?"
+                    showIcon={false}
+                />
             </View>
         );
     }
@@ -142,7 +158,7 @@ class CheckoutScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     scrollContainer: {
         flex: 1,
