@@ -69,6 +69,10 @@ export class CheckoutScreen extends Component {
         }
     };
 
+    lightABeacon = () => {
+        this.props.navigation.navigate('deliveryStatus');
+    }
+
     render() {
         const { orders, addToCart, totalOrders, totalCost } = this.props;
         const { region, address, description, removeOrderPopupVisible } = this.state;
@@ -137,6 +141,7 @@ export class CheckoutScreen extends Component {
                             <Text style={styles.cost}>${totalCost}</Text>
                         </View>
                         <Button
+                            onPress={this.lightABeacon}
                             title="LIGHT A BEACON!"
                             containerViewStyle={styles.buttonContainer}
                             buttonStyle={styles.button}

@@ -10,6 +10,7 @@ import { emY } from '../utils/em';
 import closeIcon from '../assets/icons/close-circle.png';
 
 const SIZE = emY(3.44);
+
 type Props = {
     openModal: boolean,
     closeModal: () => {},
@@ -81,6 +82,12 @@ class OopsPopup extends Component {
                             style={[styles.button, { backgroundColor: Color.BLACK }]}
                         >
                             <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>OK</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.closeModal(true)}
+                            style={[styles.button, { backgroundColor: Color.WHITE }]}
+                        >
+                            <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

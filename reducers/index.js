@@ -6,6 +6,7 @@ import address from './addressReducer';
 import ui from './uiReducer';
 import product from './productReducer';
 import header from './navigationReducer';
+import notification from './notificationReducer';
 
 export default combineReducers({
     address,
@@ -14,5 +15,6 @@ export default combineReducers({
     form,
     product,
     ui,
-    header
+    header,
+    notification
 });

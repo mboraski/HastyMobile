@@ -23,7 +23,7 @@ class WelcomeScreen extends Component {
         const welcomeScreensSeen = await AsyncStorage.getItem('firstTimeOpened');
 
         if (welcomeScreensSeen) {
-            this.props.navigation.navigate('auth');
+            this.props.navigation.navigate('checkout');
             this.setState({ welcomeScreensSeen: true });
         } else {
             this.setState({ welcomeScreensSeen: false });
@@ -31,7 +31,7 @@ class WelcomeScreen extends Component {
     }
 
     onSlidesComplete = () => {
-        this.props.navigation.navigate('auth');
+        this.props.navigation.navigate('checkout');
     }
 
     render() {
