@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: emY(12.5),
+        height: SCREEN_HEIGHT / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
