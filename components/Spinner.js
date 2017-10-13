@@ -11,6 +11,11 @@ const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 
 export default class Spinner extends Component {
+    static defaultProps = {
+        image: loaderIcon,
+        disabled: false
+    }
+
     rotate = new Animated.Value(0);
     interpolatedRotate = this.rotate.interpolate({
         inputRange: [0, 360],
@@ -18,12 +23,24 @@ export default class Spinner extends Component {
     });
 
     componentDidMount() {
-        this.animate();
+        if (!this.props.disabled) {
+            this.animate();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.disabled !== nextProps.disabled) {
+            if (nextProps.disabled) {
+                this.animation && this.animation.stop();
+            } else {
+                this.animation && this.animation.start(this.animate);
+            }
+        }
     }
 
     animate = () => {
         this.rotate.setValue(0);
-        Animated.timing(this.rotate, {
+        this.animation = Animated.timing(this.rotate, {
             toValue: 360,
             duration: 2500,
             easing: Easing.linear
@@ -31,11 +48,11 @@ export default class Spinner extends Component {
     };
 
     render() {
-        const { style } = this.props;
+        const { style, image } = this.props;
         return (
             <View style={[styles.loader, style]}>
                 <View style={styles.imageContainer}>
-                    <Image source={loaderIcon} style={styles.image} />
+                    <Image source={image} style={styles.image} />
                 </View>
                 <Animated.View
                     style={[
