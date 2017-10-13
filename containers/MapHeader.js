@@ -13,7 +13,7 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 const OPACITY_DURATION = 300;
-const APPBAR_HEIGHT = emY(5.95);
+const APPBAR_HEIGHT = emY(5.25);
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
