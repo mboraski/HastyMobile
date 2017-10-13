@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
+import { bindActionCreators } from 'redux';
 
 // Relative Imports
 import MenuNavigator from '../navigations/MenuNavigator';
 import CustomerPopup from '../components/CustomerPopup';
-import { closeCustomerPopup } from '../actions/uiActions';
+import { closeCustomerPopup as closeCustomerPopupAction } from '../actions/uiActions';
 
 
 class RootContainer extends Component {
@@ -47,8 +48,13 @@ const mapStateToProps = state => ({
     nav: state.nav
 });
 
-const mapDispatchToProps = {
-    closeCustomerPopup
+const mapDispatchToProps = dispatch => {
+    const closeCustomerPopup = bindActionCreators(closeCustomerPopupAction, dispatch);
+
+    return {
+        closeCustomerPopup,
+        dispatch
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);
