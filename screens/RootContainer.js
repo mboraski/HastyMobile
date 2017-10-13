@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { addNavigationHelpers } from 'react-navigation';
+import { bindActionCreators } from 'redux';
 
 // Relative Imports
-import MenuNavigator from '../navigations/MenuNavgiator';
+import MenuNavigator from '../navigations/MenuNavigator';
 import CustomerPopup from '../components/CustomerPopup';
-import { closeCustomerPopup } from '../actions/uiActions';
+import { closeCustomerPopup as closeCustomerPopupAction } from '../actions/uiActions';
+
 
 class RootContainer extends Component {
     state = {
@@ -19,9 +22,13 @@ class RootContainer extends Component {
 
     render() {
         const { customerPopupVisible } = this.props;
+        const navigation = addNavigationHelpers({
+            dispatch: this.props.dispatch,
+            state: this.props.nav
+        });
         return (
             <View style={styles.container}>
-                <MenuNavigator />
+                <MenuNavigator navigation={navigation} />
                 <CustomerPopup
                     openModal={customerPopupVisible}
                     closeModal={this.handleCustomerPopupClose}
@@ -37,11 +44,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     isOpened: state.isOpened,
-    customerPopupVisible: state.ui.customerPopupVisible
+    customerPopupVisible: state.ui.customerPopupVisible,
+    nav: state.nav
 });
 
-const mapDispatchToProps = {
-    closeCustomerPopup
+const mapDispatchToProps = dispatch => {
+    const closeCustomerPopup = bindActionCreators(closeCustomerPopupAction, dispatch);
+
+    return {
+        closeCustomerPopup,
+        dispatch
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

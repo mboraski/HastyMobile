@@ -1,13 +1,10 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    ScrollView
-} from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import MenuButton from '../components/MenuButton';
+import MenuAndBackButton from '../components/MenuAndBackButton';
 import SectionTitle from '../components/SectionTitle';
 import PaymentMethod from '../components/PaymentMethod';
 import Color from '../constants/Color';
@@ -15,12 +12,12 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 class PaymentMethodScreen extends Component {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         title: 'Payment',
-        headerLeft: <MenuButton />,
+        headerLeft: <MenuAndBackButton navigation={navigation} />,
         headerStyle: Style.header,
         headerTitleStyle: Style.headerTitle
-    };
+    });
 
     static defaultProps = {
         cards: [
@@ -50,9 +47,13 @@ class PaymentMethodScreen extends Component {
         }
     }
 
-    addCard = () => {};
+    addCard = () => {
+        this.props.navigation.navigate('creditCard');
+    };
 
-    selectPaymentMethod = () => {};
+    selectPaymentMethod = () => {
+        this.props.navigation.navigate('creditCard');
+    };
 
     renderCard = (card, index) => (
         <PaymentMethod
@@ -109,10 +110,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    header: state.header,
+    header: state.header
 });
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethodScreen);

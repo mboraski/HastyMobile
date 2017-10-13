@@ -40,6 +40,10 @@ class MenuContent extends Component {
     handleHelpPress = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.openCustomerPopup();
+    }
+
+    paymentInfoPress = () => {
+        this.props.navigation.navigate('paymentMethod');
     };
 
     render() {
@@ -89,14 +93,14 @@ class MenuContent extends Component {
                     <MenuItem
                         route={getRoute(items, 'cart')}
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.cartPress}
                         image={cartIcon}
                         title="Cart"
-                        onPress={this.cartPress}
                     />
                     <MenuItem
+                        route={getRoute(items, 'paymentMethod')}
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.paymentInfoPress}
                         image={paymentIcon}
                         title="Payment Info"
                     />
