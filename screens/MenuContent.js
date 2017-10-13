@@ -23,6 +23,7 @@ import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
 import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
+import tempAvatar from '../assets/profile.png';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
@@ -50,7 +51,7 @@ class MenuContent extends Component {
                 <View style={styles.container}>
                     <View style={styles.headerContainer}>
                         <View style={styles.imageContainer}>
-                            <Image source={{ uri: avatar }} style={styles.image} />
+                            <Image source={tempAvatar} style={styles.image} />
                         </View>
                         <Text style={styles.name}>{name}</Text>
                     </View>

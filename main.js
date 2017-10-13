@@ -28,7 +28,7 @@ class App extends Component {
           console.log('main.js logged in completed: ', completed);
       } else {
           console.log('main.js logged out :(', error);
-          AsyncStorage.setItem('auth_token', null);
+          AsyncStorage.removeItem('auth_token');
       }
     });
   }
