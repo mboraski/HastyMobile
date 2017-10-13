@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     filterButton: {
-        minWidth: 130,
-        height: emY(2.6875),
+        minWidth: 120,
+        height: emY(2.5),
         borderColor: Color.GREY_400,
         borderWidth: StyleSheet.hairlineWidth * 2,
         borderRadius: 50,
