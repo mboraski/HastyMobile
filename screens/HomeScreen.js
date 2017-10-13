@@ -7,7 +7,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Platform
+    Platform,
+    Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -26,8 +27,8 @@ import { getProductsByDeliveryType } from '../selectors/productSelectors';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
-
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class HomeScreen extends Component {
     static navigationOptions = {
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: emY(12.5),
+        height: SCREEN_HEIGHT / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     checkout: {
-        height: emY(12.5),
+        height: SCREEN_HEIGHT / 4,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Color.GREEN_500
