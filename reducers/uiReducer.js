@@ -1,10 +1,9 @@
-import {
-    TOGGLE_SEARCH
-} from '../actions/uiActions';
+import { TOGGLE_SEARCH, OPEN_CUSTOMER_POPUP, CLOSE_CUSTOMER_POPUP } from '../actions/uiActions';
 
 const initialState = {
     headerVisible: true,
-    searchVisible: false
+    searchVisible: false,
+    customerPopupVisible: false
 };
 
 export default function (state = initialState, action) {
@@ -14,6 +13,16 @@ export default function (state = initialState, action) {
                 ...state,
                 headerVisible: !state.headerVisible,
                 searchVisible: !state.searchVisible
+            };
+        case OPEN_CUSTOMER_POPUP:
+            return {
+                ...state,
+                customerPopupVisible: true
+            };
+        case CLOSE_CUSTOMER_POPUP:
+            return {
+                ...state,
+                customerPopupVisible: false
             };
         default:
             return state;
