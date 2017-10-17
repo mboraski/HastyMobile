@@ -15,6 +15,7 @@ import CreditCardScreen from '../screens/CreditCardScreen';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
+import PromotionShareScreen from '../screens/PromotionShareScreen';
 
 const MainNavigator = StackNavigator({
     welcome: { screen: WelcomeScreen },
@@ -29,7 +30,8 @@ const MainNavigator = StackNavigator({
     creditCard: { screen: CreditCardScreen },
     paymentMethod: { screen: PaymentMethodScreen },
     checkout: { screen: CheckoutScreen },
-    feedback: { screen: FeedbackScreen }
+    feedback: { screen: FeedbackScreen },
+    promotionShare: { screen: PromotionShareScreen },
     }, {
         navigationOptions: {
             tabBarVisible: false
