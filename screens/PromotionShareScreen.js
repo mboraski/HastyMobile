@@ -18,19 +18,28 @@ import closeIcon from '../assets/icons/close.png';
 
 
 class PromotionShareScreen extends Component {
+    static navigationOptions = {
+        title: 'Promotion Share',
+        header: null 
+    };
+
+    close = () => {
+        this.props.navigation.goBack();
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.row}>
-                    <ShareButton style={styles.buton} source={instagramIcon} />
-                    <ShareButton style={styles.buton} source={twitterIcon} />
+                    <ShareButton style={styles.buton} source={instagramIcon} onPress={() => {}} />
+                    <ShareButton style={styles.buton} source={twitterIcon} onPress={() => {}} />
                 </View>
                 <View style={styles.row}>
-                    <ShareButton style={styles.buton} source={facebookIcon} />
-                    <ShareButton style={styles.buton} source={pinterestIcon} />
+                    <ShareButton style={styles.buton} source={facebookIcon} onPress={() => {}} />
+                    <ShareButton style={styles.buton} source={pinterestIcon} onPress={() => {}} />
                 </View>
                 <View style={styles.bottomSection}>
-                    <ShareButton style={styles.closeButton} source={closeIcon} />
+                    <ShareButton style={styles.closeButton} source={closeIcon} onPress={this.close} />
                 </View>
             </View>
         );
@@ -65,15 +74,10 @@ const styles = StyleSheet.create({
         borderColor: Color.BLACK,
         borderWidth: 1
     }
-}); 
-
-PromotionShareScreen.navigationOptions = {
-    title: 'Promtion',
-    header: null 
-};
+});
 
 const mapStateToProps = state => ({
-
+    header: state.header
 });
 
 export default connect(mapStateToProps, {})(PromotionShareScreen);

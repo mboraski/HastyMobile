@@ -46,6 +46,10 @@ class MenuContent extends Component {
         this.props.navigation.navigate('paymentMethod');
     };
 
+    promotionSharePress = () => {
+        this.props.navigation.navigate('promotionShare');
+    };
+
     render() {
         const { items, activeItemKey, onItemPress } = this.props;
         const { name, avatar } = this.state;
@@ -105,8 +109,9 @@ class MenuContent extends Component {
                         title="Payment Info"
                     />
                     <MenuItem
+                        route={getRoute(items, 'promotionShare')}
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.promotionSharePress}
                         image={promotionIcon}
                         title="Promotions"
                     />

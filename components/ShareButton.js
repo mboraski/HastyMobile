@@ -7,16 +7,25 @@ import { connect } from 'react-redux';
 import { emY } from '../utils/em';
 
 const SIZE = emY(4.6);
+type Props = {
+    style: string,
+    source: string,
+    onPress: () => {},
+};
 
 class ShareButton extends Component {
-    onPress = () => {};
+    onPress = () => {
+        this.props.onPress();
+    };
+
+    props: Props;
 
     render() {
-        const { style, source } = this.props;
+        const { style, source, onPress } = this.props;
         return (
             <TouchableOpacity
-                onPress={this.onPress}
-                style={[styles.container, style]} 
+                onPress={() => onPress()}
+                style={[styles.container, style]}
             >
                 <Image
                     source={source}
