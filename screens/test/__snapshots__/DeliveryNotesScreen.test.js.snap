@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryNotesScreen renders correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <View
+    keyboardVerticalOffset={16}
+    onLayout={[Function]}
+    style={
+        Array [
+            Object {
+              "backgroundColor": "#fff",
+              "flex": 1,
+            },
+            Object {
+              "paddingBottom": 0,
+            },
+          ]
+    }
+>
+    <Connect(ReduxForm)
+        navigation={undefined}
+    />
+</View>,
+  "nodes": Array [
+    <View
+      keyboardVerticalOffset={16}
+      onLayout={[Function]}
+      style={
+            Array [
+                  Object {
+                    "backgroundColor": "#fff",
+                    "flex": 1,
+                  },
+                  Object {
+                    "paddingBottom": 0,
+                  },
+                ]
+      }
+>
+      <Connect(ReduxForm)
+            navigation={undefined}
+      />
+</View>,
+  ],
+  "options": Object {
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+      },
+      "_currentElement": <KeyboardAvoidingView
+        behavior="padding"
+        keyboardVerticalOffset={16}
+        style={
+                Object {
+                        "backgroundColor": "#fff",
+                        "flex": 1,
+                      }
+        }
+>
+        <Connect(ReduxForm)
+                navigation={undefined}
+        />
+</KeyboardAvoidingView>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance":  {
+        "_reactInternalInstance": [Circular],
+        "cancelAnimationFrame": [Function],
+        "clearImmediate": [Function],
+        "clearInterval": [Function],
+        "clearTimeout": [Function],
+        "context": Object {},
+        "onKeyboardChange": [Function],
+        "onLayout": [Function],
+        "props": Object {
+          "behavior": "padding",
+          "children": <Connect(ReduxForm)
+            navigation={undefined}
+/>,
+          "keyboardVerticalOffset": 16,
+          "style": Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+          },
+        },
+        "refs": Object {},
+        "relativeKeyboardHeight": [Function],
+        "requestAnimationFrame": [Function],
+        "setImmediate": [Function],
+        "setInterval": [Function],
+        "setTimeout": [Function],
+        "state": Object {
+          "bottom": 0,
+        },
+        "subscriptions": Array [
+          EmitterSubscription {
+            "context": undefined,
+            "emitter": NativeEventEmitter {
+              "_nativeModule": Object {
+                "addListener": [Function],
+                "removeListeners": [Function],
+              },
+              "_subscriber": EventSubscriptionVendor {
+                "_currentSubscription": null,
+                "_subscriptionsForType": Object {
+                  "didUpdateDimensions": Array [
+                    EmitterSubscription {
+                      "context": undefined,
+                      "emitter": RCTDeviceEventEmitter {
+                        "_subscriber": [Circular],
+                        "sharedSubscriber": [Circular],
+                      },
+                      "eventType": "didUpdateDimensions",
+                      "key": 0,
+                      "listener": [Function],
+                      "subscriber": [Circular],
+                    },
+                  ],
+                  "keyboardWillChangeFrame": Array [
+                    [Circular],
+                  ],
+                },
+              },
+              "dismiss": [Function],
+            },
+            "eventType": "keyboardWillChangeFrame",
+            "key": 0,
+            "listener": [Function],
+            "subscriber": EventSubscriptionVendor {
+              "_currentSubscription": null,
+              "_subscriptionsForType": Object {
+                "didUpdateDimensions": Array [
+                  EmitterSubscription {
+                    "context": undefined,
+                    "emitter": RCTDeviceEventEmitter {
+                      "_subscriber": [Circular],
+                      "sharedSubscriber": [Circular],
+                    },
+                    "eventType": "didUpdateDimensions",
+                    "key": 0,
+                    "listener": [Function],
+                    "subscriber": [Circular],
+                  },
+                ],
+                "keyboardWillChangeFrame": Array [
+                  [Circular],
+                ],
+              },
+            },
+          },
+        ],
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <View
+          keyboardVerticalOffset={16}
+          onLayout={[Function]}
+          style={
+                    Array [
+                              Object {
+                                "backgroundColor": "#fff",
+                                "flex": 1,
+                              },
+                              Object {
+                                "paddingBottom": 0,
+                              },
+                            ]
+          }
+>
+          <Connect(ReduxForm)
+                    navigation={undefined}
+          />
+</View>,
+        "_debugID": 4,
+        "_renderedOutput": <View
+          keyboardVerticalOffset={16}
+          onLayout={[Function]}
+          style={
+                    Array [
+                              Object {
+                                "backgroundColor": "#fff",
+                                "flex": 1,
+                              },
+                              Object {
+                                "paddingBottom": 0,
+                              },
+                            ]
+          }
+>
+          <Connect(ReduxForm)
+                    navigation={undefined}
+          />
+</View>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <KeyboardAvoidingView
+    behavior="padding"
+    keyboardVerticalOffset={16}
+    style={
+        Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+          }
+    }
+>
+    <Connect(ReduxForm)
+        navigation={undefined}
+    />
+</KeyboardAvoidingView>,
+}
+`;
