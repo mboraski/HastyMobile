@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 // Relative Imports
+import { reset } from '../actions/navigationActions';
 import CloseButton from '../components/CloseButton';
 import DoneButton from '../components/DoneButton';
 import Rating from '../components/Rating';
@@ -47,6 +48,10 @@ class FeedbackScreen extends Component {
         }
     };
 
+    onSubmitSuccess = () => {
+        this.props.navigation.dispatch(reset('home'));
+    };
+
     render() {
         const { name, numProducts } = this.props;
         const { userRating, productRating, overallRating, showForm } = this.state;
@@ -57,7 +62,7 @@ class FeedbackScreen extends Component {
                 behavior="padding"
                 keyboardVerticalOffset={keyboardVerticalOffset}
             >
-                <FeedbackForm />
+                <FeedbackForm onSubmitSucceeded={this.onSubmitSuccess} />
             </KeyboardAvoidingView>
         ) : (
             <View style={styles.container}>
@@ -120,12 +125,15 @@ const styles = StyleSheet.create({
     }
 });
 
-FeedbackScreen.navigationOptions = {
-    title: 'Feedback',
-    headerLeft: <CloseButton />,
-    headerRight: <DoneButton />,
-    headerStyle: Style.header,
-    headerTitleStyle: Style.headerTitle
+FeedbackScreen.navigationOptions = ({ navigation }) => {
+    const handlePressClose = () => navigation.dispatch(reset('home'));
+    return {
+        title: 'Feedback',
+        headerLeft: <CloseButton onPress={handlePressClose} />,
+        headerRight: <DoneButton />,
+        headerStyle: Style.header,
+        headerTitleStyle: Style.headerTitle
+    };
 };
 
 const mapStateToProps = state => ({
