@@ -6,8 +6,8 @@ import { Button } from 'react-native-elements';
 
 // Relative Imports
 import { reset } from '../actions/navigationActions';
-import CloseButton from '../components/CloseButton';
-import DoneButton from '../components/DoneButton';
+import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
+import FeedbackFormCloseButton from '../containers/FeedbackFormCloseButton';
 import Rating from '../components/Rating';
 import FeedbackForm from '../containers/FeedbackForm';
 import Color from '../constants/Color';
@@ -20,9 +20,12 @@ class FeedbackScreen extends Component {
     state = {
         userRating: 0,
         productRating: 0,
-        overallRating: 0,
-        showForm: false
+        overallRating: 0
     };
+
+    componentWillUnmount() {
+        this.props.hideFeedbackForm();
+    }
 
     handleUserRating = userRating => {
         this.setState({ userRating });
@@ -37,26 +40,26 @@ class FeedbackScreen extends Component {
     };
 
     onButtonPress = () => {
-        if (!this.state.showForm) {
+        if (!this.props.feedbackFormVisible) {
             if (
                 this.state.userRating <= 3 ||
                 this.state.productRating <= 3 ||
                 this.state.overallRating <= 3
             ) {
-                this.setState({ showForm: true });
+                this.props.showFeedbackForm();
             }
         }
     };
 
     onSubmitSuccess = () => {
-        this.props.navigation.dispatch(reset('home'));
+        this.props.navigation.goBack();
     };
 
     render() {
-        const { name, numProducts } = this.props;
-        const { userRating, productRating, overallRating, showForm } = this.state;
+        const { name, numProducts, feedbackFormVisible } = this.props;
+        const { userRating, productRating, overallRating } = this.state;
         const productTitle = numProducts > 1 ? 'How were your products?' : 'How was your product?';
-        return showForm ? (
+        return feedbackFormVisible ? (
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior="padding"
@@ -126,11 +129,10 @@ const styles = StyleSheet.create({
 });
 
 FeedbackScreen.navigationOptions = ({ navigation }) => {
-    const handlePressClose = () => navigation.dispatch(reset('home'));
+    const handlePressClose = () => navigation.goBack();
     return {
         title: 'Feedback',
-        headerLeft: <CloseButton onPress={handlePressClose} />,
-        headerRight: <DoneButton />,
+        headerLeft: <FeedbackFormCloseButton onPress={handlePressClose} />,
         headerStyle: Style.header,
         headerTitleStyle: Style.headerTitle
     };
@@ -138,7 +140,13 @@ FeedbackScreen.navigationOptions = ({ navigation }) => {
 
 const mapStateToProps = state => ({
     name: 'Jessica',
-    numProducts: 1
+    numProducts: 1,
+    feedbackFormVisible: state.ui.feedbackFormVisible
 });
 
-export default connect(mapStateToProps, {})(FeedbackScreen);
+const mapDispatchToProps = { 
+    showFeedbackForm, 
+    hideFeedbackForm 
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedbackScreen);
