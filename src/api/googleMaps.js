@@ -7,7 +7,10 @@ const instance = axios.create({
 export default {
     placesAutoComplete(...args) {
         return instance.get('place/autocomplete/json', ...args);
-    }    
+    },
+    geocode(...args) {
+        return instance.get('geocode/json', ...args);
+    }   
 };
 
 function handleRequestConfig(config) {
