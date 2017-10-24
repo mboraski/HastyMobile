@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 // Relative Imports
-import { reset } from '../actions/navigationActions';
 import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
 import FeedbackFormCloseButton from '../containers/FeedbackFormCloseButton';
 import Rating from '../components/Rating';

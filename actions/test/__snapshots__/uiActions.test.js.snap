@@ -2,7 +2,7 @@
 
 exports[`uiActions creates hideFeedbackForm action 1`] = `
 Object {
-  "type": "close_feedback_form",
+  "type": "hide_feedback_form",
 }
 `;
 
