@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapReducer handles MAPS_PLACES_AUTOCOMPLETE_FAIL action 1`] = `
+Object {
+  "address": null,
+  "error": undefined,
+  "pending": false,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles MAPS_PLACES_AUTOCOMPLETE_REQUEST action 1`] = `
+Object {
+  "address": null,
+  "error": null,
+  "pending": true,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles MAPS_PLACES_AUTOCOMPLETE_SUCCESS action 1`] = `
+Object {
+  "address": null,
+  "error": null,
+  "pending": false,
+  "predictions": "predictions",
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles MAPS_REVERSE_GEOCODE_FAIL action 1`] = `
+Object {
+  "address": "",
+  "error": undefined,
+  "pending": false,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles MAPS_REVERSE_GEOCODE_REQUEST action 1`] = `
+Object {
+  "address": null,
+  "error": null,
+  "pending": true,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles MAPS_REVERSE_GEOCODE_SUCCESS action 1`] = `
+Object {
+  "address": "formatted_address",
+  "error": null,
+  "pending": false,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles SET_CURRENT_LOCATION action 1`] = `
+Object {
+  "address": null,
+  "error": null,
+  "pending": false,
+  "predictions": Array [],
+  "region": "region",
+  "saved": Array [],
+}
+`;
+
+exports[`mapReducer handles saveAddress action 1`] = `
+Object {
+  "address": null,
+  "error": null,
+  "pending": false,
+  "predictions": Array [],
+  "region": null,
+  "saved": Array [
+    "address",
+  ],
+}
+`;

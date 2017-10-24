@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapActions creates saveAddress action 1`] = `
+Object {
+  "payload": "address",
+  "type": "save_address",
+}
+`;
+
+exports[`mapActions setCurrentLocation 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "latitude": 0,
+      "longitude": 0,
+    },
+    "type": "set_current_location",
+  },
+  Object {
+    "payload": Object {
+      "latlng": "0,0",
+    },
+    "type": "google_maps_reverse_geocode_request",
+  },
+  Object {
+    "payload": Object {
+      "data": "data",
+    },
+    "type": "google_maps_reverse_geocode_success",
+  },
+]
+`;

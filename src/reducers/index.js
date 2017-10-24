@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import auth from './authReducer';
 import cart from './cartReducer';
+<<<<<<< HEAD:src/reducers/index.js
 import checkout from './checkoutReducer';
+=======
+>>>>>>> HAMO-6: Set current location:reducers/index.js
 import map from './mapReducer';
 import ui from './uiReducer';
 import product from './productReducer';
@@ -16,6 +19,7 @@ export default combineReducers({
     checkout,
     map,
     form,
+    map,
     product,
     ui,
     header,
