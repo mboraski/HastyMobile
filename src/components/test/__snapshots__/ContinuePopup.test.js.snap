@@ -1,0 +1,652 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContinuePopup renders correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <Component
+    animationType="slide"
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    style={undefined}
+    transparent={true}
+    visible={false}
+>
+    <View
+        style={
+            Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+        }
+    >
+        <TouchableOpacity
+            activeOpacity={1}
+            focusedOpacity={0.7}
+            onPress={[Function]}
+            style={
+                Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+            }
+        >
+            <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                    Object {
+                        "color": "rgba(0, 0, 0, 0)",
+                      }
+                }
+            >
+                .
+            </Text>
+        </TouchableOpacity>
+        <View
+            style={
+                Object {
+                    "alignSelf": "stretch",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "marginHorizontal": 22,
+                    "paddingTop": 44.96,
+                  }
+            }
+        >
+            <View
+                style={
+                    Object {
+                        "backgroundColor": "#ffffff",
+                        "borderRadius": 4,
+                        "justifyContent": "center",
+                        "paddingTop": 80,
+                        "shadowColor": "#000",
+                        "shadowOffset": Object {
+                          "height": 10,
+                          "width": 0,
+                        },
+                        "shadowOpacity": 0.5,
+                        "shadowRadius": 24,
+                      }
+                }
+            >
+                <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                        Object {
+                            "fontSize": 17.28,
+                            "lineHeight": 24,
+                            "marginHorizontal": 70,
+                            "textAlign": "center",
+                          }
+                    }
+                >
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </Text>
+                <TouchableOpacity
+                    activeOpacity={0.2}
+                    focusedOpacity={0.7}
+                    onPress={[Function]}
+                    style={
+                        Array [
+                            Object {
+                              "alignItems": "center",
+                              "height": 46.08,
+                              "justifyContent": "center",
+                              "marginTop": 36.8,
+                            },
+                            Object {
+                              "backgroundColor": "#000000",
+                            },
+                          ]
+                    }
+                >
+                    <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                            Array [
+                                Object {
+                                  "fontSize": 15.36,
+                                },
+                                Object {
+                                  "color": "#ffffff",
+                                },
+                              ]
+                        }
+                    >
+                        CONTINUE
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                    Object {
+                        "alignSelf": "center",
+                        "height": 89.92,
+                        "position": "absolute",
+                        "top": 0,
+                        "width": 89.92,
+                      }
+                }
+            />
+        </View>
+    </View>
+</Component>,
+  "nodes": Array [
+    <Component
+      animationType="slide"
+      hardwareAccelerated={false}
+      onRequestClose={[Function]}
+      style={undefined}
+      transparent={true}
+      visible={false}
+>
+      <View
+            style={
+                  Object {
+                        "alignItems": "center",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "flex": 1,
+                        "justifyContent": "center",
+                      }
+            }
+      >
+            <TouchableOpacity
+                  activeOpacity={1}
+                  focusedOpacity={0.7}
+                  onPress={[Function]}
+                  style={
+                        Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                  }
+            >
+                  <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                              Object {
+                                    "color": "rgba(0, 0, 0, 0)",
+                                  }
+                        }
+                  >
+                        .
+                  </Text>
+            </TouchableOpacity>
+            <View
+                  style={
+                        Object {
+                              "alignSelf": "stretch",
+                              "backgroundColor": "rgba(0, 0, 0, 0)",
+                              "marginHorizontal": 22,
+                              "paddingTop": 44.96,
+                            }
+                  }
+            >
+                  <View
+                        style={
+                              Object {
+                                    "backgroundColor": "#ffffff",
+                                    "borderRadius": 4,
+                                    "justifyContent": "center",
+                                    "paddingTop": 80,
+                                    "shadowColor": "#000",
+                                    "shadowOffset": Object {
+                                      "height": 10,
+                                      "width": 0,
+                                    },
+                                    "shadowOpacity": 0.5,
+                                    "shadowRadius": 24,
+                                  }
+                        }
+                  >
+                        <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                    Object {
+                                          "fontSize": 17.28,
+                                          "lineHeight": 24,
+                                          "marginHorizontal": 70,
+                                          "textAlign": "center",
+                                        }
+                              }
+                        >
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </Text>
+                        <TouchableOpacity
+                              activeOpacity={0.2}
+                              focusedOpacity={0.7}
+                              onPress={[Function]}
+                              style={
+                                    Array [
+                                          Object {
+                                            "alignItems": "center",
+                                            "height": 46.08,
+                                            "justifyContent": "center",
+                                            "marginTop": 36.8,
+                                          },
+                                          Object {
+                                            "backgroundColor": "#000000",
+                                          },
+                                        ]
+                              }
+                        >
+                              <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    ellipsizeMode="tail"
+                                    style={
+                                          Array [
+                                                Object {
+                                                  "fontSize": 15.36,
+                                                },
+                                                Object {
+                                                  "color": "#ffffff",
+                                                },
+                                              ]
+                                    }
+                              >
+                                    CONTINUE
+                              </Text>
+                        </TouchableOpacity>
+                  </View>
+                  <Image
+                        resizeMode="contain"
+                        source={1}
+                        style={
+                              Object {
+                                    "alignSelf": "center",
+                                    "height": 89.92,
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "width": 89.92,
+                                  }
+                        }
+                  />
+            </View>
+      </View>
+</Component>,
+  ],
+  "options": Object {
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+      },
+      "_currentElement": <ContinuePopup
+        closeModal={[Function]}
+        openModal={true}
+/>,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": ContinuePopup {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "closeModal": [Function],
+          "openModal": true,
+        },
+        "refs": Object {},
+        "state": Object {
+          "modalVisible": false,
+        },
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <Component
+          animationType="slide"
+          hardwareAccelerated={false}
+          onRequestClose={[Function]}
+          style={undefined}
+          transparent={true}
+          visible={false}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                                        "flex": 1,
+                                        "justifyContent": "center",
+                                      }
+                    }
+          >
+                    <TouchableOpacity
+                              activeOpacity={1}
+                              focusedOpacity={0.7}
+                              onPress={[Function]}
+                              style={
+                                        Object {
+                                                  "bottom": 0,
+                                                  "left": 0,
+                                                  "position": "absolute",
+                                                  "right": 0,
+                                                  "top": 0,
+                                                }
+                              }
+                    >
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "rgba(0, 0, 0, 0)",
+                                                          }
+                                        }
+                              >
+                                        .
+                              </Text>
+                    </TouchableOpacity>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignSelf": "stretch",
+                                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                  "marginHorizontal": 22,
+                                                  "paddingTop": 44.96,
+                                                }
+                              }
+                    >
+                              <View
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "#ffffff",
+                                                            "borderRadius": 4,
+                                                            "justifyContent": "center",
+                                                            "paddingTop": 80,
+                                                            "shadowColor": "#000",
+                                                            "shadowOffset": Object {
+                                                              "height": 10,
+                                                              "width": 0,
+                                                            },
+                                                            "shadowOpacity": 0.5,
+                                                            "shadowRadius": 24,
+                                                          }
+                                        }
+                              >
+                                        <Text
+                                                  accessible={true}
+                                                  allowFontScaling={true}
+                                                  ellipsizeMode="tail"
+                                                  style={
+                                                            Object {
+                                                                      "fontSize": 17.28,
+                                                                      "lineHeight": 24,
+                                                                      "marginHorizontal": 70,
+                                                                      "textAlign": "center",
+                                                                    }
+                                                  }
+                                        >
+                                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        </Text>
+                                        <TouchableOpacity
+                                                  activeOpacity={0.2}
+                                                  focusedOpacity={0.7}
+                                                  onPress={[Function]}
+                                                  style={
+                                                            Array [
+                                                                      Object {
+                                                                        "alignItems": "center",
+                                                                        "height": 46.08,
+                                                                        "justifyContent": "center",
+                                                                        "marginTop": 36.8,
+                                                                      },
+                                                                      Object {
+                                                                        "backgroundColor": "#000000",
+                                                                      },
+                                                                    ]
+                                                  }
+                                        >
+                                                  <Text
+                                                            accessible={true}
+                                                            allowFontScaling={true}
+                                                            ellipsizeMode="tail"
+                                                            style={
+                                                                      Array [
+                                                                                Object {
+                                                                                  "fontSize": 15.36,
+                                                                                },
+                                                                                Object {
+                                                                                  "color": "#ffffff",
+                                                                                },
+                                                                              ]
+                                                            }
+                                                  >
+                                                            CONTINUE
+                                                  </Text>
+                                        </TouchableOpacity>
+                              </View>
+                              <Image
+                                        resizeMode="contain"
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "alignSelf": "center",
+                                                            "height": 89.92,
+                                                            "position": "absolute",
+                                                            "top": 0,
+                                                            "width": 89.92,
+                                                          }
+                                        }
+                              />
+                    </View>
+          </View>
+</Component>,
+        "_debugID": 4,
+        "_renderedOutput": <Component
+          animationType="slide"
+          hardwareAccelerated={false}
+          onRequestClose={[Function]}
+          style={undefined}
+          transparent={true}
+          visible={false}
+>
+          <View
+                    style={
+                              Object {
+                                        "alignItems": "center",
+                                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                                        "flex": 1,
+                                        "justifyContent": "center",
+                                      }
+                    }
+          >
+                    <TouchableOpacity
+                              activeOpacity={1}
+                              focusedOpacity={0.7}
+                              onPress={[Function]}
+                              style={
+                                        Object {
+                                                  "bottom": 0,
+                                                  "left": 0,
+                                                  "position": "absolute",
+                                                  "right": 0,
+                                                  "top": 0,
+                                                }
+                              }
+                    >
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "rgba(0, 0, 0, 0)",
+                                                          }
+                                        }
+                              >
+                                        .
+                              </Text>
+                    </TouchableOpacity>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignSelf": "stretch",
+                                                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                                                  "marginHorizontal": 22,
+                                                  "paddingTop": 44.96,
+                                                }
+                              }
+                    >
+                              <View
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "#ffffff",
+                                                            "borderRadius": 4,
+                                                            "justifyContent": "center",
+                                                            "paddingTop": 80,
+                                                            "shadowColor": "#000",
+                                                            "shadowOffset": Object {
+                                                              "height": 10,
+                                                              "width": 0,
+                                                            },
+                                                            "shadowOpacity": 0.5,
+                                                            "shadowRadius": 24,
+                                                          }
+                                        }
+                              >
+                                        <Text
+                                                  accessible={true}
+                                                  allowFontScaling={true}
+                                                  ellipsizeMode="tail"
+                                                  style={
+                                                            Object {
+                                                                      "fontSize": 17.28,
+                                                                      "lineHeight": 24,
+                                                                      "marginHorizontal": 70,
+                                                                      "textAlign": "center",
+                                                                    }
+                                                  }
+                                        >
+                                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        </Text>
+                                        <TouchableOpacity
+                                                  activeOpacity={0.2}
+                                                  focusedOpacity={0.7}
+                                                  onPress={[Function]}
+                                                  style={
+                                                            Array [
+                                                                      Object {
+                                                                        "alignItems": "center",
+                                                                        "height": 46.08,
+                                                                        "justifyContent": "center",
+                                                                        "marginTop": 36.8,
+                                                                      },
+                                                                      Object {
+                                                                        "backgroundColor": "#000000",
+                                                                      },
+                                                                    ]
+                                                  }
+                                        >
+                                                  <Text
+                                                            accessible={true}
+                                                            allowFontScaling={true}
+                                                            ellipsizeMode="tail"
+                                                            style={
+                                                                      Array [
+                                                                                Object {
+                                                                                  "fontSize": 15.36,
+                                                                                },
+                                                                                Object {
+                                                                                  "color": "#ffffff",
+                                                                                },
+                                                                              ]
+                                                            }
+                                                  >
+                                                            CONTINUE
+                                                  </Text>
+                                        </TouchableOpacity>
+                              </View>
+                              <Image
+                                        resizeMode="contain"
+                                        source={1}
+                                        style={
+                                                  Object {
+                                                            "alignSelf": "center",
+                                                            "height": 89.92,
+                                                            "position": "absolute",
+                                                            "top": 0,
+                                                            "width": 89.92,
+                                                          }
+                                        }
+                              />
+                    </View>
+          </View>
+</Component>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <ContinuePopup
+    closeModal={[Function]}
+    openModal={true}
+/>,
+}
+`;

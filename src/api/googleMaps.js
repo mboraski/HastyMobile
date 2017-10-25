@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: 'https://maps.googleapis.com/maps/api/'
 });
 
 export default {
     placesAutoComplete(...args) {
         return instance.get('place/autocomplete/json', ...args);
-    }    
+    },
+    geocode(...args) {
+        return instance.get('geocode/json', ...args);
+    }
 };
 
 function handleRequestConfig(config) {
@@ -38,5 +41,11 @@ function handleResponseError(error) {
     return Promise.reject(error);
 }
 
-instance.interceptors.request.use(handleRequestConfig, handleRequestError);
-instance.interceptors.response.use(handleResponseSuccess, handleResponseError);
+export const requestInterceptorId = instance.interceptors.request.use(
+    handleRequestConfig,
+    handleRequestError
+);
+export const responseInterceptorId = instance.interceptors.response.use(
+    handleResponseSuccess,
+    handleResponseError
+);
