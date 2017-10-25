@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
+import { reset } from '../actions/navigationActions';
 import Color from '../constants/Color';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
@@ -62,7 +63,7 @@ export class FeedbackForm extends Component {
                 {!submitting && submitSucceeded ? (
                     <SuccessState
                         style={StyleSheet.absoluteFill}
-                        onAnimationEnd={this.props.onAuthSuccess}
+                        onAnimationEnd={this.props.onSubmitSucceeded}
                     />
                 ) : null}
                 <TouchableOpacity
