@@ -47,8 +47,6 @@ export class CheckoutScreen extends Component {
             latitudeDelta: 0.25
         },
         address: '3004 N Lamar Blvd',
-        description:
-            'Bring extra sauce! When you get to the complex, make your first left. Go up the stairs. We are the last unit on the right.',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         removeOrderPopupVisible: false
@@ -71,11 +69,15 @@ export class CheckoutScreen extends Component {
 
     lightABeacon = () => {
         this.props.navigation.navigate('deliveryStatus');
-    }
+    };
+
+    openDeliveryNotes = () => {
+        this.props.navigation.navigate('deliveryNotes');
+    };
 
     render() {
-        const { orders, addToCart, totalOrders, totalCost } = this.props;
-        const { region, address, description, removeOrderPopupVisible } = this.state;
+        const { orders, addToCart, totalOrders, totalCost, notes } = this.props;
+        const { region, address, removeOrderPopupVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
@@ -101,11 +103,14 @@ export class CheckoutScreen extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemHeader}>
-                            <Text stye={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
+                            <Text style={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
                         </View>
                         <View style={styles.itemBody}>
-                            <Text style={styles.itemBodyLabel}>{description}</Text>
-                            <TouchableOpacity style={styles.itemButton}>
+                            <Text style={styles.itemBodyLabel}>{notes}</Text>
+                            <TouchableOpacity
+                                style={styles.itemButton}
+                                onPress={this.openDeliveryNotes}
+                            >
                                 <Text style={styles.itemButtonText}>Change</Text>
                             </TouchableOpacity>
                         </View>
@@ -259,7 +264,8 @@ const mapStateToProps = state => ({
     cart: state.cart,
     orders: getCartOrders(state),
     totalCost: state.cart.totalCost,
-    totalOrders: state.cart.totalOrders
+    totalOrders: state.cart.totalOrders,
+    notes: state.checkout.notes
 });
 
 const mapDispatchToProps = {

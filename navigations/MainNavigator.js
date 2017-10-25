@@ -9,6 +9,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
+import DeliveryNotesScreen from '../screens/DeliveryNotesScreen';
 import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
 import CartScreen from '../screens/CartScreen';
 import CreditCardScreen from '../screens/CreditCardScreen';
@@ -25,6 +26,7 @@ const MainNavigator = StackNavigator({
     home: { screen: HomeScreen },
     searchForHero: { screen: SearchForHeroScreen },
     deliveryDetail: { screen: DeliveryDetailScreen },
+    deliveryNotes: { screen: DeliveryNotesScreen },
     deliveryStatus: { screen: DeliveryStatusScreen },
     cart: { screen: CartScreen },
     creditCard: { screen: CreditCardScreen },
