@@ -12,7 +12,7 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { saveAddress } from '../actions/mapActions';
+import { saveAddress, setCurrentLocation } from '../actions/mapActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
@@ -30,12 +30,6 @@ const REVERSE_CONFIG = {
 class MapScreen extends Component {
     state = {
         mapLoaded: false,
-        region: {
-            longitude: -97.76,
-            latitude: 30.26,
-            longitudeDelta: 0.1,
-            latitudeDelta: 0.25
-        },
         address: '',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
@@ -47,7 +41,7 @@ class MapScreen extends Component {
             this.setState({
                 errorMessage: 'Oops, this will only work on a device'
             });
-        } else {
+        } else if (!this.props.region) {
             this.getLocationAsync();
         }
     }
@@ -69,12 +63,8 @@ class MapScreen extends Component {
         }
     }
 
-    onRegionChange = region => {
-        this.setState({ region });
-    }
-
     onRegionChangeComplete = region => {
-        console.log('region: ', region);
+        this.props.setCurrentLocation(region);
     };
 
     onButtonPress = async () => {
@@ -92,19 +82,16 @@ class MapScreen extends Component {
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             this.setState({
-                errorMessage: 'Permission to access location was denied',
+                errorMessage: 'Permission to access location was denied'
             });
         }
 
         const location = await Location.getCurrentPositionAsync({});
-        console.log('location: ', location);
-        this.setState({
-            region: {
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                longitudeDelta: 0.1,
-                latitudeDelta: 0.25
-            }
+        this.props.setCurrentLocation({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            longitudeDelta: 0.1,
+            latitudeDelta: 0.25
         });
     };
 
@@ -148,8 +135,7 @@ class MapScreen extends Component {
     };
 
     render() {
-        const { searchVisible, predictions } = this.props;
-        const region = this.state.region;
+        const { predictions, region, address } = this.props;
 
         if (!this.state.mapLoaded) {
             return (
@@ -164,18 +150,24 @@ class MapScreen extends Component {
                 <MapView
                     region={region}
                     style={styles.map}
-                    onRegionChange={this.onRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 >
-                    <MapView.Marker
-                        image={pinIcon}
-                        coordinate={{
-                            latitude: region.latitude,
-                            longitude: region.longitude
-                        }}
-                        title="You"
-                        description="Your Delivery Location"
-                    />
+                    {region ? (
+                        <MapView.Marker
+                            image={pinIcon}
+                            coordinate={region}
+                            title="You"
+                            description="Your Delivery Location"
+                            centerOffset={{
+                                x: 0,
+                                y: '-50%'
+                            }}
+                            anchor={{
+                                x: 0.5,
+                                y: 1
+                            }}
+                        />
+                    ) : null}
                 </MapView>
                 <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
                     <Animated.View
@@ -189,6 +181,7 @@ class MapScreen extends Component {
                         ]}
                     >
                         <Text style={styles.inputLabel}>To</Text>
+                        <Text style={styles.inputValue}>{address}</Text>
                     </Animated.View>
                 </TouchableWithoutFeedback>
                 <Animated.View
@@ -255,9 +248,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingHorizontal: 20,
+        paddingVertical: 10,
         margin: emY(0.625),
         borderRadius: 5,
-        height: emY(3.5),
         alignItems: 'center',
         ...Platform.select({
             ios: {
@@ -269,7 +262,8 @@ const styles = StyleSheet.create({
             android: {
                 elevation: 2
             }
-        })
+        }),
+        flexWrap: 'wrap'
     },
     inputLabel: {
         fontSize: emY(1.25),
@@ -277,8 +271,7 @@ const styles = StyleSheet.create({
         color: Color.GREY_400,
         marginRight: 50
     },
-    textInput: {
-        flex: 1,
+    inputValue: {
         fontSize: emY(1.25)
     },
     predictions: {
@@ -299,12 +292,15 @@ const mapStateToProps = state => ({
     predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,
+    region: state.map.region,
+    address: state.map.address
 });
 
-const mapDispatchToProps = dispatch => ({
-    saveAddress: address => dispatch(saveAddress(address)),
-    getProductsByAddress: address => dispatch(getProductsByAddress(address)),
-    toggleSearch: () => dispatch(toggleSearch())
-});
+const mapDispatchToProps = {
+    saveAddress,
+    getProductsByAddress,
+    toggleSearch,
+    setCurrentLocation
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
