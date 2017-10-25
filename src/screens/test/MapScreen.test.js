@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import MapScreen from '../MapScreen';
 
 const initialState = {
-    address: {
+    map: {
         predictions: []
     },
     ui: {
