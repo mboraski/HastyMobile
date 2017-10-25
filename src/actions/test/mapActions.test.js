@@ -1,6 +1,6 @@
-import { saveAddress } from '../addressActions';
+import { saveAddress } from '../mapActions';
 
-describe('addressActions', () => {
+describe('mapActions', () => {
     it('creates saveAddress action', () => {
         expect(saveAddress('address')).toMatchSnapshot();
     });

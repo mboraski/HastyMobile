@@ -12,7 +12,7 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { saveAddress } from '../actions/addressActions';
+import { saveAddress } from '../actions/mapActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
@@ -296,7 +296,7 @@ MapScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
-    predictions: state.address.predictions,
+    predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,
 });

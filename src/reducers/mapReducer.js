@@ -4,7 +4,7 @@ import {
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
     MAPS_PLACES_AUTOCOMPLETE_FAIL
 } from '../actions/googleMapsActions';
-import { SAVE_ADDRESS } from '../actions/addressActions';
+import { SAVE_ADDRESS } from '../actions/mapActions';
 import { GET_PRODUCTS_BY_ADDRESS_SUCCESS } from '../actions/productActions';
 
 export const initialState = {

@@ -1,4 +1,7 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
+import {
+    ADD_TO_CART,
+    REMOVE_FROM_CART
+} from '../actions/cartActions';
 
 function normalizeCurrency(currency) {
     if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
@@ -6,8 +9,11 @@ function normalizeCurrency(currency) {
 }
 
 export const initialState = {
-    totalOrders: 0,
+    orderId: '',
+    totalQuantity: 0,
     totalCost: 0,
+    currentSetAddress: '',
+    currentSetLatLon: { lat: null, lon: null },
     products: {}
 };
 
@@ -63,7 +69,7 @@ export default (state = initialState, action) => {
         case ADD_TO_CART:
             return {
                 products: addToType(state.products, action.payload),
-                totalOrders: state.totalOrders + 1,
+                totalQuantity: state.totalQuantity + 1,
                 totalCost: Math.max(
                     0,
                     (state.totalCost + normalizeCurrency(action.payload.price)).toFixed(2)
@@ -72,7 +78,7 @@ export default (state = initialState, action) => {
         case REMOVE_FROM_CART:
             return {
                 products: removeFromType(state.products, action.payload),
-                totalOrders: Math.max(0, state.totalOrders - 1),
+                totalQuantity: Math.max(0, state.totalQuantity - 1),
                 totalCost: Math.max(
                     0,
                     (state.totalCost - normalizeCurrency(action.payload.price)).toFixed(2)

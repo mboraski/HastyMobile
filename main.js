@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase';
 
 // Relative Imports
-import RootContainer from './screens/RootContainer';
-import store from './store';
+import RootContainer from './src/screens/RootContainer';
+import store from './src/store';
 
 class App extends Component {
   componentDidMount() {
