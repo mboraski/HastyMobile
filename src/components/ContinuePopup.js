@@ -18,7 +18,6 @@ import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check-wrap.png';
 
 const SIZE = emY(5.62);
-const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 type Props = {
     openModal: boolean,
     closeModal: () => {}
@@ -51,6 +50,7 @@ class ContinuePopup extends Component {
     props: Props;
 
     render() {
+        const { message } = this.props;
         const { modalVisible } = this.state;
         return (
             <Modal

@@ -1,10 +1,30 @@
-import { getProductsByDeliveryType } from '../productSelectors';
+import {
+    getDeliveryType,
+    getAvailableProducts,
+    getProductsByDeliveryType
+} from '../productSelectors';
 
 describe('productSelector', () => {
+    it('getDeliveryType', () => {
+        const state = {
+            product: {
+                deliveryType: 'deliveryType'
+            }
+        };
+        expect(getDeliveryType(state)).toEqual(state.product.deliveryType);
+    });
+    it('getAvailableProducts', () => {
+        const state = {
+            product: {
+                availableProducts: 'availableProducts'
+            }
+        };
+        expect(getAvailableProducts(state)).toEqual(state.product.availableProducts);
+    });
     it('getProductsByDeliveryType', () => {
         const state = {
             product: {
-                list: {
+                availableProducts: {
                     1: {
                         1: {
                             quantity: 1,
@@ -30,7 +50,7 @@ describe('productSelector', () => {
     it('getProductsByDeliveryType with empty list', () => {
         const state = {
             product: {
-                list: {},
+                availableProducts: {},
                 deliveryType: '1'
             }
         };

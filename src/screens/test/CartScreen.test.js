@@ -13,7 +13,7 @@ describe('CartScreen', () => {
             cart: {
                 products: {},
                 totalCost: 0,
-                totalOrders: 0
+                totalQuantity: 0
             }
         };
         const wrapper = shallow(<ConnectedCartScreen />, {
@@ -38,7 +38,7 @@ describe('CartScreen', () => {
                     }
                 },
                 totalCost: 3.49,
-                totalOrders: 1
+                totalQuantity: 1
             }
         };
         const wrapper = shallow(<ConnectedCartScreen />, {
@@ -63,7 +63,7 @@ describe('CartScreen', () => {
                     }
                 },
                 totalCost: 3.49,
-                totalOrders: 1
+                totalQuantity: 1
             }
         };
         const removeFromCart = jest.fn();
@@ -92,7 +92,7 @@ describe('CartScreen', () => {
                     }
                 },
                 totalCost: 3.49,
-                totalOrders: 1
+                totalQuantity: 1
             }
         };
         const removeFromCart = jest.fn();

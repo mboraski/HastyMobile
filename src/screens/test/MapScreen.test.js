@@ -3,28 +3,84 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
-import MapScreen from '../MapScreen';
-
-const initialState = {
-    map: {
-        predictions: []
-    },
-    ui: {
-        searchVisible: false
-    },
-    header: {
-        isMenuOpen: false
-    }
-};
+import { MapScreen } from '../MapScreen';
 
 describe('MapScreen', () => {
-    const middlewares = [];
-    const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<MapScreen />, {
-            context: { store: mockStore(initialState) }
-        });
-        const render = wrapper.dive();
+        const props = {
+            predictions: [],
+            searchVisible: false,
+            header: {
+                isMenuOpen: false
+            },
+            region: null,
+            address: '',
+            pending: false
+        };
+        const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
+    });
+    it('renders correctly pending', () => {
+        const props = {
+            predictions: [],
+            searchVisible: false,
+            header: {
+                isMenuOpen: false
+            },
+            region: null,
+            address: '',
+            pending: true
+        };
+        const render = shallow(<MapScreen {...props} />);
+        expect(render).toMatchSnapshot();
+    });
+    it('renders correctly searchVisible', () => {
+        const props = {
+            predictions: [],
+            searchVisible: true,
+            header: {
+                isMenuOpen: false
+            },
+            region: null,
+            address: '',
+            pending: false
+        };
+        const render = shallow(<MapScreen {...props} />);
+        expect(render).toMatchSnapshot();
+    });
+    it('renders correctly address', () => {
+        const props = {
+            predictions: [],
+            searchVisible: false,
+            header: {
+                isMenuOpen: false
+            },
+            region: null,
+            address: 'address',
+            pending: false
+        };
+        const render = shallow(<MapScreen {...props} />);
+        expect(render).toMatchSnapshot();
+    });
+    it('onButtonPress', async () => {
+        const props = {
+            predictions: [],
+            searchVisible: false,
+            header: {
+                isMenuOpen: false
+            },
+            region: null,
+            address: 'address',
+            getProductsByAddress: jest.fn(),
+            navigation: {
+                navigate: jest.fn()
+            }
+        };
+        const render = shallow(<MapScreen {...props} />);
+        const instance = render.instance();
+        await instance.onButtonPress();
+        expect(props.getProductsByAddress.mock.calls.length).toEqual(1);
+        expect(props.getProductsByAddress.mock.calls[0][0]).toEqual(props.address);
+        expect(props.navigation.navigate.mock.calls.length).toEqual(1);
     });
 });

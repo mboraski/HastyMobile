@@ -30,10 +30,10 @@ export const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case REHYDRATE:
-            if (action.payload && action.payload.address) {
+            if (action.payload && action.payload.map) {
                 return {
                     ...state,
-                    ...action.payload.address,
+                    ...action.payload.map,
                     predictions: []
                 };
             }

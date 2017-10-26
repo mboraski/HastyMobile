@@ -21,13 +21,19 @@ import OrderList from '../components/OrderList';
 import DropDown from '../components/DropDown';
 import PaymentDropDownItem from '../components/PaymentDropDownItem';
 import OopsPopup from '../components/OopsPopup';
+import ContinuePopup from '../components/ContinuePopup';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartOrders } from '../selectors/cartSelectors';
+import { getAvailableCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
+import { reset } from '../actions/navigationActions';
 
 import pinIcon from '../assets/icons/pin.png';
+
+const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from your cart?';
+const CHANGE_LOCATION_MESSAGE =
+    'Are you sure you want to change your delivery location? \n\n The available products/services at your new location may be different.';
 
 export class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -40,16 +46,10 @@ export class CheckoutScreen extends Component {
 
     state = {
         mapLoaded: false,
-        region: {
-            longitude: -97.76,
-            latitude: 30.26,
-            longitudeDelta: 0.1,
-            latitudeDelta: 0.25
-        },
-        address: '3004 N Lamar Blvd',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
-        removeOrderPopupVisible: false
+        removeOrderPopupVisible: false,
+        changeLocationPopupVisible: false
     };
 
     handleRemoveOrder = order => {
@@ -67,6 +67,17 @@ export class CheckoutScreen extends Component {
         }
     };
 
+    changeLocation = () => {
+        this.setState({ changeLocationPopupVisible: true });
+    };
+
+    changeLocationConfirmed = confirmed => {
+        if (confirmed) {
+            this.props.navigation.dispatch(reset('map'));
+        }
+        this.setState({ changeLocationPopupVisible: false });
+    };
+
     lightABeacon = () => {
         this.props.navigation.navigate('deliveryStatus');
     };
@@ -76,8 +87,8 @@ export class CheckoutScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, totalOrders, totalCost, notes } = this.props;
-        const { region, address, removeOrderPopupVisible } = this.state;
+        const { orders, addToCart, totalCost, notes, region, address } = this.props;
+        const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
@@ -85,12 +96,17 @@ export class CheckoutScreen extends Component {
                         <MapView region={region} style={styles.map}>
                             <MapView.Marker
                                 image={pinIcon}
-                                coordinate={{
-                                    latitude: region.latitude,
-                                    longitude: region.longitude
-                                }}
+                                coordinate={region}
                                 title="You"
                                 description="Your Delivery Location"
+                                centerOffset={{
+                                    x: 0,
+                                    y: '-50%'
+                                }}
+                                anchor={{
+                                    x: 0.5,
+                                    y: 1
+                                }}
                             />
                         </MapView>
                         <View style={styles.itemHeader}>
@@ -98,7 +114,10 @@ export class CheckoutScreen extends Component {
                         </View>
                         <View style={styles.itemBody}>
                             <Text style={styles.itemBodyLabel}>{address}</Text>
-                            <TouchableOpacity style={styles.itemButton}>
+                            <TouchableOpacity
+                                style={styles.itemButton}
+                                onPress={this.changeLocation}
+                            >
                                 <Text style={styles.itemButtonText}>Change</Text>
                             </TouchableOpacity>
                         </View>
@@ -157,8 +176,13 @@ export class CheckoutScreen extends Component {
                 <OopsPopup
                     openModal={removeOrderPopupVisible}
                     closeModal={this.removeOrderConfirmed}
-                    message="Are you sure you want to remove this product from your cart?"
+                    message={REMOVE_ORDER_MESSAGE}
                     showIcon={false}
+                />
+                <ContinuePopup
+                    openModal={changeLocationPopupVisible}
+                    closeModal={this.changeLocationConfirmed}
+                    message={CHANGE_LOCATION_MESSAGE}
                 />
             </View>
         );
@@ -262,10 +286,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    orders: getCartOrders(state),
+    orders: getAvailableCartOrders(state),
     totalCost: state.cart.totalCost,
-    totalOrders: state.cart.totalOrders,
-    notes: state.checkout.notes
+    totalQuantity: state.cart.totalQuantity,
+    notes: state.checkout.notes,
+    region: state.map.region,
+    address: state.map.address
 });
 
 const mapDispatchToProps = {

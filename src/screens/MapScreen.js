@@ -28,7 +28,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class MapScreen extends Component {
+export class MapScreen extends Component {
     state = {
         mapLoaded: false,
         address: '',
@@ -69,15 +69,9 @@ class MapScreen extends Component {
     };
 
     onButtonPress = async () => {
-        await this.props.getProductsByAddress('1004 S Congress Ave, Austin, TX 78704');
+        await this.props.getProductsByAddress(this.props.address);
         this.props.navigation.navigate('home');
     };
-
-    // onButtonPress = () => {
-    //     this.props.fetchProducts(this.state.region, () => {
-    //         this.props.navigation.navigate('home');
-    //     });
-    // };
 
     getLocationAsync = async () => {
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -136,7 +130,7 @@ class MapScreen extends Component {
     };
 
     render() {
-        const { predictions, region, address } = this.props;
+        const { predictions, region, address, pending } = this.props;
 
         if (!this.state.mapLoaded) {
             return (
@@ -203,6 +197,7 @@ class MapScreen extends Component {
                         onPress={this.onButtonPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
+                        disabled={pending}
                     />
                 </Animated.View>
                 {this.state.searchRendered ? (
@@ -294,6 +289,7 @@ MapScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
+    pending: state.map.pending || state.product.pending,
     predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,

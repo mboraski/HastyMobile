@@ -90,7 +90,7 @@ class HomeScreen extends Component {
         const { cart, products } = this.props;
         return (
             <View style={styles.container}>
-                {cart.totalOrders > 0 ? (
+                {cart.totalQuantity > 0 ? (
                     <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>
