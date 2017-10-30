@@ -19,6 +19,7 @@ import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
+// TODO: change icon to one with point at center
 import pinIcon from '../assets/icons/pin.png';
 
 const OPACITY_DURATION = 300;
@@ -144,6 +145,10 @@ class MapScreen extends Component {
                 </View>
             );
         }
+
+        // TODO: User can select a location from search and have it
+        // show as the center location of the map after clicked. then
+        // user has to click use current location to proceed.
 
         return (
             <View style={styles.container}>

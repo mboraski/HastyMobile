@@ -8,9 +8,12 @@ import {
     cart,
     checkout,
     map,
+    form,
     product,
+    ui,
     header,
-    notification
+    notification,
+    nav
 } from '../reducers';
 
 const persistConfig = {
@@ -31,7 +34,10 @@ const Reducer = combineReducers({
     map: persistReducer(persistConfig, map),
     product: persistReducer(persistConfig, product),
     header: persistReducer(persistConfig, header),
-    notification: persistReducer(persistConfig, notification)
+    notification: persistReducer(persistConfig, notification),
+    ui,
+    form,
+    nav
 });
 const store = createStore(
     Reducer,

@@ -23,7 +23,9 @@ import Color from '../constants/Color';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
+// TODO: replace with real image that gets fetched
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
+// TODO: add width then use for drawer width. Save to store.
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class AuthScreen extends Component {
@@ -59,7 +61,7 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
-        // const { openModal } = this.state;
+        // const { openModal } = this.state; // TODO: uncomment?
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
