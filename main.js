@@ -1,13 +1,14 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, StyleSheet } from 'react-native';
 import Expo from 'expo';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
+import { PersistGate } from 'redux-persist';
 
 // Relative Imports
 import RootContainer from './src/screens/RootContainer';
-import store from './src/store';
+import { store, persistor } from './src/store';
 
 class App extends Component {
   componentDidMount() {
@@ -35,11 +36,25 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <RootContainer />
-      </Provider>
+        <PersistGate
+            persistor={persistor}
+            loading={
+                <Spinner
+                    style={[StyleSheet.absoluteFill, styles.spinner]}
+                />
+            }
+        >
+            <Provider store={store}>
+                <RootContainer />
+            </Provider>
+        </PersistGate>
     );
   }
 }
+
+const styles = StyleSheet.create({
+    spinner: {
+        backgroundColor: Color.WHITE
+    },
 
 Expo.registerRootComponent(App);
