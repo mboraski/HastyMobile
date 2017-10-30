@@ -1,4 +1,4 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import logger from 'redux-logger';
@@ -17,10 +17,11 @@ import {
 } from '../reducers';
 
 const persistConfig = {
-  key: 'root',
-  AsyncStorage
-  // blacklist: ['ui', 'form', 'nav']
-}
+    key: 'root',
+    storage: AsyncStorage,
+    debug: __DEV__
+    // blacklist: ['ui', 'form', 'nav']
+};
 const middlewares = [thunk];
 
 if (__DEV__) {
@@ -39,13 +40,7 @@ const Reducer = combineReducers({
     form,
     nav
 });
-const store = createStore(
-    Reducer,
-    {},
-    compose(
-        applyMiddleware(...middlewares)
-    )
-);
-const persistor = persistStore(store);
+export const store = createStore(Reducer, {}, compose(applyMiddleware(...middlewares)));
+export const persistor = persistStore(store);
 
 export default { persistor, store };

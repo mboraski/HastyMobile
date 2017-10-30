@@ -1,4 +1,4 @@
-import { REHYDRATE } from 'redux-persist/constants';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 import {
     MAPS_PLACES_AUTOCOMPLETE_REQUEST,
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
@@ -30,7 +30,7 @@ export const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case REHYDRATE:
-            if (action.payload.address) {
+            if (action.payload && action.payload.address) {
                 return {
                     ...state,
                     ...action.payload.address,

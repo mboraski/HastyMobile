@@ -1,23 +1,10 @@
-import { reducer as form } from 'redux-form';
-import auth from './authReducer';
-import cart from './cartReducer';
-import checkout from './checkoutReducer';
-import map from './mapReducer';
-import ui from './uiReducer';
-import product from './productReducer';
-import header from './navigationReducer';
-import notification from './notificationReducer';
-import nav from './navReducer';
-
-export default {
-    auth,
-    cart,
-    checkout,
-    map,
-    form,
-    product,
-    ui,
-    header,
-    notification,
-    nav
-};
+export { reducer as form } from 'redux-form';
+export { default as auth } from './authReducer';
+export { default as cart } from './cartReducer';
+export { default as checkout } from './checkoutReducer';
+export { default as map } from './mapReducer';
+export { default as ui } from './uiReducer';
+export { default as product } from './productReducer';
+export { default as header } from './navigationReducer';
+export { default as notification } from './notificationReducer';
+export { default as nav } from './navReducer';
