@@ -29,6 +29,7 @@ class SignInForm extends Component {
     };
 
     render() {
+        // TODO: Show correctly login failure notice. Part of store.
         const {
             actions,
             anyTouched,

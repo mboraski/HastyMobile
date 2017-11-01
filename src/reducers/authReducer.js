@@ -2,6 +2,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL
 } from '../actions/authActions';
+import { REHYDRATE } from 'redux-persist/lib/constants';
+
 
 export const initialState = {
     sessionToken: '',
