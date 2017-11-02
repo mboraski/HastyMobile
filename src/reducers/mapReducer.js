@@ -8,7 +8,6 @@ import {
     MAPS_REVERSE_GEOCODE_FAIL
 } from '../actions/googleMapsActions';
 import { SAVE_ADDRESS, SET_CURRENT_LOCATION } from '../actions/mapActions';
-import { GET_PRODUCTS_BY_ADDRESS_SUCCESS } from '../actions/productActions';
 
 function getFormattedAddress(payload) {
     const result = payload.results[0];
@@ -83,12 +82,6 @@ export default function (state = initialState, action) {
                 };
             }
             return state;
-        case GET_PRODUCTS_BY_ADDRESS_SUCCESS:
-            return {
-                ...state,
-                currentSetAddress: action.payload.currentSetAddress,
-                currentSetLatLon: action.payload.currentSetLatLon
-            };
         case SET_CURRENT_LOCATION:
             return {
                 ...state,

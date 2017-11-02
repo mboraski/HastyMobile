@@ -34,6 +34,11 @@ import pinIcon from '../assets/icons/pin.png';
 const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from your cart?';
 const CHANGE_LOCATION_MESSAGE =
     'Are you sure you want to change your delivery location? \n\n The available products/services at your new location may be different.';
+const screen = Dimensions.get('window');
+const MAP_HEIGHT = emY(9.25);
+const ASPECT_RATIO = screen.width / MAP_HEIGHT;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -87,8 +92,14 @@ export class CheckoutScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, totalCost, notes, region, address } = this.props;
+        const { orders, addToCart, totalCost, notes, address, latlon } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
+        const region = {
+            latitude: latlon.lon,
+            longitude: latlon.lon,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+        };
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
@@ -200,7 +211,7 @@ const styles = StyleSheet.create({
         paddingBottom: emY(13.81)
     },
     map: {
-        height: emY(9.25),
+        height: MAP_HEIGHT,
         shadowColor: 'transparent'
     },
     itemHeader: {
@@ -290,8 +301,9 @@ const mapStateToProps = state => ({
     totalCost: state.cart.totalCost,
     totalQuantity: state.cart.totalQuantity,
     notes: state.checkout.notes,
-    region: state.map.region,
-    address: state.map.address
+    region: state.cart.region,
+    address: state.cart.currentSetAddress,
+    latlon: state.cart.currentSetLatLon
 });
 
 const mapDispatchToProps = {

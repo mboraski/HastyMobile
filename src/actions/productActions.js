@@ -12,7 +12,7 @@ export const selectDeliveryType = deliveryType => ({
 });
 
 export const getProductsByAddress = address => async dispatch => {
-    dispatch({ type: GET_PRODUCTS_BY_ADDRESS_REQUEST });
+    dispatch({ type: GET_PRODUCTS_BY_ADDRESS_REQUEST, payload: address });
     try {
         const res = await api.getProductsByAddress({ address });
         dispatch({

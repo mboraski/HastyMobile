@@ -8,7 +8,8 @@ import {
 export const initialState = {
     pending: false,
     error: null,
-    availableProducts: {}
+    availableProducts: {},
+    deliveryType: '1'
 };
 
 export default function (state = initialState, action) {
