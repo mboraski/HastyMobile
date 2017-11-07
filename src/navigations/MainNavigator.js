@@ -18,8 +18,6 @@ import CheckoutScreen from '../screens/CheckoutScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PromotionShareScreen from '../screens/PromotionShareScreen';
 
-console.disableYellowBox = true;
-
 const MainNavigator = StackNavigator({
     welcome: { screen: WelcomeScreen },
     auth: { screen: AuthScreen },
@@ -37,7 +35,6 @@ const MainNavigator = StackNavigator({
     feedback: { screen: FeedbackScreen },
     promotionShare: { screen: PromotionShareScreen },
     }, {
-        initialRouteName: 'checkout',
         navigationOptions: {
             tabBarVisible: false
         },
