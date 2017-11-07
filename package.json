@@ -15,8 +15,8 @@
         "qs": "6.4.0",
         "react": "16.0.0-beta.5",
         "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
-        "react-native-elements": "0.16.0",
-        "react-native-vector-icons": "4.0.0",
+        "react-native-elements": "^0.17.0",
+        "react-native-vector-icons": "^4.4.2",
         "react-navigation": "1.0.0-beta.11",
         "react-redux": "^5.0.6",
         "redux": "3.6.0",
@@ -30,15 +30,18 @@
         "axios-mock-adapter": "1.9.0",
         "babel-eslint": "^7.2.3",
         "babel-jest": "20.0.3",
-        "enzyme": "2.9.1",
+        "enzyme": "^3.1.1",
+        "enzyme-adapter-react-16": "^1.0.4",
+        "enzyme-to-json": "^3.2.1",
         "eslint": "^4.4.1",
         "eslint-config-hasty": "1.0.1",
         "jest": "20.0.4",
-        "jest-expo": "20.0.0",
+        "jest-expo": "^22.0.0",
         "jest-serializer-enzyme": "1.0.0",
-        "react-addons-test-utils": "15.6.0",
+        "react-addons-test-utils": "^15.6.2",
+        "react-dom": "^16.0.0-beta.5",
         "react-native-mock": "0.3.1",
-        "react-test-renderer": "15.6.1",
+        "react-test-renderer": "^16.0.0",
         "redux-mock-store": "1.2.3",
         "sinon": "3.2.1"
     },
@@ -46,6 +49,13 @@
         "test": "node_modules/.bin/jest"
     },
     "jest": {
-        "preset": "jest-expo"
+        "preset": "jest-expo",
+        "setupFiles": [
+            "./src/jest/enzyme.js",
+            "./src/mocks/Dimensions.js"
+        ],
+        "snapshotSerializers": [
+            "enzyme-to-json/serializer"
+        ]
     }
 }

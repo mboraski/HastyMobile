@@ -1,12 +1,11 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
+import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ProductList extends Component {
     renderProducts() {
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     product: {
-        width: SCREEN_WIDTH / 2 - 21,
+        width: Dimensions.window.width / 2 - 21,
         marginRight: 8,
         marginBottom: emY(0.625)
     }

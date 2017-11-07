@@ -20,7 +20,7 @@ const notificationList = [
     'Your order is complete!'
 ];
 
-class Notification extends Component {
+export class Notification extends Component {
     state = {
         topValue: new Animated.Value(emY(11)),
         opacity: new Animated.Value(1),

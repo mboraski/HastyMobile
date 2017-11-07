@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
     Platform
 } from 'react-native';
-import { connect } from 'react-redux';
 
 // Relative Imports
 import Color from '../constants/Color';
@@ -20,7 +19,8 @@ import checkIcon from '../assets/icons/check-wrap.png';
 const SIZE = emY(5.62);
 type Props = {
     openModal: boolean,
-    closeModal: () => {}
+    closeModal: () => {},
+    message: string
 };
 
 class ContinuePopup extends Component {
@@ -144,8 +144,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
-
-export default connect(null, mapDispatchToProps)(ContinuePopup);
+export default ContinuePopup;

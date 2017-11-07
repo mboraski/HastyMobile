@@ -6,8 +6,7 @@ import {
     Text,
     TouchableWithoutFeedback,
     Platform,
-    Animated,
-    Dimensions
+    Animated
 } from 'react-native';
 import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
@@ -19,6 +18,7 @@ import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import pinIcon from '../assets/icons/pin.png';
@@ -28,8 +28,7 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
-const screen = Dimensions.get("window");
-const ASPECT_RATIO = screen.width / screen.height;
+const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 

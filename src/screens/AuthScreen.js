@@ -6,8 +6,7 @@ import {
     Text,
     Image,
     KeyboardAvoidingView,
-    ScrollView,
-    Dimensions
+    ScrollView
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -20,13 +19,13 @@ import SignInForm from '../containers/SignInForm';
 // import OopsPopup from '../components/OopsPopup';
 // import ContinuePopup from '../components/ContinuePopup';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
 // TODO: replace with real image that gets fetched
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 // TODO: add width then use for drawer width. Save to store.
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 class AuthScreen extends Component {
     static navigationOptions = statusBarOnly;
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: SCREEN_HEIGHT / 4,
+        height: Dimensions.window.height / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },

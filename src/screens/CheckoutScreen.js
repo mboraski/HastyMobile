@@ -7,8 +7,7 @@ import {
     Text,
     TouchableOpacity,
     Platform,
-    Animated,
-    Dimensions
+    Animated
 } from 'react-native';
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
@@ -21,8 +20,9 @@ import OrderList from '../components/OrderList';
 import DropDown from '../components/DropDown';
 import PaymentDropDownItem from '../components/PaymentDropDownItem';
 import OopsPopup from '../components/OopsPopup';
-import ContinuePopup from '../components/ContinuePopup';
+import SuccessPopup from '../components/SuccessPopup';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { getAvailableCartOrders } from '../selectors/cartSelectors';
@@ -32,11 +32,11 @@ import { reset } from '../actions/navigationActions';
 import pinIcon from '../assets/icons/pin.png';
 
 const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from your cart?';
+const CHANGE_LOCATION_TITLE = 'Are you sure you want to change your delivery location?';
 const CHANGE_LOCATION_MESSAGE =
-    'Are you sure you want to change your delivery location? \n\n The available products/services at your new location may be different.';
-const screen = Dimensions.get('window');
+    'The available products/services at your new location may be different.';
 const MAP_HEIGHT = emY(9.25);
-const ASPECT_RATIO = screen.width / MAP_HEIGHT;
+const ASPECT_RATIO = Dimensions.window.width / MAP_HEIGHT;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -95,7 +95,7 @@ export class CheckoutScreen extends Component {
         const { orders, addToCart, totalCost, notes, address, latlon } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
         const region = {
-            latitude: latlon.lon,
+            latitude: latlon.lat,
             longitude: latlon.lon,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
@@ -190,9 +190,10 @@ export class CheckoutScreen extends Component {
                     message={REMOVE_ORDER_MESSAGE}
                     showIcon={false}
                 />
-                <ContinuePopup
+                <SuccessPopup
                     openModal={changeLocationPopupVisible}
                     closeModal={this.changeLocationConfirmed}
+                    title={CHANGE_LOCATION_TITLE}
                     message={CHANGE_LOCATION_MESSAGE}
                 />
             </View>
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_100
     },
     itemBodyLabel: {
-        width: Dimensions.get('window').width - 160,
+        width: Dimensions.window.width - 160,
         fontSize: emY(1.08),
         color: Color.GREY_800
     },

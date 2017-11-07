@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Animated
 } from 'react-native';
-import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -95,14 +94,13 @@ class DropDown extends Component {
                     <View onLayout={this.setMinHeight}>
                         <TouchableOpacity onPress={this.toggle}>
                             {header}
-                            <View style={styles.arrowContainer} onPress={this.toggle}>
+                            <View style={styles.arrowContainer}>
                                 <Animated.Image
                                     source={arrowIcon}
                                     style={[
-                                        arrowIcon,
+                                        styles.arrowIcon,
                                         {
-                                            transform: [{ rotate: spin }],
-                                            backgroundColor: 'rgba(0, 0, 0, 0)'
+                                            transform: [{ rotate: spin }]
                                         }
                                     ]}
                                 />
@@ -134,8 +132,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
-
-export default connect(null, mapDispatchToProps)(DropDown);
+export default DropDown;
