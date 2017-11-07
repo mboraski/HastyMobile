@@ -2,6 +2,12 @@
 
 exports[`cartReducer handles addToCart action 1`] = `
 Object {
+  "currentSetAddress": "",
+  "currentSetLatLon": Object {
+    "lat": null,
+    "lon": null,
+  },
+  "orderId": "",
   "products": Object {
     "1": Object {
       "1": Object {
@@ -15,12 +21,18 @@ Object {
     },
   },
   "totalCost": 3.49,
-  "totalOrders": 1,
+  "totalQuantity": 1,
 }
 `;
 
 exports[`cartReducer handles addToCart then removeFromCart 1`] = `
 Object {
+  "currentSetAddress": "",
+  "currentSetLatLon": Object {
+    "lat": null,
+    "lon": null,
+  },
+  "orderId": "",
   "products": Object {
     "1": Object {
       "1": Object {
@@ -34,12 +46,18 @@ Object {
     },
   },
   "totalCost": 0,
-  "totalOrders": 0,
+  "totalQuantity": 0,
 }
 `;
 
 exports[`cartReducer handles removeFromCart action 1`] = `
 Object {
+  "currentSetAddress": "",
+  "currentSetLatLon": Object {
+    "lat": null,
+    "lon": null,
+  },
+  "orderId": "",
   "products": Object {
     "1": Object {
       "1": Object {
@@ -53,6 +71,6 @@ Object {
     },
   },
   "totalCost": 3.49,
-  "totalOrders": 1,
+  "totalQuantity": 1,
 }
 `;

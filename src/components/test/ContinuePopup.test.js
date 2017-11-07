@@ -1,20 +1,11 @@
-import 'react-native';
 import React from 'react';
+import 'react-native';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
+import Component from '../ContinuePopup';
 
-import ContinuePopup from '../ContinuePopup';
-
-const initialState = {};
-
-describe('ContinuePopup', () => {
-    const middlewares = [];
-    const mockStore = configureStore(middlewares);
+describe('Popup', () => {
     it('renders correctly', () => {
-        const wrapper = shallow(<ContinuePopup openModal={true} closeModal={() => {}} />, {
-            context: { store: mockStore(initialState) }
-        });
-        const render = wrapper.dive();
+        const render = shallow(<Component />);
         expect(render).toMatchSnapshot();
     });
 });

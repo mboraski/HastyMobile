@@ -20,7 +20,11 @@ describe('CheckoutScreen', () => {
             orders: getCartOrders(state),
             totalCost: cart.totalCost,
             totalQuantity: cart.totalQuantity,
-            notes: 'notes'
+            notes: 'notes',
+            latlon: {
+                lat: 0,
+                lon: 1
+            }
         };
         const render = shallow(<CheckoutScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -48,7 +52,11 @@ describe('CheckoutScreen', () => {
             orders: getCartOrders(state),
             totalCost: cart.totalCost,
             totalQuantity: cart.totalQuantity,
-            notes: 'notes'
+            notes: 'notes',
+            latlon: {
+                lat: 0,
+                lon: 1
+            }
         };
         const render = shallow(<CheckoutScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -76,7 +84,11 @@ describe('CheckoutScreen', () => {
             orders: getCartOrders(state),
             totalCost: cart.totalCost,
             totalQuantity: cart.totalQuantity,
-            notes: 'notes'
+            notes: 'notes',
+            latlon: {
+                lat: 0,
+                lon: 1
+            }
         };
         const removeFromCart = jest.fn();
         const render = shallow(<CheckoutScreen {...props} removeFromCart={removeFromCart} />);
@@ -112,7 +124,11 @@ describe('CheckoutScreen', () => {
             orders: getCartOrders(state),
             totalCost: cart.totalCost,
             totalQuantity: cart.totalQuantity,
-            notes: 'notes'
+            notes: 'notes',
+            latlon: {
+                lat: 0,
+                lon: 1
+            }
         };
         const removeFromCart = jest.fn();
         const render = shallow(<CheckoutScreen {...props} removeFromCart={removeFromCart} />);
@@ -134,6 +150,10 @@ describe('CheckoutScreen', () => {
             totalCost: cart.totalCost,
             totalQuantity: cart.totalQuantity,
             notes: 'notes',
+            latlon: {
+                lat: 0,
+                lon: 1
+            },
             navigation: {
                 dispatch: jest.fn()
             }

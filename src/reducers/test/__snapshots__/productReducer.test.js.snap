@@ -2,40 +2,40 @@
 
 exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_FAIL action 1`] = `
 Object {
+  "availableProducts": Object {},
   "deliveryType": "1",
   "error": [Error: error],
-  "list": Object {},
   "pending": false,
 }
 `;
 
 exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_REQUEST action 1`] = `
 Object {
+  "availableProducts": Object {},
   "deliveryType": "1",
   "error": null,
-  "list": Object {},
   "pending": true,
 }
 `;
 
 exports[`productReducer handles GET_PRODUCTS_BY_ADDRESS_SUCCESS action 1`] = `
 Object {
-  "deliveryType": "1",
-  "error": null,
-  "list": Object {
+  "availableProducts": Object {
     "1": Object {
       "1": Object {},
     },
   },
+  "deliveryType": "1",
+  "error": null,
   "pending": false,
 }
 `;
 
 exports[`productReducer handles selectDeliveryType action 1`] = `
 Object {
+  "availableProducts": Object {},
   "deliveryType": "deliveryType",
   "error": null,
-  "list": Object {},
   "pending": false,
 }
 `;

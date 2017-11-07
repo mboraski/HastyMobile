@@ -1,713 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInputField component renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <View
+<View
+  style={
+    Array [
+      Object {
+        "marginBottom": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    disabled={false}
+    ellipsizeMode="tail"
     style={
-        Array [
-            Object {
-              "marginBottom": 8,
-            },
-            undefined,
-          ]
-    }
->
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-            Array [
-                Object {
-                  "fontSize": 13,
-                  "paddingBottom": 12.8,
-                  "paddingHorizontal": 25,
-                  "paddingTop": 30.4,
-                },
-                undefined,
-                false,
-              ]
-        }
-    >
-        label
-    </Text>
-    <TextInput
-        onChangeText={undefined}
-        style={
-            Array [
-                Object {
-                  "backgroundColor": "#F4F4F4",
-                  "borderRadius": 7,
-                  "fontSize": 16,
-                  "height": 50,
-                  "marginHorizontal": 15,
-                  "paddingHorizontal": 20,
-                },
-                undefined,
-                false,
-              ]
-        }
-    />
-</View>,
-  "nodes": Array [
-    <View
-      style={
-            Array [
-                  Object {
-                    "marginBottom": 8,
-                  },
-                  undefined,
-                ]
-      }
->
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                  Array [
-                        Object {
-                          "fontSize": 13,
-                          "paddingBottom": 12.8,
-                          "paddingHorizontal": 25,
-                          "paddingTop": 30.4,
-                        },
-                        undefined,
-                        false,
-                      ]
-            }
-      >
-            label
-      </Text>
-      <TextInput
-            onChangeText={undefined}
-            style={
-                  Array [
-                        Object {
-                          "backgroundColor": "#F4F4F4",
-                          "borderRadius": 7,
-                          "fontSize": 16,
-                          "height": 50,
-                          "marginHorizontal": 15,
-                          "paddingHorizontal": 20,
-                        },
-                        undefined,
-                        false,
-                      ]
-            }
-      />
-</View>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
-      "_context": Object {},
-      "_currentElement": <TextInputComponent
-        input={Object {}}
-        label="label"
-        meta={
-                Object {
-                        "error": null,
-                        "invalid": false,
-                        "touched": false,
-                      }
-        }
-/>,
-      "_debugID": 3,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": StatelessComponent {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "input": Object {},
-          "label": "label",
-          "meta": Object {
-            "error": null,
-            "invalid": false,
-            "touched": false,
-          },
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 2,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <View
-          style={
-                    Array [
-                              Object {
-                                "marginBottom": 8,
-                              },
-                              undefined,
-                            ]
-          }
->
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Array [
-                                        Object {
-                                          "fontSize": 13,
-                                          "paddingBottom": 12.8,
-                                          "paddingHorizontal": 25,
-                                          "paddingTop": 30.4,
-                                        },
-                                        undefined,
-                                        false,
-                                      ]
-                    }
-          >
-                    label
-          </Text>
-          <TextInput
-                    onChangeText={undefined}
-                    style={
-                              Array [
-                                        Object {
-                                          "backgroundColor": "#F4F4F4",
-                                          "borderRadius": 7,
-                                          "fontSize": 16,
-                                          "height": 50,
-                                          "marginHorizontal": 15,
-                                          "paddingHorizontal": 20,
-                                        },
-                                        undefined,
-                                        false,
-                                      ]
-                    }
-          />
-</View>,
-        "_debugID": 4,
-        "_renderedOutput": <View
-          style={
-                    Array [
-                              Object {
-                                "marginBottom": 8,
-                              },
-                              undefined,
-                            ]
-          }
->
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Array [
-                                        Object {
-                                          "fontSize": 13,
-                                          "paddingBottom": 12.8,
-                                          "paddingHorizontal": 25,
-                                          "paddingTop": 30.4,
-                                        },
-                                        undefined,
-                                        false,
-                                      ]
-                    }
-          >
-                    label
-          </Text>
-          <TextInput
-                    onChangeText={undefined}
-                    style={
-                              Array [
-                                        Object {
-                                          "backgroundColor": "#F4F4F4",
-                                          "borderRadius": 7,
-                                          "fontSize": 16,
-                                          "height": 50,
-                                          "marginHorizontal": 15,
-                                          "paddingHorizontal": 20,
-                                        },
-                                        undefined,
-                                        false,
-                                      ]
-                    }
-          />
-</View>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <TextInputComponent
-    input={Object {}}
-    label="label"
-    meta={
+      Array [
         Object {
-            "error": null,
-            "invalid": false,
-            "touched": false,
-          }
+          "fontSize": 13,
+          "paddingBottom": 12.8,
+          "paddingHorizontal": 25,
+          "paddingTop": 30.4,
+        },
+        undefined,
+        false,
+      ]
     }
-/>,
-}
+  >
+    label
+  </Text>
+  <TextInput
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#F4F4F4",
+          "borderRadius": 7,
+          "fontSize": 16,
+          "height": 50,
+          "marginHorizontal": 15,
+          "paddingHorizontal": 20,
+        },
+        undefined,
+        false,
+      ]
+    }
+  />
+</View>
 `;
 
 exports[`TextInputField component renders correctly with error 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <View
+<View
+  style={
+    Array [
+      Object {
+        "marginBottom": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    disabled={false}
+    ellipsizeMode="tail"
     style={
-        Array [
-            Object {
-              "marginBottom": 8,
-            },
-            undefined,
-          ]
-    }
->
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-            Array [
-                Object {
-                  "fontSize": 13,
-                  "paddingBottom": 12.8,
-                  "paddingHorizontal": 25,
-                  "paddingTop": 30.4,
-                },
-                undefined,
-                Object {
-                  "color": "rgb(243, 108, 96)",
-                },
-              ]
-        }
-    >
-        label
-    </Text>
-    <TextInput
-        onChangeText={undefined}
-        style={
-            Array [
-                Object {
-                  "backgroundColor": "#F4F4F4",
-                  "borderRadius": 7,
-                  "fontSize": 16,
-                  "height": 50,
-                  "marginHorizontal": 15,
-                  "paddingHorizontal": 20,
-                },
-                undefined,
-                Object {
-                  "borderColor": "rgb(243, 108, 96)",
-                  "borderWidth": 0.5,
-                  "color": "rgb(243, 108, 96)",
-                },
-              ]
-        }
-    />
-    <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-            Object {
-                "color": "rgb(243, 108, 96)",
-                "fontSize": 12.8,
-                "marginBottom": 8,
-                "marginTop": -8,
-                "paddingHorizontal": 25,
-              }
-        }
-    >
-        error
-    </Text>
-</View>,
-  "nodes": Array [
-    <View
-      style={
-            Array [
-                  Object {
-                    "marginBottom": 8,
-                  },
-                  undefined,
-                ]
-      }
->
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                  Array [
-                        Object {
-                          "fontSize": 13,
-                          "paddingBottom": 12.8,
-                          "paddingHorizontal": 25,
-                          "paddingTop": 30.4,
-                        },
-                        undefined,
-                        Object {
-                          "color": "rgb(243, 108, 96)",
-                        },
-                      ]
-            }
-      >
-            label
-      </Text>
-      <TextInput
-            onChangeText={undefined}
-            style={
-                  Array [
-                        Object {
-                          "backgroundColor": "#F4F4F4",
-                          "borderRadius": 7,
-                          "fontSize": 16,
-                          "height": 50,
-                          "marginHorizontal": 15,
-                          "paddingHorizontal": 20,
-                        },
-                        undefined,
-                        Object {
-                          "borderColor": "rgb(243, 108, 96)",
-                          "borderWidth": 0.5,
-                          "color": "rgb(243, 108, 96)",
-                        },
-                      ]
-            }
-      />
-      <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-                  Object {
-                        "color": "rgb(243, 108, 96)",
-                        "fontSize": 12.8,
-                        "marginBottom": 8,
-                        "marginTop": -8,
-                        "paddingHorizontal": 25,
-                      }
-            }
-      >
-            error
-      </Text>
-</View>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
-      "_context": Object {},
-      "_currentElement": <TextInputComponent
-        input={Object {}}
-        label="label"
-        meta={
-                Object {
-                        "error": "error",
-                        "invalid": true,
-                        "touched": true,
-                      }
-        }
-/>,
-      "_debugID": 5,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": StatelessComponent {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "input": Object {},
-          "label": "label",
-          "meta": Object {
-            "error": "error",
-            "invalid": true,
-            "touched": true,
-          },
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 3,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <View
-          style={
-                    Array [
-                              Object {
-                                "marginBottom": 8,
-                              },
-                              undefined,
-                            ]
-          }
->
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Array [
-                                        Object {
-                                          "fontSize": 13,
-                                          "paddingBottom": 12.8,
-                                          "paddingHorizontal": 25,
-                                          "paddingTop": 30.4,
-                                        },
-                                        undefined,
-                                        Object {
-                                          "color": "rgb(243, 108, 96)",
-                                        },
-                                      ]
-                    }
-          >
-                    label
-          </Text>
-          <TextInput
-                    onChangeText={undefined}
-                    style={
-                              Array [
-                                        Object {
-                                          "backgroundColor": "#F4F4F4",
-                                          "borderRadius": 7,
-                                          "fontSize": 16,
-                                          "height": 50,
-                                          "marginHorizontal": 15,
-                                          "paddingHorizontal": 20,
-                                        },
-                                        undefined,
-                                        Object {
-                                          "borderColor": "rgb(243, 108, 96)",
-                                          "borderWidth": 0.5,
-                                          "color": "rgb(243, 108, 96)",
-                                        },
-                                      ]
-                    }
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Object {
-                                        "color": "rgb(243, 108, 96)",
-                                        "fontSize": 12.8,
-                                        "marginBottom": 8,
-                                        "marginTop": -8,
-                                        "paddingHorizontal": 25,
-                                      }
-                    }
-          >
-                    error
-          </Text>
-</View>,
-        "_debugID": 6,
-        "_renderedOutput": <View
-          style={
-                    Array [
-                              Object {
-                                "marginBottom": 8,
-                              },
-                              undefined,
-                            ]
-          }
->
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Array [
-                                        Object {
-                                          "fontSize": 13,
-                                          "paddingBottom": 12.8,
-                                          "paddingHorizontal": 25,
-                                          "paddingTop": 30.4,
-                                        },
-                                        undefined,
-                                        Object {
-                                          "color": "rgb(243, 108, 96)",
-                                        },
-                                      ]
-                    }
-          >
-                    label
-          </Text>
-          <TextInput
-                    onChangeText={undefined}
-                    style={
-                              Array [
-                                        Object {
-                                          "backgroundColor": "#F4F4F4",
-                                          "borderRadius": 7,
-                                          "fontSize": 16,
-                                          "height": 50,
-                                          "marginHorizontal": 15,
-                                          "paddingHorizontal": 20,
-                                        },
-                                        undefined,
-                                        Object {
-                                          "borderColor": "rgb(243, 108, 96)",
-                                          "borderWidth": 0.5,
-                                          "color": "rgb(243, 108, 96)",
-                                        },
-                                      ]
-                    }
-          />
-          <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                              Object {
-                                        "color": "rgb(243, 108, 96)",
-                                        "fontSize": 12.8,
-                                        "marginBottom": 8,
-                                        "marginTop": -8,
-                                        "paddingHorizontal": 25,
-                                      }
-                    }
-          >
-                    error
-          </Text>
-</View>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <TextInputComponent
-    input={Object {}}
-    label="label"
-    meta={
+      Array [
         Object {
-            "error": "error",
-            "invalid": true,
-            "touched": true,
-          }
+          "fontSize": 13,
+          "paddingBottom": 12.8,
+          "paddingHorizontal": 25,
+          "paddingTop": 30.4,
+        },
+        undefined,
+        Object {
+          "color": "rgb(243, 108, 96)",
+        },
+      ]
     }
-/>,
-}
+  >
+    label
+  </Text>
+  <TextInput
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#F4F4F4",
+          "borderRadius": 7,
+          "fontSize": 16,
+          "height": 50,
+          "marginHorizontal": 15,
+          "paddingHorizontal": 20,
+        },
+        undefined,
+        Object {
+          "borderColor": "rgb(243, 108, 96)",
+          "borderWidth": 0.5,
+          "color": "rgb(243, 108, 96)",
+        },
+      ]
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    disabled={false}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "rgb(243, 108, 96)",
+        "fontSize": 12.8,
+        "marginBottom": 8,
+        "marginTop": -8,
+        "paddingHorizontal": 25,
+      }
+    }
+  >
+    error
+  </Text>
+</View>
 `;
 
 exports[`TextInputField field renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <Field
-    component={[Function]}
-/>,
-  "nodes": Array [
-    <Field
-      component={[Function]}
-/>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
-      "_context": Object {},
-      "_currentElement": <TextInputField />,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": StatelessComponent {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {},
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Field
-          component={[Function]}
-/>,
-        "_debugID": 2,
-        "_renderedOutput": <Field
-          component={[Function]}
-/>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <TextInputField />,
-}
+<Field
+  component={[Function]}
+/>
 `;
