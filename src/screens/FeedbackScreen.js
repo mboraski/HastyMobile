@@ -15,7 +15,7 @@ import { emY } from '../utils/em';
 
 const keyboardVerticalOffset = emY(1);
 
-class FeedbackScreen extends Component {
+export class FeedbackScreen extends Component {
     state = {
         userRating: 0,
         productRating: 0,

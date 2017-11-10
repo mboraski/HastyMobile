@@ -18,6 +18,7 @@ import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import pinIcon from '../assets/icons/pin.png';
@@ -27,14 +28,18 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
+const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class MapScreen extends Component {
+export class MapScreen extends Component {
     state = {
-        mapLoaded: false,
+        mapReady: false,
         address: '',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
-        searchRendered: false
+        searchRendered: false,
+        getCurrentPositionPending: false
     };
 
     componentWillMount() {
@@ -45,10 +50,6 @@ class MapScreen extends Component {
         } else if (!this.props.region) {
             this.getLocationAsync();
         }
-    }
-
-    componentDidMount() {
-        this.setState({ mapLoaded: true });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,22 +65,23 @@ class MapScreen extends Component {
         }
     }
 
+    onMapReady = () => {
+        this.setState({ mapReady: true });
+    }
+
     onRegionChangeComplete = region => {
-        this.props.setCurrentLocation(region);
+        if (this.state.mapReady) {
+            this.props.setCurrentLocation(region);
+        }
     };
 
     onButtonPress = async () => {
-        await this.props.getProductsByAddress('1004 S Congress Ave, Austin, TX 78704');
+        await this.props.getProductsByAddress(this.props.address);
         this.props.navigation.navigate('home');
     };
 
-    // onButtonPress = () => {
-    //     this.props.fetchProducts(this.state.region, () => {
-    //         this.props.navigation.navigate('home');
-    //     });
-    // };
-
     getLocationAsync = async () => {
+        this.setState({ getCurrentPositionPending: true });
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             this.setState({
@@ -91,9 +93,10 @@ class MapScreen extends Component {
         this.props.setCurrentLocation({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            longitudeDelta: 0.1,
-            latitudeDelta: 0.25
+            longitudeDelta: LATITUDE_DELTA,
+            latitudeDelta: LONGITUDE_DELTA
         });
+        this.setState({ getCurrentPositionPending: false });
     };
 
     handleAddress = address => {
@@ -136,9 +139,10 @@ class MapScreen extends Component {
     };
 
     render() {
-        const { predictions, region, address } = this.props;
+        const { predictions, region, address, pending } = this.props;
+        const { getCurrentPositionPending } = this.state;
 
-        if (!this.state.mapLoaded) {
+        if (getCurrentPositionPending) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <ActivityIndicator size="large" />
@@ -152,12 +156,13 @@ class MapScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <MapView
-                    region={region}
-                    style={styles.map}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
-                >
-                    {region ? (
+                 {region ? (
+                    <MapView
+                        initialRegion={region}
+                        style={styles.map}
+                        onMapReady={this.onMapReady}
+                        onRegionChangeComplete={this.onRegionChangeComplete}
+                    >
                         <MapView.Marker
                             image={pinIcon}
                             coordinate={region}
@@ -172,8 +177,8 @@ class MapScreen extends Component {
                                 y: 1
                             }}
                         />
-                    ) : null}
-                </MapView>
+                    </MapView>
+                ) : null}
                 <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
                     <Animated.View
                         style={[
@@ -203,6 +208,7 @@ class MapScreen extends Component {
                         onPress={this.onButtonPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
+                        disabled={pending}
                     />
                 </Animated.View>
                 {this.state.searchRendered ? (
@@ -294,6 +300,7 @@ MapScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
+    pending: state.map.pending || state.product.pending,
     predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,

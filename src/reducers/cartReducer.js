@@ -2,6 +2,7 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART
 } from '../actions/cartActions';
+import { GET_PRODUCTS_BY_ADDRESS_SUCCESS } from '../actions/productActions';
 
 function normalizeCurrency(currency) {
     if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
@@ -68,6 +69,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             return {
+                ...state,
                 products: addToType(state.products, action.payload),
                 totalQuantity: state.totalQuantity + 1,
                 totalCost: Math.max(
@@ -77,12 +79,19 @@ export default (state = initialState, action) => {
             };
         case REMOVE_FROM_CART:
             return {
+                ...state,
                 products: removeFromType(state.products, action.payload),
                 totalQuantity: Math.max(0, state.totalQuantity - 1),
                 totalCost: Math.max(
                     0,
                     (state.totalCost - normalizeCurrency(action.payload.price)).toFixed(2)
                 )
+            };
+        case GET_PRODUCTS_BY_ADDRESS_SUCCESS:
+            return {
+                ...state,
+                currentSetAddress: action.payload.currentSetAddress,
+                currentSetLatLon: action.payload.currentSetLatLon
             };
         default:
             return state;

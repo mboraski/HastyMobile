@@ -1,11 +1,11 @@
 import React from 'react';
 import 'react-native';
 import { shallow } from 'enzyme';
-import SuccessPopup from '../SuccessPopup';
+import Component from '../Popup';
 
-describe('SuccessPopup', () => {
+describe('Popup', () => {
     it('renders correctly', () => {
-        const render = shallow(<SuccessPopup openModal closeModal={() => {}} />);
+        const render = shallow(<Component />);
         expect(render).toMatchSnapshot();
     });
 });

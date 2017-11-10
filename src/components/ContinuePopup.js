@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
     Platform
 } from 'react-native';
-import { connect } from 'react-redux';
 
 // Relative Imports
 import Color from '../constants/Color';
@@ -18,10 +17,10 @@ import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check-wrap.png';
 
 const SIZE = emY(5.62);
-const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 type Props = {
     openModal: boolean,
-    closeModal: () => {}
+    closeModal: () => {},
+    message: string
 };
 
 class ContinuePopup extends Component {
@@ -51,6 +50,7 @@ class ContinuePopup extends Component {
     props: Props;
 
     render() {
+        const { message } = this.props;
         const { modalVisible } = this.state;
         return (
             <Modal
@@ -144,8 +144,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
-
-export default connect(null, mapDispatchToProps)(ContinuePopup);
+export default ContinuePopup;

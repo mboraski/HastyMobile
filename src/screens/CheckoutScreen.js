@@ -7,8 +7,7 @@ import {
     Text,
     TouchableOpacity,
     Platform,
-    Animated,
-    Dimensions
+    Animated
 } from 'react-native';
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
@@ -21,13 +20,25 @@ import OrderList from '../components/OrderList';
 import DropDown from '../components/DropDown';
 import PaymentDropDownItem from '../components/PaymentDropDownItem';
 import OopsPopup from '../components/OopsPopup';
+import SuccessPopup from '../components/SuccessPopup';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartOrders } from '../selectors/cartSelectors';
+import { getAvailableCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
+import { reset } from '../actions/navigationActions';
 
 import pinIcon from '../assets/icons/pin.png';
+
+const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from your cart?';
+const CHANGE_LOCATION_TITLE = 'Are you sure you want to change your delivery location?';
+const CHANGE_LOCATION_MESSAGE =
+    'The available products/services at your new location may be different.';
+const MAP_HEIGHT = emY(9.25);
+const ASPECT_RATIO = Dimensions.window.width / MAP_HEIGHT;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -40,16 +51,10 @@ export class CheckoutScreen extends Component {
 
     state = {
         mapLoaded: false,
-        region: {
-            longitude: -97.76,
-            latitude: 30.26,
-            longitudeDelta: 0.1,
-            latitudeDelta: 0.25
-        },
-        address: '3004 N Lamar Blvd',
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
-        removeOrderPopupVisible: false
+        removeOrderPopupVisible: false,
+        changeLocationPopupVisible: false
     };
 
     handleRemoveOrder = order => {
@@ -67,6 +72,17 @@ export class CheckoutScreen extends Component {
         }
     };
 
+    changeLocation = () => {
+        this.setState({ changeLocationPopupVisible: true });
+    };
+
+    changeLocationConfirmed = confirmed => {
+        if (confirmed) {
+            this.props.navigation.dispatch(reset('map'));
+        }
+        this.setState({ changeLocationPopupVisible: false });
+    };
+
     lightABeacon = () => {
         this.props.navigation.navigate('deliveryStatus');
     };
@@ -76,8 +92,14 @@ export class CheckoutScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, totalOrders, totalCost, notes } = this.props;
-        const { region, address, removeOrderPopupVisible } = this.state;
+        const { orders, addToCart, totalCost, notes, address, latlon } = this.props;
+        const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
+        const region = {
+            latitude: latlon.lat,
+            longitude: latlon.lon,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+        };
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
@@ -85,12 +107,17 @@ export class CheckoutScreen extends Component {
                         <MapView region={region} style={styles.map}>
                             <MapView.Marker
                                 image={pinIcon}
-                                coordinate={{
-                                    latitude: region.latitude,
-                                    longitude: region.longitude
-                                }}
+                                coordinate={region}
                                 title="You"
                                 description="Your Delivery Location"
+                                centerOffset={{
+                                    x: 0,
+                                    y: '-50%'
+                                }}
+                                anchor={{
+                                    x: 0.5,
+                                    y: 1
+                                }}
                             />
                         </MapView>
                         <View style={styles.itemHeader}>
@@ -98,7 +125,10 @@ export class CheckoutScreen extends Component {
                         </View>
                         <View style={styles.itemBody}>
                             <Text style={styles.itemBodyLabel}>{address}</Text>
-                            <TouchableOpacity style={styles.itemButton}>
+                            <TouchableOpacity
+                                style={styles.itemButton}
+                                onPress={this.changeLocation}
+                            >
                                 <Text style={styles.itemButtonText}>Change</Text>
                             </TouchableOpacity>
                         </View>
@@ -157,8 +187,14 @@ export class CheckoutScreen extends Component {
                 <OopsPopup
                     openModal={removeOrderPopupVisible}
                     closeModal={this.removeOrderConfirmed}
-                    message="Are you sure you want to remove this product from your cart?"
+                    message={REMOVE_ORDER_MESSAGE}
                     showIcon={false}
+                />
+                <SuccessPopup
+                    openModal={changeLocationPopupVisible}
+                    closeModal={this.changeLocationConfirmed}
+                    title={CHANGE_LOCATION_TITLE}
+                    message={CHANGE_LOCATION_MESSAGE}
                 />
             </View>
         );
@@ -176,7 +212,7 @@ const styles = StyleSheet.create({
         paddingBottom: emY(13.81)
     },
     map: {
-        height: emY(9.25),
+        height: MAP_HEIGHT,
         shadowColor: 'transparent'
     },
     itemHeader: {
@@ -195,7 +231,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_100
     },
     itemBodyLabel: {
-        width: Dimensions.get('window').width - 160,
+        width: Dimensions.window.width - 160,
         fontSize: emY(1.08),
         color: Color.GREY_800
     },
@@ -262,10 +298,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    orders: getCartOrders(state),
+    orders: getAvailableCartOrders(state),
     totalCost: state.cart.totalCost,
-    totalOrders: state.cart.totalOrders,
-    notes: state.checkout.notes
+    totalQuantity: state.cart.totalQuantity,
+    notes: state.checkout.notes,
+    region: state.cart.region,
+    address: state.cart.currentSetAddress,
+    latlon: state.cart.currentSetLatLon
 });
 
 const mapDispatchToProps = {

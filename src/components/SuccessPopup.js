@@ -1,48 +1,28 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Modal,
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    Platform
-} from 'react-native';
-import { connect } from 'react-redux';
+import { StyleSheet, Text, Image, TouchableOpacity, Platform } from 'react-native';
 
 // Relative Imports
 import Color from '../constants/Color';
-import Style from '../constants/Style';
+import Popup, { styles as PopupStyles } from '../components/Popup';
 import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check.png';
 
 const SIZE = emY(3.44);
-const message = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 type Props = {
     openModal: boolean,
-    closeModal: () => {}
+    closeModal: () => {},
+    showIcon: boolean,
+    message: string,
+    title: string
 };
 
 class SuccessPopup extends Component {
-    state = {
-        modalVisible: false,
-    }
-
-    componentDidMount() {
-        const { openModal } = this.props;
-        this.setState({
-            modalVisible: openModal,
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.openModal !== this.props.openModal) {
-            this.setState({
-                modalVisible: nextProps.openModal
-            });
-        }
-    }
+    static defaultProps = {
+        showIcon: true,
+        confirmText: 'Apply',
+        cancelText: 'Cancel'
+    };
 
     closeModal(apply) {
         this.props.closeModal(apply);
@@ -51,42 +31,27 @@ class SuccessPopup extends Component {
     props: Props;
 
     render() {
-        const { modalVisible } = this.state;
+        const { title, message, showIcon, confirmText, cancelText, ...rest } = this.props;
         return (
-            <Modal
-                animationType="slide"
-                visible={modalVisible}
-                onRequestClose={() => {}}
-                style={styles.modalContainer}
-                transparent
-            >
-                <View style={styles.container}>
-                    <TouchableOpacity
-                        style={Style.backdropContainer}
-                        onPress={() => this.closeModal()}
-                        activeOpacity={1}
-                    >
-                        <Text style={Style.clearText}>.</Text>
-                    </TouchableOpacity>
-                    <View style={styles.innerContainer}>
-                        <Text style={styles.label}>Successful</Text>
-                        <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
-                        <Text style={styles.label}>{message}</Text>
-                        <TouchableOpacity
-                            onPress={() => this.closeModal(true)}
-                            style={[styles.button, { backgroundColor: Color.BLACK }]}
-                        >
-                            <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>Apply</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.closeModal(false)}
-                            style={[styles.button, { backgroundColor: Color.CLEAR }]}
-                        >
-                            <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
+            <Popup {...rest} closeModal={() => this.closeModal(false)}>
+                <Text style={PopupStyles.label}>{title}</Text>
+                {showIcon ? (
+                    <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
+                ) : null}
+                <Text style={PopupStyles.label}>{message}</Text>
+                <TouchableOpacity
+                    onPress={() => this.closeModal(true)}
+                    style={[styles.button, { backgroundColor: Color.BLACK }]}
+                >
+                    <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>{confirmText}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.closeModal(false)}
+                    style={[styles.button, { backgroundColor: Color.CLEAR }]}
+                >
+                    <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>{cancelText}</Text>
+                </TouchableOpacity>
+            </Popup>
         );
     }
 }
@@ -96,7 +61,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Color.CLEAR,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
@@ -118,15 +83,11 @@ const styles = StyleSheet.create({
             }
         })
     },
-    label: {
-        textAlign: 'center',
-        fontSize: emY(1.08),
-        marginVertical: emY(1.58),
-    },
     checkIcon: {
         width: SIZE,
         height: SIZE,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginVertical: emY(1)
     },
     button: {
         height: emY(2.5),
@@ -134,15 +95,11 @@ const styles = StyleSheet.create({
         marginVertical: emY(0.75),
         borderRadius: emY(1.25),
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     buttonLabel: {
-        fontSize: emY(0.96),
+        fontSize: emY(0.96)
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
-};
-
-export default connect(null, mapDispatchToProps)(SuccessPopup);
+export default SuccessPopup;

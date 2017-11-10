@@ -1,181 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapScreen renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <View
-    style={
-        Object {
-            "flex": 1,
-            "justifyContent": "center",
-          }
+<View
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
     }
+  }
 >
-    <ActivityIndicator
-        animating={true}
-        color="#999999"
-        hidesWhenStopped={true}
-        size="large"
-    />
-</View>,
-  "nodes": Array [
-    <View
-      style={
-            Object {
-                  "flex": 1,
-                  "justifyContent": "center",
-                }
-      }
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
+`;
+
+exports[`MapScreen renders correctly address 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
 >
-      <ActivityIndicator
-            animating={true}
-            color="#999999"
-            hidesWhenStopped={true}
-            size="large"
-      />
-</View>,
-  ],
-  "options": Object {
-    "context": Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-    },
-  },
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-      },
-      "_currentElement": <MapScreen
-        getProductsByAddress={[Function]}
-        isMenuOpen={false}
-        predictions={Array []}
-        saveAddress={[Function]}
-        searchVisible={false}
-        toggleSearch={[Function]}
-/>,
-      "_debugID": 3,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": MapScreen {
-        "_reactInternalInstance": [Circular],
-        "afterSetState": [Function],
-        "animate": [Function],
-        "context": Object {},
-        "handleAddress": [Function],
-        "handleAddressFocus": [Function],
-        "onButtonPress": [Function],
-        "onRegionChangeComplete": [Function],
-        "props": Object {
-          "getProductsByAddress": [Function],
-          "isMenuOpen": false,
-          "predictions": Array [],
-          "saveAddress": [Function],
-          "searchVisible": false,
-          "toggleSearch": [Function],
-        },
-        "refs": Object {},
-        "selectPrediction": [Function],
-        "state": Object {
-          "address": "",
-          "mapLoaded": false,
-          "opacity": 1,
-          "region": Object {
-            "latitude": 30.26,
-            "latitudeDelta": 0.25,
-            "longitude": -97.76,
-            "longitudeDelta": 0.1,
-          },
-          "searchRendered": false,
-          "translateY": 0,
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 2,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <View
-          style={
-                    Object {
-                              "flex": 1,
-                              "justifyContent": "center",
-                            }
-          }
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
+`;
+
+exports[`MapScreen renders correctly pending 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
 >
-          <ActivityIndicator
-                    animating={true}
-                    color="#999999"
-                    hidesWhenStopped={true}
-                    size="large"
-          />
-</View>,
-        "_debugID": 4,
-        "_renderedOutput": <View
-          style={
-                    Object {
-                              "flex": 1,
-                              "justifyContent": "center",
-                            }
-          }
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
+`;
+
+exports[`MapScreen renders correctly searchVisible 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
 >
-          <ActivityIndicator
-                    animating={true}
-                    color="#999999"
-                    hidesWhenStopped={true}
-                    size="large"
-          />
-</View>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <MapScreen
-    getProductsByAddress={[Function]}
-    isMenuOpen={false}
-    predictions={Array []}
-    saveAddress={[Function]}
-    searchVisible={false}
-    toggleSearch={[Function]}
-/>,
-}
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
 `;

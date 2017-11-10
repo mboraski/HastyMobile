@@ -8,7 +8,7 @@ import _ from 'lodash';
 import HeroDetail from './HeroDetail';
 import { emY } from '../utils/em';
 
-class HeroList extends Component {
+export class HeroList extends Component {
     state = {
         heroes: [
             {

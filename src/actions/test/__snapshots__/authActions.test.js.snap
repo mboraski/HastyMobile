@@ -3,8 +3,14 @@
 exports[`Testing Auth Actions facebookLogin 1`] = `
 Array [
   Object {
+    "payload": Object {
+      "token": "token",
+    },
+    "type": "login_success",
+  },
+  Object {
     "payload": "token",
-    "type": "facebook_login_success",
+    "type": "login_user",
   },
 ]
 `;

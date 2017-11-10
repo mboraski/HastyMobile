@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
-const getDeliveryType = state => state.product.deliveryType;
+export const getDeliveryType = state => state.product.deliveryType;
 
-const getProducts = state => state.product.list;
+export const getAvailableProducts = state => state.product.availableProducts;
 
 export const getProductsByDeliveryType = createSelector(
-    [getDeliveryType, getProducts],
+    [getDeliveryType, getAvailableProducts],
     (deliveryType, products) => {
         const productsByDeliveryType = products[deliveryType] || {};
         return Object.keys(productsByDeliveryType).map(productCode => ({

@@ -1,495 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProductList renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <ScrollViewMock
-    contentContainerStyle={
-        Object {
-            "alignItems": "flex-start",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "paddingLeft": 20,
-            "paddingRight": 5,
-          }
+<ScrollViewMock
+  contentContainerStyle={
+    Object {
+      "alignItems": "flex-start",
+      "flexDirection": "row",
+      "flexWrap": "wrap",
+      "paddingLeft": 20,
+      "paddingRight": 5,
     }
+  }
 >
-    <ProductDetail
-        added={undefined}
-        onPress={[Function]}
-        product={
-            Object {
-                "price": "$3.49",
-                "productCode": "1",
-                "quantity": 1,
-                "thumbnail_image": "image",
-                "title": "Type 1 code 1",
-              }
-        }
-        style={
-            Object {
-                "marginBottom": 10,
-                "marginRight": 8,
-                "width": 354,
-              }
-        }
-    />
-</ScrollViewMock>,
-  "nodes": Array [
-    <ScrollViewMock
-      contentContainerStyle={
-            Object {
-                  "alignItems": "flex-start",
-                  "flexDirection": "row",
-                  "flexWrap": "wrap",
-                  "paddingLeft": 20,
-                  "paddingRight": 5,
-                }
+  <ProductDetail
+    key="1"
+    onPress={[Function]}
+    product={
+      Object {
+        "price": "$3.49",
+        "productCode": "1",
+        "quantity": 1,
+        "thumbnail_image": "image",
+        "title": "Type 1 code 1",
       }
->
-      <ProductDetail
-            added={undefined}
-            onPress={[Function]}
-            product={
-                  Object {
-                        "price": "$3.49",
-                        "productCode": "1",
-                        "quantity": 1,
-                        "thumbnail_image": "image",
-                        "title": "Type 1 code 1",
-                      }
-            }
-            style={
-                  Object {
-                        "marginBottom": 10,
-                        "marginRight": 8,
-                        "width": 354,
-                      }
-            }
-      />
-</ScrollViewMock>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <ProductList
-        cart={
-                Object {
-                        "products": Object {},
-                        "totalProducts": 0,
-                      }
-        }
-        products={
-                Array [
-                        Object {
-                          "price": "$3.49",
-                          "productCode": "1",
-                          "quantity": 1,
-                          "thumbnail_image": "image",
-                          "title": "Type 1 code 1",
-                        },
-                      ]
-        }
-/>,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": ProductList {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "cart": Object {
-            "products": Object {},
-            "totalProducts": 0,
-          },
-          "products": Array [
-            Object {
-              "price": "$3.49",
-              "productCode": "1",
-              "quantity": 1,
-              "thumbnail_image": "image",
-              "title": "Type 1 code 1",
-            },
-          ],
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <ScrollViewMock
-          contentContainerStyle={
-                    Object {
-                              "alignItems": "flex-start",
-                              "flexDirection": "row",
-                              "flexWrap": "wrap",
-                              "paddingLeft": 20,
-                              "paddingRight": 5,
-                            }
-          }
->
-          <ProductDetail
-                    added={undefined}
-                    onPress={[Function]}
-                    product={
-                              Object {
-                                        "price": "$3.49",
-                                        "productCode": "1",
-                                        "quantity": 1,
-                                        "thumbnail_image": "image",
-                                        "title": "Type 1 code 1",
-                                      }
-                    }
-                    style={
-                              Object {
-                                        "marginBottom": 10,
-                                        "marginRight": 8,
-                                        "width": 354,
-                                      }
-                    }
-          />
-</ScrollViewMock>,
-        "_debugID": 2,
-        "_renderedOutput": <ScrollViewMock
-          contentContainerStyle={
-                    Object {
-                              "alignItems": "flex-start",
-                              "flexDirection": "row",
-                              "flexWrap": "wrap",
-                              "paddingLeft": 20,
-                              "paddingRight": 5,
-                            }
-          }
->
-          <ProductDetail
-                    added={undefined}
-                    onPress={[Function]}
-                    product={
-                              Object {
-                                        "price": "$3.49",
-                                        "productCode": "1",
-                                        "quantity": 1,
-                                        "thumbnail_image": "image",
-                                        "title": "Type 1 code 1",
-                                      }
-                    }
-                    style={
-                              Object {
-                                        "marginBottom": 10,
-                                        "marginRight": 8,
-                                        "width": 354,
-                                      }
-                    }
-          />
-</ScrollViewMock>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <ProductList
-    cart={
-        Object {
-            "products": Object {},
-            "totalProducts": 0,
-          }
     }
-    products={
-        Array [
-            Object {
-              "price": "$3.49",
-              "productCode": "1",
-              "quantity": 1,
-              "thumbnail_image": "image",
-              "title": "Type 1 code 1",
-            },
-          ]
+    style={
+      Object {
+        "marginBottom": 10,
+        "marginRight": 8,
+        "width": 139,
+      }
     }
-/>,
-}
+  />
+</ScrollViewMock>
 `;
 
 exports[`ProductList renders correctly with selected item 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <ScrollViewMock
-    contentContainerStyle={
-        Object {
-            "alignItems": "flex-start",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "paddingLeft": 20,
-            "paddingRight": 5,
-          }
+<ScrollViewMock
+  contentContainerStyle={
+    Object {
+      "alignItems": "flex-start",
+      "flexDirection": "row",
+      "flexWrap": "wrap",
+      "paddingLeft": 20,
+      "paddingRight": 5,
     }
+  }
 >
-    <ProductDetail
-        added={undefined}
-        onPress={[Function]}
-        product={
-            Object {
-                "price": "$3.49",
-                "productCode": "1",
-                "quantity": 1,
-                "thumbnail_image": "image",
-                "title": "Type 1 code 1",
-              }
-        }
-        style={
-            Object {
-                "marginBottom": 10,
-                "marginRight": 8,
-                "width": 354,
-              }
-        }
-    />
-</ScrollViewMock>,
-  "nodes": Array [
-    <ScrollViewMock
-      contentContainerStyle={
-            Object {
-                  "alignItems": "flex-start",
-                  "flexDirection": "row",
-                  "flexWrap": "wrap",
-                  "paddingLeft": 20,
-                  "paddingRight": 5,
-                }
+  <ProductDetail
+    key="1"
+    onPress={[Function]}
+    product={
+      Object {
+        "price": "$3.49",
+        "productCode": "1",
+        "quantity": 1,
+        "thumbnail_image": "image",
+        "title": "Type 1 code 1",
       }
->
-      <ProductDetail
-            added={undefined}
-            onPress={[Function]}
-            product={
-                  Object {
-                        "price": "$3.49",
-                        "productCode": "1",
-                        "quantity": 1,
-                        "thumbnail_image": "image",
-                        "title": "Type 1 code 1",
-                      }
-            }
-            style={
-                  Object {
-                        "marginBottom": 10,
-                        "marginRight": 8,
-                        "width": 354,
-                      }
-            }
-      />
-</ScrollViewMock>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <ProductList
-        cart={
-                Object {
-                        "products": Object {
-                          "1": Object {
-                            "1": Object {
-                              "quantity": 1,
-                            },
-                          },
-                        },
-                        "totalProducts": 1,
-                      }
-        }
-        products={
-                Array [
-                        Object {
-                          "price": "$3.49",
-                          "productCode": "1",
-                          "quantity": 1,
-                          "thumbnail_image": "image",
-                          "title": "Type 1 code 1",
-                        },
-                      ]
-        }
-/>,
-      "_debugID": 3,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": ProductList {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "cart": Object {
-            "products": Object {
-              "1": Object {
-                "1": Object {
-                  "quantity": 1,
-                },
-              },
-            },
-            "totalProducts": 1,
-          },
-          "products": Array [
-            Object {
-              "price": "$3.49",
-              "productCode": "1",
-              "quantity": 1,
-              "thumbnail_image": "image",
-              "title": "Type 1 code 1",
-            },
-          ],
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 2,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <ScrollViewMock
-          contentContainerStyle={
-                    Object {
-                              "alignItems": "flex-start",
-                              "flexDirection": "row",
-                              "flexWrap": "wrap",
-                              "paddingLeft": 20,
-                              "paddingRight": 5,
-                            }
-          }
->
-          <ProductDetail
-                    added={undefined}
-                    onPress={[Function]}
-                    product={
-                              Object {
-                                        "price": "$3.49",
-                                        "productCode": "1",
-                                        "quantity": 1,
-                                        "thumbnail_image": "image",
-                                        "title": "Type 1 code 1",
-                                      }
-                    }
-                    style={
-                              Object {
-                                        "marginBottom": 10,
-                                        "marginRight": 8,
-                                        "width": 354,
-                                      }
-                    }
-          />
-</ScrollViewMock>,
-        "_debugID": 4,
-        "_renderedOutput": <ScrollViewMock
-          contentContainerStyle={
-                    Object {
-                              "alignItems": "flex-start",
-                              "flexDirection": "row",
-                              "flexWrap": "wrap",
-                              "paddingLeft": 20,
-                              "paddingRight": 5,
-                            }
-          }
->
-          <ProductDetail
-                    added={undefined}
-                    onPress={[Function]}
-                    product={
-                              Object {
-                                        "price": "$3.49",
-                                        "productCode": "1",
-                                        "quantity": 1,
-                                        "thumbnail_image": "image",
-                                        "title": "Type 1 code 1",
-                                      }
-                    }
-                    style={
-                              Object {
-                                        "marginBottom": 10,
-                                        "marginRight": 8,
-                                        "width": 354,
-                                      }
-                    }
-          />
-</ScrollViewMock>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <ProductList
-    cart={
-        Object {
-            "products": Object {
-              "1": Object {
-                "1": Object {
-                  "quantity": 1,
-                },
-              },
-            },
-            "totalProducts": 1,
-          }
     }
-    products={
-        Array [
-            Object {
-              "price": "$3.49",
-              "productCode": "1",
-              "quantity": 1,
-              "thumbnail_image": "image",
-              "title": "Type 1 code 1",
-            },
-          ]
+    style={
+      Object {
+        "marginBottom": 10,
+        "marginRight": 8,
+        "width": 139,
+      }
     }
-/>,
-}
+  />
+</ScrollViewMock>
 `;

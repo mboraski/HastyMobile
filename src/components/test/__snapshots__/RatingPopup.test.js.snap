@@ -1,1121 +1,262 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RatingPopup renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <Component
-    animationType="slide"
-    hardwareAccelerated={false}
-    onRequestClose={[Function]}
-    style={undefined}
-    transparent={true}
-    visible={false}
+<Component
+  animationType="slide"
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
 >
-    <View
-        style={
-            Object {
-                "alignItems": "center",
-                "backgroundColor": "rgba(0, 0, 0, 0)",
-                "flex": 1,
-                "justifyContent": "center",
-              }
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={[Function]}
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
         }
+      }
     >
-        <TouchableOpacity
-            activeOpacity={1}
-            focusedOpacity={0.7}
-            onPress={[Function]}
-            style={
-                Object {
-                    "bottom": 0,
-                    "left": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                  }
-            }
-        >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "color": "rgba(0, 0, 0, 0)",
-                      }
-                }
-            >
-                .
-            </Text>
-        </TouchableOpacity>
-        <View
-            style={
-                Object {
-                    "alignSelf": "stretch",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 4,
-                    "justifyContent": "center",
-                    "marginHorizontal": 22,
-                    "paddingHorizontal": 17,
-                    "paddingVertical": 18.08,
-                    "shadowColor": "#000",
-                    "shadowOffset": Object {
-                      "height": 10,
-                      "width": 0,
-                    },
-                    "shadowOpacity": 0.5,
-                    "shadowRadius": 24,
-                  }
-            }
-        >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "fontSize": 17.28,
-                        "marginVertical": 25.28,
-                        "textAlign": "center",
-                      }
-                }
-            >
-                How would you like to rate us?
-            </Text>
-            <View
-                style={
-                    Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "justifyContent": "center",
-                        "marginVertical": 12.8,
-                      }
-                }
-            >
-                <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                        Object {
-                            "alignItems": "center",
-                            "backgroundColor": "#000000",
-                            "borderRadius": 26.4,
-                            "height": 52.8,
-                            "justifyContent": "center",
-                            "marginHorizontal": 5,
-                            "width": 52.8,
-                          }
-                    }
-                >
-                    <Image
-                        resizeMode="contain"
-                        source={1}
-                        style={
-                            Array [
-                                Object {
-                                  "height": 25.28,
-                                  "width": 25.28,
-                                },
-                                null,
-                              ]
-                        }
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                        Object {
-                            "alignItems": "center",
-                            "backgroundColor": "#000000",
-                            "borderRadius": 26.4,
-                            "height": 52.8,
-                            "justifyContent": "center",
-                            "marginHorizontal": 5,
-                            "width": 52.8,
-                          }
-                    }
-                >
-                    <Image
-                        resizeMode="contain"
-                        source={1}
-                        style={
-                            Array [
-                                Object {
-                                  "height": 25.28,
-                                  "width": 25.28,
-                                },
-                                null,
-                              ]
-                        }
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                        Object {
-                            "alignItems": "center",
-                            "backgroundColor": "#000000",
-                            "borderRadius": 26.4,
-                            "height": 52.8,
-                            "justifyContent": "center",
-                            "marginHorizontal": 5,
-                            "width": 52.8,
-                          }
-                    }
-                >
-                    <Image
-                        resizeMode="contain"
-                        source={1}
-                        style={
-                            Array [
-                                Object {
-                                  "height": 25.28,
-                                  "width": 25.28,
-                                },
-                                null,
-                              ]
-                        }
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                        Object {
-                            "alignItems": "center",
-                            "backgroundColor": "#000000",
-                            "borderRadius": 26.4,
-                            "height": 52.8,
-                            "justifyContent": "center",
-                            "marginHorizontal": 5,
-                            "width": 52.8,
-                          }
-                    }
-                >
-                    <Image
-                        resizeMode="contain"
-                        source={1}
-                        style={
-                            Array [
-                                Object {
-                                  "height": 25.28,
-                                  "width": 25.28,
-                                },
-                                null,
-                              ]
-                        }
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.2}
-                    focusedOpacity={0.7}
-                    onPress={[Function]}
-                    style={
-                        Object {
-                            "alignItems": "center",
-                            "backgroundColor": "#000000",
-                            "borderRadius": 26.4,
-                            "height": 52.8,
-                            "justifyContent": "center",
-                            "marginHorizontal": 5,
-                            "width": 52.8,
-                          }
-                    }
-                >
-                    <Image
-                        resizeMode="contain"
-                        source={1}
-                        style={
-                            Array [
-                                Object {
-                                  "height": 25.28,
-                                  "width": 25.28,
-                                },
-                                null,
-                              ]
-                        }
-                    />
-                </TouchableOpacity>
-            </View>
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "fontSize": 17.28,
-                        "marginVertical": 25.28,
-                        "textAlign": "center",
-                      }
-                }
-            >
-                Tap the number of stars you would give us on scale from 1-5
-            </Text>
-        </View>
-    </View>
-</Component>,
-  "nodes": Array [
-    <Component
-      animationType="slide"
-      hardwareAccelerated={false}
-      onRequestClose={[Function]}
-      style={undefined}
-      transparent={true}
-      visible={false}
->
-      <View
-            style={
-                  Object {
-                        "alignItems": "center",
-                        "backgroundColor": "rgba(0, 0, 0, 0)",
-                        "flex": 1,
-                        "justifyContent": "center",
-                      }
-            }
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0)",
+          }
+        }
       >
-            <TouchableOpacity
-                  activeOpacity={1}
-                  focusedOpacity={0.7}
-                  onPress={[Function]}
-                  style={
-                        Object {
-                              "bottom": 0,
-                              "left": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                  }
-            >
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Object {
-                                    "color": "rgba(0, 0, 0, 0)",
-                                  }
-                        }
-                  >
-                        .
-                  </Text>
-            </TouchableOpacity>
-            <View
-                  style={
-                        Object {
-                              "alignSelf": "stretch",
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 4,
-                              "justifyContent": "center",
-                              "marginHorizontal": 22,
-                              "paddingHorizontal": 17,
-                              "paddingVertical": 18.08,
-                              "shadowColor": "#000",
-                              "shadowOffset": Object {
-                                "height": 10,
-                                "width": 0,
-                              },
-                              "shadowOpacity": 0.5,
-                              "shadowRadius": 24,
-                            }
-                  }
-            >
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Object {
-                                    "fontSize": 17.28,
-                                    "marginVertical": 25.28,
-                                    "textAlign": "center",
-                                  }
-                        }
-                  >
-                        How would you like to rate us?
-                  </Text>
-                  <View
-                        style={
-                              Object {
-                                    "alignItems": "center",
-                                    "flexDirection": "row",
-                                    "justifyContent": "center",
-                                    "marginVertical": 12.8,
-                                  }
-                        }
-                  >
-                        <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                    Object {
-                                          "alignItems": "center",
-                                          "backgroundColor": "#000000",
-                                          "borderRadius": 26.4,
-                                          "height": 52.8,
-                                          "justifyContent": "center",
-                                          "marginHorizontal": 5,
-                                          "width": 52.8,
-                                        }
-                              }
-                        >
-                              <Image
-                                    resizeMode="contain"
-                                    source={1}
-                                    style={
-                                          Array [
-                                                Object {
-                                                  "height": 25.28,
-                                                  "width": 25.28,
-                                                },
-                                                null,
-                                              ]
-                                    }
-                              />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                    Object {
-                                          "alignItems": "center",
-                                          "backgroundColor": "#000000",
-                                          "borderRadius": 26.4,
-                                          "height": 52.8,
-                                          "justifyContent": "center",
-                                          "marginHorizontal": 5,
-                                          "width": 52.8,
-                                        }
-                              }
-                        >
-                              <Image
-                                    resizeMode="contain"
-                                    source={1}
-                                    style={
-                                          Array [
-                                                Object {
-                                                  "height": 25.28,
-                                                  "width": 25.28,
-                                                },
-                                                null,
-                                              ]
-                                    }
-                              />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                    Object {
-                                          "alignItems": "center",
-                                          "backgroundColor": "#000000",
-                                          "borderRadius": 26.4,
-                                          "height": 52.8,
-                                          "justifyContent": "center",
-                                          "marginHorizontal": 5,
-                                          "width": 52.8,
-                                        }
-                              }
-                        >
-                              <Image
-                                    resizeMode="contain"
-                                    source={1}
-                                    style={
-                                          Array [
-                                                Object {
-                                                  "height": 25.28,
-                                                  "width": 25.28,
-                                                },
-                                                null,
-                                              ]
-                                    }
-                              />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                    Object {
-                                          "alignItems": "center",
-                                          "backgroundColor": "#000000",
-                                          "borderRadius": 26.4,
-                                          "height": 52.8,
-                                          "justifyContent": "center",
-                                          "marginHorizontal": 5,
-                                          "width": 52.8,
-                                        }
-                              }
-                        >
-                              <Image
-                                    resizeMode="contain"
-                                    source={1}
-                                    style={
-                                          Array [
-                                                Object {
-                                                  "height": 25.28,
-                                                  "width": 25.28,
-                                                },
-                                                null,
-                                              ]
-                                    }
-                              />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                              activeOpacity={0.2}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                    Object {
-                                          "alignItems": "center",
-                                          "backgroundColor": "#000000",
-                                          "borderRadius": 26.4,
-                                          "height": 52.8,
-                                          "justifyContent": "center",
-                                          "marginHorizontal": 5,
-                                          "width": 52.8,
-                                        }
-                              }
-                        >
-                              <Image
-                                    resizeMode="contain"
-                                    source={1}
-                                    style={
-                                          Array [
-                                                Object {
-                                                  "height": 25.28,
-                                                  "width": 25.28,
-                                                },
-                                                null,
-                                              ]
-                                    }
-                              />
-                        </TouchableOpacity>
-                  </View>
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Object {
-                                    "fontSize": 17.28,
-                                    "marginVertical": 25.28,
-                                    "textAlign": "center",
-                                  }
-                        }
-                  >
-                        Tap the number of stars you would give us on scale from 1-5
-                  </Text>
-            </View>
+        .
+      </Text>
+    </TouchableOpacity>
+    <View
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "backgroundColor": "#ffffff",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "marginHorizontal": 22,
+          "paddingHorizontal": 17,
+          "paddingVertical": 18.08,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 0.5,
+          "shadowRadius": 24,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 17.28,
+            "marginVertical": 25.28,
+            "textAlign": "center",
+          }
+        }
+      >
+        How would you like to rate us?
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginVertical": 12.8,
+          }
+        }
+      >
+        <TouchableOpacity
+          activeOpacity={0.2}
+          key="0"
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#000000",
+              "borderRadius": 26.4,
+              "height": 52.8,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 52.8,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 25.28,
+                  "width": 25.28,
+                },
+                null,
+              ]
+            }
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          key="1"
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#000000",
+              "borderRadius": 26.4,
+              "height": 52.8,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 52.8,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 25.28,
+                  "width": 25.28,
+                },
+                null,
+              ]
+            }
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          key="2"
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#000000",
+              "borderRadius": 26.4,
+              "height": 52.8,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 52.8,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 25.28,
+                  "width": 25.28,
+                },
+                null,
+              ]
+            }
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          key="3"
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#000000",
+              "borderRadius": 26.4,
+              "height": 52.8,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 52.8,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 25.28,
+                  "width": 25.28,
+                },
+                null,
+              ]
+            }
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          key="4"
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#000000",
+              "borderRadius": 26.4,
+              "height": 52.8,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 52.8,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 25.28,
+                  "width": 25.28,
+                },
+                null,
+              ]
+            }
+          />
+        </TouchableOpacity>
       </View>
-</Component>,
-  ],
-  "options": Object {
-    "context": Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-    },
-  },
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-      },
-      "_currentElement": <RatingPopup
-        closeModal={[Function]}
-        openModal={true}
-/>,
-      "_debugID": 3,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": RatingPopup {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "closeModal": [Function],
-          "openModal": true,
-        },
-        "refs": Object {},
-        "state": Object {
-          "modalVisible": false,
-          "rate": 0,
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 2,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Component
-          animationType="slide"
-          hardwareAccelerated={false}
-          onRequestClose={[Function]}
-          style={undefined}
-          transparent={true}
-          visible={false}
->
-          <View
-                    style={
-                              Object {
-                                        "alignItems": "center",
-                                        "backgroundColor": "rgba(0, 0, 0, 0)",
-                                        "flex": 1,
-                                        "justifyContent": "center",
-                                      }
-                    }
-          >
-                    <TouchableOpacity
-                              activeOpacity={1}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                        Object {
-                                                  "bottom": 0,
-                                                  "left": 0,
-                                                  "position": "absolute",
-                                                  "right": 0,
-                                                  "top": 0,
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "color": "rgba(0, 0, 0, 0)",
-                                                          }
-                                        }
-                              >
-                                        .
-                              </Text>
-                    </TouchableOpacity>
-                    <View
-                              style={
-                                        Object {
-                                                  "alignSelf": "stretch",
-                                                  "backgroundColor": "#ffffff",
-                                                  "borderRadius": 4,
-                                                  "justifyContent": "center",
-                                                  "marginHorizontal": 22,
-                                                  "paddingHorizontal": 17,
-                                                  "paddingVertical": 18.08,
-                                                  "shadowColor": "#000",
-                                                  "shadowOffset": Object {
-                                                    "height": 10,
-                                                    "width": 0,
-                                                  },
-                                                  "shadowOpacity": 0.5,
-                                                  "shadowRadius": 24,
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "fontSize": 17.28,
-                                                            "marginVertical": 25.28,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        How would you like to rate us?
-                              </Text>
-                              <View
-                                        style={
-                                                  Object {
-                                                            "alignItems": "center",
-                                                            "flexDirection": "row",
-                                                            "justifyContent": "center",
-                                                            "marginVertical": 12.8,
-                                                          }
-                                        }
-                              >
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                              </View>
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "fontSize": 17.28,
-                                                            "marginVertical": 25.28,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        Tap the number of stars you would give us on scale from 1-5
-                              </Text>
-                    </View>
-          </View>
-</Component>,
-        "_debugID": 4,
-        "_renderedOutput": <Component
-          animationType="slide"
-          hardwareAccelerated={false}
-          onRequestClose={[Function]}
-          style={undefined}
-          transparent={true}
-          visible={false}
->
-          <View
-                    style={
-                              Object {
-                                        "alignItems": "center",
-                                        "backgroundColor": "rgba(0, 0, 0, 0)",
-                                        "flex": 1,
-                                        "justifyContent": "center",
-                                      }
-                    }
-          >
-                    <TouchableOpacity
-                              activeOpacity={1}
-                              focusedOpacity={0.7}
-                              onPress={[Function]}
-                              style={
-                                        Object {
-                                                  "bottom": 0,
-                                                  "left": 0,
-                                                  "position": "absolute",
-                                                  "right": 0,
-                                                  "top": 0,
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "color": "rgba(0, 0, 0, 0)",
-                                                          }
-                                        }
-                              >
-                                        .
-                              </Text>
-                    </TouchableOpacity>
-                    <View
-                              style={
-                                        Object {
-                                                  "alignSelf": "stretch",
-                                                  "backgroundColor": "#ffffff",
-                                                  "borderRadius": 4,
-                                                  "justifyContent": "center",
-                                                  "marginHorizontal": 22,
-                                                  "paddingHorizontal": 17,
-                                                  "paddingVertical": 18.08,
-                                                  "shadowColor": "#000",
-                                                  "shadowOffset": Object {
-                                                    "height": 10,
-                                                    "width": 0,
-                                                  },
-                                                  "shadowOpacity": 0.5,
-                                                  "shadowRadius": 24,
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "fontSize": 17.28,
-                                                            "marginVertical": 25.28,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        How would you like to rate us?
-                              </Text>
-                              <View
-                                        style={
-                                                  Object {
-                                                            "alignItems": "center",
-                                                            "flexDirection": "row",
-                                                            "justifyContent": "center",
-                                                            "marginVertical": 12.8,
-                                                          }
-                                        }
-                              >
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                                  activeOpacity={0.2}
-                                                  focusedOpacity={0.7}
-                                                  onPress={[Function]}
-                                                  style={
-                                                            Object {
-                                                                      "alignItems": "center",
-                                                                      "backgroundColor": "#000000",
-                                                                      "borderRadius": 26.4,
-                                                                      "height": 52.8,
-                                                                      "justifyContent": "center",
-                                                                      "marginHorizontal": 5,
-                                                                      "width": 52.8,
-                                                                    }
-                                                  }
-                                        >
-                                                  <Image
-                                                            resizeMode="contain"
-                                                            source={1}
-                                                            style={
-                                                                      Array [
-                                                                                Object {
-                                                                                  "height": 25.28,
-                                                                                  "width": 25.28,
-                                                                                },
-                                                                                null,
-                                                                              ]
-                                                            }
-                                                  />
-                                        </TouchableOpacity>
-                              </View>
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "fontSize": 17.28,
-                                                            "marginVertical": 25.28,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        Tap the number of stars you would give us on scale from 1-5
-                              </Text>
-                    </View>
-          </View>
-</Component>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <RatingPopup
-    closeModal={[Function]}
-    openModal={true}
-/>,
-}
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 17.28,
+            "marginVertical": 25.28,
+            "textAlign": "center",
+          }
+        }
+      >
+        Tap the number of stars you would give us on scale from 1-5
+      </Text>
+    </View>
+  </View>
+</Component>
 `;

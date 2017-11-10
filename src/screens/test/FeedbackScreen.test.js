@@ -1,20 +1,17 @@
 import 'react-native';
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
 
-import FeedbackScreen from '../FeedbackScreen';
-
-const initialState = {};
+import { FeedbackScreen } from '../FeedbackScreen';
 
 describe('FeedbackScreen', () => {
-    const middlewares = [];
-    const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<FeedbackScreen />, {
-            context: { store: mockStore(initialState) }
-        });
-        const render = wrapper.dive();
+        const props = {
+            name: 'Jessica',
+            numProducts: 1,
+            feedbackFormVisible: true
+        };
+        const render = shallow(<FeedbackScreen {...props} />);
         expect(render).toMatchSnapshot();
     });
 });

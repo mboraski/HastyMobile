@@ -9,7 +9,6 @@ import MenuNavigator from '../navigations/MenuNavigator';
 import CustomerPopup from '../components/CustomerPopup';
 import { closeCustomerPopup as closeCustomerPopupAction } from '../actions/uiActions';
 
-
 class RootContainer extends Component {
     state = {
         drawerOpen: false,

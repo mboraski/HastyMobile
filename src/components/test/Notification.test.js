@@ -1,20 +1,16 @@
 import 'react-native';
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
 
-import Notification from '../Notification';
-
-const initialState = {};
+import { Notification } from '../Notification';
 
 describe('Notification', () => {
-    const middlewares = [];
-    const mockStore = configureStore(middlewares);
     it('renders correctly', () => {
-        const wrapper = shallow(<Notification />, {
-            context: { store: mockStore(initialState) }
-        });
-        const render = wrapper.dive();
+        const props = {
+            i: 0,
+            onRef: jest.fn()
+        };
+        const render = shallow(<Notification {...props} />);
         expect(render).toMatchSnapshot();
     });
 });

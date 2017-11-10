@@ -3,2027 +3,383 @@
 exports[`AuthScreen can open SignInForm 1`] = `Array []`;
 
 exports[`AuthScreen can open SignInForm 2`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <ScrollViewMock
-    keyboardDismissMode="on-drag"
-    style={
-        Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-          }
+<ScrollViewMock
+  keyboardDismissMode="on-drag"
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
     }
+  }
 >
-    <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={0}
-        style={
-            Object {
-                "backgroundColor": "#fff",
-                "flex": 1,
-              }
-        }
-    >
-        <Image
-            source={
-                Object {
-                    "uri": "https://source.unsplash.com/random/800x600",
-                  }
-            }
-            style={
-                Object {
-                    "alignItems": "center",
-                    "height": 333.5,
-                    "justifyContent": "center",
-                  }
-            }
-        >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "backgroundColor": "transparent",
-                        "color": "white",
-                        "fontSize": 35,
-                        "letterSpacing": 5,
-                        "textAlign": "center",
-                      }
-                }
-            >
-                HELLO
-            </Text>
-        </Image>
-        <View
-            style={
-                Object {
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "paddingVertical": 28.8,
-                  }
-            }
-        >
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        Object {
-                          "backgroundColor": "#999999",
-                          "borderColor": "#fff",
-                        },
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        Object {
-                          "color": "#fff",
-                        },
-                      ]
-                }
-                title="Sign Up"
-            />
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        null,
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        null,
-                      ]
-                }
-                title="Log In"
-            />
-        </View>
-        <Connect(ReduxForm)
-            onAuthSuccess={[Function]}
-        />
-    </KeyboardAvoidingView>
-</ScrollViewMock>,
-  "nodes": Array [
-    <ScrollViewMock
-      keyboardDismissMode="on-drag"
-      style={
-            Object {
-                  "backgroundColor": "#fff",
-                  "flex": 1,
-                }
+  <KeyboardAvoidingView
+    behavior="position"
+    keyboardVerticalOffset={0}
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
->
-      <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={0}
-            style={
-                  Object {
-                        "backgroundColor": "#fff",
-                        "flex": 1,
-                      }
-            }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "uri": "https://source.unsplash.com/random/800x600",
+        }
+      }
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 192,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "backgroundColor": "transparent",
+            "color": "white",
+            "fontSize": 35,
+            "letterSpacing": 5,
+            "textAlign": "center",
+          }
+        }
       >
-            <Image
-                  source={
-                        Object {
-                              "uri": "https://source.unsplash.com/random/800x600",
-                            }
-                  }
-                  style={
-                        Object {
-                              "alignItems": "center",
-                              "height": 333.5,
-                              "justifyContent": "center",
-                            }
-                  }
-            >
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Object {
-                                    "backgroundColor": "transparent",
-                                    "color": "white",
-                                    "fontSize": 35,
-                                    "letterSpacing": 5,
-                                    "textAlign": "center",
-                                  }
-                        }
-                  >
-                        HELLO
-                  </Text>
-            </Image>
-            <View
-                  style={
-                        Object {
-                              "flexDirection": "row",
-                              "justifyContent": "center",
-                              "paddingVertical": 28.8,
-                            }
-                  }
-            >
-                  <Button
-                        buttonStyle={
-                              Array [
-                                    Object {
-                                      "backgroundColor": "#fff",
-                                      "borderColor": "#999999",
-                                      "borderRadius": 25,
-                                      "borderWidth": 0.5,
-                                      "minWidth": 120,
-                                    },
-                                    Object {
-                                      "backgroundColor": "#999999",
-                                      "borderColor": "#fff",
-                                    },
-                                  ]
-                        }
-                        onPress={[Function]}
-                        textStyle={
-                              Array [
-                                    Object {
-                                      "color": "#999999",
-                                      "fontSize": 14,
-                                    },
-                                    Object {
-                                      "color": "#fff",
-                                    },
-                                  ]
-                        }
-                        title="Sign Up"
-                  />
-                  <Button
-                        buttonStyle={
-                              Array [
-                                    Object {
-                                      "backgroundColor": "#fff",
-                                      "borderColor": "#999999",
-                                      "borderRadius": 25,
-                                      "borderWidth": 0.5,
-                                      "minWidth": 120,
-                                    },
-                                    null,
-                                  ]
-                        }
-                        onPress={[Function]}
-                        textStyle={
-                              Array [
-                                    Object {
-                                      "color": "#999999",
-                                      "fontSize": 14,
-                                    },
-                                    null,
-                                  ]
-                        }
-                        title="Log In"
-                  />
-            </View>
-            <Connect(ReduxForm)
-                  onAuthSuccess={[Function]}
-            />
-      </KeyboardAvoidingView>
-</ScrollViewMock>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <AuthScreen
-        openSignUpForm={[Function]}
-/>,
-      "_debugID": 7,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": AuthScreen {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "goToMap": [Function],
-        "openSignInForm": [Function],
-        "openSignUpForm": [Function],
-        "props": Object {
-          "openSignUpForm": [Function],
-        },
-        "refs": Object {},
-        "state": Object {
-          "signUp": false,
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 4,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <ScrollViewMock
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <KeyboardAvoidingView
-                    behavior="position"
-                    keyboardVerticalOffset={0}
-                    style={
-                              Object {
-                                        "backgroundColor": "#fff",
-                                        "flex": 1,
-                                      }
-                    }
-          >
-                    <Image
-                              source={
-                                        Object {
-                                                  "uri": "https://source.unsplash.com/random/800x600",
-                                                }
-                              }
-                              style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "height": 333.5,
-                                                  "justifyContent": "center",
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "backgroundColor": "transparent",
-                                                            "color": "white",
-                                                            "fontSize": 35,
-                                                            "letterSpacing": 5,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        HELLO
-                              </Text>
-                    </Image>
-                    <View
-                              style={
-                                        Object {
-                                                  "flexDirection": "row",
-                                                  "justifyContent": "center",
-                                                  "paddingVertical": 28.8,
-                                                }
-                              }
-                    >
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        title="Sign Up"
-                              />
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            Object {
-                                                              "backgroundColor": "#999999",
-                                                              "borderColor": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            Object {
-                                                              "color": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        title="Log In"
-                              />
-                    </View>
-                    <ReduxForm
-                              onAuthSuccess={[Function]}
-                    />
-          </KeyboardAvoidingView>
-</ScrollViewMock>,
-        "_debugID": 8,
-        "_renderedOutput": <ScrollViewMock
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <KeyboardAvoidingView
-                    behavior="position"
-                    keyboardVerticalOffset={0}
-                    style={
-                              Object {
-                                        "backgroundColor": "#fff",
-                                        "flex": 1,
-                                      }
-                    }
-          >
-                    <Image
-                              source={
-                                        Object {
-                                                  "uri": "https://source.unsplash.com/random/800x600",
-                                                }
-                              }
-                              style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "height": 333.5,
-                                                  "justifyContent": "center",
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "backgroundColor": "transparent",
-                                                            "color": "white",
-                                                            "fontSize": 35,
-                                                            "letterSpacing": 5,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        HELLO
-                              </Text>
-                    </Image>
-                    <View
-                              style={
-                                        Object {
-                                                  "flexDirection": "row",
-                                                  "justifyContent": "center",
-                                                  "paddingVertical": 28.8,
-                                                }
-                              }
-                    >
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        title="Sign Up"
-                              />
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            Object {
-                                                              "backgroundColor": "#999999",
-                                                              "borderColor": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            Object {
-                                                              "color": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        title="Log In"
-                              />
-                    </View>
-                    <ReduxForm
-                              onAuthSuccess={[Function]}
-                    />
-          </KeyboardAvoidingView>
-</ScrollViewMock>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <AuthScreen
-    openSignUpForm={[Function]}
-/>,
-}
+        HELLO
+      </Text>
+    </Image>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingVertical": 16,
+        }
+      }
+    >
+      <Button
+        buttonStyle={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#999999",
+              "borderRadius": 25,
+              "borderWidth": 0.5,
+              "height": 40,
+              "minWidth": 120,
+            },
+            Object {
+              "backgroundColor": "#999999",
+              "borderColor": "#fff",
+            },
+          ]
+        }
+        onPress={[Function]}
+        textStyle={
+          Array [
+            Object {
+              "color": "#999999",
+              "fontSize": 14,
+            },
+            Object {
+              "color": "#fff",
+            },
+          ]
+        }
+        title="Sign Up"
+      />
+      <Button
+        buttonStyle={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#999999",
+              "borderRadius": 25,
+              "borderWidth": 0.5,
+              "height": 40,
+              "minWidth": 120,
+            },
+            null,
+          ]
+        }
+        onPress={[Function]}
+        textStyle={
+          Array [
+            Object {
+              "color": "#999999",
+              "fontSize": 14,
+            },
+            null,
+          ]
+        }
+        title="Log In"
+      />
+    </View>
+    <Connect(ReduxForm)
+      onAuthSuccess={[Function]}
+    />
+  </KeyboardAvoidingView>
+</ScrollViewMock>
 `;
 
 exports[`AuthScreen can open SignUpForm 1`] = `Array []`;
 
 exports[`AuthScreen can open SignUpForm 2`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <ScrollViewMock
-    keyboardDismissMode="on-drag"
-    style={
-        Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-          }
+<ScrollViewMock
+  keyboardDismissMode="on-drag"
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
     }
+  }
 >
-    <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={0}
-        style={
-            Object {
-                "backgroundColor": "#fff",
-                "flex": 1,
-              }
-        }
-    >
-        <Image
-            source={
-                Object {
-                    "uri": "https://source.unsplash.com/random/800x600",
-                  }
-            }
-            style={
-                Object {
-                    "alignItems": "center",
-                    "height": 333.5,
-                    "justifyContent": "center",
-                  }
-            }
-        >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "backgroundColor": "transparent",
-                        "color": "white",
-                        "fontSize": 35,
-                        "letterSpacing": 5,
-                        "textAlign": "center",
-                      }
-                }
-            >
-                HELLO
-            </Text>
-        </Image>
-        <View
-            style={
-                Object {
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "paddingVertical": 28.8,
-                  }
-            }
-        >
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        Object {
-                          "backgroundColor": "#999999",
-                          "borderColor": "#fff",
-                        },
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        Object {
-                          "color": "#fff",
-                        },
-                      ]
-                }
-                title="Sign Up"
-            />
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        null,
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        null,
-                      ]
-                }
-                title="Log In"
-            />
-        </View>
-        <Connect(ReduxForm)
-            onAuthSuccess={[Function]}
-        />
-    </KeyboardAvoidingView>
-</ScrollViewMock>,
-  "nodes": Array [
-    <ScrollViewMock
-      keyboardDismissMode="on-drag"
-      style={
-            Object {
-                  "backgroundColor": "#fff",
-                  "flex": 1,
-                }
+  <KeyboardAvoidingView
+    behavior="position"
+    keyboardVerticalOffset={0}
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
->
-      <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={0}
-            style={
-                  Object {
-                        "backgroundColor": "#fff",
-                        "flex": 1,
-                      }
-            }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "uri": "https://source.unsplash.com/random/800x600",
+        }
+      }
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 192,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "backgroundColor": "transparent",
+            "color": "white",
+            "fontSize": 35,
+            "letterSpacing": 5,
+            "textAlign": "center",
+          }
+        }
       >
-            <Image
-                  source={
-                        Object {
-                              "uri": "https://source.unsplash.com/random/800x600",
-                            }
-                  }
-                  style={
-                        Object {
-                              "alignItems": "center",
-                              "height": 333.5,
-                              "justifyContent": "center",
-                            }
-                  }
-            >
-                  <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                              Object {
-                                    "backgroundColor": "transparent",
-                                    "color": "white",
-                                    "fontSize": 35,
-                                    "letterSpacing": 5,
-                                    "textAlign": "center",
-                                  }
-                        }
-                  >
-                        HELLO
-                  </Text>
-            </Image>
-            <View
-                  style={
-                        Object {
-                              "flexDirection": "row",
-                              "justifyContent": "center",
-                              "paddingVertical": 28.8,
-                            }
-                  }
-            >
-                  <Button
-                        buttonStyle={
-                              Array [
-                                    Object {
-                                      "backgroundColor": "#fff",
-                                      "borderColor": "#999999",
-                                      "borderRadius": 25,
-                                      "borderWidth": 0.5,
-                                      "minWidth": 120,
-                                    },
-                                    Object {
-                                      "backgroundColor": "#999999",
-                                      "borderColor": "#fff",
-                                    },
-                                  ]
-                        }
-                        onPress={[Function]}
-                        textStyle={
-                              Array [
-                                    Object {
-                                      "color": "#999999",
-                                      "fontSize": 14,
-                                    },
-                                    Object {
-                                      "color": "#fff",
-                                    },
-                                  ]
-                        }
-                        title="Sign Up"
-                  />
-                  <Button
-                        buttonStyle={
-                              Array [
-                                    Object {
-                                      "backgroundColor": "#fff",
-                                      "borderColor": "#999999",
-                                      "borderRadius": 25,
-                                      "borderWidth": 0.5,
-                                      "minWidth": 120,
-                                    },
-                                    null,
-                                  ]
-                        }
-                        onPress={[Function]}
-                        textStyle={
-                              Array [
-                                    Object {
-                                      "color": "#999999",
-                                      "fontSize": 14,
-                                    },
-                                    null,
-                                  ]
-                        }
-                        title="Log In"
-                  />
-            </View>
-            <Connect(ReduxForm)
-                  onAuthSuccess={[Function]}
-            />
-      </KeyboardAvoidingView>
-</ScrollViewMock>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <AuthScreen
-        openSignUpForm={[Function]}
-/>,
-      "_debugID": 5,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": AuthScreen {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "goToMap": [Function],
-        "openSignInForm": [Function],
-        "openSignUpForm": [Function],
-        "props": Object {
-          "openSignUpForm": [Function],
-        },
-        "refs": Object {},
-        "state": Object {
-          "signUp": true,
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 3,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <ScrollViewMock
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <KeyboardAvoidingView
-                    behavior="position"
-                    keyboardVerticalOffset={0}
-                    style={
-                              Object {
-                                        "backgroundColor": "#fff",
-                                        "flex": 1,
-                                      }
-                    }
-          >
-                    <Image
-                              source={
-                                        Object {
-                                                  "uri": "https://source.unsplash.com/random/800x600",
-                                                }
-                              }
-                              style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "height": 333.5,
-                                                  "justifyContent": "center",
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "backgroundColor": "transparent",
-                                                            "color": "white",
-                                                            "fontSize": 35,
-                                                            "letterSpacing": 5,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        HELLO
-                              </Text>
-                    </Image>
-                    <View
-                              style={
-                                        Object {
-                                                  "flexDirection": "row",
-                                                  "justifyContent": "center",
-                                                  "paddingVertical": 28.8,
-                                                }
-                              }
-                    >
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            Object {
-                                                              "backgroundColor": "#999999",
-                                                              "borderColor": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            Object {
-                                                              "color": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        title="Sign Up"
-                              />
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        title="Log In"
-                              />
-                    </View>
-                    <Connect(ReduxForm)
-                              onAuthSuccess={[Function]}
-                    />
-          </KeyboardAvoidingView>
-</ScrollViewMock>,
-        "_debugID": 6,
-        "_renderedOutput": <ScrollViewMock
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <KeyboardAvoidingView
-                    behavior="position"
-                    keyboardVerticalOffset={0}
-                    style={
-                              Object {
-                                        "backgroundColor": "#fff",
-                                        "flex": 1,
-                                      }
-                    }
-          >
-                    <Image
-                              source={
-                                        Object {
-                                                  "uri": "https://source.unsplash.com/random/800x600",
-                                                }
-                              }
-                              style={
-                                        Object {
-                                                  "alignItems": "center",
-                                                  "height": 333.5,
-                                                  "justifyContent": "center",
-                                                }
-                              }
-                    >
-                              <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        ellipsizeMode="tail"
-                                        style={
-                                                  Object {
-                                                            "backgroundColor": "transparent",
-                                                            "color": "white",
-                                                            "fontSize": 35,
-                                                            "letterSpacing": 5,
-                                                            "textAlign": "center",
-                                                          }
-                                        }
-                              >
-                                        HELLO
-                              </Text>
-                    </Image>
-                    <View
-                              style={
-                                        Object {
-                                                  "flexDirection": "row",
-                                                  "justifyContent": "center",
-                                                  "paddingVertical": 28.8,
-                                                }
-                              }
-                    >
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            Object {
-                                                              "backgroundColor": "#999999",
-                                                              "borderColor": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            Object {
-                                                              "color": "#fff",
-                                                            },
-                                                          ]
-                                        }
-                                        title="Sign Up"
-                              />
-                              <Button
-                                        buttonStyle={
-                                                  Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        onPress={[Function]}
-                                        textStyle={
-                                                  Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            null,
-                                                          ]
-                                        }
-                                        title="Log In"
-                              />
-                    </View>
-                    <Connect(ReduxForm)
-                              onAuthSuccess={[Function]}
-                    />
-          </KeyboardAvoidingView>
-</ScrollViewMock>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <AuthScreen
-    openSignUpForm={[Function]}
-/>,
-}
+        HELLO
+      </Text>
+    </Image>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingVertical": 16,
+        }
+      }
+    >
+      <Button
+        buttonStyle={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#999999",
+              "borderRadius": 25,
+              "borderWidth": 0.5,
+              "height": 40,
+              "minWidth": 120,
+            },
+            Object {
+              "backgroundColor": "#999999",
+              "borderColor": "#fff",
+            },
+          ]
+        }
+        onPress={[Function]}
+        textStyle={
+          Array [
+            Object {
+              "color": "#999999",
+              "fontSize": 14,
+            },
+            Object {
+              "color": "#fff",
+            },
+          ]
+        }
+        title="Sign Up"
+      />
+      <Button
+        buttonStyle={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#999999",
+              "borderRadius": 25,
+              "borderWidth": 0.5,
+              "height": 40,
+              "minWidth": 120,
+            },
+            null,
+          ]
+        }
+        onPress={[Function]}
+        textStyle={
+          Array [
+            Object {
+              "color": "#999999",
+              "fontSize": 14,
+            },
+            null,
+          ]
+        }
+        title="Log In"
+      />
+    </View>
+    <Connect(ReduxForm)
+      onAuthSuccess={[Function]}
+    />
+  </KeyboardAvoidingView>
+</ScrollViewMock>
 `;
 
 exports[`AuthScreen renders correctly 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <Unknown
-    keyboardDismissMode="on-drag"
-    style={
-        Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-          }
+<Component
+  keyboardDismissMode="on-drag"
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
     }
+  }
 >
-    <View>
-        <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={0}
-            style={
-                Object {
-                    "backgroundColor": "#fff",
-                    "flex": 1,
-                  }
-            }
-        >
-            <Image
-                source={
-                    Object {
-                        "uri": "https://source.unsplash.com/random/800x600",
-                      }
-                }
-                style={
-                    Object {
-                        "alignItems": "center",
-                        "height": 333.5,
-                        "justifyContent": "center",
-                      }
-                }
-            >
-                <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                        Object {
-                            "backgroundColor": "transparent",
-                            "color": "white",
-                            "fontSize": 35,
-                            "letterSpacing": 5,
-                            "textAlign": "center",
-                          }
-                    }
-                >
-                    HELLO
-                </Text>
-            </Image>
-            <View
-                style={
-                    Object {
-                        "flexDirection": "row",
-                        "justifyContent": "center",
-                        "paddingVertical": 28.8,
-                      }
-                }
-            >
-                <Button
-                    buttonStyle={
-                        Array [
-                            Object {
-                              "backgroundColor": "#fff",
-                              "borderColor": "#999999",
-                              "borderRadius": 25,
-                              "borderWidth": 0.5,
-                              "minWidth": 120,
-                            },
-                            Object {
-                              "backgroundColor": "#999999",
-                              "borderColor": "#fff",
-                            },
-                          ]
-                    }
-                    onPress={[Function]}
-                    textStyle={
-                        Array [
-                            Object {
-                              "color": "#999999",
-                              "fontSize": 14,
-                            },
-                            Object {
-                              "color": "#fff",
-                            },
-                          ]
-                    }
-                    title="Sign Up"
-                />
-                <Button
-                    buttonStyle={
-                        Array [
-                            Object {
-                              "backgroundColor": "#fff",
-                              "borderColor": "#999999",
-                              "borderRadius": 25,
-                              "borderWidth": 0.5,
-                              "minWidth": 120,
-                            },
-                            null,
-                          ]
-                    }
-                    onPress={[Function]}
-                    textStyle={
-                        Array [
-                            Object {
-                              "color": "#999999",
-                              "fontSize": 14,
-                            },
-                            null,
-                          ]
-                    }
-                    title="Log In"
-                />
-            </View>
-            <Connect(ReduxForm)
-                onAuthSuccess={[Function]}
-            />
-        </KeyboardAvoidingView>
-    </View>
-</Unknown>,
-  "nodes": Array [
-    <Unknown
-      keyboardDismissMode="on-drag"
-      style={
-            Object {
-                  "backgroundColor": "#fff",
-                  "flex": 1,
-                }
-      }
->
-      <View>
-            <KeyboardAvoidingView
-                  behavior="position"
-                  keyboardVerticalOffset={0}
-                  style={
-                        Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-                  }
-            >
-                  <Image
-                        source={
-                              Object {
-                                    "uri": "https://source.unsplash.com/random/800x600",
-                                  }
-                        }
-                        style={
-                              Object {
-                                    "alignItems": "center",
-                                    "height": 333.5,
-                                    "justifyContent": "center",
-                                  }
-                        }
-                  >
-                        <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              style={
-                                    Object {
-                                          "backgroundColor": "transparent",
-                                          "color": "white",
-                                          "fontSize": 35,
-                                          "letterSpacing": 5,
-                                          "textAlign": "center",
-                                        }
-                              }
-                        >
-                              HELLO
-                        </Text>
-                  </Image>
-                  <View
-                        style={
-                              Object {
-                                    "flexDirection": "row",
-                                    "justifyContent": "center",
-                                    "paddingVertical": 28.8,
-                                  }
-                        }
-                  >
-                        <Button
-                              buttonStyle={
-                                    Array [
-                                          Object {
-                                            "backgroundColor": "#fff",
-                                            "borderColor": "#999999",
-                                            "borderRadius": 25,
-                                            "borderWidth": 0.5,
-                                            "minWidth": 120,
-                                          },
-                                          Object {
-                                            "backgroundColor": "#999999",
-                                            "borderColor": "#fff",
-                                          },
-                                        ]
-                              }
-                              onPress={[Function]}
-                              textStyle={
-                                    Array [
-                                          Object {
-                                            "color": "#999999",
-                                            "fontSize": 14,
-                                          },
-                                          Object {
-                                            "color": "#fff",
-                                          },
-                                        ]
-                              }
-                              title="Sign Up"
-                        />
-                        <Button
-                              buttonStyle={
-                                    Array [
-                                          Object {
-                                            "backgroundColor": "#fff",
-                                            "borderColor": "#999999",
-                                            "borderRadius": 25,
-                                            "borderWidth": 0.5,
-                                            "minWidth": 120,
-                                          },
-                                          null,
-                                        ]
-                              }
-                              onPress={[Function]}
-                              textStyle={
-                                    Array [
-                                          Object {
-                                            "color": "#999999",
-                                            "fontSize": 14,
-                                          },
-                                          null,
-                                        ]
-                              }
-                              title="Log In"
-                        />
-                  </View>
-                  <Connect(ReduxForm)
-                        onAuthSuccess={[Function]}
-                  />
-            </KeyboardAvoidingView>
-      </View>
-</Unknown>,
-  ],
-  "options": Object {
-    "context": Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-    },
-  },
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-      },
-      "_currentElement": <ScrollViewMock
-        keyboardDismissMode="on-drag"
-        style={
-                Object {
-                        "backgroundColor": "#fff",
-                        "flex": 1,
-                      }
-        }
->
-        <KeyboardAvoidingView
-                behavior="position"
-                keyboardVerticalOffset={0}
-                style={
-                        Object {
-                                "backgroundColor": "#fff",
-                                "flex": 1,
-                              }
-                }
-        >
-                <Image
-                        source={
-                                Object {
-                                        "uri": "https://source.unsplash.com/random/800x600",
-                                      }
-                        }
-                        style={
-                                Object {
-                                        "alignItems": "center",
-                                        "height": 333.5,
-                                        "justifyContent": "center",
-                                      }
-                        }
-                >
-                        <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                ellipsizeMode="tail"
-                                style={
-                                        Object {
-                                                "backgroundColor": "transparent",
-                                                "color": "white",
-                                                "fontSize": 35,
-                                                "letterSpacing": 5,
-                                                "textAlign": "center",
-                                              }
-                                }
-                        >
-                                HELLO
-                        </Text>
-                </Image>
-                <View
-                        style={
-                                Object {
-                                        "flexDirection": "row",
-                                        "justifyContent": "center",
-                                        "paddingVertical": 28.8,
-                                      }
-                        }
-                >
-                        <Button
-                                buttonStyle={
-                                        Array [
-                                                Object {
-                                                  "backgroundColor": "#fff",
-                                                  "borderColor": "#999999",
-                                                  "borderRadius": 25,
-                                                  "borderWidth": 0.5,
-                                                  "minWidth": 120,
-                                                },
-                                                Object {
-                                                  "backgroundColor": "#999999",
-                                                  "borderColor": "#fff",
-                                                },
-                                              ]
-                                }
-                                onPress={[Function]}
-                                textStyle={
-                                        Array [
-                                                Object {
-                                                  "color": "#999999",
-                                                  "fontSize": 14,
-                                                },
-                                                Object {
-                                                  "color": "#fff",
-                                                },
-                                              ]
-                                }
-                                title="Sign Up"
-                        />
-                        <Button
-                                buttonStyle={
-                                        Array [
-                                                Object {
-                                                  "backgroundColor": "#fff",
-                                                  "borderColor": "#999999",
-                                                  "borderRadius": 25,
-                                                  "borderWidth": 0.5,
-                                                  "minWidth": 120,
-                                                },
-                                                null,
-                                              ]
-                                }
-                                onPress={[Function]}
-                                textStyle={
-                                        Array [
-                                                Object {
-                                                  "color": "#999999",
-                                                  "fontSize": 14,
-                                                },
-                                                null,
-                                              ]
-                                }
-                                title="Log In"
-                        />
-                </View>
-                <Connect(ReduxForm)
-                        onAuthSuccess={[Function]}
-                />
-        </KeyboardAvoidingView>
-</ScrollViewMock>,
-      "_debugID": 3,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": ScrollViewMock {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "children": <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={0}
-            style={
-                        Object {
-                                    "backgroundColor": "#fff",
-                                    "flex": 1,
-                                  }
-            }
->
-            <Image
-                        source={
-                                    Object {
-                                                "uri": "https://source.unsplash.com/random/800x600",
-                                              }
-                        }
-                        style={
-                                    Object {
-                                                "alignItems": "center",
-                                                "height": 333.5,
-                                                "justifyContent": "center",
-                                              }
-                        }
-            >
-                        <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    ellipsizeMode="tail"
-                                    style={
-                                                Object {
-                                                            "backgroundColor": "transparent",
-                                                            "color": "white",
-                                                            "fontSize": 35,
-                                                            "letterSpacing": 5,
-                                                            "textAlign": "center",
-                                                          }
-                                    }
-                        >
-                                    HELLO
-                        </Text>
-            </Image>
-            <View
-                        style={
-                                    Object {
-                                                "flexDirection": "row",
-                                                "justifyContent": "center",
-                                                "paddingVertical": 28.8,
-                                              }
-                        }
-            >
-                        <Button
-                                    buttonStyle={
-                                                Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            Object {
-                                                              "backgroundColor": "#999999",
-                                                              "borderColor": "#fff",
-                                                            },
-                                                          ]
-                                    }
-                                    onPress={[Function]}
-                                    textStyle={
-                                                Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            Object {
-                                                              "color": "#fff",
-                                                            },
-                                                          ]
-                                    }
-                                    title="Sign Up"
-                        />
-                        <Button
-                                    buttonStyle={
-                                                Array [
-                                                            Object {
-                                                              "backgroundColor": "#fff",
-                                                              "borderColor": "#999999",
-                                                              "borderRadius": 25,
-                                                              "borderWidth": 0.5,
-                                                              "minWidth": 120,
-                                                            },
-                                                            null,
-                                                          ]
-                                    }
-                                    onPress={[Function]}
-                                    textStyle={
-                                                Array [
-                                                            Object {
-                                                              "color": "#999999",
-                                                              "fontSize": 14,
-                                                            },
-                                                            null,
-                                                          ]
-                                    }
-                                    title="Log In"
-                        />
-            </View>
-            <Connect(ReduxForm)
-                        onAuthSuccess={[Function]}
-            />
-</KeyboardAvoidingView>,
-          "keyboardDismissMode": "on-drag",
-          "style": Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-          },
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 2,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Unknown
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <View>
-                    <KeyboardAvoidingView
-                              behavior="position"
-                              keyboardVerticalOffset={0}
-                              style={
-                                        Object {
-                                                  "backgroundColor": "#fff",
-                                                  "flex": 1,
-                                                }
-                              }
-                    >
-                              <Image
-                                        source={
-                                                  Object {
-                                                            "uri": "https://source.unsplash.com/random/800x600",
-                                                          }
-                                        }
-                                        style={
-                                                  Object {
-                                                            "alignItems": "center",
-                                                            "height": 333.5,
-                                                            "justifyContent": "center",
-                                                          }
-                                        }
-                              >
-                                        <Text
-                                                  accessible={true}
-                                                  allowFontScaling={true}
-                                                  ellipsizeMode="tail"
-                                                  style={
-                                                            Object {
-                                                                      "backgroundColor": "transparent",
-                                                                      "color": "white",
-                                                                      "fontSize": 35,
-                                                                      "letterSpacing": 5,
-                                                                      "textAlign": "center",
-                                                                    }
-                                                  }
-                                        >
-                                                  HELLO
-                                        </Text>
-                              </Image>
-                              <View
-                                        style={
-                                                  Object {
-                                                            "flexDirection": "row",
-                                                            "justifyContent": "center",
-                                                            "paddingVertical": 28.8,
-                                                          }
-                                        }
-                              >
-                                        <Button
-                                                  buttonStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "backgroundColor": "#fff",
-                                                                        "borderColor": "#999999",
-                                                                        "borderRadius": 25,
-                                                                        "borderWidth": 0.5,
-                                                                        "minWidth": 120,
-                                                                      },
-                                                                      Object {
-                                                                        "backgroundColor": "#999999",
-                                                                        "borderColor": "#fff",
-                                                                      },
-                                                                    ]
-                                                  }
-                                                  onPress={[Function]}
-                                                  textStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "color": "#999999",
-                                                                        "fontSize": 14,
-                                                                      },
-                                                                      Object {
-                                                                        "color": "#fff",
-                                                                      },
-                                                                    ]
-                                                  }
-                                                  title="Sign Up"
-                                        />
-                                        <Button
-                                                  buttonStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "backgroundColor": "#fff",
-                                                                        "borderColor": "#999999",
-                                                                        "borderRadius": 25,
-                                                                        "borderWidth": 0.5,
-                                                                        "minWidth": 120,
-                                                                      },
-                                                                      null,
-                                                                    ]
-                                                  }
-                                                  onPress={[Function]}
-                                                  textStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "color": "#999999",
-                                                                        "fontSize": 14,
-                                                                      },
-                                                                      null,
-                                                                    ]
-                                                  }
-                                                  title="Log In"
-                                        />
-                              </View>
-                              <Connect(ReduxForm)
-                                        onAuthSuccess={[Function]}
-                              />
-                    </KeyboardAvoidingView>
-          </View>
-</Unknown>,
-        "_debugID": 4,
-        "_renderedOutput": <Unknown
-          keyboardDismissMode="on-drag"
-          style={
-                    Object {
-                              "backgroundColor": "#fff",
-                              "flex": 1,
-                            }
-          }
->
-          <View>
-                    <KeyboardAvoidingView
-                              behavior="position"
-                              keyboardVerticalOffset={0}
-                              style={
-                                        Object {
-                                                  "backgroundColor": "#fff",
-                                                  "flex": 1,
-                                                }
-                              }
-                    >
-                              <Image
-                                        source={
-                                                  Object {
-                                                            "uri": "https://source.unsplash.com/random/800x600",
-                                                          }
-                                        }
-                                        style={
-                                                  Object {
-                                                            "alignItems": "center",
-                                                            "height": 333.5,
-                                                            "justifyContent": "center",
-                                                          }
-                                        }
-                              >
-                                        <Text
-                                                  accessible={true}
-                                                  allowFontScaling={true}
-                                                  ellipsizeMode="tail"
-                                                  style={
-                                                            Object {
-                                                                      "backgroundColor": "transparent",
-                                                                      "color": "white",
-                                                                      "fontSize": 35,
-                                                                      "letterSpacing": 5,
-                                                                      "textAlign": "center",
-                                                                    }
-                                                  }
-                                        >
-                                                  HELLO
-                                        </Text>
-                              </Image>
-                              <View
-                                        style={
-                                                  Object {
-                                                            "flexDirection": "row",
-                                                            "justifyContent": "center",
-                                                            "paddingVertical": 28.8,
-                                                          }
-                                        }
-                              >
-                                        <Button
-                                                  buttonStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "backgroundColor": "#fff",
-                                                                        "borderColor": "#999999",
-                                                                        "borderRadius": 25,
-                                                                        "borderWidth": 0.5,
-                                                                        "minWidth": 120,
-                                                                      },
-                                                                      Object {
-                                                                        "backgroundColor": "#999999",
-                                                                        "borderColor": "#fff",
-                                                                      },
-                                                                    ]
-                                                  }
-                                                  onPress={[Function]}
-                                                  textStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "color": "#999999",
-                                                                        "fontSize": 14,
-                                                                      },
-                                                                      Object {
-                                                                        "color": "#fff",
-                                                                      },
-                                                                    ]
-                                                  }
-                                                  title="Sign Up"
-                                        />
-                                        <Button
-                                                  buttonStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "backgroundColor": "#fff",
-                                                                        "borderColor": "#999999",
-                                                                        "borderRadius": 25,
-                                                                        "borderWidth": 0.5,
-                                                                        "minWidth": 120,
-                                                                      },
-                                                                      null,
-                                                                    ]
-                                                  }
-                                                  onPress={[Function]}
-                                                  textStyle={
-                                                            Array [
-                                                                      Object {
-                                                                        "color": "#999999",
-                                                                        "fontSize": 14,
-                                                                      },
-                                                                      null,
-                                                                    ]
-                                                  }
-                                                  title="Log In"
-                                        />
-                              </View>
-                              <Connect(ReduxForm)
-                                        onAuthSuccess={[Function]}
-                              />
-                    </KeyboardAvoidingView>
-          </View>
-</Unknown>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <ScrollViewMock
-    keyboardDismissMode="on-drag"
-    style={
-        Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-          }
-    }
->
+  <View>
     <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={0}
-        style={
-            Object {
-                "backgroundColor": "#fff",
-                "flex": 1,
-              }
+      behavior="position"
+      keyboardVerticalOffset={0}
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "flex": 1,
         }
+      }
     >
-        <Image
-            source={
-                Object {
-                    "uri": "https://source.unsplash.com/random/800x600",
-                  }
+      <Image
+        source={
+          Object {
+            "uri": "https://source.unsplash.com/random/800x600",
+          }
+        }
+        style={
+          Object {
+            "alignItems": "center",
+            "height": 192,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "color": "white",
+              "fontSize": 35,
+              "letterSpacing": 5,
+              "textAlign": "center",
             }
-            style={
-                Object {
-                    "alignItems": "center",
-                    "height": 333.5,
-                    "justifyContent": "center",
-                  }
-            }
+          }
         >
-            <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                style={
-                    Object {
-                        "backgroundColor": "transparent",
-                        "color": "white",
-                        "fontSize": 35,
-                        "letterSpacing": 5,
-                        "textAlign": "center",
-                      }
-                }
-            >
-                HELLO
-            </Text>
-        </Image>
-        <View
-            style={
-                Object {
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "paddingVertical": 28.8,
-                  }
-            }
-        >
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        Object {
-                          "backgroundColor": "#999999",
-                          "borderColor": "#fff",
-                        },
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        Object {
-                          "color": "#fff",
-                        },
-                      ]
-                }
-                title="Sign Up"
-            />
-            <Button
-                buttonStyle={
-                    Array [
-                        Object {
-                          "backgroundColor": "#fff",
-                          "borderColor": "#999999",
-                          "borderRadius": 25,
-                          "borderWidth": 0.5,
-                          "minWidth": 120,
-                        },
-                        null,
-                      ]
-                }
-                onPress={[Function]}
-                textStyle={
-                    Array [
-                        Object {
-                          "color": "#999999",
-                          "fontSize": 14,
-                        },
-                        null,
-                      ]
-                }
-                title="Log In"
-            />
-        </View>
-        <Connect(ReduxForm)
-            onAuthSuccess={[Function]}
+          HELLO
+        </Text>
+      </Image>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingVertical": 16,
+          }
+        }
+      >
+        <Button
+          buttonStyle={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+                "borderColor": "#999999",
+                "borderRadius": 25,
+                "borderWidth": 0.5,
+                "height": 40,
+                "minWidth": 120,
+              },
+              Object {
+                "backgroundColor": "#999999",
+                "borderColor": "#fff",
+              },
+            ]
+          }
+          onPress={[Function]}
+          textStyle={
+            Array [
+              Object {
+                "color": "#999999",
+                "fontSize": 14,
+              },
+              Object {
+                "color": "#fff",
+              },
+            ]
+          }
+          title="Sign Up"
         />
+        <Button
+          buttonStyle={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+                "borderColor": "#999999",
+                "borderRadius": 25,
+                "borderWidth": 0.5,
+                "height": 40,
+                "minWidth": 120,
+              },
+              null,
+            ]
+          }
+          onPress={[Function]}
+          textStyle={
+            Array [
+              Object {
+                "color": "#999999",
+                "fontSize": 14,
+              },
+              null,
+            ]
+          }
+          title="Log In"
+        />
+      </View>
+      <Connect(ReduxForm)
+        onAuthSuccess={[Function]}
+      />
     </KeyboardAvoidingView>
-</ScrollViewMock>,
-}
+  </View>
+</Component>
 `;

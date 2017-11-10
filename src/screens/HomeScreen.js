@@ -7,8 +7,7 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Platform,
-    Dimensions
+    Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -20,6 +19,7 @@ import MenuButton from '../components/MenuButton';
 import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
 import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { selectDeliveryType } from '../actions/productActions';
@@ -28,9 +28,8 @@ import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-class HomeScreen extends Component {
+export class HomeScreen extends Component {
     static navigationOptions = {
         title: 'Hasty Logo',
         headerLeft: <MenuButton />,
@@ -90,7 +89,7 @@ class HomeScreen extends Component {
         const { cart, products } = this.props;
         return (
             <View style={styles.container}>
-                {cart.totalOrders > 0 ? (
+                {cart.totalQuantity > 0 ? (
                     <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: SCREEN_HEIGHT / 4,
+        height: Dimensions.window.height / 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     checkout: {
-        height: SCREEN_HEIGHT / 4,
+        height: Dimensions.window.height / 4,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Color.GREEN_500

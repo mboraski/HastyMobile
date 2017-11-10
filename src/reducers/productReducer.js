@@ -8,7 +8,8 @@ import {
 export const initialState = {
     pending: false,
     error: null,
-    availableProducts: {}
+    availableProducts: {},
+    deliveryType: '1'
 };
 
 export default function (state = initialState, action) {
@@ -22,7 +23,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                list: action.payload.productList,
+                availableProducts: action.payload.productList,
                 error: null
             };
         case GET_PRODUCTS_BY_ADDRESS_FAIL:

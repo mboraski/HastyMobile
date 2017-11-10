@@ -12,7 +12,7 @@ import OopsPopup from '../components/OopsPopup';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartOrders } from '../selectors/cartSelectors';
+import { getAvailableCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
 
 export class CartScreen extends Component {
@@ -135,9 +135,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    orders: getCartOrders(state),
+    orders: getAvailableCartOrders(state),
     totalCost: state.cart.totalCost,
-    totalOrders: state.cart.totalOrders
+    totalQuantity: state.cart.totalQuantity
 });
 
 const mapDispatchToProps = {
