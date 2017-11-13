@@ -74,3 +74,17 @@ Object {
   "totalQuantity": 1,
 }
 `;
+
+exports[`cartReducer handles setCurrentLocation 1`] = `
+Object {
+  "currentSetAddress": "address",
+  "currentSetLatLon": Object {
+    "lat": 0,
+    "lon": 1,
+  },
+  "orderId": "",
+  "products": Object {},
+  "totalCost": 0,
+  "totalQuantity": 0,
+}
+`;

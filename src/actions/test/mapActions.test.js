@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { saveAddress, setCurrentLocation } from '../mapActions';
+import { saveAddress, setRegion } from '../mapActions';
 import mockApi from '../../mocks/googleMapsApi';
 
 describe('mapActions', () => {
@@ -18,9 +18,9 @@ describe('mapActions', () => {
     it('creates saveAddress action', () => {
         expect(saveAddress('address')).toMatchSnapshot();
     });
-    it('setCurrentLocation', async () => {
+    it('setRegion', async () => {
         mockApi.onAny().reply(200, { data: 'data' });
-        await store.dispatch(setCurrentLocation({ latitude: 0, longitude: 0 }));
+        await store.dispatch(setRegion({ latitude: 0, longitude: 0 }));
         const actions = store.getActions();
         expect(actions).toMatchSnapshot();
     });

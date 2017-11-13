@@ -1,4 +1,4 @@
-import { addToCart, removeFromCart } from '../../actions/cartActions';
+import { addToCart, removeFromCart, setCurrentLocation } from '../../actions/cartActions';
 import reducer, { initialState } from '../cartReducer';
 
 describe('cartReducer', () => {
@@ -35,5 +35,10 @@ describe('cartReducer', () => {
         };
         const newState = reducer(initialState, addToCart(product));
         expect(reducer(newState, removeFromCart(product))).toMatchSnapshot();
+    });
+    it('handles setCurrentLocation', () => {
+        expect(
+            reducer(initialState, setCurrentLocation('address', { latitude: 0, longitude: 1 }))
+        ).toMatchSnapshot();
     });
 });

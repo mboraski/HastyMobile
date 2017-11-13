@@ -12,7 +12,8 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { saveAddress, setCurrentLocation } from '../actions/mapActions';
+import { saveAddress, setRegion } from '../actions/mapActions';
+import { setCurrentLocation } from '../actions/cartActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
@@ -71,11 +72,12 @@ export class MapScreen extends Component {
 
     onRegionChangeComplete = region => {
         if (this.state.mapReady) {
-            this.props.setCurrentLocation(region);
+            this.props.setRegion(region);
         }
     };
 
     onButtonPress = async () => {
+        this.props.setCurrentLocation(this.props.address, this.props.region);
         await this.props.getProductsByAddress(this.props.address);
         this.props.navigation.navigate('home');
     };
@@ -90,7 +92,7 @@ export class MapScreen extends Component {
         }
 
         const location = await Location.getCurrentPositionAsync({});
-        this.props.setCurrentLocation({
+        this.props.setRegion({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             longitudeDelta: LATITUDE_DELTA,
@@ -170,7 +172,7 @@ export class MapScreen extends Component {
                             description="Your Delivery Location"
                             centerOffset={{
                                 x: 0,
-                                y: '-50%'
+                                y: '-25%'
                             }}
                             anchor={{
                                 x: 0.5,
@@ -312,6 +314,7 @@ const mapDispatchToProps = {
     saveAddress,
     getProductsByAddress,
     toggleSearch,
+    setRegion,
     setCurrentLocation
 };
 

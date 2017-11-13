@@ -37,7 +37,7 @@ const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
 const MAP_HEIGHT = emY(9.25);
 const ASPECT_RATIO = Dimensions.window.width / MAP_HEIGHT;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class CheckoutScreen extends Component {
@@ -112,7 +112,7 @@ export class CheckoutScreen extends Component {
                                 description="Your Delivery Location"
                                 centerOffset={{
                                     x: 0,
-                                    y: '-50%'
+                                    y: '-25%'
                                 }}
                                 anchor={{
                                     x: 0.5,
@@ -195,6 +195,7 @@ export class CheckoutScreen extends Component {
                     closeModal={this.changeLocationConfirmed}
                     title={CHANGE_LOCATION_TITLE}
                     message={CHANGE_LOCATION_MESSAGE}
+                    showIcon={false}
                 />
             </View>
         );
@@ -302,7 +303,6 @@ const mapStateToProps = state => ({
     totalCost: state.cart.totalCost,
     totalQuantity: state.cart.totalQuantity,
     notes: state.checkout.notes,
-    region: state.cart.region,
     address: state.cart.currentSetAddress,
     latlon: state.cart.currentSetLatLon
 });
