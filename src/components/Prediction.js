@@ -5,7 +5,7 @@ import Color from '../constants/Color';
 import addressIcon from '../assets/icons/address.png';
 import { emY } from '../utils/em';
 
-const ICON_SIZE = emY(2.8);
+const ICON_SIZE = emY(2);
 
 const Prediction = ({ prediction, style, ...props }) => (
     <TouchableOpacity {...props} style={[styles.container, style]}>

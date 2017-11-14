@@ -16,36 +16,48 @@ exports[`Spinner renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "#000000",
-        "borderRadius": 66,
+        "borderColor": "#cccccc",
+        "borderRadius": 72,
         "borderWidth": 5,
         "flexDirection": "row",
-        "height": 132,
+        "height": 144,
         "justifyContent": "center",
-        "width": 132,
+        "width": 144,
       }
     }
   >
-    <Image
-      source={1}
+    <View
       style={
         Object {
+          "alignItems": "center",
           "backgroundColor": "#000000",
-          "borderRadius": 56,
-          "height": 112,
-          "width": 112,
+          "borderRadius": 64,
+          "flexDirection": "row",
+          "height": 128,
+          "justifyContent": "center",
+          "width": 128,
         }
       }
-    />
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 80,
+            "width": 80,
+          }
+        }
+      />
+    </View>
   </View>
   <AnimatedComponent
     style={
       Array [
         Object {
-          "height": 132,
+          "height": 144,
           "overflow": "visible",
           "position": "absolute",
-          "width": 132,
+          "width": 144,
         },
         Object {
           "transform": Array [
@@ -62,7 +74,7 @@ exports[`Spinner renders correctly 1`] = `
       style={
         Array [
           Object {
-            "height": 112,
+            "height": 144,
             "left": "50%",
             "position": "absolute",
             "top": "50%",
@@ -70,14 +82,11 @@ exports[`Spinner renders correctly 1`] = `
               Object {
                 "translate": Array [
                   0,
-                  -112,
+                  -144,
                 ],
               },
-              Object {
-                "scale": 1,
-              },
             ],
-            "width": 112,
+            "width": 144,
           },
         ]
       }
@@ -86,22 +95,19 @@ exports[`Spinner renders correctly 1`] = `
       source={1}
       style={
         Object {
-          "height": 112,
+          "height": 168,
           "left": "50%",
           "position": "absolute",
           "top": "50%",
           "transform": Array [
             Object {
               "translate": Array [
-                -56,
-                -56,
+                -84,
+                -84,
               ],
             },
-            Object {
-              "scale": 1.4,
-            },
           ],
-          "width": 112,
+          "width": 168,
         }
       }
     />

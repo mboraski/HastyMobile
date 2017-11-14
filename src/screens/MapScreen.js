@@ -22,7 +22,7 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
-import pinIcon from '../assets/icons/pin.png';
+import beaconIcon from '../assets/icons/beacon.png';
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
@@ -173,7 +173,7 @@ export class MapScreen extends Component {
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
-                            image={pinIcon}
+                            image={beaconIcon}
                             coordinate={region}
                             title="You"
                             description="Your Delivery Location"
