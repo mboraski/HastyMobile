@@ -42,10 +42,13 @@ exports[`Spinner renders correctly 1`] = `
       <Image
         source={1}
         style={
-          Object {
-            "height": 80,
-            "width": 80,
-          }
+          Array [
+            Object {
+              "height": 80,
+              "width": 80,
+            },
+            undefined,
+          ]
         }
       />
     </View>

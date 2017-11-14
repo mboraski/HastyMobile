@@ -15,7 +15,8 @@ describe('MapScreen', () => {
             },
             region: null,
             address: '',
-            pending: false
+            pending: false,
+            getCurrentLocation: jest.fn(),
         };
         const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -29,7 +30,8 @@ describe('MapScreen', () => {
             },
             region: null,
             address: '',
-            pending: true
+            pending: true,
+            getCurrentLocation: jest.fn(),
         };
         const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -43,7 +45,8 @@ describe('MapScreen', () => {
             },
             region: null,
             address: '',
-            pending: false
+            pending: false,
+            getCurrentLocation: jest.fn(),
         };
         const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -57,7 +60,8 @@ describe('MapScreen', () => {
             },
             region: null,
             address: 'address',
-            pending: false
+            pending: false,
+            getCurrentLocation: jest.fn(),
         };
         const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
@@ -71,6 +75,7 @@ describe('MapScreen', () => {
             },
             region: { latitude: 0, longitude: 1, latitudeDelta: 2, longitudeDelta: 3 },
             address: 'address',
+            getCurrentLocation: jest.fn(),
             getProductsByAddress: jest.fn(),
             setCurrentLocation: jest.fn(),
             navigation: {
@@ -89,6 +94,7 @@ describe('MapScreen', () => {
             },
             region: { latitude: 0, longitude: 1, latitudeDelta: 2, longitudeDelta: 3 },
             address: 'address',
+            getCurrentLocation: jest.fn(),
             getProductsByAddress: jest.fn(),
             setCurrentLocation: jest.fn(),
             navigation: {

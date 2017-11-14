@@ -75,7 +75,7 @@ exports[`CheckoutScreen renders correctly 1`] = `
         <MapMarker
           anchor={
             Object {
-              "x": 0.5,
+              "x": 0.2,
               "y": 1,
             }
           }
@@ -549,7 +549,7 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
         <MapMarker
           anchor={
             Object {
-              "x": 0.5,
+              "x": 0.2,
               "y": 1,
             }
           }

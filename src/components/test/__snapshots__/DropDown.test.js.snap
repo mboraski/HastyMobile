@@ -4,6 +4,7 @@ exports[`DropDown renders correctly 1`] = `
 <View
   style={
     Object {
+      "backgroundColor": "white",
       "overflow": "hidden",
     }
   }
@@ -12,6 +13,7 @@ exports[`DropDown renders correctly 1`] = `
     style={
       Array [
         Object {
+          "backgroundColor": "white",
           "overflow": "hidden",
         },
         Object {

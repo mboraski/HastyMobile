@@ -1,4 +1,10 @@
-import { saveAddress, SET_REGION } from '../../actions/mapActions';
+import {
+    saveAddress,
+    SET_REGION,
+    GET_CURRENT_LOCATION_REQUEST,
+    GET_CURRENT_LOCATION_SUCCESS,
+    GET_CURRENT_LOCATION_ERROR
+} from '../../actions/mapActions';
 import {
     MAPS_PLACES_AUTOCOMPLETE_REQUEST,
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
@@ -14,8 +20,27 @@ describe('mapReducer', () => {
         expect(reducer(initialState, saveAddress('address'))).toMatchSnapshot();
     });
     it('handles SET_REGION action', () => {
+        const newState = reducer(initialState, {
+            type: SET_REGION,
+            payload: { latitude: 0, longitude: 1, latitudeDelta: 2, longitudeDelta: 3 }
+        });
+        expect(newState).toMatchSnapshot();
         expect(
-            reducer(initialState, { type: SET_REGION, payload: 'region' })
+            reducer(newState, {
+                type: SET_REGION,
+                payload: { latitude: 5, longitude: 6 }
+            })
+        ).toMatchSnapshot();
+    });
+    it('handles GET_CURRENT_LOCATION_REQUEST action', () => {
+        expect(reducer(initialState, { type: GET_CURRENT_LOCATION_REQUEST })).toMatchSnapshot();
+    });
+    it('handles GET_CURRENT_LOCATION_SUCCESS action', () => {
+        expect(reducer(initialState, { type: GET_CURRENT_LOCATION_SUCCESS })).toMatchSnapshot();
+    });
+    it('handles GET_CURRENT_LOCATION_ERROR action', () => {
+        expect(
+            reducer(initialState, { type: GET_CURRENT_LOCATION_ERROR, error: 'error' })
         ).toMatchSnapshot();
     });
     it('handles MAPS_PLACES_AUTOCOMPLETE_REQUEST action', () => {

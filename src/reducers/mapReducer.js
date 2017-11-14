@@ -7,7 +7,14 @@ import {
     MAPS_REVERSE_GEOCODE_SUCCESS,
     MAPS_REVERSE_GEOCODE_FAIL
 } from '../actions/googleMapsActions';
-import { SAVE_ADDRESS, SET_REGION } from '../actions/mapActions';
+
+import {
+    SAVE_ADDRESS,
+    SET_REGION,
+    GET_CURRENT_LOCATION_REQUEST,
+    GET_CURRENT_LOCATION_SUCCESS,
+    GET_CURRENT_LOCATION_ERROR
+} from '../actions/mapActions';
 
 function getFormattedAddress(payload) {
     const result = payload.results[0];
@@ -85,7 +92,26 @@ export default function (state = initialState, action) {
         case SET_REGION:
             return {
                 ...state,
-                region: action.payload
+                region: {
+                    ...state.region,
+                    ...action.payload
+                }
+            };
+        case GET_CURRENT_LOCATION_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case GET_CURRENT_LOCATION_SUCCESS:
+            return {
+                ...state,
+                pending: false
+            };
+        case GET_CURRENT_LOCATION_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.error
             };
         default:
             return state;
