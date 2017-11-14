@@ -54,21 +54,15 @@ class MenuContent extends Component {
         const { items, activeItemKey, onItemPress } = this.props;
         const { name, avatar } = this.state;
         return (
-            <View style={styles.topContainer}>
-                <View style={styles.container}>
-                    <View style={styles.headerContainer}>
-                        <View style={styles.imageContainer}>
-                            <Image source={tempAvatar} style={styles.image} />
-                        </View>
-                        <Text style={styles.name}>{name}</Text>
-                    </View>
+            <View style={styles.container}>
+                <View style={styles.profile}>
+                    <Image source={tempAvatar} style={styles.image} />
+                    <Text style={styles.name}>{name}</Text>
                     <TouchableOpacity onPress={this.handleViewProfile}>
-                        <View style={styles.profileTitleContainer}>
-                            <Text style={styles.title}>View Profile</Text>
-                        </View>
+                        <Text style={styles.title}>View Profile</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView style={styles.listContainer}>
+                <ScrollView style={styles.menuItems}>
                     <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
@@ -121,64 +115,44 @@ class MenuContent extends Component {
                         image={helpIcon}
                         title="Help"
                     />
+                    <Text style={styles.copyright}>@2017 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
-                <Text style={styles.copyright}>@2017 Hasty</Text>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    topContainer: {
+    container: {
         flex: 1,
         backgroundColor: Color.WHITE,
         borderRightWidth: 2,
         borderRightColor: Color.YELLOW_500
     },
-    container: {
-        flex: 1
-    },
-    headerContainer: {
+    profile: {
         alignItems: 'center',
         marginTop: emY(2.68)
-    },
-    imageContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: IMAGE_CONTAINER_SIZE,
-        height: IMAGE_CONTAINER_SIZE,
-        marginBottom: emY(1)
     },
     image: {
         width: IMAGE_CONTAINER_SIZE,
         height: IMAGE_CONTAINER_SIZE,
-        borderRadius: IMAGE_CONTAINER_SIZE / 2
+        borderRadius: IMAGE_CONTAINER_SIZE / 2,
+        marginBottom: emY(1)
     },
     name: {
         color: Color.GREY_700,
         fontSize: emY(1.25),
         textAlign: 'center',
-        marginBottom: emY(0.606)
+        marginBottom: emY(1)
     },
     title: {
         fontSize: emY(0.831),
         color: Color.GREY_700,
-        textAlign: 'center'
-    },
-    profileTitleContainer: {
-        justifyContent: 'center',
-        marginTop: emY(0.5),
+        textAlign: 'center',
         marginBottom: emY(1)
     },
-    listContainer: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: emY(15),
-        bottom: emY(9.2),
-        flexDirection: 'column',
+    menuItems: {
         marginLeft: emY(1.2)
     },
     copyright: {
