@@ -204,7 +204,7 @@ export class MapScreen extends Component {
                 >
                     <Button
                         large
-                        title="Use This Location"
+                        title="Use Current Location"
                         onPress={this.onButtonPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
