@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar renders correctly 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#F4F4F4",
+      "borderRadius": 50,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "paddingHorizontal": 20,
+      "paddingVertical": 10,
+      "width": "100%",
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 24,
+        "width": 24,
+      }
+    }
+  />
+</TouchableOpacity>
+`;

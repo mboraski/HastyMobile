@@ -4,7 +4,14 @@ exports[`uiReducer handles hideFeedbackForm action 1`] = `
 Object {
   "customerPopupVisible": false,
   "feedbackFormVisible": false,
-  "headerVisible": true,
+  "searchVisible": false,
+}
+`;
+
+exports[`uiReducer handles hideSearch action 1`] = `
+Object {
+  "customerPopupVisible": false,
+  "feedbackFormVisible": false,
   "searchVisible": false,
 }
 `;
@@ -13,16 +20,14 @@ exports[`uiReducer handles showFeedbackForm action 1`] = `
 Object {
   "customerPopupVisible": false,
   "feedbackFormVisible": true,
-  "headerVisible": true,
   "searchVisible": false,
 }
 `;
 
-exports[`uiReducer handles toggleSearch action 1`] = `
+exports[`uiReducer handles showSearch action 1`] = `
 Object {
   "customerPopupVisible": false,
   "feedbackFormVisible": false,
-  "headerVisible": true,
-  "searchVisible": false,
+  "searchVisible": true,
 }
 `;

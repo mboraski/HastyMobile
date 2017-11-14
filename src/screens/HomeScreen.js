@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
     ScrollView,
+    Animated,
     StyleSheet,
     Text,
     View,
@@ -14,34 +15,38 @@ import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
-import ProductList from '../components/ProductList';
-import MenuButton from '../components/MenuButton';
-import CartButton from '../components/CartButton';
-import SearchBar from '../components/SearchBar';
-import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
-import Style from '../constants/Style';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { selectDeliveryType } from '../actions/productActions';
-import { getProductsByDeliveryType } from '../selectors/productSelectors';
+import { showSearch, hideSearch } from '../actions/uiActions';
+import EmptyState from '../components/EmptyState';
+import ProductList from '../components/ProductList';
+import HomeHeader from '../containers/HomeHeader';
+import { getSimilarProducts } from '../selectors/productSelectors';
+import Color from '../constants/Color';
+import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
+const OPACITY_DURATION = 300;
 
-export class HomeScreen extends Component {
-    static navigationOptions = {
-        title: 'Hasty Logo',
-        headerLeft: <MenuButton />,
-        headerTitle: <SearchBar />,
-        headerRight: <CartButton />,
-        headerStyle: Style.headerLarge,
-        headerTitleStyle: Style.headerTitle
+class HomeScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: null,
+        header: <HomeHeader navigation={navigation} />
+    });
+
+    state = {
+        filter: FILTERS[0],
+        translateY: new Animated.Value(0),
+        opacity: new Animated.Value(1),
+        searchRendered: false
     };
 
-    state = { filter: FILTERS[0] };
-
     componentWillReceiveProps(nextProps) {
+        if (this.props.searchVisible !== nextProps.searchVisible) {
+            this.animate(nextProps.searchVisible);
+        }
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
@@ -65,6 +70,33 @@ export class HomeScreen extends Component {
 
     goToCheckout = () => {
         this.props.navigation.navigate('checkout');
+    };
+
+    animate = searchVisible => {
+        if (this.state.searchRendered) {
+            this.afterSetState(searchVisible);
+        } else {
+            this.setState({ searchRendered: searchVisible }, () =>
+                this.afterSetState(searchVisible)
+            );
+        }
+    };
+
+    afterSetState = searchVisible => {
+        Animated.parallel([
+            Animated.timing(this.state.translateY, {
+                toValue: searchVisible ? -100 : 0,
+                duration: OPACITY_DURATION
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: searchVisible ? 0 : 1,
+                duration: OPACITY_DURATION
+            })
+        ]).start(() => {
+            this.setState({
+                searchRendered: searchVisible
+            });
+        });
     };
 
     renderFilter = filter => {
@@ -110,19 +142,25 @@ export class HomeScreen extends Component {
                         </View>
                     </Image>
                 )}
-                <ScrollView
-                    horizontal
-                    style={styles.filters}
-                    contentContainerStyle={styles.filtersContent}
-                >
-                    {FILTERS.map(this.renderFilter)}
-                </ScrollView>
-                <ProductList
-                    cart={cart}
-                    products={products}
-                    callAddToCart={this.callAddToCart}
-                    callRemoveFromCart={this.callRemoveFromCart}
-                />
+                <View style={styles.filters}> 
+                    <ScrollView
+                        horizontal
+                        style={styles.filters}
+                        contentContainerStyle={styles.filtersContent}
+                    >
+                        {FILTERS.map(this.renderFilter)}
+                    </ScrollView>
+                </View>
+                {products.length === 0 ? (
+                    <EmptyState title="No products found" style={styles.emptyState} />
+                ) : (
+                    <ProductList
+                        cart={cart}
+                        products={products}
+                        callAddToCart={this.callAddToCart}
+                        callRemoveFromCart={this.callRemoveFromCart}
+                    />
+                )}
             </View>
         );
     }
@@ -206,29 +244,24 @@ const styles = StyleSheet.create({
     },
     filterButtonTextSelected: {
         color: '#fff'
+    },
+    emptyState: {
+        position: 'relative'
     }
-});
-
-HomeScreen.navigationOptions = ({ navigation }) => ({
-    title: 'Hasty Logo',
-    headerLeft: <MenuButton />,
-    headerTitle: <SearchBar />,
-    headerRight: <CartButton navigation={navigation} />,
-    headerStyle: Style.headerLarge,
-    headerTitleStyle: Style.headerTitle
 });
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    products: getProductsByDeliveryType(state),
+    products: getSimilarProducts(state.home.searchQuery)(state),
     deliveryType: state.product.deliveryType,
-    header: state.header,
+    searchVisible: state.ui.searchVisible,
+    header: state.header
 });
 
-const mapDispatchToProps = dispatch => ({
-    selectFilter: filter => dispatch(selectDeliveryType(filter)),
-    addToCart: product => dispatch(addToCart(product)),
-    removeFromCart: product => dispatch(removeFromCart(product)),
-});
+const mapDispatchToProps = {
+    selectFilter: selectDeliveryType,
+    addToCart,
+    removeFromCart
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

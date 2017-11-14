@@ -10,6 +10,7 @@
         "card-validator": "4.1.0",
         "expo": "22.0.0",
         "firebase": "^3.7.3",
+        "fuse.js": "^3.2.0",
         "latlng-to-zip": "0.0.1",
         "lodash": "4.17.4",
         "qs": "6.4.0",

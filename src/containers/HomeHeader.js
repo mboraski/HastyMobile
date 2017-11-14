@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated } from 'react-native';
+import { StyleSheet, View, Animated, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import { placesAutocomplete } from '../actions/googleMapsActions';
 import { showSearch, hideSearch } from '../actions/uiActions';
-import DebounceTextInput from '../components/DebounceTextInput';
+import { setSearchQuery } from '../actions/homeActions';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
-import LocationButton from '../components/LocationButton';
+import SearchBarButton from '../components/SearchBarButton';
+import CartButton from '../components/CartButton';
 import MenuButton from '../components/MenuButton';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
+import searchIcon from '../assets/icons/search.png';
+
 const OPACITY_DURATION = 300;
-const APPBAR_HEIGHT = emY(5.25);
+const APPBAR_HEIGHT = emY(5.95);
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
+const SIZE = emY(1.5);
 
-export class MapHeader extends Component {
+type Props = {
+    navigation: any,
+}
+
+export class HomeHeader extends Component {
     state = {
         opacity: new Animated.Value(this.props.searchVisible ? 0 : 1),
-        searchRendered: this.props.searchVisible,
-        inputText: ''
+        searchRendered: this.props.searchVisible
     };
 
     componentWillReceiveProps(nextProps) {
@@ -31,6 +37,8 @@ export class MapHeader extends Component {
             this.animate(nextProps.searchVisible);
         }
     }
+    
+    props: Props;
 
     animate = searchVisible => {
         if (this.state.searchRendered) {
@@ -53,28 +61,21 @@ export class MapHeader extends Component {
                 searchRendered: searchVisible
             });
             if (searchVisible) {
-                this.input.component.focus();
+                this.input.focus();
             }
         });
     };
 
-    placesAutocomplete = text => {
-        this.props.placesAutocomplete(text);
-    };
-
     clearSearch = () => {
-        this.setState({
-            inputText: ''
-        });
+        this.props.setSearchQuery('');
     };
 
-    handleInput = inputText => {
-        this.setState({
-            inputText
-        });
+    handleInput = text => {
+        this.props.setSearchQuery(text);
     };
 
     render() {
+        const { navigation, searchQuery } = this.props;
         return (
             <View style={styles.wrapper}>
                 <Animated.View
@@ -85,10 +86,10 @@ export class MapHeader extends Component {
                             <MenuButton style={Style.headerLeft} />
                         </View>
                         <View style={Style.headerTitleContainer}>
-                            <Text style={Style.headerTitle}>Hasty Logo</Text>
+                            <SearchBarButton onPress={this.props.showSearch} />
                         </View>
                         <View style={Style.headerRightContainer}>
-                            <LocationButton style={Style.headerRight} />
+                            <CartButton style={Style.headerRight} navigation={navigation} />
                         </View>
                     </View>
                 </Animated.View>
@@ -104,12 +105,11 @@ export class MapHeader extends Component {
                             <View style={Style.headerLeftContainer}>
                                 <BackButton style={Style.headerLeft} onPress={this.props.hideSearch} />
                             </View>
-                            <DebounceTextInput
+                            <TextInput
                                 ref={c => (this.input = c)}
                                 style={Style.headerTitleContainer}
-                                placeholder="Enter Address"
-                                onDebounce={this.placesAutocomplete}
-                                value={this.state.inputText}
+                                placeholder="Search Products"
+                                value={searchQuery}
                                 onChangeText={this.handleInput}
                                 onBlur={this.props.hideSearch}
                             />
@@ -139,16 +139,27 @@ const styles = StyleSheet.create({
     },
     title: {
         flex: 1
+    },
+
+    imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    image: {
+        width: SIZE,
+        height: SIZE
     }
 });
 
 const mapStateToProps = state => ({
-    searchVisible: state.ui.searchVisible
+    searchVisible: state.ui.searchVisible,
+    searchQuery: state.home.searchQuery
 });
 
 const mapDispatchToProps = {
-    placesAutocomplete,
-    hideSearch
+    showSearch,
+    hideSearch,
+    setSearchQuery
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);

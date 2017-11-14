@@ -1,5 +1,6 @@
 import {
-    TOGGLE_SEARCH,
+    SHOW_SEARCH,
+    HIDE_SEARCH,
     OPEN_CUSTOMER_POPUP,
     CLOSE_CUSTOMER_POPUP,
     SHOW_FEEDBACK_FORM,
@@ -7,7 +8,6 @@ import {
 } from '../actions/uiActions';
 
 const initialState = {
-    headerVisible: true,
     searchVisible: false,
     customerPopupVisible: false,
     feedbackFormVisible: false
@@ -15,11 +15,15 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case TOGGLE_SEARCH:
+        case SHOW_SEARCH:
             return {
                 ...state,
-                headerVisible: !state.headerVisible,
-                searchVisible: !state.searchVisible
+                searchVisible: true
+            };
+        case HIDE_SEARCH:
+            return {
+                ...state,
+                searchVisible: false
             };
         case OPEN_CUSTOMER_POPUP:
             return {

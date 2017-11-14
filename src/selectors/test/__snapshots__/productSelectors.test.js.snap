@@ -14,3 +14,58 @@ Array [
 `;
 
 exports[`productSelector getProductsByDeliveryType with empty list 1`] = `Array []`;
+
+exports[`productSelector getSimilarProducts 1`] = `
+Array [
+  Object {
+    "deliveryType": "1",
+    "productCode": "0",
+    "title": "pizza",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "5",
+    "title": "PIZZA",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "1",
+    "title": "pizzas",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "3",
+    "title": "pizza house",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "6",
+    "title": "PIZZAS",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "8",
+    "title": "PIZZA HOUSE",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "4",
+    "title": "house of pizza",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "9",
+    "title": "HOUSE OF PIZZA",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "2",
+    "title": "pizzeria",
+  },
+  Object {
+    "deliveryType": "1",
+    "productCode": "7",
+    "title": "PIZZERIA",
+  },
+]
+`;
