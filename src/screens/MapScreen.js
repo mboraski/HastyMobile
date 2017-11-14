@@ -14,7 +14,7 @@ import { Button } from 'react-native-elements';
 
 import { saveAddress, setCurrentLocation } from '../actions/mapActions';
 import { getProductsByAddress } from '../actions/productActions';
-import { toggleSearch } from '../actions/uiActions';
+import { showSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
@@ -104,7 +104,7 @@ export class MapScreen extends Component {
     };
 
     handleAddressFocus = () => {
-        this.props.toggleSearch();
+        this.props.showSearch();
     };
 
     selectPrediction = prediction => {
@@ -311,7 +311,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     saveAddress,
     getProductsByAddress,
-    toggleSearch,
+    showSearch,
     setCurrentLocation
 };
 

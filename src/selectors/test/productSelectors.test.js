@@ -1,7 +1,8 @@
 import {
     getDeliveryType,
     getAvailableProducts,
-    getProductsByDeliveryType
+    getProductsByDeliveryType,
+    getSimilarProducts
 } from '../productSelectors';
 
 describe('productSelector', () => {
@@ -55,5 +56,31 @@ describe('productSelector', () => {
             }
         };
         expect(getProductsByDeliveryType(state)).toMatchSnapshot();
+    });
+    it('getSimilarProducts', () => {
+        const state = {
+            product: {
+                availableProducts: {
+                    1: [
+                        'pizza',
+                        'pizzas',
+                        'pizzeria',
+                        'pizza house',
+                        'house of pizza',
+                        'PIZZA',
+                        'PIZZAS',
+                        'PIZZERIA',
+                        'PIZZA HOUSE',
+                        'HOUSE OF PIZZA',
+                        'house'
+                    ].reduce((acc, value, index) => {
+                        acc[index] = { title: value };
+                        return acc;
+                    }, {})
+                },
+                deliveryType: '1'
+            }
+        };
+        expect(getSimilarProducts('pizza')(state)).toMatchSnapshot();
     });
 });

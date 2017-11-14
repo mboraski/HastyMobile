@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { placesAutocomplete } from '../actions/googleMapsActions';
-import { toggleSearch } from '../actions/uiActions';
+import { showSearch, hideSearch } from '../actions/uiActions';
 import DebounceTextInput from '../components/DebounceTextInput';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
@@ -19,11 +19,11 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class MapHeader extends Component {
+export class MapHeader extends Component {
     state = {
-        opacity: new Animated.Value(1),
-        inputText: '',
-        searchRendered: false
+        opacity: new Animated.Value(this.props.searchVisible ? 0 : 1),
+        searchRendered: this.props.searchVisible,
+        inputText: ''
     };
 
     componentWillReceiveProps(nextProps) {
@@ -60,10 +60,6 @@ class MapHeader extends Component {
 
     placesAutocomplete = text => {
         this.props.placesAutocomplete(text);
-    };
-
-    closeSearch = () => {
-        this.props.toggleSearch();
     };
 
     clearSearch = () => {
@@ -106,7 +102,7 @@ class MapHeader extends Component {
                     >
                         <View style={Style.appBar}>
                             <View style={Style.headerLeftContainer}>
-                                <BackButton style={Style.headerLeft} onPress={this.closeSearch} />
+                                <BackButton style={Style.headerLeft} onPress={this.props.hideSearch} />
                             </View>
                             <DebounceTextInput
                                 ref={c => (this.input = c)}
@@ -115,6 +111,7 @@ class MapHeader extends Component {
                                 onDebounce={this.placesAutocomplete}
                                 value={this.state.inputText}
                                 onChangeText={this.handleInput}
+                                onBlur={this.props.hideSearch}
                             />
                             <View style={Style.headerRightContainer}>
                                 <CloseButton style={Style.headerRight} onPress={this.clearSearch} />
@@ -149,9 +146,9 @@ const mapStateToProps = state => ({
     searchVisible: state.ui.searchVisible
 });
 
-const mapDispatchToProps = dispatch => ({
-    placesAutocomplete: text => dispatch(placesAutocomplete(text)),
-    toggleSearch: () => dispatch(toggleSearch())
-});
+const mapDispatchToProps = {
+    placesAutocomplete,
+    hideSearch
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapHeader);

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, View, Animated, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import { placesAutocomplete } from '../actions/googleMapsActions';
-import { toggleSearch } from '../actions/uiActions';
-import { homeSearchChange } from '../actions/homeSearchActions';
-import DebounceTextInput from '../components/DebounceTextInput';
+import { showSearch, hideSearch } from '../actions/uiActions';
+import { setSearchQuery } from '../actions/homeActions';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
-import SearchBar from '../components/SearchBar';
+import SearchBarButton from '../components/SearchBarButton';
 import CartButton from '../components/CartButton';
 import MenuButton from '../components/MenuButton';
 import Style from '../constants/Style';
@@ -28,11 +26,10 @@ type Props = {
     navigation: any,
 }
 
-class HomeHeader extends Component {
+export class HomeHeader extends Component {
     state = {
-        opacity: new Animated.Value(1),
-        inputText: '',
-        searchRendered: false
+        opacity: new Animated.Value(this.props.searchVisible ? 0 : 1),
+        searchRendered: this.props.searchVisible
     };
 
     componentWillReceiveProps(nextProps) {
@@ -64,35 +61,21 @@ class HomeHeader extends Component {
                 searchRendered: searchVisible
             });
             if (searchVisible) {
-                this.input.component.focus();
+                this.input.focus();
             }
         });
     };
 
-    placesAutocomplete = text => {
-        this.props.placesAutocomplete(text);
-    };
-
-    closeSearch = () => {
-        this.props.toggleSearch();
-    };
-
     clearSearch = () => {
-        this.setState({
-            inputText: ''
-        });
-        this.props.homeSearchChange('');
+        this.props.setSearchQuery('');
     };
 
-    handleInput = inputText => {
-        this.setState({
-            inputText
-        });
-        this.props.homeSearchChange(inputText);
+    handleInput = text => {
+        this.props.setSearchQuery(text);
     };
 
     render() {
-        const { navigation } = this.props;
+        const { navigation, searchQuery } = this.props;
         return (
             <View style={styles.wrapper}>
                 <Animated.View
@@ -103,7 +86,7 @@ class HomeHeader extends Component {
                             <MenuButton style={Style.headerLeft} />
                         </View>
                         <View style={Style.headerTitleContainer}>
-                            <SearchBar onFocus={() => this.closeSearch()} />
+                            <SearchBarButton onPress={this.props.showSearch} />
                         </View>
                         <View style={Style.headerRightContainer}>
                             <CartButton style={Style.headerRight} navigation={navigation} />
@@ -120,15 +103,15 @@ class HomeHeader extends Component {
                     >
                         <View style={Style.appBar}>
                             <View style={Style.headerLeftContainer}>
-                                <BackButton style={Style.headerLeft} onPress={this.closeSearch} />
+                                <BackButton style={Style.headerLeft} onPress={this.props.hideSearch} />
                             </View>
-                            <DebounceTextInput
+                            <TextInput
                                 ref={c => (this.input = c)}
                                 style={Style.headerTitleContainer}
                                 placeholder="Search Products"
-                                onDebounce={this.placesAutocomplete}
-                                value={this.state.inputText}
+                                value={searchQuery}
                                 onChangeText={this.handleInput}
+                                onBlur={this.props.hideSearch}
                             />
                             <View style={Style.headerRightContainer}>
                                 <CloseButton style={Style.headerRight} onPress={this.clearSearch} />
@@ -169,13 +152,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    searchVisible: state.ui.searchVisible
+    searchVisible: state.ui.searchVisible,
+    searchQuery: state.home.searchQuery
 });
 
-const mapDispatchToProps = dispatch => ({
-    placesAutocomplete: text => dispatch(placesAutocomplete(text)),
-    toggleSearch: () => dispatch(toggleSearch()),
-    homeSearchChange: (text) => dispatch(homeSearchChange(text))
-});
+const mapDispatchToProps = {
+    showSearch,
+    hideSearch,
+    setSearchQuery
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);

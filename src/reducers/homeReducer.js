@@ -1,17 +1,15 @@
-import {
-    HOME_SEARCH_CHANGE
-} from '../actions/homeSearchActions';
+import { SET_SEARCH_QUERY } from '../actions/homeActions';
 
 export const initialState = {
-    searchText: '',
+    searchQuery: ''
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case HOME_SEARCH_CHANGE:
+        case SET_SEARCH_QUERY:
             return {
                 ...state,
-                searchText: action.payload.searchText
+                searchQuery: action.payload
             };
         default:
             return state;

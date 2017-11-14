@@ -6,10 +6,20 @@ Object {
 }
 `;
 
+exports[`uiActions creates hideSearch action 1`] = `
+Object {
+  "type": "ui_hide_search",
+}
+`;
+
 exports[`uiActions creates showFeedbackForm action 1`] = `
 Object {
   "type": "show_feedback_form",
 }
 `;
 
-exports[`uiActions creates toggleSearch action 1`] = `[Function]`;
+exports[`uiActions creates showSearch action 1`] = `
+Object {
+  "type": "ui_show_search",
+}
+`;

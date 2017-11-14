@@ -17,10 +17,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 // Relative Imports
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { selectDeliveryType } from '../actions/productActions';
-import { toggleSearch } from '../actions/uiActions';
+import { showSearch, hideSearch } from '../actions/uiActions';
+import EmptyState from '../components/EmptyState';
 import ProductList from '../components/ProductList';
 import HomeHeader from '../containers/HomeHeader';
-import { getProductsByDeliveryType } from '../selectors/productSelectors';
+import { getSimilarProducts } from '../selectors/productSelectors';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
@@ -32,7 +33,7 @@ const OPACITY_DURATION = 300;
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: null,
-        header: <HomeHeader navigation={navigation} />,
+        header: <HomeHeader navigation={navigation} />
     });
 
     state = {
@@ -98,10 +99,6 @@ class HomeScreen extends Component {
         });
     };
 
-    handleAddressFocus = () => {
-        this.props.toggleSearch();
-    };
-
     renderFilter = filter => {
         const selectedFilter = this.props.deliveryType === filter.id;
         const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
@@ -122,11 +119,6 @@ class HomeScreen extends Component {
 
     render() {
         const { cart, products } = this.props;
-        const { homeSearch } = this.props;
-        const searchText = homeSearch.searchText.toLowerCase();
-        const filteredProducts = (searchText === '') ?
-            products : 
-            products.filter(product => product.title.toLowerCase().indexOf(searchText) > -1);
         return (
             <View style={styles.container}>
                 {cart.totalQuantity > 0 ? (
@@ -150,19 +142,25 @@ class HomeScreen extends Component {
                         </View>
                     </Image>
                 )}
-                <ScrollView
-                    horizontal
-                    style={styles.filters}
-                    contentContainerStyle={styles.filtersContent}
-                >
-                    {FILTERS.map(this.renderFilter)}
-                </ScrollView>
-                <ProductList
-                    cart={cart}
-                    products={filteredProducts}
-                    callAddToCart={this.callAddToCart}
-                    callRemoveFromCart={this.callRemoveFromCart}
-                />
+                <View style={styles.filters}> 
+                    <ScrollView
+                        horizontal
+                        style={styles.filters}
+                        contentContainerStyle={styles.filtersContent}
+                    >
+                        {FILTERS.map(this.renderFilter)}
+                    </ScrollView>
+                </View>
+                {products.length === 0 ? (
+                    <EmptyState title="No products found" style={styles.emptyState} />
+                ) : (
+                    <ProductList
+                        cart={cart}
+                        products={products}
+                        callAddToCart={this.callAddToCart}
+                        callRemoveFromCart={this.callRemoveFromCart}
+                    />
+                )}
             </View>
         );
     }
@@ -246,23 +244,24 @@ const styles = StyleSheet.create({
     },
     filterButtonTextSelected: {
         color: '#fff'
+    },
+    emptyState: {
+        position: 'relative'
     }
 });
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    products: getProductsByDeliveryType(state),
+    products: getSimilarProducts(state.home.searchQuery)(state),
     deliveryType: state.product.deliveryType,
     searchVisible: state.ui.searchVisible,
-    header: state.header,
-    homeSearch: state.homeSearch,
+    header: state.header
 });
 
-const mapDispatchToProps = dispatch => ({
-    selectFilter: filter => dispatch(selectDeliveryType(filter)),
-    addToCart: product => dispatch(addToCart(product)),
-    removeFromCart: product => dispatch(removeFromCart(product)),
-    toggleSearch: () => dispatch(toggleSearch()),
-});
+const mapDispatchToProps = {
+    selectFilter: selectDeliveryType,
+    addToCart,
+    removeFromCart
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

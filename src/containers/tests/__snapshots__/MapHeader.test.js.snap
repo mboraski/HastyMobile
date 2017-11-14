@@ -1,0 +1,357 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapHeader should render correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "height": 84,
+    }
+  }
+>
+  <AnimatedComponent
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "borderBottomColor": "rgba(0, 0, 0, .3)",
+          "borderBottomWidth": 0.5,
+          "flexDirection": "row",
+          "height": 84,
+          "paddingTop": 20,
+          "shadowColor": "transparent",
+          "shadowOffset": Object {
+            "height": 0,
+          },
+          "shadowRadius": 0,
+        },
+        Object {
+          "bottom": 0,
+          "height": 84,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "opacity": 1,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+      >
+        <Connect(MenuButton)
+          style={
+            Object {
+              "marginLeft": 20,
+              "marginRight": 0,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 70,
+            "position": "absolute",
+            "right": 70,
+            "top": 0,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "color": "rgba(0, 0, 0, .9)",
+              "fontSize": 17,
+              "fontWeight": "500",
+              "justifyContent": "center",
+              "marginHorizontal": 16,
+              "textAlign": "center",
+            }
+          }
+        >
+          Hasty Logo
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <Connect(LocationButton)
+          style={
+            Object {
+              "marginLeft": 0,
+              "marginRight": 20,
+            }
+          }
+        />
+      </View>
+    </View>
+  </AnimatedComponent>
+</View>
+`;
+
+exports[`MapHeader should render correctly searchVisible true 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "height": 84,
+    }
+  }
+>
+  <AnimatedComponent
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "borderBottomColor": "rgba(0, 0, 0, .3)",
+          "borderBottomWidth": 0.5,
+          "flexDirection": "row",
+          "height": 84,
+          "paddingTop": 20,
+          "shadowColor": "transparent",
+          "shadowOffset": Object {
+            "height": 0,
+          },
+          "shadowRadius": 0,
+        },
+        Object {
+          "bottom": 0,
+          "height": 84,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "opacity": 0,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+      >
+        <Connect(MenuButton)
+          style={
+            Object {
+              "marginLeft": 20,
+              "marginRight": 0,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 70,
+            "position": "absolute",
+            "right": 70,
+            "top": 0,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "color": "rgba(0, 0, 0, .9)",
+              "fontSize": 17,
+              "fontWeight": "500",
+              "justifyContent": "center",
+              "marginHorizontal": 16,
+              "textAlign": "center",
+            }
+          }
+        >
+          Hasty Logo
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <Connect(LocationButton)
+          style={
+            Object {
+              "marginLeft": 0,
+              "marginRight": 20,
+            }
+          }
+        />
+      </View>
+    </View>
+  </AnimatedComponent>
+  <AnimatedComponent
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "borderBottomColor": "rgba(0, 0, 0, .3)",
+          "borderBottomWidth": 0.5,
+          "flexDirection": "row",
+          "height": 84,
+          "paddingTop": 20,
+          "shadowColor": "transparent",
+          "shadowOffset": Object {
+            "height": 0,
+          },
+          "shadowRadius": 0,
+        },
+        Object {
+          "bottom": 0,
+          "height": 84,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "opacity": 1,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+      >
+        <Connect(BackButton)
+          style={
+            Object {
+              "marginLeft": 20,
+              "marginRight": 0,
+            }
+          }
+        />
+      </View>
+      <DebounceTextInput
+        onChangeText={[Function]}
+        onDebounce={[Function]}
+        placeholder="Enter Address"
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 70,
+            "position": "absolute",
+            "right": 70,
+            "top": 0,
+          }
+        }
+        value=""
+      />
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <Connect(CloseButton)
+          onPress={[Function]}
+          style={
+            Object {
+              "marginLeft": 0,
+              "marginRight": 20,
+            }
+          }
+        />
+      </View>
+    </View>
+  </AnimatedComponent>
+</View>
+`;
