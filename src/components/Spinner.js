@@ -50,12 +50,12 @@ export default class Spinner extends Component {
     };
 
     render() {
-        const { style, image } = this.props;
+        const { style, image, imageStyle } = this.props;
         return (
             <View style={[styles.loader, style]}>
                 <View style={styles.ring}>
                     <View style={styles.imageContainer}>
-                        <Image source={image} style={styles.image} />
+                        <Image source={image} style={[styles.image, imageStyle]} />
                     </View>
                 </View>
                 <Animated.View
