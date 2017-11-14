@@ -62,6 +62,24 @@ describe('MapScreen', () => {
         const render = shallow(<MapScreen {...props} />);
         expect(render).toMatchSnapshot();
     });
+    it('renders correctly with region', () => {
+        const props = {
+            predictions: [],
+            searchVisible: false,
+            header: {
+                isMenuOpen: false
+            },
+            region: { latitude: 0, longitude: 1, latitudeDelta: 2, longitudeDelta: 3 },
+            address: 'address',
+            getProductsByAddress: jest.fn(),
+            setCurrentLocation: jest.fn(),
+            navigation: {
+                navigate: jest.fn()
+            }
+        };
+        const render = shallow(<MapScreen {...props} />);
+        expect(render).toMatchSnapshot();
+    });
     it('onButtonPress', async () => {
         const props = {
             predictions: [],
@@ -69,7 +87,7 @@ describe('MapScreen', () => {
             header: {
                 isMenuOpen: false
             },
-            region: { latitude: 0, longitude: 1 },
+            region: { latitude: 0, longitude: 1, latitudeDelta: 2, longitudeDelta: 3 },
             address: 'address',
             getProductsByAddress: jest.fn(),
             setCurrentLocation: jest.fn(),

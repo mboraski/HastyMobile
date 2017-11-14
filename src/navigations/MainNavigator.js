@@ -35,7 +35,7 @@ const MainNavigator = StackNavigator({
     feedback: { screen: FeedbackScreen },
     promotionShare: { screen: PromotionShareScreen },
     }, {
-        initialRouteName: 'checkout',
+        initialRouteName: 'map',
         navigationOptions: {
             tabBarVisible: false
         },

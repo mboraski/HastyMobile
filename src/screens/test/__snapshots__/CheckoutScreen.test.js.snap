@@ -60,9 +60,9 @@ exports[`CheckoutScreen renders correctly 1`] = `
         region={
           Object {
             "latitude": 0,
-            "latitudeDelta": 1,
+            "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 2.1621621621621623,
+            "longitudeDelta": 0.21621621621621623,
           }
         }
         style={
@@ -88,9 +88,9 @@ exports[`CheckoutScreen renders correctly 1`] = `
           coordinate={
             Object {
               "latitude": 0,
-              "latitudeDelta": 1,
+              "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 2.1621621621621623,
+              "longitudeDelta": 0.21621621621621623,
             }
           }
           description="Your Delivery Location"
@@ -534,9 +534,9 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
         region={
           Object {
             "latitude": 0,
-            "latitudeDelta": 1,
+            "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 2.1621621621621623,
+            "longitudeDelta": 0.21621621621621623,
           }
         }
         style={
@@ -562,9 +562,9 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
           coordinate={
             Object {
               "latitude": 0,
-              "latitudeDelta": 1,
+              "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 2.1621621621621623,
+              "longitudeDelta": 0.21621621621621623,
             }
           }
           description="Your Delivery Location"

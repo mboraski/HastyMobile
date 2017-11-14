@@ -30,7 +30,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class MapScreen extends Component {
