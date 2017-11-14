@@ -68,7 +68,7 @@ export class MapScreen extends Component {
 
     onMapReady = () => {
         this.setState({ mapReady: true });
-    }
+    };
 
     onRegionChange = region => {
         if (this.state.mapReady) {
@@ -164,7 +164,7 @@ export class MapScreen extends Component {
 
         return (
             <View style={styles.container}>
-                 {region ? (
+                {region ? (
                     <MapView
                         initialRegion={region}
                         style={styles.map}
@@ -178,8 +178,8 @@ export class MapScreen extends Component {
                             title="You"
                             description="Your Delivery Location"
                             centerOffset={{
-                                x: 0,
-                                y: '-25%'
+                                x: 10,
+                                y: -25
                             }}
                             anchor={{
                                 x: 0.5,

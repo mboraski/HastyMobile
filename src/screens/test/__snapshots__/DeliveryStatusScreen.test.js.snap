@@ -16,6 +16,12 @@ exports[`DeliveryStatusScreen renders correctly 1`] = `
     <Spinner
       disabled={false}
       image={1}
+      imageStyle={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
       style={
         Object {
           "alignItems": "center",

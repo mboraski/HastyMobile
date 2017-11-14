@@ -110,8 +110,8 @@ export class CheckoutScreen extends Component {
                                 title="You"
                                 description="Your Delivery Location"
                                 centerOffset={{
-                                    x: 0,
-                                    y: '-25%'
+                                    x: 10,
+                                    y: -25
                                 }}
                                 anchor={{
                                     x: 0.5,
