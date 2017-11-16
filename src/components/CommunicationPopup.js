@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import Color from '../constants/Color';
-import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import callIcon from '../assets/icons/call.png';
 import messageIcon from '../assets/icons/multi_message.png';

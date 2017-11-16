@@ -15,7 +15,7 @@ import { Button } from 'react-native-elements';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 // import RatingPopup from '../components/RatingPopup';
-// import CustomerServicePopup from '../components/CustomerPopup';
+// import CommunicationPopup from '../components/CommunicationPopup';
 // import SuccessPopup from '../components/SuccessPopup';
 // import OopsPopup from '../components/OopsPopup';
 // import ContinuePopup from '../components/ContinuePopup';
@@ -59,7 +59,7 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
-        // const { openModal } = this.state;
+        const { openModal } = this.state;
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
@@ -88,7 +88,7 @@ class AuthScreen extends Component {
                     )}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
-                <CustomerServicePopup openModal={openModal} closeModal={this.closeModal} />
+                <CommunicationPopup openModal={openModal} closeModal={this.closeModal} />
                 <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
                 <OopsPopup openModal={openModal} closeModal={this.closeModal} />
                 <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}
