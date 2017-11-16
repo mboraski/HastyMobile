@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
+    Image,
     ActivityIndicator,
     StyleSheet,
     Text,
@@ -173,19 +174,12 @@ export class MapScreen extends Component {
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
-                            image={beaconIcon}
                             coordinate={region}
                             title="You"
                             description="Your Delivery Location"
-                            centerOffset={{
-                                x: 10,
-                                y: -25
-                            }}
-                            anchor={{
-                                x: 0.5,
-                                y: 1
-                            }}
-                        />
+                        >
+                            <Image source={beaconIcon} style={{ top: '-50%', left: '38%' }} />
+                        </MapView.Marker>
                     </MapView>
                 ) : null}
                 <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
