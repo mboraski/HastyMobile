@@ -14,41 +14,42 @@ exports[`MenuContent renders correctly 1`] = `
   <View
     style={
       Object {
-        "flex": 1,
+        "alignItems": "center",
+        "marginTop": 42.88,
       }
     }
   >
-    <View
+    <Image
+      source={1}
       style={
         Object {
-          "alignItems": "center",
-          "marginTop": 42.88,
+          "borderRadius": 50,
+          "height": 100,
+          "marginBottom": 16,
+          "width": 100,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      disabled={false}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#4c4c4c",
+          "fontSize": 20,
+          "marginBottom": 16,
+          "textAlign": "center",
         }
       }
     >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "height": 100,
-            "justifyContent": "center",
-            "marginBottom": 16,
-            "width": 100,
-          }
-        }
-      >
-        <Image
-          source={1}
-          style={
-            Object {
-              "borderRadius": 50,
-              "height": 100,
-              "width": 100,
-            }
-          }
-        />
-      </View>
+      Hanna Morgan
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+    >
       <Text
         accessible={true}
         allowFontScaling={true}
@@ -57,56 +58,20 @@ exports[`MenuContent renders correctly 1`] = `
         style={
           Object {
             "color": "#4c4c4c",
-            "fontSize": 20,
-            "marginBottom": 9.696,
+            "fontSize": 13.296,
+            "marginBottom": 16,
             "textAlign": "center",
           }
         }
       >
-        Hanna Morgan
+        View Profile
       </Text>
-    </View>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
-    >
-      <View
-        style={
-          Object {
-            "justifyContent": "center",
-            "marginBottom": 16,
-            "marginTop": 8,
-          }
-        }
-      >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          disabled={false}
-          ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "#4c4c4c",
-              "fontSize": 13.296,
-              "textAlign": "center",
-            }
-          }
-        >
-          View Profile
-        </Text>
-      </View>
     </TouchableOpacity>
   </View>
   <ScrollViewMock
     style={
       Object {
-        "bottom": 147.2,
-        "flexDirection": "column",
-        "left": 0,
         "marginLeft": 19.2,
-        "position": "absolute",
-        "right": 0,
-        "top": 240,
       }
     }
   >
@@ -164,6 +129,24 @@ exports[`MenuContent renders correctly 1`] = `
       onPress={[Function]}
       title="Help"
     />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      disabled={false}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#4c4c4c",
+          "fontSize": 13.296,
+          "height": 16,
+          "marginBottom": 14.4,
+          "marginTop": 72.96,
+          "textAlign": "center",
+        }
+      }
+    >
+      @2017 Hasty
+    </Text>
   </ScrollViewMock>
   <Connect(ToggleBackButton)
     style={
@@ -174,23 +157,5 @@ exports[`MenuContent renders correctly 1`] = `
       }
     }
   />
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    disabled={false}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#4c4c4c",
-        "fontSize": 13.296,
-        "height": 16,
-        "marginBottom": 14.4,
-        "marginTop": 72.96,
-        "textAlign": "center",
-      }
-    }
-  >
-    @2017 Hasty
-  </Text>
 </View>
 `;
