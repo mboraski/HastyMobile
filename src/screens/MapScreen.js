@@ -70,6 +70,12 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     }
 
+    onRegionChange = region => {
+        if (this.state.mapReady) {
+            this.props.setRegion(region);
+        }
+    };
+
     onRegionChangeComplete = region => {
         if (this.state.mapReady) {
             this.props.setRegion(region);
@@ -163,6 +169,7 @@ export class MapScreen extends Component {
                         initialRegion={region}
                         style={styles.map}
                         onMapReady={this.onMapReady}
+                        onRegionChange={this.onRegionChange}
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
