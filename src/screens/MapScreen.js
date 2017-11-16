@@ -12,7 +12,8 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { saveAddress, setCurrentLocation } from '../actions/mapActions';
+import { saveAddress, setRegion } from '../actions/mapActions';
+import { setCurrentLocation } from '../actions/cartActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
@@ -29,7 +30,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class MapScreen extends Component {
@@ -69,13 +70,20 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     }
 
+    onRegionChange = region => {
+        if (this.state.mapReady) {
+            this.props.setRegion(region);
+        }
+    };
+
     onRegionChangeComplete = region => {
         if (this.state.mapReady) {
-            this.props.setCurrentLocation(region);
+            this.props.setRegion(region);
         }
     };
 
     onButtonPress = async () => {
+        this.props.setCurrentLocation(this.props.address, this.props.region);
         await this.props.getProductsByAddress(this.props.address);
         this.props.navigation.navigate('home');
     };
@@ -90,7 +98,7 @@ export class MapScreen extends Component {
         }
 
         const location = await Location.getCurrentPositionAsync({});
-        this.props.setCurrentLocation({
+        this.props.setRegion({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             longitudeDelta: LATITUDE_DELTA,
@@ -161,6 +169,7 @@ export class MapScreen extends Component {
                         initialRegion={region}
                         style={styles.map}
                         onMapReady={this.onMapReady}
+                        onRegionChange={this.onRegionChange}
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
@@ -170,7 +179,7 @@ export class MapScreen extends Component {
                             description="Your Delivery Location"
                             centerOffset={{
                                 x: 0,
-                                y: '-50%'
+                                y: '-25%'
                             }}
                             anchor={{
                                 x: 0.5,
@@ -312,6 +321,7 @@ const mapDispatchToProps = {
     saveAddress,
     getProductsByAddress,
     toggleSearch,
+    setRegion,
     setCurrentLocation
 };
 

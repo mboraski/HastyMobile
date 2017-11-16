@@ -60,9 +60,9 @@ exports[`CheckoutScreen renders correctly 1`] = `
         region={
           Object {
             "latitude": 0,
-            "latitudeDelta": 0.0922,
+            "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 0.19935135135135137,
+            "longitudeDelta": 0.1,
           }
         }
         style={
@@ -82,15 +82,15 @@ exports[`CheckoutScreen renders correctly 1`] = `
           centerOffset={
             Object {
               "x": 0,
-              "y": "-50%",
+              "y": "-25%",
             }
           }
           coordinate={
             Object {
               "latitude": 0,
-              "latitudeDelta": 0.0922,
+              "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 0.19935135135135137,
+              "longitudeDelta": 0.1,
             }
           }
           description="Your Delivery Location"
@@ -498,7 +498,7 @@ exports[`CheckoutScreen renders correctly 1`] = `
     confirmText="Apply"
     message="The available products/services at your new location may be different."
     openModal={false}
-    showIcon={true}
+    showIcon={false}
     title="Are you sure you want to change your delivery location?"
   />
 </View>
@@ -534,9 +534,9 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
         region={
           Object {
             "latitude": 0,
-            "latitudeDelta": 0.0922,
+            "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 0.19935135135135137,
+            "longitudeDelta": 0.1,
           }
         }
         style={
@@ -556,15 +556,15 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
           centerOffset={
             Object {
               "x": 0,
-              "y": "-50%",
+              "y": "-25%",
             }
           }
           coordinate={
             Object {
               "latitude": 0,
-              "latitudeDelta": 0.0922,
+              "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 0.19935135135135137,
+              "longitudeDelta": 0.1,
             }
           }
           description="Your Delivery Location"
@@ -983,7 +983,7 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
     confirmText="Apply"
     message="The available products/services at your new location may be different."
     openModal={false}
-    showIcon={true}
+    showIcon={false}
     title="Are you sure you want to change your delivery location?"
   />
 </View>

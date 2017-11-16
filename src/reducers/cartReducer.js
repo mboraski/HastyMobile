@@ -1,8 +1,8 @@
 import {
     ADD_TO_CART,
-    REMOVE_FROM_CART
+    REMOVE_FROM_CART,
+    SET_CURRENT_LOCATION
 } from '../actions/cartActions';
-import { GET_PRODUCTS_BY_ADDRESS_SUCCESS } from '../actions/productActions';
 
 function normalizeCurrency(currency) {
     if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
@@ -87,11 +87,14 @@ export default (state = initialState, action) => {
                     (state.totalCost - normalizeCurrency(action.payload.price)).toFixed(2)
                 )
             };
-        case GET_PRODUCTS_BY_ADDRESS_SUCCESS:
+        case SET_CURRENT_LOCATION:
             return {
                 ...state,
-                currentSetAddress: action.payload.currentSetAddress,
-                currentSetLatLon: action.payload.currentSetLatLon
+                currentSetAddress: action.payload.address,
+                currentSetLatLon: {
+                    lat: action.payload.region.latitude,
+                    lon: action.payload.region.longitude
+                }
             };
         default:
             return state;

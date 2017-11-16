@@ -7,7 +7,7 @@ import {
     MAPS_REVERSE_GEOCODE_SUCCESS,
     MAPS_REVERSE_GEOCODE_FAIL
 } from '../actions/googleMapsActions';
-import { SAVE_ADDRESS, SET_CURRENT_LOCATION } from '../actions/mapActions';
+import { SAVE_ADDRESS, SET_REGION } from '../actions/mapActions';
 
 function getFormattedAddress(payload) {
     const result = payload.results[0];
@@ -82,7 +82,7 @@ export default function (state = initialState, action) {
                 };
             }
             return state;
-        case SET_CURRENT_LOCATION:
+        case SET_REGION:
             return {
                 ...state,
                 region: action.payload

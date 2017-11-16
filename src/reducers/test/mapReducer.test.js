@@ -1,4 +1,4 @@
-import { saveAddress, SET_CURRENT_LOCATION } from '../../actions/mapActions';
+import { saveAddress, SET_REGION } from '../../actions/mapActions';
 import {
     MAPS_PLACES_AUTOCOMPLETE_REQUEST,
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
@@ -13,9 +13,9 @@ describe('mapReducer', () => {
     it('handles saveAddress action', () => {
         expect(reducer(initialState, saveAddress('address'))).toMatchSnapshot();
     });
-    it('handles SET_CURRENT_LOCATION action', () => {
+    it('handles SET_REGION action', () => {
         expect(
-            reducer(initialState, { type: SET_CURRENT_LOCATION, payload: 'region' })
+            reducer(initialState, { type: SET_REGION, payload: 'region' })
         ).toMatchSnapshot();
     });
     it('handles MAPS_PLACES_AUTOCOMPLETE_REQUEST action', () => {

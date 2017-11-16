@@ -7,14 +7,14 @@ Object {
 }
 `;
 
-exports[`mapActions setCurrentLocation 1`] = `
+exports[`mapActions setRegion 1`] = `
 Array [
   Object {
     "payload": Object {
       "latitude": 0,
       "longitude": 0,
     },
-    "type": "set_current_location",
+    "type": "set_region",
   },
   Object {
     "payload": Object {
