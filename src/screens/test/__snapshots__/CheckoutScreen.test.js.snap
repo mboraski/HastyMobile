@@ -62,7 +62,7 @@ exports[`CheckoutScreen renders correctly 1`] = `
             "latitude": 0,
             "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 0.21621621621621623,
+            "longitudeDelta": 0.1,
           }
         }
         style={
@@ -90,7 +90,7 @@ exports[`CheckoutScreen renders correctly 1`] = `
               "latitude": 0,
               "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 0.21621621621621623,
+              "longitudeDelta": 0.1,
             }
           }
           description="Your Delivery Location"
@@ -536,7 +536,7 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
             "latitude": 0,
             "latitudeDelta": 0.1,
             "longitude": 1,
-            "longitudeDelta": 0.21621621621621623,
+            "longitudeDelta": 0.1,
           }
         }
         style={
@@ -564,7 +564,7 @@ exports[`CheckoutScreen renders correctly with products 1`] = `
               "latitude": 0,
               "latitudeDelta": 0.1,
               "longitude": 1,
-              "longitudeDelta": 0.21621621621621623,
+              "longitudeDelta": 0.1,
             }
           }
           description="Your Delivery Location"

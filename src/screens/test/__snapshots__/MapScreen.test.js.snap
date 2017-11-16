@@ -91,6 +91,7 @@ exports[`MapScreen renders correctly with region 1`] = `
       }
     }
     onMapReady={[Function]}
+    onRegionChange={[Function]}
     onRegionChangeComplete={[Function]}
     style={
       Object {
