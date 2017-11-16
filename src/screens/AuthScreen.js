@@ -59,7 +59,7 @@ class AuthScreen extends Component {
         const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
         const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
         const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
-        const { openModal } = this.state;
+        // const { openModal } = this.state;
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
