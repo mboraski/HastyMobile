@@ -1,24 +1,14 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Modal,
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    Platform
-} from 'react-native';
+import { StyleSheet, Modal, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
 import Color from '../constants/Color';
-import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import callIcon from '../assets/icons/call.png';
 import messageIcon from '../assets/icons/multi_message.png';
 import emailIcon from '../assets/icons/mail_close.png';
-
 
 const SIZE = emY(5.62);
 const buttonData = [
@@ -36,7 +26,7 @@ const buttonData = [
         index: 2,
         icon: emailIcon,
         title: 'EMAIL'
-    },
+    }
 ];
 type Props = {
     openModal: boolean,
@@ -45,13 +35,13 @@ type Props = {
 
 class CustomerServicePopup extends Component {
     state = {
-        modalVisible: false,
-    }
+        modalVisible: false
+    };
 
     componentDidMount() {
         const { openModal } = this.props;
         this.setState({
-            modalVisible: openModal,
+            modalVisible: openModal
         });
     }
 
@@ -80,6 +70,7 @@ class CustomerServicePopup extends Component {
                 break;
             default:
         }
+        this.props.closeModal(index);
     }
     props: Props;
 
@@ -101,26 +92,20 @@ class CustomerServicePopup extends Component {
                 animationType="slide"
                 visible={modalVisible}
                 onRequestClose={() => {}}
-                style={styles.modalContainer}
+                style={StyleSheet.absoluteFill}
                 transparent
             >
-                <View style={styles.container}>
+                <View style={[StyleSheet.absoluteFill, styles.container]}>
                     <TouchableOpacity
-                        style={Style.backdropContainer}
+                        style={StyleSheet.absoluteFill}
                         onPress={() => this.closeModal()}
                         activeOpacity={1}
-                    >
-                        <Text style={Style.clearText}>.</Text>
-                    </TouchableOpacity>
+                    />
                     <View style={styles.innerContainer}>
-                        <Text
-                            style={styles.label}
-                        >
+                        <Text style={styles.label}>
                             Select the way you want to connect with customer service
                         </Text>
-                        <View style={styles.buttonGroupContainer}>
-                            {buttonGroup}
-                        </View>
+                        <View style={styles.buttonGroupContainer}>{buttonGroup}</View>
                     </View>
                 </View>
             </Modal>
@@ -130,10 +115,8 @@ class CustomerServicePopup extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: Color.CLEAR,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     innerContainer: {
         backgroundColor: Color.WHITE,
@@ -160,13 +143,13 @@ const styles = StyleSheet.create({
         fontSize: emY(1.08),
         marginVertical: emY(1),
         lineHeight: emY(1.5),
-        marginHorizontal: 30,
+        marginHorizontal: 30
     },
     buttonGroupContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: emY(1),
+        marginTop: emY(1)
     },
     icon: {
         height: SIZE / 3.0,
@@ -184,10 +167,9 @@ const styles = StyleSheet.create({
     buttonLabel: {
         fontSize: emY(0.83),
         alignSelf: 'center',
-        marginTop: emY(1),
+        marginTop: emY(1)
     }
 });
-
 
 const mapDispatchToProps = function (dispatch) {
     return {};

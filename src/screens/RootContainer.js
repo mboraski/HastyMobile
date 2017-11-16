@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 // Relative Imports
 import MenuNavigator from '../navigations/MenuNavigator';
-import CustomerPopup from '../components/CustomerPopup';
+import CommunicationPopup from '../components/CommunicationPopup';
 import { closeCustomerPopup as closeCustomerPopupAction } from '../actions/uiActions';
 
 class RootContainer extends Component {
@@ -28,7 +28,7 @@ class RootContainer extends Component {
         return (
             <View style={styles.container}>
                 <MenuNavigator navigation={navigation} />
-                <CustomerPopup
+                <CommunicationPopup
                     openModal={customerPopupVisible}
                     closeModal={this.handleCustomerPopupClose}
                 />
