@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     textInput: {
         marginBottom: emY(1),
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500
+        borderColor: Color.GREY_500,
+        textAlignVertical: 'top'
     },
     textInputContainer: {
         flex: 1
