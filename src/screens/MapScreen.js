@@ -174,12 +174,13 @@ export class MapScreen extends Component {
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
+                            image={beaconIcon}
                             coordinate={region}
                             title="You"
                             description="Your Delivery Location"
-                        >
-                            <Image source={beaconIcon} style={{ top: '-50%', left: '38%' }} />
-                        </MapView.Marker>
+                            anchor={{ x: 0.2, y: 1 }}
+                            centerOffset={{ x: 10, y: -25 }}
+                        />
                     </MapView>
                 ) : null}
                 <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
