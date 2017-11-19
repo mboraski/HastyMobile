@@ -116,7 +116,8 @@ class DropDown extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundColor: 'white'
     },
     arrowContainer: {
         position: 'absolute',
