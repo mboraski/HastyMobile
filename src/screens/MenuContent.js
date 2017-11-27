@@ -19,6 +19,8 @@ import helpIcon from '../assets/icons/info.png';
 import tempAvatar from '../assets/profile.png';
 import { openCustomerPopup } from '../actions/uiActions';
 
+// TODO: listen to change event/determine screen size on render over using
+// initial pre render screen size values
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
 const getRoute = (items, routeName) => items.find(item => item.key === routeName);
@@ -52,7 +54,7 @@ class MenuContent extends Component {
 
     render() {
         const { items, activeItemKey, onItemPress } = this.props;
-        const { name, avatar } = this.state;
+        const { name } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -64,24 +66,28 @@ class MenuContent extends Component {
                 </View>
                 <ScrollView style={styles.menuItems}>
                     <MenuItem
+                        route={getRoute(items, 'heroSignup')}
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={heroIcon}
                         title="Heroes Needed!"
                     />
                     <MenuItem
+                        routed={getRoute(items, 'historyScreen')}
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={historyIcon}
                         title="History"
                     />
                     <MenuItem
+                        route={getRoute(items, 'Recommended')}
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={favoriteIcon}
                         title="Favorites & Recommended"
                     />
                     <MenuItem
+                        route={getRoute(items, 'searchForHero')}
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={notificationIcon}

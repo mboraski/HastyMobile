@@ -15,11 +15,16 @@ import CartScreen from '../screens/CartScreen';
 import CreditCardScreen from '../screens/CreditCardScreen';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
+import RecommendedScreen from '../screens/RecommendedScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PromotionShareScreen from '../screens/PromotionShareScreen';
+import HeroSignup from '../screens/HeroSignup';
+import HistoryScreen from '../screens/HistoryScreen';
 
 const MainNavigator = StackNavigator({
     welcome: { screen: WelcomeScreen },
+    heroSignup: { screen: HeroSignup },
+    history: { screen: HistoryScreen },
     auth: { screen: AuthScreen },
     profile: { screen: ProfileScreen },
     map: { screen: MapScreen },
@@ -34,6 +39,7 @@ const MainNavigator = StackNavigator({
     checkout: { screen: CheckoutScreen },
     feedback: { screen: FeedbackScreen },
     promotionShare: { screen: PromotionShareScreen },
+    recommended: { screen: RecommendedScreen }
     }, {
         initialRouteName: 'map',
         navigationOptions: {

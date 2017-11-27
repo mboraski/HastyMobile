@@ -39,7 +39,7 @@ const MAP_HEIGHT = emY(9.25);
 const LATITUDE_DELTA = 0.1;
 const LONGITUDE_DELTA = 0.1;
 
-export class CheckoutScreen extends Component {
+class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Your Order',
         headerLeft: <BackButton onPress={() => navigation.goBack()} />,

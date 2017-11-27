@@ -33,7 +33,7 @@ const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
 const LATITUDE_DELTA = 1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export class MapScreen extends Component {
+class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
