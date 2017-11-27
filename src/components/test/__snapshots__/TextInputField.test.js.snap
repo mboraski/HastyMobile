@@ -46,6 +46,7 @@ exports[`TextInputField component renders correctly 1`] = `
         false,
       ]
     }
+    underlineColorAndroid="transparent"
   />
 </View>
 `;
@@ -102,6 +103,7 @@ exports[`TextInputField component renders correctly with error 1`] = `
         },
       ]
     }
+    underlineColorAndroid="transparent"
   />
   <Text
     accessible={true}

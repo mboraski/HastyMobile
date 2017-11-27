@@ -30,7 +30,6 @@ exports[`LocationButton renders correctly 1`] = `
     }
   }
   name="navigation"
-  onPress={[Function]}
   raised={true}
   reverse={false}
   reverseColor="white"

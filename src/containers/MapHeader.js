@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { placesAutocomplete } from '../actions/googleMapsActions';
+import { getCurrentLocation } from '../actions/mapActions';
 import { toggleSearch } from '../actions/uiActions';
 import DebounceTextInput from '../components/DebounceTextInput';
 import BackButton from '../components/BackButton';
@@ -78,6 +79,10 @@ class MapHeader extends Component {
         });
     };
 
+    handleLocationPress = () => {
+        this.props.getCurrentLocation();
+    };
+
     render() {
         return (
             <View style={styles.wrapper}>
@@ -92,7 +97,10 @@ class MapHeader extends Component {
                             <Text style={Style.headerTitle}>Hasty Logo</Text>
                         </View>
                         <View style={Style.headerRightContainer}>
-                            <LocationButton style={Style.headerRight} />
+                            <LocationButton
+                                style={Style.headerRight}
+                                onPress={this.handleLocationPress}
+                            />
                         </View>
                     </View>
                 </Animated.View>
@@ -149,9 +157,10 @@ const mapStateToProps = state => ({
     searchVisible: state.ui.searchVisible
 });
 
-const mapDispatchToProps = dispatch => ({
-    placesAutocomplete: text => dispatch(placesAutocomplete(text)),
-    toggleSearch: () => dispatch(toggleSearch())
-});
+const mapDispatchToProps = {
+    placesAutocomplete,
+    toggleSearch,
+    getCurrentLocation
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapHeader);

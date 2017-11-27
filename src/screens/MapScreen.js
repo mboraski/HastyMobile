@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import {
     View,
-    Image,
-    ActivityIndicator,
     StyleSheet,
     Text,
     TouchableWithoutFeedback,
     Platform,
     Animated
 } from 'react-native';
-import { MapView, Constants, Location, Permissions } from 'expo';
+import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { saveAddress, setRegion } from '../actions/mapActions';
+import { saveAddress, setRegion, getCurrentLocation } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import beaconIcon from '../assets/icons/beacon.png';
@@ -30,9 +27,6 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
-const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
-const LATITUDE_DELTA = 1;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export class MapScreen extends Component {
     state = {
@@ -50,7 +44,7 @@ export class MapScreen extends Component {
                 errorMessage: 'Oops, this will only work on a device'
             });
         } else if (!this.props.region) {
-            this.getLocationAsync();
+            this.props.getCurrentLocation();
         }
     }
 
@@ -71,12 +65,6 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChange = region => {
-        if (this.state.mapReady) {
-            this.props.setRegion(region);
-        }
-    };
-
     onRegionChangeComplete = region => {
         if (this.state.mapReady) {
             this.props.setRegion(region);
@@ -87,25 +75,6 @@ export class MapScreen extends Component {
         this.props.setCurrentLocation(this.props.address, this.props.region);
         await this.props.getProductsByAddress(this.props.address);
         this.props.navigation.navigate('home');
-    };
-
-    getLocationAsync = async () => {
-        this.setState({ getCurrentPositionPending: true });
-        const { status } = await Permissions.askAsync(Permissions.LOCATION);
-        if (status !== 'granted') {
-            this.setState({
-                errorMessage: 'Permission to access location was denied'
-            });
-        }
-
-        const location = await Location.getCurrentPositionAsync({});
-        this.props.setRegion({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            longitudeDelta: LATITUDE_DELTA,
-            latitudeDelta: LONGITUDE_DELTA
-        });
-        this.setState({ getCurrentPositionPending: false });
     };
 
     handleAddress = address => {
@@ -149,25 +118,13 @@ export class MapScreen extends Component {
 
     render() {
         const { predictions, region, address, pending } = this.props;
-        const { getCurrentPositionPending } = this.state;
-
-        if (getCurrentPositionPending) {
-            return (
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <ActivityIndicator size="large" />
-                </View>
-            );
-        }
-
-        // TODO: User can select a location from search and have it
-        // show as the center location of the map after clicked. then
-        // user has to click use current location to proceed.
 
         return (
             <View style={styles.container}>
                 {region ? (
                     <MapView
                         initialRegion={region}
+                        region={region}
                         style={styles.map}
                         onMapReady={this.onMapReady}
                         onRegionChange={this.onRegionChange}
@@ -317,7 +274,8 @@ const mapDispatchToProps = {
     getProductsByAddress,
     toggleSearch,
     setRegion,
-    setCurrentLocation
+    setCurrentLocation,
+    getCurrentLocation
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
