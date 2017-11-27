@@ -28,7 +28,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-export class MapScreen extends Component {
+class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
