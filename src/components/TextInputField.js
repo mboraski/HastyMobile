@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
 import { Field } from 'redux-form';
 
 import Color from '../constants/Color';
@@ -23,6 +23,7 @@ export const TextInputComponent = ({
         <TextInput
             style={[styles.textInput, style, touched && invalid && styles.textInputInvalid]}
             onChangeText={onChange}
+            underlineColorAndroid="transparent"
             {...restInput}
             {...props}
         />
@@ -51,7 +52,12 @@ export const styles = StyleSheet.create({
         marginHorizontal: 15,
         fontSize: emY(1),
         height: emY(3.125),
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        ...Platform.select({
+            android: {
+                paddingVertical: emY(0.5)
+            }
+        })
     },
     textInputInvalid: {
         color: Color.RED_500,

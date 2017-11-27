@@ -1,12 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Image,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -38,9 +32,13 @@ class DeliveryStatusScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}> 
-                <TouchableOpacity onPress={() => this.notRef.receiveNotification()} >
-                    <Spinner image={tempAvatar} style={styles.loader} />
+            <View style={styles.container}>
+                <TouchableOpacity onPress={() => this.notRef.receiveNotification()}>
+                    <Spinner
+                        image={tempAvatar}
+                        style={styles.loader}
+                        imageStyle={styles.loaderImage}
+                    />
                 </TouchableOpacity>
                 <Text style={styles.searching}>Searching...</Text>
                 <Notification onRef={ref => (this.notRef = ref)} />
@@ -65,20 +63,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: emY(1)
     },
+    loaderImage: {
+        width: '100%',
+        height: '100%'
+    },
     imageContainer: {
         flexDirection: 'row',
         borderWidth: StyleSheet.hairlineWidth * 10,
         borderColor: Color.GREY_300,
         height: IMAGE_CONTAINER_SIZE,
         width: IMAGE_CONTAINER_SIZE,
-        borderRadius: (IMAGE_CONTAINER_SIZE) / 2,
+        borderRadius: IMAGE_CONTAINER_SIZE / 2,
         alignItems: 'center',
         justifyContent: 'center'
     },
     image: {
         width: SIZE,
         height: SIZE,
-        borderRadius: SIZE / 2,
+        borderRadius: SIZE / 2
     },
     gradient: {
         position: 'absolute',
@@ -86,10 +88,7 @@ const styles = StyleSheet.create({
         left: '50%',
         width: SIZE,
         height: SIZE,
-        transform: [
-            { translate: [0, -SIZE * 1] },
-            { scale: 1 }
-        ],
+        transform: [{ translate: [0, -SIZE * 1] }, { scale: 1 }]
     },
     ticks: {
         position: 'absolute',
@@ -97,10 +96,7 @@ const styles = StyleSheet.create({
         left: '50%',
         width: SIZE,
         height: SIZE,
-        transform: [
-            { translate: [-SIZE / 2, -SIZE / 2] }, 
-            { scale: 1.4 }
-        ],
+        transform: [{ translate: [-SIZE / 2, -SIZE / 2] }, { scale: 1.4 }]
     },
     searching: {
         color: Color.GREY_600,
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.WHITE,
         paddingBottom: emY(0.375),
         marginLeft: 27,
-        marginRight: 27,
+        marginRight: 27
     },
     labelText: {
         color: Color.GREY_600,
@@ -132,10 +128,9 @@ DeliveryStatusScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
-    header: state.header,
+    header: state.header
 });
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);

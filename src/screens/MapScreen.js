@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
+    Image,
     ActivityIndicator,
     StyleSheet,
     Text,
@@ -22,7 +23,7 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
-import pinIcon from '../assets/icons/pin.png';
+import beaconIcon from '../assets/icons/beacon.png';
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
@@ -68,7 +69,7 @@ export class MapScreen extends Component {
 
     onMapReady = () => {
         this.setState({ mapReady: true });
-    }
+    };
 
     onRegionChange = region => {
         if (this.state.mapReady) {
@@ -164,7 +165,7 @@ export class MapScreen extends Component {
 
         return (
             <View style={styles.container}>
-                 {region ? (
+                {region ? (
                     <MapView
                         initialRegion={region}
                         style={styles.map}
@@ -173,18 +174,12 @@ export class MapScreen extends Component {
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
-                            image={pinIcon}
+                            image={beaconIcon}
                             coordinate={region}
                             title="You"
                             description="Your Delivery Location"
-                            centerOffset={{
-                                x: 0,
-                                y: '-25%'
-                            }}
-                            anchor={{
-                                x: 0.5,
-                                y: 1
-                            }}
+                            anchor={{ x: 0.2, y: 1 }}
+                            centerOffset={{ x: 10, y: -25 }}
                         />
                     </MapView>
                 ) : null}

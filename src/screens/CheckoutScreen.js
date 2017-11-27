@@ -29,7 +29,7 @@ import { getAvailableCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
 import { reset } from '../actions/navigationActions';
 
-import pinIcon from '../assets/icons/pin.png';
+import beaconIcon from '../assets/icons/beacon.png';
 
 const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from your cart?';
 const CHANGE_LOCATION_TITLE = 'Are you sure you want to change your delivery location?';
@@ -105,18 +105,12 @@ export class CheckoutScreen extends Component {
                     <View style={styles.container}>
                         <MapView region={region} style={styles.map}>
                             <MapView.Marker
-                                image={pinIcon}
+                                image={beaconIcon}
                                 coordinate={region}
                                 title="You"
                                 description="Your Delivery Location"
-                                centerOffset={{
-                                    x: 0,
-                                    y: '-25%'
-                                }}
-                                anchor={{
-                                    x: 0.5,
-                                    y: 1
-                                }}
+                                anchor={{ x: 0.2, y: 1 }}
+                                centerOffset={{ x: 10, y: -25 }}
                             />
                         </MapView>
                         <View style={styles.itemHeader}>
