@@ -25,7 +25,10 @@ describe('CartScreen', () => {
             }
         };
         const removeFromCart = jest.fn();
-        const render = shallow(<CartScreen {...initialState} removeFromCart={removeFromCart} />);
+        const render = shallow(
+            <CartScreen {...initialState} {...initialState.cart} removeFromCart={removeFromCart} />
+        );
+        expect(render).toMatchSnapshot();
         const order = initialState.cart.products[1][1];
         render.instance().handleRemoveOrder(order);
         expect(render.state()).toMatchSnapshot();
@@ -49,12 +52,15 @@ describe('CartScreen', () => {
                         }
                     }
                 },
-                totalCost: 3.49,
-                totalQuantity: 1
+                totalCost: 6.98,
+                totalQuantity: 2
             }
         };
         const removeFromCart = jest.fn();
-        const render = shallow(<CartScreen {...initialState} removeFromCart={removeFromCart} />);
+        const render = shallow(
+            <CartScreen {...initialState} {...initialState.cart} removeFromCart={removeFromCart} />
+        );
+        expect(render).toMatchSnapshot();
         const order = initialState.cart.products[1][1];
         render.instance().handleRemoveOrder(order);
         expect(removeFromCart.mock.calls.length).toEqual(1);

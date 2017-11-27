@@ -44,7 +44,7 @@ export class CartScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, removeFromCart, totalOrders, totalCost } = this.props;
+        const { orders, addToCart, totalQuantity, totalCost } = this.props;
         const { removeOrderPopupVisible } = this.state;
         return (
             <View style={styles.container}>
@@ -56,11 +56,13 @@ export class CartScreen extends Component {
                 <View style={styles.cart}>
                     <View style={styles.meta}>
                         <Text style={styles.label}>Order Total:</Text>
-                        <Text style={styles.quantity}>{totalOrders} items</Text>
+                        <Text style={styles.quantity}>
+                            {totalQuantity} item{totalQuantity > 1 ? 's' : ''}
+                        </Text>
                         <Text style={styles.cost}>${totalCost}</Text>
                     </View>
                     <Button
-                        title="CONFIRM ORDER"
+                        title="Go to checkout"
                         containerViewStyle={styles.buttonContainer}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
