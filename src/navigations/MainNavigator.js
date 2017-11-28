@@ -41,7 +41,7 @@ const MainNavigator = StackNavigator({
     promotionShare: { screen: PromotionShareScreen },
     recommended: { screen: RecommendedScreen }
     }, {
-        initialRouteName: 'map',
+        initialRouteName: 'auth',
         navigationOptions: {
             tabBarVisible: false
         },

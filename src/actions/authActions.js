@@ -40,13 +40,25 @@ const doFacebookLogin = async dispatch => {
 
         if (type === 'cancel') {
             return dispatch({ type: ACTIONS.LOGIN_FAIL });
+        } else if (type === 'success') {
+            // Build Firebase credential with the Facebook access token.
+            const credential = fbAuth.FacebookAuthProvider.credential(token);
+
+            // Sign in with credential from the Facebook user.
+            fbAuth.signInWithCredential(credential).catch((error) => {
+                console.log(
+                    'authActions_doFacebookLogin fb firebase signInWithCredential error: ',
+                    error
+                );
+            });
+            await AsyncStorage.setItem('auth_type', 'facebook');
+            await AsyncStorage.setItem('auth_token', token);
+
+            dispatch({ type: ACTIONS.LOGIN_SUCCESS, payload: response });
+            dispatch({ type: ACTIONS.LOGIN_USER, payload: token });
+        } else {
+            console.log('authActions_doFacebookLogin unknown type: ', type);
         }
-
-        await AsyncStorage.setItem('auth_type', 'facebook');
-        await AsyncStorage.setItem('auth_token', token);
-
-        dispatch({ type: ACTIONS.LOGIN_SUCCESS, payload: response });
-        dispatch({ type: ACTIONS.LOGIN_USER, payload: token });
     } catch (error) {
         console.log('authActions doFacebookLogin catch error: ', error);
         dispatch({ type: ACTIONS.LOGIN_FAIL });
