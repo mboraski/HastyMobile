@@ -69,7 +69,8 @@ class AuthScreen extends Component {
                         <Text style={styles.imageText}>HELLO</Text>
                     </Image>
                     <View style={styles.buttonsRow}>
-                        <Button
+                        <oAuthForm onAuthSuccess={this.goToMap} /> ///Complete
+                        {/* <Button
                             title="Sign Up"
                             buttonStyle={[styles.button, signUpButtonHighlighted]}
                             textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
@@ -80,13 +81,13 @@ class AuthScreen extends Component {
                             buttonStyle={[styles.button, loginButtonHighlighted]}
                             textStyle={[styles.buttonText, loginButtonTextHighlighted]}
                             onPress={this.openSignInForm}
-                        />
+                        /> */}
                     </View>
-                    {signUp ? (
+                    {/* {signUp ? (
                         <SignUpForm onAuthSuccess={this.goToMap} />
                     ) : (
                         <SignInForm onAuthSuccess={this.goToMap} />
-                    )}
+                    )} */}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
                 <CommunicationPopup openModal={openModal} closeModal={this.closeModal} />
