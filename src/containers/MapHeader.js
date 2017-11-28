@@ -84,14 +84,16 @@ class MapHeader extends Component {
     };
 
     render() {
+        const { pending } = this.props;
+        const { opacity, searchRendered, inputText } = this.state;
         return (
             <View style={styles.wrapper}>
                 <Animated.View
-                    style={[Style.header, styles.header, { opacity: this.state.opacity }]}
+                    style={[Style.header, styles.header, { opacity }]}
                 >
                     <View style={Style.appBar}>
                         <View style={Style.headerLeftContainer}>
-                            <MenuButton style={Style.headerLeft} />
+                            <MenuButton style={Style.headerLeft} disabled={pending} />
                         </View>
                         <View style={Style.headerTitleContainer}>
                             <Text style={Style.headerTitle}>Hasty Logo</Text>
@@ -100,16 +102,17 @@ class MapHeader extends Component {
                             <LocationButton
                                 style={Style.headerRight}
                                 onPress={this.handleLocationPress}
+                                disabled={pending}
                             />
                         </View>
                     </View>
                 </Animated.View>
-                {this.state.searchRendered ? (
+                {searchRendered ? (
                     <Animated.View
                         style={[
                             Style.header,
                             styles.header,
-                            { opacity: this.state.opacity.interpolate(REVERSE_CONFIG) }
+                            { opacity: opacity.interpolate(REVERSE_CONFIG) }
                         ]}
                     >
                         <View style={Style.appBar}>
@@ -121,7 +124,7 @@ class MapHeader extends Component {
                                 style={Style.headerTitleContainer}
                                 placeholder="Enter Address"
                                 onDebounce={this.placesAutocomplete}
-                                value={this.state.inputText}
+                                value={inputText}
                                 onChangeText={this.handleInput}
                             />
                             <View style={Style.headerRightContainer}>
@@ -154,7 +157,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    searchVisible: state.ui.searchVisible
+    searchVisible: state.ui.searchVisible,
+    pending: state.map.pending || state.product.pending,
 });
 
 const mapDispatchToProps = {
