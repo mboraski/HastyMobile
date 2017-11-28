@@ -41,6 +41,27 @@ Array [
 ]
 `;
 
+exports[`mapActions saveAddress 1`] = `
+Array [
+  Object {
+    "payload": "address",
+    "type": "save_address",
+  },
+  Object {
+    "payload": Object {
+      "address": "address",
+    },
+    "type": "google_maps_geocode_request",
+  },
+  Object {
+    "payload": Object {
+      "data": "data",
+    },
+    "type": "google_maps_geocode_success",
+  },
+]
+`;
+
 exports[`mapActions setRegion 1`] = `
 Array [
   Object {

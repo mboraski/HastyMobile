@@ -26,8 +26,11 @@ describe('mapActions', () => {
         mockApi.reset();
     });
 
-    it('creates saveAddress action', () => {
-        expect(saveAddress('address')).toMatchSnapshot();
+    it('saveAddress', async () => {
+        mockApi.onAny().reply(200, { data: 'data' });
+        await store.dispatch(saveAddress('address'));
+        const actions = store.getActions();
+        expect(actions).toMatchSnapshot();
     });
     it('setRegion', async () => {
         mockApi.onAny().reply(200, { data: 'data' });

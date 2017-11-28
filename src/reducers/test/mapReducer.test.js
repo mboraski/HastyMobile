@@ -1,5 +1,5 @@
 import {
-    saveAddress,
+    SAVE_ADDRESS,
     SET_REGION,
     GET_CURRENT_LOCATION_REQUEST,
     GET_CURRENT_LOCATION_SUCCESS,
@@ -9,6 +9,9 @@ import {
     MAPS_PLACES_AUTOCOMPLETE_REQUEST,
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
     MAPS_PLACES_AUTOCOMPLETE_FAIL,
+    MAPS_GEOCODE_REQUEST,
+    MAPS_GEOCODE_SUCCESS,
+    MAPS_GEOCODE_FAIL,
     MAPS_REVERSE_GEOCODE_REQUEST,
     MAPS_REVERSE_GEOCODE_SUCCESS,
     MAPS_REVERSE_GEOCODE_FAIL
@@ -16,8 +19,18 @@ import {
 import reducer, { initialState } from '../mapReducer';
 
 describe('mapReducer', () => {
-    it('handles saveAddress action', () => {
-        expect(reducer(initialState, saveAddress('address'))).toMatchSnapshot();
+    it('handles SAVE_ADDRESS action', () => {
+        const newState = reducer(initialState, {
+            type: SAVE_ADDRESS,
+            payload: 'address'
+        });
+        expect(newState).toMatchSnapshot();
+        expect(
+            reducer(newState, {
+                type: SAVE_ADDRESS,
+                payload: 'address'
+            })
+        ).toMatchSnapshot();
     });
     it('handles SET_REGION action', () => {
         const newState = reducer(initialState, {
@@ -58,6 +71,27 @@ describe('mapReducer', () => {
     it('handles MAPS_PLACES_AUTOCOMPLETE_FAIL action', () => {
         expect(reducer(initialState, { type: MAPS_PLACES_AUTOCOMPLETE_FAIL })).toMatchSnapshot();
     });
+    it('handles MAPS_GEOCODE_REQUEST action', () => {
+        expect(reducer(initialState, { type: MAPS_GEOCODE_REQUEST })).toMatchSnapshot();
+    });
+    it('handles MAPS_GEOCODE_SUCCESS action', () => {
+        const payload = {
+            results: [
+                {
+                    geometry: {
+                        location: {
+                            lat: 0,
+                            lng: 1
+                        }
+                    }
+                }
+            ]
+        };
+        expect(reducer(initialState, { type: MAPS_GEOCODE_SUCCESS, payload })).toMatchSnapshot();
+    });
+    it('handles MAPS_GEOCODE_FAIL action', () => {
+        expect(reducer(initialState, { type: MAPS_GEOCODE_FAIL, error: 'error' })).toMatchSnapshot();
+    });
     it('handles MAPS_REVERSE_GEOCODE_REQUEST action', () => {
         expect(reducer(initialState, { type: MAPS_REVERSE_GEOCODE_REQUEST })).toMatchSnapshot();
     });
@@ -68,6 +102,6 @@ describe('mapReducer', () => {
         ).toMatchSnapshot();
     });
     it('handles MAPS_REVERSE_GEOCODE_FAIL action', () => {
-        expect(reducer(initialState, { type: MAPS_REVERSE_GEOCODE_FAIL })).toMatchSnapshot();
+        expect(reducer(initialState, { type: MAPS_REVERSE_GEOCODE_FAIL, error: 'error' })).toMatchSnapshot();
     });
 });

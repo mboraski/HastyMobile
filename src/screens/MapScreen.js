@@ -87,6 +87,7 @@ export class MapScreen extends Component {
 
     selectPrediction = prediction => {
         this.props.saveAddress(prediction.description);
+        this.props.toggleSearch();
     };
 
     animate = searchVisible => {
