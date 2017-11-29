@@ -118,7 +118,7 @@ export class MapScreen extends Component {
     };
 
     render() {
-        const { predictions, region, address, pending } = this.props;
+        const { predictions, region, address, pending, productPending } = this.props;
 
         return (
             <View style={styles.container}>
@@ -185,7 +185,7 @@ export class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                {pending ? <Spinner style={StyleSheet.absoluteFill} /> : null}
+                {productPending ? <Spinner style={StyleSheet.absoluteFill} /> : null}
             </View>
         );
     }
@@ -264,6 +264,7 @@ MapScreen.navigationOptions = {
 
 const mapStateToProps = state => ({
     pending: state.map.pending || state.product.pending,
+    productPending: state.product.pending,
     predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,
