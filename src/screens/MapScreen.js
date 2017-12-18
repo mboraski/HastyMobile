@@ -16,6 +16,7 @@ import { setCurrentLocation } from '../actions/cartActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
+import Spinner from '../components/Spinner';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
@@ -118,7 +119,7 @@ export class MapScreen extends Component {
     };
 
     render() {
-        const { predictions, region, address, pending } = this.props;
+        const { predictions, region, address, pending, productPending } = this.props;
 
         return (
             <View style={styles.container}>
@@ -141,7 +142,7 @@ export class MapScreen extends Component {
                         />
                     </MapView>
                 ) : null}
-                <TouchableWithoutFeedback onPress={this.handleAddressFocus}>
+                <TouchableWithoutFeedback onPress={this.handleAddressFocus} disabled={pending}>
                     <Animated.View
                         style={[
                             styles.inputContainer,
@@ -185,6 +186,7 @@ export class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
+                {productPending ? <Spinner style={StyleSheet.absoluteFill} /> : null}
             </View>
         );
     }
@@ -263,6 +265,7 @@ MapScreen.navigationOptions = {
 
 const mapStateToProps = state => ({
     pending: state.map.pending || state.product.pending,
+    productPending: state.product.pending,
     predictions: state.map.predictions,
     searchVisible: state.ui.searchVisible,
     header: state.header,
