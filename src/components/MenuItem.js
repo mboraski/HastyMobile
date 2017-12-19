@@ -1,8 +1,9 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 // Relative Imports
+import Text from './Text';
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 

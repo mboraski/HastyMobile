@@ -4,13 +4,13 @@ import {
     StyleSheet,
     Modal,
     View,
-    Text,
     Image,
     TouchableOpacity,
     Platform
 } from 'react-native';
 
 // Relative Imports
+import Text from './Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';

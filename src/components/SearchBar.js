@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         textAlign: 'center',
-        height: SIZE
+        height: SIZE,
+        fontFamily: 'Arial'
     },
     imageContainer: {
         alignItems: 'center',

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 import valid from 'card-validator';
 
+import Text from './Text';
 import { styles as baseStyles } from './TextInputField';
 import CardImage from './CardImage';
 import formatCardNumber from '../formatting/formatCardNumber';
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     textInput: {
-        flex: 1
+        flex: 1,
+        fontFamily: 'Arial'
     },
     card: {
         alignSelf: 'center',

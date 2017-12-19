@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import {
     ScrollView,
     StyleSheet,
-    Text,
     View,
-    Image,
+    ImageBackground,
     TouchableOpacity,
     Platform
 } from 'react-native';
@@ -18,6 +17,7 @@ import ProductList from '../components/ProductList';
 import MenuButton from '../components/MenuButton';
 import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
@@ -102,13 +102,13 @@ export class HomeScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 ) : (
-                    <Image source={SOURCE} style={styles.image}>
+                    <ImageBackground source={SOURCE} style={styles.image}>
                         <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
                         <View>
                             <Text style={styles.imageTitle}>Recommended</Text>
                             <Text style={styles.imageMeta}>215 items</Text>
                         </View>
-                    </Image>
+                    </ImageBackground>
                 )}
                 <ScrollView
                     horizontal

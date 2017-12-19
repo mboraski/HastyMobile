@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 
+import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
     textInput: {
         flex: 1,
         fontSize: emY(1),
-        textAlign: 'right'
+        textAlign: 'right',
+        fontFamily: 'Arial'
     },
     textInputInvalid: {
         color: Color.RED_500

@@ -1,9 +1,10 @@
 // bc JSX uses react.createElement etc, we need react in this file
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import { StyleSheet, View, Image, ScrollView} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+import Text from '../components/Text';
 // import axios from 'axios';
 // import ProductList from '../components/ProductList';
 // import { addToCart } from '../actions';

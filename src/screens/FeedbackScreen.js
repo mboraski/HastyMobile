@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -8,6 +8,7 @@ import { Button } from 'react-native-elements';
 import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
 import FeedbackFormCloseButton from '../containers/FeedbackFormCloseButton';
 import Rating from '../components/Rating';
+import Text from '../components/Text';
 import FeedbackForm from '../containers/FeedbackForm';
 import Color from '../constants/Color';
 import Style from '../constants/Style';

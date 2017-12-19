@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text,
     TouchableWithoutFeedback,
     Platform,
     Animated
@@ -17,6 +16,7 @@ import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
 import LogoSpinner from '../components/LogoSpinner';
+import Text from '../components/Text';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
@@ -213,7 +213,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontWeight: 'bold',
-        fontSize: emY(1.25)
+        fontSize: emY(1.25),
+        fontFamily: 'Arial'
     },
     inputContainer: {
         position: 'absolute',
@@ -259,7 +260,6 @@ const styles = StyleSheet.create({
 });
 
 MapScreen.navigationOptions = {
-    title: 'Hasty Logo',
     header: <MapHeader />
 };
 
