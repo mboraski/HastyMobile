@@ -13,6 +13,7 @@ export const TextInputComponent = ({
     labelStyle,
     errorStyle,
     style,
+    editable = true,
     ...props
 }) => (
     <View style={[styles.formInputGroup, containerStyle]}>
@@ -22,7 +23,13 @@ export const TextInputComponent = ({
             </Text>
         ) : null}
         <TextInput
-            style={[styles.textInput, style, touched && invalid && styles.textInputInvalid]}
+            style={[
+                styles.textInput,
+                style,
+                !editable && styles.textInputNotEditable,
+                touched && invalid && styles.textInputInvalid
+            ]}
+            editable={editable}
             onChangeText={onChange}
             underlineColorAndroid="transparent"
             {...restInput}
@@ -64,6 +71,9 @@ export const styles = StyleSheet.create({
         color: Color.RED_500,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.RED_500
+    },
+    textInputNotEditable: {
+        color: Color.GREY_400
     },
     error: {
         paddingHorizontal: 25,

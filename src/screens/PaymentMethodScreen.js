@@ -45,18 +45,14 @@ class PaymentMethodScreen extends Component {
         this.props.navigation.navigate('creditCard');
     };
 
-    selectPaymentMethod = () => {
-        this.props.navigation.navigate('creditCard');
+    selectPaymentMethod = card => {
+        this.props.navigation.navigate('creditCard', { card });
     };
 
-    renderCard = (card, index) => (
-        <PaymentMethod
-            key={index}
-            type={card.brand}
-            text={card.last4}
-            onPress={this.selectPaymentMethod}
-        />
-    );
+    renderCard = (card, index) => {
+        const onPress = () => this.selectPaymentMethod(card);
+        return <PaymentMethod key={index} type={card.brand} text={card.last4} onPress={onPress} />;
+    };
 
     renderAccount = (account, index) => (
         <PaymentMethod

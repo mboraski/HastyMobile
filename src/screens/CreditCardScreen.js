@@ -7,7 +7,7 @@ import { reduxForm, SubmissionError } from 'redux-form';
 import stripeClient from 'stripe-client';
 
 // Relative Imports
-import { addCard } from '../actions/paymentActions';
+import { addCard, deleteCard } from '../actions/paymentActions';
 import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
 import TextInputField from '../components/TextInputField';
@@ -24,8 +24,14 @@ import required from '../validation/required';
 const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 class CreditCardScreen extends Component {
+    deleteCard = () => {
+        this.props.deleteCard(this.props.navigation.state.params.card);
+        this.props.navigation.goBack();
+    };
+
     render() {
-        const { error, submitting } = this.props;
+        const { error, submitting, navigation: { state: { params } } } = this.props;
+        const card = params && params.card;
         return (
             <DismissKeyboardView style={styles.container}>
                 {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -38,6 +44,7 @@ class CreditCardScreen extends Component {
                             normalize={formatCardNumber}
                             keyboardType="number-pad"
                             validate={required}
+                            editable={!card}
                         />
                         <TextInputField
                             name="exp"
@@ -57,15 +64,18 @@ class CreditCardScreen extends Component {
                         containerStyle={styles.cvcContainer}
                         keyboardType="number-pad"
                         validate={required}
+                        editable={!card}
                     />
                 </View>
-                <Button
-                    title="Delete Card"
-                    onPress={this.onButtonPress}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
+                {card ? (
+                    <Button
+                        title="Delete Card"
+                        onPress={this.deleteCard}
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
+                    />
+                ) : null}
                 {submitting ? <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} /> : null}
             </DismissKeyboardView>
         );
@@ -148,16 +158,31 @@ const formOptions = {
     }
 };
 
-const mapDispatchToProps = {
-    addCard
+const mapStateToProps = (state, props) => {
+    const card = props.navigation.state.params && props.navigation.state.params.card;
+    return {
+        initialValues: card
+            ? {
+                  number: card.last4,
+                  exp: `${card.exp_month}/${card.exp_year}`,
+                  name: card.name,
+                  cvc: '***'
+              }
+            : {}
+    };
 };
 
-const CreditCardScreenForm = connect(null, mapDispatchToProps)(
+const mapDispatchToProps = {
+    addCard,
+    deleteCard
+};
+
+const CreditCardScreenForm = connect(mapStateToProps, mapDispatchToProps)(
     reduxForm(formOptions)(CreditCardScreen)
 );
 
 CreditCardScreenForm.navigationOptions = ({ navigation }) => ({
-    title: 'Edit Card',
+    title: navigation.state.params && navigation.state.params.card ? 'Edit Card' : 'Add Card',
     headerLeft: <BackButton onPress={() => navigation.goBack()} />,
     headerRight: <RemoteSubmitTextButton title="Save" formName="CreditCard" />,
     headerStyle: Style.header,

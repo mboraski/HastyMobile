@@ -7,13 +7,19 @@ import { styles as baseStyles } from './TextInputField';
 import CardImage from './CardImage';
 import formatCardNumber from '../formatting/formatCardNumber';
 
-const renderInput = ({ input: { onChange, ...restInput }, style, ...props }) => {
+const renderInput = ({ input: { onChange, ...restInput }, style, editable, ...props }) => {
     const { card } = valid.number(restInput.value);
     return (
         <View style={[baseStyles.textInputContainer, styles.textInputContainer]}>
             {card ? <CardImage type={card.type} style={styles.card} /> : null}
             <TextInput
-                style={[baseStyles.textInput, styles.textInput, style]}
+                style={[
+                    baseStyles.textInput,
+                    styles.textInput,
+                    !editable && baseStyles.textInputNotEditable,
+                    style
+                ]}
+                editable={editable}
                 onChangeText={onChange}
                 normalize={formatCardNumber}
                 keyboardType="number-pad"
