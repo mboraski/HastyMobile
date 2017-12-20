@@ -50,6 +50,10 @@ class AuthScreen extends Component {
         this.props.navigation.navigate('map');
     };
 
+    goToPayment = () => {
+        this.props.navigation.navigate('paymentMethod');
+    };
+
     closeModal = () => {
         this.setState({ openModal: false });
     };

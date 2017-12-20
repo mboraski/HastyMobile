@@ -11,6 +11,7 @@ export const TextInputComponent = ({
     label,
     containerStyle,
     labelStyle,
+    errorStyle,
     style,
     ...props
 }) => (
@@ -27,7 +28,7 @@ export const TextInputComponent = ({
             {...restInput}
             {...props}
         />
-        {touched && error ? <Text style={styles.error}>{error}</Text> : null}
+        {touched && error ? <Text style={[styles.error, errorStyle]}>{error}</Text> : null}
     </View>
 );
 
@@ -65,11 +66,10 @@ export const styles = StyleSheet.create({
         borderColor: Color.RED_500
     },
     error: {
-        marginTop: -1 * emY(0.5),
         paddingHorizontal: 25,
         fontSize: emY(0.8),
         color: Color.RED_500,
-        marginBottom: emY(0.5)
+        marginTop: emY(0.5)
     }
 });
 

@@ -20,12 +20,6 @@ class PaymentMethodScreen extends Component {
     });
 
     static defaultProps = {
-        cards: [
-            {
-                type: 'visa',
-                number: '4000400040004000'
-            }
-        ],
         accounts: [
             {
                 type: 'bank-america',
@@ -58,8 +52,8 @@ class PaymentMethodScreen extends Component {
     renderCard = (card, index) => (
         <PaymentMethod
             key={index}
-            type={card.type}
-            text={card.number}
+            type={card.brand}
+            text={card.last4}
             onPress={this.selectPaymentMethod}
         />
     );
@@ -110,7 +104,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    header: state.header
+    header: state.header,
+    cards: state.payment.cards
 });
 
 const mapDispatchToProps = dispatch => ({});

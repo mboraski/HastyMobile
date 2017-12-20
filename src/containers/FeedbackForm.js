@@ -40,6 +40,7 @@ export class FeedbackForm extends Component {
                         name="name"
                         placeholder="Name"
                         validate={[required, minLength3]}
+                        containerStyle={styles.textInputContainer}
                         style={styles.textInput}
                     />
                     <TextInputField
@@ -47,7 +48,9 @@ export class FeedbackForm extends Component {
                         placeholder="Email"
                         keyboardType="email-address"
                         validate={[required, validEmail]}
+                        containerStyle={styles.textInputContainer}
                         style={styles.textInput}
+                        error
                     />
                     <TextInputField
                         name="message"
@@ -56,7 +59,7 @@ export class FeedbackForm extends Component {
                         validate={[required, minLength3]}
                         containerStyle={styles.textInputContainerMessage}
                         labelStyle={styles.label}
-                        style={[styles.textInput, styles.textInputContainer]}
+                        style={[styles.textInput, styles.textInputMessage]}
                     />
                 </View>
                 {submitting ? <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} /> : null}
@@ -97,15 +100,17 @@ const styles = StyleSheet.create({
     formInputs: {
         flex: 1
     },
+    textInputContainer: {
+        marginBottom: emY(1)
+    },
     textInputContainerMessage: {
         flex: 1
     },
     textInput: {
-        marginBottom: emY(1),
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_500
     },
-    textInputContainer: {
+    textInputMessage: {
         flex: 1
     },
     label: {
