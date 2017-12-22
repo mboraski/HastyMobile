@@ -51,6 +51,7 @@ class AuthScreen extends Component {
     };
 
     goToPayment = () => {
+        this.props.navigation.navigate('map');
         this.props.navigation.navigate('paymentMethod');
     };
 
@@ -89,7 +90,7 @@ class AuthScreen extends Component {
                     {signUp ? (
                         <SignUpForm onAuthSuccess={this.goToMap} />
                     ) : (
-                        <SignInForm onAuthSuccess={this.goToMap} />
+                        <SignInForm onAuthSuccess={this.goToPayment} />
                     )}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
