@@ -45,9 +45,9 @@ class SignUpForm extends Component {
         console.log('SignUpForm render error: ', error);
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
-            anyTouched && invalid ?
-            'Please fill out form with no errors or empty fields.' :
-            'Create Account';
+            anyTouched && invalid
+                ? 'Please fill out form with no errors or empty fields.'
+                : 'Create Account';
         // TODO: Add name, email, and number to temp form part of store that doesn't clear out on error
         return (
             <View style={styles.container}>
@@ -91,7 +91,12 @@ class SignUpForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <Spinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                            ringStyle={styles.spinnerRing}
+                            imageContainerStyle={styles.spinnerImageContainer}
+                            imageStyle={styles.spinnerImage}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -173,6 +178,9 @@ const styles = StyleSheet.create({
     spinner: {
         backgroundColor: Color.WHITE
     },
+    spinnerRing: { borderColor: 'transparent' },
+    spinnerImageContainer: { backgroundColor: Color.YELLOW_600 },
+    spinnerImage: { width: '90%', height: '90%' },
     signUpError: {
         color: Color.RED_500,
         textAlign: 'center',

@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Animated, Easing } from 'react-native';
 
 import loaderGradient from '../assets/loader-gradient.png';
 import loaderTicks from '../assets/loader-ticks.png';
-import loaderIcon from '../assets/icons/address.png';
+import loaderIcon from '../assets/icons/logo-white.png';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
@@ -50,14 +50,27 @@ export default class Spinner extends Component {
     };
 
     render() {
-        const { style, image, imageStyle } = this.props;
+        const { style, image, ringStyle, imageContainerStyle, imageStyle } = this.props;
         return (
             <View style={[styles.loader, style]}>
-                <View style={styles.ring}>
-                    <View style={styles.imageContainer}>
-                        <Image source={image} style={[styles.image, imageStyle]} />
+                <View style={[styles.ring, ringStyle]}>
+                    <View style={[styles.imageContainer, imageContainerStyle]}>
+                        <Image
+                            source={image}
+                            style={[styles.image, imageStyle]}
+                            resizeMode="contain"
+                        />
                     </View>
                 </View>
+                <Animated.Image
+                    source={loaderTicks}
+                    style={[
+                        styles.ticks,
+                        {
+                            transform: [{ rotate: this.interpolatedRotate }]
+                        }
+                    ]}
+                />
                 <Animated.View
                     style={[
                         styles.gradientContainer,
@@ -66,8 +79,7 @@ export default class Spinner extends Component {
                         }
                     ]}
                 >
-                    <Image source={loaderGradient} style={[styles.gradient]} />
-                    <Image source={loaderTicks} style={styles.ticks} />
+                    <Image source={loaderGradient} style={styles.gradient} />
                 </Animated.View>
             </View>
         );
@@ -93,14 +105,13 @@ const styles = StyleSheet.create({
         height: IMAGE_CONTAINER_SIZE,
         width: IMAGE_CONTAINER_SIZE,
         borderRadius: IMAGE_CONTAINER_SIZE / 2,
-        backgroundColor: Color.BLACK,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
     image: {
-        width: SIZE,
-        height: SIZE
+        width: '100%',
+        height: '100%'
     },
     gradientContainer: {
         position: 'absolute',
@@ -118,10 +129,7 @@ const styles = StyleSheet.create({
     },
     ticks: {
         position: 'absolute',
-        top: '50%',
-        left: '50%',
         width: TICKS_SIZE,
-        height: TICKS_SIZE,
-        transform: [{ translate: [-TICKS_SIZE / 2, -TICKS_SIZE / 2] }]
+        height: TICKS_SIZE
     }
 });

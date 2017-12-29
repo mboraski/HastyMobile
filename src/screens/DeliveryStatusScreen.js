@@ -8,6 +8,7 @@ import { Button } from 'react-native-elements';
 import loaderGradient from '../assets/loader-gradient.png';
 import loaderTicks from '../assets/loader-ticks.png';
 import MenuButtonRight from '../components/MenuButtonRight';
+import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
 import Spinner from '../components/Spinner';
@@ -37,7 +38,6 @@ class DeliveryStatusScreen extends Component {
                     <Spinner
                         image={tempAvatar}
                         style={styles.loader}
-                        imageStyle={styles.loaderImage}
                     />
                 </TouchableOpacity>
                 <Text style={styles.searching}>Searching...</Text>
@@ -62,10 +62,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginBottom: emY(1)
-    },
-    loaderImage: {
-        width: '100%',
-        height: '100%'
     },
     imageContainer: {
         flexDirection: 'row',
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
 DeliveryStatusScreen.navigationOptions = {
     title: 'Hasty',
     headerLeft: <MenuButtonRight />,
-    headerRight: null,
+    headerRight: <BrandButton />,
     headerStyle: Style.headerBorderless,
     headerTitleStyle: Style.headerTitle
 };

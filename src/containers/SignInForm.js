@@ -66,8 +66,11 @@ class SignInForm extends Component {
                     />
                     {submitting ? (
                         <Spinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
-                        />
+                        style={[StyleSheet.absoluteFill, styles.spinner]}
+                        ringStyle={styles.spinnerRing}
+                        imageContainerStyle={styles.spinnerImageContainer}
+                        imageStyle={styles.spinnerImage}
+                    />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -150,6 +153,9 @@ const styles = StyleSheet.create({
     spinner: {
         backgroundColor: Color.WHITE
     },
+    spinnerRing: { borderColor: 'transparent' },
+    spinnerImageContainer: { backgroundColor: Color.YELLOW_600 },
+    spinnerImage: { width: '90%', height: '90%' },
     signUpError: {
         color: Color.RED_500,
         textAlign: 'center',
