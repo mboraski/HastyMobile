@@ -8,7 +8,7 @@ import { reduxForm } from 'redux-form';
 import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import Spinner from '../components/Spinner';
+import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
@@ -65,12 +65,7 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner
-                        style={[StyleSheet.absoluteFill, styles.spinner]}
-                        ringStyle={styles.spinnerRing}
-                        imageContainerStyle={styles.spinnerImageContainer}
-                        imageStyle={styles.spinnerImage}
-                    />
+                        <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -121,7 +116,7 @@ const styles = StyleSheet.create({
     formInputs: {
         paddingHorizontal: 15,
         marginBottom: emY(2.0),
-        marginTop: emY(1.7),
+        marginTop: emY(1.7)
     },
     fieldContainer: {
         backgroundColor: '#fff'
@@ -153,9 +148,6 @@ const styles = StyleSheet.create({
     spinner: {
         backgroundColor: Color.WHITE
     },
-    spinnerRing: { borderColor: 'transparent' },
-    spinnerImageContainer: { backgroundColor: Color.YELLOW_600 },
-    spinnerImage: { width: '90%', height: '90%' },
     signUpError: {
         color: Color.RED_500,
         textAlign: 'center',

@@ -16,7 +16,7 @@ import { setCurrentLocation } from '../actions/cartActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch } from '../actions/uiActions';
 import PredictionList from '../components/PredictionList';
-import Spinner from '../components/Spinner';
+import LogoSpinner from '../components/LogoSpinner';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
@@ -186,7 +186,7 @@ export class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                {productPending ? <Spinner style={StyleSheet.absoluteFill} /> : null}
+                {productPending ? <LogoSpinner style={StyleSheet.absoluteFill} /> : null}
             </View>
         );
     }
