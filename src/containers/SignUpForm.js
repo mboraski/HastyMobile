@@ -8,7 +8,7 @@ import { reduxForm } from 'redux-form';
 import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import Spinner from '../components/Spinner';
+import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
@@ -45,9 +45,9 @@ class SignUpForm extends Component {
         console.log('SignUpForm render error: ', error);
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
-            anyTouched && invalid ?
-            'Please fill out form with no errors or empty fields.' :
-            'Create Account';
+            anyTouched && invalid
+                ? 'Please fill out form with no errors or empty fields.'
+                : 'Create Account';
         // TODO: Add name, email, and number to temp form part of store that doesn't clear out on error
         return (
             <View style={styles.container}>
@@ -91,7 +91,9 @@ class SignUpForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <LogoSpinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState

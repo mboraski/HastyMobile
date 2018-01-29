@@ -1,13 +1,13 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { AsyncStorage, StyleSheet } from 'react-native';
+import { AsyncStorage, StyleSheet, Image, View } from 'react-native';
 import Expo from 'expo';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import { PersistGate } from 'redux-persist/es/integration/react';
 
 // Relative Imports
-import Spinner from './src/components/Spinner';
+import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/screens/RootContainer';
 import { store, persistor } from './src/store';
@@ -41,7 +41,13 @@ class App extends Component {
             <Provider store={store}>
                 <PersistGate
                     persistor={persistor}
-                    loading={<Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />}
+                    loading={
+                        <Image
+                            source={splashImage}
+                            style={[StyleSheet.absoluteFill, styles.splash]}
+                            resizeMode="contain"
+                        />
+                    }
                 >
                     <RootContainer />
                 </PersistGate>
@@ -51,8 +57,8 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
-    spinner: {
-        backgroundColor: Color.WHITE
+    splash: {
+        backgroundColor: Color.YELLOW_600
     }
 });
 

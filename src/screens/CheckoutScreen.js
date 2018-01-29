@@ -110,7 +110,7 @@ export class CheckoutScreen extends Component {
                                 title="You"
                                 description="Your Delivery Location"
                                 anchor={{ x: 0.2, y: 1 }}
-                                centerOffset={{ x: 10, y: -25 }}
+                                centerOffset={{ x: 12, y: -25 }}
                             />
                         </MapView>
                         <View style={styles.itemHeader}>

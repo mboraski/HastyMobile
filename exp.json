@@ -6,11 +6,12 @@
   "sdkVersion": "22.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
-  "primaryColor": "#cccccc",
-  "icon": "./src/assets/icons/app.png",
-  "loading": {
-    "icon": "./src/assets/icons/loading.png",
-    "hideExponentText": false
+  "primaryColor": "#f5a624",
+  "icon": "./src/assets/icons/logo-white.png",
+  "splash": {
+    "backgroundColor": "#f5a624",
+    "resizeMode": "cover",
+    "image": "./src/assets/splash.png"
   },
   "packagerOpts": {
     "assetExts": ["ttf", "mp4"]

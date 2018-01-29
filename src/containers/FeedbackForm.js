@@ -7,7 +7,7 @@ import { reset } from '../actions/navigationActions';
 import Color from '../constants/Color';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
-import Spinner from '../components/Spinner';
+import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
@@ -59,7 +59,7 @@ export class FeedbackForm extends Component {
                         style={[styles.textInput, styles.textInputContainer]}
                     />
                 </View>
-                {submitting ? <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} /> : null}
+                {submitting ? <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} /> : null}
                 {!submitting && submitSucceeded ? (
                     <SuccessState
                         style={StyleSheet.absoluteFill}
