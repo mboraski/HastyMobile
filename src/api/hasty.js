@@ -8,6 +8,18 @@ export function getProductsByAddress(...args) {
     return instance.post('getProductsByAddress', ...args);
 }
 
+export function addCard(...args) {
+    return new Promise(resolve => setTimeout(resolve, 3000));
+}
+
+export function deleteCard(...args) {
+    return new Promise(resolve => setTimeout(resolve, 3000));
+}
+
+export function listCards(...args) {
+    return new Promise(resolve => setTimeout(resolve, 3000));
+}
+
 function handleRequestConfig(config) {
     if (__DEV__) {
         console.log(config);
