@@ -8,6 +8,7 @@ import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
+import ApiTester from '../screens/apiTester'; // TODO: remove after verification
 import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
 import DeliveryNotesScreen from '../screens/DeliveryNotesScreen';
 import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
@@ -23,6 +24,7 @@ const MainNavigator = StackNavigator({
     auth: { screen: AuthScreen },
     profile: { screen: ProfileScreen },
     map: { screen: MapScreen },
+    apiTester: { screen: ApiTester },
     home: { screen: HomeScreen },
     searchForHero: { screen: SearchForHeroScreen },
     deliveryDetail: { screen: DeliveryDetailScreen },
@@ -35,7 +37,7 @@ const MainNavigator = StackNavigator({
     feedback: { screen: FeedbackScreen },
     promotionShare: { screen: PromotionShareScreen },
     }, {
-        initialRouteName: 'map',
+        initialRouteName: 'apiTester',
         navigationOptions: {
             tabBarVisible: false
         },

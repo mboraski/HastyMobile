@@ -8,6 +8,10 @@ export function getProductsByAddress(...args) {
     return instance.post('getProductsByAddress', ...args);
 }
 
+// export function deleteUser(...args) {
+//     return instance.post('deleteUser', ...args);
+// }
+
 export function addCard(...args) {
     return new Promise(resolve => setTimeout(resolve, 3000));
 }
