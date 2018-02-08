@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { auth } from 'firebase';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
+import stripe from 'stripe';
 
-// import { deleteUser } from '../api/hasty';
+import { addStripeCustomerPaymentInfo } from '../api/hasty';
 import { statusBarOnly } from '../constants/Style';
 
 class ApiTester extends Component {
@@ -16,6 +17,7 @@ class ApiTester extends Component {
         deleteUser: null,
         login: null,
         logout: null,
+        addStripeCustomerPaymentInfo: null,
         user: null
     }
 
@@ -103,6 +105,28 @@ class ApiTester extends Component {
                     logout: JSON.stringify(error)
                 });
             });
+    }
+    onAddStripeCustomerPaymentInfo = () => {
+        stripe.sources.create({
+            type: 'ach_credit_transfer',
+            currency: 'usd',
+            owner: {
+                email: 'jenny.rosen@example.com'
+            }
+        })
+        .then((source) => {
+            addStripeCustomerPaymentInfo(source)
+                .then((response) => {
+                    this.setState({
+                        addStripeCustomerPaymentInfo: JSON.stringify(response)
+                    });
+                });
+        })
+        .catch((error) => {
+            this.setState({
+                addStripeCustomerPaymentInfo: JSON.stringify(error)
+            });
+        });
     }
 
     renderContent = () => {
