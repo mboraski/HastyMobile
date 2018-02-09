@@ -1,6 +1,8 @@
 import { Facebook } from 'expo';
 import firebase from 'firebase';
 
+import { APP_ID } from '../constants/Facebook';
+
 export const LOGIN = 'login';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAIL = 'login_fail';
@@ -19,18 +21,34 @@ export const LOGIN_FACEBOOK = 'login_facebook';
 export const LOGIN_FACEBOOK_SUCCESS = 'login_facebook_success';
 export const LOGIN_FACEBOOK_FAIL = 'login_facebook_fail';
 
-// WIP
 export const signInWithFacebook = () => async dispatch => {
     try {
         dispatch({ type: LOGIN_FACEBOOK });
-        const response = await Facebook.logInWithReadPermissionsAsync(
-            '1873998396207588',
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+            APP_ID,
             {
                 permissions: ['public_profile', 'email', 'user_friends']
             }
         );
-        const { type, token } = response;
-        if (type === 'cancel') {
+        if (type === 'success') {
+            const credential = firebase.auth.FacebookAuthProvider.credential(
+                token
+            );
+            return firebase
+                .auth()
+                .signInWithCredential(credential)
+                .then(user => {
+                    dispatch({ type: LOGIN_SUCCESS, payload: user });
+                    return user;
+                })
+                .catch(error => {
+                    dispatch({
+                        type: LOGIN_FACEBOOK_FAIL,
+                        error
+                    });
+                    throw error;
+                });
+        } else if (type === 'cancel') {
             const error = new Error('Login with Facebook canceled');
             dispatch({
                 type: LOGIN_FACEBOOK_FAIL,

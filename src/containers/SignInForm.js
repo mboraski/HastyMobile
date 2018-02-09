@@ -39,8 +39,7 @@ class SignInForm extends Component {
             invalid,
             pristine,
             error,
-            handleSubmit,
-            signInWithFacebook
+            handleSubmit
         } = this.props;
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
