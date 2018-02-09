@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, SubmissionError } from 'redux-form';
 
-import AuthActions from '../actions/authActions';
+import { signInWithEmailAndPassword, signInWithFacebook } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Spinner from '../components/Spinner';
@@ -14,6 +13,7 @@ import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
+import { formatError } from '../utils/errors';
 
 // const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
@@ -31,7 +31,6 @@ class SignInForm extends Component {
     render() {
         // TODO: Show correctly login failure notice. Part of store.
         const {
-            actions,
             anyTouched,
             pending,
             submitting,
@@ -40,7 +39,8 @@ class SignInForm extends Component {
             invalid,
             pristine,
             error,
-            handleSubmit
+            handleSubmit,
+            signInWithFacebook
         } = this.props;
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
@@ -65,9 +65,7 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
-                        />
+                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -76,9 +74,9 @@ class SignInForm extends Component {
                         />
                     ) : null}
                 </View>
-                {error && <Text style={styles.signUpError}>{error}</Text>}
+                {error && <Text style={styles.signUpError}>{formatError(error)}</Text>}
                 <TouchableOpacity
-                    onPress={handleSubmit(actions.loginEmailPassword)}
+                    onPress={handleSubmit}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -90,7 +88,7 @@ class SignInForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={actions.facebookLogin}
+                    onPress={this.props.signInWithFacebook}
                     title="Login with Facebook"
                     icon={{
                         type: 'material-community',
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
     formInputs: {
         paddingHorizontal: 15,
         marginBottom: emY(2.0),
-        marginTop: emY(1.7),
+        marginTop: emY(1.7)
     },
     fieldContainer: {
         backgroundColor: '#fff'
@@ -161,6 +159,11 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'SignIn',
+    onSubmit(values, dispatch, props) {
+        return props.signInWithEmailAndPassword(values).catch(error => {
+            throw new SubmissionError({ _error: error.message });
+        });
+    },
     onSubmitFail(errors, dispatch, submitError, props) {
         console.log('onSubmitFail errors: ', errors);
         console.log('onSubmitFail submitError: ', submitError);
@@ -168,17 +171,18 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
+const mapStateToProps = ({ auth }) => ({
+    token: auth.token,
+    initialValues: __DEV__
+        ? {
+              email: 'markb539@gmail.com'
+          }
+        : undefined
+});
 
-const mapDispatchToProps = dispatch => {
-    const authActions = bindActionCreators(AuthActions, dispatch);
-
-    return {
-        actions: {
-            facebookLogin: authActions.facebookLogin,
-            loginEmailPassword: authActions.loginEmailPassword
-        }
-    };
+const mapDispatchToProps = {
+    signInWithFacebook,
+    signInWithEmailAndPassword
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignInForm));

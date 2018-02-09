@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, SubmissionError } from 'redux-form';
 
-import AuthActions from '../actions/authActions';
+import { signInWithFacebook, signUp } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Spinner from '../components/Spinner';
@@ -15,8 +14,6 @@ import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
-
-// const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
 
 class SignUpForm extends Component {
     componentWillReceiveProps(nextProps) {
@@ -45,9 +42,9 @@ class SignUpForm extends Component {
         console.log('SignUpForm render error: ', error);
         const disabled = pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
-            anyTouched && invalid ?
-            'Please fill out form with no errors or empty fields.' :
-            'Create Account';
+            anyTouched && invalid
+                ? 'Please fill out form with no errors or empty fields.'
+                : 'Create Account';
         // TODO: Add name, email, and number to temp form part of store that doesn't clear out on error
         return (
             <View style={styles.container}>
@@ -102,7 +99,7 @@ class SignUpForm extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <TouchableOpacity
-                    onPress={handleSubmit(actions.createUser)}
+                    onPress={handleSubmit}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -114,7 +111,7 @@ class SignUpForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={actions.facebookLogin}
+                    onPress={this.props.signInWithFacebook}
                     title="Login with Facebook"
                     icon={{
                         type: 'material-community',
@@ -200,6 +197,11 @@ const formOptions = {
         console.log('validate errors: ', errors);
         return errors;
     },
+    onSubmit(values, dispatch, props) {
+        return props.signInWithEmailAndPassword(values).catch(error => {
+            throw new SubmissionError({ _error: error.message });
+        });
+    },
     onSubmitFail(errors, dispatch, submitError, props) {
         console.log('onSubmitFail errors: ', errors);
         console.log('onSubmitFail submitError: ', submitError);
@@ -209,15 +211,9 @@ const formOptions = {
 
 const mapStateToProps = ({ auth }) => ({ token: auth.token });
 
-const mapDispatchToProps = dispatch => {
-    const authActions = bindActionCreators(AuthActions, dispatch);
-
-    return {
-        actions: {
-            facebookLogin: authActions.facebookLogin,
-            createUser: authActions.createUser
-        }
-    };
+const mapDispatchToProps = {
+    signInWithFacebook,
+    signUp
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignUpForm));

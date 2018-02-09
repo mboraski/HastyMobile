@@ -37,7 +37,7 @@ const MainNavigator = StackNavigator({
     feedback: { screen: FeedbackScreen },
     promotionShare: { screen: PromotionShareScreen },
     }, {
-        initialRouteName: 'apiTester',
+        initialRouteName: 'auth',
         navigationOptions: {
             tabBarVisible: false
         },
