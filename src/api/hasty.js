@@ -8,20 +8,16 @@ export function getProductsByAddress(...args) {
     return instance.post('getProductsByAddress', ...args);
 }
 
-export function addStripeCustomerPaymentInfo(...args) {
-    return instance.post('addStripeCustomerPaymentInfo', ...args);
+export function addStripeCustomerSource(source) {
+    return instance.post('addStripeCustomerSource', source);
 }
 
-export function addCard(...args) {
-    return new Promise(resolve => setTimeout(resolve, 3000));
+export function removeStripeCustomerSource(source) {
+    return instance.post('removeStripeCustomerSource', source);
 }
 
-export function deleteCard(...args) {
-    return new Promise(resolve => setTimeout(resolve, 3000));
-}
-
-export function listCards(...args) {
-    return new Promise(resolve => setTimeout(resolve, 3000));
+export function chargeStripeCustomerSource(charge) {
+    return instance.post('chargeStripeCustomerSource', charge);
 }
 
 function handleRequestConfig(config) {

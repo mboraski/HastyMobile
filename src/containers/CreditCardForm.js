@@ -154,7 +154,7 @@ const formOptions = {
                 name: values.name
             }
         };
-        const card = await stripe.createToken(information);
+        const card = await stripe.createSource(information);
         if (card.error) {
             let error;
             if (card.error.param) {
@@ -169,7 +169,7 @@ const formOptions = {
             }
             throw new SubmissionError(error);
         }
-        return props.addCard(card);
+        return props.addCard(card.source);
     }
 };
 

@@ -1,12 +1,19 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { auth } from 'firebase';
+import { auth, firestore } from 'firebase';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
-import stripe from 'stripe';
+import { stripe as stripeClient } from 'stripe-client';
 
-import { addStripeCustomerPaymentInfo } from '../api/hasty';
+import {
+    addStripeCustomerSource,
+    removeStripeCustomerSource,
+    chargeStripeCustomerSource
+} from '../api/hasty';
 import { statusBarOnly } from '../constants/Style';
+import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
+
+const stripe = stripeClient(STRIPE_CLIENT_KEY);
 
 class ApiTester extends Component {
     static navigationOptions = statusBarOnly;
@@ -17,7 +24,8 @@ class ApiTester extends Component {
         deleteUser: null,
         login: null,
         logout: null,
-        addStripeCustomerPaymentInfo: null,
+        addStripeCustomerSource: null,
+        selectedSource: null,
         user: null
     }
 
@@ -106,27 +114,58 @@ class ApiTester extends Component {
                 });
             });
     }
-    onAddStripeCustomerPaymentInfo = () => {
-        stripe.sources.create({
-            type: 'ach_credit_transfer',
-            currency: 'usd',
-            owner: {
-                email: 'jenny.rosen@example.com'
-            }
+    onAddStripeCustomerSource = () => {
+        stripe.createSource({
+            number: '4242 4242 4242 4242',
+            exp_month: 12,
+            exp_year: 19,
+            cvc: 747,
+            name: 'Jenny Rosen'
         })
         .then((source) => {
-            addStripeCustomerPaymentInfo(source)
+            addStripeCustomerSource(source)
                 .then((response) => {
                     this.setState({
-                        addStripeCustomerPaymentInfo: JSON.stringify(response)
+                        addStripeCustomerSource: JSON.stringify(response)
                     });
                 });
         })
         .catch((error) => {
             this.setState({
-                addStripeCustomerPaymentInfo: JSON.stringify(error)
+                addStripeCustomerSource: JSON.stringify(error)
             });
         });
+    }
+    onRemoveStripeCustomerSource = () => {
+        const source = this.state.user.selectedSource;
+        return removeStripeCustomerSource(source);
+    }
+    getStripeCustomerPaymentInfo = () => {
+        const uid = this.state.user.uid;
+        const docRef = firestore().collection('userOwned').doc(uid);
+        return docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.setState({
+                    paymentInfo: doc.sources
+                });
+            } else {
+                // doc.data() will be undefined in this case
+                console.log('No such document with payment info!');
+            }
+        }).catch((error) => {
+            console.log('Error getting document:', error);
+        });
+    }
+    // updateStripeCustomerDefaultSource = () => {
+    //
+    // }
+    chargeStripeCustomerSource = () => {
+        const charge = {
+            amount: 190.00,
+            currency: 'usd',
+            source: this.state.selectedSource
+        };
+        return chargeStripeCustomerSource(charge);
     }
 
     renderContent = () => {
@@ -166,7 +205,7 @@ class ApiTester extends Component {
                         color="#841584"
                     />
                     <Text style={styles.titleText}>
-                        {this.state.addStripeCustomerPaymentInfo}
+                        {this.state.addStripeCustomerSource}
                     </Text>
                     <Button
                         onPress={this.onAddStripeCustomerPaymentInfo}
