@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 
-import { signInWithEmailAndPassword, signInWithFacebook } from '../actions/authActions';
+import {
+    signInWithEmailAndPassword,
+    signInWithFacebook
+} from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Spinner from '../components/Spinner';
@@ -15,8 +18,6 @@ import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 import { formatError } from '../utils/errors';
 
-// const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
-
 class SignInForm extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
@@ -26,6 +27,12 @@ class SignInForm extends Component {
         if (props.token) {
             this.props.onAuthSuccess();
         }
+    };
+
+    signInWithFacebook = () => {
+        this.props
+            .signInWithFacebook()
+            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
@@ -41,9 +48,12 @@ class SignInForm extends Component {
             error,
             handleSubmit
         } = this.props;
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
-            anyTouched && invalid ? 'Please fix issues before continuing' : 'Continue';
+            anyTouched && invalid
+                ? 'Please fix issues before continuing'
+                : 'Continue';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
@@ -64,7 +74,9 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <Spinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -73,7 +85,9 @@ class SignInForm extends Component {
                         />
                     ) : null}
                 </View>
-                {error && <Text style={styles.signUpError}>{formatError(error)}</Text>}
+                {error && (
+                    <Text style={styles.signUpError}>{formatError(error)}</Text>
+                )}
                 <TouchableOpacity
                     onPress={handleSubmit}
                     style={[
@@ -87,8 +101,8 @@ class SignInForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={this.props.signInWithFacebook}
-                    title="Login with Facebook"
+                    onPress={this.signInWithFacebook}
+                    title="Log In with Facebook"
                     icon={{
                         type: 'material-community',
                         name: 'facebook-box',
@@ -184,4 +198,6 @@ const mapDispatchToProps = {
     signInWithEmailAndPassword
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignInForm));
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm(formOptions)(SignInForm)
+);

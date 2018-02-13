@@ -49,7 +49,7 @@ export const signInWithFacebook = () => async dispatch => {
                     throw error;
                 });
         } else if (type === 'cancel') {
-            const error = new Error('Login with Facebook canceled');
+            const error = new Error('Facebook authentication canceled');
             dispatch({
                 type: LOGIN_FACEBOOK_FAIL,
                 error

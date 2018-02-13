@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
@@ -26,6 +26,12 @@ class SignUpForm extends Component {
         }
     };
 
+    signInWithFacebook = () => {
+        this.props
+            .signInWithFacebook()
+            .catch(error => Alert.alert('Error', error.message));
+    };
+
     render() {
         const {
             actions,
@@ -40,7 +46,8 @@ class SignUpForm extends Component {
             handleSubmit
         } = this.props;
         console.log('SignUpForm render error: ', error);
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
             anyTouched && invalid
                 ? 'Please fill out form with no errors or empty fields.'
@@ -88,7 +95,9 @@ class SignUpForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <Spinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -111,8 +120,8 @@ class SignUpForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={this.props.signInWithFacebook}
-                    title="Login with Facebook"
+                    onPress={this.signInWithFacebook}
+                    title="Sign Up with Facebook"
                     icon={{
                         type: 'material-community',
                         name: 'facebook-box',
@@ -216,4 +225,6 @@ const mapDispatchToProps = {
     signUp
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignUpForm));
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm(formOptions)(SignUpForm)
+);
