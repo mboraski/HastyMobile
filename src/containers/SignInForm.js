@@ -24,7 +24,7 @@ class SignInForm extends Component {
     }
 
     onAuthComplete = props => {
-        if (props.token) {
+        if (props.user && !this.props.user) {
             this.props.onAuthSuccess();
         }
     };
@@ -185,7 +185,7 @@ const formOptions = {
 };
 
 const mapStateToProps = ({ auth }) => ({
-    token: auth.token,
+    user: auth.user,
     initialValues: __DEV__
         ? {
               email: 'markb539@gmail.com'

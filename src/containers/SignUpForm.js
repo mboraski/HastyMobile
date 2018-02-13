@@ -21,7 +21,7 @@ class SignUpForm extends Component {
     }
 
     onAuthComplete = props => {
-        if (props.token) {
+        if (props.user && !this.props.user) {
             this.props.onAuthSuccess();
         }
     };
@@ -218,7 +218,7 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
+const mapStateToProps = ({ auth }) => ({ user: auth.user });
 
 const mapDispatchToProps = {
     signInWithFacebook,

@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
+import { connect } from 'react-redux';
+import { reduxForm, SubmissionError } from 'redux-form';
 
 import { statusBarOnly } from '../constants/Style';
 import Slides from '../components/Slides';
@@ -17,13 +19,19 @@ class WelcomeScreen extends Component {
 
     state = {
         welcomeScreensSeen: null
-    }
+    };
 
     async componentWillMount() {
-        const welcomeScreensSeen = await AsyncStorage.getItem('firstTimeOpened');
+        const welcomeScreensSeen = await AsyncStorage.getItem(
+            'firstTimeOpened'
+        );
 
         if (welcomeScreensSeen) {
-            this.props.navigation.navigate('auth');
+            if (this.props.user) {
+                this.props.navigation.navigate('map');
+            } else {
+                this.props.navigation.navigate('auth');
+            }
             this.setState({ welcomeScreensSeen: true });
         } else {
             this.setState({ welcomeScreensSeen: false });
@@ -32,17 +40,17 @@ class WelcomeScreen extends Component {
 
     onSlidesComplete = () => {
         this.props.navigation.navigate('auth');
-    }
+    };
 
     render() {
         if (_.isNull(this.state.welcomeScreensSeen)) {
             return <AppLoading />;
         }
 
-        return (
-            <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete} />
-        );
+        return <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete} />;
     }
 }
 
-export default WelcomeScreen;
+const mapStateToProps = ({ auth }) => ({ user: auth.user });
+
+export default connect(mapStateToProps)(WelcomeScreen);
