@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { auth, firestore } from 'firebase';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
-import { stripe as stripeClient } from 'stripe-client';
 
 import {
     addStripeCustomerSource,
@@ -13,7 +12,7 @@ import {
 import { statusBarOnly } from '../constants/Style';
 import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
 
-const stripe = stripeClient(STRIPE_CLIENT_KEY);
+const stripe = require('stripe-client')(STRIPE_CLIENT_KEY);
 
 class ApiTester extends Component {
     static navigationOptions = statusBarOnly;
