@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    Image,
+    View,
+    TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -18,10 +25,13 @@ import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
 import tempAvatar from '../assets/profile.png';
 import { openCustomerPopup } from '../actions/uiActions';
+import { reset } from '../actions/navigationActions';
+import { signOut } from '../actions/authActions';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
-const getRoute = (items, routeName) => items.find(item => item.key === routeName);
+const getRoute = (items, routeName) =>
+    items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
     state = {
@@ -40,7 +50,7 @@ class MenuContent extends Component {
     handleHelpPress = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.openCustomerPopup();
-    }
+    };
 
     paymentInfoPress = () => {
         this.props.navigation.navigate('paymentMethod');
@@ -48,6 +58,12 @@ class MenuContent extends Component {
 
     promotionSharePress = () => {
         this.props.navigation.navigate('promotionShare');
+    };
+
+    signOut = () => {
+        this.props.navigation.navigate('DrawerClose');
+        this.props.signOut();
+        this.props.navigation.dispatch(reset('auth'));
     };
 
     render() {
@@ -115,6 +131,11 @@ class MenuContent extends Component {
                         image={helpIcon}
                         title="Help"
                     />
+                    <MenuItem
+                        onPress={this.signOut}
+                        image={helpIcon}
+                        title="Sign Out"
+                    />
                     <Text style={styles.copyright}>@2017 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
@@ -170,6 +191,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = { openCustomerPopup };
+const mapDispatchToProps = { openCustomerPopup, signOut };
 
 export default connect(null, mapDispatchToProps)(MenuContent);

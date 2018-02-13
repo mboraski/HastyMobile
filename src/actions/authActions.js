@@ -97,14 +97,14 @@ export const signUp = ({ email, password, name, number }) => async dispatch => {
     }
 };
 
-export const signOut = ({ email, password }) => dispatch => {
+export const signOut = () => dispatch => {
     dispatch({ type: SIGNOUT });
     return firebase
         .auth()
-        .signOut(email, password)
-        .then(user => {
-            dispatch({ type: SIGNOUT_SUCCESS, payload: user });
-            return user;
+        .signOut()
+        .then(result => {
+            dispatch({ type: SIGNOUT_SUCCESS });
+            return result;
         })
         .catch(error => {
             dispatch({ type: SIGNOUT_FAIL, error });
