@@ -1,16 +1,17 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { auth, firestore } from 'firebase';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 
+import { auth, firestore } from '../firebase';
 import {
     addStripeCustomerSource,
     removeStripeCustomerSource,
     chargeStripeCustomerSource
 } from '../api/hasty';
-import { statusBarOnly } from '../constants/Style';
+
 import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
+import { statusBarOnly } from '../constants/Style';
 
 const stripe = require('stripe-client')(STRIPE_CLIENT_KEY);
 
@@ -24,12 +25,13 @@ class ApiTester extends Component {
         login: null,
         logout: null,
         addStripeCustomerSource: null,
+        paymentInfo: null,
         selectedSource: null,
         user: null
     }
 
     componentDidMount() {
-        auth().onAuthStateChanged((user) => {
+        auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log('User is signed IN!');
                 this.setState({
@@ -50,7 +52,7 @@ class ApiTester extends Component {
         });
     }
     onSignUp = () => {
-        auth().createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
+        auth.createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
                 console.log('createUserWithEmailAndPassword success: ', response);
                 this.setState({
@@ -65,7 +67,7 @@ class ApiTester extends Component {
             });
     }
     onDeleteUser = () => {
-        const user = auth().currentUser;
+        const user = auth.currentUser;
         user.delete()
             .then((response) => {
                 console.log('deleteUser success: ', response);
@@ -84,7 +86,7 @@ class ApiTester extends Component {
             });
     }
     onLogin = () => {
-        auth().signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
+        auth.signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
                 console.log('signInWithEmailAndPassword success: ', response);
                 this.setState({
@@ -99,7 +101,7 @@ class ApiTester extends Component {
             });
     }
     onLogout = () => {
-        auth().signOut()
+        auth.signOut()
             .then((response) => {
                 console.log('signOut success: ', response);
                 this.setState({
@@ -114,7 +116,7 @@ class ApiTester extends Component {
             });
     }
     onAddStripeCustomerSource = () => {
-        const user = auth().currentUser;
+        const user = auth.currentUser;
         console.log('client user uid: ', user.uid);
         // console.log('some token as proof of authenticated request: ', user.uid);
         stripe.createToken({
@@ -129,14 +131,14 @@ class ApiTester extends Component {
         .then((card) => {
             const args = { uid: user.uid, source: card.id };
             addStripeCustomerSource(args)
-                .then((response) => {
+                .then(() => {
                     this.setState({
-                        addStripeCustomerSource: JSON.stringify(response)
+                        addStripeCustomerSource: 'Stripe source added successfully'
                     });
                 })
                 .catch((error) => {
                     this.setState({
-                        addStripeCustomerSource: JSON.stringify(error)
+                        addStripeCustomerSource: error
                     });
                 });
         })
@@ -151,21 +153,26 @@ class ApiTester extends Component {
         // TODO
         return removeStripeCustomerSource(source);
     }
-    getStripeCustomerPaymentInfo = () => {
-        const uid = this.state.user.uid;
-        const docRef = firestore().collection('userOwned').doc(uid);
-        return docRef.get().then((doc) => {
-            if (doc.exists) {
-                this.setState({
-                    paymentInfo: doc.sources
-                });
-            } else {
-                // doc.data() will be undefined in this case
-                console.log('No such document with payment info!');
-            }
-        }).catch((error) => {
-            console.log('Error getting document:', error);
-        });
+    fetchStripeCustomerPaymentInfo = () => {
+        const user = auth.currentUser;
+        const uid = user.uid;
+        const docRef = firestore.collection('userOwned').doc(uid);
+        return docRef.get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    console.log('fetched payment info: ', data.paymentInfo);
+                    this.setState({
+                        paymentInfo: JSON.stringify(data.paymentInfo)
+                    });
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log('No such document with payment info!');
+                }
+            })
+            .catch((error) => {
+                console.log('Error getting document:', error);
+            });
     }
     // updateStripeCustomerDefaultSource = () => {
     //
@@ -224,11 +231,19 @@ class ApiTester extends Component {
                         color="#841584"
                     />
                     <Text style={styles.titleText}>
-                        {this.state.deleteStripeCustomerSource}
+                        {this.state.removeStripeCustomerSource}
                     </Text>
                     <Button
                         onPress={this.onRemoveStripeCustomerSource}
                         title="Remove Customer Payment Info"
+                        color="#841584"
+                    />
+                    <Text style={styles.titleText}>
+                        {this.state.paymentInfo}
+                    </Text>
+                    <Button
+                        onPress={this.fetchStripeCustomerPaymentInfo}
+                        title="Fetch Customer Payment Info"
                         color="#841584"
                     />
                 </View>

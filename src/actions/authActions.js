@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
-import { auth as fbAuth, database as fbDb } from 'firebase';
 import { SubmissionError } from 'redux-form';
+import { auth, database } from '../firebase';
 import { errorTypes } from '../constants/UserFeedbackStrings';
 
 const ACTIONS = {
@@ -54,7 +54,7 @@ const doFacebookLogin = async dispatch => {
 };
 
 const addUserToDb = (uid, fullProfile, dispatch) => {
-    const userRef = fbDb().ref(`users/${uid}`);
+    const userRef = database.ref(`users/${uid}`);
     userRef.once('value', snapshot => {
         if (snapshot.val()) {
             dispatch({ type: ACTIONS.SIGNUP_FAIL });
@@ -102,7 +102,7 @@ const logout = () => async dispatch => {
 const createUser = (values) => {
     const { name, email, number, confirmPassword } = values;
     return (dispatch) =>
-        fbAuth().createUserWithEmailAndPassword(email, confirmPassword)
+        auth.createUserWithEmailAndPassword(email, confirmPassword)
             .then((response) => {
                 // TODO: Add property escaping (along with form field validation)
                 const fullProfile = {
@@ -130,7 +130,7 @@ const createUser = (values) => {
 const loginEmailPassword = (values) => {
     const { email, password } = values;
     return (dispatch) =>
-        fbAuth().signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password)
             .then(user => doEmailPasswordLogin(dispatch, user))
             .catch((error) => {
                 console.log('authActions loginEmailPassword signInWithEmailAndPassword catch error: ', error);
