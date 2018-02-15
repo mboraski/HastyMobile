@@ -17,20 +17,9 @@ import { AUTH_CHANGED } from './src/actions/authActions';
 class App extends Component {
     componentDidMount() {
         // TODO: HAMO-28: Wire up push notifications
-        const config = {
-            apiKey: 'AIzaSyBEIuNlAAKU8byP2NUptaZTPtHobhYqMQA',
-            authDomain: 'hasty-14d18.firebaseapp.com',
-            databaseURL: 'https://hasty-14d18.firebaseio.com',
-            projectId: 'hasty-14d18',
-            storageBucket: 'hasty-14d18.appspot.com',
-            messagingSenderId: '734280961973'
-        };
-        firebase.initializeApp(config);
-        firebase
-            .auth()
-            .onAuthStateChanged(user =>
-                store.dispatch({ type: AUTH_CHANGED, payload: user })
-            );
+        auth.onAuthStateChanged(user =>
+            store.dispatch({ type: AUTH_CHANGED, payload: user })
+        );
     }
 
     render() {
