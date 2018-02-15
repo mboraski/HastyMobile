@@ -36,6 +36,7 @@
         "enzyme-to-json": "^3.2.1",
         "eslint": "^4.4.1",
         "eslint-config-hasty": "1.0.1",
+        "firebase-mock": "^2.0.22",
         "jest": "20.0.4",
         "jest-expo": "^22.0.0",
         "jest-serializer-enzyme": "1.0.0",

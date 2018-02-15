@@ -51,5 +51,11 @@ function handleResponseError(error) {
     return Promise.reject(error);
 }
 
-instance.interceptors.request.use(handleRequestConfig, handleRequestError);
-instance.interceptors.response.use(handleResponseSuccess, handleResponseError);
+export const requestInterceptorId = instance.interceptors.request.use(
+    handleRequestConfig,
+    handleRequestError
+);
+export const responseInterceptorId = instance.interceptors.response.use(
+    handleResponseSuccess,
+    handleResponseError
+);
