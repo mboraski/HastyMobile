@@ -25,7 +25,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                cards: [...state.cards, action.payload.card]
             };
         case ADD_CARD_FAIL:
             return {
@@ -59,7 +58,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                cards: action.payload,
+                cards: action.payload.paymentInfo ? action.payload.paymentInfo.data : [],
                 error: null
             };
         case LIST_CARDS_FAIL:

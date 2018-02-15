@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { listCards } from '../actions/paymentActions';
 import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
 import CreditCardForm from '../containers/CreditCardForm';
@@ -11,6 +12,7 @@ import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
     handleSubmitSuccess = () => {
+        this.props.listCards(this.props.user.uid);
         this.props.navigation.goBack();
     };
 
@@ -26,9 +28,13 @@ class CreditCardScreen extends Component {
 
 const styles = StyleSheet.create({});
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    user: state.auth.user
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    listCards
+};
 
 CreditCardScreen.navigationOptions = ({ navigation }) => ({
     title: navigation.state.params && navigation.state.params.card ? 'Edit Card' : 'Add Card',

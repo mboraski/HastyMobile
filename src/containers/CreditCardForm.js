@@ -183,7 +183,7 @@ const formOptions = {
             }
             throw new SubmissionError(error);
         }
-        return props.addCard(card.source);
+        return props.addCard({ uid: props.user.uid, source: card.id });
     }
 };
 
@@ -199,7 +199,8 @@ const mapStateToProps = (state, props) => {
                   cvc: '***'
               }
             : {},
-        pending: state.payment.pending
+        pending: state.payment.pending,
+        user: state.auth.user
     };
 };
 
