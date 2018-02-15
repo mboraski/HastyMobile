@@ -114,18 +114,29 @@ class ApiTester extends Component {
             });
     }
     onAddStripeCustomerSource = () => {
-        stripe.createSource({
-            number: '4242 4242 4242 4242',
-            exp_month: 12,
-            exp_year: 19,
-            cvc: 747,
-            name: 'Jenny Rosen'
+        const user = auth().currentUser;
+        console.log('client user uid: ', user.uid);
+        // console.log('some token as proof of authenticated request: ', user.uid);
+        stripe.createToken({
+            card: {
+                number: '4242 4242 4242 4242',
+                exp_month: '12',
+                exp_year: '2019',
+                cvc: '747',
+                name: 'Jenny Rosen'
+            }
         })
-        .then((source) => {
-            addStripeCustomerSource(source)
+        .then((card) => {
+            const args = { uid: user.uid, source: card.id };
+            addStripeCustomerSource(args)
                 .then((response) => {
                     this.setState({
                         addStripeCustomerSource: JSON.stringify(response)
+                    });
+                })
+                .catch((error) => {
+                    this.setState({
+                        addStripeCustomerSource: JSON.stringify(error)
                     });
                 });
         })
@@ -137,6 +148,7 @@ class ApiTester extends Component {
     }
     onRemoveStripeCustomerSource = () => {
         const source = this.state.user.selectedSource;
+        // TODO
         return removeStripeCustomerSource(source);
     }
     getStripeCustomerPaymentInfo = () => {
@@ -207,16 +219,16 @@ class ApiTester extends Component {
                         {this.state.addStripeCustomerSource}
                     </Text>
                     <Button
-                        onPress={this.onAddStripeCustomerPaymentInfo}
+                        onPress={this.onAddStripeCustomerSource}
                         title="Add Customer Payment Info"
                         color="#841584"
                     />
                     <Text style={styles.titleText}>
-                        {this.state.deleteStripeCustomerPaymentInfo}
+                        {this.state.deleteStripeCustomerSource}
                     </Text>
                     <Button
-                        onPress={this.onDeleteStripeCustomerPaymentInfo}
-                        title="Delete Customer Payment Info"
+                        onPress={this.onRemoveStripeCustomerSource}
+                        title="Remove Customer Payment Info"
                         color="#841584"
                     />
                 </View>

@@ -3,17 +3,20 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: 'https://us-central1-hasty-14d18.cloudfunctions.net/'
 });
+// const instance = axios.create({
+//     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
+// });
 
-export function getProductsByAddress(...args) {
-    return instance.post('getProductsByAddress', ...args);
+export function getProductsByAddress(args) {
+    return instance.post('getProductsByAddress', args);
 }
 
-export function addStripeCustomerSource(source) {
-    return instance.post('addStripeCustomerSource', source);
+export function addStripeCustomerSource(args) {
+    return instance.post('addStripeCustomerSource', args);
 }
 
-export function removeStripeCustomerSource(source) {
-    return instance.post('removeStripeCustomerSource', source);
+export function removeStripeCustomerSource(args) {
+    return instance.post('removeStripeCustomerSource', args);
 }
 
 export function chargeStripeCustomerSource(charge) {
