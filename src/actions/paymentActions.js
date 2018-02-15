@@ -15,7 +15,7 @@ export const LIST_CARDS_FAIL = 'list_card_fail';
 export const addCard = card => async dispatch => {
     try {
         dispatch({ type: ADD_CARD });
-        const res = await api.addCard(card);
+        const res = await api.addStripeCustomerSource(card);
         dispatch({
             type: ADD_CARD_SUCCESS,
             // payload: res.data
@@ -34,10 +34,9 @@ export const addCard = card => async dispatch => {
 export const deleteCard = card => async dispatch => {
     try {
         dispatch({ type: DELETE_CARD });
-        const res = await api.deleteCard(card);
+        const res = await api.removeStripeCustomerSource(card);
         dispatch({
             type: DELETE_CARD_SUCCESS,
-            // payload: res.data
             payload: card
         });
         return res;
@@ -53,12 +52,20 @@ export const deleteCard = card => async dispatch => {
 export const listCards = () => async dispatch => {
     try {
         dispatch({ type: LIST_CARDS });
-        const res = await api.listCards();
-        dispatch({
-            type: LIST_CARDS_SUCCESS,
-            payload: res.data
-        });
-        return res;
+        const uid = this.state.user.uid;
+        const docRef = firestore()
+            .collection('userOwned')
+            .doc(uid);
+        const doc = await docRef.get();
+        if (doc.exists) {
+            dispatch({
+                type: LIST_CARDS_SUCCESS,
+                payload: doc.sources
+            });
+            return res;
+        } else {
+            throw new Error('No such document with payment info!');
+        }
     } catch (error) {
         dispatch({
             type: LIST_CARDS_FAIL,

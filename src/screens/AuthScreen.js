@@ -42,7 +42,7 @@ class AuthScreen extends Component {
     openSignInForm = () => {
         this.setState({
             signUp: false,
-            openModal: true,
+            openModal: true
         });
     };
 
@@ -61,36 +61,59 @@ class AuthScreen extends Component {
 
     render() {
         const signUp = this.state.signUp;
-        const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
-        const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
-        const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
-        const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
+        const signUpButtonHighlighted = signUp
+            ? styles.buttonHighlighted
+            : null;
+        const loginButtonHighlighted = !signUp
+            ? styles.buttonHighlighted
+            : null;
+        const signUpButtonTextHighlighted = signUp
+            ? styles.buttonTextHighlighted
+            : null;
+        const loginButtonTextHighlighted = !signUp
+            ? styles.buttonTextHighlighted
+            : null;
         // const { openModal } = this.state; // TODO: uncomment?
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
-                <KeyboardAvoidingView style={styles.container} behavior="position">
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    behavior="position"
+                >
                     <Image source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </Image>
                     <View style={styles.buttonsRow}>
                         <Button
                             title="Sign Up"
-                            buttonStyle={[styles.button, signUpButtonHighlighted]}
-                            textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
+                            buttonStyle={[
+                                styles.button,
+                                signUpButtonHighlighted
+                            ]}
+                            textStyle={[
+                                styles.buttonText,
+                                signUpButtonTextHighlighted
+                            ]}
                             onPress={this.openSignUpForm}
                         />
                         <Button
                             title="Log In"
-                            buttonStyle={[styles.button, loginButtonHighlighted]}
-                            textStyle={[styles.buttonText, loginButtonTextHighlighted]}
+                            buttonStyle={[
+                                styles.button,
+                                loginButtonHighlighted
+                            ]}
+                            textStyle={[
+                                styles.buttonText,
+                                loginButtonTextHighlighted
+                            ]}
                             onPress={this.openSignInForm}
                         />
                     </View>
                     {signUp ? (
-                        <SignUpForm onAuthSuccess={this.goToMap} />
+                        <SignUpForm onAuthSuccess={this.goToPayment} />
                     ) : (
-                        <SignInForm onAuthSuccess={this.goToPayment} />
+                        <SignInForm onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />

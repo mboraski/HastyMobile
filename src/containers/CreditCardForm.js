@@ -29,7 +29,12 @@ class CreditCardForm extends Component {
     };
 
     render() {
-        const { pending, error, submitting, navigation: { state: { params } } } = this.props;
+        const {
+            pending,
+            error,
+            submitting,
+            navigation: { state: { params } }
+        } = this.props;
         const card = params && params.card;
         return (
             <KeyboardAvoidingView
@@ -60,7 +65,11 @@ class CreditCardForm extends Component {
                                 validate={required}
                             />
                         </View>
-                        <TextInputField name="name" label="CARDHOLDER NAME" validate={required} />
+                        <TextInputField
+                            name="name"
+                            label="CARDHOLDER NAME"
+                            validate={required}
+                        />
                         <TextInputField
                             name="cvc"
                             label="CVC"
@@ -81,7 +90,9 @@ class CreditCardForm extends Component {
                         />
                     ) : null}
                     {submitting || pending ? (
-                        <Spinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <Spinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                 </DismissKeyboardView>
             </KeyboardAvoidingView>
@@ -154,12 +165,15 @@ const formOptions = {
                 name: values.name
             }
         };
-        const card = await stripe.createSource(information);
+        const card = await stripe.createToken(information);
         if (card.error) {
             let error;
             if (card.error.param) {
                 error = { _error: 'Card is invalid' };
-                if (card.error.param === 'exp_month' || card.error.param === 'exp_year') {
+                if (
+                    card.error.param === 'exp_month' ||
+                    card.error.param === 'exp_year'
+                ) {
                     error.exp = card.error.message;
                 } else {
                     error[card.error.param] = card.error.message;
@@ -174,7 +188,8 @@ const formOptions = {
 };
 
 const mapStateToProps = (state, props) => {
-    const card = props.navigation.state.params && props.navigation.state.params.card;
+    const card =
+        props.navigation.state.params && props.navigation.state.params.card;
     return {
         initialValues: card
             ? {
@@ -193,4 +208,6 @@ const mapDispatchToProps = {
     deleteCard
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(CreditCardForm));
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm(formOptions)(CreditCardForm)
+);
