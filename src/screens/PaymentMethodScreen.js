@@ -9,6 +9,7 @@ import SectionTitle from '../components/SectionTitle';
 import PaymentMethod from '../components/PaymentMethod';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
+import { listCards } from '../actions/paymentActions';
 import { emY } from '../utils/em';
 
 class PaymentMethodScreen extends Component {
@@ -31,6 +32,10 @@ class PaymentMethodScreen extends Component {
         }
     };
 
+    componentDidMount() {
+        this.props.listCards(this.props.user.uid);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
@@ -51,7 +56,14 @@ class PaymentMethodScreen extends Component {
 
     renderCard = (card, index) => {
         const onPress = () => this.selectPaymentMethod(card);
-        return <PaymentMethod key={index} type={card.brand} text={card.last4} onPress={onPress} />;
+        return (
+            <PaymentMethod
+                key={index}
+                type={card.brand}
+                text={card.last4}
+                onPress={onPress}
+            />
+        );
     };
 
     renderAccount = (account, index) => (
@@ -100,10 +112,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+    user: state.auth.user,
     header: state.header,
     cards: state.payment.cards
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = {
+    listCards
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethodScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    PaymentMethodScreen
+);
