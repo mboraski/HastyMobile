@@ -40,8 +40,7 @@ export default function (state = initialState, action) {
         case DELETE_CARD_SUCCESS:
             return {
                 ...state,
-                pending: false,
-                cards: state.cards.filter(card => card.id !== action.payload.id)
+                pending: false
             };
         case DELETE_CARD_FAIL:
             return {

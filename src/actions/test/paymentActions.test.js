@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import mockApi from '../../mocks/hastyApi';
 import '../../mocks/firebase';
 
-import { addCard, listCards } from '../paymentActions';
+import { addCard, deleteCard, listCards } from '../paymentActions';
 
 import { firestore } from '../../firebase';
 
@@ -29,6 +29,12 @@ describe('mapActions', () => {
     it('addCard', async () => {
         mockApi.onAny().reply(200, { data: 'data' });
         await store.dispatch(addCard());
+        const actions = store.getActions();
+        expect(actions).toMatchSnapshot();
+    });
+    it('deleteCard', async () => {
+        mockApi.onAny().reply(200, { data: 'data' });
+        await store.dispatch(deleteCard());
         const actions = store.getActions();
         expect(actions).toMatchSnapshot();
     });

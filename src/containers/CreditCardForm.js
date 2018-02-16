@@ -1,13 +1,19 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    KeyboardAvoidingView,
+    Alert
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import stripeClient from 'stripe-client';
 
 // Relative Imports
-import { addCard, deleteCard } from '../actions/paymentActions';
+import { addCard, deleteCard, listCards } from '../actions/paymentActions';
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
@@ -23,8 +29,19 @@ const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 const keyboardVerticalOffset = emY(1);
 
 class CreditCardForm extends Component {
+    deleteCardConfirm = () => {
+        Alert.alert('Confirm', 'Are you sure you want to delete this card?', [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Delete', onPress: this.deleteCard }
+        ]);
+    };
+
     deleteCard = async () => {
-        await this.props.deleteCard(this.props.navigation.state.params.card);
+        await this.props.deleteCard({
+            uid: this.props.user.uid,
+            source: this.props.navigation.state.params.card.id
+        });
+        this.props.listCards(this.props.user.uid);
         this.props.navigation.goBack();
     };
 
@@ -83,7 +100,7 @@ class CreditCardForm extends Component {
                     {card ? (
                         <Button
                             title="Delete Card"
-                            onPress={this.deleteCard}
+                            onPress={this.deleteCardConfirm}
                             containerViewStyle={styles.buttonContainer}
                             buttonStyle={styles.button}
                             textStyle={styles.buttonText}
@@ -206,7 +223,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
     addCard,
-    deleteCard
+    deleteCard,
+    listCards
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

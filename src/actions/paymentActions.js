@@ -17,10 +17,7 @@ export const addCard = (...args) => async dispatch => {
     try {
         dispatch({ type: ADD_CARD });
         const res = await api.addStripeCustomerSource(...args);
-        dispatch({
-            type: ADD_CARD_SUCCESS,
-            payload: res
-        });
+        dispatch({ type: ADD_CARD_SUCCESS });
         return res;
     } catch (error) {
         dispatch({
@@ -31,14 +28,11 @@ export const addCard = (...args) => async dispatch => {
     }
 };
 
-export const deleteCard = card => async dispatch => {
+export const deleteCard = (...args) => async dispatch => {
     try {
         dispatch({ type: DELETE_CARD });
-        const res = await api.removeStripeCustomerSource(card);
-        dispatch({
-            type: DELETE_CARD_SUCCESS,
-            payload: card
-        });
+        const res = await api.removeStripeCustomerSource(...args);
+        dispatch({ type: DELETE_CARD_SUCCESS });
         return res;
     } catch (error) {
         dispatch({

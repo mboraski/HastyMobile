@@ -6,36 +6,18 @@ Array [
     "type": "add_card",
   },
   Object {
-    "payload": Object {
-      "config": Object {
-        "adapter": null,
-        "baseURL": "https://us-central1-hasty-14d18.cloudfunctions.net/",
-        "data": undefined,
-        "headers": Object {
-          "Accept": "application/json, text/plain, */*",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        "maxContentLength": -1,
-        "method": "post",
-        "timeout": 0,
-        "transformRequest": Object {
-          "0": [Function],
-        },
-        "transformResponse": Object {
-          "0": [Function],
-        },
-        "url": "addStripeCustomerSource",
-        "validateStatus": [Function],
-        "xsrfCookieName": "XSRF-TOKEN",
-        "xsrfHeaderName": "X-XSRF-TOKEN",
-      },
-      "data": Object {
-        "data": "data",
-      },
-      "headers": undefined,
-      "status": 200,
-    },
     "type": "add_card_success",
+  },
+]
+`;
+
+exports[`mapActions deleteCard 1`] = `
+Array [
+  Object {
+    "type": "delete_card",
+  },
+  Object {
+    "type": "delete_card_success",
   },
 ]
 `;
