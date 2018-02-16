@@ -70,6 +70,7 @@ class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
+                                placeholder={'**** **** **** ' + card.last4}
                             />
                             <TextInputField
                                 name="exp"
@@ -93,6 +94,7 @@ class CreditCardForm extends Component {
                             containerStyle={styles.cvcContainer}
                             keyboardType="number-pad"
                             validate={required}
+                            placeholder="***"
                         />
                     </View>
                     {card ? (
