@@ -15,7 +15,7 @@ const renderInput = ({
     labelStyle,
     errorStyle,
     style,
-    editable,
+    editable = true,
     ...props
 }) => {
     const { card } = valid.number(restInput.value);
