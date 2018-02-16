@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     expiryContainer: {
-        width: 120
+        width: 140
     },
     expiry: {
         textAlign: 'center'
