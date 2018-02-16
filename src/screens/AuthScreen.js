@@ -9,8 +9,10 @@ import {
     ScrollView
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 // Relative Imports
+import { listCards } from '../actions/paymentActions';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 // import RatingPopup from '../components/RatingPopup';
@@ -50,9 +52,14 @@ class AuthScreen extends Component {
         this.props.navigation.navigate('map');
     };
 
-    goToPayment = () => {
-        this.props.navigation.navigate('map');
-        this.props.navigation.navigate('paymentMethod');
+    goToPayment = async () => {
+        const result = await this.props.listCards(this.props.user.uid);
+        if (result.paymentInfo && result.paymentInfo.total_count === 0) {
+            this.props.navigation.navigate('map');
+            this.props.navigation.navigate('paymentMethod', { signedUp: true });
+        } else {
+            this.props.navigation.navigate('map');
+        }
     };
 
     closeModal = () => {
@@ -169,4 +176,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthScreen;
+const mapStateToProps = state => ({
+    user: state.auth.user
+});
+
+const mapDispatchToProps = {
+    listCards
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
