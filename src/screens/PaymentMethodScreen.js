@@ -7,18 +7,24 @@ import { connect } from 'react-redux';
 import MenuAndBackButton from '../components/MenuAndBackButton';
 import SectionTitle from '../components/SectionTitle';
 import PaymentMethod from '../components/PaymentMethod';
+import TextButton from '../components/TextButton';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { listCards } from '../actions/paymentActions';
 import { emY } from '../utils/em';
 
 class PaymentMethodScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: 'Payment',
-        headerLeft: <MenuAndBackButton navigation={navigation} />,
-        headerStyle: Style.header,
-        headerTitleStyle: Style.headerTitle
-    });
+    static navigationOptions = ({ navigation }) => {
+        const signedUp = navigation.state.params && navigation.state.params.signedUp;
+        const onPressHeaderRight = () => navigation.goBack();
+        return {
+            title: 'Payment',
+            headerLeft: signedUp ? null : <MenuAndBackButton navigation={navigation} />,
+            headerRight: signedUp ? <TextButton title="Skip" onPress={onPressHeaderRight} /> : null,
+            headerStyle: Style.header,
+            headerTitleStyle: Style.headerTitle
+        };
+};
 
     static defaultProps = {
         accounts: [
@@ -42,6 +48,12 @@ class PaymentMethodScreen extends Component {
                 this.props.navigation.navigate('DrawerOpen');
             } else {
                 this.props.navigation.navigate('DrawerClose');
+            }
+        }
+        const navigationParams = nextProps.navigation.state.params || {};
+        if (navigationParams.signedUp) {
+            if (this.props.cards.length !== nextProps.cards.length && nextProps.cards.length > 0) {
+                this.props.navigation.goBack();
             }
         }
     }
