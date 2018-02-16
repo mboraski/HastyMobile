@@ -1,5 +1,6 @@
 import { Facebook } from 'expo';
 import firebase from 'firebase';
+import { auth } from '../firebase';
 
 import { APP_ID } from '../constants/Facebook';
 
@@ -34,8 +35,7 @@ export const signInWithFacebook = () => async dispatch => {
             const credential = firebase.auth.FacebookAuthProvider.credential(
                 token
             );
-            return firebase
-                .auth()
+            return auth
                 .signInWithCredential(credential)
                 .then(user => {
                     dispatch({ type: LOGIN_SUCCESS, payload: user });
@@ -66,8 +66,7 @@ export const signInWithFacebook = () => async dispatch => {
 
 export const signInWithEmailAndPassword = ({ email, password }) => dispatch => {
     dispatch({ type: LOGIN });
-    return firebase
-        .auth()
+    return auth
         .signInWithEmailAndPassword(email, password)
         .then(user => {
             dispatch({ type: LOGIN_SUCCESS, payload: user });
@@ -82,9 +81,7 @@ export const signInWithEmailAndPassword = ({ email, password }) => dispatch => {
 export const signUp = ({ email, password, name, number }) => async dispatch => {
     try {
         dispatch({ type: SIGNUP });
-        const user = await firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password);
+        const user = await auth.createUserWithEmailAndPassword(email, password);
         dispatch({ type: SIGNUP_SUCCESS, payload: user });
         await updateAccount(user.uid, {
             displayName: String(name),
@@ -99,8 +96,7 @@ export const signUp = ({ email, password, name, number }) => async dispatch => {
 
 export const signOut = () => dispatch => {
     dispatch({ type: SIGNOUT });
-    return firebase
-        .auth()
+    return auth
         .signOut()
         .then(result => {
             dispatch({ type: SIGNOUT_SUCCESS });
@@ -114,10 +110,9 @@ export const signOut = () => dispatch => {
 
 export const updateAccount = (id, values) => dispatch => {
     dispatch({ type: UPDATE_ACCOUNT });
-    return firebase
-        .database()
+    return database
         .ref(`users/${id}`)
-        .set(values)
+        .set(values, { merge: true })
         .then(result => {
             dispatch({ type: UPDATE_ACCOUNT_SUCCESS });
             return result;
