@@ -70,7 +70,6 @@ class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
-                                editable={!card}
                             />
                             <TextInputField
                                 name="exp"
@@ -94,7 +93,6 @@ class CreditCardForm extends Component {
                             containerStyle={styles.cvcContainer}
                             keyboardType="number-pad"
                             validate={required}
-                            editable={!card}
                         />
                     </View>
                     {card ? (
@@ -172,6 +170,11 @@ const styles = StyleSheet.create({
 const formOptions = {
     form: 'CreditCard',
     async onSubmit(values, dispatch, props) {
+        let card =
+            props.navigation.state.params && props.navigation.state.params.card;
+        if (card) {
+            await props.deleteCard({ uid: props.user.uid, source: card.id });
+        }
         const exp = values.exp.split('/');
         const information = {
             card: {
@@ -182,7 +185,7 @@ const formOptions = {
                 name: values.name
             }
         };
-        const card = await stripe.createToken(information);
+        card = await stripe.createToken(information);
         if (card.error) {
             let error;
             if (card.error.param) {
@@ -210,10 +213,8 @@ const mapStateToProps = (state, props) => {
     return {
         initialValues: card
             ? {
-                  number: card.last4,
                   exp: `${card.exp_month}/${card.exp_year}`,
-                  name: card.name,
-                  cvc: '***'
+                  name: card.name
               }
             : {},
         pending: state.payment.pending,
