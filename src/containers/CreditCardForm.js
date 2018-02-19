@@ -28,7 +28,7 @@ const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 const keyboardVerticalOffset = emY(1);
 
-class CreditCardForm extends Component {
+export class CreditCardForm extends Component {
     deleteCardConfirm = () => {
         Alert.alert('Confirm', 'Are you sure you want to delete this card?', [
             { text: 'Cancel', style: 'cancel' },
@@ -70,7 +70,7 @@ class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
-                                placeholder={'**** **** **** ' + card.last4}
+                                placeholder={card ? '**** **** **** ' + card.last4 : ''}
                             />
                             <TextInputField
                                 name="exp"
