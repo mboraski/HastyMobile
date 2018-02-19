@@ -2,14 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 
 import Color from '../constants/Color';
-import addressIcon from '../assets/icons/address.png';
+import addressIcon from '../assets/icons/logo-orange.png';
 import { emY } from '../utils/em';
 
 const ICON_SIZE = emY(2);
 
 const Prediction = ({ prediction, style, ...props }) => (
     <TouchableOpacity {...props} style={[styles.container, style]}>
-        <Image source={addressIcon} style={styles.icon} />
+        <Image source={addressIcon} style={styles.icon} resizeMode="contain" />
         <Text style={styles.text}>{prediction.description}</Text>
     </TouchableOpacity>
 );

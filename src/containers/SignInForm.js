@@ -10,7 +10,7 @@ import {
 } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import Spinner from '../components/Spinner';
+import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
@@ -74,9 +74,7 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <Spinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
-                        />
+                        <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState

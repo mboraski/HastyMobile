@@ -14,7 +14,7 @@ import { emY } from '../utils/em';
 import Color from '../constants/Color';
 import MenuItem from '../components/MenuItem';
 import ToggleBackButton from '../components/ToggleBackButton';
-import heroIcon from '../assets/icons/hero.png';
+import heroIcon from '../assets/icons/logo-black.png';
 import historyIcon from '../assets/icons/history.png';
 import favoriteIcon from '../assets/icons/favorite.png';
 import notificationIcon from '../assets/icons/notification.png';
