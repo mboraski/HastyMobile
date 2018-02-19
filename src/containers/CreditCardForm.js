@@ -94,7 +94,7 @@ export class CreditCardForm extends Component {
                             containerStyle={styles.cvcContainer}
                             keyboardType="number-pad"
                             validate={required}
-                            placeholder="***"
+                            placeholder={card ? '***' : ''}
                         />
                     </View>
                     {card ? (

@@ -78,7 +78,7 @@ exports[`CreditCardForm should render correctly 1`] = `
         keyboardType="number-pad"
         label="CVC"
         name="cvc"
-        placeholder="***"
+        placeholder=""
         secureTextEntry={true}
         validate={[Function]}
       />
