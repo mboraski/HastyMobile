@@ -9,8 +9,10 @@ import {
     ScrollView
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 // Relative Imports
+import { listCards } from '../actions/paymentActions';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 // import RatingPopup from '../components/RatingPopup';
@@ -42,12 +44,22 @@ class AuthScreen extends Component {
     openSignInForm = () => {
         this.setState({
             signUp: false,
-            openModal: true,
+            openModal: true
         });
     };
 
     goToMap = () => {
         this.props.navigation.navigate('map');
+    };
+
+    goToPayment = async () => {
+        const result = await this.props.listCards(this.props.user.uid);
+        if (result.paymentInfo && result.paymentInfo.total_count === 0) {
+            this.props.navigation.navigate('map');
+            this.props.navigation.navigate('paymentMethod', { signedUp: true });
+        } else {
+            this.props.navigation.navigate('map');
+        }
     };
 
     closeModal = () => {
@@ -56,34 +68,57 @@ class AuthScreen extends Component {
 
     render() {
         const signUp = this.state.signUp;
-        const signUpButtonHighlighted = signUp ? styles.buttonHighlighted : null;
-        const loginButtonHighlighted = !signUp ? styles.buttonHighlighted : null;
-        const signUpButtonTextHighlighted = signUp ? styles.buttonTextHighlighted : null;
-        const loginButtonTextHighlighted = !signUp ? styles.buttonTextHighlighted : null;
+        const signUpButtonHighlighted = signUp
+            ? styles.buttonHighlighted
+            : null;
+        const loginButtonHighlighted = !signUp
+            ? styles.buttonHighlighted
+            : null;
+        const signUpButtonTextHighlighted = signUp
+            ? styles.buttonTextHighlighted
+            : null;
+        const loginButtonTextHighlighted = !signUp
+            ? styles.buttonTextHighlighted
+            : null;
         // const { openModal } = this.state; // TODO: uncomment?
 
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
-                <KeyboardAvoidingView style={styles.container} behavior="position">
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    behavior="position"
+                >
                     <Image source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </Image>
                     <View style={styles.buttonsRow}>
                         <Button
                             title="Sign Up"
-                            buttonStyle={[styles.button, signUpButtonHighlighted]}
-                            textStyle={[styles.buttonText, signUpButtonTextHighlighted]}
+                            buttonStyle={[
+                                styles.button,
+                                signUpButtonHighlighted
+                            ]}
+                            textStyle={[
+                                styles.buttonText,
+                                signUpButtonTextHighlighted
+                            ]}
                             onPress={this.openSignUpForm}
                         />
                         <Button
                             title="Log In"
-                            buttonStyle={[styles.button, loginButtonHighlighted]}
-                            textStyle={[styles.buttonText, loginButtonTextHighlighted]}
+                            buttonStyle={[
+                                styles.button,
+                                loginButtonHighlighted
+                            ]}
+                            textStyle={[
+                                styles.buttonText,
+                                loginButtonTextHighlighted
+                            ]}
                             onPress={this.openSignInForm}
                         />
                     </View>
                     {signUp ? (
-                        <SignUpForm onAuthSuccess={this.goToMap} />
+                        <SignUpForm onAuthSuccess={this.goToPayment} />
                     ) : (
                         <SignInForm onAuthSuccess={this.goToMap} />
                     )}
@@ -141,4 +176,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthScreen;
+const mapStateToProps = state => ({
+    user: state.auth.user
+});
+
+const mapDispatchToProps = {
+    listCards
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

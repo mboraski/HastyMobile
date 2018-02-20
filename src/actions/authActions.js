@@ -1,151 +1,124 @@
-import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
-import { auth as fbAuth, database as fbDb } from 'firebase';
-import { SubmissionError } from 'redux-form';
-import { errorTypes } from '../constants/UserFeedbackStrings';
+import firebase from 'firebase';
+import { auth } from '../firebase';
 
-const ACTIONS = {
-    LOGIN_SUCCESS: 'login_success',
-    LOGIN_FAIL: 'login_fail',
-    LOGOUT_SUCCESS: 'logout_success',
-    SIGNUP_FAIL: 'signup_fail',
-    REDIRECT_TO_SIGNUP: 'redirect_to_signup',
-    LOGIN_USER: 'login_user'
-};
+import { APP_ID } from '../constants/Facebook';
 
-const doEmailPasswordLogin = async (dispatch, user) => {
+export const LOGIN = 'login';
+export const LOGIN_SUCCESS = 'login_success';
+export const LOGIN_FAIL = 'login_fail';
+export const SIGNUP = 'signup';
+export const SIGNUP_SUCCESS = 'signup_success';
+export const SIGNUP_FAIL = 'signup_fail';
+export const SIGNOUT = 'signup';
+export const SIGNOUT_SUCCESS = 'signup_success';
+export const SIGNOUT_FAIL = 'signup_fail';
+export const REDIRECT_TO_SIGNUP = 'redirect_to_signup';
+export const AUTH_CHANGED = 'auth_changed';
+export const UPDATE_ACCOUNT = 'update_account';
+export const UPDATE_ACCOUNT_SUCCESS = 'update_account_success';
+export const UPDATE_ACCOUNT_FAIL = 'update_account_fail';
+export const LOGIN_FACEBOOK = 'login_facebook';
+export const LOGIN_FACEBOOK_SUCCESS = 'login_facebook_success';
+export const LOGIN_FACEBOOK_FAIL = 'login_facebook_fail';
+
+export const signInWithFacebook = () => async dispatch => {
     try {
-        const { stsTokenManager } = user;
-        const { accessToken } = stsTokenManager;
-
-        await AsyncStorage.setItem('auth_type', 'emailPassword');
-        await AsyncStorage.setItem('auth_token', accessToken);
-
-        dispatch({ type: ACTIONS.LOGIN_SUCCESS, payload: user });
-        dispatch({ type: ACTIONS.LOGIN_USER, payload: accessToken });
-    } catch (error) {
-        console.log('authActions loginUserSuccess catch error: ', error);
-        dispatch({ type: ACTIONS.LOGIN_FAIL });
-    }
-};
-
-/** Helper Functions **/
-const doFacebookLogin = async dispatch => {
-    try {
-        const response = await Facebook.logInWithReadPermissionsAsync('1873998396207588', {
-            permissions: ['public_profile', 'email', 'user_friends']
-        });
-        console.log('fb auth response ', response);
-        const { type, token } = response;
-
-        if (type === 'cancel') {
-            return dispatch({ type: ACTIONS.LOGIN_FAIL });
-        }
-
-        await AsyncStorage.setItem('auth_type', 'facebook');
-        await AsyncStorage.setItem('auth_token', token);
-
-        dispatch({ type: ACTIONS.LOGIN_SUCCESS, payload: response });
-        dispatch({ type: ACTIONS.LOGIN_USER, payload: token });
-    } catch (error) {
-        console.log('authActions doFacebookLogin catch error: ', error);
-        dispatch({ type: ACTIONS.LOGIN_FAIL });
-    }
-};
-
-const addUserToDb = (uid, fullProfile, dispatch) => {
-    const userRef = fbDb().ref(`users/${uid}`);
-    userRef.once('value', snapshot => {
-        if (snapshot.val()) {
-            dispatch({ type: ACTIONS.SIGNUP_FAIL });
-            throw new SubmissionError({
-                _error: errorTypes.dbUserExists
-            });
-        } else {
-            userRef.set({ ...fullProfile })
-                .then((response) => {
-                    doEmailPasswordLogin(dispatch, response);
+        dispatch({ type: LOGIN_FACEBOOK });
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+            APP_ID,
+            {
+                permissions: ['public_profile', 'email', 'user_friends']
+            }
+        );
+        if (type === 'success') {
+            const credential = firebase.auth.FacebookAuthProvider.credential(
+                token
+            );
+            return auth
+                .signInWithCredential(credential)
+                .then(user => {
+                    dispatch({ type: LOGIN_SUCCESS, payload: user });
+                    return user;
                 })
-                .catch(() => {
-                    dispatch({ type: ACTIONS.SIGNUP_FAIL });
-                    throw new SubmissionError({
-                        _error: errorTypes.dbAddUser
+                .catch(error => {
+                    dispatch({
+                        type: LOGIN_FACEBOOK_FAIL,
+                        error
                     });
+                    throw error;
                 });
+        } else if (type === 'cancel') {
+            const error = new Error('Facebook authentication canceled');
+            dispatch({
+                type: LOGIN_FACEBOOK_FAIL,
+                error
+            });
+            throw error;
         }
-    });
-};
-/** Helper Functions End **/
-
-const facebookLogin = () => async dispatch => {
-    const token = await AsyncStorage.getItem('auth_token');
-
-    if (token) {
-        dispatch({ type: ACTIONS.LOGIN_USER, payload: token });
-    } else {
-        doFacebookLogin(dispatch);
+        dispatch({ type: LOGIN_FACEBOOK_SUCCESS, payload: token });
+        return token;
+    } catch (error) {
+        dispatch({ type: LOGIN_FACEBOOK_FAIL, error });
+        throw error;
     }
 };
 
-const logout = () => async dispatch => {
-    const token = await AsyncStorage.getItem('auth_token');
+export const signInWithEmailAndPassword = ({ email, password }) => dispatch => {
+    dispatch({ type: LOGIN });
+    return auth
+        .signInWithEmailAndPassword(email, password)
+        .then(user => {
+            dispatch({ type: LOGIN_SUCCESS, payload: user });
+            return user;
+        })
+        .catch(error => {
+            dispatch({ type: LOGIN_FAIL, error });
+            throw error;
+        });
+};
 
-    if (token) {
-        console.log('Logging Out, Bye');
-        const wipedToken = await AsyncStorage.setItem('auth_token', null);
-        dispatch({ type: ACTIONS.LOGOUT_SUCCESS, payload: wipedToken });
-    } else {
-        console.log('Already Logged Out');
+export const signUp = ({ email, password, name, number }) => async dispatch => {
+    try {
+        dispatch({ type: SIGNUP });
+        const user = await auth.createUserWithEmailAndPassword(email, password);
+        dispatch({ type: SIGNUP_SUCCESS, payload: user });
+        await updateAccount(user.uid, {
+            displayName: String(name),
+            phoneNumber: Number(number)
+        });
+        return user;
+    } catch (error) {
+        dispatch({ type: SIGNUP_FAIL, error });
+        throw error;
     }
 };
 
-const createUser = (values) => {
-    const { name, email, number, confirmPassword } = values;
-    return (dispatch) =>
-        fbAuth().createUserWithEmailAndPassword(email, confirmPassword)
-            .then((response) => {
-                // TODO: Add property escaping (along with form field validation)
-                const fullProfile = {
-                    displayName: String(name),
-                    email: String(email),
-                    phoneNumber: Number(number),
-                    refreshToken: String(response.refreshToken) || '',
-                    photoUrl: '',
-                    providerId: null,
-                    emailVerified: false,
-                    providerData: {}
-                };
-                const uid = String(response.uid) || '';
-                addUserToDb(uid, fullProfile, dispatch);
-            })
-            .catch((error) => {
-                console.log('authActions #submit catch error: ', error);
-                dispatch({ type: ACTIONS.SIGNUP_FAIL });
-                throw new SubmissionError({
-                    _error: error
-                });
-            });
+export const signOut = () => dispatch => {
+    dispatch({ type: SIGNOUT });
+    return auth
+        .signOut()
+        .then(result => {
+            dispatch({ type: SIGNOUT_SUCCESS });
+            return result;
+        })
+        .catch(error => {
+            dispatch({ type: SIGNOUT_FAIL, error });
+            throw error;
+        });
 };
 
-const loginEmailPassword = (values) => {
-    const { email, password } = values;
-    return (dispatch) =>
-        fbAuth().signInWithEmailAndPassword(email, password)
-            .then(user => doEmailPasswordLogin(dispatch, user))
-            .catch((error) => {
-                console.log('authActions loginEmailPassword signInWithEmailAndPassword catch error: ', error);
-                dispatch({ type: ACTIONS.LOGIN_FAIL });
-                throw new SubmissionError({
-                    _error: error
-                });
-            });
+export const updateAccount = (id, values) => dispatch => {
+    dispatch({ type: UPDATE_ACCOUNT });
+    return database
+        .ref(`users/${id}`)
+        .set(values, { merge: true })
+        .then(result => {
+            dispatch({ type: UPDATE_ACCOUNT_SUCCESS });
+            return result;
+        })
+        .catch(error => {
+            dispatch({ type: UPDATE_ACCOUNT_FAIL });
+            throw error;
+        });
 };
-
-const ACTION_CREATORS = {
-    facebookLogin,
-    logout,
-    createUser,
-    loginEmailPassword
-};
-
-export default { ...ACTIONS, ...ACTION_CREATORS };

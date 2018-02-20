@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, SubmissionError } from 'redux-form';
 
-import AuthActions from '../actions/authActions';
+import { signInWithFacebook, signUp } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
@@ -16,17 +15,21 @@ import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 
-// const ROOT_URL = 'https://us-central1-hasty-14d18.cloudfunctions.net';
-
 class SignUpForm extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
 
     onAuthComplete = props => {
-        if (props.token) {
+        if (props.user && !this.props.user) {
             this.props.onAuthSuccess();
         }
+    };
+
+    signInWithFacebook = () => {
+        this.props
+            .signInWithFacebook()
+            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
@@ -43,7 +46,8 @@ class SignUpForm extends Component {
             handleSubmit
         } = this.props;
         console.log('SignUpForm render error: ', error);
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
             anyTouched && invalid
                 ? 'Please fill out form with no errors or empty fields.'
@@ -104,7 +108,7 @@ class SignUpForm extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <TouchableOpacity
-                    onPress={handleSubmit(actions.createUser)}
+                    onPress={handleSubmit}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -116,8 +120,8 @@ class SignUpForm extends Component {
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
                 <Button
-                    onPress={actions.facebookLogin}
-                    title="Login with Facebook"
+                    onPress={this.signInWithFacebook}
+                    title="Sign Up with Facebook"
                     icon={{
                         type: 'material-community',
                         name: 'facebook-box',
@@ -202,6 +206,11 @@ const formOptions = {
         console.log('validate errors: ', errors);
         return errors;
     },
+    onSubmit(values, dispatch, props) {
+        return props.signInWithEmailAndPassword(values).catch(error => {
+            throw new SubmissionError({ _error: error.message });
+        });
+    },
     onSubmitFail(errors, dispatch, submitError, props) {
         console.log('onSubmitFail errors: ', errors);
         console.log('onSubmitFail submitError: ', submitError);
@@ -209,17 +218,13 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
+const mapStateToProps = ({ auth }) => ({ user: auth.user });
 
-const mapDispatchToProps = dispatch => {
-    const authActions = bindActionCreators(AuthActions, dispatch);
-
-    return {
-        actions: {
-            facebookLogin: authActions.facebookLogin,
-            createUser: authActions.createUser
-        }
-    };
+const mapDispatchToProps = {
+    signInWithFacebook,
+    signUp
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(SignUpForm));
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm(formOptions)(SignUpForm)
+);

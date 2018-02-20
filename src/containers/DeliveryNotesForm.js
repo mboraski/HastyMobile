@@ -36,9 +36,9 @@ export class DeliveryNotesForm extends Component {
                         label="NOTES"
                         multiline
                         validate={[required, maxLength500]}
-                        containerStyle={styles.textInputContainerMessage}
+                        containerStyle={styles.textInputContainer}
                         labelStyle={styles.label}
-                        style={[styles.textInput, styles.textInputContainer]}
+                        style={styles.textInput}
                     />
                 </View>
                 <TouchableOpacity
@@ -78,17 +78,14 @@ const styles = StyleSheet.create({
     formInputs: {
         flex: 1
     },
-    textInputContainerMessage: {
+    textInputContainer: {
         flex: 1
     },
     textInput: {
-        marginBottom: emY(1),
+        flex: 1,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_500,
         textAlignVertical: 'top'
-    },
-    textInputContainer: {
-        flex: 1
     },
     label: {
         fontSize: emY(1),
