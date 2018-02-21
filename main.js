@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 
 // Relative Imports
-import { auth } from './src/firebase';
 import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/screens/RootContainer';
@@ -17,9 +16,6 @@ import { AUTH_CHANGED } from './src/actions/authActions';
 class App extends Component {
     componentDidMount() {
         // TODO: HAMO-28: Wire up push notifications
-        auth.onAuthStateChanged(user =>
-            store.dispatch({ type: AUTH_CHANGED, payload: user })
-        );
     }
 
     render() {

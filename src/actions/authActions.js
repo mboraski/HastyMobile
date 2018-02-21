@@ -122,3 +122,5 @@ export const updateAccount = (id, values) => dispatch => {
             throw error;
         });
 };
+
+export const authChanged = user => ({ type: AUTH_CHANGED, payload: user });

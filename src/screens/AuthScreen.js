@@ -4,7 +4,7 @@ import {
     View,
     StyleSheet,
     Text,
-    Image,
+    ImageBackground,
     KeyboardAvoidingView,
     ScrollView
 } from 'react-native';
@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import { listCards } from '../actions/paymentActions';
+import { reset } from '../actions/navigationActions';
 import SignUpForm from '../containers/SignUpForm';
 import SignInForm from '../containers/SignInForm';
 // import RatingPopup from '../components/RatingPopup';
@@ -36,6 +37,12 @@ class AuthScreen extends Component {
         signUp: true,
         openModal: false
     };
+
+    componentDidMount() {
+        if (this.props.firstTimeOpened) {
+            this.props.navigation.dispatch(reset('welcome'));
+        }
+    }
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -88,9 +95,9 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <Image source={SOURCE} style={styles.image}>
+                    <ImageBackground source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
-                    </Image>
+                    </ImageBackground>
                     <View style={styles.buttonsRow}>
                         <Button
                             title="Sign Up"
@@ -177,7 +184,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: state.auth.user
+    user: state.auth.user,
+    firstTimeOpened: state.ui.firstTimeOpened
 });
 
 const mapDispatchToProps = {

@@ -39,7 +39,7 @@ const MainNavigator = StackNavigator(
         promotionShare: { screen: PromotionShareScreen }
     },
     {
-        initialRouteName: 'welcome',
+        // initialRouteName: 'welcome',
         navigationOptions: {
             tabBarVisible: false
         },
