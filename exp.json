@@ -3,11 +3,10 @@
   "description": "An instant delivery retail app",
   "slug": "hasty-mobile",
   "privacy": "public",
-  "sdkVersion": "22.0.0",
+  "sdkVersion": "25.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#f5a624",
-  "icon": "./src/assets/icons/logo-white.png",
   "splash": {
     "backgroundColor": "#f5a624",
     "resizeMode": "cover",
