@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
+import moment from 'moment';
 
 // Relative Imports
 import { auth } from '../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
-import { authChanged } from '../actions/authActions';
+import { authChanged, signOut } from '../actions/authActions';
 import { closeCustomerPopup } from '../actions/uiActions';
 import { reduxBoundAddListener } from '../store';
 
@@ -18,6 +19,9 @@ class RootContainer extends Component {
         auth.onAuthStateChanged(user => {
             this.props.authChanged(user);
         });
+        if (this.props.user && moment().isAfter(moment(this.props.authExpirationDate))) {
+            this.props.signOut();
+        }
     }
 
     handleCustomerPopupClose = () => {
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     user: state.auth.user,
+    authExpirationDate: state.auth.expirationDate,
     isOpened: state.isOpened,
     customerPopupVisible: state.ui.customerPopupVisible,
     nav: state.nav
@@ -59,7 +64,8 @@ const mapDispatchToProps = dispatch => ({
     ...bindActionCreators(
         {
             closeCustomerPopup,
-            authChanged
+            authChanged,
+            signOut
         },
         dispatch
     )

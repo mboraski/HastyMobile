@@ -25,7 +25,6 @@ import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
 import tempAvatar from '../assets/profile.png';
 import { openCustomerPopup } from '../actions/uiActions';
-import { reset } from '../actions/navigationActions';
 import { signOut } from '../actions/authActions';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
@@ -63,7 +62,6 @@ class MenuContent extends Component {
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.signOut();
-        this.props.navigation.dispatch(reset('auth'));
     };
 
     render() {

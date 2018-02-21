@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
     LOGIN,
     LOGIN_SUCCESS,
@@ -23,7 +25,7 @@ export const initialState = {
     error: null
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case LOGIN:
         case LOGIN_FACEBOOK:
@@ -34,7 +36,15 @@ export default function (state = initialState, action) {
         case LOGIN_FACEBOOK_SUCCESS:
         case SIGNUP_SUCCESS:
         case AUTH_CHANGED:
-            return { ...state, user: action.payload };
+            return {
+                ...state,
+                user: action.payload,
+                expirationDate: action.payload
+                    ? moment()
+                          .add(1, 'months')
+                          .toDate()
+                    : null
+            };
         case LOGIN_FAIL:
         case LOGIN_FACEBOOK_FAIL:
         case SIGNUP_FAIL:
