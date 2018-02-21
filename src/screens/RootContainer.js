@@ -16,12 +16,12 @@ import { reduxBoundAddListener } from '../store';
 
 class RootContainer extends Component {
     componentWillMount() {
-        auth.onAuthStateChanged(user => {
-            this.props.authChanged(user);
-        });
         if (this.props.user && moment().isAfter(moment(this.props.authExpirationDate))) {
             this.props.signOut();
         }
+        auth.onAuthStateChanged(user => {
+            this.props.authChanged(user);
+        });
     }
 
     handleCustomerPopupClose = () => {
