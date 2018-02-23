@@ -1,7 +1,7 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
 import {
-    View,
+    Alert,
     StyleSheet,
     Text,
     Image,
@@ -13,13 +13,8 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import { listCards } from '../actions/paymentActions';
-import SignUpForm from '../containers/SignUpForm';
-import SignInForm from '../containers/SignInForm';
-// import RatingPopup from '../components/RatingPopup';
-// import CommunicationPopup from '../components/CommunicationPopup';
-// import SuccessPopup from '../components/SuccessPopup';
-// import OopsPopup from '../components/OopsPopup';
-// import ContinuePopup from '../components/ContinuePopup';
+import { signInWithFacebook } from '../actions/authActions';
+import EntryMessage from '../components/EntryMessage';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
@@ -34,31 +29,40 @@ class AuthScreen extends Component {
 
     state = {
         signUp: true,
-        openModal: false
+        openModal: true
     };
 
-    openSignUpForm = () => {
-        this.setState({ signUp: true });
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
+    }
+
+    onAuthComplete = props => {
+        if (props.user && !this.props.user) {
+            this.onAuthSuccess(props.user);
+        }
     };
 
-    openSignInForm = () => {
-        this.setState({
-            signUp: false,
-            openModal: true
-        });
+    onAuthSuccess = (user) => {
+        this.goToPayment(user);
+    }
+
+    signInWithFacebook = () => {
+        this.props
+            .signInWithFacebook()
+            .catch(error => Alert.alert('Error', error.message));
     };
 
     goToMap = () => {
         this.props.navigation.navigate('map');
     };
 
-    goToPayment = async () => {
-        const result = await this.props.listCards(this.props.user.uid);
+    goToPayment = async (user) => {
+        const result = await this.props.listCards(user.uid);
         if (result.paymentInfo && result.paymentInfo.total_count === 0) {
-            this.props.navigation.navigate('map');
+            this.goToMap();
             this.props.navigation.navigate('paymentMethod', { signedUp: true });
         } else {
-            this.props.navigation.navigate('map');
+            this.goToMap();
         }
     };
 
@@ -67,21 +71,6 @@ class AuthScreen extends Component {
     };
 
     render() {
-        const signUp = this.state.signUp;
-        const signUpButtonHighlighted = signUp
-            ? styles.buttonHighlighted
-            : null;
-        const loginButtonHighlighted = !signUp
-            ? styles.buttonHighlighted
-            : null;
-        const signUpButtonTextHighlighted = signUp
-            ? styles.buttonTextHighlighted
-            : null;
-        const loginButtonTextHighlighted = !signUp
-            ? styles.buttonTextHighlighted
-            : null;
-        // const { openModal } = this.state; // TODO: uncomment?
-
         return (
             <ScrollView style={styles.container} keyboardDismissMode="on-drag">
                 <KeyboardAvoidingView
@@ -91,43 +80,25 @@ class AuthScreen extends Component {
                     <Image source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </Image>
-                    <View style={styles.buttonsRow}>
-                        <Button
-                            title="Sign Up"
-                            buttonStyle={[
-                                styles.button,
-                                signUpButtonHighlighted
-                            ]}
-                            textStyle={[
-                                styles.buttonText,
-                                signUpButtonTextHighlighted
-                            ]}
-                            onPress={this.openSignUpForm}
-                        />
-                        <Button
-                            title="Log In"
-                            buttonStyle={[
-                                styles.button,
-                                loginButtonHighlighted
-                            ]}
-                            textStyle={[
-                                styles.buttonText,
-                                loginButtonTextHighlighted
-                            ]}
-                            onPress={this.openSignInForm}
-                        />
-                    </View>
-                    {signUp ? (
-                        <SignUpForm onAuthSuccess={this.goToPayment} />
-                    ) : (
-                        <SignInForm onAuthSuccess={this.goToMap} />
-                    )}
+                    <Button
+                        onPress={this.signInWithFacebook}
+                        title="Sign In with Facebook"
+                        icon={{
+                            type: 'material-community',
+                            name: 'facebook-box',
+                            color: '#fff',
+                            size: 25
+                        }}
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
+                    />
                 </KeyboardAvoidingView>
-                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
-                <CommunicationPopup openModal={openModal} closeModal={this.closeModal} />
-                <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
-                <OopsPopup openModal={openModal} closeModal={this.closeModal} />
-                <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}
+                <EntryMessage
+                    openModal={this.state.openModal}
+                    closeModal={this.closeModal}
+                    message={'Hello and welcome to our official SXSW soft launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
+                />
             </ScrollView>
         );
     }
@@ -137,6 +108,35 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    button: {
+        backgroundColor: '#000',
+        marginHorizontal: 20,
+        justifyContent: 'center',
+        height: emY(3)
+    },
+    buttonContainer: {
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 30,
+        paddingBottom: 30
+    },
+    buttonHighlighted: {
+        backgroundColor: Color.GREY_500,
+        borderColor: '#fff'
+    },
+    buttonsRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: emY(1)
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: emY(1)
+    },
+    buttonTextHighlighted: {
+        color: '#fff'
     },
     image: {
         height: Dimensions.window.height / 4,
@@ -149,30 +149,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
         textAlign: 'center',
         letterSpacing: 5
-    },
-    buttonsRow: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingVertical: emY(1)
-    },
-    button: {
-        minWidth: 120,
-        borderRadius: 25,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500,
-        backgroundColor: '#fff',
-        height: emY(2.5)
-    },
-    buttonText: {
-        color: Color.GREY_500,
-        fontSize: 14
-    },
-    buttonHighlighted: {
-        backgroundColor: Color.GREY_500,
-        borderColor: '#fff'
-    },
-    buttonTextHighlighted: {
-        color: '#fff'
     }
 });
 
@@ -181,6 +157,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    signInWithFacebook,
     listCards
 };
 
