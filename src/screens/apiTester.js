@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 
-import { auth, firestore } from '../firebase';
+import { auth, firestore, database } from '../firebase';
 import {
     addStripeCustomerSource,
     removeStripeCustomerSource,
@@ -25,8 +25,12 @@ class ApiTester extends Component {
         login: null,
         logout: null,
         addStripeCustomerSource: null,
+        removeStripeCustomerSource: null,
+        currentCard: 'No currently set card',
+        chargeCurrentCard: null,
         paymentInfo: null,
         selectedSource: null,
+        currentOrder: null,
         user: null
     }
 
@@ -149,11 +153,21 @@ class ApiTester extends Component {
         });
     }
     onRemoveStripeCustomerSource = () => {
-        const source = this.state.user.selectedSource;
-        // TODO
-        return removeStripeCustomerSource(source);
+        const user = auth.currentUser;
+        const args = { uid: user.uid, source: this.state.currentCard };
+        return removeStripeCustomerSource(args)
+            .then(() => {
+                this.setState({
+                    removeStripeCustomerSource: 'Stripe source removed successfully'
+                });
+            })
+            .catch((error) => {
+                this.setState({
+                    removeStripeCustomerSource: error
+                });
+            });
     }
-    fetchStripeCustomerPaymentInfo = () => {
+    onFetchStripeCustomerPaymentInfo = () => {
         const user = auth.currentUser;
         const uid = user.uid;
         const docRef = firestore.collection('userOwned').doc(uid);
@@ -162,8 +176,12 @@ class ApiTester extends Component {
                 if (doc.exists) {
                     const data = doc.data();
                     console.log('fetched payment info: ', data.paymentInfo);
+                    const paymentInfo = data.paymentInfo;
                     this.setState({
-                        paymentInfo: JSON.stringify(data.paymentInfo)
+                        paymentInfo: JSON.stringify(paymentInfo)
+                    });
+                    this.setState({
+                        currentCard: paymentInfo.data[0].id
                     });
                 } else {
                     // doc.data() will be undefined in this case
@@ -174,17 +192,23 @@ class ApiTester extends Component {
                 console.log('Error getting document:', error);
             });
     }
-    // updateStripeCustomerDefaultSource = () => {
-    //
-    // }
-    chargeStripeCustomerSource = () => {
+    onChargeCurrentCard = () => {
+        const user = auth.currentUser;
+        const uid = user.uid;
         const charge = {
             amount: 190.00,
             currency: 'usd',
-            source: this.state.selectedSource
+            source: this.state.currentCard
         };
-        return chargeStripeCustomerSource(charge);
+        return chargeStripeCustomerSource({ uid, charge });
     }
+    onLightBeacon = () => {
+        database.ref('/userOwned/orders/US/TX/Austin').add({
+            currentSetAddress: '1007 S Congress Ave, Apt 242, Austin, TX 78704',
+            currentSetLatLon: { lat: 43.23223, lon: 97.293023 },
+            status: 'open'
+        });
+    };
 
     renderContent = () => {
         let content;
@@ -231,6 +255,17 @@ class ApiTester extends Component {
                         color="#841584"
                     />
                     <Text style={styles.titleText}>
+                        {this.state.paymentInfo}
+                    </Text>
+                    <Button
+                        onPress={this.onFetchStripeCustomerPaymentInfo}
+                        title="Fetch Customer Payment Info"
+                        color="#841584"
+                    />
+                    <Text style={styles.titleText}>
+                        {this.state.currentCard}
+                    </Text>
+                    <Text style={styles.titleText}>
                         {this.state.removeStripeCustomerSource}
                     </Text>
                     <Button
@@ -239,11 +274,19 @@ class ApiTester extends Component {
                         color="#841584"
                     />
                     <Text style={styles.titleText}>
-                        {this.state.paymentInfo}
+                        {this.state.chargeCurrentCard}
                     </Text>
                     <Button
-                        onPress={this.fetchStripeCustomerPaymentInfo}
-                        title="Fetch Customer Payment Info"
+                        onPress={this.onChargeCurrentCard}
+                        title="Charge Current Card"
+                        color="#841584"
+                    />
+                    <Text style={styles.titleText}>
+                        {this.state.currentOrder}
+                    </Text>
+                    <Button
+                        onPress={this.onLightBeacon}
+                        title="Light A Beacon"
                         color="#841584"
                     />
                 </View>

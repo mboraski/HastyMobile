@@ -11,9 +11,9 @@ import {
     SIGNOUT_SUCCESS,
     SIGNOUT_FAIL,
     AUTH_CHANGED,
-    UPDATE_ACCOUNT,
-    UPDATE_ACCOUNT_SUCCESS,
-    UPDATE_ACCOUNT_FAIL,
+    // UPDATE_ACCOUNT,
+    // UPDATE_ACCOUNT_SUCCESS,
+    // UPDATE_ACCOUNT_FAIL,
     LOGIN_FACEBOOK,
     LOGIN_FACEBOOK_SUCCESS,
     LOGIN_FACEBOOK_FAIL
@@ -25,7 +25,7 @@ export const initialState = {
     error: null
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
     switch (action.type) {
         case LOGIN:
         case LOGIN_FACEBOOK:
@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
                 user: action.payload,
                 expirationDate: action.payload
                     ? moment()
-                          .add(1, 'months')
+                          .add(3, 'months')
                           .toDate()
                     : null
             };
