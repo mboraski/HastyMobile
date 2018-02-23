@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { AsyncStorage, StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import Expo from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
@@ -10,8 +10,6 @@ import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/screens/RootContainer';
 import { store, persistor } from './src/store';
-
-import { AUTH_CHANGED } from './src/actions/authActions';
 
 class App extends Component {
     componentDidMount() {

@@ -1,7 +1,6 @@
 import { Facebook } from 'expo';
-import firebase from 'firebase';
-import { auth } from '../firebase';
 
+import { auth, database } from '../firebase';
 import { APP_ID } from '../constants/Facebook';
 
 export const LOGIN = 'login';
@@ -32,7 +31,7 @@ export const signInWithFacebook = () => async dispatch => {
             }
         );
         if (type === 'success') {
-            const credential = firebase.auth.FacebookAuthProvider.credential(
+            const credential = auth.FacebookAuthProvider.credential(
                 token
             );
             return auth

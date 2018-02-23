@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
 import { bindActionCreators } from 'redux';
-import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
 import moment from 'moment';
 
 // Relative Imports
