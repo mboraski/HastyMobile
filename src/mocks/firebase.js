@@ -14,6 +14,7 @@ jest.mock('../firebase', () => {
     const mockfirestore = new firebasemock.MockFirestore();
     // cause promises to immediately resolve
     mockfirestore.autoFlush();
+    mockauth.autoFlush();
 
     const firebase = mocksdk.initializeApp(); // can take a path arg to database url
     // optional - expose the mock

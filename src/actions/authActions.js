@@ -1,6 +1,6 @@
 import { Facebook } from 'expo';
 import firebase from 'firebase';
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 
 import { APP_ID } from '../constants/Facebook';
 
@@ -110,8 +110,9 @@ export const signOut = () => dispatch => {
 
 export const updateAccount = (id, values) => dispatch => {
     dispatch({ type: UPDATE_ACCOUNT });
-    return database
-        .ref(`users/${id}`)
+    return firestore
+        .collection('users')
+        .doc(id)
         .set(values, { merge: true })
         .then(result => {
             dispatch({ type: UPDATE_ACCOUNT_SUCCESS });
