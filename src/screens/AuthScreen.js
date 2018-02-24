@@ -4,7 +4,7 @@ import {
     Alert,
     StyleSheet,
     Text,
-    Image,
+    ImageBackground,
     KeyboardAvoidingView,
     ScrollView
 } from 'react-native';
@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { listCards } from '../actions/paymentActions';
 import { signInWithFacebook } from '../actions/authActions';
 import EntryMessage from '../components/EntryMessage';
+import { reset } from '../actions/navigationActions';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
@@ -35,12 +36,18 @@ class AuthScreen extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
+    
+    componentDidMount() {
+        if (this.props.firstTimeOpened) {
+            this.props.navigation.dispatch(reset('welcome'));
+        }
+    }
 
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
             this.onAuthSuccess(props.user);
         }
-    };
+    }
 
     onAuthSuccess = (user) => {
         this.goToPayment(user);
@@ -77,9 +84,9 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <Image source={SOURCE} style={styles.image}>
+                    <ImageBackground source={SOURCE} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
-                    </Image>
+                    </ImageBackground>
                     <Button
                         onPress={this.signInWithFacebook}
                         title="Sign In with Facebook"
@@ -93,12 +100,12 @@ class AuthScreen extends Component {
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                     />
-                </KeyboardAvoidingView>
-                <EntryMessage
-                    openModal={this.state.openModal}
-                    closeModal={this.closeModal}
-                    message={'Hello and welcome to our official SXSW soft launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
-                />
+                    <EntryMessage
+                        openModal={this.state.openModal}
+                        closeModal={this.closeModal}
+                        message={'Hello and welcome to our official SXSW soft launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
+                    />
+               </KeyboardAvoidingView>
             </ScrollView>
         );
     }
@@ -153,7 +160,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: state.auth.user
+    user: state.auth.user,
+    firstTimeOpened: state.ui.firstTimeOpened
 });
 
 const mapDispatchToProps = {

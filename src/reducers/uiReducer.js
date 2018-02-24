@@ -3,14 +3,16 @@ import {
     OPEN_CUSTOMER_POPUP,
     CLOSE_CUSTOMER_POPUP,
     SHOW_FEEDBACK_FORM,
-    HIDE_FEEDBACK_FORM
+    HIDE_FEEDBACK_FORM,
+    FIRST_TIME_OPENED
 } from '../actions/uiActions';
 
 const initialState = {
     headerVisible: true,
     searchVisible: false,
     customerPopupVisible: false,
-    feedbackFormVisible: false
+    feedbackFormVisible: false,
+    firstTimeOpened: true
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +42,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 feedbackFormVisible: false
+            };
+        case FIRST_TIME_OPENED:
+            return {
+                ...state,
+                firstTimeOpened: false
             };
         default:
             return state;
