@@ -34,7 +34,6 @@ class SignUpForm extends Component {
 
     render() {
         const {
-            actions,
             anyTouched,
             pending,
             submitting,
@@ -52,7 +51,6 @@ class SignUpForm extends Component {
             anyTouched && invalid
                 ? 'Please fill out form with no errors or empty fields.'
                 : 'Create Account';
-        // TODO: Add name, email, and number to temp form part of store that doesn't clear out on error
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
