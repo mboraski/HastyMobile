@@ -1,6 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import '../../mocks/firebase';
 import {
     signInWithFacebook,
     signInWithEmailAndPassword,
@@ -37,13 +38,23 @@ describe('Testing Auth Actions', () => {
     });
 
     it('handles signInWithEmailAndPassword action', async () => {
-        await store.dispatch(signInWithEmailAndPassword({ email: 'email', password: 'password' }));
+        await store.dispatch(
+            signInWithEmailAndPassword({
+                email: 'email@email.com',
+                password: 'password'
+            })
+        );
         const actions = store.getActions();
         expect(actions).toMatchSnapshot();
     });
     it('handles signUp action', async () => {
         await store.dispatch(
-            signUp({ email: 'email', password: 'password', name: 'name', number: '1112223333' })
+            signUp({
+                email: 'email@email.com',
+                password: 'password',
+                name: 'name',
+                number: '1112223333'
+            })
         );
         const actions = store.getActions();
         expect(actions).toMatchSnapshot();
@@ -54,7 +65,9 @@ describe('Testing Auth Actions', () => {
         expect(actions).toMatchSnapshot();
     });
     it('handles updateAccount action', async () => {
-        await store.dispatch(updateAccount({ name: 'name', number: '1112223333' }));
+        await store.dispatch(
+            updateAccount('id', { name: 'name', number: '1112223333' })
+        );
         const actions = store.getActions();
         expect(actions).toMatchSnapshot();
     });
