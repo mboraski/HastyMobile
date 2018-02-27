@@ -9,6 +9,7 @@ import moment from 'moment';
 import { auth } from '../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
+import DropdownAlert from '../components/DropdownAlert';
 import { authChanged, signOut } from '../actions/authActions';
 import { closeCustomerPopup } from '../actions/uiActions';
 import { reduxBoundAddListener } from '../store';
@@ -28,7 +29,7 @@ class RootContainer extends Component {
     };
 
     render() {
-        const { customerPopupVisible } = this.props;
+        const { customerPopupVisible, dropdownAlertVisible, dropdownAlertText } = this.props;
         const navigation = addNavigationHelpers({
             dispatch: this.props.dispatch,
             state: this.props.nav,
@@ -41,6 +42,7 @@ class RootContainer extends Component {
                     openModal={customerPopupVisible}
                     closeModal={this.handleCustomerPopupClose}
                 />
+                <DropdownAlert visible={dropdownAlertVisible} text={dropdownAlertText} />
             </View>
         );
     }
@@ -55,6 +57,8 @@ const mapStateToProps = state => ({
     authExpirationDate: state.auth.expirationDate,
     isOpened: state.isOpened,
     customerPopupVisible: state.ui.customerPopupVisible,
+    dropdownAlertVisible: state.ui.dropdownAlertVisible,
+    dropdownAlertText: state.ui.dropdownAlertText,
     nav: state.nav
 });
 
