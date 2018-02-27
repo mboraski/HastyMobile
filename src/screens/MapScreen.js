@@ -10,11 +10,18 @@ import {
 import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
+import debounce from 'lodash/debounce';
 
-import { saveAddress, setRegion, getCurrentLocation } from '../actions/mapActions';
+import {
+    saveAddress,
+    setRegion,
+    getCurrentLocation
+} from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
+import { distanceMatrix } from '../actions/googleMapsActions';
 import { getProductsByAddress } from '../actions/productActions';
-import { toggleSearch } from '../actions/uiActions';
+import { toggleSearch, dropdownAlert } from '../actions/uiActions';
+import ContinuePopup from '../components/ContinuePopup';
 import PredictionList from '../components/PredictionList';
 import LogoSpinner from '../components/LogoSpinner';
 import MapHeader from '../containers/MapHeader';
@@ -22,6 +29,10 @@ import Color from '../constants/Color';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import beaconIcon from '../assets/icons/beacon.png';
+
+const INITIAL_MESSAGE = `Service is only available between streets E 6th St and Congress Ave of Downtown Austin Texas for the 2018 SXSW festival. 
+Please set your location there for service. 
+Sorry for the inconvenience as we grow this revolutionary new startup, born and bread right here in Austin, Texas!`;
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
@@ -36,7 +47,8 @@ export class MapScreen extends Component {
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
-        getCurrentPositionPending: false
+        getCurrentPositionPending: false,
+        initialMessageVisible: true
     };
 
     componentWillMount() {
@@ -66,16 +78,33 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChangeComplete = region => {
+    onRegionChangeComplete = async region => {
         if (this.state.mapReady) {
             this.props.setRegion(region);
         }
     };
 
+    onRegionChangeComplete = debounce(this.onRegionChangeComplete, 500);
+
     onButtonPress = async () => {
-        this.props.setCurrentLocation(this.props.address, this.props.region);
-        await this.props.getProductsByAddress(this.props.address);
-        this.props.navigation.navigate('home');
+        const result = await this.props.distanceMatrix({
+            units: 'imperial',
+            origins: '30.268066,-97.7450017', // E 6th St & Congress Ave, Austin, TX 78701
+            destinations: `${this.props.region.latitude},${
+                this.props.region.longitude
+            }`
+        });
+        if (result.rows[0].elements[0].duration.value > 60 * 30) {
+            this.props.dropdownAlert(true, 'Service is not available here');
+        } else {
+            this.props.dropdownAlert(false, '');
+            this.props.setCurrentLocation(
+                this.props.address,
+                this.props.region
+            );
+            await this.props.getProductsByAddress(this.props.address);
+            this.props.navigation.navigate('home');
+        }
     };
 
     handleAddress = address => {
@@ -83,6 +112,7 @@ export class MapScreen extends Component {
     };
 
     handleAddressFocus = () => {
+        this.props.dropdownAlert(false, '');
         this.props.toggleSearch();
     };
 
@@ -118,8 +148,18 @@ export class MapScreen extends Component {
         });
     };
 
+    handleInitialMessageClose = () => {
+        this.setState({ initialMessageVisible: false });
+    };
+
     render() {
-        const { predictions, region, address, pending, productPending } = this.props;
+        const {
+            predictions,
+            region,
+            address,
+            pending,
+            productPending
+        } = this.props;
 
         return (
             <View style={styles.container}>
@@ -142,14 +182,19 @@ export class MapScreen extends Component {
                         />
                     </MapView>
                 ) : null}
-                <TouchableWithoutFeedback onPress={this.handleAddressFocus} disabled={pending}>
+                <TouchableWithoutFeedback
+                    onPress={this.handleAddressFocus}
+                    disabled={pending}
+                >
                     <Animated.View
                         style={[
                             styles.inputContainer,
                             { zIndex: 2 },
                             {
                                 opacity: this.state.opacity,
-                                transform: [{ translateY: this.state.translateY }]
+                                transform: [
+                                    { translateY: this.state.translateY }
+                                ]
                             }
                         ]}
                     >
@@ -181,12 +226,21 @@ export class MapScreen extends Component {
                         style={[
                             styles.predictions,
                             {
-                                opacity: this.state.opacity.interpolate(REVERSE_CONFIG)
+                                opacity: this.state.opacity.interpolate(
+                                    REVERSE_CONFIG
+                                )
                             }
                         ]}
                     />
                 ) : null}
-                {productPending ? <LogoSpinner style={StyleSheet.absoluteFill} /> : null}
+                {productPending ? (
+                    <LogoSpinner style={StyleSheet.absoluteFill} />
+                ) : null}
+                <ContinuePopup
+                    openModal={this.state.initialMessageVisible}
+                    closeModal={this.handleInitialMessageClose}
+                    message={INITIAL_MESSAGE}
+                />
             </View>
         );
     }
@@ -277,9 +331,11 @@ const mapDispatchToProps = {
     saveAddress,
     getProductsByAddress,
     toggleSearch,
+    dropdownAlert,
     setRegion,
     setCurrentLocation,
-    getCurrentLocation
+    getCurrentLocation,
+    distanceMatrix
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
