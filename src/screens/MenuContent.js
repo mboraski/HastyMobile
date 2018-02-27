@@ -83,18 +83,18 @@ class MenuContent extends Component {
                         image={heroIcon}
                         title="Heroes Needed!"
                     />
-                    <MenuItem
+                    {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={historyIcon}
                         title="History"
-                    />
-                    <MenuItem
+                    /> */}
+                    { /*<MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={favoriteIcon}
                         title="Favorites & Recommended"
-                    />
+                    /> */}
                     <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
@@ -116,13 +116,13 @@ class MenuContent extends Component {
                         image={paymentIcon}
                         title="Payment Info"
                     />
-                    <MenuItem
+                    {/*<MenuItem
                         route={getRoute(items, 'promotionShare')}
                         activeItemKey={activeItemKey}
                         onPress={this.promotionSharePress}
                         image={promotionIcon}
                         title="Promotions"
-                    />
+                    />*/}
                     <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={this.handleHelpPress}
