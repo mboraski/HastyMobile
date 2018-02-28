@@ -5,8 +5,8 @@ export default class AppTextInput extends Component {
     render() {
         return (
             <TextInput
-                ref={c => (this.component = c)}
                 {...this.props}
+                ref={c => (this.component = c)}
                 style={[styles.textInput, this.props.style]}
             />
         );
