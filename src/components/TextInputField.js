@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { TextInput, View, StyleSheet, Platform } from 'react-native';
 import { Field } from 'redux-form';
 
 import Text from './Text';

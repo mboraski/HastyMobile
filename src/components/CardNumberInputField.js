@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { TextInput, View, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 import valid from 'card-validator';
 

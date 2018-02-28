@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 import debounce from 'lodash/debounce';
 
 import { emY } from '../utils/em';
@@ -24,6 +24,7 @@ class DebounceTextInput extends Component {
         const { style, ...props } = this.props;
         return (
             <TextInput
+                ref={c => (this.component = c)}
                 {...props}
                 style={[styles.container, style]}
                 underlineColorAndroid="transparent"
