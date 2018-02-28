@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { Notifications } from 'expo';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -56,6 +57,19 @@ class MenuContent extends Component {
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.signOut();
+    };
+
+    handleLocalNotificationPress = () => {
+        Notifications.scheduleLocalNotificationAsync(
+            {
+                title: 'title',
+                body: 'body',
+                data: { type: 'feedback', title: 'title', description: 'description' }
+            },
+            {
+                time: new Date().getTime() + 5000
+            }
+        );
     };
 
     render() {
@@ -128,6 +142,13 @@ class MenuContent extends Component {
                         image={helpIcon}
                         title="Sign Out"
                     />
+                    {__DEV__ ? (
+                        <MenuItem
+                            onPress={this.handleLocalNotificationPress}
+                            image={helpIcon}
+                            title="Send local notification"
+                        />
+                    ) : null}
                     <Text style={styles.copyright}>@2017 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
