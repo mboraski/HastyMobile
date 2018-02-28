@@ -26,9 +26,9 @@ export const reduxBoundAddListener = createReduxBoundAddListener('root');
 
 const middlewares = [thunk, navMiddleware];
 
-if (__DEV__) {
-    middlewares.push(logger);
-}
+// if (__DEV__) {
+//     middlewares.push(logger);
+// }
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
 export const store = createStore(
