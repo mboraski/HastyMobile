@@ -5,7 +5,8 @@ import {
     Text,
     TouchableWithoutFeedback,
     Platform,
-    Animated
+    Animated,
+    ActivityIndicator
 } from 'react-native';
 import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
@@ -23,16 +24,14 @@ import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import ContinuePopup from '../components/ContinuePopup';
 import PredictionList from '../components/PredictionList';
-import LogoSpinner from '../components/LogoSpinner';
 import MapHeader from '../containers/MapHeader';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import beaconIcon from '../assets/icons/beacon.png';
 
-const INITIAL_MESSAGE = `Service is only available between streets E 6th St and Congress Ave of Downtown Austin Texas for the 2018 SXSW festival. 
-Please set your location there for service. 
-Sorry for the inconvenience as we grow this revolutionary new startup, born and bread right here in Austin, Texas!`;
+const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available between streets E 6th St and Congress Ave of Downtown Austin Texas for the SXSW festival.
+Come check us out! We are a new startup, born and bread right here in Austin, Texas!`;
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
@@ -44,6 +43,7 @@ export class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
+        region: null,
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
@@ -78,13 +78,18 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
+    onRegionChange = region => {
+        this.setState({ region });
+    };
+
     onRegionChangeComplete = async region => {
         if (this.state.mapReady) {
             this.props.setRegion(region);
+            this.setState({ region });
         }
     };
 
-    onRegionChangeComplete = debounce(this.onRegionChangeComplete, 500);
+    onRegionChangeComplete = debounce(this.onRegionChangeComplete, 1000, { leading: true, tailing: false });
 
     onButtonPress = async () => {
         const result = await this.props.distanceMatrix({
@@ -160,13 +165,19 @@ export class MapScreen extends Component {
             pending,
             productPending
         } = this.props;
+        const currentRegion = this.state.region || region;
 
         return (
             <View style={styles.container}>
                 {region ? (
                     <MapView
+                        showsCompass
+                        showScale
+                        showsMyLocationButton
+                        loadingEnabled
+                        zoom={3}
                         initialRegion={region}
-                        region={region}
+                        region={currentRegion}
                         style={styles.map}
                         onMapReady={this.onMapReady}
                         onRegionChange={this.onRegionChange}
@@ -174,7 +185,7 @@ export class MapScreen extends Component {
                     >
                         <MapView.Marker
                             image={beaconIcon}
-                            coordinate={region}
+                            coordinate={currentRegion}
                             title="You"
                             description="Your Delivery Location"
                             anchor={{ x: 0.2, y: 1 }}
@@ -234,7 +245,7 @@ export class MapScreen extends Component {
                     />
                 ) : null}
                 {productPending ? (
-                    <LogoSpinner style={StyleSheet.absoluteFill} />
+                    <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
                 ) : null}
                 <ContinuePopup
                     openModal={this.state.initialMessageVisible}

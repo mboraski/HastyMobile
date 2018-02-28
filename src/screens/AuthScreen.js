@@ -33,14 +33,16 @@ class AuthScreen extends Component {
         openModal: true
     };
 
-    componentWillReceiveProps(nextProps) {
-        this.onAuthComplete(nextProps);
-    }
-    
-    componentDidMount() {
-        if (this.props.firstTimeOpened) {
+    componentWillMount() {
+        if (this.props.user) {
+            this.goToMap();
+        } else if (this.props.firstTimeOpened) {
             this.props.navigation.dispatch(reset('welcome'));
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
     }
 
     onAuthComplete = props => {
@@ -103,7 +105,7 @@ class AuthScreen extends Component {
                     <EntryMessage
                         openModal={this.state.openModal}
                         closeModal={this.closeModal}
-                        message={'Hello and welcome to our official SXSW soft launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
+                        message={'Hello and welcome to our official SXSW launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
                     />
                </KeyboardAvoidingView>
             </ScrollView>

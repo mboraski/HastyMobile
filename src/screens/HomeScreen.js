@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
+    ImageBackground,
     TouchableOpacity,
     Platform
 } from 'react-native';
@@ -102,13 +102,13 @@ export class HomeScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 ) : (
-                    <Image source={SOURCE} style={styles.image}>
+                    <ImageBackground source={SOURCE} style={styles.image}>
                         <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
                         <View>
                             <Text style={styles.imageTitle}>Recommended</Text>
                             <Text style={styles.imageMeta}>215 items</Text>
                         </View>
-                    </Image>
+                    </ImageBackground>
                 )}
                 <ScrollView
                     horizontal
