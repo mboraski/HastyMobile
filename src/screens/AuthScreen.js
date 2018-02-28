@@ -34,26 +34,35 @@ class AuthScreen extends Component {
     };
 
     componentWillMount() {
-        if (this.props.user) {
-            this.goToMap();
-        } else if (this.props.firstTimeOpened) {
+        if (this.props.firstTimeOpened) {
             this.props.navigation.dispatch(reset('welcome'));
         }
+        this.props.navigation.addListener('didFocus', this.handleFocus);
     }
 
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
 
+    componentWillUnmount() {
+        this.props.navigation.removeListener('didFocus', this.handleFocus);
+    }
+
+    handleFocus = () => {
+        if (this.props.user) {
+            this.onAuthSuccess(this.props.user);
+        }
+    };
+
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
             this.onAuthSuccess(props.user);
         }
-    }
+    };
 
-    onAuthSuccess = (user) => {
+    onAuthSuccess = user => {
         this.goToPayment(user);
-    }
+    };
 
     signInWithFacebook = () => {
         this.props
@@ -65,7 +74,7 @@ class AuthScreen extends Component {
         this.props.navigation.navigate('map');
     };
 
-    goToPayment = async (user) => {
+    goToPayment = async user => {
         const result = await this.props.listCards(user.uid);
         if (result.paymentInfo && result.paymentInfo.total_count === 0) {
             this.goToMap();
@@ -105,9 +114,11 @@ class AuthScreen extends Component {
                     <EntryMessage
                         openModal={this.state.openModal}
                         closeModal={this.closeModal}
-                        message={'Hello and welcome to our official SXSW launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
+                        message={
+                            'Hello and welcome to our official SXSW launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'
+                        }
                     />
-               </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
             </ScrollView>
         );
     }
