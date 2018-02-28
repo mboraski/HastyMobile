@@ -43,7 +43,7 @@ export class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
-        region: null,
+        initialRegion: this.props.region,
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
@@ -78,14 +78,9 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChange = region => {
-        this.setState({ region });
-    };
-
     onRegionChangeComplete = async region => {
         if (this.state.mapReady) {
             this.props.setRegion(region);
-            this.setState({ region });
         }
     };
 
@@ -165,7 +160,6 @@ export class MapScreen extends Component {
             pending,
             productPending
         } = this.props;
-        const currentRegion = this.state.region || region;
 
         return (
             <View style={styles.container}>
@@ -176,16 +170,15 @@ export class MapScreen extends Component {
                         showsMyLocationButton
                         loadingEnabled
                         zoom={3}
-                        initialRegion={region}
-                        region={currentRegion}
+                        initialRegion={this.state.initialRegion}
+                        region={region}
                         style={styles.map}
                         onMapReady={this.onMapReady}
-                        onRegionChange={this.onRegionChange}
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
                         <MapView.Marker
                             image={beaconIcon}
-                            coordinate={currentRegion}
+                            coordinate={region}
                             title="You"
                             description="Your Delivery Location"
                             anchor={{ x: 0.2, y: 1 }}
