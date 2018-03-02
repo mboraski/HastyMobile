@@ -37,7 +37,7 @@ class AuthScreen extends Component {
         if (this.props.firstTimeOpened) {
             this.props.navigation.dispatch(reset('welcome'));
         }
-        this.props.navigation.addListener('didFocus', this.handleFocus);
+        this.focusSubscription = this.props.navigation.addListener('didFocus', this.handleFocus);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -45,7 +45,9 @@ class AuthScreen extends Component {
     }
 
     componentWillUnmount() {
-        this.props.navigation.removeListener('didFocus', this.handleFocus);
+        if (this.focusSubscription) {
+            this.focusSubscription.remove();
+        }
     }
 
     handleFocus = () => {
