@@ -2,7 +2,9 @@ import {
     GET_PRODUCTS_BY_ADDRESS_REQUEST,
     GET_PRODUCTS_BY_ADDRESS_SUCCESS,
     GET_PRODUCTS_BY_ADDRESS_FAIL,
-    SELECT_DELIVERY_TYPE
+    SELECT_DELIVERY_TYPE,
+    FETCHED_PRODUCTS_SUCCESS,
+    FETCHED_PRODUCTS_FAILURE
 } from '../actions/productActions';
 
 export const initialState = {
@@ -14,6 +16,18 @@ export const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case FETCHED_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                pending: false,
+                availableProducts: action.payload,
+                error: null
+            };
+        case FETCHED_PRODUCTS_FAILURE:
+            return {
+                ...state,
+                pending: false
+            };
         case GET_PRODUCTS_BY_ADDRESS_REQUEST:
             return {
                 ...state,

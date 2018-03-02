@@ -13,6 +13,7 @@ import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash/debounce';
+import { database } from '../firebase';
 
 import {
     saveAddress,
@@ -23,6 +24,7 @@ import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
+import { orderCreationSuccess, orderCreationError } from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
@@ -106,8 +108,21 @@ class MapScreen extends Component {
                 this.props.address,
                 this.props.region
             );
-            await this.props.getProductsByAddress(this.props.address);
-            this.props.navigation.navigate('home');
+            try {
+                const resp = await database.ref('orders/US/TX/Austin').push({
+                    currentSetAddress: this.props.address,
+                    currentSetLatLon: this.props.region,
+                    status: 'open'
+                });
+                this.props.orderCreationSuccess(resp);
+                this.props.navigation.navigate('home');
+            } catch (error) {
+                this.props.orderCreationError();
+                this.props.dropdownAlert(
+                    true,
+                    'Error setting location, please change and try again'
+                );
+            }
         }
     };
 
@@ -375,7 +390,9 @@ const mapDispatchToProps = {
     setCurrentLocation,
     getCurrentLocation,
     distanceMatrix,
-    reverseGeocode
+    reverseGeocode,
+    orderCreationSuccess,
+    orderCreationError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
