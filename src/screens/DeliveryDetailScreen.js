@@ -1,6 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Field, reduxForm } from 'redux-form';
 
@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 import CloseButton from '../components/CloseButton';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import Radio from '../components/Radio';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';

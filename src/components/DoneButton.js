@@ -1,9 +1,10 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import Text from './Text';
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 

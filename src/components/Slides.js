@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
 
+import Text from './Text';
 import Dimensions from '../constants/Dimensions';
 
 class Slides extends Component {

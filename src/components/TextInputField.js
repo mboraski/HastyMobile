@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
+import { TextInput, View, StyleSheet, Platform } from 'react-native';
 import { Field } from 'redux-form';
 
+import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
@@ -59,6 +60,7 @@ export const styles = StyleSheet.create({
         borderRadius: 7,
         marginHorizontal: 15,
         fontSize: emY(1),
+        fontFamily: 'Arial',
         height: emY(3.125),
         paddingHorizontal: 20,
         ...Platform.select({

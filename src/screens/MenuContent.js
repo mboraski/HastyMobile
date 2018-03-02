@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    Image,
-    View,
-    TouchableOpacity
-} from 'react-native';
+import { ScrollView, StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 import MenuItem from '../components/MenuItem';
+import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
 import historyIcon from '../assets/icons/history.png';

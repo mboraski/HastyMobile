@@ -2,8 +2,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
-    Text
+    View
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -11,6 +10,7 @@ import { connect } from 'react-redux';
 import CloseButton from '../components/CloseButton';
 import DoneButton from '../components/DoneButton';
 import ShareButton from '../components/ShareButton';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';

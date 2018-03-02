@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Animated, View, Text, Platform } from 'react-native';
+import { StyleSheet, Animated, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Text from './Text';
 import NotificationActions from '../actions/notificationActions';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';

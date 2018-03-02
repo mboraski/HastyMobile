@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import Text from './Text';
 import { emY } from '../utils/em';
 
 const RADIO_ICON_SIZE = emY(1.4375);

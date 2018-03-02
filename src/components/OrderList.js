@@ -1,10 +1,11 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import _ from 'lodash';
 
 // Relative Imports
 import OrderDetail from './OrderDetail';
+import Text from './Text';
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 

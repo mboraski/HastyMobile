@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { 
     StyleSheet, 
     Image, 
-    TouchableOpacity, 
-    Text,
+    TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import paymentIcon from '../assets/icons/master-card.png';

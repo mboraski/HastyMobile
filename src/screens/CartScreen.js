@@ -1,6 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -9,6 +9,7 @@ import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
 import OopsPopup from '../components/OopsPopup';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';

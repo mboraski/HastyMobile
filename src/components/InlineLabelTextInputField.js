@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Field } from 'redux-form';
 
+import Text from './Text';
+import TextInput from './TextInput';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
