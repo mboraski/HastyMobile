@@ -6,7 +6,9 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
-    ActivityIndicator
+    ActivityIndicator,
+    Image,
+    PanResponder
 } from 'react-native';
 import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
@@ -19,7 +21,7 @@ import {
     getCurrentLocation
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
-import { distanceMatrix } from '../actions/googleMapsActions';
+import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { getProductsByAddress } from '../actions/productActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import ContinuePopup from '../components/ContinuePopup';
@@ -51,6 +53,14 @@ export class MapScreen extends Component {
         initialMessageVisible: true
     };
 
+    panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: (evt, gestureState) => true,
+        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+        onPanResponderGrant: (evt, gestureState) => {
+            this.setState({ showImageMarker: true });
+        }
+    });
+
     componentWillMount() {
         if (Platform.OS === 'android' && !Constants.isDevice) {
             this.setState({
@@ -78,13 +88,27 @@ export class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChangeComplete = async region => {
+    getAddress = debounce(this.props.reverseGeocode, 1000, {
+        leading: false,
+        tailing: true
+    });
+
+    handleRegionChange = region => {
         if (this.state.mapReady) {
+            this.setState({ showImageMarker: true });
             this.props.setRegion(region);
         }
     };
 
-    onRegionChangeComplete = debounce(this.onRegionChangeComplete, 1000, { leading: true, tailing: false });
+    onRegionChangeComplete = async region => {
+        if (this.state.mapReady) {
+            this.setState({ showImageMarker: false });
+            this.props.setRegion(region);
+            this.getAddress({
+                latlng: `${region.latitude},${region.longitude}`
+            });
+        }
+    };
 
     onButtonPress = async () => {
         const result = await this.props.distanceMatrix({
@@ -165,25 +189,37 @@ export class MapScreen extends Component {
             <View style={styles.container}>
                 {region ? (
                     <MapView
+                        {...this.panResponder.panHandlers}
                         showsCompass
                         showScale
                         showsMyLocationButton
                         loadingEnabled
                         zoom={3}
                         initialRegion={this.state.initialRegion}
-                        region={region}
+                        region={region || this.state.initialRegion}
                         style={styles.map}
                         onMapReady={this.onMapReady}
+                        onRegionChange={this.handleRegionChange}
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
-                        <MapView.Marker
-                            image={beaconIcon}
-                            coordinate={region}
-                            title="You"
-                            description="Your Delivery Location"
-                            anchor={{ x: 0.2, y: 1 }}
-                            centerOffset={{ x: 12, y: -25 }}
-                        />
+                        {this.state.showImageMarker ? (
+                            <Image
+                                source={beaconIcon}
+                                style={{
+                                    alignSelf: 'center',
+                                    transform: [{ translate: [12, -25] }]
+                                }}
+                            />
+                        ) : (
+                            <MapView.Marker
+                                image={beaconIcon}
+                                coordinate={region}
+                                title="You"
+                                description="Your Delivery Location"
+                                anchor={{ x: 0.2, y: 1 }}
+                                centerOffset={{ x: 12, y: -25 }}
+                            />
+                        )}
                     </MapView>
                 ) : null}
                 <TouchableWithoutFeedback
@@ -238,7 +274,10 @@ export class MapScreen extends Component {
                     />
                 ) : null}
                 {productPending ? (
-                    <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
+                    <ActivityIndicator
+                        size="large"
+                        style={StyleSheet.absoluteFill}
+                    />
                 ) : null}
                 <ContinuePopup
                     openModal={this.state.initialMessageVisible}
@@ -257,7 +296,8 @@ const styles = StyleSheet.create({
     },
     map: {
         flex: 1,
-        shadowColor: 'transparent'
+        shadowColor: 'transparent',
+        justifyContent: 'center'
     },
     buttonContainer: {
         position: 'absolute',
@@ -339,7 +379,8 @@ const mapDispatchToProps = {
     setRegion,
     setCurrentLocation,
     getCurrentLocation,
-    distanceMatrix
+    distanceMatrix,
+    reverseGeocode
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);

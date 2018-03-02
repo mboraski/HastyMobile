@@ -1,6 +1,6 @@
 import { Location, Permissions } from 'expo';
 
-import { geocode, reverseGeocode } from './googleMapsActions';
+import { geocode } from './googleMapsActions';
 import Dimensions from '../constants/Dimensions';
 
 const ASPECT_RATIO = Dimensions.window.width / Dimensions.window.height;
@@ -18,10 +18,7 @@ export const saveAddress = address => dispatch => {
     dispatch({ type: SAVE_ADDRESS, payload: address });
     return dispatch(geocode({ address }));
 };
-export const setRegion = region => dispatch => {
-    dispatch({ type: SET_REGION, payload: region });
-    return dispatch(reverseGeocode({ latlng: `${region.latitude},${region.longitude}` }));
-};
+export const setRegion = region => ({ type: SET_REGION, payload: region });
 
 export const getCurrentLocation = () => async dispatch => {
     dispatch({ type: GET_CURRENT_LOCATION_REQUEST });
