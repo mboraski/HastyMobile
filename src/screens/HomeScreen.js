@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
+import { database, storage } from '../firebase';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
@@ -22,11 +23,11 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { addToCart, removeFromCart } from '../actions/cartActions';
-import { selectDeliveryType } from '../actions/productActions';
+import { selectDeliveryType, fetchedProductsSuccess } from '../actions/productActions';
 import { getProductsByDeliveryType } from '../selectors/productSelectors';
 import { emY } from '../utils/em';
+import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 
-const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
 class HomeScreen extends Component {
@@ -40,6 +41,14 @@ class HomeScreen extends Component {
     };
 
     state = { filter: FILTERS[0] };
+
+    async componentDidMount() {
+        await database.ref('products/US/TX/Austin')
+            .on('value', (snapshot) => {
+                const products = snapshot.val();
+                fetchedProductsSuccess(products);
+            });
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
@@ -102,7 +111,7 @@ class HomeScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 ) : (
-                    <ImageBackground source={SOURCE} style={styles.image}>
+                    <ImageBackground source={AuthScreenBackground} style={styles.image}>
                         <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
                         <View>
                             <Text style={styles.imageTitle}>Recommended</Text>
@@ -229,6 +238,7 @@ const mapDispatchToProps = dispatch => ({
     selectFilter: filter => dispatch(selectDeliveryType(filter)),
     addToCart: product => dispatch(addToCart(product)),
     removeFromCart: product => dispatch(removeFromCart(product)),
+    fetchedProductsSuccess: products => dispatch(fetchedProductsSuccess(products))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

@@ -2,13 +2,13 @@
 import { StackNavigator } from 'react-navigation';
 
 // Relative Imports
+import apiTester from '../screens/apiTester';
 import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
-import ApiTester from '../screens/apiTester'; // TODO: remove after verification
 import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
 import DeliveryNotesScreen from '../screens/DeliveryNotesScreen';
 import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
@@ -21,11 +21,11 @@ import PromotionShareScreen from '../screens/PromotionShareScreen';
 
 const MainNavigator = StackNavigator(
     {
+        apiTester: { screen: apiTester },
         welcome: { screen: WelcomeScreen },
         auth: { screen: AuthScreen },
         profile: { screen: ProfileScreen },
         map: { screen: MapScreen },
-        apiTester: { screen: ApiTester },
         home: { screen: HomeScreen },
         searchForHero: { screen: SearchForHeroScreen },
         deliveryDetail: { screen: DeliveryDetailScreen },
@@ -39,7 +39,7 @@ const MainNavigator = StackNavigator(
         promotionShare: { screen: PromotionShareScreen }
     },
     {
-        // initialRouteName: 'welcome',
+        initialRouteName: 'apiTester',
         navigationOptions: {
             tabBarVisible: false
         },
