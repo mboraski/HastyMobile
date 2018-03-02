@@ -16,7 +16,7 @@ import { emY } from '../utils/em';
 import { getAvailableCartOrders } from '../selectors/cartSelectors';
 import * as actions from '../actions/cartActions';
 
-export class CartScreen extends Component {
+class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Cart',
         headerLeft: <BackButton onPress={() => navigation.goBack()} />,

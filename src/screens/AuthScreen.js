@@ -21,8 +21,7 @@ import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
-// TODO: replace with real image that gets fetched
-const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
+import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 // TODO: add width then use for drawer width. Save to store.
 
 class AuthScreen extends Component {
@@ -33,13 +32,20 @@ class AuthScreen extends Component {
         openModal: true
     };
 
+    componentWillMount() {
+        if (this.props.firstTimeOpened) {
+            this.props.navigation.dispatch(reset('welcome'));
+        }
+        this.focusSubscription = this.props.navigation.addListener('didFocus', this.handleFocus);
+    }
+
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
-    
-    componentDidMount() {
-        if (this.props.firstTimeOpened) {
-            this.props.navigation.dispatch(reset('welcome'));
+
+    componentWillUnmount() {
+        if (this.focusSubscription) {
+            this.focusSubscription.remove();
         }
     }
 
@@ -47,11 +53,17 @@ class AuthScreen extends Component {
         if (props.user && !this.props.user) {
             this.onAuthSuccess(props.user);
         }
-    }
+    };
 
-    onAuthSuccess = (user) => {
+    onAuthSuccess = user => {
         this.goToPayment(user);
-    }
+    };
+
+    handleFocus = () => {
+        if (this.props.user) {
+            this.onAuthSuccess(this.props.user);
+        }
+    };
 
     signInWithFacebook = () => {
         this.props
@@ -63,7 +75,7 @@ class AuthScreen extends Component {
         this.props.navigation.navigate('map');
     };
 
-    goToPayment = async (user) => {
+    goToPayment = async user => {
         const result = await this.props.listCards(user.uid);
         if (result.paymentInfo && result.paymentInfo.total_count === 0) {
             this.goToMap();
@@ -84,7 +96,7 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <ImageBackground source={SOURCE} style={styles.image}>
+                    <ImageBackground source={AuthScreenBackground} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </ImageBackground>
                     <Button
@@ -103,9 +115,11 @@ class AuthScreen extends Component {
                     <EntryMessage
                         openModal={this.state.openModal}
                         closeModal={this.closeModal}
-                        message={'Hello and welcome to our official SXSW soft launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'}
+                        message={
+                            'Hello and welcome to our official SXSW launch! Thanks so much for being a part of this amazing journey! Signup or login with Facebook above.'
+                        }
                     />
-               </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
             </ScrollView>
         );
     }

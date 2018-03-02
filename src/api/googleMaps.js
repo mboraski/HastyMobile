@@ -10,6 +10,9 @@ export default {
     },
     geocode(...args) {
         return instance.get('geocode/json', ...args);
+    },
+    distanceMatrix(...args) {
+        return instance.get('distancematrix/json', ...args);
     }
 };
 

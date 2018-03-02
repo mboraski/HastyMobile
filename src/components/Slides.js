@@ -53,11 +53,11 @@ const styles = {
   },
   textStyle: {
     fontSize: 30,
-    color: 'white',
+    color: 'black',
     textAlign: 'center'
   },
   buttonStyle: {
-    backgroundColor: '#8AD835',
+    backgroundColor: '#000',
     marginTop: 15
   }
 };

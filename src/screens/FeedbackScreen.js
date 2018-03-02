@@ -16,7 +16,7 @@ import { emY } from '../utils/em';
 
 const keyboardVerticalOffset = emY(1);
 
-export class FeedbackScreen extends Component {
+class FeedbackScreen extends Component {
     state = {
         userRating: 0,
         productRating: 0,
@@ -144,9 +144,9 @@ const mapStateToProps = state => ({
     feedbackFormVisible: state.ui.feedbackFormVisible
 });
 
-const mapDispatchToProps = { 
-    showFeedbackForm, 
-    hideFeedbackForm 
+const mapDispatchToProps = {
+    showFeedbackForm,
+    hideFeedbackForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedbackScreen);
