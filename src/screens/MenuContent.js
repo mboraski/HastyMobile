@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    Image,
-    View,
-    TouchableOpacity
-} from 'react-native';
+import { ScrollView, StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
 import { emY } from '../utils/em';
 import Color from '../constants/Color';
 import MenuItem from '../components/MenuItem';
+import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
 import historyIcon from '../assets/icons/history.png';
@@ -83,18 +77,18 @@ class MenuContent extends Component {
                         image={heroIcon}
                         title="Heroes Needed!"
                     />
-                    <MenuItem
+                    {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={historyIcon}
                         title="History"
-                    />
-                    <MenuItem
+                    /> */}
+                    { /*<MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={favoriteIcon}
                         title="Favorites & Recommended"
-                    />
+                    /> */}
                     <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
@@ -116,13 +110,13 @@ class MenuContent extends Component {
                         image={paymentIcon}
                         title="Payment Info"
                     />
-                    <MenuItem
+                    {/*<MenuItem
                         route={getRoute(items, 'promotionShare')}
                         activeItemKey={activeItemKey}
                         onPress={this.promotionSharePress}
                         image={promotionIcon}
                         title="Promotions"
-                    />
+                    />*/}
                     <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={this.handleHelpPress}

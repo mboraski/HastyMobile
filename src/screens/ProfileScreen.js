@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
     ScrollView,
     TouchableOpacity
 } from 'react-native';
@@ -15,6 +14,7 @@ import { connect } from 'react-redux';
 // Relative Imports
 import BackButton from '../components/BackButton';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
+import Text from '../components/Text';
 import AuthActions from '../actions/authActions';
 import Color from '../constants/Color';
 import Style from '../constants/Style';

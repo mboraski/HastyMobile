@@ -1,8 +1,9 @@
 // 3rd Party Libraries
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 // Relative Imports
+import Text from './Text';
 import CardImage from '../components/CardImage';
 import Color from '../constants/Color';
 import Style from '../constants/Style';

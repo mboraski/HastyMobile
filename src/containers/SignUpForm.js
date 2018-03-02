@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
@@ -9,6 +9,7 @@ import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
+import Text from '../components/Text';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';

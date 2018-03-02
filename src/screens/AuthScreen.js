@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
     Alert,
     StyleSheet,
-    Text,
     ImageBackground,
     KeyboardAvoidingView,
     ScrollView
@@ -16,6 +15,7 @@ import { listCards } from '../actions/paymentActions';
 import { signInWithFacebook } from '../actions/authActions';
 import EntryMessage from '../components/EntryMessage';
 import { reset } from '../actions/navigationActions';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';

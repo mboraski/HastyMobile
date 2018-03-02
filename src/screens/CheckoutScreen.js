@@ -4,7 +4,6 @@ import {
     StyleSheet,
     ScrollView,
     View,
-    Text,
     TouchableOpacity,
     Platform,
     Animated
@@ -21,6 +20,7 @@ import DropDown from '../components/DropDown';
 import PaymentDropDownItem from '../components/PaymentDropDownItem';
 import OopsPopup from '../components/OopsPopup';
 import SuccessPopup from '../components/SuccessPopup';
+import Text from '../components/Text';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';

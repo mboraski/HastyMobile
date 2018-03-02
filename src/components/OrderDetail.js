@@ -1,9 +1,10 @@
 // Third Part Imports
 import React from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Relative Imports
+import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 

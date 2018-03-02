@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
         paddingVertical: emY(0.625),
-        flex: 1
+        flex: 1,
+        fontFamily: 'Arial'
     }
 });
 

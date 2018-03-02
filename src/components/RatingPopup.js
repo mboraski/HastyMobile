@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Modal,
     View,
-    Text,
     Image,
     TouchableOpacity,
     Platform
@@ -12,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 
 // Relative Imports
+import Text from './Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated } from 'react-native';
+import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { placesAutocomplete } from '../actions/googleMapsActions';
@@ -10,6 +10,7 @@ import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
 import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
+import Text from '../components/Text';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
@@ -96,7 +97,7 @@ class MapHeader extends Component {
                             <MenuButton style={Style.headerLeft} disabled={pending} />
                         </View>
                         <View style={Style.headerTitleContainer}>
-                            <Text style={Style.headerTitle}>Hasty Logo</Text>
+                            <Text style={[Style.headerTitle, Style.headerTitleLogo]}>Hasty</Text>
                         </View>
                         <View style={Style.headerRightContainer}>
                             <LocationButton

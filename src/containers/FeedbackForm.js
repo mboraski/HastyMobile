@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { reset } from '../actions/navigationActions';
 import Color from '../constants/Color';
+import Text from '../components/Text';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import LogoSpinner from '../components/LogoSpinner';
