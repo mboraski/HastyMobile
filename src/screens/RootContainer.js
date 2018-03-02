@@ -11,12 +11,15 @@ import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { authChanged, signOut } from '../actions/authActions';
-import { closeCustomerPopup } from '../actions/uiActions';
+import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { reduxBoundAddListener } from '../store';
 
 class RootContainer extends Component {
     componentWillMount() {
-        if (this.props.user && moment().isAfter(moment(this.props.authExpirationDate))) {
+        if (
+            this.props.user &&
+            moment().isAfter(moment(this.props.authExpirationDate))
+        ) {
             this.props.signOut();
         }
         auth.onAuthStateChanged(user => {
@@ -28,8 +31,16 @@ class RootContainer extends Component {
         this.props.closeCustomerPopup();
     };
 
+    handleDropdownAlertCloseAnimationComplete = () => {
+        this.props.dropdownAlert(false);
+    };
+
     render() {
-        const { customerPopupVisible, dropdownAlertVisible, dropdownAlertText } = this.props;
+        const {
+            customerPopupVisible,
+            dropdownAlertVisible,
+            dropdownAlertText
+        } = this.props;
         const navigation = addNavigationHelpers({
             dispatch: this.props.dispatch,
             state: this.props.nav,
@@ -42,7 +53,13 @@ class RootContainer extends Component {
                     openModal={customerPopupVisible}
                     closeModal={this.handleCustomerPopupClose}
                 />
-                <DropdownAlert visible={dropdownAlertVisible} text={dropdownAlertText} />
+                <DropdownAlert
+                    visible={dropdownAlertVisible}
+                    text={dropdownAlertText}
+                    onCloseAnimationComplete={
+                        this.handleDropdownAlertCloseAnimationComplete
+                    }
+                />
             </View>
         );
     }
@@ -67,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
     ...bindActionCreators(
         {
             closeCustomerPopup,
+            dropdownAlert,
             authChanged,
             signOut
         },

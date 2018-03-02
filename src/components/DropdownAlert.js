@@ -1,44 +1,80 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated, StatusBar, Platform } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    Animated,
+    StatusBar,
+    Platform
+} from 'react-native';
 
 // Relative Imports
 import Color from '../constants/Color';
 
 export default class DropdownAlert extends Component {
+    static defaultProps = {
+        closeInterval: 2000,
+        onOpenAnimationComplete: () => {},
+        onCloseAnimationComplete: () => {}
+    };
+
     constructor(props) {
         super(props);
-        this.animation = new Animated.Value(-100);
+        this.state = { visible: false };
+        this.translateYAnimValue = new Animated.Value(-100);
+        this.openAnimation = Animated.timing(this.translateYAnimValue, {
+            toValue: 0,
+            duration: 500
+        });
+        this.closeAnimation = Animated.timing(this.translateYAnimValue, {
+            toValue: -100,
+            duration: 500
+        });
     }
 
     componentDidMount() {
-        if (this.props.visible) {
-            Animated.timing(this.animation, {
-                toValue: 0,
-                duration: 500
-            }).start();
+        if (this.props.visible && !this.state.visible) {
+            this.openAnimation.start(this.handleOpenAnimationComplete);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
+        if (
+            nextProps.visible !== this.props.visible ||
+            (nextProps.visible && !this.state.visible)
+        ) {
             if (nextProps.visible) {
-                Animated.timing(this.animation, {
-                    toValue: 0,
-                    duration: 500
-                }).start();
-            } else {
-                Animated.timing(this.animation, {
-                    toValue: -100,
-                    duration: 500
-                }).start();
+                if (!this.state.visible) {
+                    this.openAnimation.start(this.handleOpenAnimationComplete);
+                }
+            } else if (this.state.visible) {
+                this.closeAnimation.start(this.handleCloseAnimationComplete);
             }
         }
     }
 
-    onLayout = event => {
-        const { height } = event.nativeEvent.layout;
-        this.setState({ height });
+    handleOpenAnimationComplete = () => {
+        this.setState({ visible: true }, () => {
+            if (this.timeoutId != null) {
+                clearTimeout(this.timeoutId);
+            }
+            this.timeoutId = setTimeout(() => {
+                if (this.state.visible) {
+                    this.closeAnimation.start(this.handleCloseAnimationComplete);
+                }
+            }, this.props.closeInterval);
+        });
+        this.props.onOpenAnimationComplete();
+    };
+
+    handleCloseAnimationComplete = () => {
+        if (this.timeoutId != null) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+        this.setState({ visible: false });
+        this.props.onCloseAnimationComplete();
     };
 
     render() {
@@ -47,10 +83,13 @@ export default class DropdownAlert extends Component {
                 style={[
                     styles.container,
                     {
-                        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 20,
+                        paddingTop:
+                            Platform.OS === 'android'
+                                ? StatusBar.currentHeight
+                                : 20,
                         transform: [
                             {
-                                translateY: this.animation
+                                translateY: this.translateYAnimValue
                             }
                         ]
                     }
