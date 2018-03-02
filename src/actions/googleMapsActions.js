@@ -31,21 +31,20 @@ export const placesAutocomplete = input => async dispatch => {
             }
         });
         if (res.data.error_message) {
-            dispatch({
-                type: MAPS_PLACES_AUTOCOMPLETE_FAIL,
-                error: new Error(res.data.error_message)
-            });
+            throw new Error(res.data.error_message);
         } else {
             dispatch({
                 type: MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
                 payload: res.data
             });
+            return res.data;
         }
     } catch (error) {
         dispatch({
             type: MAPS_PLACES_AUTOCOMPLETE_FAIL,
             error
         });
+        throw error;
     }
 };
 
@@ -62,21 +61,20 @@ export const geocode = props => async dispatch => {
             }
         });
         if (res.data.error_message) {
-            dispatch({
-                type: MAPS_GEOCODE_FAIL,
-                error: new Error(res.data.error_message)
-            });
+            throw new Error(res.data.error_message);
         } else {
             dispatch({
                 type: MAPS_GEOCODE_SUCCESS,
                 payload: res.data
             });
+            return res.data;
         }
     } catch (error) {
         dispatch({
             type: MAPS_GEOCODE_FAIL,
             error
         });
+        throw error;
     }
 };
 
@@ -93,21 +91,20 @@ export const reverseGeocode = props => async dispatch => {
             }
         });
         if (res.data.error_message) {
-            dispatch({
-                type: MAPS_REVERSE_GEOCODE_FAIL,
-                error: new Error(res.data.error_message)
-            });
+            throw new Error(res.data.error_message);
         } else {
             dispatch({
                 type: MAPS_REVERSE_GEOCODE_SUCCESS,
                 payload: res.data
             });
+            return res.data;
         }
     } catch (error) {
         dispatch({
             type: MAPS_REVERSE_GEOCODE_FAIL,
             error
         });
+        throw error;
     }
 };
 
