@@ -12,10 +12,6 @@ import RootContainer from './src/screens/RootContainer';
 import { store, persistor } from './src/store';
 
 class App extends Component {
-    componentDidMount() {
-        // TODO: HAMO-28: Wire up push notifications
-    }
-
     render() {
         return (
             <Provider store={store}>

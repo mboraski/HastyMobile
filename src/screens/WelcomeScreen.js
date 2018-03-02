@@ -1,17 +1,13 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
-import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
 
 import { statusBarOnly } from '../constants/Style';
 import Slides from '../components/Slides';
 import { setFirstTimeOpened } from '../actions/uiActions';
 
 const SLIDE_DATA = [
-    { text: 'Welcome to Hasty, the FASTEST delivery network ever!', color: '#F5A623' },
-    { text: 'Just sign up, set your location, and fill your cart up with products.', color: '#03A9F4' },
+    { text: 'Welcome to Hasty, the FASTEST delivery network ever! Swipe right to continue!', color: '#F5A623' },
+    { text: 'Just sign up, set your location, and fill your cart up with products. Swipe right to continue!', color: '#03A9F4' },
     { text: 'Light a beacon and a Hero will arrive with your products shortly!', color: '#F5A623' }
 ];
 

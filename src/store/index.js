@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, persistCombineReducers } from 'redux-persist';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import { AsyncStorage } from 'react-native';
 import {
     createReactNavigationReduxMiddleware,
@@ -39,6 +39,6 @@ export const store = createStore(
 export const persistor = persistStore(store);
 
 // clears async storage
-// persistor.purge();
+persistor.purge();
 
 export default { persistor, store };

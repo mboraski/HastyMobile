@@ -29,7 +29,7 @@ import { emY } from '../utils/em';
 const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
 const FILTERS = [{ name: 'For You', id: '1' }, { name: 'Food', id: '2' }];
 
-export class HomeScreen extends Component {
+class HomeScreen extends Component {
     static navigationOptions = {
         title: 'Hasty Logo',
         headerLeft: <MenuButton />,

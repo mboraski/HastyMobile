@@ -41,7 +41,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-export class MapScreen extends Component {
+class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
@@ -52,14 +52,6 @@ export class MapScreen extends Component {
         getCurrentPositionPending: false,
         initialMessageVisible: true
     };
-
-    panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onPanResponderGrant: (evt, gestureState) => {
-            this.setState({ showImageMarker: true });
-        }
-    });
 
     componentWillMount() {
         if (Platform.OS === 'android' && !Constants.isDevice) {
@@ -86,18 +78,6 @@ export class MapScreen extends Component {
 
     onMapReady = () => {
         this.setState({ mapReady: true });
-    };
-
-    getAddress = debounce(this.props.reverseGeocode, 1000, {
-        leading: false,
-        tailing: true
-    });
-
-    handleRegionChange = region => {
-        if (this.state.mapReady) {
-            this.setState({ showImageMarker: true });
-            this.props.setRegion(region);
-        }
     };
 
     onRegionChangeComplete = async region => {
@@ -128,6 +108,26 @@ export class MapScreen extends Component {
             );
             await this.props.getProductsByAddress(this.props.address);
             this.props.navigation.navigate('home');
+        }
+    };
+
+    getAddress = debounce(this.props.reverseGeocode, 1000, {
+        leading: false,
+        tailing: true
+    });
+
+    panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: (evt, gestureState) => true,
+        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+        onPanResponderGrant: (evt, gestureState) => {
+            this.setState({ showImageMarker: true });
+        }
+    });
+
+    handleRegionChange = region => {
+        if (this.state.mapReady) {
+            this.setState({ showImageMarker: true });
+            this.props.setRegion(region);
         }
     };
 
@@ -190,11 +190,6 @@ export class MapScreen extends Component {
                 {region ? (
                     <MapView
                         {...this.panResponder.panHandlers}
-                        showsCompass
-                        showScale
-                        showsMyLocationButton
-                        loadingEnabled
-                        zoom={3}
                         initialRegion={this.state.initialRegion}
                         region={region || this.state.initialRegion}
                         style={styles.map}

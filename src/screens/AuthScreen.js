@@ -21,8 +21,7 @@ import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
-// TODO: replace with real image that gets fetched
-const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
+import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 // TODO: add width then use for drawer width. Save to store.
 
 class AuthScreen extends Component {
@@ -50,12 +49,6 @@ class AuthScreen extends Component {
         }
     }
 
-    handleFocus = () => {
-        if (this.props.user) {
-            this.onAuthSuccess(this.props.user);
-        }
-    };
-
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
             this.onAuthSuccess(props.user);
@@ -64,6 +57,12 @@ class AuthScreen extends Component {
 
     onAuthSuccess = user => {
         this.goToPayment(user);
+    };
+
+    handleFocus = () => {
+        if (this.props.user) {
+            this.onAuthSuccess(this.props.user);
+        }
     };
 
     signInWithFacebook = () => {
@@ -97,7 +96,7 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <ImageBackground source={SOURCE} style={styles.image}>
+                    <ImageBackground source={AuthScreenBackground} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </ImageBackground>
                     <Button
