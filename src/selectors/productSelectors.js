@@ -1,17 +1,46 @@
 import { createSelector } from 'reselect';
 
-export const getDeliveryType = state => state.product.deliveryType;
 
 export const getAvailableProducts = state => state.product.availableProducts;
+export const getCategory = state => state.product.category.toUpperCase();
 
-export const getProductsByDeliveryType = createSelector(
-    [getDeliveryType, getAvailableProducts],
-    (deliveryType, products) => {
-        const productsByDeliveryType = products[deliveryType] || {};
-        return Object.keys(productsByDeliveryType).map(productCode => ({
-            ...productsByDeliveryType[productCode],
-            productCode,
-            deliveryType
-        }));
+export const getCategoriesToProductsMap = createSelector(
+    [getAvailableProducts],
+    (availableProducts) => {
+        const mappedCategoryToProductsObj = {};
+        // TODO: more filter logic for more categories
+        mappedCategoryToProductsObj.all = availableProducts.instant || null;
+        mappedCategoryToProductsObj.sxsw = availableProducts.instant || null;
+        return mappedCategoryToProductsObj;
     }
+);
+
+export const getCategories = createSelector(
+    [getCategoriesToProductsMap],
+    (mappedCategoryToProductsObj) =>
+        Object.keys(mappedCategoryToProductsObj).map((category) => category.toUpperCase())
+);
+
+export const getProductsByCategory = createSelector(
+    [getCategory, getCategoriesToProductsMap],
+    (category, categoriesToProductsMap) => {
+        switch (category) {
+            case 'SXSW':
+                return categoriesToProductsMap.all;
+            default:
+                return categoriesToProductsMap.all;
+        }
+    }
+);
+
+export const getNumberOfProducts = createSelector(
+    [getProductsByCategory],
+    (products) => {
+        console.log('products: ', products);
+        return products ? Object.keys(products).length : null;
+    }
+);
+
+export const getProductPicRefs = createSelector(
+    [], () => {}
 );

@@ -13,7 +13,7 @@ import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash/debounce';
-import { database } from '../firebase';
+import firebase from '../firebase';
 
 import {
     saveAddress,
@@ -22,9 +22,9 @@ import {
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
-import { getProductsByAddress } from '../actions/productActions';
+import { fetchProductsRequest } from '../actions/productActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
-import { orderCreationSuccess, orderCreationError } from '../actions/orderActions';
+import { orderCreationSuccess, orderCreationFailure } from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
@@ -93,6 +93,7 @@ class MapScreen extends Component {
     };
 
     onButtonPress = async () => {
+        let resp;
         const result = await this.props.distanceMatrix({
             units: 'imperial',
             origins: '30.268066,-97.7450017', // E 6th St & Congress Ave, Austin, TX 78701
@@ -102,6 +103,7 @@ class MapScreen extends Component {
         });
         if (result.rows[0].elements[0].duration.value > 60 * 30) {
             this.props.dropdownAlert(true, 'Service is not available here');
+            resp = result;
         } else {
             this.props.dropdownAlert(false, '');
             this.props.setCurrentLocation(
@@ -109,21 +111,32 @@ class MapScreen extends Component {
                 this.props.region
             );
             try {
-                const resp = await database.ref('orders/US/TX/Austin').push({
+                resp = await firebase.database().ref('orders/US/TX/Austin').push({
                     currentSetAddress: this.props.address,
                     currentSetLatLon: this.props.region,
                     status: 'open'
                 });
-                this.props.orderCreationSuccess(resp);
-                this.props.navigation.navigate('home');
+                if (resp) {
+                    const key = resp.path.pieces_.join('/'); // eslint-disable-line
+                    this.props.fetchProductsRequest(key);
+                    this.props.orderCreationSuccess(key);
+                    this.props.navigation.navigate('home');
+                } else {
+                    throw new Error('Error setting location');
+                }
             } catch (error) {
-                this.props.orderCreationError();
+                resp = error;
+                const message = error.message || // just while dev TODO: remove
+                    'Error setting location, please change and try again';
+
+                this.props.orderCreationFailure(error); // TODO: log this error to server
                 this.props.dropdownAlert(
                     true,
-                    'Error setting location, please change and try again'
+                    message
                 );
             }
         }
+        return resp;
     };
 
     getAddress = debounce(this.props.reverseGeocode, 1000, {
@@ -383,7 +396,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     saveAddress,
-    getProductsByAddress,
+    fetchProductsRequest,
     toggleSearch,
     dropdownAlert,
     setRegion,
@@ -392,7 +405,7 @@ const mapDispatchToProps = {
     distanceMatrix,
     reverseGeocode,
     orderCreationSuccess,
-    orderCreationError
+    orderCreationFailure
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);

@@ -1,4 +1,4 @@
-import { firestore } from '../firebase';
+import firebase from '../firebase';
 import * as api from '../api/hasty';
 
 export const ADD_CARD = 'add_card';
@@ -46,7 +46,7 @@ export const deleteCard = (...args) => async dispatch => {
 export const listCards = uid => async dispatch => {
     try {
         dispatch({ type: LIST_CARDS });
-        const docRef = firestore.collection('userOwned').doc(uid);
+        const docRef = firebase.firestore().collection('userOwned').doc(uid);
         const doc = await docRef.get();
         if (doc.exists) {
             const data = doc.data();

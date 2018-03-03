@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 
-import { auth, firestore, database } from '../firebase';
+import firebase from '../firebase';
 import {
     addStripeCustomerSource,
     removeStripeCustomerSource,
@@ -35,7 +35,7 @@ class ApiTester extends Component {
     }
 
     componentDidMount() {
-        auth.onAuthStateChanged((user) => {
+        firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 console.log('User is signed IN!');
                 this.setState({
@@ -56,7 +56,7 @@ class ApiTester extends Component {
         });
     }
     onSignUp = () => {
-        auth.createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
+        firebase.auth().createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
                 console.log('createUserWithEmailAndPassword success: ', response);
                 this.setState({
@@ -71,7 +71,7 @@ class ApiTester extends Component {
             });
     }
     onDeleteUser = () => {
-        const user = auth.currentUser;
+        const user = firebase.auth().currentUser;
         user.delete()
             .then((response) => {
                 console.log('deleteUser success: ', response);
@@ -90,7 +90,7 @@ class ApiTester extends Component {
             });
     }
     onLogin = () => {
-        auth.signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
+        firebase.auth().signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
                 console.log('signInWithEmailAndPassword success: ', response);
                 this.setState({
@@ -105,7 +105,7 @@ class ApiTester extends Component {
             });
     }
     onLogout = () => {
-        auth.signOut()
+        firebase.auth().signOut()
             .then((response) => {
                 console.log('signOut success: ', response);
                 this.setState({
@@ -120,7 +120,7 @@ class ApiTester extends Component {
             });
     }
     onAddStripeCustomerSource = () => {
-        const user = auth.currentUser;
+        const user = firebase.auth().currentUser;
         console.log('client user uid: ', user.uid);
         // console.log('some token as proof of authenticated request: ', user.uid);
         stripe.createToken({
@@ -153,7 +153,7 @@ class ApiTester extends Component {
         });
     }
     onRemoveStripeCustomerSource = () => {
-        const user = auth.currentUser;
+        const user = firebase.auth().currentUser;
         const args = { uid: user.uid, source: this.state.currentCard };
         return removeStripeCustomerSource(args)
             .then(() => {
@@ -168,9 +168,9 @@ class ApiTester extends Component {
             });
     }
     onFetchStripeCustomerPaymentInfo = () => {
-        const user = auth.currentUser;
+        const user = firebase.auth().currentUser;
         const uid = user.uid;
-        const docRef = firestore.collection('userOwned').doc(uid);
+        const docRef = firebase.firestore().collection('userOwned').doc(uid);
         return docRef.get()
             .then((doc) => {
                 if (doc.exists) {
@@ -193,7 +193,7 @@ class ApiTester extends Component {
             });
     }
     onChargeCurrentCard = () => {
-        const user = auth.currentUser;
+        const user = firebase.auth().currentUser;
         const uid = user.uid;
         const charge = {
             amount: 190.00,
@@ -203,7 +203,7 @@ class ApiTester extends Component {
         return chargeStripeCustomerSource({ uid, charge });
     }
     onLightBeacon = () => {
-        database.ref('/userOwned/orders/US/TX/Austin').add({
+        firebase.database().ref('/userOwned/orders/US/TX/Austin').add({
             currentSetAddress: '1007 S Congress Ave, Apt 242, Austin, TX 78704',
             currentSetLatLon: { lat: 43.23223, lon: 97.293023 },
             status: 'open'

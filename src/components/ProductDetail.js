@@ -9,23 +9,12 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-import productImage0 from '../assets/product-0.png';
 import productImage1 from '../assets/product-1.png';
-import productImage2 from '../assets/product-2.png';
-import productImage3 from '../assets/product-3.png';
-
-const images = [
-    productImage0,
-    productImage1,
-    productImage2,
-    productImage3
-];
 
 const ICON_SIZE = 35;
 
-const ProductDetail = ({ product, onPress, quantity, style }) => {
-    const { title, thumbnail_image, price } = product;
-    const temp_thumbnail_image = images[product.productCode % 4];
+const ProductDetail = ({ product, onPress, style }) => {
+    const { productName, price, quantity } = product;
     const added = quantity > 0;
     return (
         <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
@@ -39,9 +28,9 @@ const ProductDetail = ({ product, onPress, quantity, style }) => {
                     style={[styles.icon, added && styles.iconAdded]}
                 />
             </View>
-            <Image style={styles.image} source={temp_thumbnail_image} resizeMode="contain" />
+            <Image style={styles.image} source={productImage1} resizeMode="contain" />
             <View style={styles.meta}>
-                <Text style={[styles.metaItem, styles.title]}>{title}</Text>
+                <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
                 <Text style={[styles.metaItem, styles.price]}>{price}</Text>
             </View>
         </TouchableOpacity>

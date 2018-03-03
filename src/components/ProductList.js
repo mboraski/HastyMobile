@@ -11,15 +11,11 @@ class ProductList extends Component {
     renderProducts() {
         return this.props.products.map(product => {
             const onPress = () => this.props.callAddToCart(product);
-            const type = this.props.cart.products[product.deliveryType];
-            const quantity =
-                type && type[product.productCode] && type[product.productCode].quantity;
             return (
                 <ProductDetail
-                    key={product.productCode}
+                    key={product.productName}
                     product={product}
                     onPress={onPress}
-                    quantity={quantity}
                     style={styles.product}
                 />
             );
@@ -44,7 +40,7 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     product: {
-        width: Dimensions.window.width / 2 - 21,
+        width: ((Dimensions.window.width / 2) - 21),
         marginRight: 8,
         marginBottom: emY(0.625)
     }

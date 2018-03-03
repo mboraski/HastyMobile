@@ -1,55 +1,44 @@
 import {
-    GET_PRODUCTS_BY_ADDRESS_REQUEST,
-    GET_PRODUCTS_BY_ADDRESS_SUCCESS,
-    GET_PRODUCTS_BY_ADDRESS_FAIL,
-    SELECT_DELIVERY_TYPE,
-    FETCHED_PRODUCTS_SUCCESS,
-    FETCHED_PRODUCTS_FAILURE
+    SELECT_CATEGORY,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE
 } from '../actions/productActions';
 
 export const initialState = {
     pending: false,
     error: null,
     availableProducts: {},
-    deliveryType: '1'
+    category: 'SXSW',
+    products: {}
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case FETCHED_PRODUCTS_SUCCESS:
-            return {
-                ...state,
-                pending: false,
-                availableProducts: action.payload,
-                error: null
-            };
-        case FETCHED_PRODUCTS_FAILURE:
-            return {
-                ...state,
-                pending: false
-            };
-        case GET_PRODUCTS_BY_ADDRESS_REQUEST:
+        case FETCH_PRODUCTS_REQUEST:
+            console.log('fetch products request reducer ran action: ', action);
             return {
                 ...state,
                 pending: true
             };
-        case GET_PRODUCTS_BY_ADDRESS_SUCCESS:
+        case FETCH_PRODUCTS_SUCCESS:
+            console.log('fetch products success reducer ran action: ', action);
             return {
                 ...state,
+                availableProducts: action.payload,
+                error: null,
                 pending: false,
-                availableProducts: action.payload.productList,
-                error: null
             };
-        case GET_PRODUCTS_BY_ADDRESS_FAIL:
+        case FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
+                error: action.payload,
                 pending: false,
-                error: action.error
             };
-        case SELECT_DELIVERY_TYPE:
+        case SELECT_CATEGORY:
             return {
                 ...state,
-                deliveryType: action.payload
+                category: action.payload
             };
         default:
             return state;
