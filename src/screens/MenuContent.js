@@ -64,7 +64,7 @@ class MenuContent extends Component {
             {
                 title: 'title',
                 body: 'body',
-                data: { type: 'feedback', title: 'title', description: 'description' }
+                data: { type: 'feedback', title: 'title', description: 'description', key: 'abc' }
             },
             {
                 time: new Date().getTime() + 5000

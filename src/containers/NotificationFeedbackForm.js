@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { database } from '../firebase';
 
 import Color from '../constants/Color';
 import TextInputField from '../components/TextInputField';
@@ -13,6 +14,7 @@ import { emY } from '../utils/em';
 const maxLength500 = maxLength(500);
 
 export class NotificationFeedbackForm extends Component {
+    state = {};
     render() {
         const {
             submit,
@@ -22,17 +24,23 @@ export class NotificationFeedbackForm extends Component {
             asyncValidating,
             invalid,
             pristine,
+            error,
             description
         } = this.props;
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
-        const submitText = anyTouched && invalid ? 'Please fix issues before continuing' : 'DONE';
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
+        const submitText =
+            anyTouched && invalid
+                ? 'Please fix issues before continuing'
+                : 'DONE';
         return (
             <DismissKeyboardView style={styles.container}>
                 <Text style={styles.title}>{description}</Text>
                 <Text style={styles.subtitle}>500 character limit</Text>
+                {error && <Text style={styles.error}>{error}</Text>}
                 <View style={styles.formInputs}>
                     <TextInputField
-                        name="message"
+                        name="feedbackMessage"
                         label="MESSAGE"
                         multiline
                         validate={[required, maxLength500]}
@@ -75,6 +83,13 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         color: Color.GREY_500
     },
+    error: {
+        color: Color.RED_500,
+        textAlign: 'center',
+        fontSize: emY(0.9),
+        paddingHorizontal: 15,
+        paddingBottom: emY(1.5)
+    },
     formInputs: {
         flex: 1
     },
@@ -115,7 +130,16 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'Notification',
-    onSubmit(values, dispatch, props) {
+    onSubmit({ feedbackMessage }, dispatch, props) {
+        return database
+            .ref(`userFeedback/sxsw/${props.formKey}`)
+            .push({ feedbackMessage })
+            .catch(error => {
+                console.error(error.message);
+                throw new SubmissionError({ _error: error.message });
+            });
+    },
+    onSubmitSuccess(values, dispatch, props) {
         props.navigation.goBack();
     }
 };

@@ -27,6 +27,9 @@ class NotificationFeedbackScreen extends Component {
         const description =
             this.props.navigation.state.params &&
             this.props.navigation.state.params.description;
+        const formKey =
+            this.props.navigation.state.params &&
+            this.props.navigation.state.params.key;
         return (
             <KeyboardAvoidingView
                 style={styles.container}
@@ -35,6 +38,7 @@ class NotificationFeedbackScreen extends Component {
             >
                 <NotificationFeedbackForm
                     navigation={this.props.navigation}
+                    formKey={formKey}
                     description={description}
                 />
             </KeyboardAvoidingView>
