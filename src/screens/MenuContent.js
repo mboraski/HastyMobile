@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Image, View, TouchableOpacity } from 'react-native';
+import {
+    ScrollView,
+    StyleSheet,
+    Image,
+    View,
+    TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
+import { Notifications } from 'expo';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -20,6 +27,7 @@ import helpIcon from '../assets/icons/info.png';
 import tempAvatar from '../assets/profile.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
+import { getFacebookInfo } from '../selectors/authSelectors';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
@@ -27,10 +35,6 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-    state = {
-        name: 'Hanna Morgan',
-        avatar: 'https://facebook.github.io/react/img/logo_og.png'
-    };
 
     handleViewProfile = () => {
         this.props.navigation.navigate('profile');
@@ -58,14 +62,40 @@ class MenuContent extends Component {
         this.props.signOut();
     };
 
+    handleLocalNotificationPress = () => {
+        Notifications.scheduleLocalNotificationAsync(
+            {
+                title: 'title',
+                body: 'body',
+                data: {
+                    type: 'feedback',
+                    title: 'title',
+                    description: 'description',
+                    key: 'abc'
+                }
+            },
+            {
+                time: new Date().getTime() + 5000
+            }
+        );
+    };
+
     render() {
-        const { items, activeItemKey, onItemPress } = this.props;
-        const { name, avatar } = this.state;
+        const { items, activeItemKey, onItemPress, facebookInfo } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
-                    <Image source={tempAvatar} style={styles.image} />
-                    <Text style={styles.name}>{name}</Text>
+                    {facebookInfo && facebookInfo.photoURL ? (
+                        <Image
+                            source={{ uri: facebookInfo.photoURL }}
+                            style={styles.image}
+                        />
+                    ) : null}
+                    {facebookInfo && facebookInfo.displayName ? (
+                        <Text style={styles.name}>
+                            {facebookInfo.displayName}
+                        </Text>
+                    ) : null}
                     <TouchableOpacity onPress={this.handleViewProfile}>
                         <Text style={styles.title}>View Profile</Text>
                     </TouchableOpacity>
@@ -83,7 +113,7 @@ class MenuContent extends Component {
                         image={historyIcon}
                         title="History"
                     /> */}
-                    { /*<MenuItem
+                    {/*<MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={favoriteIcon}
@@ -128,6 +158,13 @@ class MenuContent extends Component {
                         image={helpIcon}
                         title="Sign Out"
                     />
+                    {__DEV__ ? (
+                        <MenuItem
+                            onPress={this.handleLocalNotificationPress}
+                            image={helpIcon}
+                            title="Send local notification"
+                        />
+                    ) : null}
                     <Text style={styles.copyright}>@2017 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
@@ -183,6 +220,8 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = state => ({ facebookInfo: getFacebookInfo(state) });
+
 const mapDispatchToProps = { openCustomerPopup, signOut };
 
-export default connect(null, mapDispatchToProps)(MenuContent);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuContent);
