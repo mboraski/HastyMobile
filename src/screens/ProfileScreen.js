@@ -123,12 +123,7 @@ const styles = StyleSheet.create({
 });
 
 const formOptions = {
-    form: 'Profile',
-    onSubmitFail(errors, dispatch, submitError, props) {
-        console.log('onSubmitFail errors: ', errors);
-        console.log('onSubmitFail submitError: ', submitError);
-        console.log('onSubmitFail props: ', props);
-    }
+    form: 'Profile'
 };
 
 const mapStateToProps = ({ auth }) => ({ token: auth.token });

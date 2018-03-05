@@ -16,13 +16,11 @@ export const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case FETCH_PRODUCTS_REQUEST:
-            console.log('fetch products request reducer ran action: ', action);
             return {
                 ...state,
                 pending: true
             };
         case FETCH_PRODUCTS_SUCCESS:
-            console.log('fetch products success reducer ran action: ', action);
             return {
                 ...state,
                 availableProducts: action.payload,

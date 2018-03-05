@@ -16,35 +16,31 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
-import MenuButton from '../components/MenuButton';
-import CartButton from '../components/CartButton';
-import SearchBar from '../components/SearchBar';
+// import MenuButton from '../components/MenuButton';
+// import CartButton from '../components/CartButton';
+// import SearchBar from '../components/SearchBar';
 import Text from '../components/Text';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
-import Style from '../constants/Style';
-import { addToCart, removeFromCart } from '../actions/cartActions';
-import { selectCategory, fetchProductsSuccess } from '../actions/productActions';
+// import Style from '../constants/Style';
+import { addToCart } from '../actions/cartActions';
+import { selectCategory, fetchProductsRequest } from '../actions/productActions';
 import {
     getCategories,
     getProductsByCategory,
     getNumberOfProducts,
     getCategory
 } from '../selectors/productSelectors';
+import { getCartTotalQuantity } from '../selectors/cartSelectors';
 import { emY } from '../utils/em';
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 import MapHeader from '../containers/MapHeader';
 
 
 class HomeScreen extends Component {
-    static navigationOptions = {
-        title: 'Hasty',
-        headerLeft: <MenuButton />,
-        headerTitle: <SearchBar />,
-        headerRight: <CartButton />,
-        headerStyle: Style.headerLarge,
-        headerTitleStyle: Style.headerTitle
-    };
+    componentDidMount() {
+        this.props.fetchProductsRequest();
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
@@ -54,18 +50,13 @@ class HomeScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
-    }
-
-    onPressFilter(filter) {
-        console.log(filter);
+        if (!this.props.products && nextProps.products) {
+            this.props.fetchProductsRequest();
+        }
     }
 
     callAddToCart = product => {
         this.props.addToCart(product);
-    };
-
-    callRemoveFromCart = product => {
-        this.props.removeFromCart(product);
     };
 
     formatCategory = (category) =>
@@ -107,7 +98,7 @@ class HomeScreen extends Component {
         } = this.props;
         return (
             <View style={styles.container}>
-                {cart.totalQuantity > 0 ? (
+                {this.props.cartQuantity > 0 ? (
                     <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>
@@ -130,7 +121,7 @@ class HomeScreen extends Component {
                         </View>
                     </ImageBackground>
                 )}
-                {productPending ? (
+                {productPending || !products ? (
                     <ActivityIndicator
                         size="large"
                         style={StyleSheet.absoluteFill}
@@ -148,7 +139,6 @@ class HomeScreen extends Component {
                             cart={cart}
                             products={products}
                             callAddToCart={this.callAddToCart}
-                            callRemoveFromCart={this.callRemoveFromCart}
                         />
                     </View>
                 }
@@ -252,7 +242,8 @@ HomeScreen.navigationOptions = {
 // });
 
 const mapStateToProps = state => ({
-    cart: state.cart,
+    cart: state.cart.products,
+    cartQuantity: getCartTotalQuantity(state),
     productPending: state.product.pending,
     products: getProductsByCategory(state),
     category: getCategory(state),
@@ -263,9 +254,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
-    addToCart: product => dispatch(addToCart(product)),
-    removeFromCart: product => dispatch(removeFromCart(product)),
-    fetchProductsSuccess: products => dispatch(fetchProductsSuccess(products))
+    addToCart: productInfo => dispatch(addToCart(productInfo)),
+    fetchProductsRequest: () => dispatch(fetchProductsRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

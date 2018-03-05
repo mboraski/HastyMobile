@@ -1,8 +1,15 @@
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 import { getAvailableProducts } from './productSelectors';
 
 export const getCartProducts = state => state.cart.products;
+
+export const getCartTotalQuantity = createSelector(
+    [getCartProducts],
+    (products) =>
+        _.reduce(products, (acc, product) => acc + product.quantity, 0)
+);
 
 export const getDeliveryTypes = createSelector(getCartProducts, products => Object.keys(products));
 
@@ -25,9 +32,9 @@ export const getCartOrders = createSelector(
             .filter(order => order.quantity > 0)
 );
 
-export const getCartTotalQuantity = createSelector(getCartOrders, orders =>
-    orders.reduce((acc, order) => acc + order.quantity, 0)
-);
+// export const getCartTotalQuantity = createSelector(getCartOrders, orders =>
+//     orders.reduce((acc, order) => acc + order.quantity, 0)
+// );
 
 export const getCartTotalCost = createSelector(getCartOrders, orders =>
     orders.reduce((acc, order) => acc + order.price * order.quantity, 0).toFixed(2)

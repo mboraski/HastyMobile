@@ -37,10 +37,8 @@ export const getProductsByCategory = createSelector(
 
 export const getNumberOfProducts = createSelector(
     [getProductsByCategory],
-    (products) => {
-        console.log('products: ', products);
-        return products ? Object.keys(products).length : null;
-    }
+    (products) =>
+        (products ? Object.keys(products).length : null)
 );
 
 export const getProductPicRefs = createSelector(

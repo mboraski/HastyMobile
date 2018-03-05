@@ -22,7 +22,6 @@ import {
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
-import { fetchProductsRequest } from '../actions/productActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import { orderCreationSuccess, orderCreationFailure } from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
@@ -118,7 +117,6 @@ class MapScreen extends Component {
                 });
                 if (resp) {
                     const key = resp.path.pieces_.join('/'); // eslint-disable-line
-                    this.props.fetchProductsRequest(key);
                     this.props.orderCreationSuccess(key);
                     this.props.navigation.navigate('home');
                 } else {
@@ -396,7 +394,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     saveAddress,
-    fetchProductsRequest,
     toggleSearch,
     dropdownAlert,
     setRegion,

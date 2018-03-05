@@ -37,12 +37,10 @@ class ApiTester extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log('User is signed IN!');
                 this.setState({
                     user: JSON.stringify(user)
                 });
             } else {
-                console.log('User is signed OUT!');
                 this.setState({
                     user: null
                 });
@@ -58,13 +56,11 @@ class ApiTester extends Component {
     onSignUp = () => {
         firebase.auth().createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
-                console.log('createUserWithEmailAndPassword success: ', response);
                 this.setState({
                     signUp: 'Signup Worked'
                 });
             })
             .catch((error) => {
-                console.log('createUserWithEmailAndPassword error: ', error);
                 this.setState({
                     signUp: JSON.stringify(error)
                 });
@@ -74,7 +70,6 @@ class ApiTester extends Component {
         const user = firebase.auth().currentUser;
         user.delete()
             .then((response) => {
-                console.log('deleteUser success: ', response);
                 this.setState({
                     deleteUser: JSON.stringify(response),
                     login: null,
@@ -82,7 +77,6 @@ class ApiTester extends Component {
                 });
             })
             .catch((error) => {
-                console.log('deleteUser error: ', error);
                 this.setState({
                     deleteUser: JSON.stringify(error),
                     signup: JSON.stringify(error)
@@ -92,13 +86,11 @@ class ApiTester extends Component {
     onLogin = () => {
         firebase.auth().signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then((response) => {
-                console.log('signInWithEmailAndPassword success: ', response);
                 this.setState({
                     logout: JSON.stringify(response)
                 });
             })
             .catch((error) => {
-                console.log('signInWithEmailAndPassword error: ', error);
                 this.setState({
                     login: JSON.stringify(error)
                 });
@@ -107,13 +99,11 @@ class ApiTester extends Component {
     onLogout = () => {
         firebase.auth().signOut()
             .then((response) => {
-                console.log('signOut success: ', response);
                 this.setState({
                     login: JSON.stringify(response)
                 });
             })
             .catch((error) => {
-                console.log('signOut error: ', error);
                 this.setState({
                     logout: JSON.stringify(error)
                 });
@@ -121,8 +111,6 @@ class ApiTester extends Component {
     }
     onAddStripeCustomerSource = () => {
         const user = firebase.auth().currentUser;
-        console.log('client user uid: ', user.uid);
-        // console.log('some token as proof of authenticated request: ', user.uid);
         stripe.createToken({
             card: {
                 number: '4242 4242 4242 4242',
@@ -175,7 +163,6 @@ class ApiTester extends Component {
             .then((doc) => {
                 if (doc.exists) {
                     const data = doc.data();
-                    console.log('fetched payment info: ', data.paymentInfo);
                     const paymentInfo = data.paymentInfo;
                     this.setState({
                         paymentInfo: JSON.stringify(paymentInfo)
@@ -185,11 +172,9 @@ class ApiTester extends Component {
                     });
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log('No such document with payment info!');
                 }
             })
             .catch((error) => {
-                console.log('Error getting document:', error);
             });
     }
     onChargeCurrentCard = () => {

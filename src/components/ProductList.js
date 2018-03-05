@@ -9,11 +9,16 @@ import { emY } from '../utils/em';
 
 class ProductList extends Component {
     renderProducts() {
-        return this.props.products.map(product => {
-            const onPress = () => this.props.callAddToCart(product);
+        const { products, cart } = this.props;
+        return products.map((product, key) => {
+            const cartItem = cart[key] || null;
+            const quantity = (cartItem && cartItem.quantity) || 0;
+            const onPress = () => this.props.callAddToCart({ product, key });
             return (
                 <ProductDetail
                     key={product.productName}
+                    cartItem={cartItem}
+                    quantity={quantity}
                     product={product}
                     onPress={onPress}
                     style={styles.product}

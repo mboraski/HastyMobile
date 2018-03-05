@@ -1,7 +1,7 @@
 // Third Part Imports
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Foundation } from '@expo/vector-icons';
+import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Relative Imports
 import Text from './Text';
@@ -13,20 +13,31 @@ import productImage1 from '../assets/product-1.png';
 
 const ICON_SIZE = 35;
 
-const ProductDetail = ({ product, onPress, style }) => {
-    const { productName, price, quantity } = product;
-    const added = quantity > 0;
+const ProductDetail = ({ product, cartItem, quantity, onPress, style }) => {
+    const { productName, price } = product;
+    const added = !cartItem || quantity > 0;
+    const maxOrderAmountHit = quantity === product.quantity;
+    const limitReached = () => {};
+    const onClickHandler = maxOrderAmountHit ? limitReached : onPress;
+
     return (
-        <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
+        <TouchableOpacity onPress={onClickHandler} style={[Style.shadow, styles.container, style]}>
             <View style={[styles.quantityRow, added && styles.quantityRowAdded]}>
                 {added ? <View style={styles.quantityContainer}>
                     <Text style={styles.quantity}>{quantity}</Text>
                 </View> : null}
-                <Foundation
-                    name="plus"
-                    size={ICON_SIZE}
-                    style={[styles.icon, added && styles.iconAdded]}
-                />
+                {maxOrderAmountHit ?
+                    <MaterialCommunityIcons
+                        name={'circle'}
+                        size={ICON_SIZE}
+                        style={[styles.icon, added && styles.iconAdded]}
+                    /> :
+                    <Foundation
+                        name={'plus'}
+                        size={ICON_SIZE}
+                        style={[styles.icon, added && styles.iconAdded]}
+                    />
+                }
             </View>
             <Image style={styles.image} source={productImage1} resizeMode="contain" />
             <View style={styles.meta}>
