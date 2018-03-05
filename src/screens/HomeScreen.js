@@ -24,7 +24,7 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { addToCart, removeFromCart } from '../actions/cartActions';
-import { selectDeliveryType, fetchProductsSuccess } from '../actions/productActions';
+import { selectCategory, fetchProductsSuccess } from '../actions/productActions';
 import {
     getCategories,
     getProductsByCategory,
@@ -82,7 +82,7 @@ class HomeScreen extends Component {
             const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
             const filterButtonTextSelected = selectedFilter ?
                 styles.filterButtonTextSelected : null;
-            const onPress = () => this.props.selectFilter(filter.id);
+            const onPress = () => this.props.selectFilter(category);
             return (
                 <TouchableOpacity
                     key={i}
@@ -255,14 +255,14 @@ const mapStateToProps = state => ({
     cart: state.cart,
     productPending: state.product.pending,
     products: getProductsByCategory(state),
-    category: getCategory(stage),
+    category: getCategory(state),
     categories: getCategories(state),
     numberOfProducts: getNumberOfProducts(state),
     header: state.header
 });
 
 const mapDispatchToProps = dispatch => ({
-    selectFilter: category => dispatch(selectDeliveryType(category)),
+    selectFilter: category => dispatch(selectCategory(category)),
     addToCart: product => dispatch(addToCart(product)),
     removeFromCart: product => dispatch(removeFromCart(product)),
     fetchProductsSuccess: products => dispatch(fetchProductsSuccess(products))

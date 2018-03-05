@@ -25,8 +25,10 @@ export const getProductsByCategory = createSelector(
     [getCategory, getCategoriesToProductsMap],
     (category, categoriesToProductsMap) => {
         switch (category) {
-            case 'SXSW':
+            case 'ALL':
                 return categoriesToProductsMap.all;
+            case 'SXSW':
+                return categoriesToProductsMap.sxsw;
             default:
                 return categoriesToProductsMap.all;
         }
