@@ -1,7 +1,7 @@
 // Third Part Imports
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Foundation } from '@expo/vector-icons';
+import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Relative Imports
 import Text from './Text';
@@ -9,39 +9,46 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-import productImage0 from '../assets/product-0.png';
 import productImage1 from '../assets/product-1.png';
-import productImage2 from '../assets/product-2.png';
-import productImage3 from '../assets/product-3.png';
-
-const images = [
-    productImage0,
-    productImage1,
-    productImage2,
-    productImage3
-];
 
 const ICON_SIZE = 35;
 
-const ProductDetail = ({ product, onPress, quantity, style }) => {
-    const { title, thumbnail_image, price } = product;
-    const temp_thumbnail_image = images[product.productCode % 4];
+const ProductDetail = ({ product, quantity, onPress, style, productKey }) => {
+    const { productName, price } = product;
     const added = quantity > 0;
+    const maxOrderAmountHit = quantity === product.quantity;
+
+    const limitReached = () => {};
+    const onClickHandler = () => {
+        if (maxOrderAmountHit) {
+            limitReached();
+        } else {
+            onPress(product, productKey);
+        }
+    };
+
     return (
-        <TouchableOpacity onPress={onPress} style={[Style.shadow, styles.container, style]}>
+        <TouchableOpacity onPress={onClickHandler} style={[Style.shadow, styles.container, style]}>
             <View style={[styles.quantityRow, added && styles.quantityRowAdded]}>
                 {added ? <View style={styles.quantityContainer}>
                     <Text style={styles.quantity}>{quantity}</Text>
                 </View> : null}
-                <Foundation
-                    name="plus"
-                    size={ICON_SIZE}
-                    style={[styles.icon, added && styles.iconAdded]}
-                />
+                {maxOrderAmountHit ?
+                    <MaterialCommunityIcons
+                        name={'circle'}
+                        size={ICON_SIZE}
+                        style={[styles.icon, added && styles.iconAdded]}
+                    /> :
+                    <Foundation
+                        name={'plus'}
+                        size={ICON_SIZE}
+                        style={[styles.icon, added && styles.iconAdded]}
+                    />
+                }
             </View>
-            <Image style={styles.image} source={temp_thumbnail_image} resizeMode="contain" />
+            <Image style={styles.image} source={productImage1} resizeMode="contain" />
             <View style={styles.meta}>
-                <Text style={[styles.metaItem, styles.title]}>{title}</Text>
+                <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
                 <Text style={[styles.metaItem, styles.price]}>{price}</Text>
             </View>
         </TouchableOpacity>

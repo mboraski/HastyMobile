@@ -175,11 +175,6 @@ const formOptions = {
         return props.signInWithEmailAndPassword(values).catch(error => {
             throw new SubmissionError({ _error: error.message });
         });
-    },
-    onSubmitFail(errors, dispatch, submitError, props) {
-        console.log('onSubmitFail errors: ', errors);
-        console.log('onSubmitFail submitError: ', submitError);
-        console.log('onSubmitFail props: ', props);
     }
 };
 
