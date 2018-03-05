@@ -25,28 +25,28 @@ export function chargeStripeCustomerSource(charge) {
 
 function handleRequestConfig(config) {
     if (__DEV__) {
-        console.log(config);
+        // console.log(config);
     }
     return config;
 }
 
 function handleRequestError(error) {
     if (__DEV__) {
-        console.log(error);
+        // console.log(error);
     }
     return Promise.reject(error);
 }
 
 function handleResponseSuccess(config) {
     if (__DEV__) {
-        console.log(config);
+        // console.log(config);
     }
     return config;
 }
 
 function handleResponseError(error) {
     if (__DEV__) {
-        console.log(error);
+        // console.log(error);
     }
     return Promise.reject(error);
 }

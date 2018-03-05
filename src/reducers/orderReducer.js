@@ -12,7 +12,7 @@ export default function (state = initialState, action) {
         case ORDER_CREATION_SUCCESS:
             return {
                 ...state,
-                currentOrderDatabaseKey: action.payload.path.pieces_.join('/') // eslint-disable-line
+                currentOrderDatabaseKey: action.payload
             };
         default:
             return state;

@@ -25,8 +25,8 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getAvailableCartOrders } from '../selectors/cartSelectors';
-import * as actions from '../actions/cartActions';
+// import { getAvailableCartOrders } from '../selectors/cartSelectors';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { reset } from '../actions/navigationActions';
 
 import beaconIcon from '../assets/icons/beacon.png';
@@ -113,6 +113,22 @@ class CheckoutScreen extends Component {
                                 centerOffset={{ x: 12, y: -25 }}
                             />
                         </MapView>
+                        <Button
+                            onPress={this.lightABeacon}
+                            title="LIGHT A BEACON!"
+                            containerViewStyle={styles.buttonContainer}
+                            buttonStyle={styles.button}
+                            textStyle={styles.buttonText}
+                        />
+                        <View style={styles.itemHeader}>
+                            <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
+                        </View>
+                        <View style={styles.dropdownContainer}>
+                            <DropDown header={<PaymentDropDownItem isHeaderItem />}>
+                                <PaymentDropDownItem isHeaderItem={false} />
+                                <PaymentDropDownItem isHeaderItem={false} />
+                            </DropDown>
+                        </View>
                         <View style={styles.itemHeader}>
                             <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
                         </View>
@@ -145,15 +161,6 @@ class CheckoutScreen extends Component {
                             onAddOrder={addToCart}
                             onRemoveOrder={this.handleRemoveOrder}
                         />
-                        <View style={styles.itemHeader}>
-                            <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
-                        </View>
-                        <View style={styles.dropdownContainer}>
-                            <DropDown header={<PaymentDropDownItem isHeaderItem />}>
-                                <PaymentDropDownItem isHeaderItem={false} />
-                                <PaymentDropDownItem isHeaderItem={false} />
-                            </DropDown>
-                        </View>
                     </View>
                     <View style={styles.cart}>
                         <View style={styles.meta}>
@@ -292,7 +299,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    orders: getAvailableCartOrders(state),
+    // orders: getAvailableCartOrders(state),
     totalCost: state.cart.totalCost,
     totalQuantity: state.cart.totalQuantity,
     notes: state.checkout.notes,
@@ -301,8 +308,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addToCart: actions.addToCart,
-    removeFromCart: actions.removeFromCart
+    addToCart,
+    removeFromCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);
