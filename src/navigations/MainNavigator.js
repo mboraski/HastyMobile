@@ -18,6 +18,7 @@ import PaymentMethodScreen from '../screens/PaymentMethodScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PromotionShareScreen from '../screens/PromotionShareScreen';
+import NotificationFeedbackScreen from '../screens/NotificationFeedbackScreen';
 
 const MainNavigator = StackNavigator(
     {
@@ -36,7 +37,8 @@ const MainNavigator = StackNavigator(
         paymentMethod: { screen: PaymentMethodScreen },
         checkout: { screen: CheckoutScreen },
         feedback: { screen: FeedbackScreen },
-        promotionShare: { screen: PromotionShareScreen }
+        promotionShare: { screen: PromotionShareScreen },
+        notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
         initialRouteName: 'apiTester',
