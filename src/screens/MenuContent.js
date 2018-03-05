@@ -16,15 +16,15 @@ import MenuItem from '../components/MenuItem';
 import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
-import historyIcon from '../assets/icons/history.png';
-import favoriteIcon from '../assets/icons/favorite.png';
+// import historyIcon from '../assets/icons/history.png';
+// import favoriteIcon from '../assets/icons/favorite.png';
 import notificationIcon from '../assets/icons/notification.png';
 // eslint-disable-next-line import/no-unresolved
 import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
-import promotionIcon from '../assets/icons/promotion.png';
+// import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
-import tempAvatar from '../assets/profile.png';
+// import tempAvatar from '../assets/profile.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
 import { getFacebookInfo } from '../selectors/authSelectors';
@@ -96,17 +96,17 @@ class MenuContent extends Component {
                             {facebookInfo.displayName}
                         </Text>
                     ) : null}
-                    <TouchableOpacity onPress={this.handleViewProfile}>
+                    {/* <TouchableOpacity onPress={this.handleViewProfile}>
                         <Text style={styles.title}>View Profile</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <ScrollView style={styles.menuItems}>
-                    <MenuItem
+                    {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={heroIcon}
                         title="Heroes Needed!"
-                    />
+                    /> */}
                     {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
@@ -124,7 +124,7 @@ class MenuContent extends Component {
                         onPress={onItemPress}
                         image={notificationIcon}
                         title="Notifications"
-                        badge="3"
+                        // badge="0"
                     />
                     <MenuItem
                         route={getRoute(items, 'cart')}
@@ -155,7 +155,7 @@ class MenuContent extends Component {
                     />
                     <MenuItem
                         onPress={this.signOut}
-                        image={helpIcon}
+                        image={heroIcon}
                         title="Sign Out"
                     />
                     {__DEV__ ? (
@@ -165,7 +165,7 @@ class MenuContent extends Component {
                             title="Send local notification"
                         />
                     ) : null}
-                    <Text style={styles.copyright}>@2017 Hasty</Text>
+                    <Text style={styles.copyright}>@2018 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
             </View>

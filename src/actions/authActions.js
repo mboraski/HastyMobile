@@ -31,7 +31,7 @@ export const signInWithFacebook = () => async dispatch => {
             }
         );
         if (type === 'success') {
-            const credential = firebase.firebase.auth().FacebookAuthProvider.credential(
+            const credential = firebase.auth.FacebookAuthProvider.credential(
                 token
             );
             return firebase.auth()
