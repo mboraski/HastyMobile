@@ -1,6 +1,7 @@
 // Third Party Imports
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
+import _ from 'lodash';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
@@ -9,18 +10,17 @@ import { emY } from '../utils/em';
 
 class ProductList extends Component {
     renderProducts() {
-        const { products, cart } = this.props;
-        return products.map((product, key) => {
+        const { products, cart, callAddToCart } = this.props;
+        return _.map(products, (product, key) => {
             const cartItem = cart[key] || null;
             const quantity = (cartItem && cartItem.quantity) || 0;
-            const onPress = () => this.props.callAddToCart({ product, key });
             return (
                 <ProductDetail
-                    key={product.productName}
-                    cartItem={cartItem}
+                    key={key}
+                    productKey={key}
                     quantity={quantity}
                     product={product}
-                    onPress={onPress}
+                    onPress={callAddToCart}
                     style={styles.product}
                 />
             );

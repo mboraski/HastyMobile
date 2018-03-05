@@ -2,7 +2,7 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     SET_CURRENT_LOCATION,
-    CHECK_CART_VALID
+    // CHECK_CART_VALID
 } from '../actions/cartActions';
 
 function normalizeCurrency(currency) {
@@ -21,7 +21,7 @@ export const initialState = {
 };
 
 const addProductToCart = (product, key, cartProducts) => {
-    const cart = cartProducts;
+    const cart = Object.assign({}, cartProducts);
     const cartItem = cart[key] || null;
     if (!cartItem) {
         cart[key] = {
@@ -34,15 +34,15 @@ const addProductToCart = (product, key, cartProducts) => {
     return cart;
 };
 
-const removeProductFromCart = (product, key, cartProducts) => {
-    let cartItem = cartProducts[key] || null;
-    if (!cartItem) {
-        cartItem = product;
-    } else {
-        cartItem.quantity = --cartItem.quantity;
-    }
-    return cartItem;
-};
+// const removeProductFromCart = (product, key, cartProducts) => {
+//     let cartItem = cartProducts[key] || null;
+//     if (!cartItem) {
+//         cartItem = product;
+//     } else {
+//         cartItem.quantity = --cartItem.quantity;
+//     }
+//     return cartItem;
+// };
 
 export default (state = initialState, action) => {
     switch (action.type) {

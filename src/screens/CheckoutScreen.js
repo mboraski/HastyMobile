@@ -25,8 +25,8 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getAvailableCartOrders } from '../selectors/cartSelectors';
-import * as actions from '../actions/cartActions';
+// import { getAvailableCartOrders } from '../selectors/cartSelectors';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { reset } from '../actions/navigationActions';
 
 import beaconIcon from '../assets/icons/beacon.png';
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    orders: getAvailableCartOrders(state),
+    // orders: getAvailableCartOrders(state),
     totalCost: state.cart.totalCost,
     totalQuantity: state.cart.totalQuantity,
     notes: state.checkout.notes,
@@ -308,8 +308,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addToCart: actions.addToCart,
-    removeFromCart: actions.removeFromCart
+    addToCart,
+    removeFromCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);

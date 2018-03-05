@@ -13,12 +13,19 @@ import productImage1 from '../assets/product-1.png';
 
 const ICON_SIZE = 35;
 
-const ProductDetail = ({ product, cartItem, quantity, onPress, style }) => {
+const ProductDetail = ({ product, quantity, onPress, style, productKey }) => {
     const { productName, price } = product;
-    const added = !cartItem || quantity > 0;
+    const added = quantity > 0;
     const maxOrderAmountHit = quantity === product.quantity;
+
     const limitReached = () => {};
-    const onClickHandler = maxOrderAmountHit ? limitReached : onPress;
+    const onClickHandler = () => {
+        if (maxOrderAmountHit) {
+            limitReached();
+        } else {
+            onPress(product, productKey);
+        }
+    };
 
     return (
         <TouchableOpacity onPress={onClickHandler} style={[Style.shadow, styles.container, style]}>

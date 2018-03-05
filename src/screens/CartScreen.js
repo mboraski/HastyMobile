@@ -14,7 +14,7 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { getCartTotalQuantity } from '../selectors/cartSelectors';
-import * as actions from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 
 class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -45,13 +45,13 @@ class CartScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, totalQuantity, totalCost } = this.props;
+        const { orders, totalQuantity, totalCost } = this.props;
         const { removeOrderPopupVisible } = this.state;
         return (
             <View style={styles.container}>
                 <OrderList
                     orders={orders}
-                    onAddOrder={addToCart}
+                    onAddOrder={this.props.addToCart}
                     onRemoveOrder={this.handleRemoveProduct}
                 />
                 <View style={styles.cart}>
@@ -137,15 +137,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    products: state.cart.products,
+    orders: state.cart.products,
     // availableCartItems: getAvailableCartItems(state),
     totalCost: state.cart.preTaxTotal,
     totalQuantity: getCartTotalQuantity(state)
 });
 
 const mapDispatchToProps = {
-    addToCart: actions.addToCart,
-    removeFromCart: actions.removeFromCart
+    addToCart,
+    removeFromCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

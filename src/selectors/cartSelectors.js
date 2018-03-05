@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 
-import { getAvailableProducts } from './productSelectors';
+// import { getAvailableProducts } from './productSelectors';
 
 export const getCartProducts = state => state.cart.products;
 
@@ -36,22 +36,22 @@ export const getCartOrders = createSelector(
 //     orders.reduce((acc, order) => acc + order.quantity, 0)
 // );
 
-export const getCartTotalCost = createSelector(getCartOrders, orders =>
-    orders.reduce((acc, order) => acc + order.price * order.quantity, 0).toFixed(2)
-);
+// export const getCartTotalCost = createSelector(getCartOrders, orders =>
+//     orders.reduce((acc, order) => acc + order.price * order.quantity, 0).toFixed(2)
+// );
 
 /**
  * Cart order is available if the product of same type and code exists and has a quantity > 0
  */
-export const getAvailableCartOrders = createSelector(
-    [getAvailableProducts, getCartOrders],
-    (products, orders) =>
-        orders.map(order => {
-            const product =
-                products[order.deliveryType] && products[order.deliveryType][order.productCode];
-            return {
-                ...order,
-                available: product && product.quantity > 0
-            };
-        })
-);
+// export const getAvailableCartOrders = createSelector(
+//     [getAvailableProducts, getCartOrders],
+//     (products, orders) =>
+//         orders.map(order => {
+//             const product =
+//                 products[order.deliveryType] && products[order.deliveryType][order.productCode];
+//             return {
+//                 ...order,
+//                 available: product && product.quantity > 0
+//             };
+//         })
+// );

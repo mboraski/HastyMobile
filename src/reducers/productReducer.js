@@ -8,7 +8,9 @@ import {
 export const initialState = {
     pending: false,
     error: null,
-    availableProducts: {},
+    availableProducts: {
+        instant: {}
+    },
     category: 'SXSW',
     products: {}
 };

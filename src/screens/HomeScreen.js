@@ -25,13 +25,7 @@ import Dimensions from '../constants/Dimensions';
 // import Style from '../constants/Style';
 import { addToCart } from '../actions/cartActions';
 import { selectCategory, fetchProductsRequest } from '../actions/productActions';
-import {
-    getCategories,
-    getProductsByCategory,
-    getNumberOfProducts,
-    getCategory
-} from '../selectors/productSelectors';
-import { getCartTotalQuantity } from '../selectors/cartSelectors';
+import getProductsState from '../selectors/productSelectors';
 import { emY } from '../utils/em';
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 import MapHeader from '../containers/MapHeader';
@@ -50,13 +44,13 @@ class HomeScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
-        if (!this.props.products && nextProps.products) {
+        if (!this.props.cart && nextProps.cart) {
             this.props.fetchProductsRequest();
         }
     }
 
-    callAddToCart = product => {
-        this.props.addToCart(product);
+    callAddToCart = (product, key) => {
+        this.props.addToCart({ product, key });
     };
 
     formatCategory = (category) =>
@@ -121,7 +115,7 @@ class HomeScreen extends Component {
                         </View>
                     </ImageBackground>
                 )}
-                {productPending || !products ? (
+                {productPending ? (
                     <ActivityIndicator
                         size="large"
                         style={StyleSheet.absoluteFill}
@@ -135,11 +129,13 @@ class HomeScreen extends Component {
                         >
                             {this.renderCategories()}
                         </ScrollView>
-                        <ProductList
-                            cart={cart}
-                            products={products}
-                            callAddToCart={this.callAddToCart}
-                        />
+                        {products &&
+                            <ProductList
+                                cart={cart}
+                                products={products}
+                                callAddToCart={this.callAddToCart}
+                            />
+                        }
                     </View>
                 }
             </View>
@@ -241,16 +237,7 @@ HomeScreen.navigationOptions = {
 //     headerTitleStyle: Style.headerTitle
 // });
 
-const mapStateToProps = state => ({
-    cart: state.cart.products,
-    cartQuantity: getCartTotalQuantity(state),
-    productPending: state.product.pending,
-    products: getProductsByCategory(state),
-    category: getCategory(state),
-    categories: getCategories(state),
-    numberOfProducts: getNumberOfProducts(state),
-    header: state.header
-});
+const mapStateToProps = state => getProductsState(state);
 
 const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
