@@ -1,7 +1,8 @@
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
-    SET_CURRENT_LOCATION
+    SET_CURRENT_LOCATION,
+    // CHECK_CART_VALID
 } from '../actions/cartActions';
 
 function normalizeCurrency(currency) {
@@ -10,83 +11,73 @@ function normalizeCurrency(currency) {
 }
 
 export const initialState = {
-    orderId: '',
-    totalQuantity: 0,
-    totalCost: 0,
-    currentSetAddress: '',
-    currentSetLatLon: { lat: null, lon: null },
-    products: {}
+    products: {},
+    serviceFee: 0,
+    deliveryFee: 0,
+    localSalesTax: 0.0625,
+    preTaxTotal: 0,
+    tax: 0,
+    total: 0
 };
 
-function addToType(state = {}, product) {
-    return {
-        ...state,
-        [product.deliveryType]: addToCode(state[product.deliveryType], product)
-    };
-}
-
-function addToCode(state = {}, product) {
-    return {
-        ...state,
-        [product.productCode]: addToOrder(state[product.productCode], product)
-    };
-}
-
-function addToOrder(state = { quantity: 0 }, product) {
-    return {
-        ...product,
-        ...state,
-        price: !state.price ? normalizeCurrency(product.price) : state.price,
-        quantity: state.quantity + 1
-    };
-}
-
-function removeFromType(state, product) {
-    return {
-        ...state,
-        [product.deliveryType]: removeFromCode(state[product.deliveryType], product)
-    };
-}
-
-function removeFromCode(state, product) {
-    return {
-        ...state,
-        [product.productCode]: removeFromOrder(state[product.productCode])
-    };
-}
-
-function removeFromOrder(state) {
-    if (state.quantity === 0) {
-        return state;
+const addProductToCart = (product, key, cartProducts) => {
+    const cart = Object.assign({}, cartProducts);
+    const cartItem = cart[key] || null;
+    if (!cartItem) {
+        cart[key] = {
+            productName: product.productName,
+            quantity: 1
+        };
+    } else {
+        cartItem.quantity = ++cartItem.quantity;
     }
-    return {
-        ...state,
-        quantity: state.quantity - 1
-    };
-}
+    return cart;
+};
+
+// const removeProductFromCart = (product, key, cartProducts) => {
+//     let cartItem = cartProducts[key] || null;
+//     if (!cartItem) {
+//         cartItem = product;
+//     } else {
+//         cartItem.quantity = --cartItem.quantity;
+//     }
+//     return cartItem;
+// };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ADD_TO_CART:
+        case ADD_TO_CART: {
+            const { product, key } = action.payload;
+            const preTaxTotal = Math.max(
+                0,
+                (state.preTaxTotal + normalizeCurrency(product.price)).toFixed(2)
+            );
+            const calculatedTax = (preTaxTotal * state.localSalesTax);
+            const calculatedTotal = preTaxTotal + calculatedTax;
             return {
                 ...state,
-                products: addToType(state.products, action.payload),
-                totalQuantity: state.totalQuantity + 1,
-                totalCost: Math.max(
-                    0,
-                    (state.totalCost + normalizeCurrency(action.payload.price)).toFixed(2)
-                )
+                products: addProductToCart(product, key, state.products),
+                total: calculatedTotal,
+                tax: calculatedTax,
+                preTaxTotal
             };
-        case REMOVE_FROM_CART:
+        }
+        case REMOVE_FROM_CART: {
+            const { product, key } = action.payload;
+            const preTaxTotal = Math.max(
+                0,
+                (state.preTaxTotal - normalizeCurrency(product.price)).toFixed(2)
+            );
+            const calculatedTax = (preTaxTotal * state.localSalesTax);
+            const calculatedTotal = preTaxTotal + calculatedTax;
             return {
                 ...state,
-                products: removeFromType(state.products, action.payload),
-                totalQuantity: Math.max(0, state.totalQuantity - 1),
-                totalCost: Math.max(
-                    0,
-                    (state.totalCost - normalizeCurrency(action.payload.price)).toFixed(2)
-                )
+                products: addProductToCart(product, key, state),
+                total: calculatedTotal,
+                tax: calculatedTax,
+                preTaxTotal
             };
+        }
         case SET_CURRENT_LOCATION:
             return {
                 ...state,
@@ -96,6 +87,17 @@ export default (state = initialState, action) => {
                     lon: action.payload.region.longitude
                 }
             };
+        // case CHECK_CART_VALID: {
+        //     // const products = action.payload;
+        //     // return {
+        //     //     ...state,
+        //     //     currentSetAddress: action.payload.address,
+        //     //     currentSetLatLon: {
+        //     //         lat: action.payload.region.latitude,
+        //     //         lon: action.payload.region.longitude
+        //     //     }
+        //     // };
+        // }
         default:
             return state;
     }

@@ -1,16 +1,17 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import firebase from '../firebase';
+
 import mockApi from '../../mocks/hastyApi';
 import '../../mocks/firebase';
 
 import { addCard, deleteCard, listCards } from '../paymentActions';
 
-import { firestore } from '../../firebase';
 
 const mockuid = 'mockuid';
 const mockdata = 'mockdata';
 
-firestore
+firebase.firestore()
     .collection('userOwned')
     .doc(mockuid)
     .set(mockdata);

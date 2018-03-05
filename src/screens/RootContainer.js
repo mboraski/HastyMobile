@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Permissions, Notifications } from 'expo';
 
 // Relative Imports
-import { auth } from '../firebase';
+import firebase from '../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
@@ -24,7 +24,7 @@ class RootContainer extends Component {
             this.props.signOut();
         }
 
-        auth.onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(user => {
             this.props.authChanged(user);
         });
 

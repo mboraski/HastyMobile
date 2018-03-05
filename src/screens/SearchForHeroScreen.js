@@ -17,23 +17,8 @@ class SearchForHeroScreen extends Component {
     headerLeft: (<Icon name="menu" size={40} />)
   }
 
-  componentDidMount() {
-    setTimeout(function(){
-      console.log('Hero found');
-    }, 8000);
-    setTimeout(function(){
-      console.log('Hero accepted');
-    }, 12000);
-    setTimeout(function(){
-      console.log('Hero on the way!');
-    }, 18000);
-    setTimeout(function(){
-      console.log('Hero has arrived!');
-    }, 30000);
-  }
-
   goToOrderStatus = () => {
-    console.log('goToOrderStatus ran');
+    // console.log('goToOrderStatus ran');
     // this.props.navigation.navigate('orderStatus');
     // this.props.addToCart(this.props.cart);
   }

@@ -45,7 +45,6 @@ class SignUpForm extends Component {
             error,
             handleSubmit
         } = this.props;
-        console.log('SignUpForm render error: ', error);
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
@@ -202,18 +201,12 @@ const formOptions = {
         ) {
             errors.missingValues = 'Some form field values are missing';
         }
-        console.log('validate errors: ', errors);
         return errors;
     },
     onSubmit(values, dispatch, props) {
         return props.signInWithEmailAndPassword(values).catch(error => {
             throw new SubmissionError({ _error: error.message });
         });
-    },
-    onSubmitFail(errors, dispatch, submitError, props) {
-        console.log('onSubmitFail errors: ', errors);
-        console.log('onSubmitFail submitError: ', submitError);
-        console.log('onSubmitFail props: ', props);
     }
 };
 
