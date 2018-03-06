@@ -28,14 +28,12 @@ class PaymentMethodScreen extends Component {
 
     static defaultProps = {
         accounts: [
-            {
-                type: 'bank-america',
-                name: 'Bank of America'
-            }
+            // {
+            //     type: 'bank-america',
+            //     name: 'Bank of America'
+            // }
         ],
-        paypal: {
-            email: 'johndoe@gmail.com'
-        }
+        paypal: {}
     };
 
     componentDidMount() {
@@ -88,13 +86,13 @@ class PaymentMethodScreen extends Component {
     );
 
     render() {
-        const { cards, accounts, paypal } = this.props;
+        const { cards } = this.props;
         return (
             <ScrollView style={styles.container}>
                 <SectionTitle title="MY CARDS" />
                 {cards.map(this.renderCard)}
                 <PaymentMethod text="Add Card" onPress={this.addCard} />
-                <SectionTitle title="MY BANK ACCOUNT" />
+                {/* <SectionTitle title="MY BANK ACCOUNT" />
                 {accounts.map(this.renderAccount)}
                 <SectionTitle title="MY PAYPAL" />
                 {paypal ? (
@@ -103,7 +101,7 @@ class PaymentMethodScreen extends Component {
                         text={paypal.email}
                         onPress={this.selectPaymentMethod}
                     />
-                ) : null}
+                ) : null} */}
             </ScrollView>
         );
     }

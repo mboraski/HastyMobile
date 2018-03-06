@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
+import firebase from '../firebase';
 
 // Relative Imports
 import Text from './Text';
@@ -9,44 +10,48 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-import productImage1 from '../assets/product-1.png';
-
+const storage = firebase.storage();
 const ICON_SIZE = 35;
-
-const ProductDetail = ({ product, quantity, onPress, style, productKey }) => {
-    const { productName, price } = product;
-    const added = quantity > 0;
-    const maxOrderAmountHit = quantity === product.quantity;
-
+const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) => {
+    const { productName, price, imageUrl } = product;
+    const pathReference = storage.ref(imageUrl);
+    pathReference.getDownloadURL()
+        .then((url) => {
+            this.productImage = `${url}`;
+        })
+        .catch((error) => {
+            console.log('getDownloadUrl error: ', error);
+            this.productImage = '';
+        });
     const limitReached = () => {};
     const onClickHandler = () => {
-        if (maxOrderAmountHit) {
+        if (consumed) {
             limitReached();
         } else {
-            onPress(product, productKey);
+            onPress(product);
         }
     };
 
     return (
         <TouchableOpacity onPress={onClickHandler} style={[Style.shadow, styles.container, style]}>
-            <View style={[styles.quantityRow, added && styles.quantityRowAdded]}>
-                {added ? <View style={styles.quantityContainer}>
+            <View style={[styles.quantityRow, inCart && styles.quantityRowAdded]}>
+                {inCart ? <View style={styles.quantityContainer}>
                     <Text style={styles.quantity}>{quantity}</Text>
                 </View> : null}
-                {maxOrderAmountHit ?
+                {consumed ?
                     <MaterialCommunityIcons
                         name={'circle'}
                         size={ICON_SIZE}
-                        style={[styles.icon, added && styles.iconAdded]}
+                        style={[styles.icon, inCart && styles.iconAdded]}
                     /> :
                     <Foundation
                         name={'plus'}
                         size={ICON_SIZE}
-                        style={[styles.icon, added && styles.iconAdded]}
+                        style={[styles.icon, inCart && styles.iconAdded]}
                     />
                 }
             </View>
-            <Image style={styles.image} source={productImage1} resizeMode="contain" />
+            <Image style={styles.image} source={this.productImage} resizeMode="contain" />
             <View style={styles.meta}>
                 <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
                 <Text style={[styles.metaItem, styles.price]}>{price}</Text>

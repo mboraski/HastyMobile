@@ -1,6 +1,6 @@
 import firebase from '../firebase';
 
-import { checkCartValid } from './cartActions';
+import { updateCart } from './cartActions';
 
 export const SELECT_CATEGORY = 'select_category';
 export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
@@ -14,7 +14,7 @@ export const fetchProductsRequest = () =>
             .on('value', (snapshot) => {
                 const products = snapshot.val();
                 dispatch(fetchProductsSuccess(products));
-                dispatch(checkCartValid(products));
+                dispatch(updateCart(products));
             });
     };
     // TODO: remove reference listener

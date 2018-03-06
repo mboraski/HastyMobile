@@ -15,6 +15,8 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { getCartTotalQuantity } from '../selectors/cartSelectors';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import { dropdownAlert } from '../actions/uiActions';
+
 
 class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -28,6 +30,27 @@ class CartScreen extends Component {
     state = {
         removeOrderPopupVisible: false
     };
+
+    componentDidMount() {
+        if (this.props.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (this.props.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.cart && nextProps.cart) {
+            this.props.fetchProductsRequest();
+        }
+        if (!this.props.itemCountUp && nextProps.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        } else {
+            this.props.dropdownAlert(false, '');
+        }
+    }
 
     handleRemoveProduct = product => {
         if (product.quantity === 1) {
@@ -145,7 +168,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addToCart,
-    removeFromCart
+    removeFromCart,
+    dropdownAlert
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

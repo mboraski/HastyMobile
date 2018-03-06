@@ -5,7 +5,8 @@ import {
     View,
     Text,
     KeyboardAvoidingView,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -17,7 +18,6 @@ import { addCard, deleteCard, listCards } from '../actions/paymentActions';
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
-import Spinner from '../components/Spinner';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import formatCardNumber from '../formatting/formatCardNumber';
@@ -70,7 +70,7 @@ export class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
-                                placeholder={card ? '**** **** **** ' + card.last4 : ''}
+                                placeholder={card ? `**** **** **** + ${card.last4}` : ''}
                             />
                             <TextInputField
                                 name="exp"
@@ -107,8 +107,9 @@ export class CreditCardForm extends Component {
                         />
                     ) : null}
                     {submitting || pending ? (
-                        <Spinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        <ActivityIndicator
+                            size="large"
+                            style={StyleSheet.absoluteFill}
                         />
                     ) : null}
                 </DismissKeyboardView>

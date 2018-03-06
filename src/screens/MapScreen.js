@@ -95,7 +95,7 @@ class MapScreen extends Component {
         let resp;
         const result = await this.props.distanceMatrix({
             units: 'imperial',
-            origins: '30.268066,-97.7450017', // E 6th St & Congress Ave, Austin, TX 78701
+            origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
             destinations: `${this.props.region.latitude},${
                 this.props.region.longitude
             }`

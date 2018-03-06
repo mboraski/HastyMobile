@@ -14,12 +14,12 @@ class OrderList extends Component {
         let prevDeliveryType;
         return _.map(this.props.orders, order => {
             let renderMark;
-            if (prevDeliveryType !== order.deliveryType) {
+            if (prevDeliveryType !== 'instant') {
                 renderMark = (
-                    <View key={`${order.deliveryType}-${order.productCode}`}>
+                    <View key={`instant-${order.productName}`}>
                         <View style={styles.headerItem}>
                             <Text style={styles.typeLabel}>Delivery Type: </Text>
-                            <Text style={styles.valueLabel}>{order.deliveryType}</Text>
+                            <Text style={styles.valueLabel}>{'Instant'}</Text>
                         </View>
                         <OrderDetail
                             order={order}
@@ -28,10 +28,10 @@ class OrderList extends Component {
                         />
                     </View>
                 );
-                prevDeliveryType = order.deliveryType;
+                prevDeliveryType = 'instant';
             } else {
                 renderMark = (
-                    <View key={`${order.deliveryType}-${order.productCode}`}>
+                    <View key={`instant-${order.productName}`}>
                         <OrderDetail
                             order={order}
                             onAddOrder={() => this.props.onAddOrder(order)}
@@ -54,6 +54,10 @@ class OrderList extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
     headerItem: {
         flexDirection: 'row',
         paddingHorizontal: 20,

@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 
 import Text from './Text';
 import Dimensions from '../constants/Dimensions';
+import Style from '../constants/Style';
 
 class Slides extends Component {
   renderLastSlide(index) {
@@ -25,7 +26,7 @@ class Slides extends Component {
           key={slide.text}
           style={[styles.slideStyle, { backgroundColor: slide.color }]}
         >
-          <Text style={styles.textStyle}>{slide.text}</Text>
+          <Text style={[Style.headerTitle, Style.headerTitleLogo, styles.textStyle]}>{slide.text}</Text>
           {this.renderLastSlide(index)}
         </View>
       );
