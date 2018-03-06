@@ -25,8 +25,9 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-// import { getAvailableCartOrders } from '../selectors/cartSelectors';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import { getCartOrders, getCartTotalQuantity } from '../selectors/cartSelectors';
+import { addToCart } from '../actions/cartActions';
+import { dropdownAlert } from '../actions/uiActions';
 import { reset } from '../actions/navigationActions';
 
 import beaconIcon from '../assets/icons/beacon.png';
@@ -55,6 +56,27 @@ class CheckoutScreen extends Component {
         removeOrderPopupVisible: false,
         changeLocationPopupVisible: false
     };
+
+    componentDidMount() {
+        if (this.props.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (this.props.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.cart && nextProps.cart) {
+            this.props.fetchProductsRequest();
+        }
+        if (!this.props.itemCountUp && nextProps.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        } else {
+            this.props.dropdownAlert(false, '');
+        }
+    }
 
     handleRemoveOrder = order => {
         if (order.quantity === 1) {
@@ -91,7 +113,16 @@ class CheckoutScreen extends Component {
     };
 
     render() {
-        const { orders, addToCart, totalCost, notes, address, latlon } = this.props;
+        const {
+            cart,
+            totalCost,
+            tax,
+            serviceFee,
+            deliveryFee,
+            notes,
+            address,
+            latlon
+        } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
         const region = {
             latitude: latlon.lat,
@@ -157,19 +188,23 @@ class CheckoutScreen extends Component {
                             <Text stye={styles.itemHeaderLabel}>PRODUCT SUMMARY</Text>
                         </View>
                         <OrderList
-                            orders={orders}
-                            onAddOrder={addToCart}
+                            orders={cart}
+                            onAddOrder={this.props.addToCart}
                             onRemoveOrder={this.handleRemoveOrder}
                         />
                     </View>
                     <View style={styles.cart}>
                         <View style={styles.meta}>
+                            <Text style={styles.label}>Service Fee:</Text>
+                            <Text style={styles.cost}>${serviceFee}</Text>
+                        </View>
+                        <View style={styles.meta}>
                             <Text style={styles.label}>Delivery Fee:</Text>
-                            <Text style={styles.cost}>${totalCost}</Text>
+                            <Text style={styles.cost}>${deliveryFee}</Text>
                         </View>
                         <View style={styles.meta}>
                             <Text style={styles.label}>Tax:</Text>
-                            <Text style={styles.cost}>$14.78</Text>
+                            <Text style={styles.cost}>${tax}</Text>
                         </View>
                         <View style={styles.meta}>
                             <Text style={styles.label}>Order Total:</Text>
@@ -246,7 +281,7 @@ const styles = StyleSheet.create({
         color: Color.BLUE_500
     },
     dropdownContainer: {
-        marginBottom: emY(19.19)
+        marginBottom: emY(1.08)
     },
     cart: {
         position: 'absolute',
@@ -284,8 +319,8 @@ const styles = StyleSheet.create({
         fontSize: emY(1.25)
     },
     buttonContainer: {
-        marginLeft: 0,
-        marginRight: 0,
+        marginLeft: 10,
+        marginRight: 10,
         marginTop: emY(1)
     },
     button: {
@@ -298,10 +333,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    cart: state.cart,
-    // orders: getAvailableCartOrders(state),
-    totalCost: state.cart.totalCost,
-    totalQuantity: state.cart.totalQuantity,
+    cart: getCartOrders(state),
+    totalCost: state.cart.total,
+    tax: state.cart.tax,
+    serviceFee: state.cart.serviceFee,
+    deliveryFee: state.cart.deliveryFee,
     notes: state.checkout.notes,
     address: state.cart.currentSetAddress,
     latlon: state.cart.currentSetLatLon
@@ -309,7 +345,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addToCart,
-    removeFromCart
+    dropdownAlert
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);

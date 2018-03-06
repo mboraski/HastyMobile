@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
+import _ from 'lodash';
 // import firebase from '../firebase';
 
 // Relative Imports
@@ -25,6 +26,7 @@ import Dimensions from '../constants/Dimensions';
 // import Style from '../constants/Style';
 import { addToCart } from '../actions/cartActions';
 import { selectCategory, fetchProductsRequest } from '../actions/productActions';
+import { dropdownAlert } from '../actions/uiActions';
 import getProductsState from '../selectors/productSelectors';
 import { emY } from '../utils/em';
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
@@ -34,6 +36,11 @@ import MapHeader from '../containers/MapHeader';
 class HomeScreen extends Component {
     componentDidMount() {
         this.props.fetchProductsRequest();
+        if (this.props.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (this.props.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -47,10 +54,17 @@ class HomeScreen extends Component {
         if (!this.props.cart && nextProps.cart) {
             this.props.fetchProductsRequest();
         }
+        if (!this.props.itemCountUp && nextProps.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
+            this.props.dropdownAlert(true, 'Some products are no longer available');
+        } else {
+            this.props.dropdownAlert(false, '');
+        }
     }
 
-    callAddToCart = (product, key) => {
-        this.props.addToCart({ product, key });
+    callAddToCart = (product) => {
+        this.props.addToCart(product);
     };
 
     formatCategory = (category) =>
@@ -62,8 +76,8 @@ class HomeScreen extends Component {
 
     renderCategories = () => {
         const selectedCategory = this.props.category;
-        return this.props.categories.map((category, i) => {
-            const selectedFilter = category === selectedCategory;
+        return _.map(this.props.categories, (category, i) => {
+            const selectedFilter = category.toLowerCase() === selectedCategory.toLowerCase();
             const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
             const filterButtonTextSelected = selectedFilter ?
                 styles.filterButtonTextSelected : null;
@@ -84,15 +98,15 @@ class HomeScreen extends Component {
 
     render() {
         const {
-            cart,
-            products,
+            cartQuantity,
             productPending,
+            productsShown,
             category,
-            numberOfProducts
+            numberOfProducts,
         } = this.props;
         return (
             <View style={styles.container}>
-                {this.props.cartQuantity > 0 ? (
+                {cartQuantity > 0 ? (
                     <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>
@@ -129,10 +143,9 @@ class HomeScreen extends Component {
                         >
                             {this.renderCategories()}
                         </ScrollView>
-                        {products &&
+                        {productsShown &&
                             <ProductList
-                                cart={cart}
-                                products={products}
+                                products={productsShown}
                                 callAddToCart={this.callAddToCart}
                             />
                         }
@@ -243,6 +256,7 @@ const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
     addToCart: productInfo => dispatch(addToCart(productInfo)),
     fetchProductsRequest: () => dispatch(fetchProductsRequest()),
+    dropdownAlert: (visible, message) => dispatch(dropdownAlert(visible, message))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

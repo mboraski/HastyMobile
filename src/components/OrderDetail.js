@@ -25,20 +25,20 @@ const ICON_SIZE = emY(0.75);
 
 const OrderDetail = props => {
     const { onAddOrder, onRemoveOrder } = props;
-    const { title, price, deliveryType, thumbnail_image, quantity } = props.order;
-    const temp_thumbnail_image = images[props.order.productCode % 4];
+    const { productName, price, fetchedUrl, quantityTaken } = props.order;
+
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={temp_thumbnail_image} resizeMode="contain" />
+            <Image style={styles.image} source={''} resizeMode="contain" />
             <View style={styles.content}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{productName}</Text>
                 <View style={styles.deliveryType}>
                     <Text style={styles.deliveryTypeLabel}>Delivery Type:</Text>
-                    <Text style={styles.deliveryTypeValue}>{deliveryType}</Text>
+                    <Text style={styles.deliveryTypeValue}>{'Instant'}</Text>
                 </View>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <Text style={styles.changeDeliveryTypeText}>Change delivery type</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View style={styles.actions}>
                 <Text style={styles.price}>${price}</Text>
@@ -50,7 +50,7 @@ const OrderDetail = props => {
                         iconStyle={styles.icon}
                         onPress={onRemoveOrder}
                     />
-                    <Text style={styles.quantity}>{quantity}</Text>
+                    <Text style={styles.quantity}>{quantityTaken}</Text>
                     <Icon
                         name="add"
                         size={ICON_SIZE}
