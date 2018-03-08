@@ -10,7 +10,7 @@ export const FETCH_PRODUCTS_FAILURE = 'fetch_products_failure';
 export const fetchProductsRequest = () =>
     async (dispatch) => {
         dispatch({ type: FETCH_PRODUCTS_REQUEST });
-        return await firebase.database().ref('products/US/TX/Austin')
+        return await firebase.database().ref('activeProducts/US/TX/Austin')
             .on('value', (snapshot) => {
                 const products = snapshot.val();
                 dispatch(fetchProductsSuccess(products));

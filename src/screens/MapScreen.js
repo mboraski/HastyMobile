@@ -33,7 +33,7 @@ import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import beaconIcon from '../assets/icons/beacon.png';
 
-const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available  E 6th St and Congress Ave of Downtown Austin Texas for the SXSW festival.
+const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available in Downtown Austin Texas area for the SXSW festival.
 Come check us out! We are a new startup, born and bread right here in Austin, Texas!`;
 
 const OPACITY_DURATION = 300;

@@ -35,7 +35,6 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-
     handleViewProfile = () => {
         this.props.navigation.navigate('profile');
     };
@@ -123,7 +122,7 @@ class MenuContent extends Component {
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={notificationIcon}
-                        title="Notifications"
+                        title="Order Notifications"
                         // badge="0"
                     />
                     <MenuItem

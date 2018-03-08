@@ -41,7 +41,6 @@ const MainNavigator = StackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'apiTester',
         navigationOptions: {
             tabBarVisible: false
         },
