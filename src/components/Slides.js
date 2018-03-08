@@ -15,6 +15,8 @@ class Slides extends Component {
           raised
           buttonStyle={styles.buttonStyle}
           onPress={this.props.onComplete}
+          fontFamily={'goodtimes'}
+          accessibilityLabel="Leave tutorial screens and go to app"
         />
       );
     }

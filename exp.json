@@ -7,6 +7,7 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#f5a624",
+  "icon": "./src/assets/icons/logo-white.png",
   "splash": {
     "backgroundColor": "#f5a624",
     "resizeMode": "cover",

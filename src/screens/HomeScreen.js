@@ -201,15 +201,15 @@ const styles = StyleSheet.create({
     filters: {
         ...Platform.select({
             ios: {
-                height: emY(6.25)
+                height: 70
             },
             android: {
-                height: emY(6.25) + 30
+                height: 70
             }
         })
     },
     filtersContent: {
-        paddingLeft: 15,
+        paddingLeft: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -219,8 +219,8 @@ const styles = StyleSheet.create({
         borderColor: Color.GREY_400,
         borderWidth: StyleSheet.hairlineWidth * 2,
         borderRadius: 50,
-        paddingVertical: emY(0.75),
-        marginRight: 15,
+        paddingVertical: 10,
+        marginRight: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },

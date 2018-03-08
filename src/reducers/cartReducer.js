@@ -125,7 +125,7 @@ export default (state = initialState, action) => {
             );
             const calculatedTax = (preTaxTotal * state.localSalesTax);
             const calculatedTotal = preTaxTotal + calculatedTax;
-            const newCart = addProductToCart(product, state.products); // not forcing rerender?
+            const newCart = addProductToCart(product, state.products); //TODO: not forcing rerender?
             return {
                 ...state,
                 products: newCart,

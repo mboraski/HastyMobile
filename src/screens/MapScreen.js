@@ -33,7 +33,7 @@ import { emY } from '../utils/em';
 // TODO: change icon to one with point at center
 import beaconIcon from '../assets/icons/beacon.png';
 
-const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available between streets E 6th St and Congress Ave of Downtown Austin Texas for the SXSW festival.
+const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available  E 6th St and Congress Ave of Downtown Austin Texas for the SXSW festival.
 Come check us out! We are a new startup, born and bread right here in Austin, Texas!`;
 
 const OPACITY_DURATION = 300;
@@ -41,12 +41,18 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
+const originRegion = {
+    latitude: 30.2666247,
+    longitude: -97.7405174,
+    latitudeDelta: 0.0043,
+    longitudeDelta: 0.0034
+};
 
 class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
-        initialRegion: this.props.region,
+        initialRegion: originRegion,
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
@@ -216,8 +222,8 @@ class MapScreen extends Component {
                 {region ? (
                     <MapView
                         {...this.panResponder.panHandlers}
-                        initialRegion={this.state.initialRegion}
-                        region={region || this.state.initialRegion}
+                        initialRegion={this.props.region || this.state.initialRegion}
+                        region={region}
                         style={styles.map}
                         onMapReady={this.onMapReady}
                         onRegionChange={this.handleRegionChange}

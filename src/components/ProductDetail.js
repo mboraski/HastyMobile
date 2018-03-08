@@ -10,12 +10,14 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-const storage = firebase.storage();
+const storageRef = firebase.storage();
 const ICON_SIZE = 35;
 const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) => {
     const { productName, price, imageUrl } = product;
-    const pathReference = storage.ref(imageUrl);
-    pathReference.getDownloadURL()
+    // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
+    const imageRef = storageRef.refFromURL(imageUrl);
+    // const imageRef = storageRef.child(`${imageUrl}`);
+    imageRef.getDownloadURL()
         .then((url) => {
             this.productImage = `${url}`;
         })
@@ -51,7 +53,7 @@ const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) 
                     />
                 }
             </View>
-            <Image style={styles.image} source={this.productImage} resizeMode="contain" />
+            <Image style={styles.image} source={{ uri: this.productImage }} resizeMode="contain" />
             <View style={styles.meta}>
                 <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
                 <Text style={[styles.metaItem, styles.price]}>{price}</Text>

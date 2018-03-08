@@ -117,7 +117,8 @@ export const distanceMatrix = props => async dispatch => {
         const res = await googleMapsClient.distanceMatrix({
             params: {
                 ...props,
-                key: KEY
+                key: KEY,
+                mode: 'walking'
             }
         });
         if (res.data.error_message) {
