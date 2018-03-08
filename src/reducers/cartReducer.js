@@ -32,12 +32,12 @@ export const initialState = {
     }
 };
 
-const addProductToCart = (product, cartProducts) => {
-    const cart = Object.assign({}, cartProducts);
-    const cartItem = cart.instant[product.productName] || {};
+const addProductToCart = (product, instantCartProducts) => {
+    const instantCart = Object.assign({}, instantCartProducts);
+    const cartItem = instantCart[product.productName] || {};
     cartItem.quantityTaken += 1;
-    console.log('add product now cart: ', cart);
-    return cart;
+    console.log('add product now cart: ', instantCart);
+    return instantCart;
 };
 
 const mutateProductsIntoCart = (newProducts) => {
@@ -125,10 +125,12 @@ export default (state = initialState, action) => {
             );
             const calculatedTax = (preTaxTotal * state.localSalesTax);
             const calculatedTotal = preTaxTotal + calculatedTax;
-            const newCart = addProductToCart(product, state.products); //TODO: not forcing rerender?
+            const newCart = addProductToCart(product, state.products.instant); //TODO: not forcing rerender?
             return {
                 ...state,
-                products: newCart,
+                products: {
+                    instant: newCart
+                },
                 total: calculatedTotal,
                 tax: calculatedTax,
                 preTaxTotal
