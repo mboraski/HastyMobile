@@ -103,6 +103,7 @@ class HomeScreen extends Component {
             productsShown,
             category,
             numberOfProducts,
+            productImages
         } = this.props;
         return (
             <View style={styles.container}>
@@ -146,6 +147,7 @@ class HomeScreen extends Component {
                         {productsShown &&
                             <ProductList
                                 products={productsShown}
+                                productImages={productImages}
                                 callAddToCart={this.callAddToCart}
                             />
                         }

@@ -10,8 +10,9 @@ import { emY } from '../utils/em';
 
 class ProductList extends Component {
     renderProducts() {
-        const { products, callAddToCart } = this.props;
+        const { products, callAddToCart, productImages } = this.props;
         return _.map(products, (product) => {
+            const image = productImages[product.productName] || '';
             const taken = product.quantityTaken;
             const consumed = taken >= product.quantityAvailable;
             return (
@@ -21,6 +22,7 @@ class ProductList extends Component {
                     quantity={taken}
                     product={product}
                     inCart={taken > 0}
+                    image={image}
                     onPress={callAddToCart}
                     style={styles.product}
                 />
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     product: {
         width: ((Dimensions.window.width / 2) - 21),
         marginRight: 8,
-        marginBottom: emY(0.625)
+        marginBottom: emY(0.25)
     }
 });
 

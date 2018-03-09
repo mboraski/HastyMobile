@@ -8,7 +8,7 @@ import { toggleSearch } from '../actions/uiActions';
 import DebounceTextInput from '../components/DebounceTextInput';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
-import LocationButton from '../components/LocationButton';
+// import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Text from '../components/Text';
 import Style from '../constants/Style';

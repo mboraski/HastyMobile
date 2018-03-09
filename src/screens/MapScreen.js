@@ -118,7 +118,7 @@ class MapScreen extends Component {
             try {
                 resp = await firebase.database().ref('orders/US/TX/Austin').push({
                     currentSetAddress: this.props.address,
-                    currentSetLatLon: this.props.region,
+                    region: this.props.region,
                     status: 'open'
                 });
                 if (resp) {

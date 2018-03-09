@@ -121,15 +121,10 @@ class CheckoutScreen extends Component {
             deliveryFee,
             notes,
             address,
-            latlon
+            region
         } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
-        const region = {
-            latitude: latlon.lat,
-            longitude: latlon.lon,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-        };
+
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer}>
@@ -284,14 +279,10 @@ const styles = StyleSheet.create({
         marginBottom: emY(1.08)
     },
     cart: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
+        position: 'relative',
         backgroundColor: '#fff',
         paddingHorizontal: 23,
-        paddingTop: emY(1.25),
-        paddingBottom: emY(1.32),
+        paddingVertical: 20,
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
@@ -307,21 +298,19 @@ const styles = StyleSheet.create({
     meta: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: emY(0.5),
+        marginBottom: 5,
         alignItems: 'center'
     },
     label: {
-        fontSize: emY(1),
+        fontSize: 14,
         color: Color.GREY_600,
         marginRight: 11
     },
     cost: {
-        fontSize: emY(1.25)
+        fontSize: 14
     },
     buttonContainer: {
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: emY(1)
+        marginTop: 10
     },
     button: {
         backgroundColor: '#000',
@@ -340,7 +329,7 @@ const mapStateToProps = state => ({
     deliveryFee: state.cart.deliveryFee,
     notes: state.checkout.notes,
     address: state.cart.currentSetAddress,
-    latlon: state.cart.currentSetLatLon
+    region: state.cart.region
 });
 
 const mapDispatchToProps = {

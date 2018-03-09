@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
-import firebase from '../firebase';
 
 // Relative Imports
 import Text from './Text';
@@ -10,21 +9,11 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-const storageRef = firebase.storage();
 const ICON_SIZE = 35;
-const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) => {
-    const { productName, price, imageUrl } = product;
-    // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
-    const imageRef = storageRef.refFromURL(imageUrl);
-    // const imageRef = storageRef.child(`${imageUrl}`);
-    imageRef.getDownloadURL()
-        .then((url) => {
-            this.productImage = `${url}`;
-        })
-        .catch((error) => {
-            console.log('getDownloadUrl error: ', error);
-            this.productImage = '';
-        });
+const ProductDetail = ({ consumed, quantity, product, inCart, image, onPress, style }) => {
+    const { productName, price } = product;
+    const formattedPrice = `$${Number.parseFloat(price / 100).toFixed(2)}`;
+
     const limitReached = () => {};
     const onClickHandler = () => {
         if (consumed) {
@@ -53,10 +42,10 @@ const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) 
                     />
                 }
             </View>
-            <Image style={styles.image} source={{ uri: this.productImage }} resizeMode="contain" />
+            <Image style={styles.image} source={{ uri: image }} resizeMode="contain" />
             <View style={styles.meta}>
                 <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
-                <Text style={[styles.metaItem, styles.price]}>{price}</Text>
+                <Text style={[styles.metaItem, styles.price]}>{formattedPrice}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -65,15 +54,14 @@ const ProductDetail = ({ consumed, quantity, product, inCart, onPress, style }) 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        paddingHorizontal: 15,
-        paddingVertical: emY(0.9375),
+        paddingHorizontal: 5,
+        paddingVertical: 5,
         borderRadius: 11
     },
     quantityRow: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: emY(1.125)
+        alignItems: 'center'
     },
     quantityRowAdded: {
         justifyContent: 'space-between',
@@ -98,20 +86,18 @@ const styles = StyleSheet.create({
         color: Color.GREEN_500
     },
     image: {
-        height: emY(6.2),
-        width: '100%',
-        marginBottom: emY(2.2)
+        height: 140,
+        width: '100%'
     },
     meta: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     metaItem: {
-        fontSize: emY(1),
-        marginRight: 12,
-        marginBottom: emY(0.375)
+        fontSize: 16,
+        margin: 4
     },
     title: {},
     price: {

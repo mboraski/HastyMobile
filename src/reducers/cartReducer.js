@@ -23,12 +23,12 @@ export const initialState = {
     preTaxTotal: 0,
     tax: 0,
     total: 0,
-    currentSetAddress: 'E 6th St & Congress Ave, Austin, TX 78701',
-    currentSetLatLon: {
-        lat: '30.268066',
-        lon: '-97.7450017',
-        latitudeDelta: '',
-        longitudeDelta: ''
+    currentSetAddress: '310 E 5th St, Austin, TX 78701',
+    region: {
+        latitude: 30.2666247,
+        longitude: -97.7405174,
+        latitudeDelta: 0.0043,
+        longitudeDelta: 0.0034
     }
 };
 
@@ -156,10 +156,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentSetAddress: action.payload.address,
-                currentSetLatLon: {
-                    lat: action.payload.region.latitude,
-                    lon: action.payload.region.longitude
-                }
+                region: action.payload.region
             };
         case UPDATE_CART: {
             const translate = mutateProductsIntoCart(action.payload);
