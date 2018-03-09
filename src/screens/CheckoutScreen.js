@@ -25,10 +25,15 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartOrders, getCartTotalQuantity } from '../selectors/cartSelectors';
 import { addToCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import { reset } from '../actions/navigationActions';
+import {
+    getCartOrders,
+    getCartCostTotal,
+    getCartTaxTotal,
+    getCartServiceCharge
+} from '../selectors/cartSelectors';
 
 import beaconIcon from '../assets/icons/beacon.png';
 
@@ -36,9 +41,7 @@ const REMOVE_ORDER_MESSAGE = 'Are you sure you want to remove this product from 
 const CHANGE_LOCATION_TITLE = 'Are you sure you want to change your delivery location?';
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
-const MAP_HEIGHT = emY(9.25);
-const LATITUDE_DELTA = 0.1;
-const LONGITUDE_DELTA = 0.1;
+const MAP_HEIGHT = emY(8.25);
 
 class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -323,10 +326,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: getCartOrders(state),
-    totalCost: state.cart.total,
-    tax: state.cart.tax,
-    serviceFee: state.cart.serviceFee,
-    deliveryFee: state.cart.deliveryFee,
+    cartImages: state.product.productImages,
+    totalCost: getCartCostTotal(state),
+    tax: getCartTaxTotal(state),
+    serviceCharge: getCartServiceCharge(state),
     notes: state.checkout.notes,
     address: state.cart.currentSetAddress,
     region: state.cart.region

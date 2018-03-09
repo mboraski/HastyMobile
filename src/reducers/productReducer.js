@@ -13,7 +13,7 @@ export const initialState = {
         instant: {}
     },
     category: 'SXSW',
-    products: {},
+    // products: {},
     productImages: {}
 };
 

@@ -18,11 +18,9 @@ export const initialState = {
     itemCountUp: false,
     itemCountDown: false,
     serviceFee: 0,
-    deliveryFee: 0,
-    localSalesTax: 0.0625,
-    preTaxTotal: 0,
-    tax: 0,
-    total: 0,
+    deliveryFee: 200,
+    serviceRate: 0.1,
+    localSalesTaxRate: 0.0625,
     currentSetAddress: '310 E 5th St, Austin, TX 78701',
     region: {
         latitude: 30.2666247,
@@ -125,7 +123,7 @@ export default (state = initialState, action) => {
             );
             const calculatedTax = (preTaxTotal * state.localSalesTax);
             const calculatedTotal = preTaxTotal + calculatedTax;
-            const newCart = addProductToCart(product, state.products.instant); //TODO: not forcing rerender?
+            const newCart = addProductToCart(product, state.products.instant);
             return {
                 ...state,
                 products: {
