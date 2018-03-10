@@ -21,7 +21,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class HomeHeader extends Component {
+class DeliveryStatusHeader extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -97,7 +97,7 @@ class HomeHeader extends Component {
                             <MenuButton style={Style.headerLeft} disabled={pending} />
                         </View>
                         <View style={Style.headerTitleContainer}>
-                            <Text style={[Style.headerTitle, Style.headerTitleLogo]}>Hasty</Text>
+                            <Text style={[Style.headerTitle, Style.headerTitleLogo]}>Current Order</Text>
                         </View>
                         <View style={Style.headerRightContainer}>
                             {/* <LocationButton
@@ -168,4 +168,4 @@ const mapDispatchToProps = {
     getCurrentLocation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusHeader);

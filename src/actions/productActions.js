@@ -14,10 +14,15 @@ export const fetchProductsRequest = () =>
         return await firebase.database().ref('products/US/TX/Austin')
             .on('value', (snapshot) => {
                 const products = snapshot.val();
-                dispatch(fetchProductsSuccess(products));
-                dispatch(fetchProductImages(products, dispatch));
-                dispatch(updateCart(products));
+                // for some reason firebase has empty hashed database objects, this filters them
+                // TODO: figure out why firebase did this
+                const filteredProducts = {};
+                filteredProducts.instant = _.filter(products.instant, (product) => !!product);
+                dispatch(fetchProductsSuccess(filteredProducts));
+                dispatch(fetchProductImages(filteredProducts, dispatch));
+                dispatch(updateCart(filteredProducts));
             });
+            // .off();
     };
     // TODO: remove reference listener
 
@@ -42,23 +47,28 @@ export const fetchProductImages = (products, dispatch) =>
         // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
         console.log('products: ', products);
         _.forEach(products.instant, (product) => {
-            console.log('fetchProductImages product: ', product);
-            console.log('fetchProductImages product.imageUrl: ', product.imageUrl);
             const imageUrl = product.imageUrl || '';
-            const imageRef = storageRef.refFromURL(imageUrl);
-            imageRef.getDownloadURL()
-                .then((url) => {
-                    dispatch({
-                        type: SET_IMAGE,
-                        payload: { productName: product.productName, url }
+            if (imageUrl) {
+                const imageRef = storageRef.refFromURL(imageUrl);
+                imageRef.getDownloadURL()
+                    .then((url) => {
+                        dispatch({
+                            type: SET_IMAGE,
+                            payload: { productName: product.productName, url }
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('getDownloadUrl error: ', error);
+                        dispatch({
+                            type: SET_IMAGE,
+                            payload: { productName: product.productName, url: '' }
+                        });
                     });
-                })
-                .catch((error) => {
-                    console.log('getDownloadUrl error: ', error);
-                    dispatch({
-                        type: SET_IMAGE,
-                        payload: { productName: product.productName, url: '' }
-                    });
+            } else {
+                dispatch({
+                    type: SET_IMAGE,
+                    payload: { productName: product.productName, url: '' }
                 });
-            });
-        };
+            }
+        });
+    };

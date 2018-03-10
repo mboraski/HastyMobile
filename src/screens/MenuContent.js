@@ -40,7 +40,7 @@ class MenuContent extends Component {
     };
 
     cartPress = () => {
-        this.props.navigation.navigate('cart');
+        this.props.navigation.navigate('checkout');
     };
 
     handleHelpPress = () => {
@@ -52,9 +52,9 @@ class MenuContent extends Component {
         this.props.navigation.navigate('paymentMethod');
     };
 
-    promotionSharePress = () => {
-        this.props.navigation.navigate('promotionShare');
-    };
+    // promotionSharePress = () => {
+    //     this.props.navigation.navigate('promotionShare');
+    // };
 
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');
@@ -122,11 +122,11 @@ class MenuContent extends Component {
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
                         image={notificationIcon}
-                        title="Order Notifications"
+                        title="Order"
                         // badge="0"
                     />
                     <MenuItem
-                        route={getRoute(items, 'cart')}
+                        route={getRoute(items, 'checkout')}
                         activeItemKey={activeItemKey}
                         onPress={this.cartPress}
                         image={cartIcon}

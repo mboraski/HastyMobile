@@ -6,10 +6,10 @@ import {
     UPDATE_CART
 } from '../actions/cartActions';
 
-function normalizeCurrency(currency) {
-    if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
-    return currency;
-}
+// function normalizeCurrency(currency) {
+//     if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
+//     return currency;
+// }
 
 export const initialState = {
     products: {
@@ -18,7 +18,7 @@ export const initialState = {
     itemCountUp: false,
     itemCountDown: false,
     serviceFee: 0,
-    deliveryFee: 200,
+    deliveryFee: 0,
     serviceRate: 0.1,
     localSalesTaxRate: 0.0625,
     currentSetAddress: '310 E 5th St, Austin, TX 78701',
@@ -34,7 +34,13 @@ const addProductToCart = (product, instantCartProducts) => {
     const instantCart = Object.assign({}, instantCartProducts);
     const cartItem = instantCart[product.productName] || {};
     cartItem.quantityTaken += 1;
-    console.log('add product now cart: ', instantCart);
+    return instantCart;
+};
+
+const removeProductFromCart = (product, instantCartProducts) => {
+    const instantCart = Object.assign({}, instantCartProducts);
+    const cartItem = instantCart[product.productName] || {};
+    cartItem.quantityTaken -= 1;
     return instantCart;
 };
 
@@ -42,14 +48,16 @@ const mutateProductsIntoCart = (newProducts) => {
     // for each product, set a new object in the cart object at key of productName
     const newInstantCart = {};
     _.forEach(newProducts.instant, (product) => {
-        newInstantCart[product.productName] = {
-            categories: product.categories,
-            imageUrl: product.imageUrl,
-            price: product.price,
-            productName: product.productName,
-            quantityAvailable: product.quantity,
-            quantityTaken: 0
-        };
+        if (product) {            
+            newInstantCart[product.productName] = {
+                categories: product.categories,
+                imageUrl: product.imageUrl,
+                price: product.price,
+                productName: product.productName,
+                quantityAvailable: product.quantity,
+                quantityTaken: 0
+            };
+        }
     });
     return { instant: newInstantCart };
     // for each product, set a new object in the cart object at key of productName
@@ -117,37 +125,22 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART: {
             const product = action.payload;
-            const preTaxTotal = Math.max(
-                0,
-                (state.preTaxTotal + normalizeCurrency(product.price)).toFixed(2)
-            );
-            const calculatedTax = (preTaxTotal * state.localSalesTax);
-            const calculatedTotal = preTaxTotal + calculatedTax;
             const newCart = addProductToCart(product, state.products.instant);
             return {
                 ...state,
                 products: {
                     instant: newCart
-                },
-                total: calculatedTotal,
-                tax: calculatedTax,
-                preTaxTotal
+                }
             };
         }
         case REMOVE_FROM_CART: {
             const product = action.payload;
-            const preTaxTotal = Math.max(
-                0,
-                (state.preTaxTotal + normalizeCurrency(product.price)).toFixed(2)
-            );
-            const calculatedTax = (preTaxTotal * state.localSalesTax);
-            const calculatedTotal = preTaxTotal + calculatedTax;
+            const newCart = removeProductFromCart(product, state.products.instant);
             return {
                 ...state,
-                products: addProductToCart(product, state.products),
-                total: calculatedTotal,
-                tax: calculatedTax,
-                preTaxTotal
+                products: {
+                    instant: newCart
+                }
             };
         }
         case SET_CURRENT_LOCATION:

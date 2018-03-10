@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements';
 // Relative Imports
 import loaderGradient from '../assets/loader-gradient.png';
 import loaderTicks from '../assets/loader-ticks.png';
-import MenuButtonRight from '../components/MenuButtonRight';
+import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
@@ -17,11 +17,28 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import tempAvatar from '../assets/profile.png';
+import { getFacebookInfo } from '../selectors/authSelectors';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 
 class DeliveryStatusScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Order',
+        headerLeft: <MenuButton style={Style.headerLeft} />,
+        headerRight: <BrandButton onPress={() => navigation.goBack()} />,
+        headerStyle: Style.headerBorderless,
+        headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
+    });
+
+    componentDidMount() { // TODO: do this for all screens with menu drawer
+        if (this.props.header.isMenuOpen) {
+            this.props.navigation.navigate('DrawerOpen');
+        } else {
+            this.props.navigation.navigate('DrawerClose');
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
@@ -35,12 +52,17 @@ class DeliveryStatusScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.notRef.receiveNotification()}>
+                {facebookInfo && facebookInfo.photoURL ? (
                     <Spinner
-                        image={tempAvatar}
+                        image={{ uri: facebookInfo.photoURL }}
                         style={styles.loader}
                     />
-                </TouchableOpacity>
+                ) :
+                    <Image
+                        source={tempAvatar}
+                        style={styles.image}
+                    />
+                }
                 <Text style={styles.searching}>Searching...</Text>
                 <Notification onRef={ref => (this.notRef = ref)} />
                 <View style={styles.label}>
@@ -116,16 +138,9 @@ const styles = StyleSheet.create({
     }
 });
 
-DeliveryStatusScreen.navigationOptions = {
-    title: 'Hasty',
-    headerLeft: <MenuButtonRight />,
-    headerRight: <BrandButton />,
-    headerStyle: Style.headerBorderless,
-    headerTitleStyle: Style.headerTitle
-};
-
 const mapStateToProps = state => ({
-    header: state.header
+    header: state.header,
+    facebookInfo: getFacebookInfo(state)
 });
 
 const mapDispatchToProps = dispatch => ({});

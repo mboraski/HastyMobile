@@ -12,7 +12,7 @@ import { emY } from '../utils/em';
 const ICON_SIZE = 35;
 const ProductDetail = ({ consumed, quantity, product, inCart, image, onPress, style }) => {
     const { productName, price } = product;
-    const formattedPrice = `$${Number.parseFloat(price / 100).toFixed(2)}`;
+    const formattedPrice = `${Number.parseFloat(price / 100).toFixed(2)}`;
 
     const limitReached = () => {};
     const onClickHandler = () => {
@@ -45,7 +45,7 @@ const ProductDetail = ({ consumed, quantity, product, inCart, image, onPress, st
             <Image style={styles.image} source={{ uri: image }} resizeMode="contain" />
             <View style={styles.meta}>
                 <Text style={[styles.metaItem, styles.title]}>{productName}</Text>
-                <Text style={[styles.metaItem, styles.price]}>{formattedPrice}</Text>
+                <Text style={[styles.metaItem, styles.price]}>${formattedPrice}</Text>
             </View>
         </TouchableOpacity>
     );

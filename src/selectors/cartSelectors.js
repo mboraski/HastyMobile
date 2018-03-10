@@ -33,22 +33,28 @@ export const getCartOrders = createSelector(
             (product.quantityTaken > 0))
 );
 
-export const getCartCostTotal = createSelector(
+export const getCartPureTotal = createSelector(
     [getCartOrders],
     (orders) =>
         orders.reduce((acc, order) => acc + (order.price * order.quantityTaken), 0)
 );
 
 export const getCartTaxTotal = createSelector(
-    [getCartCostTotal, getTaxRate],
+    [getCartPureTotal, getTaxRate],
     (total, taxRate) =>
-        total + (total * taxRate)
+        (total * taxRate)
 );
 
 export const getCartServiceCharge = createSelector(
-    [getCartCostTotal, getServiceRate, getDeliveryFee, getServiceFee],
-    (total, serviceRate, deliveryFee, serviceFee) =>
-        (total * serviceRate) + deliveryFee + serviceFee
+    [getCartPureTotal, getServiceRate],
+    (total, serviceRate) =>
+        (total * serviceRate)
+);
+
+export const getCartCostTotal = createSelector(
+    [getCartPureTotal, getCartServiceCharge, getDeliveryFee, getServiceFee],
+    (total, serviceCharge, deliveryFee, serviceFee) =>
+        (total + serviceCharge + deliveryFee + serviceFee)
 );
 // export const getCartOrders = createSelector(
 //     getCartProducts,

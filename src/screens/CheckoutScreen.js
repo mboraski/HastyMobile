@@ -13,6 +13,7 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import firebase from '../firebase';
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
@@ -25,14 +26,16 @@ import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
     getCartCostTotal,
     getCartTaxTotal,
-    getCartServiceCharge
+    getCartServiceCharge,
+    getServiceFee,
+    getDeliveryFee
 } from '../selectors/cartSelectors';
 
 import beaconIcon from '../assets/icons/beacon.png';
@@ -45,11 +48,11 @@ const MAP_HEIGHT = emY(8.25);
 
 class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
-        title: 'Your Order',
+        title: 'Checkout',
         headerLeft: <BackButton onPress={() => navigation.goBack()} />,
         headerRight: <TransparentButton />,
         headerStyle: Style.header,
-        headerTitleStyle: Style.headerTitle
+        headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
     state = {
@@ -82,7 +85,7 @@ class CheckoutScreen extends Component {
     }
 
     handleRemoveOrder = order => {
-        if (order.quantity === 1) {
+        if (order.quantityTaken === 1) {
             this.setState({ removeOrderPopupVisible: true, orderToRemove: order });
         } else {
             this.props.removeFromCart(order);
@@ -108,6 +111,7 @@ class CheckoutScreen extends Component {
     };
 
     lightABeacon = () => {
+        firebase.database().ref('products/US/TX/Austin').off();
         this.props.navigation.navigate('deliveryStatus');
     };
 
@@ -118,15 +122,22 @@ class CheckoutScreen extends Component {
     render() {
         const {
             cart,
-            totalCost,
+            cartImages,
             tax,
+            serviceCharge,
             serviceFee,
             deliveryFee,
+            totalCost,
             notes,
             address,
             region
         } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
+        const serviceChargeFormatted = serviceCharge ? (serviceCharge / 100).toFixed(2) : 0;
+        const serviceFeeFormatted = serviceFee ? (serviceFee / 100).toFixed(2) : 0;
+        const deliveryFeeFormatted = deliveryFee ? (deliveryFee / 100).toFixed(2) : 0;
+        const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
+        const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
 
         return (
             <View style={styles.container}>
@@ -187,26 +198,31 @@ class CheckoutScreen extends Component {
                         </View>
                         <OrderList
                             orders={cart}
+                            orderImages={cartImages}
                             onAddOrder={this.props.addToCart}
                             onRemoveOrder={this.handleRemoveOrder}
                         />
                     </View>
                     <View style={styles.cart}>
-                        <View style={styles.meta}>
+                        {!!serviceCharge && <View style={styles.meta}>
+                            <Text style={styles.label}>Service Charge:</Text>
+                            <Text style={styles.cost}>${serviceChargeFormatted}</Text>
+                        </View>}
+                        {!!serviceFee && <View style={styles.meta}>
                             <Text style={styles.label}>Service Fee:</Text>
-                            <Text style={styles.cost}>${serviceFee}</Text>
-                        </View>
-                        <View style={styles.meta}>
+                            <Text style={styles.cost}>${serviceFeeFormatted}</Text>
+                        </View>}
+                        {!!deliveryFee && <View style={styles.meta}>
                             <Text style={styles.label}>Delivery Fee:</Text>
-                            <Text style={styles.cost}>${deliveryFee}</Text>
-                        </View>
+                            <Text style={styles.cost}>${deliveryFeeFormatted}</Text>
+                        </View>}
                         <View style={styles.meta}>
                             <Text style={styles.label}>Tax:</Text>
-                            <Text style={styles.cost}>${tax}</Text>
+                            <Text style={styles.cost}>${taxFormatted}</Text>
                         </View>
                         <View style={styles.meta}>
                             <Text style={styles.label}>Order Total:</Text>
-                            <Text style={styles.cost}>${totalCost}</Text>
+                            <Text style={styles.cost}>${totalCostFormatted}</Text>
                         </View>
                         <Button
                             onPress={this.lightABeacon}
@@ -329,6 +345,8 @@ const mapStateToProps = state => ({
     cartImages: state.product.productImages,
     totalCost: getCartCostTotal(state),
     tax: getCartTaxTotal(state),
+    serviceFee: getServiceFee(state),
+    deliveryFee: getDeliveryFee(state),
     serviceCharge: getCartServiceCharge(state),
     notes: state.checkout.notes,
     address: state.cart.currentSetAddress,
@@ -337,6 +355,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addToCart,
+    removeFromCart,
     dropdownAlert
 };
 
