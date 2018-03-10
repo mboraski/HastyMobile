@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Image,
     View,
-    TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
@@ -35,9 +34,9 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-    handleViewProfile = () => {
-        this.props.navigation.navigate('profile');
-    };
+    // handleViewProfile = () => {
+    //     this.props.navigation.navigate('profile');
+    // };
 
     cartPress = () => {
         this.props.navigation.navigate('checkout');
@@ -46,6 +45,10 @@ class MenuContent extends Component {
     handleHelpPress = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.openCustomerPopup();
+    };
+
+    deliveryStatusPress = () => {
+        this.props.navigation.navigate('deliveryStatus');
     };
 
     paymentInfoPress = () => {
@@ -80,7 +83,7 @@ class MenuContent extends Component {
     };
 
     render() {
-        const { items, activeItemKey, onItemPress, facebookInfo } = this.props;
+        const { items, activeItemKey, facebookInfo } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -120,7 +123,7 @@ class MenuContent extends Component {
                     /> */}
                     <MenuItem
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.deliveryStatusPress}
                         image={notificationIcon}
                         title="Order"
                         // badge="0"

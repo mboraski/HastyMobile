@@ -1,8 +1,8 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements';
 
 // Relative Imports
 import loaderGradient from '../assets/loader-gradient.png';
@@ -11,13 +11,13 @@ import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
-import Spinner from '../components/Spinner';
+// import Spinner from '../components/Spinner';
 import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import tempAvatar from '../assets/profile.png';
-import { getFacebookInfo } from '../selectors/authSelectors';
+// import tempAvatar from '../assets/profile.png';
+// import { getFacebookInfo } from '../selectors/authSelectors';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -50,19 +50,28 @@ class DeliveryStatusScreen extends Component {
     }
 
     render() {
+        // const { facebookInfo } = this.props;
         return (
             <View style={styles.container}>
-                {facebookInfo && facebookInfo.photoURL ? (
-                    <Spinner
-                        image={{ uri: facebookInfo.photoURL }}
-                        style={styles.loader}
+                {/* <View style={styles.profile}>
+                    {facebookInfo && facebookInfo.photoURL ? (
+                        <Spinner
+                            image={{ uri: facebookInfo.photoURL }}
+                            style={styles.loader}
+                        />
+                    ) :
+                        <Image
+                            source={tempAvatar}
+                            style={styles.image}
+                        />
+                    }
+                </View> */}
+                <View style={styles.spinner}>
+                    <ActivityIndicator
+                        size="large"
+                        color="#F5A623"
                     />
-                ) :
-                    <Image
-                        source={tempAvatar}
-                        style={styles.image}
-                    />
-                }
+                </View>
                 <Text style={styles.searching}>Searching...</Text>
                 <Notification onRef={ref => (this.notRef = ref)} />
                 <View style={styles.label}>
@@ -78,6 +87,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    profile: {
+        alignItems: 'center',
+        marginTop: emY(2.68)
     },
     loader: {
         height: emY(11),
@@ -123,6 +136,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: emY(3)
     },
+    spinner: {
+        marginVertical: 30
+    },
     label: {
         borderBottomWidth: StyleSheet.hairlineWidth * 3,
         borderColor: Color.GREY_300,
@@ -140,7 +156,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     header: state.header,
-    facebookInfo: getFacebookInfo(state)
+    // facebookInfo: getFacebookInfo(state)
 });
 
 const mapDispatchToProps = dispatch => ({});

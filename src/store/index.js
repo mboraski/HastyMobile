@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, persistCombineReducers } from 'redux-persist';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import { AsyncStorage } from 'react-native';
 import {
     createReactNavigationReduxMiddleware,
@@ -26,9 +26,9 @@ export const reduxBoundAddListener = createReduxBoundAddListener('root');
 
 const middlewares = [thunk, navMiddleware];
 
-if (__DEV__) {
-    middlewares.push(logger);
-}
+// if (__DEV__) {
+//     middlewares.push(logger);
+// }
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
 export const store = createStore(

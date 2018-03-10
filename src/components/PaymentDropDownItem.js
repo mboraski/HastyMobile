@@ -1,8 +1,8 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { 
-    StyleSheet, 
-    Image, 
+import {
+    StyleSheet,
+    Image,
     TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -11,8 +11,10 @@ import { connect } from 'react-redux';
 import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-import paymentIcon from '../assets/icons/master-card.png';
-import arrowIcon from '../assets/icons/disclosureIndicator.png';
+import mastercard from '../assets/icons/master-card.png';
+import visa from '../assets/icons/visa.png';
+// import arrowIcon from '../assets/icons/disclosureIndicator.png';
+import { selectCard as onPress } from '../actions/paymentActions';
 
 const SIZE = emY(2);
 
@@ -23,17 +25,28 @@ type Props = {
 class PaymentDropDownItem extends Component {
     props: Props;
 
+    onSelectCard = () => {
+        onPress(this.props.card);
+    }
+
     render() {
-        const { isHeaderItem } = this.props;
-        const arrowIconMark = isHeaderItem ? 
-            (<Image source={arrowIcon} style={styles.arrowIcon} />) :
-            null;
+        const { isHeaderItem, card } = this.props;
+        const { last4, brand } = card;
+        // const arrowIconMark = isHeaderItem ?
+        //     (<Image source={arrowIcon} style={styles.arrowIcon} />) :
+        //     null;
+        let paymentIcon = null;
+        if (brand === 'Visa') {
+            paymentIcon = visa;
+        } else if (brand === 'MasterCard') {
+            paymentIcon = mastercard;
+        }
         const color = isHeaderItem ?
             Color.YELLOW_600 : 'transparent';
         return (
-            <TouchableOpacity 
-                onPress={this.onPress} 
-                style={[styles.container, { borderColor: color }]} 
+            <TouchableOpacity
+                onPress={this.onSelectCard}
+                style={[styles.container, { borderColor: color }]}
                 disabled={isHeaderItem}
             >
                 <Image
@@ -41,7 +54,7 @@ class PaymentDropDownItem extends Component {
                     style={styles.paymentImage}
                     resizeMode="contain"
                 />
-                <Text style={styles.paymentNumber}>***3463</Text>
+                <Text style={styles.paymentNumber}>{last4}</Text>
                 {/* {arrowIconMark} */}
             </TouchableOpacity>
         );
@@ -71,8 +84,8 @@ const styles = StyleSheet.create({
 
 });
 
-const mapDispatchToProps = function (dispatch) {
-    return {};
+const mapDispatchToProps = {
+    onPress
 };
 
 export default connect(null, mapDispatchToProps)(PaymentDropDownItem);

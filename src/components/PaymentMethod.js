@@ -6,7 +6,7 @@ import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
 import CardImage from '../components/CardImage';
 import Color from '../constants/Color';
-import Style from '../constants/Style';
+// import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import icon from '../assets/icons/keyboard-arrow-right.png';
 
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     },
     card: {
         marginRight: 10
-    },  
+    },
     text: {
         flex: 1,
         fontSize: emY(1),
     },
     icon: {
-        
+
     }
 });

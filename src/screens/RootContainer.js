@@ -62,6 +62,10 @@ class RootContainer extends Component {
         );
     }
 
+    componentWillUnMount() {
+        firebase.database().ref('products/US/TX/Austin').off();
+    }
+
     handleNotification = notification => {
         if (notification.data) {
             if (notification.data.type === 'feedback') {

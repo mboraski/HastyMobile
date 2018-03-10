@@ -11,6 +11,7 @@ import {
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 // Relative Imports
 import firebase from '../firebase';
@@ -18,7 +19,7 @@ import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
 import DropDown from '../components/DropDown';
-import PaymentDropDownItem from '../components/PaymentDropDownItem';
+import PaymentMethod from '../components/PaymentMethod';
 import OopsPopup from '../components/OopsPopup';
 import SuccessPopup from '../components/SuccessPopup';
 import Text from '../components/Text';
@@ -28,6 +29,7 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
+import { submitPayment, submitPaymentRequest, listCards } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
@@ -64,6 +66,11 @@ class CheckoutScreen extends Component {
     };
 
     componentDidMount() {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            const uid = user.uid;
+            this.props.listCards(uid);
+        }
         if (this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (this.props.itemCountDown) {
@@ -111,8 +118,19 @@ class CheckoutScreen extends Component {
     };
 
     lightABeacon = () => {
-        firebase.database().ref('products/US/TX/Austin').off();
-        this.props.navigation.navigate('deliveryStatus');
+        const { selectedCard, navigation, totalCost, notes } = this.props;
+        if (selectedCard) {
+            const cardId = selectedCard.id;
+            this.props.submitPaymentRequest();
+            this.props.submitPayment(
+                navigation,
+                cardId,
+                totalCost,
+                notes
+            );
+        } else {
+            dropdownAlert(true, 'Go to Menu to add payment method');
+        }
     };
 
     openDeliveryNotes = () => {
@@ -130,7 +148,8 @@ class CheckoutScreen extends Component {
             totalCost,
             notes,
             address,
-            region
+            region,
+            selectedCard
         } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
         const serviceChargeFormatted = serviceCharge ? (serviceCharge / 100).toFixed(2) : 0;
@@ -164,10 +183,10 @@ class CheckoutScreen extends Component {
                             <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
                         </View>
                         <View style={styles.dropdownContainer}>
-                            <DropDown header={<PaymentDropDownItem isHeaderItem />}>
-                                <PaymentDropDownItem isHeaderItem={false} />
-                                <PaymentDropDownItem isHeaderItem={false} />
-                            </DropDown>
+                            <PaymentMethod
+                                type={selectedCard.brand}
+                                text={selectedCard.last4}
+                            />
                         </View>
                         <View style={styles.itemHeader}>
                             <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
@@ -350,13 +369,19 @@ const mapStateToProps = state => ({
     serviceCharge: getCartServiceCharge(state),
     notes: state.checkout.notes,
     address: state.cart.currentSetAddress,
-    region: state.cart.region
+    region: state.cart.region,
+    cards: state.payment.cards,
+    selectedCard: state.payment.selectedCard,
+    pending: state.payment.pending
 });
 
 const mapDispatchToProps = {
     addToCart,
     removeFromCart,
-    dropdownAlert
+    dropdownAlert,
+    submitPayment,
+    submitPaymentRequest,
+    listCards
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);
