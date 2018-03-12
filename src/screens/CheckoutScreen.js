@@ -6,19 +6,20 @@ import {
     View,
     TouchableOpacity,
     Platform,
-    Animated
+    Animated,
+    ActivityIndicator
 } from 'react-native';
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 // Relative Imports
 import firebase from '../firebase';
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
-import DropDown from '../components/DropDown';
+// import DropDown from '../components/DropDown';
 import PaymentMethod from '../components/PaymentMethod';
 import OopsPopup from '../components/OopsPopup';
 import SuccessPopup from '../components/SuccessPopup';
@@ -49,9 +50,15 @@ const CHANGE_LOCATION_MESSAGE =
 const MAP_HEIGHT = emY(8.25);
 
 class CheckoutScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
+    static navigationOptions = ({ navigation, pending }) => ({
         title: 'Checkout',
-        headerLeft: <BackButton onPress={() => navigation.goBack()} />,
+        headerLeft: <BackButton
+            onPress={
+                pending ?
+                () => navigation.goBack() :
+                () => {}
+            }
+        />,
         headerRight: <TransparentButton />,
         headerStyle: Style.header,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
@@ -79,9 +86,9 @@ class CheckoutScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.cart && nextProps.cart) {
-            this.props.fetchProductsRequest();
-        }
+        // if (!this.props.cart && nextProps.cart) {
+        //     this.props.fetchProductsRequest();
+        // }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -118,7 +125,7 @@ class CheckoutScreen extends Component {
     };
 
     lightABeacon = () => {
-        const { selectedCard, navigation, totalCost, notes } = this.props;
+        const { selectedCard, navigation, totalCost, notes, orderId, cart } = this.props;
         if (selectedCard) {
             const cardId = selectedCard.id;
             this.props.submitPaymentRequest();
@@ -126,7 +133,9 @@ class CheckoutScreen extends Component {
                 navigation,
                 cardId,
                 totalCost,
-                notes
+                notes,
+                orderId,
+                cart
             );
         } else {
             dropdownAlert(true, 'Go to Menu to add payment method');
@@ -149,7 +158,8 @@ class CheckoutScreen extends Component {
             notes,
             address,
             region,
-            selectedCard
+            selectedCard,
+            pending
         } = this.props;
         const { removeOrderPopupVisible, changeLocationPopupVisible } = this.state;
         const serviceChargeFormatted = serviceCharge ? (serviceCharge / 100).toFixed(2) : 0;
@@ -160,98 +170,105 @@ class CheckoutScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.scrollContainer}>
-                    <View style={styles.container}>
-                        <MapView region={region} style={styles.map}>
-                            <MapView.Marker
-                                image={beaconIcon}
-                                coordinate={region}
-                                title="You"
-                                description="Your Delivery Location"
-                                anchor={{ x: 0.2, y: 1 }}
-                                centerOffset={{ x: 12, y: -25 }}
+                {pending ?
+                    <ActivityIndicator
+                        size="large"
+                        style={StyleSheet.absoluteFill}
+                    /> :
+                    <ScrollView style={styles.scrollContainer}>
+                        <View style={styles.container}>
+                            <MapView region={region} style={styles.map}>
+                                <MapView.Marker
+                                    image={beaconIcon}
+                                    coordinate={region}
+                                    title="You"
+                                    description="Your Delivery Location"
+                                    anchor={{ x: 0.2, y: 1 }}
+                                    centerOffset={{ x: 12, y: -25 }}
+                                />
+                            </MapView>
+                            <Button
+                                onPress={this.lightABeacon}
+                                title="LIGHT A BEACON!"
+                                containerViewStyle={styles.buttonContainer}
+                                buttonStyle={styles.button}
+                                textStyle={styles.buttonText}
                             />
-                        </MapView>
-                        <Button
-                            onPress={this.lightABeacon}
-                            title="LIGHT A BEACON!"
-                            containerViewStyle={styles.buttonContainer}
-                            buttonStyle={styles.button}
-                            textStyle={styles.buttonText}
-                        />
-                        <View style={styles.itemHeader}>
-                            <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
-                        </View>
-                        <View style={styles.dropdownContainer}>
-                            <PaymentMethod
-                                type={selectedCard.brand}
-                                text={selectedCard.last4}
+                            <View style={styles.itemHeader}>
+                                <Text stye={styles.itemHeaderLabel}>PAYMENT METHOD</Text>
+                            </View>
+                            <View style={styles.dropdownContainer}>
+                                <PaymentMethod
+                                    type={selectedCard.brand}
+                                    text={selectedCard.last4}
+                                />
+                            </View>
+                            <View style={styles.itemHeader}>
+                                <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
+                            </View>
+                            <View style={styles.itemBody}>
+                                <Text style={styles.itemBodyLabel}>{address}</Text>
+                                <TouchableOpacity
+                                    style={styles.itemButton}
+                                    onPress={this.changeLocation}
+                                >
+                                    <Text style={styles.itemButtonText}>Change</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.itemHeader}>
+                                <Text style={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
+                                <Text style={styles.itemHeaderLabelNotes}>(Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)</Text>
+                            </View>
+                            <View style={styles.itemBody}>
+                                <Text style={styles.itemBodyLabel}>{notes}</Text>
+                                <TouchableOpacity
+                                    style={styles.itemButton}
+                                    onPress={this.openDeliveryNotes}
+                                >
+                                    <Text style={styles.itemButtonText}>Change</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.itemHeader}>
+                                <Text stye={styles.itemHeaderLabel}>PRODUCT SUMMARY</Text>
+                            </View>
+                            <OrderList
+                                orders={cart}
+                                orderImages={cartImages}
+                                onAddOrder={this.props.addToCart}
+                                onRemoveOrder={this.handleRemoveOrder}
                             />
                         </View>
-                        <View style={styles.itemHeader}>
-                            <Text stye={styles.itemHeaderLabel}>DELIVERY LOCATION</Text>
+                        <View style={styles.cart}>
+                            {!!serviceCharge && <View style={styles.meta}>
+                                <Text style={styles.label}>Service Charge:</Text>
+                                <Text style={styles.cost}>${serviceChargeFormatted}</Text>
+                            </View>}
+                            {!!serviceFee && <View style={styles.meta}>
+                                <Text style={styles.label}>Service Fee:</Text>
+                                <Text style={styles.cost}>${serviceFeeFormatted}</Text>
+                            </View>}
+                            {!!deliveryFee && <View style={styles.meta}>
+                                <Text style={styles.label}>Delivery Fee:</Text>
+                                <Text style={styles.cost}>${deliveryFeeFormatted}</Text>
+                            </View>}
+                            <View style={styles.meta}>
+                                <Text style={styles.label}>Tax:</Text>
+                                <Text style={styles.cost}>${taxFormatted}</Text>
+                            </View>
+                            <View style={styles.meta}>
+                                <Text style={styles.label}>Order Total:</Text>
+                                <Text style={styles.cost}>${totalCostFormatted}</Text>
+                            </View>
+                            <Button
+                                onPress={this.lightABeacon}
+                                title="LIGHT A BEACON!"
+                                containerViewStyle={styles.buttonContainer}
+                                buttonStyle={styles.button}
+                                textStyle={styles.buttonText}
+                            />
                         </View>
-                        <View style={styles.itemBody}>
-                            <Text style={styles.itemBodyLabel}>{address}</Text>
-                            <TouchableOpacity
-                                style={styles.itemButton}
-                                onPress={this.changeLocation}
-                            >
-                                <Text style={styles.itemButtonText}>Change</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.itemHeader}>
-                            <Text style={styles.itemHeaderLabel}>DELIVERY NOTES</Text>
-                        </View>
-                        <View style={styles.itemBody}>
-                            <Text style={styles.itemBodyLabel}>{notes}</Text>
-                            <TouchableOpacity
-                                style={styles.itemButton}
-                                onPress={this.openDeliveryNotes}
-                            >
-                                <Text style={styles.itemButtonText}>Change</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.itemHeader}>
-                            <Text stye={styles.itemHeaderLabel}>PRODUCT SUMMARY</Text>
-                        </View>
-                        <OrderList
-                            orders={cart}
-                            orderImages={cartImages}
-                            onAddOrder={this.props.addToCart}
-                            onRemoveOrder={this.handleRemoveOrder}
-                        />
-                    </View>
-                    <View style={styles.cart}>
-                        {!!serviceCharge && <View style={styles.meta}>
-                            <Text style={styles.label}>Service Charge:</Text>
-                            <Text style={styles.cost}>${serviceChargeFormatted}</Text>
-                        </View>}
-                        {!!serviceFee && <View style={styles.meta}>
-                            <Text style={styles.label}>Service Fee:</Text>
-                            <Text style={styles.cost}>${serviceFeeFormatted}</Text>
-                        </View>}
-                        {!!deliveryFee && <View style={styles.meta}>
-                            <Text style={styles.label}>Delivery Fee:</Text>
-                            <Text style={styles.cost}>${deliveryFeeFormatted}</Text>
-                        </View>}
-                        <View style={styles.meta}>
-                            <Text style={styles.label}>Tax:</Text>
-                            <Text style={styles.cost}>${taxFormatted}</Text>
-                        </View>
-                        <View style={styles.meta}>
-                            <Text style={styles.label}>Order Total:</Text>
-                            <Text style={styles.cost}>${totalCostFormatted}</Text>
-                        </View>
-                        <Button
-                            onPress={this.lightABeacon}
-                            title="LIGHT A BEACON!"
-                            containerViewStyle={styles.buttonContainer}
-                            buttonStyle={styles.button}
-                            textStyle={styles.buttonText}
-                        />
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                }
                 <OopsPopup
                     openModal={removeOrderPopupVisible}
                     closeModal={this.removeOrderConfirmed}
@@ -291,6 +308,10 @@ const styles = StyleSheet.create({
     itemHeaderLabel: {
         fontSize: emY(0.83),
         color: Color.GREY_600
+    },
+    itemHeaderLabelNotes: {
+        fontSize: emY(0.6),
+        color: Color.GREY_500
     },
     itemBody: {
         flexDirection: 'row',
@@ -372,7 +393,8 @@ const mapStateToProps = state => ({
     region: state.cart.region,
     cards: state.payment.cards,
     selectedCard: state.payment.selectedCard,
-    pending: state.payment.pending
+    pending: state.payment.pending,
+    orderId: state.order.currentOrderDatabaseKey
 });
 
 const mapDispatchToProps = {

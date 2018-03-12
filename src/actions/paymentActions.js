@@ -22,7 +22,9 @@ export const submitPayment = (
     navigation,
     cardId,
     totalCost,
-    notes
+    notes,
+    orderId,
+    cart
     ) => async dispatch => {
         // TODO: do something with notes
         const user = firebase.auth().currentUser;
@@ -32,14 +34,14 @@ export const submitPayment = (
             currency: 'usd',
             source: cardId
         };
-        return api.chargeStripeCustomerSource({ uid, charge })
+        return api.chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
             .then(() => {
-                firebase.database().ref('products/US/TX/Austin').off();
-                navigation.navigate('deliveryStatus');
+                dropdownAlert(true, 'Payment success');
                 dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+                navigation.navigate('deliveryStatus');
             })
             .catch(() => {
-                dropdownAlert(true, 'Error, could not charge card');
+                dropdownAlert(true, 'Error submitting payment');
                 dispatch({ type: SUBMIT_PAYMENT_FAILURE });
             });
         };
@@ -79,32 +81,32 @@ export const deleteCard = (...args) => async dispatch => {
 };
 
 export const listCards = uid => async dispatch => {
-    try {
-        dispatch({ type: LIST_CARDS });
-        const docRef = firebase.firestore().collection('userOwned').doc(uid);
-        const doc = await docRef.get();
-        if (doc.exists) {
-            const data = doc.data();
-            dispatch({
-                type: LIST_CARDS_SUCCESS,
-                payload: data
-            });
-            dispatch({
-                type: SELECTED_CARD,
-                payload: data
-            });
-            return data;
-        } else {
-            throw new Error('No such record of payment info!');
-        }
-    } catch (error) {
-        dispatch(dropdownAlert(true, 'No payment record on file!'));
-        dispatch({
-            type: LIST_CARDS_FAIL,
-            error
-        });
-        throw error;
-    }
+    // try {
+    //     dispatch({ type: LIST_CARDS });
+    //     const docRef = firebase.firestore().collection('userOwned').doc(uid);
+    //     const doc = await docRef.get();
+    //     if (doc.exists) {
+    //         const data = doc.data();
+    //         dispatch({
+    //             type: LIST_CARDS_SUCCESS,
+    //             payload: data
+    //         });
+    //         dispatch({
+    //             type: SELECTED_CARD,
+    //             payload: data
+    //         });
+    //         return data;
+    //     } else {
+    //         throw new Error('No such record of payment info!');
+    //     }
+    // } catch (error) {
+    //     dispatch(dropdownAlert(true, 'No payment record on file!'));
+    //     dispatch({
+    //         type: LIST_CARDS_FAIL,
+    //         error
+    //     });
+    //     throw error;
+    // }
 };
 
 export const selectCard = (card) => dispatch => {

@@ -16,7 +16,8 @@ import {
 
 const initialState = {
     cards: [],
-    selectedCard: ''
+    selectedCard: '',
+    pending: false
 };
 
 export default function (state = initialState, action) {

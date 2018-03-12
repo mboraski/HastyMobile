@@ -48,7 +48,7 @@ const mutateProductsIntoCart = (newProducts) => {
     // for each product, set a new object in the cart object at key of productName
     const newInstantCart = {};
     _.forEach(newProducts.instant, (product) => {
-        if (product) {            
+        if (product) {
             newInstantCart[product.productName] = {
                 categories: product.categories,
                 imageUrl: product.imageUrl,

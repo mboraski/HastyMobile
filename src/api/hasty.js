@@ -19,8 +19,12 @@ export function removeStripeCustomerSource(args) {
     return instance.post('removeStripeCustomerSource', args);
 }
 
-export function chargeStripeCustomerSource(charge) {
-    return instance.post('chargeStripeCustomerSource', charge);
+export function chargeStripeCustomerSource(args) {
+    return instance.post('chargeStripeCustomerSource', args);
+}
+
+export function logCustomerError(args) {
+    return instance.post('logCustomerError', args);
 }
 
 function handleRequestConfig(config) {
