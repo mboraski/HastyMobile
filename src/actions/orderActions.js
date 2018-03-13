@@ -10,6 +10,7 @@ export const ORDER_CREATION_FAILURE = 'order_creation_failure';
 export const LISTEN_ORDER_REQUEST = 'listen_order_request';
 export const LISTEN_ORDER_FAILURE = 'listen_order_failure';
 export const ORDER_UPDATE = 'order_update';
+export const NEW_HERO = 'new_hero';
 
 export const orderCreationSuccess = (key) => dispatch => {
     dispatch({
@@ -37,6 +38,10 @@ export const listenToOrder = (orderId) => dispatch => {
                     dispatch({
                         type: ORDER_UPDATE,
                         payload: orderStatuses.accepted
+                    });
+                    dispatch({
+                        type: NEW_HERO,
+                        payload: order.hero
                     });
                     break;
                 case orderStatuses.arrived:

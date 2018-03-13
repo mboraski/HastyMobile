@@ -58,13 +58,25 @@ class DeliveryStatusScreen extends Component {
     }
 
     renderHeroList() {
-        if (this.props.status === orderStatuses.accepted) {
+        if ((this.props.status === orderStatuses.accepted) || (this.props.status === orderStatuses.arrived)) {
             return (
                 <View style={styles.container}>
                     <View style={styles.label}>
-                        <Text style={styles.labelText}>Located Heroes...</Text>
+                        <Text style={styles.labelText}>Hero Details:</Text>
                     </View>
                     <HeroList />
+                </View>
+            );
+        }
+    }
+
+    renderArrived() {
+        if (this.props.status === orderStatuses.arrived) {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.labelAlt}>
+                        <Text style={styles.labelText}>Note: Look for orange shirt and/or Hasty "H"</Text>
+                    </View>
                 </View>
             );
         }
@@ -81,6 +93,7 @@ class DeliveryStatusScreen extends Component {
                 </View>
                 <Notification onRef={ref => (this.notRef = ref)} />
                 {this.renderHeroList()}
+                {this.renderArrived()}
             </View>
         );
     }
@@ -140,15 +153,24 @@ const styles = StyleSheet.create({
         marginBottom: emY(3)
     },
     spinner: {
-        marginVertical: 30
+        marginTop: 30,
+        marginBottom: 20
     },
     label: {
         borderBottomWidth: StyleSheet.hairlineWidth * 3,
         borderColor: Color.GREY_300,
         backgroundColor: Color.WHITE,
-        paddingBottom: emY(0.375),
+        paddingBottom: 5,
         marginLeft: 27,
         marginRight: 27
+    },
+    labelAlt: {
+        borderColor: Color.GREY_300,
+        backgroundColor: Color.WHITE,
+        paddingBottom: 5,
+        marginLeft: 27,
+        marginRight: 27,
+        marginVertical: 10
     },
     labelText: {
         color: Color.GREY_600,

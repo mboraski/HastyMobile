@@ -3,14 +3,16 @@ import {
     ORDER_CREATION_FAILURE,
     LISTEN_ORDER_REQUEST,
     LISTEN_ORDER_FAILURE,
-    ORDER_UPDATE
+    ORDER_UPDATE,
+    NEW_HERO
 } from '../actions/orderActions';
 // import orderStatuses from '../constants/Order';
 
 const initialState = {
     currentOrderDatabaseKey: '',
     pending: false,
-    status: ''
+    status: '',
+    hero: {}
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -39,6 +41,12 @@ const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: action.payload,
+                pending: false
+            };
+        case NEW_HERO:
+            return {
+                ...state,
+                hero: action.payload,
                 pending: false
             };
         default:

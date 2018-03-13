@@ -19,6 +19,9 @@ export class Notification extends Component {
 
     componentDidMount() {
         this.props.onRef(this);
+        const newNotificaiton = this.getNotification();
+        this.setState({ currNotification: newNotificaiton });
+        this.setState({ nextNotification: newNotificaiton });
     }
 
     componentWillUnmount() {
@@ -28,7 +31,7 @@ export class Notification extends Component {
     getNotification = () => {
         switch (this.props.status) {
             case orderStatuses.unaccepted:
-                return 'Searching the skyies for a hero...';
+                return 'Searching the skies for a hero...';
             case orderStatuses.accepted:
                 return 'Found a hero!';
             case orderStatuses.arrived:
