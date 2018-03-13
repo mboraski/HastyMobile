@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 
 import Text from './Text';
-import NotificationActions from '../actions/notificationActions';
+// import NotificationActions from '../actions/notificationActions';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-
-const DEFAULT_NOTIFICATION = 'Searching the skies for signs of a hero...';
-const notificationList = [
-    'Found a hero!',
-    'Looking for another to complete the order...',
-    'Found a hero!',
-    'Your heroes are on their way!',
-    'Jessica has arrived',
-    'Jessica completed order',
-    'Matt has arrived',
-    'Matt completed order',
-    'Your order is complete!'
-];
+import orderStatuses from '../constants/Order';
 
 export class Notification extends Component {
     state = {
         topValue: new Animated.Value(emY(11)),
         opacity: new Animated.Value(1),
-        prevNotificaiton: DEFAULT_NOTIFICATION,
-        currNotificaiton: DEFAULT_NOTIFICATION
+        nextNotification: 'Searching the skies for a hero...',
+        currNotification: 'Searching the skies for a hero...'
     }
 
     componentDidMount() {
@@ -37,11 +25,23 @@ export class Notification extends Component {
         this.props.onRef(undefined);
     }
 
+    getNotification = () => {
+        switch (this.props.status) {
+            case orderStatuses.unaccepted:
+                return 'Searching the skyies for a hero...';
+            case orderStatuses.accepted:
+                return 'Found a hero!';
+            case orderStatuses.arrived:
+                return 'Hero has arrived!';
+            case orderStatuses.completed:
+                return 'Order complete';
+            default:
+                break;
+        }
+    }
+
     receiveNotification = () => {
-        const { actions } = this.props;
-        const newNotificaiton = notificationList[this.props.i];
-        this.setState({ currNotificaiton: newNotificaiton });
-        actions.nextNotificaiton({ index: this.props.i + 1 });
+        this.setState({ currNotification: this.state.currNotification });
         Animated.parallel([
             Animated.timing(this.state.topValue,
                 {
@@ -56,7 +56,8 @@ export class Notification extends Component {
                 }
             )
         ]).start(() => {
-            this.setState({ prevNotificaiton: newNotificaiton });
+            const newNotificaiton = this.getNotification();
+            this.setState({ nextNotification: newNotificaiton });
             Animated.parallel([
                 Animated.timing(this.state.topValue,
                     {
@@ -75,18 +76,18 @@ export class Notification extends Component {
     }
 
     render() {
-        const { prevNotificaiton, currNotificaiton } = this.state;
+        const { nextNotification, currNotification } = this.state;
         return (
             <View style={styles.alertSection}>
                 <Animated.View
                     style={[styles.alert, { opacity: this.state.opacity, top: 0 }]}
                 >
-                    <Text style={styles.alertText}>{prevNotificaiton}</Text>
+                    <Text style={styles.alertText}>{nextNotification}</Text>
                 </Animated.View>
                 <Animated.View
                     style={[styles.alert, { top: this.state.topValue }]}
                 >
-                    <Text style={styles.alertText}>{currNotificaiton}</Text>
+                    <Text style={styles.alertText}>{currNotification}</Text>
                 </Animated.View>
             </View>
         );
@@ -123,17 +124,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ notification }) => ({ i: notification.index || 0 });
+const mapStateToProps = state => ({
+    status: state.order.status,
+    pending: state.order.pending
+});
 
-
-const mapDispatchToProps = function (dispatch) {
-    const notificationActions = bindActionCreators(NotificationActions, dispatch);
-
-    return {
-        actions: {
-            nextNotificaiton: notificationActions.newNotificaiton
-        }
-    };
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

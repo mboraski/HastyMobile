@@ -18,6 +18,11 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 // import tempAvatar from '../assets/profile.png';
 // import { getFacebookInfo } from '../selectors/authSelectors';
+import {
+    listenToOrder,
+    unlistenToOrder
+} from '../actions/orderActions';
+import orderStatuses from '../constants/Order';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -31,13 +36,9 @@ class DeliveryStatusScreen extends Component {
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
-    // componentDidMount() { // TODO: do this for all screens with menu drawer
-    //     if (this.props.header.isMenuOpen) {
-    //         this.props.navigation.navigate('DrawerOpen');
-    //     } else {
-    //         this.props.navigation.navigate('DrawerClose');
-    //     }
-    // }
+    componentDidMount() {
+        this.props.listenToOrder(this.props.orderId);
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
@@ -47,37 +48,39 @@ class DeliveryStatusScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
+        if (this.props.status !== nextProps.status) {
+            this.notRef.receiveNotification();
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.unlistenToOrder(this.props.orderId);
+    }
+
+    renderHeroList() {
+        if (this.props.status === orderStatuses.accepted) {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.label}>
+                        <Text style={styles.labelText}>Located Heroes...</Text>
+                    </View>
+                    <HeroList />
+                </View>
+            );
+        }
     }
 
     render() {
-        // const { facebookInfo } = this.props;
         return (
             <View style={styles.container}>
-                {/* <View style={styles.profile}>
-                    {facebookInfo && facebookInfo.photoURL ? (
-                        <Spinner
-                            image={{ uri: facebookInfo.photoURL }}
-                            style={styles.loader}
-                        />
-                    ) :
-                        <Image
-                            source={tempAvatar}
-                            style={styles.image}
-                        />
-                    }
-                </View> */}
                 <View style={styles.spinner}>
                     <ActivityIndicator
                         size="large"
                         color="#F5A623"
                     />
                 </View>
-                <Text style={styles.searching}>Searching...</Text>
                 <Notification onRef={ref => (this.notRef = ref)} />
-                <View style={styles.label}>
-                    <Text style={styles.labelText}>Located Heroes...</Text>
-                </View>
-                <HeroList />
+                {this.renderHeroList()}
             </View>
         );
     }
@@ -156,9 +159,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     header: state.header,
-    // facebookInfo: getFacebookInfo(state)
+    orderId: state.order.currentOrderDatabaseKey,
+    status: state.order.status,
+    pending: state.order.pending
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = {
+    listenToOrder,
+    unlistenToOrder
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);
