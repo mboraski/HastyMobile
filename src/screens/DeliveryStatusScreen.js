@@ -31,13 +31,13 @@ class DeliveryStatusScreen extends Component {
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
-    componentDidMount() { // TODO: do this for all screens with menu drawer
-        if (this.props.header.isMenuOpen) {
-            this.props.navigation.navigate('DrawerOpen');
-        } else {
-            this.props.navigation.navigate('DrawerClose');
-        }
-    }
+    // componentDidMount() { // TODO: do this for all screens with menu drawer
+    //     if (this.props.header.isMenuOpen) {
+    //         this.props.navigation.navigate('DrawerOpen');
+    //     } else {
+    //         this.props.navigation.navigate('DrawerClose');
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
