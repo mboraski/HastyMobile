@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Image,
     View,
-    TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
@@ -35,13 +34,12 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-
-    handleViewProfile = () => {
-        this.props.navigation.navigate('profile');
-    };
+    // handleViewProfile = () => {
+    //     this.props.navigation.navigate('profile');
+    // };
 
     cartPress = () => {
-        this.props.navigation.navigate('cart');
+        this.props.navigation.navigate('checkout');
     };
 
     handleHelpPress = () => {
@@ -49,13 +47,17 @@ class MenuContent extends Component {
         this.props.openCustomerPopup();
     };
 
+    deliveryStatusPress = () => {
+        this.props.navigation.navigate('deliveryStatus');
+    };
+
     paymentInfoPress = () => {
         this.props.navigation.navigate('paymentMethod');
     };
 
-    promotionSharePress = () => {
-        this.props.navigation.navigate('promotionShare');
-    };
+    // promotionSharePress = () => {
+    //     this.props.navigation.navigate('promotionShare');
+    // };
 
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');
@@ -81,7 +83,7 @@ class MenuContent extends Component {
     };
 
     render() {
-        const { items, activeItemKey, onItemPress, facebookInfo } = this.props;
+        const { items, activeItemKey, facebookInfo } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -121,13 +123,13 @@ class MenuContent extends Component {
                     /> */}
                     <MenuItem
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
+                        onPress={this.deliveryStatusPress}
                         image={notificationIcon}
-                        title="Notifications"
+                        title="Order"
                         // badge="0"
                     />
                     <MenuItem
-                        route={getRoute(items, 'cart')}
+                        route={getRoute(items, 'checkout')}
                         activeItemKey={activeItemKey}
                         onPress={this.cartPress}
                         image={cartIcon}

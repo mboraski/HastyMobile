@@ -9,14 +9,14 @@ import Text from './Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import chatIcon from '../assets/icons/chat.png';
+// import chatIcon from '../assets/icons/chat.png';
 
 const IMAGE_SIZE = emY(4.25);
 const CHAT_SIZE = emY(3.375);
 const CHAT_IMAGE_SIZE = emY(1.3125);
 
 const HeroDetail = props => {
-    const { name, type, delivery_time, image } = props.hero;
+    const { name, type, deliveryTime, image } = props.hero;
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: image }} />
@@ -29,12 +29,12 @@ const HeroDetail = props => {
                             {type}
                         </Text>
                     </View>
-                    <TouchableOpacity style={styles.chatButton}>
+                    {/* <TouchableOpacity style={styles.chatButton}>
                         <Image source={chatIcon} style={styles.chatImage} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <Text style={[styles.metaItem, styles.metaItemLast, styles.deliveryTime]}>
-                    Estimated Delivery Time: {delivery_time} min
+                    Estimated Delivery Time: {deliveryTime} min
                 </Text>
             </View>
         </View>

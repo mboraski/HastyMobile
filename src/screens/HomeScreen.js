@@ -30,7 +30,7 @@ import { dropdownAlert } from '../actions/uiActions';
 import getProductsState from '../selectors/productSelectors';
 import { emY } from '../utils/em';
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
-import MapHeader from '../containers/MapHeader';
+import HomeHeader from '../containers/HomeHeader';
 
 
 class HomeScreen extends Component {
@@ -103,6 +103,7 @@ class HomeScreen extends Component {
             productsShown,
             category,
             numberOfProducts,
+            productImages
         } = this.props;
         return (
             <View style={styles.container}>
@@ -135,7 +136,7 @@ class HomeScreen extends Component {
                         style={StyleSheet.absoluteFill}
                     />
                 ) :
-                    <View>
+                    <View style={styles.container}>
                         <ScrollView
                             horizontal
                             style={styles.filters}
@@ -146,6 +147,7 @@ class HomeScreen extends Component {
                         {productsShown &&
                             <ProductList
                                 products={productsShown}
+                                productImages={productImages}
                                 callAddToCart={this.callAddToCart}
                             />
                         }
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: Dimensions.window.height / 4,
+        height: Dimensions.window.height / 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     checkout: {
-        height: Dimensions.window.height / 4,
+        height: Dimensions.window.height / 5,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Color.GREEN_500
@@ -201,17 +203,20 @@ const styles = StyleSheet.create({
     filters: {
         ...Platform.select({
             ios: {
-                height: 70
+                height: 70,
+                maxHeight: 70
             },
             android: {
-                height: 70
+                height: 70,
+                maxHeight: 70
             }
         })
     },
     filtersContent: {
         paddingLeft: 5,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        maxHeight: 70
     },
     filterButton: {
         minWidth: 120,
@@ -238,7 +243,7 @@ const styles = StyleSheet.create({
 });
 
 HomeScreen.navigationOptions = {
-    header: <MapHeader />
+    header: <HomeHeader />
 };
 
 // HomeScreen.navigationOptions = ({ navigation }) => ({

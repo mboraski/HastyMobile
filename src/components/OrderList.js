@@ -11,8 +11,15 @@ import Color from '../constants/Color';
 
 class OrderList extends Component {
     renderOrders() {
+        const {
+            orders,
+            orderImages,
+            onAddOrder,
+            onRemoveOrder
+        } = this.props;
         let prevDeliveryType;
-        return _.map(this.props.orders, order => {
+        return _.map(orders, order => {
+            const image = orderImages[order.productName] || '';
             let renderMark;
             if (prevDeliveryType !== 'instant') {
                 renderMark = (
@@ -23,8 +30,9 @@ class OrderList extends Component {
                         </View>
                         <OrderDetail
                             order={order}
-                            onAddOrder={() => this.props.onAddOrder(order)}
-                            onRemoveOrder={() => this.props.onRemoveOrder(order)}
+                            image={image}
+                            onAddOrder={() => onAddOrder(order)}
+                            onRemoveOrder={() => onRemoveOrder(order)}
                         />
                     </View>
                 );
@@ -34,8 +42,9 @@ class OrderList extends Component {
                     <View key={`instant-${order.productName}`}>
                         <OrderDetail
                             order={order}
-                            onAddOrder={() => this.props.onAddOrder(order)}
-                            onRemoveOrder={() => this.props.onRemoveOrder(order)}
+                            image={image}
+                            onAddOrder={() => onAddOrder(order)}
+                            onRemoveOrder={() => onRemoveOrder(order)}
                         />
                     </View>
                 );

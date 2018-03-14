@@ -7,15 +7,36 @@ import {
     DELETE_CARD_FAIL,
     LIST_CARDS,
     LIST_CARDS_SUCCESS,
-    LIST_CARDS_FAIL
+    LIST_CARDS_FAIL,
+    SELECTED_CARD,
+    SUBMIT_PAYMENT_REQUEST,
+    SUBMIT_PAYMENT_SUCCESS,
+    SUBMIT_PAYMENT_FAILURE
 } from '../actions/paymentActions';
 
 const initialState = {
-    cards: []
+    cards: [],
+    selectedCard: '',
+    pending: false
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case SUBMIT_PAYMENT_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case SUBMIT_PAYMENT_SUCCESS:
+            return {
+                ...state,
+                pending: false
+            };
+        case SUBMIT_PAYMENT_FAILURE:
+            return {
+                ...state,
+                pending: false
+            };
         case ADD_CARD:
             return {
                 ...state,
@@ -65,6 +86,12 @@ export default function (state = initialState, action) {
                 ...state,
                 pending: false,
                 error: action.error
+            };
+        case SELECTED_CARD:
+            return {
+                ...state,
+                selectedCard: action.payload.paymentInfo ? action.payload.paymentInfo.data[0] : {},
+                pending: false
             };
         default:
             return state;

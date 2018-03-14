@@ -40,9 +40,9 @@ class CartScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.cart && nextProps.cart) {
-            this.props.fetchProductsRequest();
-        }
+        // if (!this.props.cart && nextProps.cart) {
+        //     this.props.fetchProductsRequest();
+        // }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {

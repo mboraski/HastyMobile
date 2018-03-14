@@ -2,7 +2,8 @@ import {
     SELECT_CATEGORY,
     FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE
+    FETCH_PRODUCTS_FAILURE,
+    SET_IMAGE
 } from '../actions/productActions';
 
 export const initialState = {
@@ -12,7 +13,8 @@ export const initialState = {
         instant: {}
     },
     category: 'SXSW',
-    products: {}
+    // products: {},
+    productImages: {}
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +42,14 @@ export default function (state = initialState, action) {
                 ...state,
                 category: action.payload
             };
+        case SET_IMAGE: {
+            const { productName = '', url = '' } = action.payload;
+            const productImages = Object.assign({}, state.productImages, { [productName]: url });
+            return {
+                ...state,
+                productImages
+            };
+        }
         default:
             return state;
     }

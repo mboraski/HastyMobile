@@ -1,27 +1,45 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements';
 
 // Relative Imports
 import loaderGradient from '../assets/loader-gradient.png';
 import loaderTicks from '../assets/loader-ticks.png';
-import MenuButtonRight from '../components/MenuButtonRight';
+import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
-import Spinner from '../components/Spinner';
+// import Spinner from '../components/Spinner';
 import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import tempAvatar from '../assets/profile.png';
+// import tempAvatar from '../assets/profile.png';
+// import { getFacebookInfo } from '../selectors/authSelectors';
+import {
+    listenToOrder,
+    unlistenToOrder
+} from '../actions/orderActions';
+import orderStatuses from '../constants/Order';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 
 class DeliveryStatusScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Order',
+        headerLeft: <MenuButton style={Style.headerLeft} />,
+        headerRight: <BrandButton onPress={() => navigation.goBack()} />,
+        headerStyle: Style.headerBorderless,
+        headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
+    });
+
+    componentDidMount() {
+        this.props.listenToOrder(this.props.orderId);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
@@ -30,23 +48,52 @@ class DeliveryStatusScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
+        if (this.props.status !== nextProps.status) {
+            this.notRef.receiveNotification();
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.unlistenToOrder(this.props.orderId);
+    }
+
+    renderHeroList() {
+        if ((this.props.status === orderStatuses.accepted) || (this.props.status === orderStatuses.arrived)) {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.label}>
+                        <Text style={styles.labelText}>Hero Details:</Text>
+                    </View>
+                    <HeroList />
+                </View>
+            );
+        }
+    }
+
+    renderArrived() {
+        if (this.props.status === orderStatuses.arrived) {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.labelAlt}>
+                        <Text style={styles.labelText}>Note: Look for orange shirt and/or Hasty "H"</Text>
+                    </View>
+                </View>
+            );
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.notRef.receiveNotification()}>
-                    <Spinner
-                        image={tempAvatar}
-                        style={styles.loader}
+                <View style={styles.spinner}>
+                    <ActivityIndicator
+                        size="large"
+                        color="#F5A623"
                     />
-                </TouchableOpacity>
-                <Text style={styles.searching}>Searching...</Text>
-                <Notification onRef={ref => (this.notRef = ref)} />
-                <View style={styles.label}>
-                    <Text style={styles.labelText}>Located Heroes...</Text>
                 </View>
-                <HeroList />
+                <Notification onRef={ref => (this.notRef = ref)} />
+                {this.renderHeroList()}
+                {this.renderArrived()}
             </View>
         );
     }
@@ -56,6 +103,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    profile: {
+        alignItems: 'center',
+        marginTop: emY(2.68)
     },
     loader: {
         height: emY(11),
@@ -101,13 +152,25 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: emY(3)
     },
+    spinner: {
+        marginTop: 30,
+        marginBottom: 20
+    },
     label: {
         borderBottomWidth: StyleSheet.hairlineWidth * 3,
         borderColor: Color.GREY_300,
         backgroundColor: Color.WHITE,
-        paddingBottom: emY(0.375),
+        paddingBottom: 5,
         marginLeft: 27,
         marginRight: 27
+    },
+    labelAlt: {
+        borderColor: Color.GREY_300,
+        backgroundColor: Color.WHITE,
+        paddingBottom: 5,
+        marginLeft: 27,
+        marginRight: 27,
+        marginVertical: 10
     },
     labelText: {
         color: Color.GREY_600,
@@ -116,18 +179,16 @@ const styles = StyleSheet.create({
     }
 });
 
-DeliveryStatusScreen.navigationOptions = {
-    title: 'Hasty',
-    headerLeft: <MenuButtonRight />,
-    headerRight: <BrandButton />,
-    headerStyle: Style.headerBorderless,
-    headerTitleStyle: Style.headerTitle
-};
-
 const mapStateToProps = state => ({
-    header: state.header
+    header: state.header,
+    orderId: state.order.currentOrderDatabaseKey,
+    status: state.order.status,
+    pending: state.order.pending
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = {
+    listenToOrder,
+    unlistenToOrder
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);

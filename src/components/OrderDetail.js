@@ -1,6 +1,6 @@
 // Third Part Imports
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Relative Imports
@@ -8,28 +8,16 @@ import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
-import productImage0 from '../assets/product-0.png';
-import productImage1 from '../assets/product-1.png';
-import productImage2 from '../assets/product-2.png';
-import productImage3 from '../assets/product-3.png';
-
-const images = [
-    productImage0,
-    productImage1,
-    productImage2,
-    productImage3
-];
-
 const ICON_CONTAINER_SIZE = emY(2.1875);
 const ICON_SIZE = emY(0.75);
 
 const OrderDetail = props => {
-    const { onAddOrder, onRemoveOrder } = props;
-    const { productName, price, fetchedUrl, quantityTaken } = props.order;
-
+    const { onAddOrder, onRemoveOrder, order, image } = props;
+    const { productName, price, quantityTaken } = order;
+    const formattedPrice = `${Number.parseFloat(price / 100).toFixed(2)}`;
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={''} resizeMode="contain" />
+            <Image style={styles.image} source={{ uri: image }} resizeMode="contain" />
             <View style={styles.content}>
                 <Text style={styles.title}>{productName}</Text>
                 <View style={styles.deliveryType}>
@@ -41,7 +29,7 @@ const OrderDetail = props => {
                 </TouchableOpacity> */}
             </View>
             <View style={styles.actions}>
-                <Text style={styles.price}>${price}</Text>
+                <Text style={styles.price}>${formattedPrice}</Text>
                 <View style={styles.quantityContainer}>
                     <Icon
                         name="remove"

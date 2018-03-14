@@ -17,6 +17,7 @@
     "assetExts": ["ttf", "mp4"]
   },
   "ios": {
+    "bundleIdentifier": "com.spartanspeedofservice.hastycitizen",
     "supportsTablet": true
   }
 }

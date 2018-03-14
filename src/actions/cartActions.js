@@ -8,9 +8,9 @@ export const addToCart = product => ({
     payload: product
 });
 
-export const removeFromCart = productInfo => ({
+export const removeFromCart = product => ({
     type: REMOVE_FROM_CART,
-    payload: productInfo
+    payload: product
 });
 
 export const setCurrentLocation = (address, region) => ({
