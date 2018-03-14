@@ -18,7 +18,7 @@ export const initialState = {
     itemCountUp: false,
     itemCountDown: false,
     serviceFee: 0,
-    deliveryFee: 0,
+    deliveryFee: 200,
     serviceRate: 0.1,
     localSalesTaxRate: 0.0625,
     currentSetAddress: '310 E 5th St, Austin, TX 78701',

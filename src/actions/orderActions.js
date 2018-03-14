@@ -21,6 +21,10 @@ export const orderCreationSuccess = (key) => dispatch => {
 
 export const orderCreationFailure = () => dispatch => dispatch({ type: ORDER_CREATION_FAILURE });
 
+export const unlistenToOrder = (orderId) => () => {
+    firebase.database().ref(`orders/US/TX/Austin/${orderId}`).off();
+};
+
 export const listenToOrder = (orderId) => dispatch => {
     dispatch({ type: LISTEN_ORDER_REQUEST });
     console.log('orderId: ', orderId);
@@ -69,7 +73,3 @@ export const listenToOrder = (orderId) => dispatch => {
 //     dispatch(dropdownAlert(true, 'Error fetching your order status'));
 //     dispatch(dropdownAlert(true, 'Retry via Menu > Order'));
 // });
-
-export const unlistenToOrder = (orderId) => () => {
-    firebase.database().ref(`orders/US/TX/Austin/${orderId}`).off();
-};

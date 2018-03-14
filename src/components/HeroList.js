@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // Relative Imports
 import HeroDetail from './HeroDetail';
 
-export class HeroList extends Component {
+class HeroList extends Component {
     // heroes: [
     //     {
     //         id: 1,
@@ -26,14 +26,20 @@ export class HeroList extends Component {
 
     render() {
         const { hero } = this.props;
-        return (
-            <View style={styles.container}>
-                <HeroDetail
-                    key={hero.id}
-                    hero={hero}
-                />
-            </View>
-        );
+        let result;
+        console.log('hero: ', hero);
+        if (hero) {
+            result = (
+                <View style={styles.container}>
+                    <HeroDetail
+                        hero={hero}
+                    />
+                </View>
+            );
+        } else {
+            result = null;
+        }
+        return result;
     }
 }
 

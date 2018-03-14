@@ -122,6 +122,7 @@ class MenuContent extends Component {
                         title="Favorites & Recommended"
                     /> */}
                     <MenuItem
+                        route={getRoute(items, 'deliveryStatus')}
                         activeItemKey={activeItemKey}
                         onPress={this.deliveryStatusPress}
                         image={notificationIcon}
@@ -149,12 +150,12 @@ class MenuContent extends Component {
                         image={promotionIcon}
                         title="Promotions"
                     />*/}
-                    <MenuItem
+                    {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={this.handleHelpPress}
                         image={helpIcon}
                         title="Help"
-                    />
+                    /> */}
                     <MenuItem
                         onPress={this.signOut}
                         image={heroIcon}

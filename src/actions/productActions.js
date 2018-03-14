@@ -11,7 +11,7 @@ export const SET_IMAGE = 'set_image';
 export const fetchProductsRequest = () =>
     async (dispatch) => {
         dispatch({ type: FETCH_PRODUCTS_REQUEST });
-        return await firebase.database().ref('products/US/TX/Austin')
+        return await firebase.database().ref('activeProducts/US/TX/Austin')
             .on('value', (snapshot) => {
                 const products = snapshot.val();
                 // for some reason firebase has empty hashed database objects, this filters them

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Util } from 'expo';
 
 // Relative Imports
 import firebase from '../firebase';
@@ -13,10 +13,11 @@ import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { authChanged, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { reduxBoundAddListener } from '../store';
+import { reduxBoundAddListener, persistor } from '../store';
 
 class RootContainer extends Component {
     async componentWillMount() {
+        await Util.reload();
         if (
             this.props.user &&
             moment().isAfter(moment(this.props.authExpirationDate))
@@ -26,6 +27,18 @@ class RootContainer extends Component {
 
         firebase.auth().onAuthStateChanged(user => {
             this.props.authChanged(user);
+            if (user) {
+                firebase.database().ref('initialValues').once('value')
+                    .then((snapshot) => {
+                        const initialValues = snapshot.val();
+                        if (initialValues.purge) {
+                            persistor.purge();
+                        }
+                    })
+                    .catch((error) => {
+                        console.log('purge error: ', error);
+                    });
+            }
         });
 
         const { status: existingStatus } = await Permissions.getAsync(
@@ -63,7 +76,7 @@ class RootContainer extends Component {
     }
 
     componentWillUnMount() {
-        firebase.database().ref('products/US/TX/Austin').off();
+        firebase.database().ref('activeProducts/US/TX/Austin').off();
     }
 
     handleNotification = notification => {
