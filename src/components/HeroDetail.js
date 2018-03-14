@@ -16,7 +16,7 @@ const CHAT_SIZE = emY(3.375);
 const CHAT_IMAGE_SIZE = emY(1.3125);
 
 const HeroDetail = props => {
-    const { name, type, delivery_time, image } = props.hero;
+    const { name, type, deliveryTime, image } = props.hero;
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: image }} />
@@ -34,7 +34,7 @@ const HeroDetail = props => {
                     </TouchableOpacity> */}
                 </View>
                 <Text style={[styles.metaItem, styles.metaItemLast, styles.deliveryTime]}>
-                    Estimated Delivery Time: {delivery_time} min
+                    Estimated Delivery Time: {deliveryTime} min
                 </Text>
             </View>
         </View>
