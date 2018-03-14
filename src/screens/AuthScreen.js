@@ -76,11 +76,16 @@ class AuthScreen extends Component {
     };
 
     goToPayment = async user => {
-        const result = await this.props.listCards(user.uid);
-        if (result.paymentInfo && result.paymentInfo.total_count === 0) {
-            this.goToMap();
-            this.props.navigation.navigate('paymentMethod', { signedUp: true });
-        } else {
+        try {
+            const result = await this.props.listCards(user.uid);
+            if (result && result.paymentInfo && result.paymentInfo.total_count === 0) {
+                this.goToMap();
+                this.props.navigation.navigate('paymentMethod', { signedUp: true });
+            } else {
+                this.goToMap();
+            }
+        } catch (err) {
+            console.log('err', err);
             this.goToMap();
         }
     };
