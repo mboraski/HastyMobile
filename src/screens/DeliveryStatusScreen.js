@@ -16,7 +16,6 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { persistor } from '../store';
 // import tempAvatar from '../assets/profile.png';
 // import { getFacebookInfo } from '../selectors/authSelectors';
 import {
@@ -55,8 +54,9 @@ class DeliveryStatusScreen extends Component {
         if (this.props.status !== nextProps.status) {
             this.notRef.receiveNotification();
             if (nextProps.status === 'completed') {
-                // persistor.purge();
-                // this.props.navigation.navigate('map');
+                this.props.clearCart();
+                this.props.clearOrder();
+                this.props.navigation.navigate('map');
             }
         }
     }

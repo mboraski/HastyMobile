@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#f5a624",
-  "icon": "./src/assets/icons/logo-white.png",
+  "icon": "./src/assets/icons/HastyOrangeIcon.png",
   "splash": {
     "backgroundColor": "#f5a624",
     "resizeMode": "cover",
@@ -17,7 +17,8 @@
     "assetExts": ["ttf", "mp4"]
   },
   "ios": {
-    "bundleIdentifier": "com.spartanspeedofservice.hastycitizen",
+    "bundleIdentifier": "com.spartanspeedofservice.hasty",
+    "loadJSInBackgroundExperimental": true,
     "supportsTablet": true
   }
 }

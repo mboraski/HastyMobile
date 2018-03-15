@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { Permissions, Notifications, Util } from 'expo';
+import { Permissions, Notifications } from 'expo';
 
 // Relative Imports
 import firebase from '../firebase';
@@ -17,7 +17,6 @@ import { reduxBoundAddListener, persistor } from '../store';
 
 class RootContainer extends Component {
     async componentWillMount() {
-        await Util.reload();
         if (
             this.props.user &&
             moment().isAfter(moment(this.props.authExpirationDate))
