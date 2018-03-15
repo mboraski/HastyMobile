@@ -54,7 +54,7 @@ class CheckoutScreen extends Component {
         title: 'Checkout',
         headerLeft: <BackButton
             onPress={
-                pending ?
+                !pending ?
                 () => navigation.goBack() :
                 () => {}
             }
@@ -138,7 +138,7 @@ class CheckoutScreen extends Component {
                 cart
             );
         } else {
-            dropdownAlert(true, 'Go to Menu to add payment method');
+            this.props.dropdownAlert(true, 'Go to Menu to add payment method');
         }
     };
 
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
         color: Color.GREY_600
     },
     itemHeaderLabelNotes: {
-        fontSize: emY(0.6),
+        fontSize: emY(0.8),
         color: Color.GREY_500
     },
     itemBody: {

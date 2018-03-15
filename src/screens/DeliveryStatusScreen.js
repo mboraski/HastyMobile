@@ -16,6 +16,7 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
+import { persistor } from '../store';
 // import tempAvatar from '../assets/profile.png';
 // import { getFacebookInfo } from '../selectors/authSelectors';
 import {
@@ -37,7 +38,10 @@ class DeliveryStatusScreen extends Component {
     });
 
     componentDidMount() {
-        this.props.listenToOrder(this.props.orderId);
+        const orderId = this.props.orderId;
+        if (orderId) {
+            this.props.listenToOrder(orderId);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,6 +54,10 @@ class DeliveryStatusScreen extends Component {
         }
         if (this.props.status !== nextProps.status) {
             this.notRef.receiveNotification();
+            if (nextProps.status === 'completed') {
+                // persistor.purge();
+                // this.props.navigation.navigate('map');
+            }
         }
     }
 
@@ -75,7 +83,7 @@ class DeliveryStatusScreen extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.labelAlt}>
-                        <Text style={styles.labelText}>Note: Look for orange shirt and/or Hasty "H"</Text>
+                        <Text style={styles.labelText}>Note: Look for orange Hasty shirt!</Text>
                     </View>
                 </View>
             );
@@ -83,17 +91,25 @@ class DeliveryStatusScreen extends Component {
     }
 
     render() {
+        const { orderId } = this.props;
         return (
             <View style={styles.container}>
-                <View style={styles.spinner}>
-                    <ActivityIndicator
-                        size="large"
-                        color="#F5A623"
-                    />
-                </View>
-                <Notification onRef={ref => (this.notRef = ref)} />
-                {this.renderHeroList()}
-                {this.renderArrived()}
+                {orderId ?
+                    <View style={styles.container}>
+                        <View style={styles.spinner}>
+                            <ActivityIndicator
+                                size="large"
+                                color="#F5A623"
+                            />
+                        </View>
+                        <Notification onRef={ref => (this.notRef = ref)} />
+                        {/* {this.renderHeroList()} */}
+                        {this.renderArrived()}
+                    </View> :
+                    <View style={styles.container}>
+                        <Text>No current orders</Text>
+                    </View>
+                }
             </View>
         );
     }
