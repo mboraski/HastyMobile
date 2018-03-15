@@ -22,33 +22,33 @@ export const submitPayment = (navigation) => dispatch => {
     dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
     navigation.navigate('deliveryStatus');
 };
-// export const submitPayment = (
-//     navigation,
-//     cardId,
-//     totalCost,
-//     notes,
-//     orderId,
-//     cart
-//     ) => async dispatch => {
-//         // TODO: do something with notes
-//         const user = firebase.auth().currentUser;
-//         const uid = user.uid;
-//         const charge = {
-//             amount: Math.ceil(totalCost),
-//             currency: 'usd',
-//             source: cardId
-//         };
-//         return api.chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
-//             .then(() => {
-//                 dropdownAlert(true, 'Payment success');
-//                 dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-//                 navigation.navigate('deliveryStatus');
-//             })
-//             .catch(() => {
-//                 dropdownAlert(true, 'Error submitting payment');
-//                 dispatch({ type: SUBMIT_PAYMENT_FAILURE });
-//             });
-//         };
+export const submitPayment = (
+    navigation,
+    cardId,
+    totalCost,
+    notes,
+    orderId,
+    cart
+    ) => async dispatch => {
+        // TODO: do something with notes
+        const user = firebase.auth().currentUser;
+        const uid = user.uid;
+        const charge = {
+            amount: Math.ceil(totalCost),
+            currency: 'usd',
+            source: cardId
+        };
+        return api.chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
+            .then(() => {
+                dropdownAlert(true, 'Payment success');
+                dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+                navigation.navigate('deliveryStatus');
+            })
+            .catch(() => {
+                dropdownAlert(true, 'Error submitting payment');
+                dispatch({ type: SUBMIT_PAYMENT_FAILURE });
+            });
+        };
 
 export const addCard = (...args) => async dispatch => {
     try {
