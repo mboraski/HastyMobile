@@ -12,6 +12,7 @@ import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification';
 import HeroList from '../components/HeroList';
 // import Spinner from '../components/Spinner';
+import { clearCart } from '../actions/cartActions';
 import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
@@ -20,7 +21,8 @@ import { emY } from '../utils/em';
 // import { getFacebookInfo } from '../selectors/authSelectors';
 import {
     listenToOrder,
-    unlistenToOrder
+    unlistenToOrder,
+    clearOrder
 } from '../actions/orderActions';
 import orderStatuses from '../constants/Order';
 
@@ -31,7 +33,15 @@ class DeliveryStatusScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Order',
         headerLeft: <MenuButton style={Style.headerLeft} />,
-        headerRight: <BrandButton onPress={() => navigation.goBack()} />,
+        headerRight: <BrandButton
+            onPress={
+                () => {
+                    clearCart();
+                    clearOrder();
+                    navigation.navigate('map');
+                }
+            }
+        />,
         headerStyle: Style.headerBorderless,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
@@ -204,7 +214,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     listenToOrder,
-    unlistenToOrder
+    unlistenToOrder,
+    clearCart,
+    clearOrder
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);

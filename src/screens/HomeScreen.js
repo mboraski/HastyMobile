@@ -51,7 +51,7 @@ class HomeScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
-        if (!this.props.cart && nextProps.cart) {
+        if (!this.props.cart) {
             this.props.fetchProductsRequest();
         }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {

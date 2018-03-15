@@ -3,7 +3,8 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     SET_CURRENT_LOCATION,
-    UPDATE_CART
+    UPDATE_CART,
+    CLEAR_CART
 } from '../actions/cartActions';
 
 // function normalizeCurrency(currency) {
@@ -123,6 +124,14 @@ const mergeCarts = (newCart, oldCart) => {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case CLEAR_CART: {
+            return {
+                ...state,
+                products: {
+                    instant: {}
+                }
+            };
+        }
         case ADD_TO_CART: {
             const product = action.payload;
             const newCart = addProductToCart(product, state.products.instant);

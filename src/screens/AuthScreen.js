@@ -30,6 +30,7 @@ class AuthScreen extends Component {
     state = {
         signUp: true,
         openModal: true
+        // promoCode: ''
     };
 
     componentWillMount() {
@@ -104,6 +105,12 @@ class AuthScreen extends Component {
                     <ImageBackground source={AuthScreenBackground} style={styles.image}>
                         <Text style={styles.imageText}>HELLO</Text>
                     </ImageBackground>
+                    {/* <TextInput
+                        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                        onChangeText={(promoCode) => this.setState({ promoCode })}
+                        value={this.state.promoCode}
+                    /> */}
+                    <Text style={styles.labelText}>By signing up, you agree to the Terms of Service found here: https://www.myhasty.com/terms.html & Privacy Policy fround here: https://www.myhasty.com/privacy.html</Text>
                     <Button
                         onPress={this.signInWithFacebook}
                         title="Sign In with Facebook"
@@ -175,6 +182,14 @@ const styles = StyleSheet.create({
         fontSize: 35,
         textAlign: 'center',
         letterSpacing: 5
+    },
+    labelText: {
+        textAlign: 'center',
+        color: Color.GREY_600,
+        fontSize: emY(1.0625),
+        fontFamily: 'Cochin',
+        letterSpacing: 0.5,
+        fontWeight: 'bold'
     }
 });
 
