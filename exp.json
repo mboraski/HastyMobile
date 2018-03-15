@@ -4,7 +4,7 @@
   "slug": "hasty-mobile",
   "privacy": "public",
   "sdkVersion": "24.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "orientation": "portrait",
   "primaryColor": "#f5a624",
   "icon": "./src/assets/icons/HastyOrangeIcon.png",
