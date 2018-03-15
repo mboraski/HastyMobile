@@ -4,7 +4,7 @@
   "slug": "hasty-mobile",
   "privacy": "public",
   "sdkVersion": "24.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "orientation": "portrait",
   "primaryColor": "#f5a624",
   "icon": "./src/assets/icons/HastyOrangeIcon.png",
@@ -17,7 +17,7 @@
     "assetExts": ["ttf", "mp4"]
   },
   "ios": {
-    "bundleIdentifier": "com.spartanspeedofservice.hasty",
+    "bundleIdentifier": "com.spartanspeedofservice.myhasty",
     "loadJSInBackgroundExperimental": true,
     "supportsTablet": true
   }
