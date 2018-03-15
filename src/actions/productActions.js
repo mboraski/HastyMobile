@@ -45,7 +45,7 @@ export const fetchProductImages = (products, dispatch) =>
     async () => {
         const storageRef = firebase.storage();
         // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
-        console.log('products: ', products);
+        // console.log('products: ', products);
         _.forEach(products.instant, (product) => {
             const imageUrl = product.imageUrl || '';
             if (imageUrl) {
@@ -58,7 +58,7 @@ export const fetchProductImages = (products, dispatch) =>
                         });
                     })
                     .catch((error) => {
-                        console.log('getDownloadUrl error: ', error);
+                        // console.log('getDownloadUrl error: ', error);
                         dispatch({
                             type: SET_IMAGE,
                             payload: { productName: product.productName, url: '' }

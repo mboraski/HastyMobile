@@ -31,7 +31,7 @@ export const unlistenToOrder = (orderId) => () => {
 
 export const listenToOrder = (orderId) => dispatch => {
     dispatch({ type: LISTEN_ORDER_REQUEST });
-    console.log('orderId: ', orderId);
+    // console.log('orderId: ', orderId);
     firebase.database().ref(`${orderId}`) // TODO: it should be just the id and not location
         .on('value', (snapshot) => {
             const order = snapshot.val();

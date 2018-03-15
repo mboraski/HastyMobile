@@ -86,7 +86,7 @@ class AuthScreen extends Component {
                 this.goToMap();
             }
         } catch (err) {
-            console.log('err', err);
+            // console.log('err', err);
             this.goToMap();
         }
     };
