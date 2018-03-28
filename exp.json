@@ -20,5 +20,8 @@
     "bundleIdentifier": "com.spartanspeedofservice.myhasty",
     "loadJSInBackgroundExperimental": true,
     "supportsTablet": true
+  },
+  "android": {
+    "package": "com.spartanspeedofservice.hasty"
   }
 }
