@@ -18,10 +18,6 @@ export const SUBMIT_PAYMENT_FAILURE = 'submit_payment_failure';
 
 export const submitPaymentRequest = () => dispatch => dispatch({ type: SUBMIT_PAYMENT_REQUEST });
 
-export const submitPayment = (navigation) => dispatch => {
-    dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-    navigation.navigate('deliveryStatus');
-};
 export const submitPayment = (
     navigation,
     cardId,
