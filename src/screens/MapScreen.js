@@ -232,10 +232,7 @@ class MapScreen extends Component {
                         {this.state.showImageMarker ? (
                             <Image
                                 source={beaconIcon}
-                                style={{
-                                    alignSelf: 'center',
-                                    transform: [{ translate: [12, -25] }]
-                                }}
+                                style={styles.beaconImage}
                             />
                         ) : (
                             <MapView.Marker
@@ -245,6 +242,7 @@ class MapScreen extends Component {
                                 description="Your Delivery Location"
                                 anchor={{ x: 0.2, y: 1 }}
                                 centerOffset={{ x: 12, y: -25 }}
+                                style={styles.beaconMarker}
                             />
                         )}
                     </MapView>
@@ -381,6 +379,16 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0
+    },
+    beaconImage: {
+        alignSelf: 'center',
+        transform: [{ translate: [12, -25] }],
+        width: 42,
+        height: 55
+    },
+    beaconMarker: { 
+        width: 42,
+        height: 55
     }
 });
 
