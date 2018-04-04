@@ -153,12 +153,14 @@ class MapScreen extends Component {
         onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
         onPanResponderGrant: (evt, gestureState) => {
             this.setState({ showImageMarker: true });
+        },
+        onPanResponderRelease: () => {
+            this.setState({ showImageMarker: false });
         }
     });
 
     handleRegionChange = region => {
         if (this.state.mapReady) {
-            this.setState({ showImageMarker: true });
             this.props.setRegion(region);
         }
     };
@@ -229,12 +231,7 @@ class MapScreen extends Component {
                         onRegionChange={this.handleRegionChange}
                         onRegionChangeComplete={this.onRegionChangeComplete}
                     >
-                        {this.state.showImageMarker ? (
-                            <Image
-                                source={beaconIcon}
-                                style={styles.beaconImage}
-                            />
-                        ) : (
+                        {this.state.showImageMarker ? null : (
                             <MapView.Marker
                                 image={beaconIcon}
                                 coordinate={region}
@@ -246,6 +243,15 @@ class MapScreen extends Component {
                             />
                         )}
                     </MapView>
+                ) : null}
+                {this.state.showImageMarker ? (
+                    <View style={[StyleSheet.absoluteFill, {justifyContent: 'center'} ]}>
+                        <Image
+                            key="markerImage"
+                            source={beaconIcon}
+                            style={styles.beaconImage}
+                        />
+                        </View>
                 ) : null}
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
@@ -382,9 +388,9 @@ const styles = StyleSheet.create({
     },
     beaconImage: {
         alignSelf: 'center',
-        transform: [{ translate: [12, -25] }],
+        transform: [{ translate: [12, -55/2] }],
         width: 42,
-        height: 55
+        height: 55,
     },
     beaconMarker: { 
         width: 42,
