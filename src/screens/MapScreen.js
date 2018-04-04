@@ -47,17 +47,28 @@ const originRegion = {
     latitudeDelta: 0.0043,
     longitudeDelta: 0.0034
 };
+const ANCHOR = {
+    x: 0.2,
+    y: 1
+};
+const CENTER_OFFSET = {
+    x: 12,
+    y: -55 / 2
+};
+const MARKER_ANIMATION_DURATION = 0;
+
 
 class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
-        initialRegion: originRegion,
+        initialRegion: this.props.region || originRegion,
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
         getCurrentPositionPending: false,
-        initialMessageVisible: true
+        initialMessageVisible: true,
+        animatedRegion: new MapView.AnimatedRegion(this.props.region || originRegion),
     };
 
     componentWillMount() {
@@ -81,6 +92,9 @@ class MapScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
+        if (this.props.region !== nextProps.region) {
+            this.animateMarkerToCoordinate(nextProps.region);
+        }
     }
 
     onMapReady = () => {
@@ -89,7 +103,6 @@ class MapScreen extends Component {
 
     onRegionChangeComplete = async region => {
         if (this.state.mapReady) {
-            this.setState({ showImageMarker: false });
             this.props.setRegion(region);
             this.getAddress({
                 latlng: `${region.latitude},${region.longitude}`
@@ -104,7 +117,7 @@ class MapScreen extends Component {
             origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
             destinations: `${this.props.region.latitude},${
                 this.props.region.longitude
-            }`
+                }`
         });
         if (result.rows[0].elements[0].duration.value > 60 * 30) {
             this.props.dropdownAlert(true, 'Service is not available here');
@@ -148,20 +161,25 @@ class MapScreen extends Component {
         tailing: true
     });
 
-    panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onPanResponderGrant: (evt, gestureState) => {
-            this.setState({ showImageMarker: true });
-        },
-        onPanResponderRelease: () => {
-            this.setState({ showImageMarker: false });
+    animateMarkerToCoordinate = coordinate => {
+        if (Platform.OS === 'android') {
+            if (this.marker) {
+                this.marker._component.animateMarkerToCoordinate(
+                    coordinate,
+                    MARKER_ANIMATION_DURATION
+                );
+            }
+        } else {
+            this.state.animatedRegion.timing({
+                ...coordinate,
+                duration: MARKER_ANIMATION_DURATION
+            }).start();
         }
-    });
+    }
 
     handleRegionChange = region => {
         if (this.state.mapReady) {
-            this.props.setRegion(region);
+            this.animateMarkerToCoordinate(region);
         }
     };
 
@@ -221,38 +239,24 @@ class MapScreen extends Component {
 
         return (
             <View style={styles.container}>
-                {region ? (
-                    <MapView
-                        {...this.panResponder.panHandlers}
-                        initialRegion={this.props.region || this.state.initialRegion}
-                        region={region}
-                        style={styles.map}
-                        onMapReady={this.onMapReady}
-                        onRegionChange={this.handleRegionChange}
-                        onRegionChangeComplete={this.onRegionChangeComplete}
-                    >
-                        {this.state.showImageMarker ? null : (
-                            <MapView.Marker
-                                image={beaconIcon}
-                                coordinate={region}
-                                title="You"
-                                description="Your Delivery Location"
-                                anchor={{ x: 0.2, y: 1 }}
-                                centerOffset={{ x: 12, y: -25 }}
-                                style={styles.beaconMarker}
-                            />
-                        )}
-                    </MapView>
-                ) : null}
-                {this.state.showImageMarker ? (
-                    <View style={[StyleSheet.absoluteFill, {justifyContent: 'center'} ]}>
-                        <Image
-                            key="markerImage"
-                            source={beaconIcon}
-                            style={styles.beaconImage}
-                        />
-                        </View>
-                ) : null}
+                <MapView
+                    initialRegion={this.state.initialRegion}
+                    style={styles.map}
+                    onMapReady={this.onMapReady}
+                    onRegionChange={this.handleRegionChange}
+                    onRegionChangeComplete={this.onRegionChangeComplete}
+                >
+                    <MapView.Marker.Animated
+                        ref={marker => { this.marker = marker; }}
+                        image={beaconIcon}
+                        coordinate={this.state.animatedRegion}
+                        title="You"
+                        description="Your Delivery Location"
+                        anchor={ANCHOR}
+                        centerOffset={CENTER_OFFSET}
+                        style={styles.beaconMarker}
+                    />
+                </MapView>
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -386,13 +390,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0
     },
-    beaconImage: {
-        alignSelf: 'center',
-        transform: [{ translate: [12, -55/2] }],
-        width: 42,
-        height: 55,
-    },
-    beaconMarker: { 
+    beaconMarker: {
         width: 42,
         height: 55
     }
