@@ -42,7 +42,12 @@ export const initialState = {
     pending: false,
     predictions: [],
     saved: [],
-    region: null,
+    region: {
+        latitude: 30.2666247,
+        longitude: -97.7405174,
+        latitudeDelta: 0.0043,
+        longitudeDelta: 0.0034
+    },
     address: null,
     error: null
 };

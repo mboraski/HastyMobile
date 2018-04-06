@@ -41,12 +41,6 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
-const originRegion = {
-    latitude: 30.2666247,
-    longitude: -97.7405174,
-    latitudeDelta: 0.0043,
-    longitudeDelta: 0.0034
-};
 const ANCHOR = {
     x: 0.2,
     y: 1
@@ -62,13 +56,12 @@ class MapScreen extends Component {
     state = {
         mapReady: false,
         address: '',
-        initialRegion: this.props.region || originRegion,
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
         getCurrentPositionPending: false,
         initialMessageVisible: true,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region || originRegion),
+        animatedRegion: new MapView.AnimatedRegion(this.props.region),
     };
 
     componentWillMount() {
@@ -240,7 +233,7 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    initialRegion={this.state.initialRegion}
+                    region={this.props.region}
                     style={styles.map}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
