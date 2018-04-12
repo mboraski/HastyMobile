@@ -1,7 +1,7 @@
 // Third Party Imports
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import times from 'lodash/times';
+import times from 'lodash.times';
 
 import fillIcon from '../assets/icons/star-fill.png';
 import emptyIcon from '../assets/icons/star-empty.png';

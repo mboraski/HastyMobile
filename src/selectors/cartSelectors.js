@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import _ from 'lodash';
+import reduce from 'lodash.reduce';
+import filter from 'lodash.filter';
 
 // import { getAvailableProducts } from './productSelectors';
 
@@ -18,7 +19,7 @@ export const getCartInstantProducts = createSelector(
 export const getCartTotalQuantity = createSelector(
     [getCartInstantProducts],
     (products) =>
-        _.reduce(products, (acc, product) => acc + product.quantityTaken, 0)
+        reduce(products, (acc, product) => acc + product.quantityTaken, 0)
 );
 
 export const getDeliveryTypes = createSelector(getCartProducts, products => Object.keys(products));
@@ -29,7 +30,7 @@ export const getDeliveryTypes = createSelector(getCartProducts, products => Obje
 export const getCartOrders = createSelector(
     [getCartInstantProducts],
     (products) =>
-        _.filter(products, (product) =>
+        filter(products, (product) =>
             (product.quantityTaken > 0))
 );
 

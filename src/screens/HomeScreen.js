@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
-import _ from 'lodash';
+import map from 'lodash.map';
 // import firebase from '../firebase';
 
 // Relative Imports
@@ -76,7 +76,7 @@ class HomeScreen extends Component {
 
     renderCategories = () => {
         const selectedCategory = this.props.category;
-        return _.map(this.props.categories, (category, i) => {
+        return map(this.props.categories, (category, i) => {
             const selectedFilter = category.toLowerCase() === selectedCategory.toLowerCase();
             const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
             const filterButtonTextSelected = selectedFilter ?

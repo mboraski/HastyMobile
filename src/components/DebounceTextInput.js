@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash.debounce';
 
 import { emY } from '../utils/em';
 

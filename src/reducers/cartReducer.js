@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import forEach from 'lodash.foreach';
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
@@ -48,7 +48,7 @@ const removeProductFromCart = (product, instantCartProducts) => {
 const mutateProductsIntoCart = (newProducts) => {
     // for each product, set a new object in the cart object at key of productName
     const newInstantCart = {};
-    _.forEach(newProducts.instant, (product) => {
+    forEach(newProducts.instant, (product) => {
         if (product) {
             newInstantCart[product.productName] = {
                 categories: product.categories,
@@ -63,7 +63,7 @@ const mutateProductsIntoCart = (newProducts) => {
     return { instant: newInstantCart };
     // for each product, set a new object in the cart object at key of productName
     // const newFastCart = {};
-    // _.forEach(newProducts.fast, (product) => {
+    // forEach(newProducts.fast, (product) => {
     //     newFastCart[product.productName] = {
     //         categories: product.categories,
     //         imageUrl: product.imageUrl,
@@ -79,7 +79,7 @@ const mergeCarts = (newCart, oldCart) => {
     const netCart = { instant: {} };
     let itemCountUp = false;
     let itemCountDown = false;
-    _.forEach(newCart.instant, (item) => {
+    forEach(newCart.instant, (item) => {
         const oldItem = oldCart.instant[item.productName];
         if (oldItem) {
             // did the quantity available go down

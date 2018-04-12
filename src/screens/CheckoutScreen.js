@@ -12,7 +12,6 @@ import {
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-// import _ from 'lodash';
 
 // Relative Imports
 import firebase from '../firebase';
