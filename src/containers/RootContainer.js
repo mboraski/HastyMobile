@@ -1,3 +1,4 @@
+// Third Party Imports
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,6 +16,9 @@ import { authChanged, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { reduxBoundAddListener, persistor } from '../store';
 
+const initialValuesRef = firebase.database().ref('initialValues');
+const activeProductsRef = firebase.database().ref('activeProducts/US/TX/Austin');
+
 class RootContainer extends Component {
     async componentWillMount() {
         if (
@@ -27,7 +31,7 @@ class RootContainer extends Component {
         firebase.auth().onAuthStateChanged(user => {
             this.props.authChanged(user);
             if (user) {
-                firebase.database().ref('initialValues').once('value')
+                initialValuesRef.once('value')
                     .then((snapshot) => {
                         const initialValues = snapshot.val();
                         if (initialValues.purge) {
@@ -35,6 +39,7 @@ class RootContainer extends Component {
                         }
                     })
                     .catch((error) => {
+                        // TODO: log to Sentry?
                         console.log('purge error: ', error);
                     });
             }
@@ -56,26 +61,23 @@ class RootContainer extends Component {
             finalStatus = status;
         }
 
-        // Stop here if the user did not grant permissions
-        if (finalStatus !== 'granted') {
-            return;
+        if (finalStatus === 'granted') {
+            // Get the token that uniquely identifies this device
+            // let token = await Notifications.getExpoPushTokenAsync();
+
+            // Handle notifications that are received or selected while the app
+            // is open. If the app was closed and then opened by tapping the
+            // notification (rather than just tapping the app icon to open it),
+            // this function will fire on the next tick after the app starts
+            // with the notification data.
+            this.notificationSubscription = Notifications.addListener(
+                this.handleNotification
+            );
         }
-
-        // Get the token that uniquely identifies this device
-        let token = await Notifications.getExpoPushTokenAsync();
-
-        // Handle notifications that are received or selected while the app
-        // is open. If the app was closed and then opened by tapping the
-        // notification (rather than just tapping the app icon to open it),
-        // this function will fire on the next tick after the app starts
-        // with the notification data.
-        this.notificationSubscription = Notifications.addListener(
-            this.handleNotification
-        );
     }
 
     componentWillUnMount() {
-        firebase.database().ref('activeProducts/US/TX/Austin').off();
+        activeProductsRef.off();
     }
 
     handleNotification = notification => {
@@ -103,11 +105,13 @@ class RootContainer extends Component {
         const {
             customerPopupVisible,
             dropdownAlertVisible,
-            dropdownAlertText
+            dropdownAlertText,
+            dispatch,
+            nav
         } = this.props;
         const navigation = addNavigationHelpers({
-            dispatch: this.props.dispatch,
-            state: this.props.nav,
+            dispatch,
+            state: nav,
             addListener: reduxBoundAddListener
         });
         return (
@@ -136,7 +140,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     user: state.auth.user,
     authExpirationDate: state.auth.expirationDate,
-    isOpened: state.isOpened,
     customerPopupVisible: state.ui.customerPopupVisible,
     dropdownAlertVisible: state.ui.dropdownAlertVisible,
     dropdownAlertText: state.ui.dropdownAlertText,
