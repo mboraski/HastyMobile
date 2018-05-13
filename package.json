@@ -19,17 +19,14 @@
     },
     "main": "main.js",
     "scripts": {
+        "precommit": "pretty-quick --staged",
+        "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
         "test": "node_modules/.bin/jest"
     },
     "jest": {
         "preset": "jest-expo",
-        "setupFiles": [
-            "./src/jest/enzyme.js",
-            "./src/mocks/Dimensions.js"
-        ],
-        "snapshotSerializers": [
-            "enzyme-to-json/serializer"
-        ]
+        "setupFiles": ["./src/jest/enzyme.js", "./src/mocks/Dimensions.js"],
+        "snapshotSerializers": ["enzyme-to-json/serializer"]
     },
     "dependencies": {
         "axios": "~0.18.0",
@@ -45,7 +42,8 @@
         "lodash.times": "^4.3.2",
         "moment": "~2.20.1",
         "react": "~16.3.0-alpha.1",
-        "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+        "react-native":
+            "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
         "react-native-elements": "~0.17.0",
         "react-native-vector-icons": "~4.4.2",
         "react-navigation": "~1.5.9",

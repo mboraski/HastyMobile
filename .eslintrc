@@ -1,5 +1,5 @@
 {
-    "extends": ["hasty", "plugin:prettier/recommended"],
+    "extends": ["hasty", "prettier"],
     "env": {
         "jest": true
     },
