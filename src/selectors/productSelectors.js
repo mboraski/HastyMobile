@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-import _ from 'lodash';
+import map from 'lodash.map';
+import forEach from 'lodash.foreach';
+import filter from 'lodash.filter';
 
 import { getCartTotalQuantity, getCartInstantProducts } from './cartSelectors';
 
@@ -16,12 +18,12 @@ export const getCategories = createSelector(
         if (availableProducts) {
             const uniqueCategories = {};
             // loop through all products and fetch their categories
-            const triteCategories = _.map(availableProducts, (product) =>
+            const triteCategories = map(availableProducts, (product) =>
                 product.categories);
 
             // run unique function over new mapped list
-            _.forEach(triteCategories, (categories) =>
-                _.forEach(categories, (category, key) => {
+            forEach(triteCategories, (categories) =>
+                forEach(categories, (category, key) => {
                     if (!uniqueCategories[key]) {
                         uniqueCategories[key] = key;
                     }
@@ -37,7 +39,7 @@ export const getProductsByCategory = createSelector(
     [getCategory, getCartInstantProducts],
     (category, availableProducts) => {
         if (availableProducts) {
-            return _.filter(availableProducts, (product) =>
+            return filter(availableProducts, (product) =>
                 product.categories[category.toLowerCase()]);
         }
     }

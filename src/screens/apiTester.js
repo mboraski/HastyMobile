@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isNull from 'lodash.isnull';
 import React, { Component } from 'react';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
@@ -318,7 +318,7 @@ class ApiTester extends Component {
     }
 
     render() {
-        if (_.isNull(this.state.welcomeScreensSeen)) {
+        if (isNull(this.state.welcomeScreensSeen)) {
             return <AppLoading />;
         }
 

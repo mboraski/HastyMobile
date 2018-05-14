@@ -1,0 +1,29 @@
+{
+    "expo": {
+        "name": "HastyMobile",
+        "description": "Hasty Consumer Mobile App",
+        "slug": "hasty-mobile",
+        "privacy": "public",
+        "sdkVersion": "26.0.0",
+        "version": "0.1.0",
+        "orientation": "portrait",
+        "primaryColor": "#f5a624",
+        "icon": "./src/assets/icons/HastyOrangeIcon.png",
+        "splash": {
+            "backgroundColor": "#f5a624",
+            "resizeMode": "cover",
+            "image": "./src/assets/splash.png"
+        },
+        "packagerOpts": {
+            "assetExts": ["ttf", "mp4"]
+        },
+        "ios": {
+            "bundleIdentifier": "com.spartanspeedofservice.myhasty",
+            "loadJSInBackgroundExperimental": true,
+            "supportsTablet": true
+        },
+        "android": {
+            "package": "com.spartanspeedofservice.hasty"
+        }
+    }
+}

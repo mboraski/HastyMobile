@@ -1,7 +1,7 @@
 // Third Party Imports
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import _ from 'lodash';
+import map from 'lodash.map';
 
 // Relative Imports
 import OrderDetail from './OrderDetail';
@@ -18,7 +18,7 @@ class OrderList extends Component {
             onRemoveOrder
         } = this.props;
         let prevDeliveryType;
-        return _.map(orders, order => {
+        return map(orders, order => {
             const image = orderImages[order.productName] || '';
             let renderMark;
             if (prevDeliveryType !== 'instant') {

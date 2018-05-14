@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import filter from 'lodash.filter';
+import forEach from 'lodash.foreach';
 import firebase from '../firebase';
 import { updateCart } from './cartActions';
 
@@ -17,7 +18,7 @@ export const fetchProductsRequest = () =>
                 // for some reason firebase has empty hashed database objects, this filters them
                 // TODO: figure out why firebase did this
                 const filteredProducts = {};
-                filteredProducts.instant = _.filter(products.instant, (product) => !!product);
+                filteredProducts.instant = filter(products.instant, (product) => !!product);
                 dispatch(fetchProductsSuccess(filteredProducts));
                 dispatch(fetchProductImages(filteredProducts, dispatch));
                 dispatch(updateCart(filteredProducts));
@@ -46,7 +47,7 @@ export const fetchProductImages = (products, dispatch) =>
         const storageRef = firebase.storage();
         // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
         // console.log('products: ', products);
-        _.forEach(products.instant, (product) => {
+        forEach(products.instant, (product) => {
             const imageUrl = product.imageUrl || '';
             if (imageUrl) {
                 const imageRef = storageRef.refFromURL(imageUrl);
