@@ -1,11 +1,11 @@
 {
     "expo": {
-        "name": "Hasty Mobile App",
-        "description": "An instant delivery retail app",
+        "name": "HastyMobile",
+        "description": "Hasty Consumer Mobile App",
         "slug": "hasty-mobile",
         "privacy": "public",
         "sdkVersion": "26.0.0",
-        "version": "1.0.2",
+        "version": "0.1.0",
         "orientation": "portrait",
         "primaryColor": "#f5a624",
         "icon": "./src/assets/icons/HastyOrangeIcon.png",
