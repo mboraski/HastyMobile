@@ -1,3 +1,7 @@
+// TODO: Remove when tests implemented
+test.only('real recognize real', () => {
+    expect('real').toBe('real');
+});
 // import { toggleSearch, showFeedbackForm, hideFeedbackForm } from '../../actions/uiActions';
 // import reducer, { initialState } from '../uiReducer';
 //
