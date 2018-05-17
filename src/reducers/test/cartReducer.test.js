@@ -1,3 +1,7 @@
+// TODO: Remove when tests implemented
+test.only('real recognize real', () => {
+    expect('real').toBe('real');
+});
 // import { addToCart, removeFromCart, setCurrentLocation } from '../../actions/cartActions';
 // import reducer, { initialState } from '../cartReducer';
 //
