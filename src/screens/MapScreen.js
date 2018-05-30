@@ -62,7 +62,8 @@ class MapScreen extends Component {
         opacity: new Animated.Value(1),
         searchRendered: false,
         getCurrentPositionPending: false,
-        initialMessageVisible: true,
+        // set initialMessageVisible to true during SXSW
+        initialMessageVisible: false,
         animatedRegion: new MapView.AnimatedRegion(this.props.region)
     };
 
@@ -315,7 +316,7 @@ class MapScreen extends Component {
                     />
                 ) : null}
                 <ContinuePopup
-                    openModal={this.state.initialMessageVisible}
+                    isOpen={this.state.initialMessageVisible}
                     closeModal={this.handleInitialMessageClose}
                     message={INITIAL_MESSAGE}
                 />

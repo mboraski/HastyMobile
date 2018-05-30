@@ -1,5 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
     StyleSheet,
     Modal,
@@ -17,21 +18,20 @@ import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check-wrap.png';
 
 const SIZE = emY(5.62);
-type Props = {
-    openModal: boolean,
-    closeModal: () => {},
-    message: string
-};
 
 class ContinuePopup extends Component {
-    props: Props;
+    static PropTypes = {
+        isOpen: PropTypes.bool.isRequired,
+        closeModal: PropTypes.func.isRequired,
+        message: PropTypes.string.isRequired
+    };
 
     render() {
-        const { message, openModal } = this.props;
+        const { message, isOpen } = this.props;
         return (
             <Modal
                 animationType="slide"
-                visible={openModal}
+                visible={isOpen}
                 onRequestClose={() => {}}
                 style={styles.modalContainer}
                 transparent
