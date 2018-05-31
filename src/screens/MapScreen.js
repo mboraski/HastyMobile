@@ -159,8 +159,9 @@ class MapScreen extends Component {
     animateMarkerToCoordinate = coordinate => {
         if (Platform.OS === 'android') {
             if (this.marker) {
+                /* eslint-disable no-underscore-dangle */
                 this.marker._component.animateMarkerToCoordinate(
-                    // eslint-disable-line
+                    /* eslint-enable no-underscore-dangle */
                     coordinate,
                     MARKER_ANIMATION_DURATION
                 );
