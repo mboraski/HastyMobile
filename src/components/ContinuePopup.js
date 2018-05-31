@@ -20,14 +20,14 @@ import checkIcon from '../assets/icons/check-wrap.png';
 const SIZE = emY(5.62);
 
 class ContinuePopup extends Component {
-    static PropTypes = {
+    static propTypes = {
         isOpen: PropTypes.bool.isRequired,
         closeModal: PropTypes.func.isRequired,
         message: PropTypes.string.isRequired
     };
 
     render() {
-        const { message, isOpen } = this.props;
+        const { message, isOpen, closeModal } = this.props;
         return (
             <Modal
                 animationType="slide"
@@ -39,7 +39,7 @@ class ContinuePopup extends Component {
                 <View style={styles.container}>
                     <TouchableOpacity
                         style={Style.backdropContainer}
-                        onPress={this.props.closeModal}
+                        onPress={closeModal}
                         activeOpacity={1}
                     >
                         <Text style={Style.clearText}>.</Text>
@@ -48,7 +48,7 @@ class ContinuePopup extends Component {
                         <View style={styles.innerContainer}>
                             <Text style={styles.label}>{message}</Text>
                             <TouchableOpacity
-                                onPress={this.props.closeModal}
+                                onPress={closeModal}
                                 style={[
                                     styles.button,
                                     { backgroundColor: Color.BLACK }

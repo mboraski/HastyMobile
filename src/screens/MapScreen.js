@@ -5,9 +5,7 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
-    ActivityIndicator,
-    Image,
-    PanResponder
+    ActivityIndicator
 } from 'react-native';
 import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
@@ -161,7 +159,9 @@ class MapScreen extends Component {
     animateMarkerToCoordinate = coordinate => {
         if (Platform.OS === 'android') {
             if (this.marker) {
+                /* eslint-disable no-underscore-dangle */
                 this.marker._component.animateMarkerToCoordinate(
+                    /* eslint-enable no-underscore-dangle */
                     coordinate,
                     MARKER_ANIMATION_DURATION
                 );
@@ -239,7 +239,7 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    region={this.props.region}
+                    region={region}
                     style={styles.map}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
