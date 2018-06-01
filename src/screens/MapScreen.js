@@ -120,53 +120,57 @@ class MapScreen extends Component {
         this.setState({ changeLocationPopupVisible: true });
     };
 
-    changeLocationConfirmed = async () => {
+    changeLocationConfirmed = async confirmed => {
+        // close change location warning modal
         this.setState({ changeLocationPopupVisible: false });
 
-        let resp;
-        const result = await this.props.distanceMatrix({
-            units: 'imperial',
-            origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
-            destinations: `${this.props.region.latitude},${
-                this.props.region.longitude
-            }`
-        });
-        if (result.rows[0].elements[0].duration.value > 60 * 30) {
-            this.props.dropdownAlert(true, 'Service is not available here');
-            resp = result;
-        } else {
-            this.props.dropdownAlert(false, '');
-            this.props.setCurrentLocation(
-                this.props.address,
-                this.props.region
-            );
-            try {
-                resp = await firebase
-                    .database()
-                    .ref('orders/US/TX/Austin')
-                    .push({
-                        currentSetAddress: this.props.address,
-                        region: this.props.region,
-                        status: 'open'
-                    });
-                if (resp) {
-                    const key = resp.path.pieces_.join('/'); // eslint-disable-line
-                    this.props.orderCreationSuccess(key);
-                    this.props.navigation.navigate('home');
-                } else {
-                    throw new Error('Error setting location');
-                }
-            } catch (error) {
-                resp = error;
-                const message =
-                    error.message || // just while dev TODO: remove
-                    'Error setting location, please change and try again';
+        // if the user click 'Apply', continue with use current location
+        if (confirmed) {
+            let resp;
+            const result = await this.props.distanceMatrix({
+                units: 'imperial',
+                origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
+                destinations: `${this.props.region.latitude},${
+                    this.props.region.longitude
+                }`
+            });
+            if (result.rows[0].elements[0].duration.value > 60 * 30) {
+                this.props.dropdownAlert(true, 'Service is not available here');
+                resp = result;
+            } else {
+                this.props.dropdownAlert(false, '');
+                this.props.setCurrentLocation(
+                    this.props.address,
+                    this.props.region
+                );
+                try {
+                    resp = await firebase
+                        .database()
+                        .ref('orders/US/TX/Austin')
+                        .push({
+                            currentSetAddress: this.props.address,
+                            region: this.props.region,
+                            status: 'open'
+                        });
+                    if (resp) {
+                        const key = resp.path.pieces_.join('/'); // eslint-disable-line
+                        this.props.orderCreationSuccess(key);
+                        this.props.navigation.navigate('home');
+                    } else {
+                        throw new Error('Error setting location');
+                    }
+                } catch (error) {
+                    resp = error;
+                    const message =
+                        error.message || // just while dev TODO: remove
+                        'Error setting location, please change and try again';
 
-                this.props.orderCreationFailure(error); // TODO: log this error to server
-                this.props.dropdownAlert(true, message);
+                    this.props.orderCreationFailure(error); // TODO: log this error to server
+                    this.props.dropdownAlert(true, message);
+                }
             }
+            return resp;
         }
-        return resp;
     };
 
     animateMarkerToCoordinate = coordinate => {
