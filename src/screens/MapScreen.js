@@ -26,6 +26,7 @@ import {
     orderCreationFailure
 } from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
+import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeader from '../containers/MapHeader';
@@ -52,6 +53,11 @@ const CENTER_OFFSET = {
 };
 const MARKER_ANIMATION_DURATION = 0;
 
+const CHANGE_LOCATION_TITLE =
+    'Are you sure you want to change your delivery location?';
+const CHANGE_LOCATION_MESSAGE =
+    'The available products/services at your new location may be different.';
+
 class MapScreen extends Component {
     state = {
         mapReady: false,
@@ -62,7 +68,8 @@ class MapScreen extends Component {
         getCurrentPositionPending: false,
         // set initialMessageVisible to true during SXSW
         initialMessageVisible: false,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region)
+        animatedRegion: new MapView.AnimatedRegion(this.props.region),
+        changeLocationPopupVisible: false
     };
 
     componentWillMount() {
@@ -104,7 +111,18 @@ class MapScreen extends Component {
         }
     };
 
-    onButtonPress = async () => {
+    getAddress = debounce(this.props.reverseGeocode, 1000, {
+        leading: false,
+        tailing: true
+    });
+
+    useCurrentLocationPress = () => {
+        this.setState({ changeLocationPopupVisible: true });
+    };
+
+    changeLocationConfirmed = async () => {
+        this.setState({ changeLocationPopupVisible: false });
+
         let resp;
         const result = await this.props.distanceMatrix({
             units: 'imperial',
@@ -150,11 +168,6 @@ class MapScreen extends Component {
         }
         return resp;
     };
-
-    getAddress = debounce(this.props.reverseGeocode, 1000, {
-        leading: false,
-        tailing: true
-    });
 
     animateMarkerToCoordinate = coordinate => {
         if (Platform.OS === 'android') {
@@ -236,6 +249,8 @@ class MapScreen extends Component {
             productPending
         } = this.props;
 
+        const { changeLocationPopupVisible } = this.state;
+
         return (
             <View style={styles.container}>
                 <MapView
@@ -289,7 +304,7 @@ class MapScreen extends Component {
                     <Button
                         large
                         title="Use Current Location"
-                        onPress={this.onButtonPress}
+                        onPress={this.useCurrentLocationPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                         disabled={pending}
@@ -319,6 +334,13 @@ class MapScreen extends Component {
                     isOpen={this.state.initialMessageVisible}
                     closeModal={this.handleInitialMessageClose}
                     message={INITIAL_MESSAGE}
+                />
+                <SuccessPopup
+                    openModal={changeLocationPopupVisible}
+                    closeModal={this.changeLocationConfirmed}
+                    title={CHANGE_LOCATION_TITLE}
+                    message={CHANGE_LOCATION_MESSAGE}
+                    showIcon={false}
                 />
             </View>
         );

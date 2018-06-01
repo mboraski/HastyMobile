@@ -122,13 +122,6 @@ class MenuContent extends Component {
                         title="Favorites & Recommended"
                     /> */}
                     <MenuItem
-                        route={getRoute(items, 'map')}
-                        activeItemKey={activeItemKey}
-                        onPress={this.mapPress}
-                        image={locationIcon}
-                        title="Map"
-                    />
-                    <MenuItem
                         route={getRoute(items, 'deliveryStatus')}
                         activeItemKey={activeItemKey}
                         onPress={this.deliveryStatusPress}
@@ -142,6 +135,13 @@ class MenuContent extends Component {
                         onPress={this.cartPress}
                         image={cartIcon}
                         title="Cart"
+                    />
+                    <MenuItem
+                        route={getRoute(items, 'map')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.mapPress}
+                        image={locationIcon}
+                        title="Map"
                     />
                     <MenuItem
                         route={getRoute(items, 'paymentMethod')}
