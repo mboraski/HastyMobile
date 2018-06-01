@@ -11,7 +11,7 @@ import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
-import firebase from '../firebase';
+import firebase from 'firebase';
 
 import {
     saveAddress,
