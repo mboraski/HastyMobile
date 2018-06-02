@@ -5,15 +5,13 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
-    ActivityIndicator,
-    Image,
-    PanResponder
+    ActivityIndicator
 } from 'react-native';
 import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
-import firebase from '../firebase';
+import firebase from 'firebase';
 
 import {
     saveAddress,
@@ -23,7 +21,10 @@ import {
 import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
-import { orderCreationSuccess, orderCreationFailure } from '../actions/orderActions';
+import {
+    orderCreationSuccess,
+    orderCreationFailure
+} from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
@@ -51,7 +52,6 @@ const CENTER_OFFSET = {
 };
 const MARKER_ANIMATION_DURATION = 0;
 
-
 class MapScreen extends Component {
     state = {
         mapReady: false,
@@ -60,8 +60,9 @@ class MapScreen extends Component {
         opacity: new Animated.Value(1),
         searchRendered: false,
         getCurrentPositionPending: false,
-        initialMessageVisible: true,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region),
+        // set initialMessageVisible to true during SXSW
+        initialMessageVisible: false,
+        animatedRegion: new MapView.AnimatedRegion(this.props.region)
     };
 
     componentWillMount() {
@@ -110,7 +111,7 @@ class MapScreen extends Component {
             origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
             destinations: `${this.props.region.latitude},${
                 this.props.region.longitude
-                }`
+            }`
         });
         if (result.rows[0].elements[0].duration.value > 60 * 30) {
             this.props.dropdownAlert(true, 'Service is not available here');
@@ -122,11 +123,14 @@ class MapScreen extends Component {
                 this.props.region
             );
             try {
-                resp = await firebase.database().ref('orders/US/TX/Austin').push({
-                    currentSetAddress: this.props.address,
-                    region: this.props.region,
-                    status: 'open'
-                });
+                resp = await firebase
+                    .database()
+                    .ref('orders/US/TX/Austin')
+                    .push({
+                        currentSetAddress: this.props.address,
+                        region: this.props.region,
+                        status: 'open'
+                    });
                 if (resp) {
                     const key = resp.path.pieces_.join('/'); // eslint-disable-line
                     this.props.orderCreationSuccess(key);
@@ -136,14 +140,12 @@ class MapScreen extends Component {
                 }
             } catch (error) {
                 resp = error;
-                const message = error.message || // just while dev TODO: remove
+                const message =
+                    error.message || // just while dev TODO: remove
                     'Error setting location, please change and try again';
 
                 this.props.orderCreationFailure(error); // TODO: log this error to server
-                this.props.dropdownAlert(
-                    true,
-                    message
-                );
+                this.props.dropdownAlert(true, message);
             }
         }
         return resp;
@@ -157,18 +159,22 @@ class MapScreen extends Component {
     animateMarkerToCoordinate = coordinate => {
         if (Platform.OS === 'android') {
             if (this.marker) {
+                /* eslint-disable no-underscore-dangle */
                 this.marker._component.animateMarkerToCoordinate(
+                    /* eslint-enable no-underscore-dangle */
                     coordinate,
                     MARKER_ANIMATION_DURATION
                 );
             }
         } else {
-            this.state.animatedRegion.timing({
-                ...coordinate,
-                duration: MARKER_ANIMATION_DURATION
-            }).start();
+            this.state.animatedRegion
+                .timing({
+                    ...coordinate,
+                    duration: MARKER_ANIMATION_DURATION
+                })
+                .start();
         }
-    }
+    };
 
     handleRegionChange = region => {
         if (this.state.mapReady) {
@@ -233,14 +239,16 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    region={this.props.region}
+                    region={region}
                     style={styles.map}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 >
                     <MapView.Marker.Animated
-                        ref={marker => { this.marker = marker; }}
+                        ref={marker => {
+                            this.marker = marker;
+                        }}
                         image={beaconIcon}
                         coordinate={this.state.animatedRegion}
                         title="You"
@@ -308,7 +316,7 @@ class MapScreen extends Component {
                     />
                 ) : null}
                 <ContinuePopup
-                    openModal={this.state.initialMessageVisible}
+                    isOpen={this.state.initialMessageVisible}
                     closeModal={this.handleInitialMessageClose}
                     message={INITIAL_MESSAGE}
                 />
