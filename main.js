@@ -42,7 +42,9 @@ class App extends Component {
                         />
                     }
                 >
-                    <RootContainer />
+                    <React.StrictMode>
+                        <RootContainer />
+                    </React.StrictMode>
                 </PersistGate>
             </Provider>
         ) : (

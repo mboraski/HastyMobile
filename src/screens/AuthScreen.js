@@ -1,5 +1,7 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
+import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 import {
     Alert,
     StyleSheet,
@@ -7,17 +9,15 @@ import {
     KeyboardAvoidingView,
     ScrollView
 } from 'react-native';
-import { Button } from 'react-native-elements';
-import { connect } from 'react-redux';
 
 // Relative Imports
-import { listCards } from '../actions/paymentActions';
 import { signInWithFacebook } from '../actions/authActions';
-import EntryMessage from '../components/EntryMessage';
 import { reset } from '../actions/navigationActions';
-import Text from '../components/Text';
+import { listCards } from '../actions/paymentActions';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
+import EntryMessage from '../components/EntryMessage';
+import Text from '../components/Text';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
@@ -30,18 +30,17 @@ class AuthScreen extends Component {
     state = {
         signUp: true,
         openModal: true
-        // promoCode: ''
     };
 
-    componentWillMount() {
-        if (this.props.firstTimeOpened) {
-            this.props.navigation.dispatch(reset('welcome'));
+    componentDidMount() {
+        const { firstTimeOpened, navigation } = this.props;
+        if (firstTimeOpened) {
+            navigation.dispatch(reset('welcome'));
         }
-        this.focusSubscription = this.props.navigation.addListener('didFocus', this.handleFocus);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.onAuthComplete(nextProps);
+        this.focusSubscription = navigation.addListener(
+            'didFocus',
+            this.handleFocus
+        );
     }
 
     componentWillUnmount() {
@@ -51,8 +50,9 @@ class AuthScreen extends Component {
     }
 
     onAuthComplete = props => {
-        if (props.user && !this.props.user) {
-            this.onAuthSuccess(props.user);
+        const user = props.user;
+        if (user && !this.props.user) {
+            this.onAuthSuccess(user);
         }
     };
 
@@ -60,9 +60,14 @@ class AuthScreen extends Component {
         this.goToPayment(user);
     };
 
+    getDerivedStateFromProps(nextProps) {
+        this.onAuthComplete(nextProps);
+    }
+
     handleFocus = () => {
-        if (this.props.user) {
-            this.onAuthSuccess(this.props.user);
+        const user = this.props.user;
+        if (user) {
+            this.onAuthSuccess(user);
         }
     };
 
@@ -79,9 +84,15 @@ class AuthScreen extends Component {
     goToPayment = async user => {
         try {
             const result = await this.props.listCards(user.uid);
-            if (result && result.paymentInfo && result.paymentInfo.total_count === 0) {
+            if (
+                result &&
+                result.paymentInfo &&
+                result.paymentInfo.total_count === 0
+            ) {
                 this.goToMap();
-                this.props.navigation.navigate('paymentMethod', { signedUp: true });
+                this.props.navigation.navigate('paymentMethod', {
+                    signedUp: true
+                });
             } else {
                 this.goToMap();
             }
@@ -102,7 +113,10 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <ImageBackground source={AuthScreenBackground} style={styles.image}>
+                    <ImageBackground
+                        source={AuthScreenBackground}
+                        style={styles.image}
+                    >
                         <Text style={styles.imageText}>HELLO</Text>
                     </ImageBackground>
                     {/* <TextInput
@@ -110,7 +124,11 @@ class AuthScreen extends Component {
                         onChangeText={(promoCode) => this.setState({ promoCode })}
                         value={this.state.promoCode}
                     /> */}
-                    <Text style={styles.labelText}>By signing up, you agree to the Terms of Service found here: https://www.myhasty.com/terms.html & Privacy Policy fround here: https://www.myhasty.com/privacy.html</Text>
+                    <Text style={styles.labelText}>
+                        By signing up, you agree to the Terms of Service found
+                        here: https://www.myhasty.com/terms.html & Privacy
+                        Policy fround here: https://www.myhasty.com/privacy.html
+                    </Text>
                     <Button
                         onPress={this.signInWithFacebook}
                         title="Sign In with Facebook"
