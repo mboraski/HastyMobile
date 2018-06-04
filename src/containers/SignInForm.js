@@ -75,7 +75,9 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <LogoSpinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -99,12 +101,61 @@ class SignInForm extends Component {
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
+                {/* <TextInput
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={(promoCode) => this.setState({ promoCode })}
+                    value={this.state.promoCode}
+                /> */}
+                <Text style={styles.legalText}>
+                    By signing up, you agree to the Terms of Service found here:
+                    https://www.myhasty.com/terms.html & Privacy Policy fround
+                    here: https://www.myhasty.com/privacy.html
+                </Text>
+                <Button
+                    onPress={this.signInWithGoogle}
+                    title="Sign In with Google"
+                    icon={{
+                        type: 'material-community',
+                        name: 'google-plus-box',
+                        color: '#fff',
+                        size: 25
+                    }}
+                    containerViewStyle={styles.buttonContainer}
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
+                />
+                <Button
+                    onPress={this.signInWithGithub}
+                    title="Sign In with Github"
+                    icon={{
+                        type: 'material-community',
+                        name: 'github-circle',
+                        color: '#fff',
+                        size: 25
+                    }}
+                    containerViewStyle={styles.buttonContainer}
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
+                />
                 <Button
                     onPress={this.signInWithFacebook}
-                    title="Log In with Facebook"
+                    title="Sign In with Facebook"
                     icon={{
                         type: 'material-community',
                         name: 'facebook-box',
+                        color: '#fff',
+                        size: 25
+                    }}
+                    containerViewStyle={styles.buttonContainer}
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
+                />
+                <Button
+                    onPress={this.signInWithTwitter}
+                    title="Sign In with Twitter"
+                    icon={{
+                        type: 'material-community',
+                        name: 'twitter-circle',
                         color: '#fff',
                         size: 25
                     }}
