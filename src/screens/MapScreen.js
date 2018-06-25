@@ -26,6 +26,7 @@ import {
     orderCreationFailure
 } from '../actions/orderActions';
 import ContinuePopup from '../components/ContinuePopup';
+import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeader from '../containers/MapHeader';
@@ -52,6 +53,11 @@ const CENTER_OFFSET = {
 };
 const MARKER_ANIMATION_DURATION = 0;
 
+const CHANGE_LOCATION_TITLE =
+    'Are you sure you want to change your delivery location?';
+const CHANGE_LOCATION_MESSAGE =
+    'The available products/services at your new location may be different.';
+
 class MapScreen extends Component {
     state = {
         mapReady: false,
@@ -62,7 +68,8 @@ class MapScreen extends Component {
         getCurrentPositionPending: false,
         // set initialMessageVisible to true during SXSW
         initialMessageVisible: false,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region)
+        animatedRegion: new MapView.AnimatedRegion(this.props.region),
+        changeLocationPopupVisible: false
     };
 
     componentWillMount() {
@@ -104,57 +111,67 @@ class MapScreen extends Component {
         }
     };
 
-    onButtonPress = async () => {
-        let resp;
-        const result = await this.props.distanceMatrix({
-            units: 'imperial',
-            origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
-            destinations: `${this.props.region.latitude},${
-                this.props.region.longitude
-            }`
-        });
-        if (result.rows[0].elements[0].duration.value > 60 * 30) {
-            this.props.dropdownAlert(true, 'Service is not available here');
-            resp = result;
-        } else {
-            this.props.dropdownAlert(false, '');
-            this.props.setCurrentLocation(
-                this.props.address,
-                this.props.region
-            );
-            try {
-                resp = await firebase
-                    .database()
-                    .ref('orders/US/TX/Austin')
-                    .push({
-                        currentSetAddress: this.props.address,
-                        region: this.props.region,
-                        status: 'open'
-                    });
-                if (resp) {
-                    const key = resp.path.pieces_.join('/'); // eslint-disable-line
-                    this.props.orderCreationSuccess(key);
-                    this.props.navigation.navigate('home');
-                } else {
-                    throw new Error('Error setting location');
-                }
-            } catch (error) {
-                resp = error;
-                const message =
-                    error.message || // just while dev TODO: remove
-                    'Error setting location, please change and try again';
-
-                this.props.orderCreationFailure(error); // TODO: log this error to server
-                this.props.dropdownAlert(true, message);
-            }
-        }
-        return resp;
-    };
-
     getAddress = debounce(this.props.reverseGeocode, 1000, {
         leading: false,
         tailing: true
     });
+
+    useCurrentLocationPress = () => {
+        this.setState({ changeLocationPopupVisible: true });
+    };
+
+    changeLocationConfirmed = async confirmed => {
+        // close change location warning modal
+        this.setState({ changeLocationPopupVisible: false });
+
+        // if the user click 'Apply', continue with use current location
+        if (confirmed) {
+            let resp;
+            const result = await this.props.distanceMatrix({
+                units: 'imperial',
+                origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
+                destinations: `${this.props.region.latitude},${
+                    this.props.region.longitude
+                }`
+            });
+            if (result.rows[0].elements[0].duration.value > 60 * 30) {
+                this.props.dropdownAlert(true, 'Service is not available here');
+                resp = result;
+            } else {
+                this.props.dropdownAlert(false, '');
+                this.props.setCurrentLocation(
+                    this.props.address,
+                    this.props.region
+                );
+                try {
+                    resp = await firebase
+                        .database()
+                        .ref('orders/US/TX/Austin')
+                        .push({
+                            currentSetAddress: this.props.address,
+                            region: this.props.region,
+                            status: 'open'
+                        });
+                    if (resp) {
+                        const key = resp.path.pieces_.join('/'); // eslint-disable-line
+                        this.props.orderCreationSuccess(key);
+                        this.props.navigation.navigate('home');
+                    } else {
+                        throw new Error('Error setting location');
+                    }
+                } catch (error) {
+                    resp = error;
+                    const message =
+                        error.message || // just while dev TODO: remove
+                        'Error setting location, please change and try again';
+
+                    this.props.orderCreationFailure(error); // TODO: log this error to server
+                    this.props.dropdownAlert(true, message);
+                }
+            }
+            return resp;
+        }
+    };
 
     animateMarkerToCoordinate = coordinate => {
         if (Platform.OS === 'android') {
@@ -236,6 +253,8 @@ class MapScreen extends Component {
             productPending
         } = this.props;
 
+        const { changeLocationPopupVisible } = this.state;
+
         return (
             <View style={styles.container}>
                 <MapView
@@ -289,7 +308,7 @@ class MapScreen extends Component {
                     <Button
                         large
                         title="Use Current Location"
-                        onPress={this.onButtonPress}
+                        onPress={this.useCurrentLocationPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                         disabled={pending}
@@ -319,6 +338,13 @@ class MapScreen extends Component {
                     isOpen={this.state.initialMessageVisible}
                     closeModal={this.handleInitialMessageClose}
                     message={INITIAL_MESSAGE}
+                />
+                <SuccessPopup
+                    openModal={changeLocationPopupVisible}
+                    closeModal={this.changeLocationConfirmed}
+                    title={CHANGE_LOCATION_TITLE}
+                    message={CHANGE_LOCATION_MESSAGE}
+                    showIcon={false}
                 />
             </View>
         );

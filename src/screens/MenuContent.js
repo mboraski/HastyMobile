@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-    Image,
-    View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
 
@@ -24,6 +19,7 @@ import paymentIcon from '../assets/icons/payment.png';
 // import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
 // import tempAvatar from '../assets/profile.png';
+import locationIcon from '../assets/icons/location.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
 import { getFacebookInfo } from '../selectors/authSelectors';
@@ -37,6 +33,10 @@ class MenuContent extends Component {
     // handleViewProfile = () => {
     //     this.props.navigation.navigate('profile');
     // };
+
+    mapPress = () => {
+        this.props.navigation.navigate('map');
+    };
 
     cartPress = () => {
         this.props.navigation.navigate('checkout');
@@ -135,6 +135,13 @@ class MenuContent extends Component {
                         onPress={this.cartPress}
                         image={cartIcon}
                         title="Cart"
+                    />
+                    <MenuItem
+                        route={getRoute(items, 'map')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.mapPress}
+                        image={locationIcon}
+                        title="Map"
                     />
                     <MenuItem
                         route={getRoute(items, 'paymentMethod')}
