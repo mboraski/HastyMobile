@@ -28,6 +28,13 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 pending: false
             };
+        case CLEAR_ORDER:
+            return {
+                ...state,
+                currentOrderDatabaseKey: '',
+                pending: false,
+                hero: {}
+            };
         case LISTEN_ORDER_REQUEST:
             return {
                 ...state,
@@ -49,13 +56,6 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 hero: action.payload,
                 pending: false
-            };
-        case CLEAR_ORDER:
-            return {
-                ...state,
-                currentOrderDatabaseKey: '',
-                pending: false,
-                hero: {}
             };
         default:
             return state;

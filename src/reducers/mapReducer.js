@@ -19,26 +19,9 @@ import {
     GET_CURRENT_LOCATION_ERROR
 } from '../actions/mapActions';
 
-function getFormattedAddress(payload) {
-    const result = payload.results[0];
-    if (result) {
-        return result.formatted_address;
-    }
-    return '';
-}
+import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
-function getLocation(payload) {
-    const result = payload.results[0];
-    if (result) {
-        return {
-            latitude: result.geometry.location.lat,
-            longitude: result.geometry.location.lng
-        };
-    }
-    return {};
-}
-
-export const initialState = {
+const initialState = {
     pending: false,
     predictions: [],
     saved: [],
@@ -52,7 +35,7 @@ export const initialState = {
     error: null
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case REHYDRATE:
             if (action.payload && action.payload.map) {
@@ -123,7 +106,9 @@ export default function (state = initialState, action) {
         case SAVE_ADDRESS:
             return {
                 ...state,
-                saved: !state.saved.includes(action.payload) ? [...state.saved, action.payload] : state.saved,
+                saved: !state.saved.includes(action.payload)
+                    ? [...state.saved, action.payload]
+                    : state.saved,
                 address: action.payload
             };
         case SET_REGION:
