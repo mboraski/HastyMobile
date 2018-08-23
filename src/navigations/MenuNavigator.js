@@ -3,16 +3,18 @@ import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
 
 // Relative Imports
-import MenuContent from '../screens/MenuContent';
+import MenuContainer from '../containers/MenuContainer';
 import MainNavigator from './MainNavigator';
 
-const MenuNavgiator = DrawerNavigator({
-    mainNavigator: { screen: MainNavigator }
-}, {
-    drawerWidth: 300, // TODO: change to a percentation of the screen width
-    drawerPosition: 'left',
-    contentComponent: props => <MenuContent {...props} />
-});
-
+const MenuNavgiator = DrawerNavigator(
+    {
+        mainNavigator: { screen: MainNavigator }
+    },
+    {
+        drawerWidth: 300, // TODO: change to a percentation of the screen width
+        drawerPosition: 'left',
+        contentComponent: props => <MenuContainer {...props} />
+    }
+);
 
 export default MenuNavgiator;
