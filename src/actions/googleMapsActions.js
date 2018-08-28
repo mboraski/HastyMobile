@@ -1,5 +1,6 @@
 import googleMapsClient from '../api/googleMaps';
 
+// TODO: remove?
 const KEY = 'AIzaSyB6jHNd8EuHCPh0DG4dauA4ntSkAfJKF5I';
 
 export const MAPS_PLACES_AUTOCOMPLETE_REQUEST =
@@ -18,12 +19,6 @@ export const MAPS_REVERSE_GEOCODE_REQUEST =
 export const MAPS_REVERSE_GEOCODE_SUCCESS =
     'google_maps_reverse_geocode_success';
 export const MAPS_REVERSE_GEOCODE_FAIL = 'google_maps_reverse_geocode_fail';
-
-export const MAPS_DISTANCE_MATRIX_REQUEST =
-    'google_maps_distance_matrix_request';
-export const MAPS_DISTANCE_MATRIX_SUCCESS =
-    'google_maps_distance_matrix_success';
-export const MAPS_DISTANCE_MATRIX_FAIL = 'google_maps_distance_matrix_fail';
 
 export const placesAutocomplete = input => async dispatch => {
     try {
@@ -109,37 +104,6 @@ export const reverseGeocode = props => async dispatch => {
     } catch (error) {
         dispatch({
             type: MAPS_REVERSE_GEOCODE_FAIL,
-            error
-        });
-        throw error;
-    }
-};
-
-export const distanceMatrix = props => async dispatch => {
-    try {
-        dispatch({
-            type: MAPS_DISTANCE_MATRIX_REQUEST,
-            payload: props
-        });
-        const res = await googleMapsClient.distanceMatrix({
-            params: {
-                ...props,
-                key: KEY,
-                mode: 'walking'
-            }
-        });
-        if (res.data.error_message) {
-            throw new Error(res.data.error_message);
-        } else {
-            dispatch({
-                type: MAPS_DISTANCE_MATRIX_SUCCESS,
-                payload: res.data
-            });
-            return res.data;
-        }
-    } catch (error) {
-        dispatch({
-            type: MAPS_DISTANCE_MATRIX_FAIL,
             error
         });
         throw error;

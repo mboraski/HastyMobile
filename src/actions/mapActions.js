@@ -18,25 +18,34 @@ export const saveAddress = address => dispatch => {
     dispatch({ type: SAVE_ADDRESS, payload: address });
     return dispatch(geocode({ address }));
 };
+
 export const setRegion = region => ({ type: SET_REGION, payload: region });
 
 export const getCurrentLocation = () => async dispatch => {
-    dispatch({ type: GET_CURRENT_LOCATION_REQUEST });
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
+    try {
+        dispatch({ type: GET_CURRENT_LOCATION_REQUEST });
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            dispatch({
+                type: GET_CURRENT_LOCATION_ERROR,
+                error: 'Permission to access location was denied'
+            });
+        }
+        const location = await Location.getCurrentPositionAsync({});
+        dispatch(
+            setRegion({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA
+            })
+        );
+        dispatch({ type: GET_CURRENT_LOCATION_SUCCESS });
+    } catch (e) {
         dispatch({
             type: GET_CURRENT_LOCATION_ERROR,
-            error: 'Permission to access location was denied'
+            error: e
         });
+        throw Error('Error collecting location information: ', e);
     }
-    const location = await Location.getCurrentPositionAsync({});
-    dispatch(
-        setRegion({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-        })
-    );
-    dispatch({ type: GET_CURRENT_LOCATION_SUCCESS });
 };
