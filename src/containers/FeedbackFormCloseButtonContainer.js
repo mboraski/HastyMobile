@@ -13,8 +13,12 @@ export class FeedbackFormCloseButton extends Component {
     }
 }
 
-const mapStateToProps = state => ({ feedbackFormVisible: state.ui.feedbackFormVisible });
+const mapStateToProps = state => ({
+    feedbackFormVisible: state.ui.feedbackFormVisible
+});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedbackFormCloseButton);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    FeedbackFormCloseButton
+);

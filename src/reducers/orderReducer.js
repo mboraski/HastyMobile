@@ -7,7 +7,6 @@ import {
     NEW_HERO,
     CLEAR_ORDER
 } from '../actions/orderActions';
-// import orderStatuses from '../constants/Order';
 
 const initialState = {
     currentOrderDatabaseKey: '',

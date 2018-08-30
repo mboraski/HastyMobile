@@ -3,73 +3,51 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { reset } from '../actions/navigationActions';
+import { setDeliveryNotes } from '../actions/checkoutActions';
 import Color from '../constants/Color';
 import Text from '../components/Text';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
-import LogoSpinner from '../components/LogoSpinner';
-import SuccessState from '../components/SuccessState';
 import required from '../validation/required';
-import validEmail from '../validation/validEmail';
-import minLength from '../validation/minLength';
+import maxLength from '../validation/maxLength';
 import { emY } from '../utils/em';
 
-const minLength3 = minLength(3);
+const maxLength500 = maxLength(500);
 
-export class FeedbackForm extends Component {
+export class DeliveryNotesForm extends Component {
     render() {
         const {
             submit,
             anyTouched,
             pending,
             submitting,
-            submitSucceeded,
             asyncValidating,
             invalid,
             pristine
         } = this.props;
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
-        const submitText = anyTouched && invalid ? 'Please fix issues before continuing' : 'SEND';
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
+        const submitText =
+            anyTouched && invalid
+                ? 'Please fix issues before continuing'
+                : 'DONE';
         return (
             <DismissKeyboardView style={styles.container}>
                 <Text style={styles.title}>
-                    We love feedback. Please help us understand your rating in more detail:
+                    What would you like to tell your Hero?
                 </Text>
+                <Text style={styles.subtitle}>500 character limit</Text>
                 <View style={styles.formInputs}>
                     <TextInputField
-                        name="name"
-                        placeholder="Name"
-                        validate={[required, minLength3]}
-                        containerStyle={styles.textInputContainer}
-                        style={styles.textInput}
-                    />
-                    <TextInputField
-                        name="email"
-                        placeholder="Email"
-                        keyboardType="email-address"
-                        validate={[required, validEmail]}
-                        containerStyle={styles.textInputContainer}
-                        style={styles.textInput}
-                        error
-                    />
-                    <TextInputField
-                        name="message"
-                        label="MESSAGE"
+                        name="notes"
+                        label="NOTES"
                         multiline
-                        validate={[required, minLength3]}
-                        containerStyle={styles.textInputContainerMessage}
+                        validate={[required, maxLength500]}
+                        containerStyle={styles.textInputContainer}
                         labelStyle={styles.label}
-                        style={[styles.textInput, styles.textInputMessage]}
+                        style={styles.textInput}
                     />
                 </View>
-                {submitting ? <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} /> : null}
-                {!submitting && submitSucceeded ? (
-                    <SuccessState
-                        style={StyleSheet.absoluteFill}
-                        onAnimationEnd={this.props.onSubmitSucceeded}
-                    />
-                ) : null}
                 <TouchableOpacity
                     onPress={submit}
                     style={[
@@ -96,23 +74,25 @@ const styles = StyleSheet.create({
         fontSize: emY(1),
         textAlign: 'center',
         paddingHorizontal: 10,
-        marginBottom: emY(1)
+        marginBottom: emY(0.5)
+    },
+    subtitle: {
+        fontSize: emY(1),
+        textAlign: 'center',
+        fontStyle: 'italic',
+        color: Color.GREY_500
     },
     formInputs: {
         flex: 1
     },
     textInputContainer: {
-        marginBottom: emY(1)
-    },
-    textInputContainerMessage: {
         flex: 1
     },
     textInput: {
+        flex: 1,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500
-    },
-    textInputMessage: {
-        flex: 1
+        borderColor: Color.GREY_500,
+        textAlignVertical: 'top'
     },
     label: {
         fontSize: emY(1),
@@ -137,21 +117,27 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontSize: emY(1)
-    },
-    spinner: {
-        backgroundColor: Color.WHITE
     }
 });
 
 const formOptions = {
-    form: 'Feedback',
-    async onSubmit() {
-        return new Promise(resolve => setTimeout(resolve, 1000));
+    form: 'DeliveryNotes',
+    onSubmit(values, dispatch, props) {
+        props.setDeliveryNotes(values.notes);
+        props.navigation.goBack();
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
+const mapStateToProps = state => ({
+    initialValues: {
+        notes: state.checkout.notes
+    }
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    setDeliveryNotes
+};
 
-export default reduxForm(formOptions)(connect(mapStateToProps, mapDispatchToProps)(FeedbackForm));
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm(formOptions)(DeliveryNotesForm)
+);

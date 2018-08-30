@@ -50,7 +50,9 @@ export class CreditCardForm extends Component {
             pending,
             error,
             submitting,
-            navigation: { state: { params } }
+            navigation: {
+                state: { params }
+            }
         } = this.props;
         const card = params && params.card;
         return (
@@ -70,7 +72,9 @@ export class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
-                                placeholder={card ? `**** **** **** + ${card.last4}` : ''}
+                                placeholder={
+                                    card ? `**** **** **** + ${card.last4}` : ''
+                                }
                             />
                             <TextInputField
                                 name="exp"

@@ -1,7 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
 import {
-    Alert,
     View,
     StyleSheet,
     Text,
@@ -13,23 +12,16 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import SignInForm from '../containers/SignInForm';
-import SignUpForm from '../containers/SignUpForm';
-import { signInWithFacebook } from '../actions/authActions';
+import SignInFormContainer from '../containers/SignInFormContainer';
+import SignUpFormContainer from '../containers/SignUpFormContainer';
 import { reset } from '../actions/navigationActions';
 import { listCards } from '../actions/paymentActions';
-// import RatingPopup from '../components/RatingPopup';
-// import CommunicationPopup from '../components/CommunicationPopup';
-// import SuccessPopup from '../components/SuccessPopup';
-// import OopsPopup from '../components/OopsPopup';
-// import ContinuePopup from '../components/ContinuePopup';
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
 import { emY } from '../utils/em';
 
-// TODO: replace with real image that gets fetched
-const SOURCE = { uri: 'https://source.unsplash.com/random/800x600' };
+import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 // TODO: add width then use for drawer width. Save to store.
 
 class AuthScreen extends Component {
@@ -96,7 +88,10 @@ class AuthScreen extends Component {
                     style={styles.container}
                     behavior="position"
                 >
-                    <ImageBackground source={SOURCE} style={styles.image}>
+                    <ImageBackground
+                        source={AuthScreenBackground}
+                        style={styles.image}
+                    >
                         <Text style={styles.imageText}>HELLO</Text>
                     </ImageBackground>
                     <View style={styles.buttonsRow}>
@@ -126,9 +121,9 @@ class AuthScreen extends Component {
                         />
                     </View>
                     {signUp ? (
-                        <SignUpForm onAuthSuccess={this.goToPayment} />
+                        <SignUpFormContainer onAuthSuccess={this.goToPayment} />
                     ) : (
-                        <SignInForm onAuthSuccess={this.goToMap} />
+                        <SignInFormContainer onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
                 {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />

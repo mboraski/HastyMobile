@@ -94,10 +94,20 @@ class MapHeader extends Component {
                 >
                     <View style={Style.appBar}>
                         <View style={Style.headerLeftContainer}>
-                            <MenuButton style={Style.headerLeft} disabled={pending} />
+                            <MenuButton
+                                style={Style.headerLeft}
+                                disabled={pending}
+                            />
                         </View>
                         <View style={Style.headerTitleContainer}>
-                            <Text style={[Style.headerTitle, Style.headerTitleLogo]}>Hasty</Text>
+                            <Text
+                                style={[
+                                    Style.headerTitle,
+                                    Style.headerTitleLogo
+                                ]}
+                            >
+                                Hasty
+                            </Text>
                         </View>
                         <View style={Style.headerRightContainer}>
                             <LocationButton
@@ -118,7 +128,10 @@ class MapHeader extends Component {
                     >
                         <View style={Style.appBar}>
                             <View style={Style.headerLeftContainer}>
-                                <BackButton style={Style.headerLeft} onPress={this.closeSearch} />
+                                <BackButton
+                                    style={Style.headerLeft}
+                                    onPress={this.closeSearch}
+                                />
                             </View>
                             <DebounceTextInput
                                 ref={c => (this.input = c)}
@@ -129,7 +142,10 @@ class MapHeader extends Component {
                                 onChangeText={this.handleInput}
                             />
                             <View style={Style.headerRightContainer}>
-                                <CloseButton style={Style.headerRight} onPress={this.clearSearch} />
+                                <CloseButton
+                                    style={Style.headerRight}
+                                    onPress={this.clearSearch}
+                                />
                             </View>
                         </View>
                     </Animated.View>
@@ -159,7 +175,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     searchVisible: state.ui.searchVisible,
-    pending: state.map.pending || state.product.pending,
+    pending: state.map.pending || state.product.pending
 });
 
 const mapDispatchToProps = {

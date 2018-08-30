@@ -16,7 +16,7 @@ import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 
-class SignUpForm extends Component {
+class SignUpFormContainer extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
@@ -204,6 +204,10 @@ const formOptions = {
         return errors;
     },
     onSubmit(values, dispatch, props) {
+        // TODO: add data to Hasty's copy of user, then...
+        // Signup with firebase
+        // if successful, do nothing
+        // if unsuccessful, remove data from our database, log it
         return props.signInWithEmailAndPassword(values).catch(error => {
             throw new SubmissionError({ _error: error.message });
         });
@@ -218,5 +222,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignUpForm)
+    reduxForm(formOptions)(SignUpFormContainer)
 );
