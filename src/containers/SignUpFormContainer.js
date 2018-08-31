@@ -4,7 +4,8 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 
-import { signInWithFacebook, signUp } from '../actions/authActions';
+import { signInWithFacebook } from '../actions/authActions';
+import { getUser } from '../selectors/authSelectors';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
@@ -214,11 +215,10 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ user: auth.user });
+const mapStateToProps = state => ({ user: getUser(state) });
 
 const mapDispatchToProps = {
-    signInWithFacebook,
-    signUp
+    signInWithFacebook
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

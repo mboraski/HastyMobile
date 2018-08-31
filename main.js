@@ -4,6 +4,7 @@ import { StyleSheet, Image, Platform, ActivityIndicator } from 'react-native';
 import Expo, { Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import firebase from 'firebase';
 
 // Relative Imports
 import splashImage from './src/assets/splash.png';
@@ -17,6 +18,17 @@ class App extends Component {
     };
 
     async componentDidMount() {
+        const config = {
+            apiKey: 'AIzaSyBEIuNlAAKU8byP2NUptaZTPtHobhYqMQA',
+            authDomain: 'hasty-14d18.firebaseapp.com',
+            databaseURL: 'https://hasty-14d18.firebaseio.com',
+            projectId: 'hasty-14d18',
+            storageBucket: 'hasty-14d18.appspot.com',
+            messagingSenderId: '734280961973'
+        };
+
+        firebase.initializeApp(config);
+
         const fonts = {
             goodtimes: require('./src/assets/fonts/goodtimes.ttf') // eslint-disable-line global-require
         };

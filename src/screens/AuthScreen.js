@@ -16,11 +16,13 @@ import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
 import { reset } from '../actions/navigationActions';
 import { listCards } from '../actions/paymentActions';
+import { getUser } from '../selectors/authSelectors';
+import { getFirstTimeOpened } from '../selectors/uiSelectors';
+import { emY } from '../utils/em';
+
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
-import { emY } from '../utils/em';
-
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 // TODO: add width then use for drawer width. Save to store.
 
@@ -33,8 +35,9 @@ class AuthScreen extends Component {
     };
 
     componentDidMount() {
-        if (this.props.firstTimeOpened) {
-            this.props.navigation.dispatch(reset('welcome'));
+        const { firstTimeOpened, navigation } = this.props;
+        if (firstTimeOpened) {
+            navigation.dispatch(reset('welcome'));
         }
     }
 
@@ -54,12 +57,13 @@ class AuthScreen extends Component {
     };
 
     goToPayment = async () => {
-        const result = await this.props.listCards(this.props.user.uid);
+        const { user, navigation } = this.props;
+        const result = await this.props.listCards(user.uid);
         if (result.paymentInfo && result.paymentInfo.total_count === 0) {
-            this.props.navigation.navigate('map');
-            this.props.navigation.navigate('paymentMethod', { signedUp: true });
+            navigation.navigate('map');
+            navigation.navigate('paymentMethod', { signedUp: true });
         } else {
-            this.props.navigation.navigate('map');
+            navigation.navigate('map');
         }
     };
 
@@ -126,11 +130,6 @@ class AuthScreen extends Component {
                         <SignInFormContainer onAuthSuccess={this.goToMap} />
                     )}
                 </KeyboardAvoidingView>
-                {/* <RatingPopup openModal={openModal} closeModal={this.closeModal} />
-                <CommunicationPopup openModal={openModal} closeModal={this.closeModal} />
-                <SuccessPopup openModal={openModal} closeModal={this.closeModal} />
-                <OopsPopup openModal={openModal} closeModal={this.closeModal} />
-                <ContinuePopup openModal={openModal} closeModal={this.closeModal} /> */}
             </ScrollView>
         );
     }
@@ -180,8 +179,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: state.auth.user,
-    firstTimeOpened: state.ui.firstTimeOpened
+    user: getUser(state),
+    firstTimeOpened: getFirstTimeOpened(state)
 });
 
 const mapDispatchToProps = {
