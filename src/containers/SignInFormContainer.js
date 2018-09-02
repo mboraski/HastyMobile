@@ -13,6 +13,7 @@ import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
+import { getUser } from '../selectors/authSelectors';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPassword from '../validation/validPassword';
@@ -229,11 +230,11 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({
-    user: auth.user,
+const mapStateToProps = state => ({
+    user: getUser(state),
     initialValues: __DEV__
         ? {
-              email: 'markb539@gmail.com'
+              email: 'example@email.com'
           }
         : undefined
 });
