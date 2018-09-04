@@ -11,6 +11,8 @@ export const getDeliveryFee = state => state.cart.deliveryFee;
 export const getTaxRate = state => state.cart.localSalesTaxRate;
 export const getServiceRate = state => state.cart.serviceRate;
 export const getServiceFee = state => state.cart.serviceFee;
+export const getCurrentSetAddress = state => state.cart.currentSetAddress;
+export const getRegion = state => state.cart.region;
 
 export const getCartInstantProducts = createSelector(
     [getCartProducts],
