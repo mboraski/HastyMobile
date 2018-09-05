@@ -15,15 +15,22 @@ import stripeClient from 'stripe-client';
 
 // Relative Imports
 import { addCard, deleteCard, listCards } from '../actions/paymentActions';
+
+import { getPending } from '../selectors/paymentSelectors';
+import { getUser } from '../selectors/authSelectors';
+
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
+
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
 
+// TODO: Should this be here?
 const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 const keyboardVerticalOffset = emY(1);
@@ -224,8 +231,8 @@ const mapStateToProps = (state, props) => {
                   name: card.name
               }
             : {},
-        pending: state.payment.pending,
-        user: state.auth.user
+        pending: getPending(state),
+        user: getUser(state)
     };
 };
 

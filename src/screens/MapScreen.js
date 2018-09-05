@@ -25,14 +25,25 @@ import {
     orderCreationSuccess,
     orderCreationFailure
 } from '../actions/orderActions';
+
+import { getProductsPending } from '../selectors/productSelectors';
+import { getSearchVisible } from '../selectors/uiSelectors';
+import {
+    getPredictions,
+    getRegion,
+    getAddress
+} from '../selectors/mapSelectors';
+
 import ContinuePopup from '../components/ContinuePopup';
 import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
-import MapHeader from '../containers/MapHeader';
+
+import MapHeaderContainer from '../containers/MapHeaderContainer';
+
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-// TODO: change icon to one with point at center
+// TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
 const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available in Downtown Austin Texas area for the SXSW festival.
@@ -424,17 +435,17 @@ const styles = StyleSheet.create({
 });
 
 MapScreen.navigationOptions = {
-    header: <MapHeader />
+    header: <MapHeaderContainer />
 };
 
 const mapStateToProps = state => ({
-    pending: state.map.pending || state.product.pending,
-    productPending: state.product.pending,
-    predictions: state.map.predictions,
-    searchVisible: state.ui.searchVisible,
+    pending: getProductsPending(state),
+    productPending: getProductsPending(state),
+    predictions: getPredictions(state),
+    searchVisible: getSearchVisible(state),
     header: state.header,
-    region: state.map.region,
-    address: state.map.address
+    region: getRegion(state),
+    address: getAddress(state)
 });
 
 const mapDispatchToProps = {

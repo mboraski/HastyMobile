@@ -3,16 +3,18 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { reset } from '../actions/navigationActions';
-import Color from '../constants/Color';
 import Text from '../components/Text';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
+
+import Color from '../constants/Color';
+
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import minLength from '../validation/minLength';
+
 import { emY } from '../utils/em';
 
 const minLength3 = minLength(3);
@@ -159,10 +161,8 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
-
 const mapDispatchToProps = {};
 
 export default reduxForm(formOptions)(
-    connect(mapStateToProps, mapDispatchToProps)(FeedbackForm)
+    connect(null, mapDispatchToProps)(FeedbackForm)
 );

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { database } from '../firebase';
+import { database } from 'firebase'; //TODO: fix this
 
 import Color from '../constants/Color';
+
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+
 import required from '../validation/required';
 import maxLength from '../validation/maxLength';
 import { emY } from '../utils/em';
@@ -144,10 +146,6 @@ const formOptions = {
     }
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(null, null)(
     reduxForm(formOptions)(NotificationFeedbackForm)
 );

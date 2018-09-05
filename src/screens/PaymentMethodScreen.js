@@ -8,23 +8,33 @@ import MenuAndBackButton from '../components/MenuAndBackButton';
 import SectionTitle from '../components/SectionTitle';
 import PaymentMethod from '../components/PaymentMethod';
 import TextButton from '../components/TextButton';
+
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { listCards } from '../actions/paymentActions';
 import { emY } from '../utils/em';
+
+import { listCards } from '../actions/paymentActions';
+
+import { getUser } from '../selectors/authSelectors';
+import { getCards } from '../selectors/paymentSelectors';
 
 class PaymentMethodScreen extends Component {
     static navigationOptions = ({ navigation }) => {
-        const signedUp = navigation.state.params && navigation.state.params.signedUp;
+        const signedUp =
+            navigation.state.params && navigation.state.params.signedUp;
         const onPressHeaderRight = () => navigation.goBack();
         return {
             title: 'Payment',
-            headerLeft: signedUp ? null : <MenuAndBackButton navigation={navigation} />,
-            headerRight: signedUp ? <TextButton title="Skip" onPress={onPressHeaderRight} /> : null,
+            headerLeft: signedUp ? null : (
+                <MenuAndBackButton navigation={navigation} />
+            ),
+            headerRight: signedUp ? (
+                <TextButton title="Skip" onPress={onPressHeaderRight} />
+            ) : null,
             headerStyle: Style.header,
             headerTitleStyle: Style.headerTitle
         };
-};
+    };
 
     static defaultProps = {
         accounts: [
@@ -50,7 +60,10 @@ class PaymentMethodScreen extends Component {
         }
         const navigationParams = nextProps.navigation.state.params || {};
         if (navigationParams.signedUp) {
-            if (this.props.cards.length !== nextProps.cards.length && nextProps.cards.length > 0) {
+            if (
+                this.props.cards.length !== nextProps.cards.length &&
+                nextProps.cards.length > 0
+            ) {
                 this.props.navigation.goBack();
             }
         }
@@ -122,9 +135,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: state.auth.user,
+    user: getUser(state),
     header: state.header,
-    cards: state.payment.cards
+    cards: getCards(state)
 });
 
 const mapDispatchToProps = {

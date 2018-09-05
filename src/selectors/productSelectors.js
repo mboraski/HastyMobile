@@ -3,7 +3,7 @@ import map from 'lodash.map';
 import forEach from 'lodash.foreach';
 import filter from 'lodash.filter';
 
-import { getCartTotalQuantity, getCartInstantProducts } from './cartSelectors';
+import { getCartInstantProducts } from './cartSelectors';
 
 export const getHeader = state => state.header;
 export const getItemCountUp = state => state.cart.itemCountUp;
@@ -56,46 +56,3 @@ export const getNumberOfProducts = createSelector(
     [getProductsByCategory],
     products => products.length
 );
-
-const getProductsState = createSelector(
-    [
-        getCartInstantProducts,
-        getCartTotalQuantity,
-        getItemCountUp,
-        getItemCountDown,
-        getProductsPending,
-        getProductsByCategory,
-        getCategory,
-        getCategories,
-        getNumberOfProducts,
-        getProductImages,
-        getHeader
-    ],
-    (
-        cart,
-        cartQuantity,
-        itemCountUp,
-        itemCountDown,
-        productPending,
-        productsShown,
-        category,
-        categories,
-        numberOfProducts,
-        productImages,
-        header
-    ) => ({
-        cart,
-        cartQuantity,
-        itemCountUp,
-        itemCountDown,
-        productPending,
-        productsShown,
-        category,
-        categories,
-        numberOfProducts,
-        productImages,
-        header
-    })
-);
-
-export default getProductsState;

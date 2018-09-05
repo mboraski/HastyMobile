@@ -10,15 +10,10 @@ import MenuItem from '../components/MenuItem';
 import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
-// import historyIcon from '../assets/icons/history.png';
-// import favoriteIcon from '../assets/icons/favorite.png';
 import notificationIcon from '../assets/icons/notification.png';
-// eslint-disable-next-line import/no-unresolved
 import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
-// import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
-// import tempAvatar from '../assets/profile.png';
 import locationIcon from '../assets/icons/location.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
@@ -30,10 +25,6 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-    // handleViewProfile = () => {
-    //     this.props.navigation.navigate('profile');
-    // };
-
     mapPress = () => {
         this.props.navigation.navigate('map');
     };
@@ -54,10 +45,6 @@ class MenuContent extends Component {
     paymentInfoPress = () => {
         this.props.navigation.navigate('paymentMethod');
     };
-
-    // promotionSharePress = () => {
-    //     this.props.navigation.navigate('promotionShare');
-    // };
 
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');

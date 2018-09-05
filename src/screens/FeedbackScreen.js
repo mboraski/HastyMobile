@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 // Relative Imports
-import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
-import FeedbackFormCloseButton from '../containers/FeedbackFormCloseButton';
+import FeedbackFormCloseButtonContainer from '../containers/FeedbackFormCloseButtonContainer';
+import FeedbackFormContainer from '../containers/FeedbackFormContainer';
+
 import Rating from '../components/Rating';
 import Text from '../components/Text';
-import FeedbackForm from '../containers/FeedbackForm';
+
+import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
+
+import { getFeedbackFormVisible } from '../selectors/uiSelectors';
+
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
@@ -58,14 +63,19 @@ class FeedbackScreen extends Component {
     render() {
         const { name, numProducts, feedbackFormVisible } = this.props;
         const { userRating, productRating, overallRating } = this.state;
-        const productTitle = numProducts > 1 ? 'How were your products?' : 'How was your product?';
+        const productTitle =
+            numProducts > 1
+                ? 'How were your products?'
+                : 'How was your product?';
         return feedbackFormVisible ? (
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior="padding"
                 keyboardVerticalOffset={keyboardVerticalOffset}
             >
-                <FeedbackForm onSubmitSucceeded={this.onSubmitSuccess} />
+                <FeedbackFormContainer
+                    onSubmitSucceeded={this.onSubmitSuccess}
+                />
             </KeyboardAvoidingView>
         ) : (
             <View style={styles.container}>
@@ -82,7 +92,9 @@ class FeedbackScreen extends Component {
                         value={productRating}
                         onChange={this.handleProductRating}
                     />
-                    <Text style={styles.title}>How was your experience overall?</Text>
+                    <Text style={styles.title}>
+                        How was your experience overall?
+                    </Text>
                     <Rating
                         style={styles.rating}
                         value={overallRating}
@@ -132,7 +144,9 @@ FeedbackScreen.navigationOptions = ({ navigation }) => {
     const handlePressClose = () => navigation.goBack();
     return {
         title: 'Feedback',
-        headerLeft: <FeedbackFormCloseButton onPress={handlePressClose} />,
+        headerLeft: (
+            <FeedbackFormCloseButtonContainer onPress={handlePressClose} />
+        ),
         headerStyle: Style.header,
         headerTitleStyle: Style.headerTitle
     };
@@ -141,7 +155,7 @@ FeedbackScreen.navigationOptions = ({ navigation }) => {
 const mapStateToProps = state => ({
     name: 'Jessica',
     numProducts: 1,
-    feedbackFormVisible: state.ui.feedbackFormVisible
+    feedbackFormVisible: getFeedbackFormVisible(state)
 });
 
 const mapDispatchToProps = {

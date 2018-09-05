@@ -10,28 +10,44 @@ import {
     Platform
 } from 'react-native';
 import { connect } from 'react-redux';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
 import map from 'lodash.map';
-// import firebase from '../firebase';
 
 // Relative Imports
 import ProductList from '../components/ProductList';
-// import MenuButton from '../components/MenuButton';
-// import CartButton from '../components/CartButton';
-// import SearchBar from '../components/SearchBar';
 import Text from '../components/Text';
+
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
-// import Style from '../constants/Style';
-import { addToCart } from '../actions/cartActions';
-import { selectCategory, fetchProductsRequest } from '../actions/productActions';
-import { dropdownAlert } from '../actions/uiActions';
-import getProductsState from '../selectors/productSelectors';
-import { emY } from '../utils/em';
-import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
-import HomeHeader from '../containers/HomeHeader';
 
+import { addToCart } from '../actions/cartActions';
+import {
+    selectCategory,
+    fetchProductsRequest
+} from '../actions/productActions';
+import { dropdownAlert } from '../actions/uiActions';
+
+import {
+    getCartTotalQuantity,
+    getCartInstantProducts,
+    getCategory
+} from '../selectors/cartSelectors';
+import {
+    getItemCountUp,
+    getProductsState,
+    getItemCountDown,
+    getProductsPending,
+    getProductsByCategory,
+    getCategories,
+    getNumberOfProducts,
+    getProductImages,
+    getHeader
+} from '../selectors/productSelectors';
+
+import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
+import { emY } from '../utils/em';
+
+import HomeHeaderContainer from '../containers/HomeHeaderContainer';
 
 class HomeScreen extends Component {
     componentDidMount() {
@@ -39,7 +55,10 @@ class HomeScreen extends Component {
         if (this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (this.props.itemCountDown) {
-            this.props.dropdownAlert(true, 'Some products are no longer available');
+            this.props.dropdownAlert(
+                true,
+                'Some products are no longer available'
+            );
         }
     }
 
@@ -57,18 +76,20 @@ class HomeScreen extends Component {
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
-            this.props.dropdownAlert(true, 'Some products are no longer available');
+            this.props.dropdownAlert(
+                true,
+                'Some products are no longer available'
+            );
         } else {
             this.props.dropdownAlert(false, '');
         }
     }
 
-    callAddToCart = (product) => {
+    callAddToCart = product => {
         this.props.addToCart(product);
     };
 
-    formatCategory = (category) =>
-        (category ? category.toUpperCase() : '')
+    formatCategory = category => (category ? category.toUpperCase() : '');
 
     goToCheckout = () => {
         this.props.navigation.navigate('checkout');
@@ -77,10 +98,14 @@ class HomeScreen extends Component {
     renderCategories = () => {
         const selectedCategory = this.props.category;
         return map(this.props.categories, (category, i) => {
-            const selectedFilter = category.toLowerCase() === selectedCategory.toLowerCase();
-            const filterButtonSelected = selectedFilter ? styles.filterButtonSelected : null;
-            const filterButtonTextSelected = selectedFilter ?
-                styles.filterButtonTextSelected : null;
+            const selectedFilter =
+                category.toLowerCase() === selectedCategory.toLowerCase();
+            const filterButtonSelected = selectedFilter
+                ? styles.filterButtonSelected
+                : null;
+            const filterButtonTextSelected = selectedFilter
+                ? styles.filterButtonTextSelected
+                : null;
             const onPress = () => this.props.selectFilter(category);
             return (
                 <TouchableOpacity
@@ -88,7 +113,12 @@ class HomeScreen extends Component {
                     style={[styles.filterButton, filterButtonSelected]}
                     onPress={onPress}
                 >
-                    <Text style={[styles.filterButtonText, filterButtonTextSelected]}>
+                    <Text
+                        style={[
+                            styles.filterButtonText,
+                            filterButtonTextSelected
+                        ]}
+                    >
                         {category}
                     </Text>
                 </TouchableOpacity>
@@ -108,7 +138,10 @@ class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 {cartQuantity > 0 ? (
-                    <TouchableOpacity style={styles.checkout} onPress={this.goToCheckout}>
+                    <TouchableOpacity
+                        style={styles.checkout}
+                        onPress={this.goToCheckout}
+                    >
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
                         <View style={styles.checkoutIconContainer}>
                             <MaterialIcons
@@ -120,10 +153,17 @@ class HomeScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 ) : (
-                    <ImageBackground source={AuthScreenBackground} style={styles.image}>
-                        <View style={[StyleSheet.absoluteFill, styles.imageTint]} />
+                    <ImageBackground
+                        source={AuthScreenBackground}
+                        style={styles.image}
+                    >
+                        <View
+                            style={[StyleSheet.absoluteFill, styles.imageTint]}
+                        />
                         <View>
-                            <Text style={styles.imageTitle}>{this.formatCategory(category)}</Text>
+                            <Text style={styles.imageTitle}>
+                                {this.formatCategory(category)}
+                            </Text>
                             <Text style={styles.imageMeta}>
                                 {numberOfProducts} items
                             </Text>
@@ -135,7 +175,7 @@ class HomeScreen extends Component {
                         size="large"
                         style={StyleSheet.absoluteFill}
                     />
-                ) :
+                ) : (
                     <View style={styles.container}>
                         <ScrollView
                             horizontal
@@ -144,15 +184,15 @@ class HomeScreen extends Component {
                         >
                             {this.renderCategories()}
                         </ScrollView>
-                        {productsShown &&
+                        {productsShown && (
                             <ProductList
                                 products={productsShown}
                                 productImages={productImages}
                                 callAddToCart={this.callAddToCart}
                             />
-                        }
+                        )}
                     </View>
-                }
+                )}
             </View>
         );
     }
@@ -243,25 +283,30 @@ const styles = StyleSheet.create({
 });
 
 HomeScreen.navigationOptions = {
-    header: <HomeHeader />
+    header: <HomeHeaderContainer />
 };
 
-// HomeScreen.navigationOptions = ({ navigation }) => ({
-//     title: 'Hasty Logo',
-//     headerLeft: <MenuButton />,
-//     headerTitle: <SearchBar />,
-//     headerRight: <CartButton navigation={navigation} />,
-//     headerStyle: Style.headerLarge,
-//     headerTitleStyle: Style.headerTitle
-// });
+const mapStateToProps = state => ({
+    cart: getCartInstantProducts(state),
+    cartQuantity: getCartTotalQuantity(state),
+    itemCountUp: getItemCountUp(state),
+    itemCountDown: getItemCountDown(state),
+    productPending: getProductsPending(state),
+    productsShown: getProductsByCategory(state),
+    category: getCategory(state),
+    categories: getCategories(state),
+    numberOfProducts: getNumberOfProducts(state),
+    productImages: getProductImages(state),
+    header: getHeader(state)
+});
 
-const mapStateToProps = state => getProductsState(state);
-
+// TODO: Change formatting of mapDispatchToProps?
 const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
     addToCart: productInfo => dispatch(addToCart(productInfo)),
     fetchProductsRequest: () => dispatch(fetchProductsRequest()),
-    dropdownAlert: (visible, message) => dispatch(dropdownAlert(visible, message))
+    dropdownAlert: (visible, message) =>
+        dispatch(dropdownAlert(visible, message))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

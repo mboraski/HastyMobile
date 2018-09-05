@@ -13,7 +13,11 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartTotalQuantity } from '../selectors/cartSelectors';
+import {
+    getCartProducts,
+    getCartTotalQuantity,
+    getCartPureTotal
+} from '../selectors/cartSelectors';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 
@@ -171,9 +175,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    orders: state.cart.products,
-    // availableCartItems: getAvailableCartItems(state),
-    totalCost: state.cart.preTaxTotal,
+    orders: getCartProducts(state),
+    totalCost: getCartPureTotal(state),
     totalQuantity: getCartTotalQuantity(state)
 });
 

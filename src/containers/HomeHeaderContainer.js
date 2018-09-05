@@ -1,16 +1,23 @@
+// Third Party Imports
 import React, { Component } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
+// Relative Imports
 import { placesAutocomplete } from '../actions/googleMapsActions';
 import { getCurrentLocation } from '../actions/mapActions';
 import { toggleSearch } from '../actions/uiActions';
+
 import DebounceTextInput from '../components/DebounceTextInput';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
-// import LocationButton from '../components/LocationButton';
 import MenuButton from '../components/MenuButton';
 import Text from '../components/Text';
+
+import { getSearchVisible } from '../selectors/uiSelectors';
+import { getPending } from '../selectors/mapSelectors';
+import { getProductsPending } from '../selectors/productSelectors';
+
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
@@ -174,8 +181,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    searchVisible: state.ui.searchVisible,
-    pending: state.map.pending || state.product.pending
+    searchVisible: getSearchVisible(state),
+    pending: getPending(state) || getProductsPending(state)
 });
 
 const mapDispatchToProps = {

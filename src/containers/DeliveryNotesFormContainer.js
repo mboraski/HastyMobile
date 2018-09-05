@@ -14,7 +14,7 @@ import { emY } from '../utils/em';
 
 const maxLength500 = maxLength(500);
 
-export class DeliveryNotesForm extends Component {
+export class DeliveryNotesFormContainer extends Component {
     render() {
         const {
             submit,
@@ -139,5 +139,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(DeliveryNotesForm)
+    reduxForm(formOptions)(DeliveryNotesFormContainer)
 );

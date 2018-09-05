@@ -2,9 +2,8 @@ import { createSelector } from 'reselect';
 import reduce from 'lodash.reduce';
 import filter from 'lodash.filter';
 
-// import { getAvailableProducts } from './productSelectors';
-
 export const getCartProducts = state => state.cart.products;
+export const getCartImages = state => state.cart.images; //TODO: set images in this part of state
 export const getItemCountUp = state => state.cart.products;
 export const getItemCountDown = state => state.cart.products;
 export const getDeliveryFee = state => state.cart.deliveryFee;

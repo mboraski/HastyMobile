@@ -21,7 +21,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class DeliveryStatusHeader extends Component {
+class DeliveryStatusHeaderContainer extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -185,5 +185,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    DeliveryStatusHeader
+    DeliveryStatusHeaderContainer
 );

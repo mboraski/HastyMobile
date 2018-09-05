@@ -12,22 +12,30 @@ import {
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 
 // Relative Imports
-import firebase from '../firebase';
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
-// import DropDown from '../components/DropDown';
 import PaymentMethod from '../components/PaymentMethod';
 import OopsPopup from '../components/OopsPopup';
 import SuccessPopup from '../components/SuccessPopup';
 import Text from '../components/Text';
+
 import Color from '../constants/Color';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
+import beaconIcon from '../assets/icons/beacon.png';
+
 import { emY } from '../utils/em';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+
+import {
+    addToCart,
+    removeFromCart,
+    getCurrentSetAddress,
+    getRegion
+} from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     submitPayment,
@@ -35,16 +43,23 @@ import {
     listCards
 } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
+import { getNotes } from '../actions/checkoutActions';
+
 import {
     getCartOrders,
     getCartCostTotal,
     getCartTaxTotal,
     getCartServiceCharge,
     getServiceFee,
-    getDeliveryFee
+    getDeliveryFee,
+    getCartImages
 } from '../selectors/cartSelectors';
-
-import beaconIcon from '../assets/icons/beacon.png';
+import {
+    getCards,
+    getSelectedCard,
+    getPending
+} from '../selectors/paymentSelectors';
+import { getCurrentOrderDatabaseKey } from '../selectors/orderSelectors';
 
 const REMOVE_ORDER_MESSAGE =
     'Are you sure you want to remove this product from your cart?';
@@ -139,7 +154,7 @@ class CheckoutScreen extends Component {
         this.setState({ changeLocationPopupVisible: false });
     };
 
-    lightABeacon = () => {
+    lightAbeacon = () => {
         const {
             selectedCard,
             navigation,
@@ -220,7 +235,7 @@ class CheckoutScreen extends Component {
                                 />
                             </MapView>
                             <Button
-                                onPress={this.lightABeacon}
+                                onPress={this.lightAbeacon}
                                 title="LIGHT A BEACON!"
                                 containerViewStyle={styles.buttonContainer}
                                 buttonStyle={styles.button}
@@ -332,7 +347,7 @@ class CheckoutScreen extends Component {
                                 </Text>
                             </View>
                             <Button
-                                onPress={this.lightABeacon}
+                                onPress={this.lightAbeacon}
                                 title="LIGHT A BEACON!"
                                 containerViewStyle={styles.buttonContainer}
                                 buttonStyle={styles.button}
@@ -454,19 +469,19 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     cart: getCartOrders(state),
-    cartImages: state.product.productImages,
+    cartImages: getCartImages(state),
     totalCost: getCartCostTotal(state),
     tax: getCartTaxTotal(state),
     serviceFee: getServiceFee(state),
     deliveryFee: getDeliveryFee(state),
     serviceCharge: getCartServiceCharge(state),
-    notes: state.checkout.notes,
-    address: state.cart.currentSetAddress,
-    region: state.cart.region,
-    cards: state.payment.cards,
-    selectedCard: state.payment.selectedCard,
-    pending: state.payment.pending,
-    orderId: state.order.currentOrderDatabaseKey
+    notes: getNotes(state),
+    address: getCurrentSetAddress(state),
+    region: getRegion(state),
+    cards: getCards(state),
+    selectedCard: getSelectedCard(state),
+    pending: getPending(state),
+    orderId: getCurrentOrderDatabaseKey(state)
 });
 
 const mapDispatchToProps = {

@@ -2,29 +2,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-// import { Button } from 'react-native-elements';
 
 // Relative Imports
-import loaderGradient from '../assets/loader-gradient.png';
-import loaderTicks from '../assets/loader-ticks.png';
 import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
-import Notification from '../components/Notification';
+import Notification from '../components/Notification'; // TODO: fix linter error
 import HeroList from '../components/HeroList';
-// import Spinner from '../components/Spinner';
-import { clearCart } from '../actions/cartActions';
 import Text from '../components/Text';
+
 import Color from '../constants/Color';
 import Style from '../constants/Style';
+import orderStatuses from '../constants/Order';
+import loaderGradient from '../assets/loader-gradient.png';
+import loaderTicks from '../assets/loader-ticks.png';
+
 import { emY } from '../utils/em';
-// import tempAvatar from '../assets/profile.png';
-// import { getFacebookInfo } from '../selectors/authSelectors';
+
+import {
+    getCurrentOrderDatabaseKey,
+    getStatus,
+    getPending
+} from '../selectors/orderSelectors';
+
+import { clearCart } from '../actions/cartActions';
 import {
     listenToOrder,
     unlistenToOrder,
     clearOrder
 } from '../actions/orderActions';
-import orderStatuses from '../constants/Order';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -33,15 +38,15 @@ class DeliveryStatusScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Order',
         headerLeft: <MenuButton style={Style.headerLeft} />,
-        headerRight: <BrandButton
-            onPress={
-                () => {
+        headerRight: (
+            <BrandButton
+                onPress={() => {
                     clearCart();
                     clearOrder();
                     navigation.navigate('map');
-                }
-            }
-        />,
+                }}
+            />
+        ),
         headerStyle: Style.headerBorderless,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
@@ -76,7 +81,10 @@ class DeliveryStatusScreen extends Component {
     }
 
     renderHeroList() {
-        if ((this.props.status === orderStatuses.accepted) || (this.props.status === orderStatuses.arrived)) {
+        if (
+            this.props.status === orderStatuses.accepted ||
+            this.props.status === orderStatuses.arrived
+        ) {
             return (
                 <View style={styles.container}>
                     <View style={styles.label}>
@@ -93,7 +101,9 @@ class DeliveryStatusScreen extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.labelAlt}>
-                        <Text style={styles.labelText}>Note: Look for orange Hasty shirt!</Text>
+                        <Text style={styles.labelText}>
+                            Note: Look for orange Hasty shirt!
+                        </Text>
                     </View>
                 </View>
             );
@@ -104,22 +114,20 @@ class DeliveryStatusScreen extends Component {
         const { orderId } = this.props;
         return (
             <View style={styles.container}>
-                {orderId ?
+                {orderId ? (
                     <View style={styles.container}>
                         <View style={styles.spinner}>
-                            <ActivityIndicator
-                                size="large"
-                                color="#F5A623"
-                            />
+                            <ActivityIndicator size="large" color="#F5A623" />
                         </View>
                         <Notification onRef={ref => (this.notRef = ref)} />
                         {/* {this.renderHeroList()} */}
                         {this.renderArrived()}
-                    </View> :
+                    </View>
+                ) : (
                     <View style={styles.container}>
                         <Text>No current orders</Text>
                     </View>
-                }
+                )}
             </View>
         );
     }
@@ -207,9 +215,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     header: state.header,
-    orderId: state.order.currentOrderDatabaseKey,
-    status: state.order.status,
-    pending: state.order.pending
+    orderId: getCurrentOrderDatabaseKey(state),
+    status: getStatus(state),
+    pending: getPending(state)
 });
 
 const mapDispatchToProps = {
@@ -219,4 +227,6 @@ const mapDispatchToProps = {
     clearOrder
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeliveryStatusScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    DeliveryStatusScreen
+);

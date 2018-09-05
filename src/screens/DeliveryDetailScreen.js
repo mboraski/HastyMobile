@@ -19,10 +19,7 @@ class DeliveryDetailScreen extends Component {
             <ScrollView style={styles.container}>
                 <Text style={styles.formSection}>INFORMATION</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField
-                        name="name"
-                        label="Full Name" 
-                    />
+                    <InlineLabelTextInputField name="name" label="Full Name" />
                     <InlineLabelTextInputField
                         name="number"
                         label="Phone Number"
@@ -35,26 +32,11 @@ class DeliveryDetailScreen extends Component {
                 </View>
                 <Text style={styles.formSection}>ADDRESS</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField
-                        name="country"
-                        label="Country"
-                    />
-                    <InlineLabelTextInputField
-                        name="state"
-                        label="State"
-                    />
-                    <InlineLabelTextInputField
-                        name="city"
-                        label="City"
-                    />
-                    <InlineLabelTextInputField
-                        name="address"
-                        label="Address"
-                    />
-                    <InlineLabelTextInputField
-                        name="zip"
-                        label="ZIP code"
-                    />
+                    <InlineLabelTextInputField name="country" label="Country" />
+                    <InlineLabelTextInputField name="state" label="State" />
+                    <InlineLabelTextInputField name="city" label="City" />
+                    <InlineLabelTextInputField name="address" label="Address" />
+                    <InlineLabelTextInputField name="zip" label="ZIP code" />
                 </View>
                 <Field name="save" component={Radio} text="Save Information" />
                 <Button
