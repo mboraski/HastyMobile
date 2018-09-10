@@ -1,58 +1,65 @@
-import { Facebook } from 'expo';
-import firebase from '../firebase';
-
-import { APP_ID } from '../constants/Facebook';
+import firebase from 'firebase';
 
 export const AUTH_CHANGED = 'auth_changed';
-export const AUTH_RESET_STATE = 'auth_reset_state';
-export const SIGNUP = 'signup';
+export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
 export const SIGNUP_FAIL = 'signup_fail';
-export const SIGNOUT = 'signout';
+export const SIGNIN_REQUEST = 'signin_request';
+export const SIGNIN_SUCCESS = 'signin_success';
+export const SIGNIN_FAIL = 'signin_fail';
+export const SIGNOUT_REQUEST = 'signout_request';
 export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
-export const REDIRECT_TO_SIGNUP = 'redirect_to_signup';
-export const UPDATE_ACCOUNT = 'update_account';
-export const UPDATE_ACCOUNT_SUCCESS = 'update_account_success';
-export const UPDATE_ACCOUNT_FAIL = 'update_account_fail';
-export const LOGIN_FACEBOOK = 'login_facebook';
-export const LOGIN_FACEBOOK_SUCCESS = 'login_facebook_success';
-export const LOGIN_FACEBOOK_FAIL = 'login_facebook_fail';
 
-export const signInWithFacebook = async () => {
+export const createUserWithEmailAndPassword = (
+    email,
+    password,
+    phoneNumber
+) => async dispatch => {
     try {
-        const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-            APP_ID,
-            {
-                permissions: ['public_profile', 'email', 'user_friends']
-            }
-        );
-        if (type === 'success') {
-            const credential = firebase.auth.FacebookAuthProvider.credential(
-                token
-            );
-            const user = await firebase.auth().signInWithCredential(credential);
-            return user;
-        } else if (type === 'cancel') {
-            const error = new Error('Facebook authentication canceled');
-            throw error;
-        }
-        return token;
+        dispatch({
+            type: SIGNUP_REQUEST
+        });
+        await firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password, phoneNumber);
+        dispatch({
+            type: SIGNUP_SUCCESS
+        });
     } catch (error) {
-        throw error;
+        dispatch({
+            type: SIGNUP_FAIL,
+            payload: error
+        });
     }
 };
 
-export const signInWithEmailAndPassword = async ({ email, password }) =>
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+export const signInWithEmailAndPassword = (
+    email,
+    password
+) => async dispatch => {
+    try {
+        dispatch({
+            type: SIGNIN_REQUEST
+        });
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        dispatch({
+            type: SIGNIN_SUCCESS
+        });
+    } catch (error) {
+        dispatch({
+            type: SIGNIN_FAIL,
+            payload: error
+        });
+    }
+};
 
 export const signOut = () => async dispatch => {
     try {
-        dispatch({ type: SIGNOUT });
+        dispatch({ type: SIGNOUT_REQUEST });
         const result = await firebase.auth().signOut();
 
         dispatch({ type: SIGNOUT_SUCCESS });
-        dispatch({ type: AUTH_RESET_STATE });
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });

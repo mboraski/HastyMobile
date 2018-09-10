@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 import {
-    signInWithFacebook,
+    createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from '../actions/authActions';
+
 import { getUser } from '../selectors/authSelectors';
-import Color from '../constants/Color';
+
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
+
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
+
+import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
 class SignUpFormContainer extends Component {
@@ -29,12 +32,6 @@ class SignUpFormContainer extends Component {
         if (props.user && !this.props.user) {
             this.props.onAuthSuccess();
         }
-    };
-
-    signInWithFacebook = () => {
-        this.props
-            .signInWithFacebook()
-            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
@@ -121,19 +118,6 @@ class SignUpFormContainer extends Component {
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
-                <Button
-                    onPress={this.signInWithFacebook}
-                    title="Sign Up with Facebook"
-                    icon={{
-                        type: 'material-community',
-                        name: 'facebook-box',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
             </View>
         );
     }
@@ -208,20 +192,19 @@ const formOptions = {
         return errors;
     },
     onSubmit(values, dispatch, props) {
-        // TODO: add data to Hasty's copy of user, then...
-        // Signup with firebase
-        // if successful, do nothing
-        // if unsuccessful, remove data from our database, log it
-        return props.signInWithEmailAndPassword(values).catch(error => {
-            throw new SubmissionError({ _error: error.message });
-        });
+        this.props.createUserWithEmailAndPassword(
+            props.email,
+            props.password,
+            props.number
+        );
     }
+    // TODO: submit error?
 };
 
 const mapStateToProps = state => ({ user: getUser(state) });
 
 const mapDispatchToProps = {
-    signInWithFacebook,
+    createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 };
 
