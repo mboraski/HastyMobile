@@ -6,18 +6,21 @@ import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { Permissions, Notifications } from 'expo';
+import firebase from 'firebase';
 
 // Relative Imports
-import firebase from '../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { authChanged, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { reduxBoundAddListener, persistor } from '../store';
+import { reduxBoundAddListener } from '../store';
 
-const initialValuesRef = firebase.database().ref('initialValues');
-const activeProductsRef = firebase.database().ref('activeProducts/US/TX/Austin');
+// const initialValuesRef = firebase.database().ref('initialValues');
+//
+// const activeProductsRef = firebase
+//     .database()
+//     .ref('activeProducts/US/TX/Austin');
 
 class RootContainer extends Component {
     async componentWillMount() {
@@ -30,19 +33,19 @@ class RootContainer extends Component {
 
         firebase.auth().onAuthStateChanged(user => {
             this.props.authChanged(user);
-            if (user) {
-                initialValuesRef.once('value')
-                    .then((snapshot) => {
-                        const initialValues = snapshot.val();
-                        if (initialValues.purge) {
-                            persistor.purge();
-                        }
-                    })
-                    .catch((error) => {
-                        // TODO: log to Sentry?
-                        console.log('purge error: ', error);
-                    });
-            }
+            // if (user) {
+            //     initialValuesRef.once('value')
+            //         .then((snapshot) => {
+            //             const initialValues = snapshot.val();
+            //             if (initialValues.purge) {
+            //                 persistor.purge();
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             // TODO: log to Sentry?
+            //             console.log('purge error: ', error);
+            //         });
+            // }
         });
 
         const { status: existingStatus } = await Permissions.getAsync(
@@ -77,7 +80,7 @@ class RootContainer extends Component {
     }
 
     componentWillUnMount() {
-        activeProductsRef.off();
+        // activeProductsRef.off();
     }
 
     handleNotification = notification => {

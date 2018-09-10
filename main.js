@@ -12,21 +12,21 @@ import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
 
+const config = {
+    apiKey: 'AIzaSyBEIuNlAAKU8byP2NUptaZTPtHobhYqMQA',
+    authDomain: 'hasty-14d18.firebaseapp.com',
+    databaseURL: 'https://hasty-14d18.firebaseio.com',
+    projectId: 'hasty-14d18',
+    storageBucket: 'hasty-14d18.appspot.com',
+    messagingSenderId: '734280961973'
+};
+
 class App extends Component {
     state = {
         fontLoaded: false
     };
 
     async componentDidMount() {
-        const config = {
-            apiKey: 'AIzaSyBEIuNlAAKU8byP2NUptaZTPtHobhYqMQA',
-            authDomain: 'hasty-14d18.firebaseapp.com',
-            databaseURL: 'https://hasty-14d18.firebaseio.com',
-            projectId: 'hasty-14d18',
-            storageBucket: 'hasty-14d18.appspot.com',
-            messagingSenderId: '734280961973'
-        };
-
         firebase.initializeApp(config);
 
         const fonts = {

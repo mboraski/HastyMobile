@@ -28,7 +28,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class HomeHeader extends Component {
+class HomeHeaderContainer extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -191,4 +191,6 @@ const mapDispatchToProps = {
     getCurrentLocation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    HomeHeaderContainer
+);

@@ -15,7 +15,7 @@ import { emY } from '../utils/em';
 
 const maxLength500 = maxLength(500);
 
-export class NotificationFeedbackForm extends Component {
+export class NotificationFeedbackFormContainer extends Component {
     state = {};
     render() {
         const {
@@ -147,5 +147,5 @@ const formOptions = {
 };
 
 export default connect(null, null)(
-    reduxForm(formOptions)(NotificationFeedbackForm)
+    reduxForm(formOptions)(NotificationFeedbackFormContainer)
 );

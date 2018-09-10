@@ -7,7 +7,7 @@ import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
 import { listCards } from '../actions/paymentActions';
 import { getUser } from '../selectors/authSelectors';
-import { default as CreditCardForm } from '../containers/CreditCardFormContainer';
+import { default as CreditCardFormContainer } from '../containers/CreditCardFormContainer';
 import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
@@ -18,7 +18,7 @@ class CreditCardScreen extends Component {
 
     render() {
         return (
-            <CreditCardForm
+            <CreditCardFormContainer
                 navigation={this.props.navigation}
                 onSubmitSuccess={this.handleSubmitSuccess}
             />

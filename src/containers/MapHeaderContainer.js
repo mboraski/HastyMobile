@@ -27,7 +27,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class MapHeader extends Component {
+class MapHeaderContainer extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -190,4 +190,4 @@ const mapDispatchToProps = {
     getCurrentLocation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(MapHeaderContainer);

@@ -19,7 +19,7 @@ import { emY } from '../utils/em';
 
 const minLength3 = minLength(3);
 
-export class FeedbackForm extends Component {
+export class FeedbackFormContainer extends Component {
     render() {
         const {
             submit,
@@ -164,5 +164,5 @@ const formOptions = {
 const mapDispatchToProps = {};
 
 export default reduxForm(formOptions)(
-    connect(null, mapDispatchToProps)(FeedbackForm)
+    connect(null, mapDispatchToProps)(FeedbackFormContainer)
 );

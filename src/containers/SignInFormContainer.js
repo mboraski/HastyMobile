@@ -20,7 +20,7 @@ import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 import { formatError } from '../utils/errors';
 
-class SignInForm extends Component {
+class SignInFormContainer extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
@@ -245,5 +245,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignInForm)
+    reduxForm(formOptions)(SignInFormContainer)
 );
