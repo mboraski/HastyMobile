@@ -2,7 +2,9 @@ import AppNavigator from '../navigations/MenuNavigator';
 import { AUTH_RESET_STATE } from '../actions/authActions';
 import { reset } from '../actions/navigationActions';
 
-const authResetState = AppNavigator.router.getStateForAction(reset('auth'));
+const authResetState = AppNavigator.router.getStateForAction(
+    reset('apiTester')
+);
 
 const initialState = authResetState;
 

@@ -3,16 +3,14 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
-import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { Permissions, Notifications } from 'expo';
-import firebase from 'firebase';
 
 // Relative Imports
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
-import { authChanged, signOut } from '../actions/authActions';
+import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { reduxBoundAddListener } from '../store';
 
@@ -31,22 +29,7 @@ class RootContainer extends Component {
             this.props.signOut();
         }
 
-        firebase.auth().onAuthStateChanged(user => {
-            this.props.authChanged(user);
-            // if (user) {
-            //     initialValuesRef.once('value')
-            //         .then((snapshot) => {
-            //             const initialValues = snapshot.val();
-            //             if (initialValues.purge) {
-            //                 persistor.purge();
-            //             }
-            //         })
-            //         .catch((error) => {
-            //             // TODO: log to Sentry?
-            //             console.log('purge error: ', error);
-            //         });
-            // }
-        });
+        this.props.listenToAuthChanges();
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -149,17 +132,11 @@ const mapStateToProps = state => ({
     nav: state.nav
 });
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    ...bindActionCreators(
-        {
-            closeCustomerPopup,
-            dropdownAlert,
-            authChanged,
-            signOut
-        },
-        dispatch
-    )
-});
+const mapDispatchToProps = {
+    closeCustomerPopup,
+    dropdownAlert,
+    listenToAuthChanges,
+    signOut
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

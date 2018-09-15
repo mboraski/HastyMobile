@@ -15,6 +15,7 @@ import {
 
 const initialState = {
     user: null,
+    userReadable: null,
     pending: false,
     error: null,
     expirationDate: null
@@ -37,13 +38,13 @@ export default function(state = initialState, action) {
         case SIGNUP_REQUEST:
             return { ...state, pending: true };
         case SIGNUP_SUCCESS:
-            return { ...state, pending: false };
+            return { ...state, userReadable: payload, pending: false };
         case SIGNUP_FAIL:
             return { ...state, pending: false, error: payload };
         case SIGNIN_REQUEST:
             return { ...state, pending: true };
         case SIGNIN_SUCCESS:
-            return { ...state, pending: false };
+            return { ...state, userReadable: payload, pending: false };
         case SIGNIN_FAIL:
             return { ...state, pending: false, error: payload };
         case SIGNOUT_REQUEST:

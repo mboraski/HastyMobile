@@ -58,8 +58,15 @@ class SignUpFormContainer extends Component {
                     <InlineLabelTextInputField
                         autoCapitalize={'words'}
                         containerStyle={styles.fieldContainer}
-                        name="name"
-                        label="Name"
+                        name="firstName"
+                        label="First Name"
+                        validate={[required]}
+                    />
+                    <InlineLabelTextInputField
+                        autoCapitalize={'words'}
+                        containerStyle={styles.fieldContainer}
+                        name="lastName"
+                        label="Last Name"
                         validate={[required]}
                     />
                     <InlineLabelTextInputField
@@ -181,7 +188,8 @@ const formOptions = {
         if (values.password !== values.confirmPassword) {
             errors.confirmPassword = 'Passwords must match';
         } else if (
-            !values.name ||
+            !values.firstName ||
+            !values.lastName ||
             !values.email ||
             !values.number ||
             !values.password ||
@@ -191,11 +199,14 @@ const formOptions = {
         }
         return errors;
     },
-    onSubmit(values, dispatch, props) {
-        this.props.createUserWithEmailAndPassword(
-            props.email,
-            props.password,
-            props.number
+    onSubmit(values, dispatch) {
+        createUserWithEmailAndPassword(
+            values.firstName,
+            values.lastName,
+            values.email,
+            values.password,
+            values.numbers,
+            dispatch
         );
     }
     // TODO: submit error?
@@ -204,7 +215,6 @@ const formOptions = {
 const mapStateToProps = state => ({ user: getUser(state) });
 
 const mapDispatchToProps = {
-    createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 };
 

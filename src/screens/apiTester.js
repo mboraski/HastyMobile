@@ -56,10 +56,14 @@ class ApiTester extends Component {
     onSignUp = () => {
         firebase
             .auth()
-            .createUserWithEmailAndPassword('markb539@gmail.com', 'Password1')
-            .then(response => {
+            .createUserWithEmailAndPassword('m@m.com', 'Password1')
+            .then(() => {
                 this.setState({
                     signUp: 'Signup Worked'
+                });
+                firebase.auth().currentUser.updateProfile({
+                    displayName: 'Mark B',
+                    phoneNumber: '1112223344'
                 });
             })
             .catch(error => {

@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 export const AUTH_CHANGED = 'auth_changed';
+export const CREATE_USER_SUCCESS = 'create_user_success';
 export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
 export const SIGNUP_FAIL = 'signup_fail';
@@ -11,20 +12,41 @@ export const SIGNOUT_REQUEST = 'signout_request';
 export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
 
-export const createUserWithEmailAndPassword = (
+export const createUserWithEmailAndPassword = async (
+    firstName,
+    lastName,
     email,
     password,
-    phoneNumber
-) => async dispatch => {
+    phoneNumber,
+    dispatch
+) => {
     try {
         dispatch({
             type: SIGNUP_REQUEST
         });
-        await firebase
+        const user = await firebase
             .auth()
-            .createUserWithEmailAndPassword(email, password, phoneNumber);
+            .createUserWithEmailAndPassword(email, password);
         dispatch({
-            type: SIGNUP_SUCCESS
+            type: SIGNUP_SUCCESS,
+            payload: {
+                firstName,
+                lastName,
+                email,
+                phoneNumber
+            }
+        });
+        await firebase
+            .firestore()
+            .doc(`users/${user.uid}`)
+            .set({
+                firstName,
+                lastName,
+                email,
+                phoneNumber
+            });
+        dispatch({
+            type: CREATE_USER_SUCCESS
         });
     } catch (error) {
         dispatch({
@@ -43,9 +65,6 @@ export const signInWithEmailAndPassword = (
             type: SIGNIN_REQUEST
         });
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        dispatch({
-            type: SIGNIN_SUCCESS
-        });
     } catch (error) {
         dispatch({
             type: SIGNIN_FAIL,
@@ -58,8 +77,6 @@ export const signOut = () => async dispatch => {
     try {
         dispatch({ type: SIGNOUT_REQUEST });
         const result = await firebase.auth().signOut();
-
-        dispatch({ type: SIGNOUT_SUCCESS });
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });
@@ -67,4 +84,16 @@ export const signOut = () => async dispatch => {
     }
 };
 
-export const authChanged = user => ({ type: AUTH_CHANGED, payload: user });
+export const listenToAuthChanges = () => dispatch =>
+    firebase.auth().onAuthStateChanged(async user => {
+        dispatch({ type: AUTH_CHANGED, payload: user });
+        if (user) {
+            const userReadable = await firebase
+                .firestore()
+                .doc(`userReadable/${user.uid}`)
+                .get();
+            dispatch({ type: SIGNIN_SUCCESS, payload: userReadable });
+        } else {
+            dispatch({ type: SIGNOUT_SUCCESS });
+        }
+    });

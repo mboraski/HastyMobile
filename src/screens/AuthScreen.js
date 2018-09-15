@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 // Relative Imports
 import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
-import { reset } from '../actions/navigationActions';
+// import { reset } from '../actions/navigationActions';
 import { listCards } from '../actions/paymentActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
@@ -35,10 +35,11 @@ class AuthScreen extends Component {
     };
 
     componentDidMount() {
-        const { firstTimeOpened, navigation } = this.props;
-        if (firstTimeOpened) {
-            navigation.dispatch(reset('welcome'));
-        }
+        // TODO: uncomment
+        // const { firstTimeOpened, navigation } = this.props;
+        // if (firstTimeOpened) {
+        //     navigation.dispatch(reset('welcome'));
+        // }
     }
 
     openSignUpForm = () => {
@@ -96,7 +97,7 @@ class AuthScreen extends Component {
                         source={AuthScreenBackground}
                         style={styles.image}
                     >
-                        <Text style={styles.imageText}>HELLO</Text>
+                        <Text style={styles.imageText}>WELCOME</Text>
                     </ImageBackground>
                     <View style={styles.buttonsRow}>
                         <Button
