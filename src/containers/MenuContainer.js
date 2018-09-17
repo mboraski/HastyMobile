@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Notifications } from 'expo';
+// import { Notifications } from 'expo';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -51,23 +51,23 @@ class MenuContent extends Component {
         this.props.signOut();
     };
 
-    handleLocalNotificationPress = () => {
-        Notifications.scheduleLocalNotificationAsync(
-            {
-                title: 'title',
-                body: 'body',
-                data: {
-                    type: 'feedback',
-                    title: 'title',
-                    description: 'description',
-                    key: 'abc'
-                }
-            },
-            {
-                time: new Date().getTime() + 5000
-            }
-        );
-    };
+    // handleLocalNotificationPress = () => {
+    //     Notifications.scheduleLocalNotificationAsync(
+    //         {
+    //             title: 'title',
+    //             body: 'body',
+    //             data: {
+    //                 type: 'feedback',
+    //                 title: 'title',
+    //                 description: 'description',
+    //                 key: 'abc'
+    //             }
+    //         },
+    //         {
+    //             time: new Date().getTime() + 5000
+    //         }
+    //     );
+    // };
 
     render() {
         const { items, activeItemKey, facebookInfo } = this.props;
@@ -155,13 +155,6 @@ class MenuContent extends Component {
                         image={heroIcon}
                         title="Sign Out"
                     />
-                    {__DEV__ ? (
-                        <MenuItem
-                            onPress={this.handleLocalNotificationPress}
-                            image={helpIcon}
-                            title="Send local notification"
-                        />
-                    ) : null}
                     <Text style={styles.copyright}>@2018 Hasty</Text>
                 </ScrollView>
                 <ToggleBackButton style={styles.backButton} />
@@ -217,8 +210,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => ({ facebookInfo: getFacebookInfo(state) });
-
 const mapDispatchToProps = { openCustomerPopup, signOut };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuContent);
+export default connect(
+    null,
+    mapDispatchToProps
+)(MenuContent);

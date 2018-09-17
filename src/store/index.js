@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 // import logger from 'redux-logger';
 import { AsyncStorage } from 'react-native';
-import {
-    createReactNavigationReduxMiddleware,
-    createReduxBoundAddListener
-} from 'react-navigation-redux-helpers';
+// import {
+//     createReactNavigationReduxMiddleware,
+//     createReduxBoundAddListener
+// } from 'react-navigation-redux-helpers';
 
 import * as reducers from '../reducers';
 
@@ -18,13 +18,13 @@ const persistConfig = {
 };
 
 // Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
-const navMiddleware = createReactNavigationReduxMiddleware(
-    'root',
-    state => state.nav
-);
-export const reduxBoundAddListener = createReduxBoundAddListener('root');
+// const navMiddleware = createReactNavigationReduxMiddleware(
+//     'root',
+//     state => state.nav
+// );
+// export const reduxBoundAddListener = createReduxBoundAddListener('root');
 
-const middlewares = [thunk, navMiddleware];
+const middlewares = [thunk];
 
 // if (__DEV__) {
 //     middlewares.push(logger);

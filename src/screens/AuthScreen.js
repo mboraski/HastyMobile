@@ -53,21 +53,6 @@ class AuthScreen extends Component {
         });
     };
 
-    goToMap = () => {
-        this.props.navigation.navigate('map');
-    };
-
-    goToPayment = async () => {
-        const { user, navigation } = this.props;
-        const result = await this.props.listCards(user.uid);
-        if (result.paymentInfo && result.paymentInfo.total_count === 0) {
-            navigation.navigate('map');
-            navigation.navigate('paymentMethod', { signedUp: true });
-        } else {
-            navigation.navigate('map');
-        }
-    };
-
     closeModal = () => {
         this.setState({ openModal: false });
     };
@@ -125,11 +110,7 @@ class AuthScreen extends Component {
                             onPress={this.openSignInForm}
                         />
                     </View>
-                    {signUp ? (
-                        <SignUpFormContainer onAuthSuccess={this.goToPayment} />
-                    ) : (
-                        <SignInFormContainer onAuthSuccess={this.goToMap} />
-                    )}
+                    {signUp ? <SignUpFormContainer /> : <SignInFormContainer />}
                 </KeyboardAvoidingView>
             </ScrollView>
         );
@@ -188,4 +169,7 @@ const mapDispatchToProps = {
     listCards
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AuthScreen);

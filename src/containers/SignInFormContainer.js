@@ -27,7 +27,7 @@ class SignInFormContainer extends Component {
 
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
-            this.props.onAuthSuccess();
+            this.props.navigation.navigate('map');
         }
     };
 
@@ -244,6 +244,7 @@ const mapDispatchToProps = {
     signInWithEmailAndPassword
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignInFormContainer)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm(formOptions)(SignInFormContainer));

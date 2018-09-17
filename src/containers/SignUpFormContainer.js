@@ -30,7 +30,7 @@ class SignUpFormContainer extends Component {
 
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
-            this.props.onAuthSuccess();
+            this.props.navigation.navigate('paymentMethod', { signedUp: true });
         }
     };
 
@@ -218,6 +218,7 @@ const mapDispatchToProps = {
     signInWithEmailAndPassword
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignUpFormContainer)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm(formOptions)(SignUpFormContainer));

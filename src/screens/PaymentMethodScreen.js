@@ -20,8 +20,7 @@ import { getCards } from '../selectors/paymentSelectors';
 
 class PaymentMethodScreen extends Component {
     static navigationOptions = ({ navigation }) => {
-        const signedUp =
-            navigation.state.params && navigation.state.params.signedUp;
+        const signedUp = navigation.getParams('signedUp', false);
         const onPressHeaderRight = () => navigation.goBack();
         return {
             title: 'Payment',
@@ -144,6 +143,7 @@ const mapDispatchToProps = {
     listCards
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    PaymentMethodScreen
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PaymentMethodScreen);

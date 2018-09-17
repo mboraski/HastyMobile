@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { addNavigationHelpers, NavigationActions } from 'react-navigation';
+// import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import moment from 'moment';
-import { Permissions, Notifications } from 'expo';
+import { Permissions } from 'expo';
 
 // Relative Imports
 import MenuNavigator from '../navigations/MenuNavigator';
@@ -12,7 +12,7 @@ import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { reduxBoundAddListener } from '../store';
+// import { reduxBoundAddListener } from '../store';
 
 // const initialValuesRef = firebase.database().ref('initialValues');
 //
@@ -50,15 +50,14 @@ class RootContainer extends Component {
         if (finalStatus === 'granted') {
             // Get the token that uniquely identifies this device
             // let token = await Notifications.getExpoPushTokenAsync();
-
             // Handle notifications that are received or selected while the app
             // is open. If the app was closed and then opened by tapping the
             // notification (rather than just tapping the app icon to open it),
             // this function will fire on the next tick after the app starts
             // with the notification data.
-            this.notificationSubscription = Notifications.addListener(
-                this.handleNotification
-            );
+            // this.notificationSubscription = Notifications.addListener(
+            //     this.handleNotification
+            // );
         }
     }
 
@@ -66,18 +65,18 @@ class RootContainer extends Component {
         // activeProductsRef.off();
     }
 
-    handleNotification = notification => {
-        if (notification.data) {
-            if (notification.data.type === 'feedback') {
-                this.props.dispatch(
-                    NavigationActions.navigate({
-                        routeName: 'notificationFeedback',
-                        params: notification.data
-                    })
-                );
-            }
-        }
-    };
+    // handleNotification = notification => {
+    //     if (notification.data) {
+    //         if (notification.data.type === 'feedback') {
+    //             this.props.dispatch(
+    //                 NavigationActions.navigate({
+    //                     routeName: 'notificationFeedback',
+    //                     params: notification.data
+    //                 })
+    //             );
+    //         }
+    //     }
+    // };
 
     handleCustomerPopupClose = () => {
         this.props.closeCustomerPopup();
@@ -91,18 +90,16 @@ class RootContainer extends Component {
         const {
             customerPopupVisible,
             dropdownAlertVisible,
-            dropdownAlertText,
-            dispatch,
-            nav
+            dropdownAlertText
         } = this.props;
-        const navigation = addNavigationHelpers({
-            dispatch,
-            state: nav,
-            addListener: reduxBoundAddListener
-        });
+        // const navigation = addNavigationHelpers({
+        //     dispatch,
+        //     state: nav
+        //     // addListener: reduxBoundAddListener
+        // });
         return (
             <View style={styles.container}>
-                <MenuNavigator navigation={navigation} />
+                <MenuNavigator />
                 <CommunicationPopup
                     openModal={customerPopupVisible}
                     closeModal={this.handleCustomerPopupClose}
@@ -139,4 +136,7 @@ const mapDispatchToProps = {
     signOut
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RootContainer);
