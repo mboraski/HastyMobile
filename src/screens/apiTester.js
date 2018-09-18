@@ -55,7 +55,7 @@ class ApiTester extends Component {
     };
     onSignUp = () =>
         db
-            .collection('users')
+            .collection('sup')
             .doc('kpop')
             .set({
                 whatItIs: 'I love k-pop'
