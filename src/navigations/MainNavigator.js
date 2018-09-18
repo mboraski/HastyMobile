@@ -44,7 +44,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'apiTester',
+        initialRouteName: 'auth',
         navigationOptions: {
             tabBarVisible: false
         },

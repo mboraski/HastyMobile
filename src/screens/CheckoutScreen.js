@@ -12,7 +12,6 @@ import {
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 
 // Relative Imports
 import BackButton from '../components/BackButton';
@@ -493,4 +492,7 @@ const mapDispatchToProps = {
     listCards
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CheckoutScreen);

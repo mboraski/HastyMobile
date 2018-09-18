@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import orderStatuses from '../constants/Order';
 
 export const CLEAR_ORDER = 'clear_order';

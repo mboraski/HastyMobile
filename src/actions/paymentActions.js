@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
 

@@ -58,6 +58,7 @@ class AuthScreen extends Component {
     };
 
     render() {
+        const { navigation } = this.props;
         const signUp = this.state.signUp;
         const signUpButtonHighlighted = signUp
             ? styles.buttonHighlighted
@@ -110,7 +111,11 @@ class AuthScreen extends Component {
                             onPress={this.openSignInForm}
                         />
                     </View>
-                    {signUp ? <SignUpFormContainer /> : <SignInFormContainer />}
+                    {signUp ? (
+                        <SignUpFormContainer navigation={navigation} />
+                    ) : (
+                        <SignInFormContainer navigation={navigation} />
+                    )}
                 </KeyboardAvoidingView>
             </ScrollView>
         );

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import { firebaseAuth, db } from '../../firebase';
 
 export const AUTH_CHANGED = 'auth_changed';
 export const CREATE_USER_SUCCESS = 'create_user_success';
@@ -24,9 +24,10 @@ export const createUserWithEmailAndPassword = async (
         dispatch({
             type: SIGNUP_REQUEST
         });
-        const user = await firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password);
+        const user = await firebaseAuth.createUserWithEmailAndPassword(
+            email,
+            password
+        );
         dispatch({
             type: SIGNUP_SUCCESS,
             payload: {
@@ -36,15 +37,12 @@ export const createUserWithEmailAndPassword = async (
                 phoneNumber
             }
         });
-        await firebase
-            .firestore()
-            .doc(`users/${user.uid}`)
-            .set({
-                firstName,
-                lastName,
-                email,
-                phoneNumber
-            });
+        await db.doc(`users/${user.uid}`).set({
+            firstName,
+            lastName,
+            email,
+            phoneNumber
+        });
         dispatch({
             type: CREATE_USER_SUCCESS
         });
@@ -64,7 +62,7 @@ export const signInWithEmailAndPassword = (
         dispatch({
             type: SIGNIN_REQUEST
         });
-        await firebase.auth().signInWithEmailAndPassword(email, password);
+        await firebaseAuth.signInWithEmailAndPassword(email, password);
     } catch (error) {
         dispatch({
             type: SIGNIN_FAIL,
@@ -76,7 +74,7 @@ export const signInWithEmailAndPassword = (
 export const signOut = () => async dispatch => {
     try {
         dispatch({ type: SIGNOUT_REQUEST });
-        const result = await firebase.auth().signOut();
+        const result = await firebaseAuth.signOut();
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });
@@ -85,7 +83,7 @@ export const signOut = () => async dispatch => {
 };
 
 export const listenToAuthChanges = () => dispatch =>
-    firebase.auth().onAuthStateChanged(async user => {
+    firebaseAuth.onAuthStateChanged(async user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
             dispatch({ type: SIGNIN_SUCCESS });

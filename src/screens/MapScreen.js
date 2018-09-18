@@ -11,7 +11,6 @@ import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
-import firebase from 'firebase';
 
 import {
     saveAddress,
@@ -461,4 +460,7 @@ const mapDispatchToProps = {
     orderCreationFailure
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MapScreen);

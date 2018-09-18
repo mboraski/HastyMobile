@@ -1,6 +1,6 @@
 import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
-import firebase from 'firebase';
+
 import { updateCart } from './cartActions';
 
 export const SELECT_CATEGORY = 'select_category';

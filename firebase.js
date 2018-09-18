@@ -21,7 +21,7 @@ try {
 export const fire = firebase;
 export const ref = firebase.database().ref();
 export const firebaseAuth = firebase.auth();
-// export const messaging = firebase.messaging ();
+// export const messaging = firebase.messaging();
 export const db = firebase.firestore();
 
 // Disable deprecated features
