@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 
-import firebase from 'firebase';
+import { fire, db, firebaseAuth } from '../../firebase';
 import {
     addStripeCustomerSource,
     removeStripeCustomerSource,
@@ -35,7 +35,7 @@ class ApiTester extends Component {
     };
 
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(user => {
+        firebaseAuth.onAuthStateChanged(user => {
             if (user) {
                 this.setState({
                     user: JSON.stringify(user)
@@ -53,29 +53,35 @@ class ApiTester extends Component {
             test: 'Test Works'
         });
     };
-    onSignUp = () => {
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword('m@m.com', 'Password1')
-            .then(() => {
-                this.setState({
-                    signUp: 'Signup Worked'
-                });
-                firebase.auth().currentUser.updateProfile({
-                    displayName: 'Mark B',
-                    phoneNumber: '1112223344'
-                });
+    onSignUp = () =>
+        db
+            .collection('users')
+            .doc('kpop')
+            .set({
+                whatItIs: 'I love k-pop'
             })
-            .catch(error => {
-                this.setState({
-                    signUp: JSON.stringify(error)
-                });
-            });
-    };
+            .then(() => console.log('success'))
+            .catch(error => console.log('error: ', error));
+    // fireerroerror => console.log('error: ', error));
+    //     .auth()
+    //     .createUserWithEmailAndPassword('m@m.com', 'Password1')
+    //     .then(() => {
+    //         this.setState({
+    //             signUp: 'Signup Worked'
+    //         });
+    //         firebaseAuth.currentUser.updateProfile({
+    //             displayName: 'Mark B',
+    //             phoneNumber: '1112223344'
+    //         });
+    //     })
+    //     .catch(error => {
+    //         this.setState({
+    //             signUp: JSON.stringify(error)
+    //         });
+    //     });
     onDeleteUser = () => {
-        const user = firebase.auth().currentUser;
-        user
-            .delete()
+        const user = firebaseAuth.currentUser;
+        user.delete()
             .then(response => {
                 this.setState({
                     deleteUser: JSON.stringify(response),
@@ -91,8 +97,7 @@ class ApiTester extends Component {
             });
     };
     onLogin = () => {
-        firebase
-            .auth()
+        fire.auth()
             .signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
             .then(response => {
                 this.setState({
@@ -106,8 +111,7 @@ class ApiTester extends Component {
             });
     };
     onLogout = () => {
-        firebase
-            .auth()
+        fire.auth()
             .signOut()
             .then(response => {
                 this.setState({
@@ -121,7 +125,7 @@ class ApiTester extends Component {
             });
     };
     onAddStripeCustomerSource = () => {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         stripe
             .createToken({
                 card: {
@@ -154,7 +158,7 @@ class ApiTester extends Component {
             });
     };
     onRemoveStripeCustomerSource = () => {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         const args = { uid: user.uid, source: this.state.currentCard };
         return removeStripeCustomerSource(args)
             .then(() => {
@@ -170,9 +174,9 @@ class ApiTester extends Component {
             });
     };
     onFetchStripeCustomerPaymentInfo = () => {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         const uid = user.uid;
-        const docRef = firebase
+        const docRef = fire
             .firestore()
             .collection('userOwned')
             .doc(uid);
@@ -195,7 +199,7 @@ class ApiTester extends Component {
             .catch(error => {});
     };
     onChargeCurrentCard = () => {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         const uid = user.uid;
         const charge = {
             amount: 190.0,
@@ -205,8 +209,7 @@ class ApiTester extends Component {
         return chargeStripeCustomerSource({ uid, charge });
     };
     onLightBeacon = () => {
-        firebase
-            .database()
+        fire.database()
             .ref('/userOwned/orders/US/TX/Austin')
             .add({
                 currentSetAddress:

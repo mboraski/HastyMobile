@@ -4,7 +4,6 @@ import { StyleSheet, Image, Platform, ActivityIndicator } from 'react-native';
 import Expo, { Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
-import firebase from 'firebase';
 
 // Relative Imports
 import splashImage from './src/assets/splash.png';
@@ -12,23 +11,12 @@ import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
 
-const config = {
-    apiKey: 'AIzaSyBEIuNlAAKU8byP2NUptaZTPtHobhYqMQA',
-    authDomain: 'hasty-14d18.firebaseapp.com',
-    databaseURL: 'https://hasty-14d18.firebaseio.com',
-    projectId: 'hasty-14d18',
-    storageBucket: 'hasty-14d18.appspot.com',
-    messagingSenderId: '734280961973'
-};
-
 class App extends Component {
     state = {
         fontLoaded: false
     };
 
     async componentDidMount() {
-        firebase.initializeApp(config);
-
         const fonts = {
             goodtimes: require('./src/assets/fonts/goodtimes.ttf') // eslint-disable-line global-require
         };
@@ -36,7 +24,6 @@ class App extends Component {
         if (Platform.OS === 'android') {
             fonts.Arial = require('./src/assets/fonts/arial.ttf'); // eslint-disable-line global-require
         }
-
         await Font.loadAsync(fonts);
         this.setState({ fontLoaded: true });
     }

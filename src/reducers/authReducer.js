@@ -44,7 +44,7 @@ export default function(state = initialState, action) {
         case SIGNIN_REQUEST:
             return { ...state, pending: true };
         case SIGNIN_SUCCESS:
-            return { ...state, userReadable: payload, pending: false };
+            return { ...state, pending: false };
         case SIGNIN_FAIL:
             return { ...state, pending: false, error: payload };
         case SIGNOUT_REQUEST:

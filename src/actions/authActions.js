@@ -88,17 +88,7 @@ export const listenToAuthChanges = () => dispatch =>
     firebase.auth().onAuthStateChanged(async user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
-            // try {
-            //     const userReadable = await firebase
-            //         .firestore()
-            //         .doc(`userReadable/${user.uid}`)
-            //         .get();
-            //
-            //     dispatch({ type: SIGNIN_SUCCESS, payload: userReadable });
-            // } catch (err) {
-            //     console.error('error getting user readable: ', err);
-            //     // TODO: LOG TO SERVER
-            // }
+            dispatch({ type: SIGNIN_SUCCESS });
         } else {
             dispatch({ type: SIGNOUT_SUCCESS });
         }
