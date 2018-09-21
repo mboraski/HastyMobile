@@ -114,7 +114,7 @@ class SignUpFormContainer extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <TouchableOpacity
-                    onPress={handleSubmit}
+                    onPress={handleSubmit(createUserWithEmailAndPassword)}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -198,18 +198,7 @@ const formOptions = {
             errors.missingValues = 'Some form field values are missing';
         }
         return errors;
-    },
-    onSubmit(values, dispatch) {
-        createUserWithEmailAndPassword(
-            values.firstName,
-            values.lastName,
-            values.email,
-            values.password,
-            values.numbers,
-            dispatch
-        );
     }
-    // TODO: submit error?
 };
 
 const mapStateToProps = state => ({ user: getUser(state) });

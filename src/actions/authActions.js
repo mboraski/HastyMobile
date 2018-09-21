@@ -1,7 +1,8 @@
+import { SubmissionError } from 'redux-form';
+
 import { firebaseAuth, db } from '../../firebase';
 
 export const AUTH_CHANGED = 'auth_changed';
-export const CREATE_USER_SUCCESS = 'create_user_success';
 export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
 export const SIGNUP_FAIL = 'signup_fail';
@@ -12,47 +13,53 @@ export const SIGNOUT_REQUEST = 'signout_request';
 export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
 
-export const createUserWithEmailAndPassword = async (
+export const createUserWithEmailAndPassword = (
     firstName,
     lastName,
     email,
     password,
     phoneNumber,
     dispatch
-) => {
-    try {
+) =>
+    new Promise(resolve => {
         dispatch({
             type: SIGNUP_REQUEST
         });
-        const user = await firebaseAuth.createUserWithEmailAndPassword(
-            email,
-            password
-        );
-        dispatch({
-            type: SIGNUP_SUCCESS,
-            payload: {
-                firstName,
-                lastName,
-                email,
-                phoneNumber
-            }
-        });
-        await db.doc(`users/${user.uid}`).set({
-            firstName,
-            lastName,
-            email,
-            phoneNumber
-        });
-        dispatch({
-            type: CREATE_USER_SUCCESS
-        });
-    } catch (error) {
-        dispatch({
-            type: SIGNUP_FAIL,
-            payload: error
-        });
-    }
-};
+        return firebaseAuth
+            .createUserWithEmailAndPassword(email, password)
+            .then(user =>
+                db
+                    .collection('users')
+                    .doc(`${user.uid}`)
+                    .set({
+                        firstName,
+                        lastName,
+                        email,
+                        phoneNumber
+                    })
+            )
+            .then(() => {
+                dispatch({
+                    type: SIGNUP_SUCCESS,
+                    payload: {
+                        firstName,
+                        lastName,
+                        email,
+                        phoneNumber
+                    }
+                });
+                return resolve();
+            })
+            .catch(error => {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: error
+                });
+                throw new SubmissionError({
+                    _error: 'Crrrazy error'
+                });
+            });
+    });
 
 export const signInWithEmailAndPassword = (
     email,
