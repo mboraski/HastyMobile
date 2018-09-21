@@ -14,17 +14,17 @@ export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
 
 export const createUserWithEmailAndPassword = (values, dispatch) =>
-    new Promise(resolve => {
+    new Promise((resolve, reject) => {
         const { firstName, lastName, email, password, phoneNumber } = values;
         dispatch({
             type: SIGNUP_REQUEST
         });
         return firebaseAuth
             .createUserWithEmailAndPassword(email, password)
-            .then(user =>
+            .then(userCredential =>
                 db
                     .collection('users')
-                    .doc(`${user.uid}`)
+                    .doc(`${userCredential.user.uid}`)
                     .set({
                         firstName,
                         lastName,
@@ -49,28 +49,40 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                     type: SIGNUP_FAIL,
                     payload: error
                 });
-                throw new SubmissionError({
-                    _error: 'Crrrazy error'
-                });
+                return reject(
+                    new SubmissionError({
+                        _error: 'Crrrazy error'
+                    })
+                );
             });
     });
 
-export const signInWithEmailAndPassword = (
-    email,
-    password
-) => async dispatch => {
-    try {
+export const signInWithEmailAndPassword = (values, dispatch) =>
+    new Promise((resolve, reject) => {
+        const { email, password } = values;
         dispatch({
             type: SIGNIN_REQUEST
         });
-        await firebaseAuth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-        dispatch({
-            type: SIGNIN_FAIL,
-            payload: error
-        });
-    }
-};
+        return firebaseAuth
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+                dispatch({
+                    type: SIGNIN_SUCCESS
+                });
+                return resolve();
+            })
+            .catch(error => {
+                dispatch({
+                    type: SIGNIN_FAIL,
+                    payload: error
+                });
+                return reject(
+                    new SubmissionError({
+                        _error: 'Crrrazy error' // TODO: change
+                    })
+                );
+            });
+    });
 
 export const signOut = () => async dispatch => {
     try {

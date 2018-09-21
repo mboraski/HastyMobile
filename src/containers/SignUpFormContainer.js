@@ -40,7 +40,6 @@ class SignUpFormContainer extends Component {
 
     render() {
         const {
-            anyTouched,
             pending,
             submitting,
             submitSucceeded,

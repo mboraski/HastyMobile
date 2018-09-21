@@ -4,10 +4,7 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 
-import {
-    signInWithEmailAndPassword,
-    signInWithFacebook
-} from '../actions/authActions';
+import { signInWithEmailAndPassword } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
@@ -29,12 +26,6 @@ class SignInFormContainer extends Component {
         if (props.user && !this.props.user) {
             this.props.navigation.navigate('map');
         }
-    };
-
-    signInWithFacebook = () => {
-        this.props
-            .signInWithFacebook()
-            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
@@ -91,7 +82,7 @@ class SignInFormContainer extends Component {
                     <Text style={styles.signUpError}>{formatError(error)}</Text>
                 )}
                 <TouchableOpacity
-                    onPress={handleSubmit}
+                    onPress={handleSubmit(signInWithEmailAndPassword)}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -107,63 +98,6 @@ class SignInFormContainer extends Component {
                     onChangeText={(promoCode) => this.setState({ promoCode })}
                     value={this.state.promoCode}
                 /> */}
-                <Text style={styles.legalText}>
-                    By signing up, you agree to the Terms of Service found here:
-                    https://www.myhasty.com/terms.html & Privacy Policy fround
-                    here: https://www.myhasty.com/privacy.html
-                </Text>
-                <Button
-                    onPress={this.signInWithGoogle}
-                    title="Sign In with Google"
-                    icon={{
-                        type: 'material-community',
-                        name: 'google-plus-box',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
-                <Button
-                    onPress={this.signInWithGithub}
-                    title="Sign In with Github"
-                    icon={{
-                        type: 'material-community',
-                        name: 'github-circle',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
-                <Button
-                    onPress={this.signInWithFacebook}
-                    title="Sign In with Facebook"
-                    icon={{
-                        type: 'material-community',
-                        name: 'facebook-box',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
-                <Button
-                    onPress={this.signInWithTwitter}
-                    title="Sign In with Twitter"
-                    icon={{
-                        type: 'material-community',
-                        name: 'twitter-circle',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
             </View>
         );
     }
@@ -223,24 +157,20 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'SignIn',
-    onSubmit(values, dispatch, props) {
-        return props.signInWithEmailAndPassword(values).catch(error => {
-            throw new SubmissionError({ _error: error.message });
-        });
+    validate(values) {
+        const errors = {};
+        if (!values.email || !values.password) {
+            errors.missingValues = 'Some form field values are missing';
+        }
+        return errors;
     }
 };
 
 const mapStateToProps = state => ({
-    user: getUser(state),
-    initialValues: __DEV__
-        ? {
-              email: 'example@email.com'
-          }
-        : undefined
+    user: getUser(state)
 });
 
 const mapDispatchToProps = {
-    signInWithFacebook,
     signInWithEmailAndPassword
 };
 

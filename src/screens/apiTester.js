@@ -2,6 +2,7 @@ import isNull from 'lodash.isnull';
 import React, { Component } from 'react';
 import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
+import { connect } from 'react-redux';
 
 import { fire, db, firebaseAuth } from '../../firebase';
 import {
@@ -12,6 +13,10 @@ import {
 
 import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
 import { statusBarOnly } from '../constants/Style';
+
+import { createUserWithEmailAndPassword } from '../actions/authActions';
+
+import { getUser } from '../selectors/authSelectors';
 
 const stripe = require('stripe-client')(STRIPE_CLIENT_KEY);
 
@@ -53,32 +58,7 @@ class ApiTester extends Component {
             test: 'Test Works'
         });
     };
-    onSignUp = () =>
-        db
-            .collection('sup')
-            .doc('kpop')
-            .set({
-                whatItIs: 'I love k-pop'
-            })
-            .then(() => console.log('success'))
-            .catch(error => console.log('error: ', error));
-    // fireerroerror => console.log('error: ', error));
-    //     .auth()
-    //     .createUserWithEmailAndPassword('m@m.com', 'Password1')
-    //     .then(() => {
-    //         this.setState({
-    //             signUp: 'Signup Worked'
-    //         });
-    //         firebaseAuth.currentUser.updateProfile({
-    //             displayName: 'Mark B',
-    //             phoneNumber: '1112223344'
-    //         });
-    //     })
-    //     .catch(error => {
-    //         this.setState({
-    //             signUp: JSON.stringify(error)
-    //         });
-    //     });
+    onSignUp = () => this.props.createUserWithEmailAndPassword();
     onDeleteUser = () => {
         const user = firebaseAuth.currentUser;
         user.delete()
@@ -338,4 +318,25 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ApiTester;
+const mapStateToProps = state => ({ user: getUser(state) });
+
+const mapDispatchToProps = dispatch => {
+    const values = {
+        firstName: 'Kamau',
+        lastName: 'Boraski',
+        email: 'kamau@dog.com',
+        passwords: 'password1P',
+        phoneNumber: '1112223344'
+    };
+    return {
+        createUserWithEmailAndPassword: createUserWithEmailAndPassword(
+            values,
+            dispatch
+        )
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ApiTester);

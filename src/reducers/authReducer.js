@@ -29,7 +29,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 user: payload,
-                expirationDate: payload
+                expirationDate: payload // Assumes firebase returns no payload if not authenticated
                     ? moment()
                           .add(1, 'months')
                           .toDate()
