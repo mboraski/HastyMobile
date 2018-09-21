@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
@@ -11,7 +16,6 @@ import {
 import { getUser } from '../selectors/authSelectors';
 
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
 
@@ -48,10 +52,7 @@ class SignUpFormContainer extends Component {
         } = this.props;
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
-        const submitText =
-            anyTouched && invalid
-                ? 'Please fill out form with no errors or empty fields.'
-                : 'Create Account';
+        const submitText = 'Create Account';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
@@ -101,8 +102,9 @@ class SignUpFormContainer extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <LogoSpinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        <ActivityIndicator
+                            size="large"
+                            color={Color.ORANGE_500}
                         />
                     ) : null}
                     {submitSucceeded ? (
@@ -118,8 +120,7 @@ class SignUpFormContainer extends Component {
                     style={[
                         styles.button,
                         styles.buttonMargin,
-                        !anyTouched && invalid && styles.buttonDisabled,
-                        anyTouched && invalid && styles.buttonInvalid
+                        invalid && styles.buttonDisabled
                     ]}
                     disabled={disabled}
                 >

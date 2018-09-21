@@ -13,15 +13,9 @@ export const SIGNOUT_REQUEST = 'signout_request';
 export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
 
-export const createUserWithEmailAndPassword = (
-    firstName,
-    lastName,
-    email,
-    password,
-    phoneNumber,
-    dispatch
-) =>
+export const createUserWithEmailAndPassword = (values, dispatch) =>
     new Promise(resolve => {
+        const { firstName, lastName, email, password, phoneNumber } = values;
         dispatch({
             type: SIGNUP_REQUEST
         });
