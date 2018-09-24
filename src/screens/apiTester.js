@@ -4,7 +4,7 @@ import { Button, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
 
-import { fire, db, firebaseAuth } from '../../firebase';
+import { fire, firebaseAuth } from '../../firebase';
 import {
     addStripeCustomerSource,
     removeStripeCustomerSource,
@@ -77,8 +77,8 @@ class ApiTester extends Component {
             });
     };
     onLogin = () => {
-        fire.auth()
-            .signInWithEmailAndPassword('markb539@gmail.com', 'Password1')
+        firebaseAuth
+            .signInWithEmailAndPassword('markb539@gmail.com', 'password1P')
             .then(response => {
                 this.setState({
                     logout: JSON.stringify(response)
@@ -91,7 +91,7 @@ class ApiTester extends Component {
             });
     };
     onLogout = () => {
-        fire.auth()
+        firebaseAuth
             .signOut()
             .then(response => {
                 this.setState({
@@ -320,21 +320,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({ user: getUser(state) });
 
-const mapDispatchToProps = dispatch => {
-    const values = {
-        firstName: 'Kamau',
-        lastName: 'Boraski',
-        email: 'kamau@dog.com',
-        passwords: 'password1P',
-        phoneNumber: '1112223344'
-    };
-    return {
-        createUserWithEmailAndPassword: createUserWithEmailAndPassword(
-            values,
-            dispatch
-        )
-    };
-};
+const mapDispatchToProps = {};
 
 export default connect(
     mapStateToProps,

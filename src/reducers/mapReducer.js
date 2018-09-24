@@ -26,12 +26,22 @@ const initialState = {
     predictions: [],
     saved: [],
     region: {
-        latitude: 30.2666247,
-        longitude: -97.7405174,
-        latitudeDelta: 0.0043,
-        longitudeDelta: 0.0034
+        latitude: null,
+        longitude: null,
+        latitudeDelta: null,
+        longitudeDelta: null
     },
-    address: null,
+    coords: {
+        latitude: null,
+        longitude: null,
+        altitude: null,
+        accuracy: null,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null
+    },
+    timestamp: null,
+    address: '',
     error: null
 };
 
@@ -127,7 +137,9 @@ export default function(state = initialState, action) {
         case GET_CURRENT_LOCATION_SUCCESS:
             return {
                 ...state,
-                pending: false
+                pending: false,
+                coords: action.payload.coords,
+                timestamp: action.payload.timestamp
             };
         case GET_CURRENT_LOCATION_ERROR:
             return {

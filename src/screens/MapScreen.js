@@ -1,3 +1,4 @@
+// Third Party Imports
 import React, { Component } from 'react';
 import {
     View,
@@ -11,7 +12,9 @@ import { MapView, Constants } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
+import { ref } from '../../firebase';
 
+// Relative Imports
 import {
     saveAddress,
     setRegion,
@@ -24,13 +27,15 @@ import {
     orderCreationSuccess,
     orderCreationFailure
 } from '../actions/orderActions';
+import { getUserReadable } from '../actions/authActions';
 
 import { getProductsPending } from '../selectors/productSelectors';
 import { getSearchVisible } from '../selectors/uiSelectors';
 import {
     getPredictions,
     getRegion,
-    getAddress
+    getAddress,
+    getError
 } from '../selectors/mapSelectors';
 
 import ContinuePopup from '../components/ContinuePopup';
@@ -45,8 +50,9 @@ import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
-const INITIAL_MESSAGE = `2018 SXSW Notice: Service is only available in Downtown Austin Texas area for the SXSW festival.
-Come check us out! We are a new startup, born and bread right here in Austin, Texas!`;
+const NO_HERO_FOUND = `It does not look like there is a Hero available in you area.`;
+// TODO: allow users to just click a button to ask for service in a particular area.
+// Make sure to rate limit by account or something, so it isn't abused
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
@@ -76,20 +82,21 @@ class MapScreen extends Component {
         opacity: new Animated.Value(1),
         searchRendered: false,
         getCurrentPositionPending: false,
-        // set initialMessageVisible to true during SXSW
         initialMessageVisible: false,
         animatedRegion: new MapView.AnimatedRegion(this.props.region),
         changeLocationPopupVisible: false
     };
 
-    componentWillMount() {
+    componentDidMount() {
         if (Platform.OS === 'android' && !Constants.isDevice) {
-            this.setState({
-                errorMessage: 'Oops, this will only work on a device'
-            });
+            this.props.dropdownAlert(
+                true,
+                'Oops, this will only work on a device'
+            );
         } else if (!this.props.region) {
             this.props.getCurrentLocation();
         }
+        this.props.getUserReadable();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -145,7 +152,7 @@ class MapScreen extends Component {
                 }`
             });
             if (result.rows[0].elements[0].duration.value > 60 * 30) {
-                this.props.dropdownAlert(true, 'Service is not available here');
+                this.props.dropdownAlert(true, NO_HERO_FOUND);
                 resp = result;
             } else {
                 this.props.dropdownAlert(false, '');
@@ -154,14 +161,11 @@ class MapScreen extends Component {
                     this.props.region
                 );
                 try {
-                    resp = await firebase
-                        .database()
-                        .ref('orders/US/TX/Austin')
-                        .push({
-                            currentSetAddress: this.props.address,
-                            region: this.props.region,
-                            status: 'open'
-                        });
+                    resp = await ref('orders/US/TX/Austin').push({
+                        currentSetAddress: this.props.address,
+                        region: this.props.region,
+                        status: 'open'
+                    });
                     if (resp) {
                         const key = resp.path.pieces_.join('/'); // eslint-disable-line
                         this.props.orderCreationSuccess(key);
@@ -347,7 +351,7 @@ class MapScreen extends Component {
                 <ContinuePopup
                     isOpen={this.state.initialMessageVisible}
                     closeModal={this.handleInitialMessageClose}
-                    message={INITIAL_MESSAGE}
+                    message={NO_HERO_FOUND}
                 />
                 <SuccessPopup
                     openModal={changeLocationPopupVisible}
@@ -444,10 +448,12 @@ const mapStateToProps = state => ({
     searchVisible: getSearchVisible(state),
     header: state.header,
     region: getRegion(state),
-    address: getAddress(state)
+    address: getAddress(state),
+    error: getError(state)
 });
 
 const mapDispatchToProps = {
+    getUserReadable,
     saveAddress,
     toggleSearch,
     dropdownAlert,

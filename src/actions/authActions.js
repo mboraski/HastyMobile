@@ -12,6 +12,8 @@ export const SIGNIN_FAIL = 'signin_fail';
 export const SIGNOUT_REQUEST = 'signout_request';
 export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
+export const USER_READABLE_SUCCESS = 'user_readable_success';
+export const USER_READABLE_ERROR = 'user_readable_fail';
 
 export const createUserWithEmailAndPassword = (values, dispatch) =>
     new Promise((resolve, reject) => {
@@ -104,3 +106,22 @@ export const listenToAuthChanges = () => dispatch =>
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });
+
+export const getUserReadable = () => dispatch =>
+    db
+        .collection('userReadable')
+        .doc(firebaseAuth.currentUser.uid)
+        .get()
+        .then(snap => {
+            const userData = snap.data();
+            dispatch({
+                type: USER_READABLE_SUCCESS,
+                payload: userData
+            });
+        })
+        .catch(error =>
+            dispatch({
+                type: USER_READABLE_ERROR,
+                payload: error
+            })
+        );
