@@ -6,9 +6,10 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
-    ActivityIndicator
+    ActivityIndicator,
+    Dimensions
 } from 'react-native';
-import { MapView, Constants } from 'expo';
+import { MapView, Constants, PROVIDER_GOOGLE } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
@@ -42,7 +43,6 @@ import ContinuePopup from '../components/ContinuePopup';
 import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
-
 import MapHeaderContainer from '../containers/MapHeaderContainer';
 
 import Color from '../constants/Color';
@@ -50,6 +50,7 @@ import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
+const { width, height } = Dimensions.get('window');
 const NO_HERO_FOUND = `It does not look like there is a Hero available in you area.`;
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
@@ -68,11 +69,22 @@ const CENTER_OFFSET = {
     y: -55 / 2
 };
 const MARKER_ANIMATION_DURATION = 0;
-
+const ASPECT_RATIO = width / height;
+const LATITUDE = 30.2666247;
+const LONGITUDE = -97.7405174;
+const LATITUDE_DELTA = 0.0043;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const CHANGE_LOCATION_TITLE =
     'Are you sure you want to change your delivery location?';
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
+
+const initialRegion = {
+    latitude: LATITUDE,
+    longitude: LONGITUDE,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA
+};
 
 class MapScreen extends Component {
     state = {
@@ -93,7 +105,7 @@ class MapScreen extends Component {
                 true,
                 'Oops, this will only work on a device'
             );
-        } else if (!this.props.region) {
+        } else if (!this.props.region.latitude) {
             this.props.getCurrentLocation();
         }
         this.props.getUserReadable();
@@ -112,6 +124,11 @@ class MapScreen extends Component {
         }
         if (this.props.region !== nextProps.region) {
             this.animateMarkerToCoordinate(nextProps.region);
+        }
+        if (this.props.error) {
+            this.props.dropdownAlert(true, this.props.error.message);
+        } else {
+            this.props.dropdownAlert(false, '');
         }
     }
 
@@ -272,25 +289,16 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
+                    showsCompass
+                    showsPointsOfInterest
+                    initialRegion={initialRegion}
                     region={region}
+                    provider={PROVIDER_GOOGLE}
                     style={styles.map}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
-                >
-                    <MapView.Marker.Animated
-                        ref={marker => {
-                            this.marker = marker;
-                        }}
-                        image={beaconIcon}
-                        coordinate={this.state.animatedRegion}
-                        title="You"
-                        description="Your Delivery Location"
-                        anchor={ANCHOR}
-                        centerOffset={CENTER_OFFSET}
-                        style={styles.beaconMarker}
-                    />
-                </MapView>
+                />
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -368,12 +376,12 @@ class MapScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
     map: {
-        flex: 1,
-        shadowColor: 'transparent',
-        justifyContent: 'center'
+        ...StyleSheet.absoluteFillObject
     },
     buttonContainer: {
         position: 'absolute',
