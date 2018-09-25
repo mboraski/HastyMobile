@@ -25,18 +25,10 @@ const initialState = {
     pending: false,
     predictions: [],
     saved: [],
-    region: null,
-    coords: {
-        latitude: null,
-        longitude: null,
-        altitude: null,
-        accuracy: null,
-        altitudeAccuracy: null,
-        heading: null,
-        speed: null
-    },
+    region: null, // This is the user set delivery location
+    coords: null, // This is the user's location
     timestamp: null,
-    address: '',
+    address: '', // This is the readable address of the delivery location
     error: null
 };
 

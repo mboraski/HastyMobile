@@ -96,7 +96,9 @@ class MapScreen extends Component {
         searchRendered: false,
         getCurrentPositionPending: false,
         initialMessageVisible: false,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region),
+        animatedRegion: new MapView.AnimatedRegion(
+            this.props.region || initialRegion
+        ),
         changeLocationPopupVisible: false
     };
 
@@ -106,7 +108,7 @@ class MapScreen extends Component {
                 true,
                 'Oops, this will only work on a device'
             );
-        } else if (!this.props.region) {
+        } else if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
         this.props.getUserReadable();
@@ -137,9 +139,8 @@ class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChangeComplete = async region => {
+    onRegionChangeComplete = region => {
         if (this.state.mapReady) {
-            this.props.setRegion(region);
             this.getAddress({
                 latlng: `${region.latitude},${region.longitude}`
             });
@@ -292,6 +293,7 @@ class MapScreen extends Component {
                 <MapView
                     style={styles.map}
                     initialRegion={initialRegion}
+                    region={region}
                     showsCompass
                     showsPointsOfInterest
                     provider={PROVIDER_GOOGLE}
@@ -299,9 +301,9 @@ class MapScreen extends Component {
                     onRegionChange={this.handleRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 >
-                    <MapView.Marker
+                    <MapView.Marker.Animated
                         image={beaconIcon}
-                        coordinate={initialRegion}
+                        coordinate={this.state.animatedRegion}
                         title="You"
                         description="Your Delivery Location"
                         anchor={ANCHOR}

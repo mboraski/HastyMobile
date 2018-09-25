@@ -45,14 +45,9 @@ export const saveAddress = address => dispatch => {
     return dispatch(geocode({ address }));
 };
 
-export const setRegion = (
-    latitude,
-    longitude,
-    latitudeDelta,
-    longitudeDelta
-) => ({
+export const setRegion = (latitude, longitude) => ({
     type: SET_REGION,
-    payload: { latitude, longitude, latitudeDelta, longitudeDelta }
+    payload: { latitude, longitude }
 });
 
 export const getCurrentLocation = () => async dispatch => {
@@ -78,9 +73,6 @@ export const getCurrentLocation = () => async dispatch => {
                     coords: location.coords
                 }
             });
-            dispatch(
-                setRegion(location.coords.latitude, location.coords.longitude)
-            );
         }
     } catch (error) {
         dispatch({
