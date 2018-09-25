@@ -1,9 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -16,30 +13,49 @@ import facebookIcon from '../assets/icons/facebook_white.png';
 import pinterestIcon from '../assets/icons/pinterest_white.png';
 import closeIcon from '../assets/icons/close.png';
 
-
 class PromotionShareScreen extends Component {
     static navigationOptions = {
         title: 'Promotion Share',
-        header: null 
+        header: null
     };
 
     close = () => {
         this.props.navigation.goBack();
-    }
+    };
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.row}>
-                    <ShareButton style={styles.buton} source={instagramIcon} onPress={() => {}} />
-                    <ShareButton style={styles.buton} source={twitterIcon} onPress={() => {}} />
+                    <ShareButton
+                        style={styles.buton}
+                        source={instagramIcon}
+                        onPress={() => {}}
+                    />
+                    <ShareButton
+                        style={styles.buton}
+                        source={twitterIcon}
+                        onPress={() => {}}
+                    />
                 </View>
                 <View style={styles.row}>
-                    <ShareButton style={styles.buton} source={facebookIcon} onPress={() => {}} />
-                    <ShareButton style={styles.buton} source={pinterestIcon} onPress={() => {}} />
+                    <ShareButton
+                        style={styles.buton}
+                        source={facebookIcon}
+                        onPress={() => {}}
+                    />
+                    <ShareButton
+                        style={styles.buton}
+                        source={pinterestIcon}
+                        onPress={() => {}}
+                    />
                 </View>
                 <View style={styles.bottomSection}>
-                    <ShareButton style={styles.closeButton} source={closeIcon} onPress={this.close} />
+                    <ShareButton
+                        style={styles.closeButton}
+                        source={closeIcon}
+                        onPress={this.close}
+                    />
                 </View>
             </View>
         );

@@ -1,4 +1,3 @@
-import firebase from '../firebase';
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
 
@@ -16,7 +15,8 @@ export const SUBMIT_PAYMENT_REQUEST = 'submit_payment_request';
 export const SUBMIT_PAYMENT_SUCCESS = 'submit_payment_success';
 export const SUBMIT_PAYMENT_FAILURE = 'submit_payment_failure';
 
-export const submitPaymentRequest = () => dispatch => dispatch({ type: SUBMIT_PAYMENT_REQUEST });
+export const submitPaymentRequest = () => dispatch =>
+    dispatch({ type: SUBMIT_PAYMENT_REQUEST });
 
 export const submitPayment = (
     navigation,
@@ -25,26 +25,28 @@ export const submitPayment = (
     notes,
     orderId,
     cart
-    ) => async dispatch => {
-        // TODO: do something with notes
-        const user = firebase.auth().currentUser;
-        const uid = user.uid;
-        const charge = {
-            amount: Math.ceil(totalCost),
-            currency: 'usd',
-            source: cardId
-        };
-        return api.chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
-            .then(() => {
-                dropdownAlert(true, 'Payment success');
-                dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-                navigation.navigate('deliveryStatus');
-            })
-            .catch(() => {
-                dropdownAlert(true, 'Error submitting payment');
-                dispatch({ type: SUBMIT_PAYMENT_FAILURE });
-            });
-        };
+) => async dispatch => {
+    // TODO: do something with notes
+    const user = firebase.auth().currentUser;
+    const uid = user.uid;
+    const charge = {
+        amount: Math.ceil(totalCost),
+        currency: 'usd',
+        source: cardId
+    };
+
+    return api
+        .chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
+        .then(() => {
+            dropdownAlert(true, 'Payment success');
+            dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+            navigation.navigate('deliveryStatus');
+        })
+        .catch(() => {
+            dropdownAlert(true, 'Error submitting payment');
+            dispatch({ type: SUBMIT_PAYMENT_FAILURE });
+        });
+};
 
 export const addCard = (...args) => async dispatch => {
     try {
@@ -80,10 +82,17 @@ export const deleteCard = (...args) => async dispatch => {
     }
 };
 
+export const selectCard = card => dispatch => {
+    dispatch({ type: SELECTED_CARD, payload: card.id });
+};
+
 export const listCards = uid => async dispatch => {
     try {
         dispatch({ type: LIST_CARDS });
-        const docRef = firebase.firestore().collection('userOwned').doc(uid);
+        const docRef = firebase
+            .firestore()
+            .collection('userOwned')
+            .doc(uid);
         const doc = await docRef.get();
         if (doc.exists) {
             const data = doc.data();
@@ -91,14 +100,10 @@ export const listCards = uid => async dispatch => {
                 type: LIST_CARDS_SUCCESS,
                 payload: data
             });
-            dispatch({
-                type: SELECTED_CARD,
-                payload: data
-            });
+            selectCard(data);
             return data;
-        } else {
-            throw new Error('No such record of payment info!');
         }
+        throw new Error('No such record of payment info!');
     } catch (error) {
         dispatch(dropdownAlert(true, 'No payment record on file!'));
         dispatch({
@@ -107,8 +112,4 @@ export const listCards = uid => async dispatch => {
         });
         throw error;
     }
-};
-
-export const selectCard = (card) => dispatch => {
-    dispatch({ type: SELECTED_CARD, payload: card.id });
 };

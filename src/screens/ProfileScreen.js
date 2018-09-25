@@ -1,11 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    ScrollView,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
@@ -23,21 +18,18 @@ import { emY } from '../utils/em';
 class ProfileScreen extends Component {
     state = {
         editMode: false
-    }
+    };
 
     handleLogout = () => {
         this.props.actions.logout();
-    }
+    };
 
     render() {
         return (
             <ScrollView style={styles.container}>
                 <Text style={styles.formSection}>INFORMATION</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField
-                        name="name"
-                        label="Full Name"
-                    />
+                    <InlineLabelTextInputField name="name" label="Full Name" />
                     <InlineLabelTextInputField
                         name="number"
                         label="Phone Number"
@@ -50,40 +42,24 @@ class ProfileScreen extends Component {
                 </View>
                 <Text style={styles.formSection}>ADDRESS</Text>
                 <View style={styles.formInputs}>
-                    <InlineLabelTextInputField
-                        name="country"
-                        label="Country"
-                    />
-                    <InlineLabelTextInputField
-                        name="state"
-                        label="State"
-                    />
-                    <InlineLabelTextInputField
-                        name="city"
-                        label="City"
-                    />
-                    <InlineLabelTextInputField
-                        name="address"
-                        label="Address"
-                    />
-                    <InlineLabelTextInputField
-                        name="zip"
-                        label="ZIP code"
-                    />
+                    <InlineLabelTextInputField name="country" label="Country" />
+                    <InlineLabelTextInputField name="state" label="State" />
+                    <InlineLabelTextInputField name="city" label="City" />
+                    <InlineLabelTextInputField name="address" label="Address" />
+                    <InlineLabelTextInputField name="zip" label="ZIP code" />
                 </View>
                 <TouchableOpacity onPress={this.handleLogout}>
                     <Text style={styles.logout}>LOGOUT?</Text>
                 </TouchableOpacity>
-                {this.state.editMode ?
+                {this.state.editMode ? (
                     <Button
                         title="Save Changes"
                         onPress={this.onButtonPress}
                         containerViewStyle={styles.buttonContainer}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
-                    /> :
-                    null
-                }
+                    />
+                ) : null}
             </ScrollView>
         );
     }
@@ -126,9 +102,6 @@ const formOptions = {
     form: 'Profile'
 };
 
-const mapStateToProps = ({ auth }) => ({ token: auth.token });
-
-
 const mapDispatchToProps = dispatch => {
     const authActions = bindActionCreators(AuthActions, dispatch);
 
@@ -142,9 +115,10 @@ const mapDispatchToProps = dispatch => {
 ProfileScreen.navigationOptions = {
     title: 'Profile Details',
     headerLeft: <BackButton />,
-    // headerRight: <EditButton />,
     headerStyle: Style.header,
     headerTitleStyle: Style.headerTitle
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formOptions)(ProfileScreen));
+export default connect(null, mapDispatchToProps)(
+    reduxForm(formOptions)(ProfileScreen)
+);

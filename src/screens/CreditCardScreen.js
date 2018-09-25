@@ -1,13 +1,13 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import { listCards } from '../actions/paymentActions';
 import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
-import CreditCardForm from '../containers/CreditCardForm';
+import { listCards } from '../actions/paymentActions';
+import { getUser } from '../selectors/authSelectors';
+import { default as CreditCardFormContainer } from '../containers/CreditCardFormContainer';
 import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
@@ -18,7 +18,7 @@ class CreditCardScreen extends Component {
 
     render() {
         return (
-            <CreditCardForm
+            <CreditCardFormContainer
                 navigation={this.props.navigation}
                 onSubmitSuccess={this.handleSubmitSuccess}
             />
@@ -26,10 +26,8 @@ class CreditCardScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({});
-
 const mapStateToProps = state => ({
-    user: state.auth.user
+    user: getUser(state)
 });
 
 const mapDispatchToProps = {
@@ -37,7 +35,10 @@ const mapDispatchToProps = {
 };
 
 CreditCardScreen.navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params && navigation.state.params.card ? 'Edit Card' : 'Add Card',
+    title:
+        navigation.state.params && navigation.state.params.card
+            ? 'Edit Card'
+            : 'Add Card',
     headerLeft: <BackButton onPress={() => navigation.goBack()} />,
     headerRight: <RemoteSubmitTextButton title="Save" formName="CreditCard" />,
     headerStyle: Style.header,

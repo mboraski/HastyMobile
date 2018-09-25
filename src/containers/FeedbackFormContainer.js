@@ -1,54 +1,86 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { database } from '../firebase';
 
-import Color from '../constants/Color';
+import Text from '../components/Text';
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+import LogoSpinner from '../components/LogoSpinner';
+import SuccessState from '../components/SuccessState';
+
+import Color from '../constants/Color';
+
 import required from '../validation/required';
-import maxLength from '../validation/maxLength';
+import validEmail from '../validation/validEmail';
+import minLength from '../validation/minLength';
+
 import { emY } from '../utils/em';
 
-const maxLength500 = maxLength(500);
+const minLength3 = minLength(3);
 
-export class NotificationFeedbackForm extends Component {
-    state = {};
+export class FeedbackFormContainer extends Component {
     render() {
         const {
             submit,
             anyTouched,
             pending,
             submitting,
+            submitSucceeded,
             asyncValidating,
             invalid,
-            pristine,
-            error,
-            description
+            pristine
         } = this.props;
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
         const submitText =
             anyTouched && invalid
                 ? 'Please fix issues before continuing'
-                : 'DONE';
+                : 'SEND';
         return (
             <DismissKeyboardView style={styles.container}>
-                <Text style={styles.title}>{description}</Text>
-                <Text style={styles.subtitle}>500 character limit</Text>
-                {error && <Text style={styles.error}>{error}</Text>}
+                <Text style={styles.title}>
+                    We love feedback. Please help us understand your rating in
+                    more detail:
+                </Text>
                 <View style={styles.formInputs}>
                     <TextInputField
-                        name="feedbackMessage"
-                        label="MESSAGE"
-                        multiline
-                        validate={[required, maxLength500]}
+                        name="name"
+                        placeholder="Name"
+                        validate={[required, minLength3]}
                         containerStyle={styles.textInputContainer}
-                        labelStyle={styles.label}
                         style={styles.textInput}
                     />
+                    <TextInputField
+                        name="email"
+                        placeholder="Email"
+                        keyboardType="email-address"
+                        validate={[required, validEmail]}
+                        containerStyle={styles.textInputContainer}
+                        style={styles.textInput}
+                        error
+                    />
+                    <TextInputField
+                        name="message"
+                        label="MESSAGE"
+                        multiline
+                        validate={[required, minLength3]}
+                        containerStyle={styles.textInputContainerMessage}
+                        labelStyle={styles.label}
+                        style={[styles.textInput, styles.textInputMessage]}
+                    />
                 </View>
+                {submitting ? (
+                    <LogoSpinner
+                        style={[StyleSheet.absoluteFill, styles.spinner]}
+                    />
+                ) : null}
+                {!submitting && submitSucceeded ? (
+                    <SuccessState
+                        style={StyleSheet.absoluteFill}
+                        onAnimationEnd={this.props.onSubmitSucceeded}
+                    />
+                ) : null}
                 <TouchableOpacity
                     onPress={submit}
                     style={[
@@ -75,32 +107,23 @@ const styles = StyleSheet.create({
         fontSize: emY(1),
         textAlign: 'center',
         paddingHorizontal: 10,
-        marginBottom: emY(0.5)
-    },
-    subtitle: {
-        fontSize: emY(1),
-        textAlign: 'center',
-        fontStyle: 'italic',
-        color: Color.GREY_500
-    },
-    error: {
-        color: Color.RED_500,
-        textAlign: 'center',
-        fontSize: emY(0.9),
-        paddingHorizontal: 15,
-        paddingBottom: emY(1.5)
+        marginBottom: emY(1)
     },
     formInputs: {
         flex: 1
     },
     textInputContainer: {
+        marginBottom: emY(1)
+    },
+    textInputContainerMessage: {
         flex: 1
     },
     textInput: {
-        flex: 1,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500,
-        textAlignVertical: 'top'
+        borderColor: Color.GREY_500
+    },
+    textInputMessage: {
+        flex: 1
     },
     label: {
         fontSize: emY(1),
@@ -125,29 +148,21 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontSize: emY(1)
+    },
+    spinner: {
+        backgroundColor: Color.WHITE
     }
 });
 
 const formOptions = {
-    form: 'Notification',
-    onSubmit({ feedbackMessage }, dispatch, props) {
-        return database
-            .ref(`userFeedback/sxsw/${props.formKey}`)
-            .push({ feedbackMessage })
-            .catch(error => {
-                console.error(error.message);
-                throw new SubmissionError({ _error: error.message });
-            });
-    },
-    onSubmitSuccess(values, dispatch, props) {
-        props.navigation.goBack();
+    form: 'Feedback',
+    async onSubmit() {
+        return new Promise(resolve => setTimeout(resolve, 1000));
     }
 };
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(NotificationFeedbackForm)
+export default reduxForm(formOptions)(
+    connect(null, mapDispatchToProps)(FeedbackFormContainer)
 );

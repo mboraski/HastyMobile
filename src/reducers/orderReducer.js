@@ -7,7 +7,6 @@ import {
     NEW_HERO,
     CLEAR_ORDER
 } from '../actions/orderActions';
-// import orderStatuses from '../constants/Order';
 
 const initialState = {
     currentOrderDatabaseKey: '',
@@ -27,6 +26,13 @@ const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pending: false
+            };
+        case CLEAR_ORDER:
+            return {
+                ...state,
+                currentOrderDatabaseKey: '',
+                pending: false,
+                hero: {}
             };
         case LISTEN_ORDER_REQUEST:
             return {
@@ -49,13 +55,6 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 hero: action.payload,
                 pending: false
-            };
-        case CLEAR_ORDER:
-            return {
-                ...state,
-                currentOrderDatabaseKey: '',
-                pending: false,
-                hero: {}
             };
         default:
             return state;

@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { database } from 'firebase'; //TODO: fix this
 
-import { setDeliveryNotes } from '../actions/checkoutActions';
 import Color from '../constants/Color';
-import Text from '../components/Text';
+
 import TextInputField from '../components/TextInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+
 import required from '../validation/required';
 import maxLength from '../validation/maxLength';
 import { emY } from '../utils/em';
 
 const maxLength500 = maxLength(500);
 
-export class DeliveryNotesForm extends Component {
+export class NotificationFeedbackFormContainer extends Component {
+    state = {};
     render() {
         const {
             submit,
@@ -23,18 +25,25 @@ export class DeliveryNotesForm extends Component {
             submitting,
             asyncValidating,
             invalid,
-            pristine
+            pristine,
+            error,
+            description
         } = this.props;
-        const disabled = pending || submitting || asyncValidating || invalid || pristine;
-        const submitText = anyTouched && invalid ? 'Please fix issues before continuing' : 'DONE';
+        const disabled =
+            pending || submitting || asyncValidating || invalid || pristine;
+        const submitText =
+            anyTouched && invalid
+                ? 'Please fix issues before continuing'
+                : 'DONE';
         return (
             <DismissKeyboardView style={styles.container}>
-                <Text style={styles.title}>What would you like to tell your Hero?</Text>
+                <Text style={styles.title}>{description}</Text>
                 <Text style={styles.subtitle}>500 character limit</Text>
+                {error && <Text style={styles.error}>{error}</Text>}
                 <View style={styles.formInputs}>
                     <TextInputField
-                        name="notes"
-                        label="NOTES"
+                        name="feedbackMessage"
+                        label="MESSAGE"
                         multiline
                         validate={[required, maxLength500]}
                         containerStyle={styles.textInputContainer}
@@ -76,6 +85,13 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         color: Color.GREY_500
     },
+    error: {
+        color: Color.RED_500,
+        textAlign: 'center',
+        fontSize: emY(0.9),
+        paddingHorizontal: 15,
+        paddingBottom: emY(1.5)
+    },
     formInputs: {
         flex: 1
     },
@@ -115,23 +131,21 @@ const styles = StyleSheet.create({
 });
 
 const formOptions = {
-    form: 'DeliveryNotes',
-    onSubmit(values, dispatch, props) {
-        props.setDeliveryNotes(values.notes);
+    form: 'Notification',
+    onSubmit({ feedbackMessage }, dispatch, props) {
+        return database
+            .ref(`userFeedback/sxsw/${props.formKey}`)
+            .push({ feedbackMessage })
+            .catch(error => {
+                console.error(error.message);
+                throw new SubmissionError({ _error: error.message });
+            });
+    },
+    onSubmitSuccess(values, dispatch, props) {
         props.navigation.goBack();
     }
 };
 
-const mapStateToProps = state => ({
-    initialValues: {
-        notes: state.checkout.notes
-    }
-});
-
-const mapDispatchToProps = {
-    setDeliveryNotes
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(DeliveryNotesForm)
+export default connect(null, null)(
+    reduxForm(formOptions)(NotificationFeedbackFormContainer)
 );

@@ -18,8 +18,8 @@ class BackButton extends Component {
     render() {
         const { style, ...props } = this.props;
         return (
-            <TouchableOpacity 
-                {...props} 
+            <TouchableOpacity
+                {...props}
                 style={[styles.container, style]}
                 onPress={this.onBackPress}
             >
@@ -51,4 +51,7 @@ const mapDispatchToProps = dispatch => ({
     closeToggle: () => dispatch(closeToggle())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BackButton);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BackButton);

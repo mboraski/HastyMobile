@@ -4,7 +4,7 @@ test.only('real recognize real', () => {
 });
 // import configureStore from 'redux-mock-store';
 // import thunk from 'redux-thunk';
-// import firebase from '../firebase';
+//
 //
 // import mockApi from '../../mocks/hastyApi';
 // import '../../mocks/firebase';

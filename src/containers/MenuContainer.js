@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Notifications } from 'expo';
+// import { Notifications } from 'expo';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -10,19 +10,14 @@ import MenuItem from '../components/MenuItem';
 import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
-// import historyIcon from '../assets/icons/history.png';
-// import favoriteIcon from '../assets/icons/favorite.png';
 import notificationIcon from '../assets/icons/notification.png';
-// eslint-disable-next-line import/no-unresolved
 import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
-// import promotionIcon from '../assets/icons/promotion.png';
 import helpIcon from '../assets/icons/info.png';
-// import tempAvatar from '../assets/profile.png';
 import locationIcon from '../assets/icons/location.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
-import { getFacebookInfo } from '../selectors/authSelectors';
+import { getUserReadable } from '../selectors/authSelectors';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
@@ -30,10 +25,6 @@ const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
 
 class MenuContent extends Component {
-    // handleViewProfile = () => {
-    //     this.props.navigation.navigate('profile');
-    // };
-
     mapPress = () => {
         this.props.navigation.navigate('map');
     };
@@ -55,35 +46,31 @@ class MenuContent extends Component {
         this.props.navigation.navigate('paymentMethod');
     };
 
-    // promotionSharePress = () => {
-    //     this.props.navigation.navigate('promotionShare');
-    // };
-
     signOut = () => {
         this.props.navigation.navigate('DrawerClose');
         this.props.signOut();
     };
 
-    handleLocalNotificationPress = () => {
-        Notifications.scheduleLocalNotificationAsync(
-            {
-                title: 'title',
-                body: 'body',
-                data: {
-                    type: 'feedback',
-                    title: 'title',
-                    description: 'description',
-                    key: 'abc'
-                }
-            },
-            {
-                time: new Date().getTime() + 5000
-            }
-        );
-    };
+    // handleLocalNotificationPress = () => {
+    //     Notifications.scheduleLocalNotificationAsync(
+    //         {
+    //             title: 'title',
+    //             body: 'body',
+    //             data: {
+    //                 type: 'feedback',
+    //                 title: 'title',
+    //                 description: 'description',
+    //                 key: 'abc'
+    //             }
+    //         },
+    //         {
+    //             time: new Date().getTime() + 5000
+    //         }
+    //     );
+    // };
 
     render() {
-        const { items, activeItemKey, facebookInfo } = this.props;
+        const { items, activeItemKey, facebookInfo, userReadable } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -93,9 +80,9 @@ class MenuContent extends Component {
                             style={styles.image}
                         />
                     ) : null}
-                    {facebookInfo && facebookInfo.displayName ? (
+                    {userReadable ? (
                         <Text style={styles.name}>
-                            {facebookInfo.displayName}
+                            {userReadable.firstName} {userReadable.lastName}
                         </Text>
                     ) : null}
                     {/* <TouchableOpacity onPress={this.handleViewProfile}>
@@ -168,16 +155,12 @@ class MenuContent extends Component {
                         image={heroIcon}
                         title="Sign Out"
                     />
-                    {__DEV__ ? (
-                        <MenuItem
-                            onPress={this.handleLocalNotificationPress}
-                            image={helpIcon}
-                            title="Send local notification"
-                        />
-                    ) : null}
                     <Text style={styles.copyright}>@2018 Hasty</Text>
                 </ScrollView>
-                <ToggleBackButton style={styles.backButton} />
+                <ToggleBackButton
+                    navigation={this.props.navigation}
+                    style={styles.backButton}
+                />
             </View>
         );
     }
@@ -191,8 +174,8 @@ const styles = StyleSheet.create({
         borderRightColor: Color.YELLOW_500
     },
     profile: {
-        alignItems: 'center',
-        marginTop: emY(2.68)
+        flex: 1,
+        alignItems: 'center'
     },
     image: {
         width: IMAGE_CONTAINER_SIZE,
@@ -226,12 +209,16 @@ const styles = StyleSheet.create({
     backButton: {
         position: 'absolute',
         left: 0,
-        top: emY(2.1)
+        top: emY(3)
     }
 });
 
-const mapStateToProps = state => ({ facebookInfo: getFacebookInfo(state) });
-
+const mapStateToProps = state => ({
+    userReadable: getUserReadable(state)
+});
 const mapDispatchToProps = { openCustomerPopup, signOut };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuContent);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MenuContent);

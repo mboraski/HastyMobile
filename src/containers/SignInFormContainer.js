@@ -4,36 +4,28 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 
-import {
-    signInWithEmailAndPassword,
-    signInWithFacebook
-} from '../actions/authActions';
+import { signInWithEmailAndPassword } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
+import { getUser } from '../selectors/authSelectors';
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPassword from '../validation/validPassword';
 import { emY } from '../utils/em';
 import { formatError } from '../utils/errors';
 
-class SignInForm extends Component {
+class SignInFormContainer extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
 
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
-            this.props.onAuthSuccess();
+            this.props.navigation.navigate('map');
         }
-    };
-
-    signInWithFacebook = () => {
-        this.props
-            .signInWithFacebook()
-            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
@@ -75,7 +67,9 @@ class SignInForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <LogoSpinner style={[StyleSheet.absoluteFill, styles.spinner]} />
+                        <LogoSpinner
+                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -88,7 +82,7 @@ class SignInForm extends Component {
                     <Text style={styles.signUpError}>{formatError(error)}</Text>
                 )}
                 <TouchableOpacity
-                    onPress={handleSubmit}
+                    onPress={handleSubmit(signInWithEmailAndPassword)}
                     style={[
                         styles.button,
                         styles.buttonMargin,
@@ -99,19 +93,11 @@ class SignInForm extends Component {
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
-                <Button
-                    onPress={this.signInWithFacebook}
-                    title="Log In with Facebook"
-                    icon={{
-                        type: 'material-community',
-                        name: 'facebook-box',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
+                {/* <TextInput
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={(promoCode) => this.setState({ promoCode })}
+                    value={this.state.promoCode}
+                /> */}
             </View>
         );
     }
@@ -171,27 +157,24 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'SignIn',
-    onSubmit(values, dispatch, props) {
-        return props.signInWithEmailAndPassword(values).catch(error => {
-            throw new SubmissionError({ _error: error.message });
-        });
+    validate(values) {
+        const errors = {};
+        if (!values.email || !values.password) {
+            errors.missingValues = 'Some form field values are missing';
+        }
+        return errors;
     }
 };
 
-const mapStateToProps = ({ auth }) => ({
-    user: auth.user,
-    initialValues: __DEV__
-        ? {
-              email: 'markb539@gmail.com'
-          }
-        : undefined
+const mapStateToProps = state => ({
+    user: getUser(state)
 });
 
 const mapDispatchToProps = {
-    signInWithFacebook,
     signInWithEmailAndPassword
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignInForm)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm(formOptions)(SignInFormContainer));

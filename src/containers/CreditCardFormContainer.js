@@ -15,20 +15,27 @@ import stripeClient from 'stripe-client';
 
 // Relative Imports
 import { addCard, deleteCard, listCards } from '../actions/paymentActions';
+
+import { getPending } from '../selectors/paymentSelectors';
+import { getUser } from '../selectors/authSelectors';
+
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
+
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
 
+// TODO: Should this be here?
 const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 const keyboardVerticalOffset = emY(1);
 
-export class CreditCardForm extends Component {
+export class CreditCardFormContainer extends Component {
     deleteCardConfirm = () => {
         Alert.alert('Confirm', 'Are you sure you want to delete this card?', [
             { text: 'Cancel', style: 'cancel' },
@@ -50,7 +57,9 @@ export class CreditCardForm extends Component {
             pending,
             error,
             submitting,
-            navigation: { state: { params } }
+            navigation: {
+                state: { params }
+            }
         } = this.props;
         const card = params && params.card;
         return (
@@ -70,7 +79,9 @@ export class CreditCardForm extends Component {
                                 normalize={formatCardNumber}
                                 keyboardType="number-pad"
                                 validate={required}
-                                placeholder={card ? `**** **** **** + ${card.last4}` : ''}
+                                placeholder={
+                                    card ? `**** **** **** + ${card.last4}` : ''
+                                }
                             />
                             <TextInputField
                                 name="exp"
@@ -220,8 +231,8 @@ const mapStateToProps = (state, props) => {
                   name: card.name
               }
             : {},
-        pending: state.payment.pending,
-        user: state.auth.user
+        pending: getPending(state),
+        user: getUser(state)
     };
 };
 
@@ -232,5 +243,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(CreditCardForm)
+    reduxForm(formOptions)(CreditCardFormContainer)
 );

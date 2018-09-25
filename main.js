@@ -24,7 +24,6 @@ class App extends Component {
         if (Platform.OS === 'android') {
             fonts.Arial = require('./src/assets/fonts/arial.ttf'); // eslint-disable-line global-require
         }
-
         await Font.loadAsync(fonts);
         this.setState({ fontLoaded: true });
     }

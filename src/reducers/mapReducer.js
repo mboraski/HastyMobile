@@ -1,4 +1,6 @@
 import { REHYDRATE } from 'redux-persist/lib/constants';
+import { Dimensions } from 'react-native';
+
 import {
     MAPS_PLACES_AUTOCOMPLETE_REQUEST,
     MAPS_PLACES_AUTOCOMPLETE_SUCCESS,
@@ -19,40 +21,33 @@ import {
     GET_CURRENT_LOCATION_ERROR
 } from '../actions/mapActions';
 
-function getFormattedAddress(payload) {
-    const result = payload.results[0];
-    if (result) {
-        return result.formatted_address;
-    }
-    return '';
-}
+import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
-function getLocation(payload) {
-    const result = payload.results[0];
-    if (result) {
-        return {
-            latitude: result.geometry.location.lat,
-            longitude: result.geometry.location.lng
-        };
-    }
-    return {};
-}
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 30.2666247;
+const LONGITUDE = -97.7405174;
+const LATITUDE_DELTA = 0.0043;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const initialRegion = {
+    latitude: LATITUDE,
+    longitude: LONGITUDE,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA
+};
 
-export const initialState = {
+const initialState = {
     pending: false,
     predictions: [],
     saved: [],
-    region: {
-        latitude: 30.2666247,
-        longitude: -97.7405174,
-        latitudeDelta: 0.0043,
-        longitudeDelta: 0.0034
-    },
-    address: null,
+    region: initialRegion, // This is the user set delivery location
+    coords: null, // This is the user's location
+    timestamp: null,
+    address: '', // This is the readable address of the delivery location
     error: null
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case REHYDRATE:
             if (action.payload && action.payload.map) {
@@ -123,7 +118,9 @@ export default function (state = initialState, action) {
         case SAVE_ADDRESS:
             return {
                 ...state,
-                saved: !state.saved.includes(action.payload) ? [...state.saved, action.payload] : state.saved,
+                saved: !state.saved.includes(action.payload)
+                    ? [...state.saved, action.payload]
+                    : state.saved,
                 address: action.payload
             };
         case SET_REGION:
@@ -142,7 +139,9 @@ export default function (state = initialState, action) {
         case GET_CURRENT_LOCATION_SUCCESS:
             return {
                 ...state,
-                pending: false
+                pending: false,
+                coords: action.payload.coords,
+                timestamp: action.payload.timestamp
             };
         case GET_CURRENT_LOCATION_ERROR:
             return {

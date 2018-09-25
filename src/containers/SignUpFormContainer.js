@@ -1,41 +1,45 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
-import { signInWithFacebook, signUp } from '../actions/authActions';
-import Color from '../constants/Color';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from '../actions/authActions';
+
+import { getUser } from '../selectors/authSelectors';
+
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
+
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
+
+import Color from '../constants/Color';
 import { emY } from '../utils/em';
 
-class SignUpForm extends Component {
+class SignUpFormContainer extends Component {
     componentWillReceiveProps(nextProps) {
         this.onAuthComplete(nextProps);
     }
 
     onAuthComplete = props => {
         if (props.user && !this.props.user) {
-            this.props.onAuthSuccess();
+            this.props.navigation.navigate('paymentMethod', { signedUp: true });
         }
-    };
-
-    signInWithFacebook = () => {
-        this.props
-            .signInWithFacebook()
-            .catch(error => Alert.alert('Error', error.message));
     };
 
     render() {
         const {
-            anyTouched,
             pending,
             submitting,
             submitSucceeded,
@@ -47,18 +51,22 @@ class SignUpForm extends Component {
         } = this.props;
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
-        const submitText =
-            anyTouched && invalid
-                ? 'Please fill out form with no errors or empty fields.'
-                : 'Create Account';
+        const submitText = 'Create Account';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
                     <InlineLabelTextInputField
                         autoCapitalize={'words'}
                         containerStyle={styles.fieldContainer}
-                        name="name"
-                        label="Name"
+                        name="firstName"
+                        label="First Name"
+                        validate={[required]}
+                    />
+                    <InlineLabelTextInputField
+                        autoCapitalize={'words'}
+                        containerStyle={styles.fieldContainer}
+                        name="lastName"
+                        label="Last Name"
                         validate={[required]}
                     />
                     <InlineLabelTextInputField
@@ -93,8 +101,9 @@ class SignUpForm extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <LogoSpinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        <ActivityIndicator
+                            size="large"
+                            color={Color.ORANGE_500}
                         />
                     ) : null}
                     {submitSucceeded ? (
@@ -106,30 +115,16 @@ class SignUpForm extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <TouchableOpacity
-                    onPress={handleSubmit}
+                    onPress={handleSubmit(createUserWithEmailAndPassword)}
                     style={[
                         styles.button,
                         styles.buttonMargin,
-                        !anyTouched && invalid && styles.buttonDisabled,
-                        anyTouched && invalid && styles.buttonInvalid
+                        invalid && styles.buttonDisabled
                     ]}
                     disabled={disabled}
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
-                <Button
-                    onPress={this.signInWithFacebook}
-                    title="Sign Up with Facebook"
-                    icon={{
-                        type: 'material-community',
-                        name: 'facebook-box',
-                        color: '#fff',
-                        size: 25
-                    }}
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                />
             </View>
         );
     }
@@ -193,7 +188,8 @@ const formOptions = {
         if (values.password !== values.confirmPassword) {
             errors.confirmPassword = 'Passwords must match';
         } else if (
-            !values.name ||
+            !values.firstName ||
+            !values.lastName ||
             !values.email ||
             !values.number ||
             !values.password ||
@@ -202,21 +198,16 @@ const formOptions = {
             errors.missingValues = 'Some form field values are missing';
         }
         return errors;
-    },
-    onSubmit(values, dispatch, props) {
-        return props.signInWithEmailAndPassword(values).catch(error => {
-            throw new SubmissionError({ _error: error.message });
-        });
     }
 };
 
-const mapStateToProps = ({ auth }) => ({ user: auth.user });
+const mapStateToProps = state => ({ user: getUser(state) });
 
 const mapDispatchToProps = {
-    signInWithFacebook,
-    signUp
+    signInWithEmailAndPassword
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(SignUpForm)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm(formOptions)(SignUpFormContainer));

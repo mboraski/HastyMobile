@@ -13,10 +13,13 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
-import { getCartTotalQuantity } from '../selectors/cartSelectors';
+import {
+    getCartProducts,
+    getCartTotalQuantity,
+    getCartPureTotal
+} from '../selectors/cartSelectors';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
-
 
 class CartScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -35,7 +38,10 @@ class CartScreen extends Component {
         if (this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (this.props.itemCountDown) {
-            this.props.dropdownAlert(true, 'Some products are no longer available');
+            this.props.dropdownAlert(
+                true,
+                'Some products are no longer available'
+            );
         }
     }
 
@@ -46,7 +52,10 @@ class CartScreen extends Component {
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
-            this.props.dropdownAlert(true, 'Some products are no longer available');
+            this.props.dropdownAlert(
+                true,
+                'Some products are no longer available'
+            );
         } else {
             this.props.dropdownAlert(false, '');
         }
@@ -54,7 +63,10 @@ class CartScreen extends Component {
 
     handleRemoveProduct = product => {
         if (product.quantity === 1) {
-            this.setState({ removeOrderPopupVisible: true, orderToRemove: product });
+            this.setState({
+                removeOrderPopupVisible: true,
+                orderToRemove: product
+            });
         } else {
             this.props.removeFromCart(product);
         }
@@ -63,7 +75,10 @@ class CartScreen extends Component {
     removeProductConfirmed = confirmed => {
         if (confirmed) {
             this.props.removeFromCart(this.state.orderToRemove);
-            this.setState({ removeOrderPopupVisible: false, orderToRemove: null });
+            this.setState({
+                removeOrderPopupVisible: false,
+                orderToRemove: null
+            });
         }
     };
 
@@ -160,9 +175,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    orders: state.cart.products,
-    // availableCartItems: getAvailableCartItems(state),
-    totalCost: state.cart.preTaxTotal,
+    orders: getCartProducts(state),
+    totalCost: getCartPureTotal(state),
     totalQuantity: getCartTotalQuantity(state)
 });
 

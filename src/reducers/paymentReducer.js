@@ -16,11 +16,12 @@ import {
 
 const initialState = {
     cards: [],
+    pending: false,
     selectedCard: '',
-    pending: false
+    error: null
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case SUBMIT_PAYMENT_REQUEST:
             return {
@@ -45,7 +46,7 @@ export default function (state = initialState, action) {
         case ADD_CARD_SUCCESS:
             return {
                 ...state,
-                pending: false,
+                pending: false
             };
         case ADD_CARD_FAIL:
             return {
@@ -78,7 +79,9 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                cards: action.payload.paymentInfo ? action.payload.paymentInfo.data : [],
+                cards: action.payload.paymentInfo
+                    ? action.payload.paymentInfo.data
+                    : [],
                 error: null
             };
         case LIST_CARDS_FAIL:
@@ -90,7 +93,9 @@ export default function (state = initialState, action) {
         case SELECTED_CARD:
             return {
                 ...state,
-                selectedCard: action.payload.paymentInfo ? action.payload.paymentInfo.data[0] : {},
+                selectedCard: action.payload.paymentInfo
+                    ? action.payload.paymentInfo.data[0]
+                    : {},
                 pending: false
             };
         default:
