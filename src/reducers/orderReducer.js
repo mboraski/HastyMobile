@@ -1,4 +1,5 @@
 import {
+    ORDER_CREATION_REQUEST,
     ORDER_CREATION_SUCCESS,
     ORDER_CREATION_FAILURE,
     LISTEN_ORDER_REQUEST,
@@ -17,15 +18,22 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ORDER_CREATION_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
         case ORDER_CREATION_SUCCESS:
             return {
                 ...state,
-                currentOrderDatabaseKey: action.payload
+                currentOrderDatabaseKey: action.payload,
+                pending: false
             };
         case ORDER_CREATION_FAILURE:
             return {
                 ...state,
-                pending: false
+                pending: false,
+                error: action.payload
             };
         case CLEAR_ORDER:
             return {

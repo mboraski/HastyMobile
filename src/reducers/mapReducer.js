@@ -21,6 +21,8 @@ import {
     GET_CURRENT_LOCATION_ERROR
 } from '../actions/mapActions';
 
+import { ORDER_CREATION_FAILURE } from '../actions/orderActions';
+
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
 const { width, height } = Dimensions.get('window');
@@ -147,7 +149,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: action.payload
+            };
+        case ORDER_CREATION_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;

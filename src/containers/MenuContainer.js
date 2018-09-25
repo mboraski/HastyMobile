@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
     },
     profile: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: emY(3)
     },
     image: {
         width: IMAGE_CONTAINER_SIZE,

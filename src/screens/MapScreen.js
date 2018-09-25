@@ -24,11 +24,16 @@ import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import {
+    createOrder,
     orderCreationSuccess,
     orderCreationFailure
 } from '../actions/orderActions';
 import { getUserReadable } from '../actions/authActions';
 
+import {
+    getPending,
+    getCurrentOrderDatabaseKey
+} from '../selectors/orderSelectors';
 import { getProductsPending } from '../selectors/productSelectors';
 import { getSearchVisible } from '../selectors/uiSelectors';
 import {
@@ -96,7 +101,7 @@ class MapScreen extends Component {
         } else if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
-        this.props.getUserReadable();
+        // this.props.getUserReadable();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -112,6 +117,12 @@ class MapScreen extends Component {
         }
         if (this.props.region !== nextProps.region) {
             this.animateMarkerToCoordinate(nextProps.region);
+        }
+        if (
+            this.props.currentOrderDatabaseKey !==
+            nextProps.currentOrderDatabaseKey
+        ) {
+            this.props.navigation.navigate('home');
         }
         if (this.props.error) {
             this.props.dropdownAlert(true, this.props.error.message);
@@ -138,8 +149,10 @@ class MapScreen extends Component {
         tailing: true
     });
 
-    useCurrentLocationPress = () => {
-        this.setState({ changeLocationPopupVisible: true });
+    confirmLocationPress = () => {
+        this.props.createOrder(this.props.region);
+        // TODO: handle resetting location after order creation
+        // this.setState({ changeLocationPopupVisible: true });
     };
 
     changeLocationConfirmed = async confirmed => {
@@ -296,6 +309,15 @@ class MapScreen extends Component {
                         style={styles.beaconMarker}
                     />
                 </MapView>
+                {pending && (
+                    <View style={styles.overlay}>
+                        <ActivityIndicator
+                            animating={pending}
+                            size="large"
+                            color="#f5a623"
+                        />
+                    </View>
+                )}
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -326,8 +348,8 @@ class MapScreen extends Component {
                 >
                     <Button
                         large
-                        title="Use Current Location"
-                        onPress={this.useCurrentLocationPress}
+                        title="Confirm Location"
+                        onPress={this.confirmLocationPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                         disabled={pending}
@@ -376,6 +398,16 @@ const styles = StyleSheet.create({
     },
     map: {
         flex: 1
+    },
+    overlay: {
+        position: 'absolute',
+        zIndex: 100,
+        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+        justifyContent: 'center',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0
     },
     buttonContainer: {
         position: 'absolute',
@@ -444,17 +476,19 @@ MapScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
-    pending: getProductsPending(state),
+    pending: getPending(state),
     productPending: getProductsPending(state),
     predictions: getPredictions(state),
     searchVisible: getSearchVisible(state),
     header: state.header,
     region: getRegion(state),
     address: getAddress(state),
-    error: getError(state)
+    error: getError(state),
+    currentOrderDatabaseKey: getCurrentOrderDatabaseKey(state)
 });
 
 const mapDispatchToProps = {
+    createOrder,
     getUserReadable,
     saveAddress,
     toggleSearch,
