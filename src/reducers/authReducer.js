@@ -10,7 +10,8 @@ import {
     SIGNIN_FAIL,
     SIGNOUT_REQUEST,
     SIGNOUT_SUCCESS,
-    SIGNOUT_FAIL
+    SIGNOUT_FAIL,
+    USER_READABLE_SUCCESS
 } from '../actions/authActions';
 
 const initialState = {
@@ -53,6 +54,8 @@ export default function(state = initialState, action) {
             return initialState;
         case SIGNOUT_FAIL:
             return { ...state, error: payload, pending: false };
+        case USER_READABLE_SUCCESS:
+            return { ...state, userReadable: payload };
         default:
             return state;
     }

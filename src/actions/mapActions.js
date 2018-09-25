@@ -10,6 +10,7 @@ export const GET_CURRENT_LOCATION_SUCCESS = 'get_current_location_success';
 export const GET_CURRENT_LOCATION_ERROR = 'get_current_location_error';
 export const ADD_LOCATION_SUBSCRIPTION = 'add_location_subscription';
 export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
+export const SET_INITIAL_REGION = 'set_initial_region';
 
 // const listenForLocationChanges = dispatch => {
 //     const locationSubscription = Location.watchPositionAsync(
@@ -73,6 +74,9 @@ export const getCurrentLocation = () => async dispatch => {
                     coords: location.coords
                 }
             });
+            dispatch(
+                setRegion(location.coords.latitude, location.coords.longitude)
+            );
         }
     } catch (error) {
         dispatch({

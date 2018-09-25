@@ -17,7 +17,7 @@ import helpIcon from '../assets/icons/info.png';
 import locationIcon from '../assets/icons/location.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
-import { getFacebookInfo } from '../selectors/authSelectors';
+import { getUserReadable } from '../selectors/authSelectors';
 
 const IMAGE_CONTAINER_SIZE = emY(6.25);
 
@@ -70,7 +70,7 @@ class MenuContent extends Component {
     // };
 
     render() {
-        const { items, activeItemKey, facebookInfo } = this.props;
+        const { items, activeItemKey, facebookInfo, userReadable } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -80,9 +80,9 @@ class MenuContent extends Component {
                             style={styles.image}
                         />
                     ) : null}
-                    {facebookInfo && facebookInfo.displayName ? (
+                    {userReadable ? (
                         <Text style={styles.name}>
-                            {facebookInfo.displayName}
+                            {userReadable.firstName} {userReadable.lastName}
                         </Text>
                     ) : null}
                     {/* <TouchableOpacity onPress={this.handleViewProfile}>
@@ -157,7 +157,10 @@ class MenuContent extends Component {
                     />
                     <Text style={styles.copyright}>@2018 Hasty</Text>
                 </ScrollView>
-                <ToggleBackButton style={styles.backButton} />
+                <ToggleBackButton
+                    navigation={this.props.navigation}
+                    style={styles.backButton}
+                />
             </View>
         );
     }
@@ -171,8 +174,8 @@ const styles = StyleSheet.create({
         borderRightColor: Color.YELLOW_500
     },
     profile: {
-        alignItems: 'center',
-        marginTop: emY(2.68)
+        flex: 1,
+        alignItems: 'center'
     },
     image: {
         width: IMAGE_CONTAINER_SIZE,
@@ -206,13 +209,16 @@ const styles = StyleSheet.create({
     backButton: {
         position: 'absolute',
         left: 0,
-        top: emY(2.1)
+        top: emY(3)
     }
 });
 
+const mapStateToProps = state => ({
+    userReadable: getUserReadable(state)
+});
 const mapDispatchToProps = { openCustomerPopup, signOut };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(MenuContent);

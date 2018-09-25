@@ -6,8 +6,7 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
-    ActivityIndicator,
-    Dimensions
+    ActivityIndicator
 } from 'react-native';
 import { MapView, Constants, PROVIDER_GOOGLE } from 'expo';
 import { connect } from 'react-redux';
@@ -50,7 +49,6 @@ import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
-const { width, height } = Dimensions.get('window');
 const NO_HERO_FOUND = `It does not look like there is a Hero available in you area.`;
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
@@ -70,22 +68,11 @@ const CENTER_OFFSET = {
     y: -55 / 2
 };
 const MARKER_ANIMATION_DURATION = 0;
-const ASPECT_RATIO = width / height;
-const LATITUDE = 30.2666247;
-const LONGITUDE = -97.7405174;
-const LATITUDE_DELTA = 0.0043;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
 const CHANGE_LOCATION_TITLE =
     'Are you sure you want to change your delivery location?';
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
-
-const initialRegion = {
-    latitude: LATITUDE,
-    longitude: LONGITUDE,
-    latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA
-};
 
 class MapScreen extends Component {
     state = {
@@ -96,9 +83,7 @@ class MapScreen extends Component {
         searchRendered: false,
         getCurrentPositionPending: false,
         initialMessageVisible: false,
-        animatedRegion: new MapView.AnimatedRegion(
-            this.props.region || initialRegion
-        ),
+        animatedRegion: new MapView.AnimatedRegion(this.props.region),
         changeLocationPopupVisible: false
     };
 
@@ -139,13 +124,14 @@ class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onRegionChangeComplete = region => {
-        if (this.state.mapReady) {
-            this.getAddress({
-                latlng: `${region.latitude},${region.longitude}`
-            });
-        }
-    };
+    // TODO: This is causing the map to jump on completion. Turning off until bug fixed
+    // onRegionChangeComplete = region => {
+    //     if (this.state.mapReady) {
+    //         this.getAddress({
+    //             latlng: `${region.latitude},${region.longitude}`
+    //         });
+    //     }
+    // };
 
     getAddress = debounce(this.props.reverseGeocode, 1000, {
         leading: false,
@@ -292,7 +278,6 @@ class MapScreen extends Component {
             <View style={styles.container}>
                 <MapView
                     style={styles.map}
-                    initialRegion={initialRegion}
                     region={region}
                     showsCompass
                     showsPointsOfInterest
