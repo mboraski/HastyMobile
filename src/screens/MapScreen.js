@@ -60,6 +60,7 @@ const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
+// TODO: needs to be changed to the bottom center of image
 const ANCHOR = {
     x: 0.2,
     y: 1
@@ -105,7 +106,7 @@ class MapScreen extends Component {
                 true,
                 'Oops, this will only work on a device'
             );
-        } else if (!this.props.region.latitude) {
+        } else if (!this.props.region) {
             this.props.getCurrentLocation();
         }
         this.props.getUserReadable();
@@ -297,7 +298,17 @@ class MapScreen extends Component {
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
-                />
+                >
+                    <MapView.Marker
+                        image={beaconIcon}
+                        coordinate={initialRegion}
+                        title="You"
+                        description="Your Delivery Location"
+                        anchor={ANCHOR}
+                        centerOffset={CENTER_OFFSET}
+                        style={styles.beaconMarker}
+                    />
+                </MapView>
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}

@@ -25,12 +25,7 @@ const initialState = {
     pending: false,
     predictions: [],
     saved: [],
-    region: {
-        latitude: null,
-        longitude: null,
-        latitudeDelta: null,
-        longitudeDelta: null
-    },
+    region: null,
     coords: {
         latitude: null,
         longitude: null,
