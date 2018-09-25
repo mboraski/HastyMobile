@@ -1,11 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { 
-    StyleSheet,
-    View,
-    TouchableOpacity,
-    Animated
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Animated } from 'react-native';
 
 // Relative Imports
 import { emY } from '../utils/em';
@@ -17,27 +12,21 @@ class DropDown extends Component {
         animation: new Animated.Value(),
         maxHeight: 0,
         minHeight: emY(3.3),
-        spinValue: new Animated.Value(0),
+        spinValue: new Animated.Value(0)
     };
 
     componentDidMount() {
         const { minHeight } = this.state;
         this.state.animation.setValue(0);
-        Animated.spring(
-            this.state.animation,
-            {
-                toValue: minHeight
-            }
-        ).start();
+        Animated.spring(this.state.animation, {
+            toValue: minHeight
+        }).start();
         this.state.spinValue.setValue(1);
-        Animated.timing(
-            this.state.spinValue,
-            {
-                toValue: 1,
-                duration: 400,
-            }
-        ).start();
-        this.setState({ 
+        Animated.timing(this.state.spinValue, {
+            toValue: 1,
+            duration: 400
+        }).start();
+        this.setState({
             expanded: false
         });
     }
@@ -46,40 +35,36 @@ class DropDown extends Component {
         this.setState({
             maxHeight: event.nativeEvent.layout.height
         });
-    }
-    
+    };
+
     setMinHeight = event => {
         this.setState({
             minHeight: event.nativeEvent.layout.height
         });
-    }
+    };
 
     toggle = () => {
-        const initialValue = (this.state.expanded) ? 
-            this.state.maxHeight + this.state.minHeight : this.state.minHeight;
-        const finalValue = (this.state.expanded) ? 
-            this.state.minHeight : this.state.maxHeight + this.state.minHeight;
-        const initialDegree = (this.state.expanded) ? 0 : 1;
-        const finalDegree = (this.state.expanded) ? 1 : 0;
+        const initialValue = this.state.expanded
+            ? this.state.maxHeight + this.state.minHeight
+            : this.state.minHeight;
+        const finalValue = this.state.expanded
+            ? this.state.minHeight
+            : this.state.maxHeight + this.state.minHeight;
+        const initialDegree = this.state.expanded ? 0 : 1;
+        const finalDegree = this.state.expanded ? 1 : 0;
         this.setState({
             expanded: !this.state.expanded
         });
         this.state.animation.setValue(initialValue);
-        Animated.spring(
-            this.state.animation,
-            {
-                toValue: finalValue
-            }
-        ).start(); 
+        Animated.spring(this.state.animation, {
+            toValue: finalValue
+        }).start();
         this.state.spinValue.setValue(initialDegree);
-        Animated.timing(
-            this.state.spinValue,
-            {
-                toValue: finalDegree,
-                duration: 400,
-            }
-        ).start();
-    }
+        Animated.timing(this.state.spinValue, {
+            toValue: finalDegree,
+            duration: 400
+        }).start();
+    };
 
     render() {
         const { header } = this.props;
@@ -90,7 +75,9 @@ class DropDown extends Component {
         });
         return (
             <View style={styles.container}>
-                <Animated.View style={[styles.container, { height: animation }]}>
+                <Animated.View
+                    style={[styles.container, { height: animation }]}
+                >
                     <View onLayout={this.setMinHeight}>
                         <TouchableOpacity onPress={this.toggle}>
                             {header}
@@ -107,7 +94,9 @@ class DropDown extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View onLayout={this.setMaxHeight}>{this.props.children}</View>
+                    <View onLayout={this.setMaxHeight}>
+                        {this.props.children}
+                    </View>
                 </Animated.View>
             </View>
         );

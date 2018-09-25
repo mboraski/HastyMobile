@@ -289,12 +289,11 @@ class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <MapView
+                    style={styles.map}
+                    initialRegion={initialRegion}
                     showsCompass
                     showsPointsOfInterest
-                    initialRegion={initialRegion}
-                    region={region}
                     provider={PROVIDER_GOOGLE}
-                    style={styles.map}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
@@ -375,13 +374,10 @@ class MapScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
+        flex: 1
     },
     map: {
-        ...StyleSheet.absoluteFillObject
+        flex: 1
     },
     buttonContainer: {
         position: 'absolute',
