@@ -11,6 +11,7 @@ export const GET_CURRENT_LOCATION_ERROR = 'get_current_location_error';
 export const ADD_LOCATION_SUBSCRIPTION = 'add_location_subscription';
 export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
 export const SET_INITIAL_REGION = 'set_initial_region';
+export const NULLIFY_MAP_ERROR = 'nullify_map_error';
 
 // const listenForLocationChanges = dispatch => {
 //     const locationSubscription = Location.watchPositionAsync(
@@ -41,6 +42,9 @@ export const SET_INITIAL_REGION = 'set_initial_region';
 //         type: REMOVE_LOCATION_SUBSCRIPTION
 //     })
 // };
+export const nullifyError = () => dispatch =>
+    dispatch({ type: NULLIFY_MAP_ERROR });
+
 export const saveAddress = address => dispatch => {
     dispatch({ type: SAVE_ADDRESS, payload: address });
     return dispatch(geocode({ address }));

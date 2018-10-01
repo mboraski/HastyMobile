@@ -10,11 +10,17 @@ export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
 export const FETCH_PRODUCTS_FAILURE = 'fetch_products_failure';
 export const SET_IMAGE = 'set_image';
 
-export const fetchProductsRequest = () => async dispatch => {
+const PRODUCTS_REF = 'activeProducts/US/TX/Austin';
+
+export const fetchProductsRequest = () => dispatch => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return await rtdb
-        .ref('activeProducts/US/TX/Austin')
-        .on('value', snapshot => {
+    return listenProductsRef();
+};
+
+export const listenProductsRef = dispatch =>
+    rtdb.ref(PRODUCTS_REF).on(
+        'value',
+        snapshot => {
             const products = snapshot.val();
             // for some reason firebase has empty hashed database objects, this filters them
             // TODO: figure out why firebase did this
@@ -23,13 +29,23 @@ export const fetchProductsRequest = () => async dispatch => {
                 products.instant,
                 product => !!product
             );
-            dispatch(fetchProductsSuccess(filteredProducts));
-            // dispatch(fetchProductImages(filteredProducts, dispatch));
-            // dispatch(updateCart(filteredProducts));
-        });
-    // .off();
-};
-// TODO: remove reference listener
+            if (Object.keys(filteredProducts.instant).length < 1) {
+                dispatch(
+                    fetchProductsFailure({
+                        code: '007',
+                        message: 'No Products Available'
+                    })
+                );
+            } else {
+                dispatch(fetchProductsSuccess(filteredProducts));
+                // dispatch(fetchProductImages(filteredProducts, dispatch));
+                // dispatch(updateCart(filteredProducts));
+            }
+        },
+        error => dispatch(fetchProductsFailure(error))
+    );
+
+export const unListenProductsRef = () => rtdb.ref(PRODUCTS_REF).off();
 
 export const fetchProductsSuccess = products => ({
     type: FETCH_PRODUCTS_SUCCESS,

@@ -18,10 +18,11 @@ import {
     SET_REGION,
     GET_CURRENT_LOCATION_REQUEST,
     GET_CURRENT_LOCATION_SUCCESS,
-    GET_CURRENT_LOCATION_ERROR
+    GET_CURRENT_LOCATION_ERROR,
+    NULLIFY_MAP_ERROR
 } from '../actions/mapActions';
 
-import { ORDER_CREATION_FAILURE } from '../actions/orderActions';
+import { FETCH_PRODUCTS_FAILURE } from '../actions/productActions';
 
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
@@ -148,10 +149,15 @@ export default function(state = initialState, action) {
                 pending: false,
                 error: action.payload
             };
-        case ORDER_CREATION_FAILURE:
+        case FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
                 error: action.payload
+            };
+        case NULLIFY_MAP_ERROR:
+            return {
+                ...state,
+                error: null
             };
         default:
             return state;

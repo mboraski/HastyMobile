@@ -18,7 +18,8 @@ import { ref } from '../../firebase';
 import {
     saveAddress,
     setRegion,
-    getCurrentLocation
+    getCurrentLocation,
+    nullifyError
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
@@ -45,12 +46,12 @@ import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeaderContainer from '../containers/MapHeaderContainer';
 
+import ERRORS from '../constants/Errors';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
-const NO_HERO_FOUND = `It does not look like there is a Hero available in you area.`;
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
 
@@ -97,7 +98,7 @@ class MapScreen extends Component {
         } else if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
-        // this.props.getUserReadable();
+        this.props.getUserReadable();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -164,7 +165,7 @@ class MapScreen extends Component {
                 }`
             });
             if (result.rows[0].elements[0].duration.value > 60 * 30) {
-                this.props.dropdownAlert(true, NO_HERO_FOUND);
+                this.props.dropdownAlert(true, ERRORS['007']);
                 resp = result;
             } else {
                 this.props.dropdownAlert(false, '');
@@ -274,12 +275,14 @@ class MapScreen extends Component {
         });
     };
 
-    handleInitialMessageClose = () => {
-        this.setState({ initialMessageVisible: false });
+    handleCloseContinuePopup = () => {
+        this.props.nullifyError();
     };
 
     render() {
-        const { predictions, region, address, pending } = this.props;
+        const { predictions, region, address, pending, error } = this.props;
+        const errorCode = error ? error.code : 'default';
+        const errorMessage = ERRORS[errorCode];
 
         const { changeLocationPopupVisible } = this.state;
 
@@ -371,9 +374,9 @@ class MapScreen extends Component {
                     />
                 ) : null}
                 <ContinuePopup
-                    isOpen={this.state.initialMessageVisible}
-                    closeModal={this.handleInitialMessageClose}
-                    message={NO_HERO_FOUND}
+                    isOpen={!!error}
+                    closeModal={this.handleCloseContinuePopup}
+                    message={errorMessage}
                 />
                 <SuccessPopup
                     openModal={changeLocationPopupVisible}
@@ -481,6 +484,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    nullifyError,
     fetchProductsRequest,
     getUserReadable,
     saveAddress,
