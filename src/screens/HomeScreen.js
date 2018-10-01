@@ -51,7 +51,6 @@ import HomeHeaderContainer from '../containers/HomeHeaderContainer';
 
 class HomeScreen extends Component {
     componentDidMount() {
-        this.props.fetchProductsRequest();
         if (this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (this.props.itemCountDown) {
@@ -309,4 +308,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(dropdownAlert(visible, message))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HomeScreen);

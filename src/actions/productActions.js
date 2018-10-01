@@ -2,6 +2,7 @@ import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 
 import { updateCart } from './cartActions';
+import { rtdb } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
 export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
@@ -11,8 +12,7 @@ export const SET_IMAGE = 'set_image';
 
 export const fetchProductsRequest = () => async dispatch => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return await firebase
-        .database()
+    return await rtdb
         .ref('activeProducts/US/TX/Austin')
         .on('value', snapshot => {
             const products = snapshot.val();
@@ -24,8 +24,8 @@ export const fetchProductsRequest = () => async dispatch => {
                 product => !!product
             );
             dispatch(fetchProductsSuccess(filteredProducts));
-            dispatch(fetchProductImages(filteredProducts, dispatch));
-            dispatch(updateCart(filteredProducts));
+            // dispatch(fetchProductImages(filteredProducts, dispatch));
+            // dispatch(updateCart(filteredProducts));
         });
     // .off();
 };

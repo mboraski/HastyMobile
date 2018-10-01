@@ -35,7 +35,7 @@ const initialRegion = {
     latitude: LATITUDE,
     longitude: LONGITUDE,
     latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA
+    longitudeDelta: LONGITUDE_DELTA || 0.0043
 };
 
 const initialState = {
@@ -128,10 +128,7 @@ export default function(state = initialState, action) {
         case SET_REGION:
             return {
                 ...state,
-                region: {
-                    ...state.region,
-                    ...action.payload
-                }
+                region: action.payload
             };
         case GET_CURRENT_LOCATION_REQUEST:
             return {

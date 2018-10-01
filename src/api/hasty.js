@@ -7,10 +7,6 @@ export const instance = axios.create({
 //     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
 // });
 
-export function getProductsByAddress(args) {
-    return instance.post('getProductsByAddress', args);
-}
-
 export function addStripeCustomerSource(args) {
     return instance.post('addStripeCustomerSource', args);
 }

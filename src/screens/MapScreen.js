@@ -24,16 +24,12 @@ import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import {
-    createOrder,
     orderCreationSuccess,
     orderCreationFailure
 } from '../actions/orderActions';
 import { getUserReadable } from '../actions/authActions';
+import { fetchProductsRequest } from '../actions/productActions';
 
-import {
-    getPending,
-    getCurrentOrderDatabaseKey
-} from '../selectors/orderSelectors';
 import { getProductsPending } from '../selectors/productSelectors';
 import { getSearchVisible } from '../selectors/uiSelectors';
 import {
@@ -108,6 +104,7 @@ class MapScreen extends Component {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
         }
+        // TODO: can I remove the drawer navigation here?
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
@@ -115,12 +112,10 @@ class MapScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
-        if (this.props.region !== nextProps.region) {
-            this.animateMarkerToCoordinate(nextProps.region);
-        }
         if (
-            this.props.currentOrderDatabaseKey !==
-            nextProps.currentOrderDatabaseKey
+            this.props.pending === true &&
+            nextProps.pending === false &&
+            !nextProps.error
         ) {
             this.props.navigation.navigate('home');
         }
@@ -129,28 +124,27 @@ class MapScreen extends Component {
         } else {
             this.props.dropdownAlert(false, '');
         }
+        if (this.props.region !== nextProps.region) {
+            this.debounceMarker(nextProps.region);
+        }
     }
 
     onMapReady = () => {
         this.setState({ mapReady: true });
     };
 
-    // TODO: This is causing the map to jump on completion. Turning off until bug fixed
-    // onRegionChangeComplete = region => {
-    //     if (this.state.mapReady) {
-    //         this.getAddress({
-    //             latlng: `${region.latitude},${region.longitude}`
-    //         });
-    //     }
-    // };
+    getAddress = debounce(this.props.reverseGeocode, 500, {
+        leading: false,
+        tailing: true
+    });
 
-    getAddress = debounce(this.props.reverseGeocode, 1000, {
+    debounceRegion = debounce(this.props.setRegion, 500, {
         leading: false,
         tailing: true
     });
 
     confirmLocationPress = () => {
-        this.props.createOrder(this.props.region);
+        this.props.fetchProductsRequest();
         // TODO: handle resetting location after order creation
         // this.setState({ changeLocationPopupVisible: true });
     };
@@ -225,10 +219,18 @@ class MapScreen extends Component {
         }
     };
 
+    // This ensures the marker is set to new coords if user selects address prediction
+    debounceMarker = debounce(this.animateMarkerToCoordinate, 500, {
+        leading: false,
+        tailing: true
+    });
+
     handleRegionChange = region => {
-        if (this.state.mapReady) {
-            this.animateMarkerToCoordinate(region);
-        }
+        this.animateMarkerToCoordinate(region);
+        this.debounceRegion(region);
+        this.getAddress({
+            latlng: `${region.latitude},${region.longitude}`
+        });
     };
 
     handleAddress = address => {
@@ -277,13 +279,7 @@ class MapScreen extends Component {
     };
 
     render() {
-        const {
-            predictions,
-            region,
-            address,
-            pending,
-            productPending
-        } = this.props;
+        const { predictions, region, address, pending } = this.props;
 
         const { changeLocationPopupVisible } = this.state;
 
@@ -297,7 +293,6 @@ class MapScreen extends Component {
                     provider={PROVIDER_GOOGLE}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
                 >
                     <MapView.Marker.Animated
                         image={beaconIcon}
@@ -369,7 +364,7 @@ class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                {productPending ? (
+                {pending ? (
                     <ActivityIndicator
                         size="large"
                         style={StyleSheet.absoluteFill}
@@ -476,19 +471,17 @@ MapScreen.navigationOptions = {
 };
 
 const mapStateToProps = state => ({
-    pending: getPending(state),
-    productPending: getProductsPending(state),
+    pending: getProductsPending(state),
     predictions: getPredictions(state),
     searchVisible: getSearchVisible(state),
     header: state.header,
     region: getRegion(state),
     address: getAddress(state),
-    error: getError(state),
-    currentOrderDatabaseKey: getCurrentOrderDatabaseKey(state)
+    error: getError(state)
 });
 
 const mapDispatchToProps = {
-    createOrder,
+    fetchProductsRequest,
     getUserReadable,
     saveAddress,
     toggleSearch,
