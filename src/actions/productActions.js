@@ -1,6 +1,7 @@
 import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 
+import { noHeroesAvailable } from './mapActions';
 import { updateCart } from './cartActions';
 import { rtdb } from '../../firebase';
 
@@ -14,7 +15,7 @@ const PRODUCTS_REF = 'activeProducts/US/TX/Austin';
 
 export const fetchProductsRequest = () => dispatch => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return listenProductsRef();
+    return listenProductsRef(dispatch);
 };
 
 export const listenProductsRef = dispatch =>
@@ -31,15 +32,15 @@ export const listenProductsRef = dispatch =>
             );
             if (Object.keys(filteredProducts.instant).length < 1) {
                 dispatch(
-                    fetchProductsFailure({
+                    noHeroesAvailable({
                         code: '007',
-                        message: 'No Products Available'
+                        message: 'No Heroes Available'
                     })
                 );
             } else {
                 dispatch(fetchProductsSuccess(filteredProducts));
-                // dispatch(fetchProductImages(filteredProducts, dispatch));
-                // dispatch(updateCart(filteredProducts));
+                dispatch(fetchProductImages(filteredProducts, dispatch));
+                dispatch(updateCart(filteredProducts));
             }
         },
         error => dispatch(fetchProductsFailure(error))

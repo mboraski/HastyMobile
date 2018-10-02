@@ -31,7 +31,10 @@ import {
 import { getUserReadable } from '../actions/authActions';
 import { fetchProductsRequest } from '../actions/productActions';
 
-import { getProductsPending } from '../selectors/productSelectors';
+import {
+    getProductsPending,
+    getError as getProductsError
+} from '../selectors/productSelectors';
 import { getSearchVisible } from '../selectors/uiSelectors';
 import {
     getPredictions,
@@ -98,7 +101,8 @@ class MapScreen extends Component {
         } else if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
-        this.props.getUserReadable();
+        // TODO: change to only fetch info that is needed
+        // this.props.getUserReadable();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -118,10 +122,10 @@ class MapScreen extends Component {
             nextProps.pending === false &&
             !nextProps.error
         ) {
-            this.props.navigation.navigate('home');
+            this.props.navigation.navigate('products');
         }
-        if (this.props.error) {
-            this.props.dropdownAlert(true, this.props.error.message);
+        if (this.props.productsError) {
+            this.props.dropdownAlert(true, ERRORS['001']);
         } else {
             this.props.dropdownAlert(false, '');
         }
@@ -182,7 +186,7 @@ class MapScreen extends Component {
                     if (resp) {
                         const key = resp.path.pieces_.join('/'); // eslint-disable-line
                         this.props.orderCreationSuccess(key);
-                        this.props.navigation.navigate('home');
+                        this.props.navigation.navigate('products');
                     } else {
                         throw new Error('Error setting location');
                     }
@@ -480,7 +484,8 @@ const mapStateToProps = state => ({
     header: state.header,
     region: getRegion(state),
     address: getAddress(state),
-    error: getError(state)
+    error: getError(state),
+    productsError: getProductsError(state)
 });
 
 const mapDispatchToProps = {

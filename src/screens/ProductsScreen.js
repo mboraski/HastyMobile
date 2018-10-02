@@ -7,7 +7,7 @@ import {
     View,
     ImageBackground,
     TouchableOpacity,
-    Platform
+    Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -18,8 +18,6 @@ import ProductList from '../components/ProductList';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
-
 import { addToCart } from '../actions/cartActions';
 import {
     selectCategory,
@@ -29,12 +27,11 @@ import { dropdownAlert } from '../actions/uiActions';
 
 import {
     getCartTotalQuantity,
-    getCartInstantProducts,
-    getCategory
+    getCartInstantProducts
 } from '../selectors/cartSelectors';
 import {
+    getCategory,
     getItemCountUp,
-    getProductsState,
     getItemCountDown,
     getProductsPending,
     getProductsByCategory,
@@ -49,7 +46,10 @@ import { emY } from '../utils/em';
 
 import HomeHeaderContainer from '../containers/HomeHeaderContainer';
 
-class HomeScreen extends Component {
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
+
+class ProductsScreen extends Component {
     componentDidMount() {
         if (this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
@@ -200,10 +200,12 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        maxWidth: WINDOW_WIDTH,
+        maxHeight: WINDOW_HEIGHT
     },
     image: {
-        height: Dimensions.window.height / 5,
+        height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     checkout: {
-        height: Dimensions.window.height / 5,
+        height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Color.GREEN_500
@@ -239,33 +241,20 @@ const styles = StyleSheet.create({
     checkoutIcon: {
         backgroundColor: 'transparent'
     },
-    filters: {
-        ...Platform.select({
-            ios: {
-                height: 70,
-                maxHeight: 70
-            },
-            android: {
-                height: 70,
-                maxHeight: 70
-            }
-        })
-    },
     filtersContent: {
-        paddingLeft: 5,
+        maxHeight: emY(2.5),
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        justifyContent: 'center',
-        maxHeight: 70
+        paddingVertical: 5
     },
     filterButton: {
         minWidth: 120,
-        height: emY(2.5),
+        height: emY(2),
         borderColor: Color.GREY_400,
-        borderWidth: StyleSheet.hairlineWidth * 2,
-        borderRadius: 50,
-        paddingVertical: 10,
-        marginRight: 10,
-        alignItems: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderRadius: 25,
+        marginRight: 6,
         justifyContent: 'center'
     },
     filterButtonSelected: {
@@ -274,14 +263,15 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: Color.GREY_400,
-        fontSize: emY(1.125)
+        fontSize: emY(1.125),
+        textAlign: 'center'
     },
     filterButtonTextSelected: {
         color: '#fff'
     }
 });
 
-HomeScreen.navigationOptions = {
+ProductsScreen.navigationOptions = {
     header: <HomeHeaderContainer />
 };
 
@@ -311,4 +301,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HomeScreen);
+)(ProductsScreen);

@@ -8,7 +8,7 @@ import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import HomeScreen from '../screens/HomeScreen';
+import ProductsScreen from '../screens/ProductsScreen';
 import MapScreen from '../screens/MapScreen';
 import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
 import DeliveryNotesScreen from '../screens/DeliveryNotesScreen';
@@ -30,7 +30,7 @@ export default createStackNavigator(
         auth: { screen: AuthScreen },
         profile: { screen: ProfileScreen },
         map: { screen: MapScreen },
-        home: { screen: HomeScreen },
+        products: { screen: ProductsScreen },
         searchForHero: { screen: SearchForHeroScreen },
         deliveryDetail: { screen: DeliveryDetailScreen },
         deliveryNotes: { screen: DeliveryNotesScreen },

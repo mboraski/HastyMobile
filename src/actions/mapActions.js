@@ -12,6 +12,7 @@ export const ADD_LOCATION_SUBSCRIPTION = 'add_location_subscription';
 export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
 export const SET_INITIAL_REGION = 'set_initial_region';
 export const NULLIFY_MAP_ERROR = 'nullify_map_error';
+export const NO_HEROES_AVAILABLE = 'no_heroes_available';
 
 // const listenForLocationChanges = dispatch => {
 //     const locationSubscription = Location.watchPositionAsync(
@@ -54,6 +55,12 @@ export const setRegion = region => dispatch =>
     dispatch({
         type: SET_REGION,
         payload: region
+    });
+
+export const noHeroesAvailable = errObj => dispatch =>
+    dispatch({
+        type: NO_HEROES_AVAILABLE,
+        payload: errObj
     });
 
 export const getCurrentLocation = () => async dispatch => {

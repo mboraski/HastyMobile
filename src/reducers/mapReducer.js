@@ -19,10 +19,9 @@ import {
     GET_CURRENT_LOCATION_REQUEST,
     GET_CURRENT_LOCATION_SUCCESS,
     GET_CURRENT_LOCATION_ERROR,
-    NULLIFY_MAP_ERROR
+    NULLIFY_MAP_ERROR,
+    NO_HEROES_AVAILABLE
 } from '../actions/mapActions';
-
-import { FETCH_PRODUCTS_FAILURE } from '../actions/productActions';
 
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
@@ -149,7 +148,7 @@ export default function(state = initialState, action) {
                 pending: false,
                 error: action.payload
             };
-        case FETCH_PRODUCTS_FAILURE:
+        case NO_HEROES_AVAILABLE:
             return {
                 ...state,
                 error: action.payload
