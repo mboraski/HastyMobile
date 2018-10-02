@@ -29,12 +29,7 @@ import beaconIcon from '../assets/icons/beacon.png';
 
 import { emY } from '../utils/em';
 
-import {
-    addToCart,
-    removeFromCart,
-    getCurrentSetAddress,
-    getRegion
-} from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     submitPayment,
@@ -42,7 +37,6 @@ import {
     listCards
 } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
-import { getNotes } from '../actions/checkoutActions';
 
 import {
     getCartOrders,
@@ -58,6 +52,8 @@ import {
     getSelectedCard,
     getPending
 } from '../selectors/paymentSelectors';
+import { getAddress, getRegion } from '../selectors/mapSelectors';
+import { getNotes } from '../selectors/checkoutSelectors';
 import { getCurrentOrderDatabaseKey } from '../selectors/orderSelectors';
 
 const REMOVE_ORDER_MESSAGE =
@@ -475,7 +471,7 @@ const mapStateToProps = state => ({
     deliveryFee: getDeliveryFee(state),
     serviceCharge: getCartServiceCharge(state),
     notes: getNotes(state),
-    address: getCurrentSetAddress(state),
+    address: getAddress(state),
     region: getRegion(state),
     cards: getCards(state),
     selectedCard: getSelectedCard(state),

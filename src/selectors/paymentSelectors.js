@@ -1,4 +1,4 @@
-export const getCards = state => state.order.cards;
-export const getPending = state => state.order.pending;
-export const getSelectedCard = state => state.order.selectedCard;
-export const getError = state => state.order.error;
+export const getCards = state => state.payment.cards;
+export const getPending = state => state.payment.pending;
+export const getSelectedCard = state => state.payment.selectedCard;
+export const getError = state => state.payment.error;
