@@ -11,21 +11,19 @@ import Color from '../constants/Color';
 
 class OrderList extends Component {
     renderOrders() {
-        const {
-            orders,
-            orderImages,
-            onAddOrder,
-            onRemoveOrder
-        } = this.props;
+        const { orders, orderImages, onAddOrder, onRemoveOrder } = this.props;
         let prevDeliveryType;
         return map(orders, order => {
-            const image = orderImages[order.productName] || '';
+            // TODO: this is a bandaid
+            const image = orderImages ? orderImages[order.productName] : '';
             let renderMark;
             if (prevDeliveryType !== 'instant') {
                 renderMark = (
                     <View key={`instant-${order.productName}`}>
                         <View style={styles.headerItem}>
-                            <Text style={styles.typeLabel}>Delivery Type: </Text>
+                            <Text style={styles.typeLabel}>
+                                Delivery Type:{' '}
+                            </Text>
                             <Text style={styles.valueLabel}>{'Instant'}</Text>
                         </View>
                         <OrderDetail

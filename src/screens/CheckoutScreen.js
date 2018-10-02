@@ -7,13 +7,17 @@ import {
     TouchableOpacity,
     Platform,
     Animated,
-    ActivityIndicator
+    ActivityIndicator,
+    Dimensions
 } from 'react-native';
 import { MapView } from 'expo';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
+
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
@@ -23,7 +27,6 @@ import SuccessPopup from '../components/SuccessPopup';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import beaconIcon from '../assets/icons/beacon.png';
 
@@ -56,6 +59,9 @@ import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getNotes } from '../selectors/checkoutSelectors';
 import { getCurrentOrderDatabaseKey } from '../selectors/orderSelectors';
 
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
+
 const REMOVE_ORDER_MESSAGE =
     'Are you sure you want to remove this product from your cart?';
 const CHANGE_LOCATION_TITLE =
@@ -86,7 +92,7 @@ class CheckoutScreen extends Component {
     };
 
     componentDidMount() {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         if (user) {
             const uid = user.uid;
             this.props.listCards(uid);
@@ -219,23 +225,51 @@ class CheckoutScreen extends Component {
                 ) : (
                     <ScrollView style={styles.scrollContainer}>
                         <View style={styles.container}>
-                            <MapView region={region} style={styles.map}>
-                                <MapView.Marker
-                                    image={beaconIcon}
-                                    coordinate={region}
-                                    title="You"
-                                    description="Your Delivery Location"
-                                    anchor={{ x: 0.2, y: 1 }}
-                                    centerOffset={{ x: 12, y: -25 }}
-                                />
-                            </MapView>
-                            <Button
+                            <TouchableOpacity
+                                style={styles.checkout}
                                 onPress={this.lightAbeacon}
-                                title="LIGHT A BEACON!"
-                                containerViewStyle={styles.buttonContainer}
-                                buttonStyle={styles.button}
-                                textStyle={styles.buttonText}
-                            />
+                            >
+                                <Text style={styles.imageTitle}>
+                                    {'LIGHT A BEACON!'}
+                                </Text>
+                                <Text style={styles.imageSubText}>
+                                    {'This confirms purchase'}
+                                </Text>
+                                <Text style={styles.imageSubText}>
+                                    {`Total: $${totalCostFormatted}`}
+                                </Text>
+                                <View style={styles.checkoutIconContainer}>
+                                    <MaterialIcons
+                                        name="keyboard-arrow-right"
+                                        color="#fff"
+                                        size={50}
+                                        style={styles.checkoutIcon}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                            <View style={styles.itemHeader}>
+                                <Text style={styles.itemHeaderLabel}>
+                                    DELIVERY NOTES
+                                </Text>
+                                <Text style={styles.itemHeaderLabelNotes}>
+                                    (Help your hero find you. What color shirt
+                                    are you wearing? What can help identify you
+                                    and your location?)
+                                </Text>
+                            </View>
+                            <View style={styles.itemBody}>
+                                <Text style={styles.itemBodyLabel}>
+                                    {notes}
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.itemButton}
+                                    onPress={this.openDeliveryNotes}
+                                >
+                                    <Text style={styles.itemButtonText}>
+                                        Change
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.itemHeader}>
                                 <Text stye={styles.itemHeaderLabel}>
                                     PAYMENT METHOD
@@ -265,29 +299,16 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.itemHeader}>
-                                <Text style={styles.itemHeaderLabel}>
-                                    DELIVERY NOTES
-                                </Text>
-                                <Text style={styles.itemHeaderLabelNotes}>
-                                    (Help your hero find you. What color shirt
-                                    are you wearing? What can help identify you
-                                    and your location?)
-                                </Text>
-                            </View>
-                            <View style={styles.itemBody}>
-                                <Text style={styles.itemBodyLabel}>
-                                    {notes}
-                                </Text>
-                                <TouchableOpacity
-                                    style={styles.itemButton}
-                                    onPress={this.openDeliveryNotes}
-                                >
-                                    <Text style={styles.itemButtonText}>
-                                        Change
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+                            <MapView region={region} style={styles.map}>
+                                <MapView.Marker
+                                    image={beaconIcon}
+                                    coordinate={region}
+                                    title="You"
+                                    description="Your Delivery Location"
+                                    anchor={{ x: 0.2, y: 1 }}
+                                    centerOffset={{ x: 12, y: -25 }}
+                                />
+                            </MapView>
                             <View style={styles.itemHeader}>
                                 <Text stye={styles.itemHeaderLabel}>
                                     PRODUCT SUMMARY
@@ -341,14 +362,26 @@ class CheckoutScreen extends Component {
                                     ${totalCostFormatted}
                                 </Text>
                             </View>
-                            <Button
-                                onPress={this.lightAbeacon}
-                                title="LIGHT A BEACON!"
-                                containerViewStyle={styles.buttonContainer}
-                                buttonStyle={styles.button}
-                                textStyle={styles.buttonText}
-                            />
                         </View>
+                        <TouchableOpacity
+                            style={styles.checkout}
+                            onPress={this.lightAbeacon}
+                        >
+                            <Text style={styles.imageTitle}>
+                                {'LIGHT A BEACON!'}
+                            </Text>
+                            <Text style={styles.imageSubText}>
+                                {'This confirms purchase'}
+                            </Text>
+                            <View style={styles.checkoutIconContainer}>
+                                <MaterialIcons
+                                    name="keyboard-arrow-right"
+                                    color="#fff"
+                                    size={50}
+                                    style={styles.checkoutIcon}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </ScrollView>
                 )}
                 <OopsPopup
@@ -374,6 +407,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
+    checkout: {
+        height: WINDOW_HEIGHT / 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5a623'
+    },
+    checkoutIconContainer: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        width: 50,
+        justifyContent: 'center'
+    },
+    checkoutIcon: {
+        backgroundColor: 'transparent'
+    },
     scrollContainer: {
         flex: 1,
         backgroundColor: '#fff',
@@ -382,6 +432,18 @@ const styles = StyleSheet.create({
     map: {
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
+    },
+    imageTitle: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1.875),
+        textAlign: 'center'
+    },
+    imageSubText: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1),
+        textAlign: 'center'
     },
     itemHeader: {
         paddingHorizontal: 20,
@@ -403,7 +465,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_100
     },
     itemBodyLabel: {
-        width: Dimensions.window.width - 160,
+        width: WINDOW_WIDTH - 160,
         fontSize: emY(1.08),
         color: Color.GREY_800
     },

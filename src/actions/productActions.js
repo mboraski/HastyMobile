@@ -3,7 +3,7 @@ import forEach from 'lodash.foreach';
 
 import { noHeroesAvailable } from './mapActions';
 import { updateCart } from './cartActions';
-import { rtdb } from '../../firebase';
+import { rtdb, fire } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
 export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
@@ -64,7 +64,7 @@ export const selectCategory = category => ({
 });
 
 export const fetchProductImages = (products, dispatch) => async () => {
-    const storageRef = firebase.storage();
+    const storageRef = fire.storage();
     // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
     // console.log('products: ', products);
     forEach(products.instant, product => {
