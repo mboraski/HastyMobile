@@ -8,10 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
-} from '../actions/authActions';
+import { createUserWithEmailAndPassword } from '../actions/authActions';
 
 import { getUser } from '../selectors/authSelectors';
 
@@ -203,11 +200,7 @@ const formOptions = {
 
 const mapStateToProps = state => ({ user: getUser(state) });
 
-const mapDispatchToProps = {
-    signInWithEmailAndPassword
-};
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    {}
 )(reduxForm(formOptions)(SignUpFormContainer));

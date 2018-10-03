@@ -3,14 +3,14 @@
         "name": "HastyMobile",
         "description": "Hasty Consumer Mobile App",
         "slug": "hasty-mobile",
-        "privacy": "public",
+        "privacy": "private",
         "sdkVersion": "30.0.0",
         "version": "0.1.0",
         "orientation": "portrait",
-        "primaryColor": "#f5a624",
+        "primaryColor": "#f5a623",
         "icon": "./src/assets/icons/HastyOrangeIcon.png",
         "splash": {
-            "backgroundColor": "#f5a624",
+            "backgroundColor": "#f5a623",
             "resizeMode": "cover",
             "image": "./src/assets/splash.png"
         },
