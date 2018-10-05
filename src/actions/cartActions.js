@@ -4,7 +4,6 @@ export const SET_CURRENT_LOCATION = 'set_current_location';
 export const UPDATE_CART = 'update_cart';
 export const CLEAR_CART = 'clear_cart';
 
-
 export const clearCart = () => dispatch => dispatch({ type: CLEAR_CART });
 
 export const addToCart = product => ({
@@ -25,7 +24,7 @@ export const setCurrentLocation = (address, region) => ({
     }
 });
 
-export const updateCart = (products) => ({
+export const updateCart = products => ({
     type: UPDATE_CART,
     payload: products
 });

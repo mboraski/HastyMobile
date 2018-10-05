@@ -1,6 +1,7 @@
 import orderStatuses from '../constants/Order';
 import { rtdb, firebaseAuth } from '../../firebase';
 
+export const SET_CONTRACTORS = 'set_contractors';
 export const CLEAR_ORDER = 'clear_order';
 export const ORDER_CREATION_REQUEST = 'order_creation_request';
 export const ORDER_CREATION_SUCCESS = 'order_creation_success';
@@ -9,6 +10,11 @@ export const LISTEN_ORDER_REQUEST = 'listen_order_request';
 export const LISTEN_ORDER_FAILURE = 'listen_order_failure';
 export const ORDER_UPDATE = 'order_update';
 export const NEW_HERO = 'new_hero';
+
+export const setContractors = contractors => ({
+    type: SET_CONTRACTORS,
+    payload: contractors
+});
 
 export const createOrder = region => dispatch => {
     dispatch({ type: ORDER_CREATION_REQUEST });

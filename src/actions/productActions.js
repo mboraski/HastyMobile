@@ -3,6 +3,7 @@ import forEach from 'lodash.foreach';
 
 import { noHeroesAvailable } from './mapActions';
 import { updateCart } from './cartActions';
+import { setContractors } from './orderActions';
 import { rtdb, fire } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
@@ -22,12 +23,12 @@ export const listenProductsRef = dispatch =>
     rtdb.ref(PRODUCTS_REF).on(
         'value',
         snapshot => {
-            const products = snapshot.val();
+            const locationData = snapshot.val();
             // for some reason firebase has empty hashed database objects, this filters them
             // TODO: figure out why firebase did this
             const filteredProducts = {};
             filteredProducts.instant = filter(
-                products.instant,
+                locationData.instant,
                 product => !!product
             );
             if (Object.keys(filteredProducts.instant).length < 1) {
@@ -41,6 +42,7 @@ export const listenProductsRef = dispatch =>
                 dispatch(fetchProductsSuccess(filteredProducts));
                 dispatch(fetchProductImages(filteredProducts, dispatch));
                 dispatch(updateCart(filteredProducts));
+                dispatch(setContractors(locationData.contractors));
             }
         },
         error => dispatch(fetchProductsFailure(error))

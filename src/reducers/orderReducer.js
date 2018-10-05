@@ -1,4 +1,5 @@
 import {
+    SET_CONTRACTORS,
     ORDER_CREATION_REQUEST,
     ORDER_CREATION_SUCCESS,
     ORDER_CREATION_FAILURE,
@@ -11,6 +12,7 @@ import {
 
 const initialState = {
     currentOrderDatabaseKey: '',
+    contractors: null,
     pending: false,
     status: '',
     hero: {}
@@ -18,6 +20,11 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_CONTRACTORS:
+            return {
+                ...state,
+                contractors: action.payload
+            };
         case ORDER_CREATION_REQUEST:
             return {
                 ...state,

@@ -7,7 +7,6 @@ import {
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
-    SET_CURRENT_LOCATION,
     UPDATE_CART,
     CLEAR_CART
 } from '../actions/cartActions';
@@ -62,12 +61,6 @@ export default (state = initialState, action) => {
                 }
             };
         }
-        case SET_CURRENT_LOCATION:
-            return {
-                ...state,
-                currentSetAddress: action.payload.address,
-                region: action.payload.region
-            };
         case UPDATE_CART: {
             const translate = mutateProductsIntoCart(action.payload);
             const merge = mergeCarts(translate, state.products);
