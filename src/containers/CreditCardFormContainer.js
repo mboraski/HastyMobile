@@ -14,6 +14,7 @@ import { reduxForm, SubmissionError } from 'redux-form';
 import stripeClient from 'stripe-client';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import { addCard, deleteCard, listCards } from '../actions/paymentActions';
 
 import { getPending } from '../selectors/paymentSelectors';
@@ -45,10 +46,10 @@ export class CreditCardFormContainer extends Component {
 
     deleteCard = async () => {
         await this.props.deleteCard({
-            uid: this.props.user.uid,
+            uid: firebaseAuth.currentUser.uid,
             source: this.props.navigation.state.params.card.id
         });
-        this.props.listCards(this.props.user.uid);
+        this.props.listCards(firebaseAuth.currentUser.uid);
         this.props.navigation.goBack();
     };
 
@@ -183,11 +184,15 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'CreditCard',
+    // TODO: change to what I do for Auth
     async onSubmit(values, dispatch, props) {
         let card =
             props.navigation.state.params && props.navigation.state.params.card;
         if (card) {
-            await props.deleteCard({ uid: props.user.uid, source: card.id });
+            await props.deleteCard({
+                uid: firebaseAuth.currentUser.uid,
+                source: card.id
+            });
         }
         const exp = values.exp.split('/');
         const information = {
@@ -217,7 +222,10 @@ const formOptions = {
             }
             throw new SubmissionError(error);
         }
-        return props.addCard({ uid: props.user.uid, source: card.id });
+        return props.addCard({
+            uid: firebaseAuth.currentUser.uid,
+            source: card.id
+        });
     }
 };
 
@@ -242,6 +250,7 @@ const mapDispatchToProps = {
     listCards
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    reduxForm(formOptions)(CreditCardFormContainer)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm(formOptions)(CreditCardFormContainer));

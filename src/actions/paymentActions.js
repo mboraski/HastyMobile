@@ -34,7 +34,7 @@ export const submitPayment = (
         currency: 'usd',
         source: cardId
     };
-
+    // TODO: !!!! change from api to direct card charge and then order creation and contractor ping
     return api
         .chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
         .then(() => {
