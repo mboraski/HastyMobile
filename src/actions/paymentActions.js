@@ -7,7 +7,7 @@ export const ADD_CARD_FAIL = 'add_card_fail';
 export const DELETE_CARD = 'delete_card';
 export const DELETE_CARD_SUCCESS = 'delete_card_success';
 export const DELETE_CARD_FAIL = 'delete_card_fail';
-export const LIST_CARDS = 'list_cards';
+export const LIST_CARDS_REQUEST = 'list_cards';
 export const LIST_CARDS_SUCCESS = 'list_cards_success';
 export const LIST_CARDS_FAIL = 'list_cards_fail';
 export const SELECTED_CARD = 'selected_card';
@@ -86,9 +86,9 @@ export const selectCard = card => dispatch => {
     dispatch({ type: SELECTED_CARD, payload: card.id });
 };
 
-export const listCards = uid => async dispatch => {
+export const listCards = () => async dispatch => {
     try {
-        dispatch({ type: LIST_CARDS });
+        dispatch({ type: LIST_CARDS_REQUEST });
         const docRef = firebase
             .firestore()
             .collection('userOwned')

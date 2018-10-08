@@ -75,7 +75,9 @@ class CheckoutScreen extends Component {
         title: 'Checkout',
         headerLeft: (
             <BackButton
-                onPress={!pending ? () => navigation.goBack() : () => {}}
+                onPress={
+                    !pending ? () => navigation.navigate('products') : () => {}
+                }
             />
         ),
         headerRight: <TransparentButton />,

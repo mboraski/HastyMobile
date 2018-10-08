@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import MenuAndBackButton from '../components/MenuAndBackButton';
 import Text from '../components/Text';
 import SectionTitle from '../components/SectionTitle';
@@ -25,7 +26,7 @@ class PaymentMethodScreen extends Component {
         const signedUp = navigation.getParam('signedUp', false);
         const onPressHeaderRight = () => navigation.goBack();
         return {
-            title: 'Payment',
+            title: 'Payment Method',
             headerLeft: signedUp ? null : (
                 <MenuAndBackButton navigation={navigation} />
             ),
@@ -48,7 +49,7 @@ class PaymentMethodScreen extends Component {
     };
 
     componentDidMount() {
-        // this.props.listCards(this.props.user.uid);
+        this.props.listCards();
     }
 
     componentWillReceiveProps() {
