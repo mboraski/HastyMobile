@@ -13,13 +13,13 @@ import heroIcon from '../assets/icons/logo-black.png';
 import notificationIcon from '../assets/icons/notification.png';
 import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
-// import helpIcon from '../assets/icons/info.png';
+import historyIcon from '../assets/icons/history.png';
 import locationIcon from '../assets/icons/location.png';
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
 import { getUserReadable } from '../selectors/authSelectors';
 
-const IMAGE_CONTAINER_SIZE = emY(6.25);
+const IMAGE_CONTAINER_SIZE = emY(2);
 
 const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
@@ -81,7 +81,7 @@ class MenuContent extends Component {
                         route={getRoute(items, 'products')}
                         activeItemKey={activeItemKey}
                         onPress={this.productsPress}
-                        image={cartIcon}
+                        image={historyIcon}
                         title="Products"
                     />
                     <MenuItem
@@ -153,9 +153,8 @@ const styles = StyleSheet.create({
         borderRightColor: Color.YELLOW_500
     },
     profile: {
-        flex: 1,
         alignItems: 'center',
-        marginTop: emY(3)
+        marginTop: emY(5)
     },
     image: {
         width: IMAGE_CONTAINER_SIZE,

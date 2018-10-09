@@ -10,15 +10,14 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
-import stripeClient from 'stripe-client';
+import { reduxForm } from 'redux-form';
 
 // Relative Imports
 import { firebaseAuth } from '../../firebase';
 import { addCard, deleteCard, listCards } from '../actions/paymentActions';
 
 import { getPending } from '../selectors/paymentSelectors';
-import { getUser } from '../selectors/authSelectors';
+import { getStripeCustomerId } from '../selectors/authSelectors';
 
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
@@ -30,9 +29,6 @@ import { emY } from '../utils/em';
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
-
-// TODO: Should this be here?
-const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 const keyboardVerticalOffset = emY(1);
 
@@ -183,50 +179,7 @@ const styles = StyleSheet.create({
 });
 
 const formOptions = {
-    form: 'CreditCard',
-    // TODO: change to what I do for Auth
-    async onSubmit(values, dispatch, props) {
-        let card =
-            props.navigation.state.params && props.navigation.state.params.card;
-        if (card) {
-            await props.deleteCard({
-                uid: firebaseAuth.currentUser.uid,
-                source: card.id
-            });
-        }
-        const exp = values.exp.split('/');
-        const information = {
-            card: {
-                number: values.number.replace(' ', ''),
-                exp_month: Number(exp[0] || 0),
-                exp_year: Number(exp[1] || 0),
-                cvc: values.cvc,
-                name: values.name
-            }
-        };
-        card = await stripe.createToken(information);
-        if (card.error) {
-            let error;
-            if (card.error.param) {
-                error = { _error: 'Card is invalid' };
-                if (
-                    card.error.param === 'exp_month' ||
-                    card.error.param === 'exp_year'
-                ) {
-                    error.exp = card.error.message;
-                } else {
-                    error[card.error.param] = card.error.message;
-                }
-            } else {
-                error = { _error: card.error.message };
-            }
-            throw new SubmissionError(error);
-        }
-        return props.addCard({
-            uid: firebaseAuth.currentUser.uid,
-            source: card.id
-        });
-    }
+    form: 'CreditCard'
 };
 
 const mapStateToProps = (state, props) => {
@@ -240,7 +193,7 @@ const mapStateToProps = (state, props) => {
               }
             : {},
         pending: getPending(state),
-        user: getUser(state)
+        stripeCustomerId: getStripeCustomerId(state)
     };
 };
 

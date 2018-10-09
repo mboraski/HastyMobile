@@ -4,7 +4,6 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import { firebaseAuth } from '../../firebase';
 import MenuAndBackButton from '../components/MenuAndBackButton';
 import Text from '../components/Text';
 import SectionTitle from '../components/SectionTitle';
@@ -17,7 +16,7 @@ import { emY } from '../utils/em';
 
 import { listCards } from '../actions/paymentActions';
 
-import { getUser } from '../selectors/authSelectors';
+import { getStripeCustomerId } from '../selectors/authSelectors';
 import { getCards } from '../selectors/paymentSelectors';
 import { getSignUpAddPaymentMethodText } from '../selectors/marketingSelectors';
 
@@ -38,18 +37,11 @@ class PaymentMethodScreen extends Component {
         };
     };
 
-    static defaultProps = {
-        accounts: [
-            // {
-            //     type: 'bank-america',
-            //     name: 'Bank of America'
-            // }
-        ],
-        paypal: {}
-    };
-
     componentDidMount() {
-        this.props.listCards();
+        const { stripeCustomerId } = this.props;
+        if (stripeCustomerId) {
+            this.props.listCards();
+        }
     }
 
     componentWillReceiveProps() {
@@ -146,7 +138,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: getUser(state),
+    stripeCustomerId: getStripeCustomerId(state),
     header: state.header,
     cards: getCards(state),
     signUpAddPaymentMethodText: getSignUpAddPaymentMethodText(state)

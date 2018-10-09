@@ -102,7 +102,7 @@ class MapScreen extends Component {
             this.props.getCurrentLocation();
         }
         // TODO: change to only fetch info that is needed
-        // this.props.getUserReadable();
+        this.props.getUserReadable();
     }
 
     componentWillReceiveProps(nextProps) {

@@ -1,5 +1,10 @@
+import stripeClient from 'stripe-client';
+
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
+import { firebaseAuth } from '../../firebase';
+
+const stripe = stripeClient('pk_test_5W0mS0OlfYGw7fRu0linjLeH');
 
 export const ADD_CARD = 'add_card';
 export const ADD_CARD_SUCCESS = 'add_card_success';
@@ -27,7 +32,7 @@ export const submitPayment = (
     cart
 ) => async dispatch => {
     // TODO: do something with notes
-    const user = firebase.auth().currentUser;
+    const user = firebaseAuth.currentUser;
     const uid = user.uid;
     const charge = {
         amount: Math.ceil(totalCost),
@@ -46,6 +51,23 @@ export const submitPayment = (
             dropdownAlert(true, 'Error submitting payment');
             dispatch({ type: SUBMIT_PAYMENT_FAILURE });
         });
+};
+
+export const createAccountWithCard = (...args) => async dispatch => {
+    try {
+        dispatch({ type: CREATE_STRIPE_ACCOUNT_REQUEST });
+        const res = await api.addStripeCustomerSource(...args);
+        dispatch({ type: CREATE_STRIPE_ACCOUNT_SUCCESS });
+        dispatch(dropdownAlert(true, 'Successfully added card!'));
+        return res;
+    } catch (error) {
+        dispatch(dropdownAlert(true, 'Failed to add card!'));
+        dispatch({
+            type: CREATE_STRIPE_ACCOUNT_FAIL,
+            error
+        });
+        throw error;
+    }
 };
 
 export const addCard = (...args) => async dispatch => {
