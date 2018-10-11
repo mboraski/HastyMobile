@@ -10,14 +10,18 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, SubmissionError } from 'redux-form';
+import stripeClient from 'stripe-client';
 
 // Relative Imports
-import { firebaseAuth } from '../../firebase';
-import { addCard, deleteCard, listCards } from '../actions/paymentActions';
+import {
+    addCard,
+    deleteCard,
+    createStripeAccountWithCard
+} from '../actions/paymentActions';
 
-import { getPending } from '../selectors/paymentSelectors';
-import { getStripeCustomerId } from '../selectors/authSelectors';
+import { getStripeCustomerId, getPending } from '../selectors/paymentSelectors';
+import { getEmail } from '../selectors/authSelectors';
 
 import TextInputField from '../components/TextInputField';
 import CardNumberInputField from '../components/CardNumberInputField';
@@ -30,6 +34,7 @@ import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
 
+const stripe = stripeClient('pk_test_frUco17ktkWZBLsjBy6RPbUH');
 const keyboardVerticalOffset = emY(1);
 
 export class CreditCardFormContainer extends Component {
@@ -40,14 +45,11 @@ export class CreditCardFormContainer extends Component {
         ]);
     };
 
-    deleteCard = async () => {
-        await this.props.deleteCard({
-            uid: firebaseAuth.currentUser.uid,
-            source: this.props.navigation.state.params.card.id
+    deleteCard = () =>
+        this.props.deleteCard({
+            source: this.props.navigation.state.params.card.id,
+            stripeCustomerId: this.props.stripeCustomerId
         });
-        this.props.listCards(firebaseAuth.currentUser.uid);
-        this.props.navigation.goBack();
-    };
 
     render() {
         const {
@@ -115,10 +117,13 @@ export class CreditCardFormContainer extends Component {
                         />
                     ) : null}
                     {submitting || pending ? (
-                        <ActivityIndicator
-                            size="large"
-                            style={StyleSheet.absoluteFill}
-                        />
+                        <View style={styles.overlay}>
+                            <ActivityIndicator
+                                animating={pending}
+                                size="large"
+                                color="#f5a623"
+                            />
+                        </View>
                     ) : null}
                 </DismissKeyboardView>
             </KeyboardAvoidingView>
@@ -136,6 +141,16 @@ const styles = StyleSheet.create({
     },
     formInputs: {
         flexDirection: 'row'
+    },
+    overlay: {
+        position: 'absolute',
+        zIndex: 100,
+        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+        justifyContent: 'center',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0
     },
     numberContainer: {
         flex: 1
@@ -179,7 +194,52 @@ const styles = StyleSheet.create({
 });
 
 const formOptions = {
-    form: 'CreditCard'
+    form: 'CreditCard',
+    async onSubmit(values, dispatch, props) {
+        const stripeCustomerId = props.stripeCustomerId;
+        const email = props.email;
+        const exp = values.exp.split('/');
+        const information = {
+            card: {
+                number: values.number.replace(' ', ''),
+                exp_month: Number(exp[0] || 0),
+                exp_year: Number(exp[1] || 0),
+                cvc: values.cvc,
+                name: values.name
+            }
+        };
+        const newCard = await stripe.createToken(information);
+        if (newCard.error) {
+            let error;
+            if (newCard.error.param) {
+                error = { _error: 'Card is invalid' };
+                if (
+                    newCard.error.param === 'exp_month' ||
+                    newCard.error.param === 'exp_year'
+                ) {
+                    error.exp = newCard.error.message;
+                } else {
+                    error[newCard.error.param] = newCard.error.message;
+                }
+            } else {
+                error = { _error: newCard.error.message };
+            }
+            throw new SubmissionError(error);
+        }
+        if (stripeCustomerId) {
+            dispatch(
+                addCard({ stripeCustomerId, source: newCard.id, dispatch })
+            );
+        } else {
+            dispatch(
+                createStripeAccountWithCard({
+                    email,
+                    source: newCard.id,
+                    dispatch
+                })
+            );
+        }
+    }
 };
 
 const mapStateToProps = (state, props) => {
@@ -193,14 +253,13 @@ const mapStateToProps = (state, props) => {
               }
             : {},
         pending: getPending(state),
-        stripeCustomerId: getStripeCustomerId(state)
+        stripeCustomerId: getStripeCustomerId(state),
+        email: getEmail(state)
     };
 };
 
 const mapDispatchToProps = {
-    addCard,
-    deleteCard,
-    listCards
+    deleteCard
 };
 
 export default connect(

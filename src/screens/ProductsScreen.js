@@ -19,10 +19,7 @@ import Text from '../components/Text';
 
 import Color from '../constants/Color';
 import { addToCart } from '../actions/cartActions';
-import {
-    selectCategory,
-    fetchProductsRequest
-} from '../actions/productActions';
+import { selectCategory } from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 
 import {
@@ -50,28 +47,14 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
-    componentDidMount() {
-        if (this.props.itemCountUp) {
-            this.props.dropdownAlert(true, 'More products available!');
-        } else if (this.props.itemCountDown) {
-            this.props.dropdownAlert(
-                true,
-                'Some products are no longer available'
-            );
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (this.props.header.toggleState !== nextProps.header.toggleState) {
-            if (nextProps.header.isMenuOpen) {
-                this.props.navigation.navigate('DrawerOpen');
-            } else {
-                this.props.navigation.navigate('DrawerClose');
-            }
-        }
-        if (!this.props.cart) {
-            this.props.fetchProductsRequest();
-        }
+        // if (this.props.header.toggleState !== nextProps.header.toggleState) {
+        //     if (nextProps.header.isMenuOpen) {
+        //         this.props.navigation.navigate('DrawerOpen');
+        //     } else {
+        //         this.props.navigation.navigate('DrawerClose');
+        //     }
+        // }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -170,10 +153,13 @@ class ProductsScreen extends Component {
                     </ImageBackground>
                 )}
                 {productPending ? (
-                    <ActivityIndicator
-                        size="large"
-                        style={StyleSheet.absoluteFill}
-                    />
+                    <View style={styles.overlay}>
+                        <ActivityIndicator
+                            animating={productPending}
+                            size="large"
+                            color="#f5a623"
+                        />
+                    </View>
                 ) : (
                     <View style={styles.container}>
                         <ScrollView
@@ -268,6 +254,16 @@ const styles = StyleSheet.create({
     },
     filterButtonTextSelected: {
         color: '#fff'
+    },
+    overlay: {
+        position: 'absolute',
+        zIndex: 100,
+        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+        justifyContent: 'center',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0
     }
 });
 
@@ -293,7 +289,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
     addToCart: productInfo => dispatch(addToCart(productInfo)),
-    fetchProductsRequest: () => dispatch(fetchProductsRequest()),
     dropdownAlert: (visible, message) =>
         dispatch(dropdownAlert(visible, message))
 });

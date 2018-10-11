@@ -6,7 +6,7 @@ export const getError = state => state.auth.error;
 export const getExpirationDate = state => state.auth.expirationDate;
 export const getUserReadable = state => state.auth.userReadable;
 
-export const getStripeCustomerId = createSelector(
+export const getEmail = createSelector(
     [getUserReadable],
-    userReadable => userReadable.stripeCustomerId || ''
+    userReadable => userReadable.email || ''
 );

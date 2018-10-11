@@ -371,12 +371,6 @@ class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                {pending ? (
-                    <ActivityIndicator
-                        size="large"
-                        style={StyleSheet.absoluteFill}
-                    />
-                ) : null}
                 <ContinuePopup
                     isOpen={!!error}
                     closeModal={this.handleCloseContinuePopup}

@@ -12,7 +12,7 @@ export const initialState = {
     availableProducts: {
         instant: {}
     },
-    category: 'SXSW',
+    category: 'ACL',
     productImages: {}
 };
 

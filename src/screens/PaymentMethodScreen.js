@@ -16,8 +16,7 @@ import { emY } from '../utils/em';
 
 import { listCards } from '../actions/paymentActions';
 
-import { getStripeCustomerId } from '../selectors/authSelectors';
-import { getCards } from '../selectors/paymentSelectors';
+import { getCards, getStripeCustomerId } from '../selectors/paymentSelectors';
 import { getSignUpAddPaymentMethodText } from '../selectors/marketingSelectors';
 
 class PaymentMethodScreen extends Component {
@@ -44,25 +43,6 @@ class PaymentMethodScreen extends Component {
         }
     }
 
-    componentWillReceiveProps() {
-        // if (this.props.header.toggleState !== nextProps.header.toggleState) {
-        //     if (nextProps.header.isMenuOpen) {
-        //         this.props.navigation.navigate('DrawerOpen');
-        //     } else {
-        //         this.props.navigation.navigate('DrawerClose');
-        //     }
-        // }
-        // const navigationParams = nextProps.navigation.state.params || {};
-        // if (navigationParams.signedUp) {
-        //     if (
-        //         this.props.cards.length !== nextProps.cards.length &&
-        //         nextProps.cards.length > 0
-        //     ) {
-        //         this.props.navigation.goBack();
-        //     }
-        // }
-    }
-
     addCard = () => {
         this.props.navigation.navigate('creditCard');
     };
@@ -83,15 +63,6 @@ class PaymentMethodScreen extends Component {
         );
     };
 
-    renderAccount = (account, index) => (
-        <PaymentMethod
-            key={index}
-            type={account.type}
-            text={account.name}
-            onPress={this.selectPaymentMethod}
-        />
-    );
-
     render() {
         const { cards, navigation, signUpAddPaymentMethodText } = this.props;
         const signedUp = navigation.getParam('signedUp', false);
@@ -105,16 +76,6 @@ class PaymentMethodScreen extends Component {
                 <SectionTitle title="MY CARDS" />
                 {!signedUp && cards.map(this.renderCard)}
                 <PaymentMethod text="Add Card" onPress={this.addCard} />
-                {/* <SectionTitle title="MY BANK ACCOUNT" />
-                {accounts.map(this.renderAccount)}
-                <SectionTitle title="MY PAYPAL" />
-                {paypal ? (
-                    <PaymentMethod
-                        type="paypal"
-                        text={paypal.email}
-                        onPress={this.selectPaymentMethod}
-                    />
-                ) : null} */}
             </ScrollView>
         );
     }
@@ -139,7 +100,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     stripeCustomerId: getStripeCustomerId(state),
-    header: state.header,
     cards: getCards(state),
     signUpAddPaymentMethodText: getSignUpAddPaymentMethodText(state)
 });

@@ -7,6 +7,10 @@ export const instance = axios.create({
 //     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
 // });
 
+export function createStripeAccountWithCard(args) {
+    return instance.post('createStripeAccountWithCard', args);
+}
+
 export function addStripeCustomerSource(args) {
     return instance.post('addStripeCustomerSource', args);
 }

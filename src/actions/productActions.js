@@ -23,12 +23,12 @@ export const listenProductsRef = dispatch =>
     rtdb.ref(PRODUCTS_REF).on(
         'value',
         snapshot => {
-            const locationData = snapshot.val();
+            const data = snapshot.val();
             // for some reason firebase has empty hashed database objects, this filters them
             // TODO: figure out why firebase did this
             const filteredProducts = {};
             filteredProducts.instant = filter(
-                locationData.instant,
+                data.instant,
                 product => !!product
             );
             if (Object.keys(filteredProducts.instant).length < 1) {
@@ -42,7 +42,7 @@ export const listenProductsRef = dispatch =>
                 dispatch(fetchProductsSuccess(filteredProducts));
                 dispatch(fetchProductImages(filteredProducts, dispatch));
                 dispatch(updateCart(filteredProducts));
-                dispatch(setContractors(locationData.contractors));
+                dispatch(setContractors(data.contractors));
             }
         },
         error => dispatch(fetchProductsFailure(error))
