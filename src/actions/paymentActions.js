@@ -61,7 +61,14 @@ export const addCard = async args => {
             stripeCustomerId,
             source
         });
-        dispatch({ type: ADD_CARD_SUCCESS });
+        const { defaultSource, sources } = res;
+        dispatch({
+            type: ADD_CARD_SUCCESS,
+            payload: {
+                defaultSource,
+                sources
+            }
+        });
         dispatch(dropdownAlert(true, 'Successfully added card!'));
         return res;
     } catch (error) {

@@ -50,9 +50,12 @@ export default function(state = initialState, action) {
                 pending: true
             };
         case ADD_CARD_SUCCESS:
+            const { defaultSource, sources } = action.payload;
             return {
                 ...state,
-                pending: false
+                pending: false,
+                cards: sources.data,
+                defaultSource
             };
         case ADD_CARD_FAIL:
             return {
