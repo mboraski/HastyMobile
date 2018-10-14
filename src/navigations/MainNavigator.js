@@ -10,7 +10,6 @@ import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import MapScreen from '../screens/MapScreen';
-import DeliveryDetailScreen from '../screens/DeliveryDetailScreen';
 import DeliveryNotesScreen from '../screens/DeliveryNotesScreen';
 import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
 import CartScreen from '../screens/CartScreen';
@@ -32,7 +31,6 @@ export default createStackNavigator(
         map: { screen: MapScreen },
         products: { screen: ProductsScreen },
         searchForHero: { screen: SearchForHeroScreen },
-        deliveryDetail: { screen: DeliveryDetailScreen },
         deliveryNotes: { screen: DeliveryNotesScreen },
         deliveryStatus: { screen: DeliveryStatusScreen },
         cart: { screen: CartScreen },

@@ -1,8 +1,6 @@
 import {
     SET_CONTRACTORS,
-    ORDER_CREATION_REQUEST,
     ORDER_CREATION_SUCCESS,
-    ORDER_CREATION_FAILURE,
     LISTEN_ORDER_REQUEST,
     LISTEN_ORDER_FAILURE,
     ORDER_UPDATE,
@@ -11,7 +9,7 @@ import {
 } from '../actions/orderActions';
 
 const initialState = {
-    currentOrderDatabaseKey: '',
+    orderId: '',
     contractors: null,
     pending: false,
     status: '',
@@ -25,27 +23,15 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 contractors: action.payload
             };
-        case ORDER_CREATION_REQUEST:
-            return {
-                ...state,
-                pending: true
-            };
         case ORDER_CREATION_SUCCESS:
             return {
                 ...state,
-                currentOrderDatabaseKey: action.payload,
-                pending: false
-            };
-        case ORDER_CREATION_FAILURE:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
+                orderId: action.payload
             };
         case CLEAR_ORDER:
             return {
                 ...state,
-                currentOrderDatabaseKey: '',
+                orderId: '',
                 pending: false,
                 hero: {}
             };

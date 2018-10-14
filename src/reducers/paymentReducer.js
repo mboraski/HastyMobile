@@ -20,9 +20,9 @@ import {
 
 const initialState = {
     cards: [],
-    defaultSource: '',
+    defaultSource: {},
     pending: false,
-    selectedCard: '',
+    selectedCard: {},
     error: null,
     stripeCustomerId: ''
 };

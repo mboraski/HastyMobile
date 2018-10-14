@@ -1,6 +1,7 @@
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
-import { firebaseAuth } from '../../firebase';
+
+import { ORDER_CREATION_SUCCESS } from './orderActions';
 
 export const UPDATE_STRIPE_INFO = 'update_stripe_info';
 export const ADD_CARD_REQUEST = 'add_card_request';
@@ -20,38 +21,44 @@ export const CREATE_STRIPE_ACCOUNT_REQUEST = 'create_stripe_account_request';
 export const CREATE_STRIPE_ACCOUNT_SUCCESS = 'create_stripe_account_success';
 export const CREATE_STRIPE_ACCOUNT_ERROR = 'create_stripe_account_error';
 
-export const submitPaymentRequest = () => dispatch =>
-    dispatch({ type: SUBMIT_PAYMENT_REQUEST });
-
 export const submitPayment = (
-    navigation,
-    cardId,
+    source,
+    description,
     totalCost,
     notes,
-    orderId,
     cart
 ) => async dispatch => {
-    // TODO: do something with notes
-    const user = firebaseAuth.currentUser;
-    const uid = user.uid;
-    const charge = {
-        amount: Math.ceil(totalCost),
-        currency: 'usd',
-        source: cardId
-    };
-    // TODO: !!!! change from api to direct card charge and then order creation and contractor ping
-    return api
-        .chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
-        .then(() => {
-            dropdownAlert(true, 'Payment success');
-            dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-            navigation.navigate('deliveryStatus');
-        })
-        .catch(() => {
-            dropdownAlert(true, 'Error submitting payment');
-            dispatch({ type: SUBMIT_PAYMENT_FAILURE });
+    dispatch({ type: SUBMIT_PAYMENT_REQUEST });
+    try {
+        const res = await api.chargeStripeCustomerSource({
+            source,
+            description,
+            totalCost,
+            notes,
+            cart
         });
+        const { orderId } = res;
+        dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+        dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
+
+        return;
+    } catch (error) {
+        dispatch({ type: SUBMIT_PAYMENT_FAILURE, payload: error });
+
+        throw error;
+    }
 };
+
+// TODO: !!!! change from api to direct card charge and then order creation and contractor ping
+return api
+    .chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
+    .then(() => {
+        dropdownAlert(true, 'Payment success');
+        navigation.navigate('deliveryStatus');
+    })
+    .catch(() => {
+        dropdownAlert(true, 'Error submitting payment');
+    });
 
 export const addCard = async args => {
     const { stripeCustomerId, source, dispatch } = args;

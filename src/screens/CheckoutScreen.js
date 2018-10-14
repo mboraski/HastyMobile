@@ -11,7 +11,6 @@ import {
     Dimensions
 } from 'react-native';
 import { MapView } from 'expo';
-import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -34,11 +33,7 @@ import { emY } from '../utils/em';
 
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
-import {
-    submitPayment,
-    submitPaymentRequest,
-    listCards
-} from '../actions/paymentActions';
+import { submitPayment, listCards } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
 
 import {
@@ -52,12 +47,14 @@ import {
 } from '../selectors/cartSelectors';
 import {
     getCards,
-    getSelectedCard,
-    getPending
+    getPaymentMethod,
+    getPending,
+    getStripeCustomerId
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getNotes } from '../selectors/checkoutSelectors';
-import { getCurrentOrderDatabaseKey } from '../selectors/orderSelectors';
+import { getEmail } from '../selectors/authSelectors';
+import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -108,9 +105,9 @@ class CheckoutScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (!this.props.cart && nextProps.cart) {
-        //     this.props.fetchProductsRequest();
-        // }
+        if (!this.props.orderId && nextProps.orderId) {
+            this.props.navigation.navigate('deliveryStatus');
+        }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -157,22 +154,22 @@ class CheckoutScreen extends Component {
 
     lightAbeacon = () => {
         const {
-            selectedCard,
-            navigation,
+            stripeCustomerId,
+            paymentMethod,
             totalCost,
             notes,
-            orderId,
-            cart
+            cart,
+            email
         } = this.props;
-        if (selectedCard) {
-            const cardId = selectedCard.id;
-            this.props.submitPaymentRequest();
+        if (paymentMethod) {
+            const source = paymentMethod.id;
+            const description = `Charge for ${email}`;
             this.props.submitPayment(
-                navigation,
-                cardId,
+                stripeCustomerId,
+                source,
+                description,
                 totalCost,
                 notes,
-                orderId,
                 cart
             );
         } else {
@@ -196,7 +193,7 @@ class CheckoutScreen extends Component {
             notes,
             address,
             region,
-            selectedCard,
+            paymentMethod,
             pending
         } = this.props;
         const {
@@ -277,8 +274,8 @@ class CheckoutScreen extends Component {
                             </View>
                             <View style={styles.dropdownContainer}>
                                 <PaymentMethod
-                                    type={selectedCard.brand}
-                                    text={selectedCard.last4}
+                                    type={paymentMethod.brand}
+                                    text={paymentMethod.last4}
                                 />
                             </View>
                             <View style={styles.itemHeader}>
@@ -525,6 +522,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+    email: getEmail(state),
     cart: getCartOrders(state),
     cartImages: getCartImages(state),
     totalCost: getCartCostTotal(state),
@@ -536,9 +534,10 @@ const mapStateToProps = state => ({
     address: getAddress(state),
     region: getRegion(state),
     cards: getCards(state),
-    selectedCard: getSelectedCard(state),
+    paymentMethod: getPaymentMethod(state),
     pending: getPending(state),
-    orderId: getCurrentOrderDatabaseKey(state)
+    stripeCustomerId: getStripeCustomerId(state),
+    orderId: getOrderId(state)
 });
 
 const mapDispatchToProps = {
@@ -546,7 +545,6 @@ const mapDispatchToProps = {
     removeFromCart,
     dropdownAlert,
     submitPayment,
-    submitPaymentRequest,
     listCards
 };
 
