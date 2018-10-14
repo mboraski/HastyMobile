@@ -7,7 +7,7 @@ import {
     View,
     ImageBackground,
     TouchableOpacity,
-    Platform
+    Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -18,23 +18,17 @@ import ProductList from '../components/ProductList';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
-
 import { addToCart } from '../actions/cartActions';
-import {
-    selectCategory,
-    fetchProductsRequest
-} from '../actions/productActions';
+import { selectCategory } from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 
 import {
     getCartTotalQuantity,
-    getCartInstantProducts,
-    getCategory
+    getCartInstantProducts
 } from '../selectors/cartSelectors';
 import {
+    getCategory,
     getItemCountUp,
-    getProductsState,
     getItemCountDown,
     getProductsPending,
     getProductsByCategory,
@@ -49,30 +43,18 @@ import { emY } from '../utils/em';
 
 import HomeHeaderContainer from '../containers/HomeHeaderContainer';
 
-class HomeScreen extends Component {
-    componentDidMount() {
-        this.props.fetchProductsRequest();
-        if (this.props.itemCountUp) {
-            this.props.dropdownAlert(true, 'More products available!');
-        } else if (this.props.itemCountDown) {
-            this.props.dropdownAlert(
-                true,
-                'Some products are no longer available'
-            );
-        }
-    }
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
 
+class ProductsScreen extends Component {
     componentWillReceiveProps(nextProps) {
-        if (this.props.header.toggleState !== nextProps.header.toggleState) {
-            if (nextProps.header.isMenuOpen) {
-                this.props.navigation.navigate('DrawerOpen');
-            } else {
-                this.props.navigation.navigate('DrawerClose');
-            }
-        }
-        if (!this.props.cart) {
-            this.props.fetchProductsRequest();
-        }
+        // if (this.props.header.toggleState !== nextProps.header.toggleState) {
+        //     if (nextProps.header.isMenuOpen) {
+        //         this.props.navigation.navigate('DrawerOpen');
+        //     } else {
+        //         this.props.navigation.navigate('DrawerClose');
+        //     }
+        // }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -171,10 +153,13 @@ class HomeScreen extends Component {
                     </ImageBackground>
                 )}
                 {productPending ? (
-                    <ActivityIndicator
-                        size="large"
-                        style={StyleSheet.absoluteFill}
-                    />
+                    <View style={styles.overlay}>
+                        <ActivityIndicator
+                            animating={productPending}
+                            size="large"
+                            color="#f5a623"
+                        />
+                    </View>
                 ) : (
                     <View style={styles.container}>
                         <ScrollView
@@ -201,10 +186,12 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        maxWidth: WINDOW_WIDTH,
+        maxHeight: WINDOW_HEIGHT
     },
     image: {
-        height: Dimensions.window.height / 5,
+        height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -224,7 +211,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     checkout: {
-        height: Dimensions.window.height / 5,
+        height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Color.GREEN_500
@@ -240,33 +227,20 @@ const styles = StyleSheet.create({
     checkoutIcon: {
         backgroundColor: 'transparent'
     },
-    filters: {
-        ...Platform.select({
-            ios: {
-                height: 70,
-                maxHeight: 70
-            },
-            android: {
-                height: 70,
-                maxHeight: 70
-            }
-        })
-    },
     filtersContent: {
-        paddingLeft: 5,
+        maxHeight: emY(2.5),
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        justifyContent: 'center',
-        maxHeight: 70
+        paddingVertical: 5
     },
     filterButton: {
         minWidth: 120,
-        height: emY(2.5),
+        height: emY(2),
         borderColor: Color.GREY_400,
-        borderWidth: StyleSheet.hairlineWidth * 2,
-        borderRadius: 50,
-        paddingVertical: 10,
-        marginRight: 10,
-        alignItems: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderRadius: 25,
+        marginRight: 6,
         justifyContent: 'center'
     },
     filterButtonSelected: {
@@ -275,14 +249,25 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: Color.GREY_400,
-        fontSize: emY(1.125)
+        fontSize: emY(1.125),
+        textAlign: 'center'
     },
     filterButtonTextSelected: {
         color: '#fff'
+    },
+    overlay: {
+        position: 'absolute',
+        zIndex: 100,
+        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+        justifyContent: 'center',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0
     }
 });
 
-HomeScreen.navigationOptions = {
+ProductsScreen.navigationOptions = {
     header: <HomeHeaderContainer />
 };
 
@@ -304,9 +289,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     selectFilter: category => dispatch(selectCategory(category)),
     addToCart: productInfo => dispatch(addToCart(productInfo)),
-    fetchProductsRequest: () => dispatch(fetchProductsRequest()),
     dropdownAlert: (visible, message) =>
         dispatch(dropdownAlert(visible, message))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductsScreen);

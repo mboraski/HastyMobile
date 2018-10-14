@@ -11,6 +11,8 @@ export const GET_CURRENT_LOCATION_ERROR = 'get_current_location_error';
 export const ADD_LOCATION_SUBSCRIPTION = 'add_location_subscription';
 export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
 export const SET_INITIAL_REGION = 'set_initial_region';
+export const NULLIFY_MAP_ERROR = 'nullify_map_error';
+export const NO_HEROES_AVAILABLE = 'no_heroes_available';
 
 // const listenForLocationChanges = dispatch => {
 //     const locationSubscription = Location.watchPositionAsync(
@@ -41,15 +43,25 @@ export const SET_INITIAL_REGION = 'set_initial_region';
 //         type: REMOVE_LOCATION_SUBSCRIPTION
 //     })
 // };
+export const nullifyError = () => dispatch =>
+    dispatch({ type: NULLIFY_MAP_ERROR });
+
 export const saveAddress = address => dispatch => {
     dispatch({ type: SAVE_ADDRESS, payload: address });
     return dispatch(geocode({ address }));
 };
 
-export const setRegion = (latitude, longitude) => ({
-    type: SET_REGION,
-    payload: { latitude, longitude }
-});
+export const setRegion = region => dispatch =>
+    dispatch({
+        type: SET_REGION,
+        payload: region
+    });
+
+export const noHeroesAvailable = errObj => dispatch =>
+    dispatch({
+        type: NO_HEROES_AVAILABLE,
+        payload: errObj
+    });
 
 export const getCurrentLocation = () => async dispatch => {
     try {
@@ -74,9 +86,6 @@ export const getCurrentLocation = () => async dispatch => {
                     coords: location.coords
                 }
             });
-            dispatch(
-                setRegion(location.coords.latitude, location.coords.longitude)
-            );
         }
     } catch (error) {
         dispatch({

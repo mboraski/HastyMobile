@@ -16,7 +16,10 @@ const createRemoteSubmitTouchable = Comp => {
             return <Comp {...this.props} onPress={this.handlePress} />;
         }
     }
-    return connect(null, mapDispatchToProps)(RemoteSubmitTouchable);
+    return connect(
+        null,
+        mapDispatchToProps
+    )(RemoteSubmitTouchable);
 };
 
 export default createRemoteSubmitTouchable;

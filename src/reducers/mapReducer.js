@@ -18,7 +18,9 @@ import {
     SET_REGION,
     GET_CURRENT_LOCATION_REQUEST,
     GET_CURRENT_LOCATION_SUCCESS,
-    GET_CURRENT_LOCATION_ERROR
+    GET_CURRENT_LOCATION_ERROR,
+    NULLIFY_MAP_ERROR,
+    NO_HEROES_AVAILABLE
 } from '../actions/mapActions';
 
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
@@ -33,7 +35,7 @@ const initialRegion = {
     latitude: LATITUDE,
     longitude: LONGITUDE,
     latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA
+    longitudeDelta: LONGITUDE_DELTA || 0.0043
 };
 
 const initialState = {
@@ -126,10 +128,7 @@ export default function(state = initialState, action) {
         case SET_REGION:
             return {
                 ...state,
-                region: {
-                    ...state.region,
-                    ...action.payload
-                }
+                region: action.payload
             };
         case GET_CURRENT_LOCATION_REQUEST:
             return {
@@ -147,7 +146,17 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: action.payload
+            };
+        case NO_HEROES_AVAILABLE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case NULLIFY_MAP_ERROR:
+            return {
+                ...state,
+                error: null
             };
         default:
             return state;

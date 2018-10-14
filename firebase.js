@@ -19,7 +19,7 @@ try {
 }
 
 export const fire = firebase;
-export const ref = firebase.database().ref();
+export const rtdb = firebase.database();
 export const firebaseAuth = firebase.auth();
 // export const messaging = firebase.messaging();
 export const db = firebase.firestore();

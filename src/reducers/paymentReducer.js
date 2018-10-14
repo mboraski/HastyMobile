@@ -1,8 +1,9 @@
 import {
-    ADD_CARD,
+    UPDATE_STRIPE_INFO,
+    ADD_CARD_REQUEST,
     ADD_CARD_SUCCESS,
     ADD_CARD_FAIL,
-    DELETE_CARD,
+    DELETE_CARD_REQUEST,
     DELETE_CARD_SUCCESS,
     DELETE_CARD_FAIL,
     LIST_CARDS,
@@ -11,14 +12,19 @@ import {
     SELECTED_CARD,
     SUBMIT_PAYMENT_REQUEST,
     SUBMIT_PAYMENT_SUCCESS,
-    SUBMIT_PAYMENT_FAILURE
+    SUBMIT_PAYMENT_FAILURE,
+    CREATE_STRIPE_ACCOUNT_REQUEST,
+    CREATE_STRIPE_ACCOUNT_SUCCESS,
+    CREATE_STRIPE_ACCOUNT_ERROR
 } from '../actions/paymentActions';
 
 const initialState = {
     cards: [],
+    defaultSource: {},
     pending: false,
-    selectedCard: '',
-    error: null
+    selectedCard: {},
+    error: null,
+    stripeCustomerId: ''
 };
 
 export default function(state = initialState, action) {
@@ -38,23 +44,26 @@ export default function(state = initialState, action) {
                 ...state,
                 pending: false
             };
-        case ADD_CARD:
+        case ADD_CARD_REQUEST:
             return {
                 ...state,
                 pending: true
             };
         case ADD_CARD_SUCCESS:
+            const { defaultSource, sources } = action.payload;
             return {
                 ...state,
-                pending: false
+                pending: false,
+                cards: sources.data,
+                defaultSource
             };
         case ADD_CARD_FAIL:
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: action.payload
             };
-        case DELETE_CARD:
+        case DELETE_CARD_REQUEST:
             return {
                 ...state,
                 pending: true
@@ -68,7 +77,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: action.payload
             };
         case LIST_CARDS:
             return {
@@ -88,7 +97,27 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: action.payload
+            };
+        case CREATE_STRIPE_ACCOUNT_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case CREATE_STRIPE_ACCOUNT_SUCCESS:
+            const { stripeCustomerId, defaultSource, sources } = action.payload;
+            return {
+                ...state,
+                pending: false,
+                cards: sources.data,
+                defaultSource,
+                stripeCustomerId
+            };
+        case CREATE_STRIPE_ACCOUNT_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.payload
             };
         case SELECTED_CARD:
             return {
@@ -97,6 +126,14 @@ export default function(state = initialState, action) {
                     ? action.payload.paymentInfo.data[0]
                     : {},
                 pending: false
+            };
+        case UPDATE_STRIPE_INFO:
+            const { stripeCustomerId, defaultSource, sources } = action.payload;
+            return {
+                ...state,
+                cards: sources.data,
+                defaultSource,
+                stripeCustomerId
             };
         default:
             return state;

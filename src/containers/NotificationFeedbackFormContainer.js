@@ -137,7 +137,6 @@ const formOptions = {
             .ref(`userFeedback/sxsw/${props.formKey}`)
             .push({ feedbackMessage })
             .catch(error => {
-                console.error(error.message);
                 throw new SubmissionError({ _error: error.message });
             });
     },
@@ -146,6 +145,7 @@ const formOptions = {
     }
 };
 
-export default connect(null, null)(
-    reduxForm(formOptions)(NotificationFeedbackFormContainer)
-);
+export default connect(
+    null,
+    null
+)(reduxForm(formOptions)(NotificationFeedbackFormContainer));

@@ -18,11 +18,7 @@ import loaderTicks from '../assets/loader-ticks.png';
 
 import { emY } from '../utils/em';
 
-import {
-    getCurrentOrderDatabaseKey,
-    getStatus,
-    getPending
-} from '../selectors/orderSelectors';
+import { getorderId, getStatus, getPending } from '../selectors/orderSelectors';
 
 import { clearCart } from '../actions/cartActions';
 import {
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     header: state.header,
-    orderId: getCurrentOrderDatabaseKey(state),
+    orderId: getorderId(state),
     status: getStatus(state),
     pending: getPending(state)
 });
@@ -227,6 +223,7 @@ const mapDispatchToProps = {
     clearOrder
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    DeliveryStatusScreen
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DeliveryStatusScreen);

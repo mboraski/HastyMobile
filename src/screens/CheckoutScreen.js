@@ -7,13 +7,16 @@ import {
     TouchableOpacity,
     Platform,
     Animated,
-    ActivityIndicator
+    ActivityIndicator,
+    Dimensions
 } from 'react-native';
 import { MapView } from 'expo';
-import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
+
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
@@ -23,26 +26,15 @@ import SuccessPopup from '../components/SuccessPopup';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 import beaconIcon from '../assets/icons/beacon.png';
 
 import { emY } from '../utils/em';
 
-import {
-    addToCart,
-    removeFromCart,
-    getCurrentSetAddress,
-    getRegion
-} from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
-import {
-    submitPayment,
-    submitPaymentRequest,
-    listCards
-} from '../actions/paymentActions';
+import { submitPayment, listCards } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
-import { getNotes } from '../actions/checkoutActions';
 
 import {
     getCartOrders,
@@ -55,10 +47,17 @@ import {
 } from '../selectors/cartSelectors';
 import {
     getCards,
-    getSelectedCard,
-    getPending
+    getPaymentMethod,
+    getPending,
+    getStripeCustomerId
 } from '../selectors/paymentSelectors';
-import { getCurrentOrderDatabaseKey } from '../selectors/orderSelectors';
+import { getAddress, getRegion } from '../selectors/mapSelectors';
+import { getNotes } from '../selectors/checkoutSelectors';
+import { getEmail } from '../selectors/authSelectors';
+import { getOrderId } from '../selectors/orderSelectors';
+
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
 
 const REMOVE_ORDER_MESSAGE =
     'Are you sure you want to remove this product from your cart?';
@@ -73,7 +72,7 @@ class CheckoutScreen extends Component {
         title: 'Checkout',
         headerLeft: (
             <BackButton
-                onPress={!pending ? () => navigation.goBack() : () => {}}
+                onPress={!pending ? () => navigation.pop() : () => {}}
             />
         ),
         headerRight: <TransparentButton />,
@@ -90,7 +89,7 @@ class CheckoutScreen extends Component {
     };
 
     componentDidMount() {
-        const user = firebase.auth().currentUser;
+        const user = firebaseAuth.currentUser;
         if (user) {
             const uid = user.uid;
             this.props.listCards(uid);
@@ -106,9 +105,9 @@ class CheckoutScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (!this.props.cart && nextProps.cart) {
-        //     this.props.fetchProductsRequest();
-        // }
+        if (!this.props.orderId && nextProps.orderId) {
+            this.props.navigation.navigate('deliveryStatus');
+        }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -155,22 +154,22 @@ class CheckoutScreen extends Component {
 
     lightAbeacon = () => {
         const {
-            selectedCard,
-            navigation,
+            stripeCustomerId,
+            paymentMethod,
             totalCost,
             notes,
-            orderId,
-            cart
+            cart,
+            email
         } = this.props;
-        if (selectedCard) {
-            const cardId = selectedCard.id;
-            this.props.submitPaymentRequest();
+        if (paymentMethod) {
+            const source = paymentMethod.id;
+            const description = `Charge for ${email}`;
             this.props.submitPayment(
-                navigation,
-                cardId,
+                stripeCustomerId,
+                source,
+                description,
                 totalCost,
                 notes,
-                orderId,
                 cart
             );
         } else {
@@ -194,7 +193,7 @@ class CheckoutScreen extends Component {
             notes,
             address,
             region,
-            selectedCard,
+            paymentMethod,
             pending
         } = this.props;
         const {
@@ -223,52 +222,28 @@ class CheckoutScreen extends Component {
                 ) : (
                     <ScrollView style={styles.scrollContainer}>
                         <View style={styles.container}>
-                            <MapView region={region} style={styles.map}>
-                                <MapView.Marker
-                                    image={beaconIcon}
-                                    coordinate={region}
-                                    title="You"
-                                    description="Your Delivery Location"
-                                    anchor={{ x: 0.2, y: 1 }}
-                                    centerOffset={{ x: 12, y: -25 }}
-                                />
-                            </MapView>
-                            <Button
+                            <TouchableOpacity
+                                style={styles.checkout}
                                 onPress={this.lightAbeacon}
-                                title="LIGHT A BEACON!"
-                                containerViewStyle={styles.buttonContainer}
-                                buttonStyle={styles.button}
-                                textStyle={styles.buttonText}
-                            />
-                            <View style={styles.itemHeader}>
-                                <Text stye={styles.itemHeaderLabel}>
-                                    PAYMENT METHOD
+                            >
+                                <Text style={styles.imageTitle}>
+                                    {'LIGHT A BEACON!'}
                                 </Text>
-                            </View>
-                            <View style={styles.dropdownContainer}>
-                                <PaymentMethod
-                                    type={selectedCard.brand}
-                                    text={selectedCard.last4}
-                                />
-                            </View>
-                            <View style={styles.itemHeader}>
-                                <Text stye={styles.itemHeaderLabel}>
-                                    DELIVERY LOCATION
+                                <Text style={styles.imageSubText}>
+                                    {'This confirms purchase'}
                                 </Text>
-                            </View>
-                            <View style={styles.itemBody}>
-                                <Text style={styles.itemBodyLabel}>
-                                    {address}
+                                <Text style={styles.imageSubText}>
+                                    {`Total: $${totalCostFormatted}`}
                                 </Text>
-                                <TouchableOpacity
-                                    style={styles.itemButton}
-                                    onPress={this.changeLocation}
-                                >
-                                    <Text style={styles.itemButtonText}>
-                                        Change
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+                                <View style={styles.checkoutIconContainer}>
+                                    <MaterialIcons
+                                        name="keyboard-arrow-right"
+                                        color="#fff"
+                                        size={50}
+                                        style={styles.checkoutIcon}
+                                    />
+                                </View>
+                            </TouchableOpacity>
                             <View style={styles.itemHeader}>
                                 <Text style={styles.itemHeaderLabel}>
                                     DELIVERY NOTES
@@ -292,6 +267,45 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
+                            <View style={styles.itemHeader}>
+                                <Text stye={styles.itemHeaderLabel}>
+                                    PAYMENT METHOD
+                                </Text>
+                            </View>
+                            <View style={styles.dropdownContainer}>
+                                <PaymentMethod
+                                    type={paymentMethod.brand}
+                                    text={paymentMethod.last4}
+                                />
+                            </View>
+                            <View style={styles.itemHeader}>
+                                <Text stye={styles.itemHeaderLabel}>
+                                    DELIVERY LOCATION
+                                </Text>
+                            </View>
+                            <View style={styles.itemBody}>
+                                <Text style={styles.itemBodyLabel}>
+                                    {address}
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.itemButton}
+                                    onPress={this.changeLocation}
+                                >
+                                    <Text style={styles.itemButtonText}>
+                                        Change
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <MapView region={region} style={styles.map}>
+                                <MapView.Marker
+                                    image={beaconIcon}
+                                    coordinate={region}
+                                    title="You"
+                                    description="Your Delivery Location"
+                                    anchor={{ x: 0.2, y: 1 }}
+                                    centerOffset={{ x: 12, y: -25 }}
+                                />
+                            </MapView>
                             <View style={styles.itemHeader}>
                                 <Text stye={styles.itemHeaderLabel}>
                                     PRODUCT SUMMARY
@@ -345,14 +359,26 @@ class CheckoutScreen extends Component {
                                     ${totalCostFormatted}
                                 </Text>
                             </View>
-                            <Button
-                                onPress={this.lightAbeacon}
-                                title="LIGHT A BEACON!"
-                                containerViewStyle={styles.buttonContainer}
-                                buttonStyle={styles.button}
-                                textStyle={styles.buttonText}
-                            />
                         </View>
+                        <TouchableOpacity
+                            style={styles.checkout}
+                            onPress={this.lightAbeacon}
+                        >
+                            <Text style={styles.imageTitle}>
+                                {'LIGHT A BEACON!'}
+                            </Text>
+                            <Text style={styles.imageSubText}>
+                                {'This confirms purchase'}
+                            </Text>
+                            <View style={styles.checkoutIconContainer}>
+                                <MaterialIcons
+                                    name="keyboard-arrow-right"
+                                    color="#fff"
+                                    size={50}
+                                    style={styles.checkoutIcon}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </ScrollView>
                 )}
                 <OopsPopup
@@ -378,6 +404,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
+    checkout: {
+        height: WINDOW_HEIGHT / 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5a623'
+    },
+    checkoutIconContainer: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        width: 50,
+        justifyContent: 'center'
+    },
+    checkoutIcon: {
+        backgroundColor: 'transparent'
+    },
     scrollContainer: {
         flex: 1,
         backgroundColor: '#fff',
@@ -386,6 +429,18 @@ const styles = StyleSheet.create({
     map: {
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
+    },
+    imageTitle: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1.875),
+        textAlign: 'center'
+    },
+    imageSubText: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1),
+        textAlign: 'center'
     },
     itemHeader: {
         paddingHorizontal: 20,
@@ -407,7 +462,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_100
     },
     itemBodyLabel: {
-        width: Dimensions.window.width - 160,
+        width: WINDOW_WIDTH - 160,
         fontSize: emY(1.08),
         color: Color.GREY_800
     },
@@ -467,6 +522,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+    email: getEmail(state),
     cart: getCartOrders(state),
     cartImages: getCartImages(state),
     totalCost: getCartCostTotal(state),
@@ -475,12 +531,13 @@ const mapStateToProps = state => ({
     deliveryFee: getDeliveryFee(state),
     serviceCharge: getCartServiceCharge(state),
     notes: getNotes(state),
-    address: getCurrentSetAddress(state),
+    address: getAddress(state),
     region: getRegion(state),
     cards: getCards(state),
-    selectedCard: getSelectedCard(state),
+    paymentMethod: getPaymentMethod(state),
     pending: getPending(state),
-    orderId: getCurrentOrderDatabaseKey(state)
+    stripeCustomerId: getStripeCustomerId(state),
+    orderId: getOrderId(state)
 });
 
 const mapDispatchToProps = {
@@ -488,7 +545,6 @@ const mapDispatchToProps = {
     removeFromCart,
     dropdownAlert,
     submitPayment,
-    submitPaymentRequest,
     listCards
 };
 

@@ -7,7 +7,6 @@ import {
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
-    SET_CURRENT_LOCATION,
     UPDATE_CART,
     CLEAR_CART
 } from '../actions/cartActions';
@@ -26,14 +25,7 @@ const initialState = {
     serviceFee: 0,
     deliveryFee: 200,
     serviceRate: 0.1,
-    localSalesTaxRate: 0.0625,
-    currentSetAddress: '310 E 5th St, Austin, TX 78701',
-    region: {
-        latitude: 30.2666247,
-        longitude: -97.7405174,
-        latitudeDelta: 0.0043,
-        longitudeDelta: 0.0034
-    }
+    localSalesTaxRate: 0.0625
 };
 
 export default (state = initialState, action) => {
@@ -69,12 +61,6 @@ export default (state = initialState, action) => {
                 }
             };
         }
-        case SET_CURRENT_LOCATION:
-            return {
-                ...state,
-                currentSetAddress: action.payload.address,
-                region: action.payload.region
-            };
         case UPDATE_CART: {
             const translate = mutateProductsIntoCart(action.payload);
             const merge = mergeCarts(translate, state.products);

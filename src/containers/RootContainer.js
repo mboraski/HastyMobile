@@ -12,6 +12,7 @@ import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
+import { unListenProductsRef } from '../actions/productActions';
 // import { reduxBoundAddListener } from '../store';
 
 // const initialValuesRef = firebase.database().ref('initialValues');
@@ -62,7 +63,7 @@ class RootContainer extends Component {
     }
 
     componentWillUnMount() {
-        // activeProductsRef.off();
+        this.props.unListenProductsRef();
     }
 
     // handleNotification = notification => {
@@ -130,6 +131,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    unListenProductsRef,
     closeCustomerPopup,
     dropdownAlert,
     listenToAuthChanges,

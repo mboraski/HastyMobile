@@ -2,6 +2,8 @@ import { SubmissionError } from 'redux-form';
 
 import { firebaseAuth, db } from '../../firebase';
 
+import { UPDATE_STRIPE_INFO } from './paymentActions';
+
 export const AUTH_CHANGED = 'auth_changed';
 export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
@@ -118,6 +120,12 @@ export const getUserReadable = () => dispatch =>
                 type: USER_READABLE_SUCCESS,
                 payload: userData
             });
+            if (userData.stripeInfo && userData.stripeInfo.stripeCustomerId) {
+                dispatch({
+                    type: UPDATE_STRIPE_INFO,
+                    payload: userData.stripeInfo
+                });
+            }
         })
         .catch(error =>
             dispatch({

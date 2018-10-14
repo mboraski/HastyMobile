@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 import { signInWithEmailAndPassword } from '../actions/authActions';
 import Color from '../constants/Color';
@@ -170,11 +169,7 @@ const mapStateToProps = state => ({
     user: getUser(state)
 });
 
-const mapDispatchToProps = {
-    signInWithEmailAndPassword
-};
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    {}
 )(reduxForm(formOptions)(SignInFormContainer));

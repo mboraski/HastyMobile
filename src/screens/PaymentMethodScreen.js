@@ -16,8 +16,7 @@ import { emY } from '../utils/em';
 
 import { listCards } from '../actions/paymentActions';
 
-import { getUser } from '../selectors/authSelectors';
-import { getCards } from '../selectors/paymentSelectors';
+import { getCards, getStripeCustomerId } from '../selectors/paymentSelectors';
 import { getSignUpAddPaymentMethodText } from '../selectors/marketingSelectors';
 
 class PaymentMethodScreen extends Component {
@@ -25,7 +24,7 @@ class PaymentMethodScreen extends Component {
         const signedUp = navigation.getParam('signedUp', false);
         const onPressHeaderRight = () => navigation.goBack();
         return {
-            title: 'Payment',
+            title: 'Payment Method',
             headerLeft: signedUp ? null : (
                 <MenuAndBackButton navigation={navigation} />
             ),
@@ -37,37 +36,11 @@ class PaymentMethodScreen extends Component {
         };
     };
 
-    static defaultProps = {
-        accounts: [
-            // {
-            //     type: 'bank-america',
-            //     name: 'Bank of America'
-            // }
-        ],
-        paypal: {}
-    };
-
     componentDidMount() {
-        // this.props.listCards(this.props.user.uid);
-    }
-
-    componentWillReceiveProps() {
-        // if (this.props.header.toggleState !== nextProps.header.toggleState) {
-        //     if (nextProps.header.isMenuOpen) {
-        //         this.props.navigation.navigate('DrawerOpen');
-        //     } else {
-        //         this.props.navigation.navigate('DrawerClose');
-        //     }
-        // }
-        // const navigationParams = nextProps.navigation.state.params || {};
-        // if (navigationParams.signedUp) {
-        //     if (
-        //         this.props.cards.length !== nextProps.cards.length &&
-        //         nextProps.cards.length > 0
-        //     ) {
-        //         this.props.navigation.goBack();
-        //     }
-        // }
+        const { stripeCustomerId } = this.props;
+        if (stripeCustomerId) {
+            this.props.listCards();
+        }
     }
 
     addCard = () => {
@@ -90,15 +63,6 @@ class PaymentMethodScreen extends Component {
         );
     };
 
-    renderAccount = (account, index) => (
-        <PaymentMethod
-            key={index}
-            type={account.type}
-            text={account.name}
-            onPress={this.selectPaymentMethod}
-        />
-    );
-
     render() {
         const { cards, navigation, signUpAddPaymentMethodText } = this.props;
         const signedUp = navigation.getParam('signedUp', false);
@@ -112,16 +76,6 @@ class PaymentMethodScreen extends Component {
                 <SectionTitle title="MY CARDS" />
                 {!signedUp && cards.map(this.renderCard)}
                 <PaymentMethod text="Add Card" onPress={this.addCard} />
-                {/* <SectionTitle title="MY BANK ACCOUNT" />
-                {accounts.map(this.renderAccount)}
-                <SectionTitle title="MY PAYPAL" />
-                {paypal ? (
-                    <PaymentMethod
-                        type="paypal"
-                        text={paypal.email}
-                        onPress={this.selectPaymentMethod}
-                    />
-                ) : null} */}
             </ScrollView>
         );
     }
@@ -145,8 +99,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: getUser(state),
-    header: state.header,
+    stripeCustomerId: getStripeCustomerId(state),
     cards: getCards(state),
     signUpAddPaymentMethodText: getSignUpAddPaymentMethodText(state)
 });

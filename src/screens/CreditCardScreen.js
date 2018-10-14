@@ -12,8 +12,7 @@ import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
     handleSubmitSuccess = () => {
-        this.props.listCards(this.props.user.uid);
-        this.props.navigation.goBack();
+        this.props.navigation.pop();
     };
 
     render() {
@@ -39,10 +38,13 @@ CreditCardScreen.navigationOptions = ({ navigation }) => ({
         navigation.state.params && navigation.state.params.card
             ? 'Edit Card'
             : 'Add Card',
-    headerLeft: <BackButton onPress={() => navigation.goBack()} />,
+    headerLeft: <BackButton onPress={() => navigation.pop()} />,
     headerRight: <RemoteSubmitTextButton title="Save" formName="CreditCard" />,
     headerStyle: Style.header,
     headerTitleStyle: Style.headerTitle
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreditCardScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CreditCardScreen);

@@ -18,7 +18,8 @@ import { ref } from '../../firebase';
 import {
     saveAddress,
     setRegion,
-    getCurrentLocation
+    getCurrentLocation,
+    nullifyError
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
 import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
@@ -28,8 +29,12 @@ import {
     orderCreationFailure
 } from '../actions/orderActions';
 import { getUserReadable } from '../actions/authActions';
+import { fetchProductsRequest } from '../actions/productActions';
 
-import { getProductsPending } from '../selectors/productSelectors';
+import {
+    getProductsPending,
+    getError as getProductsError
+} from '../selectors/productSelectors';
 import { getSearchVisible } from '../selectors/uiSelectors';
 import {
     getPredictions,
@@ -44,12 +49,12 @@ import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeaderContainer from '../containers/MapHeaderContainer';
 
+import ERRORS from '../constants/Errors';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon.png';
 
-const NO_HERO_FOUND = `It does not look like there is a Hero available in you area.`;
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
 
@@ -96,6 +101,7 @@ class MapScreen extends Component {
         } else if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
+        // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
     }
 
@@ -103,6 +109,7 @@ class MapScreen extends Component {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
         }
+        // TODO: can I remove the drawer navigation here?
         if (this.props.header.toggleState !== nextProps.header.toggleState) {
             if (nextProps.header.isMenuOpen) {
                 this.props.navigation.navigate('DrawerOpen');
@@ -110,13 +117,20 @@ class MapScreen extends Component {
                 this.props.navigation.navigate('DrawerClose');
             }
         }
-        if (this.props.region !== nextProps.region) {
-            this.animateMarkerToCoordinate(nextProps.region);
+        if (
+            this.props.pending === true &&
+            nextProps.pending === false &&
+            !nextProps.error
+        ) {
+            this.props.navigation.navigate('products');
         }
-        if (this.props.error) {
-            this.props.dropdownAlert(true, this.props.error.message);
+        if (this.props.productsError) {
+            this.props.dropdownAlert(true, ERRORS['001']);
         } else {
             this.props.dropdownAlert(false, '');
+        }
+        if (this.props.region !== nextProps.region) {
+            this.debounceMarker(nextProps.region);
         }
     }
 
@@ -124,22 +138,20 @@ class MapScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    // TODO: This is causing the map to jump on completion. Turning off until bug fixed
-    // onRegionChangeComplete = region => {
-    //     if (this.state.mapReady) {
-    //         this.getAddress({
-    //             latlng: `${region.latitude},${region.longitude}`
-    //         });
-    //     }
-    // };
-
-    getAddress = debounce(this.props.reverseGeocode, 1000, {
+    getAddress = debounce(this.props.reverseGeocode, 500, {
         leading: false,
         tailing: true
     });
 
-    useCurrentLocationPress = () => {
-        this.setState({ changeLocationPopupVisible: true });
+    debounceRegion = debounce(this.props.setRegion, 500, {
+        leading: false,
+        tailing: true
+    });
+
+    confirmLocationPress = () => {
+        this.props.fetchProductsRequest();
+        // TODO: handle resetting location after order creation
+        // this.setState({ changeLocationPopupVisible: true });
     };
 
     changeLocationConfirmed = async confirmed => {
@@ -157,7 +169,7 @@ class MapScreen extends Component {
                 }`
             });
             if (result.rows[0].elements[0].duration.value > 60 * 30) {
-                this.props.dropdownAlert(true, NO_HERO_FOUND);
+                this.props.dropdownAlert(true, ERRORS['007']);
                 resp = result;
             } else {
                 this.props.dropdownAlert(false, '');
@@ -174,7 +186,7 @@ class MapScreen extends Component {
                     if (resp) {
                         const key = resp.path.pieces_.join('/'); // eslint-disable-line
                         this.props.orderCreationSuccess(key);
-                        this.props.navigation.navigate('home');
+                        this.props.navigation.navigate('products');
                     } else {
                         throw new Error('Error setting location');
                     }
@@ -212,10 +224,18 @@ class MapScreen extends Component {
         }
     };
 
+    // This ensures the marker is set to new coords if user selects address prediction
+    debounceMarker = debounce(this.animateMarkerToCoordinate, 500, {
+        leading: false,
+        tailing: true
+    });
+
     handleRegionChange = region => {
-        if (this.state.mapReady) {
-            this.animateMarkerToCoordinate(region);
-        }
+        this.animateMarkerToCoordinate(region);
+        this.debounceRegion(region);
+        this.getAddress({
+            latlng: `${region.latitude},${region.longitude}`
+        });
     };
 
     handleAddress = address => {
@@ -259,18 +279,14 @@ class MapScreen extends Component {
         });
     };
 
-    handleInitialMessageClose = () => {
-        this.setState({ initialMessageVisible: false });
+    handleCloseContinuePopup = () => {
+        this.props.nullifyError();
     };
 
     render() {
-        const {
-            predictions,
-            region,
-            address,
-            pending,
-            productPending
-        } = this.props;
+        const { predictions, region, address, pending, error } = this.props;
+        const errorCode = error ? error.code : 'default';
+        const errorMessage = ERRORS[errorCode];
 
         const { changeLocationPopupVisible } = this.state;
 
@@ -284,7 +300,6 @@ class MapScreen extends Component {
                     provider={PROVIDER_GOOGLE}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
                 >
                     <MapView.Marker.Animated
                         image={beaconIcon}
@@ -296,6 +311,15 @@ class MapScreen extends Component {
                         style={styles.beaconMarker}
                     />
                 </MapView>
+                {pending && (
+                    <View style={styles.overlay}>
+                        <ActivityIndicator
+                            animating={pending}
+                            size="large"
+                            color="#f5a623"
+                        />
+                    </View>
+                )}
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -326,8 +350,8 @@ class MapScreen extends Component {
                 >
                     <Button
                         large
-                        title="Use Current Location"
-                        onPress={this.useCurrentLocationPress}
+                        title="Confirm Location"
+                        onPress={this.confirmLocationPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
                         disabled={pending}
@@ -347,16 +371,10 @@ class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                {productPending ? (
-                    <ActivityIndicator
-                        size="large"
-                        style={StyleSheet.absoluteFill}
-                    />
-                ) : null}
                 <ContinuePopup
-                    isOpen={this.state.initialMessageVisible}
-                    closeModal={this.handleInitialMessageClose}
-                    message={NO_HERO_FOUND}
+                    isOpen={!!error}
+                    closeModal={this.handleCloseContinuePopup}
+                    message={errorMessage}
                 />
                 <SuccessPopup
                     openModal={changeLocationPopupVisible}
@@ -376,6 +394,16 @@ const styles = StyleSheet.create({
     },
     map: {
         flex: 1
+    },
+    overlay: {
+        position: 'absolute',
+        zIndex: 100,
+        backgroundColor: 'rgba(52, 52, 52, 0.6)',
+        justifyContent: 'center',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0
     },
     buttonContainer: {
         position: 'absolute',
@@ -445,16 +473,18 @@ MapScreen.navigationOptions = {
 
 const mapStateToProps = state => ({
     pending: getProductsPending(state),
-    productPending: getProductsPending(state),
     predictions: getPredictions(state),
     searchVisible: getSearchVisible(state),
     header: state.header,
     region: getRegion(state),
     address: getAddress(state),
-    error: getError(state)
+    error: getError(state),
+    productsError: getProductsError(state)
 });
 
 const mapDispatchToProps = {
+    nullifyError,
+    fetchProductsRequest,
     getUserReadable,
     saveAddress,
     toggleSearch,
