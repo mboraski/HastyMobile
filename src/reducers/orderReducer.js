@@ -10,7 +10,7 @@ import {
 
 const initialState = {
     orderId: '',
-    contractors: null,
+    contactorIds: {},
     pending: false,
     status: '',
     hero: {}
@@ -21,7 +21,7 @@ const orderReducer = (state = initialState, action) => {
         case SET_CONTRACTORS:
             return {
                 ...state,
-                contractors: action.payload
+                contactorIds: action.payload
             };
         case ORDER_CREATION_SUCCESS:
             return {

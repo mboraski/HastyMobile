@@ -54,7 +54,7 @@ import {
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getNotes } from '../selectors/checkoutSelectors';
 import { getEmail } from '../selectors/authSelectors';
-import { getOrderId } from '../selectors/orderSelectors';
+import { getOrderId, getContactorIds } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -155,6 +155,7 @@ class CheckoutScreen extends Component {
     lightAbeacon = () => {
         const {
             stripeCustomerId,
+            contractorIds,
             paymentMethod,
             totalCost,
             notes,
@@ -166,6 +167,7 @@ class CheckoutScreen extends Component {
             const description = `Charge for ${email}`;
             this.props.submitPayment(
                 stripeCustomerId,
+                contractorIds,
                 source,
                 description,
                 totalCost,
@@ -537,6 +539,7 @@ const mapStateToProps = state => ({
     paymentMethod: getPaymentMethod(state),
     pending: getPending(state),
     stripeCustomerId: getStripeCustomerId(state),
+    contractorIds: getContactorIds(state),
     orderId: getOrderId(state)
 });
 

@@ -23,6 +23,7 @@ export const CREATE_STRIPE_ACCOUNT_ERROR = 'create_stripe_account_error';
 
 export const submitPayment = (
     source,
+    contractorIds,
     description,
     totalCost,
     notes,
@@ -32,6 +33,7 @@ export const submitPayment = (
     try {
         const res = await api.chargeStripeCustomerSource({
             source,
+            contractorIds,
             description,
             totalCost,
             notes,
@@ -48,17 +50,6 @@ export const submitPayment = (
         throw error;
     }
 };
-
-// TODO: !!!! change from api to direct card charge and then order creation and contractor ping
-return api
-    .chargeStripeCustomerSource({ uid, charge, notes, orderId, cart })
-    .then(() => {
-        dropdownAlert(true, 'Payment success');
-        navigation.navigate('deliveryStatus');
-    })
-    .catch(() => {
-        dropdownAlert(true, 'Error submitting payment');
-    });
 
 export const addCard = async args => {
     const { stripeCustomerId, source, dispatch } = args;
