@@ -18,25 +18,25 @@ Running tests:
 
 Development:
 
-    npm i -g exp // Installs exponent cli globally.
+    npm i -g expo // Installs exponent cli globally.
 
-    exp start --localhost
+    expo start --localhost
 
-    exp start --localhost --dev // For dev mode and additional logging
+    expo start --localhost --dev // For dev mode and additional logging
 
-    exp start --lan // For lan developing and use with phone
+    expo start --lan // For lan developing and use with phone
 
 In a separate terminal tab/window, run...
 
-    exp ios // For ios
+    expo ios // For ios
 
-    exp android --offline // For android offline
+    expo android --offline // For android offline
 
 Release:
 
-    exp build:ios // For build standalone app
+    expo build:ios // For build standalone app
 
-    exp publish // To publish to exp.host
+    expo publish // To publish to exp.host
 
 Avoid Tunnel use if possible.
 Always use securely as tunnel and lan are running on network
@@ -45,7 +45,7 @@ Owners
 
 ==============================
 
-*   Mark Boraski <mailto:mboraski@outlook.com>
+-   Mark Boraski <mailto:mboraski@outlook.com>
 
 Contributing
 
