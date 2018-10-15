@@ -1,7 +1,7 @@
 const orderStatuses = {
-    unaccepted: 'unaccepted',
-    accepted: 'accepted',
-    arrived: 'arrived',
+    open: 'open',
+    cancelled: 'cancelled',
+    inProgress: 'inprogress',
     completed: 'completed'
 };
 

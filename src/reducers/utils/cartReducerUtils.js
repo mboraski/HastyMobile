@@ -1,4 +1,5 @@
 import forEach from 'lodash.foreach';
+import reduce from 'lodash.reduce';
 
 const addProductToCart = (product, instantCartProducts) => {
     const instantCart = Object.assign({}, instantCartProducts);
@@ -19,29 +20,23 @@ const mutateProductsIntoCart = newProducts => {
     const newInstantCart = {};
     forEach(newProducts.instant, product => {
         if (product) {
+            const totalQuantity = reduce(
+                product.contractors,
+                (sum, contractor) => sum + contractor.quantity,
+                0
+            );
             newInstantCart[product.productName] = {
                 categories: product.categories,
                 imageUrl: product.imageUrl,
                 price: product.price,
                 productName: product.productName,
-                quantityAvailable: product.quantity,
-                quantityTaken: 0
+                quantityAvailable: totalQuantity,
+                quantityTaken: 0,
+                contractors: product.contractors
             };
         }
     });
     return { instant: newInstantCart };
-    // for each product, set a new object in the cart object at key of productName
-    // const newFastCart = {};
-    // forEach(newProducts.fast, (product) => {
-    //     newFastCart[product.productName] = {
-    //         categories: product.categories,
-    //         imageUrl: product.imageUrl,
-    //         price: product.price,
-    //         productName: product.productName,
-    //         quantityAvailable: product.quantity,
-    //         quantityTaken: 0
-    //     }
-    // })
 };
 
 const mergeCarts = (newCart, oldCart) => {
@@ -51,8 +46,7 @@ const mergeCarts = (newCart, oldCart) => {
     forEach(newCart.instant, item => {
         const oldItem = oldCart.instant[item.productName];
         if (oldItem) {
-            // did the quantity available go down
-            // did the quantity available go up
+            // did the quantity available go up or down
             const upOrDown = oldItem.quantityAvailable - item.quantityAvailable;
             let newQuantityTaken = 0;
             if (item.quantityAvailable < oldItem.quantityTaken) {
@@ -70,7 +64,8 @@ const mergeCarts = (newCart, oldCart) => {
                     price: oldItem.price,
                     productName: oldItem.productName,
                     quantityAvailable: item.quantityAvailable,
-                    quantityTaken: newQuantityTaken
+                    quantityTaken: newQuantityTaken,
+                    contractors: item.contractors
                 };
             }
         } else {

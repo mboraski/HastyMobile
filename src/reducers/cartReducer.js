@@ -64,8 +64,6 @@ export default (state = initialState, action) => {
         case UPDATE_CART: {
             const translate = mutateProductsIntoCart(action.payload);
             const merge = mergeCarts(translate, state.products);
-            // console.log('translate: ', translate);
-            // console.log('merge: ', merge);
             return {
                 ...state,
                 products: merge.netCart,

@@ -1,7 +1,7 @@
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
 
-import { ORDER_CREATION_SUCCESS } from './orderActions';
+import { ORDER_CREATION_SUCCESS, listenToOrderRef } from './orderActions';
 
 export const UPDATE_STRIPE_INFO = 'update_stripe_info';
 export const ADD_CARD_REQUEST = 'add_card_request';
@@ -39,15 +39,18 @@ export const submitPayment = (
             notes,
             cart
         });
-        const { orderId } = res;
-        dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-        dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
-
+        if (res.status === 200) {
+            const { orderId } = res.data;
+            dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+            dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
+            listenToOrderRef(dispatch, orderId);
+        } else {
+            throw new Error('Charge customer api error code: ', res.status);
+        }
         return;
     } catch (error) {
         dispatch({ type: SUBMIT_PAYMENT_FAILURE, payload: error });
-
-        throw error;
+        return;
     }
 };
 

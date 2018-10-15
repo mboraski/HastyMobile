@@ -3,7 +3,6 @@ import forEach from 'lodash.foreach';
 
 import { noHeroesAvailable } from './mapActions';
 import { updateCart } from './cartActions';
-import { setContractors } from './orderActions';
 import { rtdb, fire } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
@@ -12,7 +11,7 @@ export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
 export const FETCH_PRODUCTS_FAILURE = 'fetch_products_failure';
 export const SET_IMAGE = 'set_image';
 
-const PRODUCTS_REF = 'activeProducts/US/TX/Austin';
+const PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
 
 export const fetchProductsRequest = () => dispatch => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
@@ -42,7 +41,6 @@ export const listenProductsRef = dispatch =>
                 dispatch(fetchProductsSuccess(filteredProducts));
                 dispatch(fetchProductImages(filteredProducts, dispatch));
                 dispatch(updateCart(filteredProducts));
-                dispatch(setContractors(data.contractors));
             }
         },
         error => dispatch(fetchProductsFailure(error))
