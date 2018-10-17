@@ -13,13 +13,7 @@ import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { unListenProductsRef } from '../actions/productActions';
-// import { reduxBoundAddListener } from '../store';
-
-// const initialValuesRef = firebase.database().ref('initialValues');
-//
-// const activeProductsRef = firebase
-//     .database()
-//     .ref('activeProducts/US/TX/Austin');
+import { listenToOrder, unlistenToOrder } from '../actions/orderActions';
 
 class RootContainer extends Component {
     async componentWillMount() {
@@ -31,6 +25,10 @@ class RootContainer extends Component {
         }
 
         this.props.listenToAuthChanges();
+
+        if (this.props.orderId) {
+            this.props.listenToOrder(this.props.orderId);
+        }
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -64,6 +62,7 @@ class RootContainer extends Component {
 
     componentWillUnMount() {
         this.props.unListenProductsRef();
+        this.props.unlistenToOrder(this.props.orderId);
     }
 
     // handleNotification = notification => {
@@ -135,7 +134,9 @@ const mapDispatchToProps = {
     closeCustomerPopup,
     dropdownAlert,
     listenToAuthChanges,
-    signOut
+    signOut,
+    listenToOrder,
+    unlistenToOrder
 };
 
 export default connect(

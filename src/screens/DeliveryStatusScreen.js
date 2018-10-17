@@ -33,47 +33,23 @@ const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 class DeliveryStatusScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Order',
-        headerLeft: <MenuButton style={Style.headerLeft} />,
-        headerRight: (
-            <BrandButton
-                onPress={() => {
-                    clearCart();
-                    clearOrder();
-                    navigation.navigate('map');
-                }}
-            />
+        headerLeft: (
+            <MenuButton navigation={navigation} style={Style.headerLeft} />
         ),
         headerStyle: Style.headerBorderless,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
-    componentDidMount() {
-        const orderId = this.props.orderId;
-        if (orderId) {
-            this.props.listenToOrder(orderId);
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (this.props.header.toggleState !== nextProps.header.toggleState) {
-            if (nextProps.header.isMenuOpen) {
-                this.props.navigation.navigate('DrawerOpen');
-            } else {
-                this.props.navigation.navigate('DrawerClose');
-            }
-        }
         if (this.props.status !== nextProps.status) {
             this.notRef.receiveNotification();
             if (nextProps.status === 'completed') {
                 this.props.clearCart();
                 this.props.clearOrder();
+                this.props.unlistenToOrder(this.props.orderId);
                 this.props.navigation.navigate('map');
             }
         }
-    }
-
-    componentWillUnmount() {
-        this.props.unlistenToOrder(this.props.orderId);
     }
 
     renderHeroList() {

@@ -7,3 +7,7 @@ export const getHero = state => state.order.hero;
 export const getContactorIds = state => state.order.contactorIds;
 
 export const getOrderId = createSelector([getOrder], order => order.id);
+
+// TODO !!!! Mark Start Here!
+export const getFullActualFulfillment = createSelector();
+export const getPartialActualFulfillment = createSelector();

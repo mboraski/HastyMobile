@@ -11,7 +11,7 @@ export const ORDER_CREATION_FAILURE = 'order_creation_failure';
 export const LISTEN_ORDER_REQUEST = 'listen_order_request';
 export const LISTEN_ORDER_FAILURE = 'listen_order_failure';
 export const ORDER_UPDATE = 'order_update';
-export const UPDATE_CONTRACTORS = 'update_contractors';
+export const SET_ORDER = 'update_contractors';
 export const ORDER_COMPLETE = 'order_complete';
 
 export const setContractors = contractors => ({
@@ -57,8 +57,8 @@ export const listenToOrderRef = (dispatch, orderId) => {
         }
         if (order.actualfulfillment) {
             dispatch({
-                type: UPDATE_CONTRACTORS,
-                payload: order.actualfulfillment
+                type: SET_ORDER,
+                payload: order
             });
         }
     });

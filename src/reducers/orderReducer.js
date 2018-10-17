@@ -3,7 +3,7 @@ import {
     ORDER_CREATION_SUCCESS,
     LISTEN_ORDER_REQUEST,
     ORDER_UPDATE,
-    UPDATE_CONTRACTORS,
+    SET_ORDER,
     CLEAR_ORDER,
     ORDER_COMPLETE
 } from '../actions/orderActions';
@@ -13,7 +13,7 @@ const initialState = {
     contactorIds: {},
     pending: false,
     status: '',
-    contractors: {}
+    order: {}
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -45,10 +45,10 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 status: action.payload
             };
-        case UPDATE_CONTRACTORS:
+        case SET_ORDER:
             return {
                 ...state,
-                contractors: action.payload
+                order: action.payload
             };
         case ORDER_COMPLETE:
             return {
