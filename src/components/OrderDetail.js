@@ -17,19 +17,13 @@ const OrderDetail = props => {
     const formattedPrice = `${Number.parseFloat(price / 100).toFixed(2)}`;
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={{ uri: image }} resizeMode="contain" />
+            <Image
+                style={styles.image}
+                source={{ uri: image }}
+                resizeMode="contain"
+            />
             <View style={styles.content}>
                 <Text style={styles.title}>{productName}</Text>
-                <View style={styles.deliveryType}>
-                    <Text style={styles.deliveryTypeLabel}>Delivery Type:</Text>
-                    <Text style={styles.deliveryTypeValue}>{'Instant'}</Text>
-                </View>
-                {/* <TouchableOpacity>
-                    <Text style={styles.changeDeliveryTypeText}>Change delivery type</Text>
-                </TouchableOpacity> */}
-            </View>
-            <View style={styles.actions}>
-                <Text style={styles.price}>${formattedPrice}</Text>
                 <View style={styles.quantityContainer}>
                     <Icon
                         name="remove"
@@ -47,6 +41,9 @@ const OrderDetail = props => {
                         onPress={onAddOrder}
                     />
                 </View>
+            </View>
+            <View style={styles.actions}>
+                <Text style={styles.price}>${formattedPrice}</Text>
             </View>
         </View>
     );
@@ -70,12 +67,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     title: {
-        fontSize: emY(1.25),
+        fontSize: emY(0.75),
         flex: 1,
         marginBottom: emY(0.5)
     },
     price: {
-        fontSize: emY(1.25),
+        fontSize: emY(0.75),
         textAlign: 'right',
         marginRight: 10,
         marginBottom: emY(1.375)

@@ -19,8 +19,8 @@ export const CREATE_STRIPE_ACCOUNT_SUCCESS = 'create_stripe_account_success';
 export const CREATE_STRIPE_ACCOUNT_ERROR = 'create_stripe_account_error';
 
 export const submitPayment = (
+    stripeCustomerId,
     source,
-    contractorIds,
     description,
     totalCost,
     notes,
@@ -28,7 +28,7 @@ export const submitPayment = (
 ) => async dispatch => {
     dispatch({ type: SUBMIT_PAYMENT_REQUEST });
     try {
-        if (!contractorIds || !source || !totalCost || !cart) {
+        if (!stripeCustomerId || !source || !totalCost || !cart) {
             dispatch(dropdownAlert(true, 'Missing payment data.'));
             const missingDataError = new Error('Missing payment data.');
             dispatch({
@@ -37,11 +37,11 @@ export const submitPayment = (
             });
         }
         const res = await api.chargeStripeCustomerSource({
+            customer: stripeCustomerId,
             source,
-            contractorIds,
-            description,
-            totalCost,
-            notes,
+            description: description || '',
+            totalCost: Math.ceil(totalCost),
+            notes: notes || '',
             cart
         });
         if (res.status === 200) {
@@ -53,6 +53,13 @@ export const submitPayment = (
         }
         return;
     } catch (error) {
+        dispatch(
+            dropdownAlert(
+                true,
+                'Error submitting payment. You will not be charged.'
+            )
+        );
+        console.error('Payment processing error: ', error);
         dispatch({ type: SUBMIT_PAYMENT_FAILURE, payload: error });
         return;
     }

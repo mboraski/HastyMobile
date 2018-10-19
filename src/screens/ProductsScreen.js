@@ -48,13 +48,6 @@ const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
     componentWillReceiveProps(nextProps) {
-        // if (this.props.header.toggleState !== nextProps.header.toggleState) {
-        //     if (nextProps.header.isMenuOpen) {
-        //         this.props.navigation.navigate('DrawerOpen');
-        //     } else {
-        //         this.props.navigation.navigate('DrawerClose');
-        //     }
-        // }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
@@ -62,8 +55,6 @@ class ProductsScreen extends Component {
                 true,
                 'Some products are no longer available'
             );
-        } else {
-            this.props.dropdownAlert(false, '');
         }
     }
 
@@ -164,7 +155,6 @@ class ProductsScreen extends Component {
                     <View style={styles.container}>
                         <ScrollView
                             horizontal
-                            style={styles.filters}
                             contentContainerStyle={styles.filtersContent}
                         >
                             {this.renderCategories()}

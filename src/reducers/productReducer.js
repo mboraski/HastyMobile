@@ -1,8 +1,8 @@
 import {
     SELECT_CATEGORY,
-    FETCH_PRODUCTS_REQUEST,
-    FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE,
+    FETCH_CUSTOMER_BLOCK_REQUEST,
+    FETCH_CUSTOMER_BLOCK_SUCCESS,
+    FETCH_CUSTOMER_BLOCK_ERROR,
     SET_IMAGE
 } from '../actions/productActions';
 
@@ -12,25 +12,25 @@ export const initialState = {
     availableProducts: {
         instant: {}
     },
-    category: 'ACL',
+    category: 'all',
     productImages: {}
 };
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case FETCH_PRODUCTS_REQUEST:
+        case FETCH_CUSTOMER_BLOCK_REQUEST:
             return {
                 ...state,
                 pending: true
             };
-        case FETCH_PRODUCTS_SUCCESS:
+        case FETCH_CUSTOMER_BLOCK_SUCCESS:
             return {
                 ...state,
                 availableProducts: action.payload,
                 error: null,
                 pending: false
             };
-        case FETCH_PRODUCTS_FAILURE:
+        case FETCH_CUSTOMER_BLOCK_ERROR:
             console.error('fetch products failure: ', action.payload);
             return {
                 ...state,

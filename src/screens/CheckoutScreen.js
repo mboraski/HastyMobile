@@ -15,8 +15,6 @@ import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
-import { firebaseAuth } from '../../firebase';
-
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
@@ -33,7 +31,7 @@ import { emY } from '../utils/em';
 
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
-import { submitPayment, listCards } from '../actions/paymentActions';
+import { submitPayment } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
 
 import {
@@ -42,8 +40,7 @@ import {
     getCartTaxTotal,
     getCartServiceCharge,
     getServiceFee,
-    getDeliveryFee,
-    getCartImages
+    getDeliveryFee
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -52,9 +49,10 @@ import {
     getStripeCustomerId
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
+import { getProductImages } from '../selectors/productSelectors';
 import { getNotes } from '../selectors/checkoutSelectors';
 import { getEmail } from '../selectors/authSelectors';
-import { getOrderId, getContactorIds } from '../selectors/orderSelectors';
+import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -88,22 +86,6 @@ class CheckoutScreen extends Component {
         changeLocationPopupVisible: false
     };
 
-    componentDidMount() {
-        const user = firebaseAuth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            this.props.listCards(uid);
-        }
-        if (this.props.itemCountUp) {
-            this.props.dropdownAlert(true, 'More products available!');
-        } else if (this.props.itemCountDown) {
-            this.props.dropdownAlert(
-                true,
-                'Some products are no longer available'
-            );
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
         if (!this.props.orderId && nextProps.orderId) {
             this.props.navigation.navigate('deliveryStatus');
@@ -115,8 +97,6 @@ class CheckoutScreen extends Component {
                 true,
                 'Some products are no longer available'
             );
-        } else {
-            this.props.dropdownAlert(false, '');
         }
     }
 
@@ -155,7 +135,6 @@ class CheckoutScreen extends Component {
     lightAbeacon = () => {
         const {
             stripeCustomerId,
-            contractorIds,
             paymentMethod,
             totalCost,
             notes,
@@ -167,7 +146,6 @@ class CheckoutScreen extends Component {
             const description = `Charge for ${email}`;
             this.props.submitPayment(
                 stripeCustomerId,
-                contractorIds,
                 source,
                 description,
                 totalCost,
@@ -186,7 +164,7 @@ class CheckoutScreen extends Component {
     render() {
         const {
             cart,
-            cartImages,
+            productImages,
             tax,
             serviceCharge,
             serviceFee,
@@ -315,7 +293,7 @@ class CheckoutScreen extends Component {
                             </View>
                             <OrderList
                                 orders={cart}
-                                orderImages={cartImages}
+                                orderImages={productImages}
                                 onAddOrder={this.props.addToCart}
                                 onRemoveOrder={this.handleRemoveOrder}
                             />
@@ -526,7 +504,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     email: getEmail(state),
     cart: getCartOrders(state),
-    cartImages: getCartImages(state),
     totalCost: getCartCostTotal(state),
     tax: getCartTaxTotal(state),
     serviceFee: getServiceFee(state),
@@ -539,16 +516,15 @@ const mapStateToProps = state => ({
     paymentMethod: getPaymentMethod(state),
     pending: getPending(state),
     stripeCustomerId: getStripeCustomerId(state),
-    contractorIds: getContactorIds(state),
-    orderId: getOrderId(state)
+    orderId: getOrderId(state),
+    productImages: getProductImages(state)
 });
 
 const mapDispatchToProps = {
     addToCart,
     removeFromCart,
     dropdownAlert,
-    submitPayment,
-    listCards
+    submitPayment
 };
 
 export default connect(
