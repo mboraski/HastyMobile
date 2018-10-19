@@ -6,20 +6,20 @@ import { updateCart } from './cartActions';
 import { rtdb, fire } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
-export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
+export const FETCH_CUSTOMER_BLOCK_REQUEST = 'fetch_products_request';
 export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
 export const FETCH_PRODUCTS_FAILURE = 'fetch_products_failure';
 export const SET_IMAGE = 'set_image';
 
-const PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
+const CUSTOMER_BLOCK_REF = 'activeProducts/US/TX/Austin';
 
-export const fetchProductsRequest = () => dispatch => {
-    dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return listenProductsRef(dispatch);
+export const fetchCustomerBlock = () => dispatch => {
+    dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
+    return listenCustomerBlockRef(dispatch);
 };
 
-export const listenProductsRef = dispatch =>
-    rtdb.ref(PRODUCTS_REF).on(
+export const listenCustomerBlockRef = dispatch =>
+    rtdb.ref(CUSTOMER_BLOCK_REF).on(
         'value',
         snapshot => {
             const data = snapshot.val();
@@ -46,7 +46,7 @@ export const listenProductsRef = dispatch =>
         error => dispatch(fetchProductsFailure(error))
     );
 
-export const unListenProductsRef = () => rtdb.ref(PRODUCTS_REF).off();
+export const unListenCustomerBlock = () => rtdb.ref(CUSTOMER_BLOCK_REF).off();
 
 export const fetchProductsSuccess = products => ({
     type: FETCH_PRODUCTS_SUCCESS,

@@ -10,9 +10,6 @@ export const ADD_CARD_FAIL = 'add_card_fail';
 export const DELETE_CARD_REQUEST = 'delete_card_request';
 export const DELETE_CARD_SUCCESS = 'delete_card_success';
 export const DELETE_CARD_FAIL = 'delete_card_fail';
-export const LIST_CARDS_REQUEST = 'list_cards';
-export const LIST_CARDS_SUCCESS = 'list_cards_success';
-export const LIST_CARDS_FAIL = 'list_cards_fail';
 export const SELECTED_CARD = 'selected_card';
 export const SUBMIT_PAYMENT_REQUEST = 'submit_payment_request';
 export const SUBMIT_PAYMENT_SUCCESS = 'submit_payment_success';
@@ -79,8 +76,8 @@ export const addCard = async args => {
             stripeCustomerId,
             source
         });
-        const { defaultSource, sources } = res.data;
         dispatch(dropdownAlert(true, 'Successfully added card!'));
+        const { defaultSource, sources } = res.data;
         dispatch({
             type: ADD_CARD_SUCCESS,
             payload: {
@@ -166,32 +163,4 @@ export const deleteCard = args => async dispatch => {
 
 export const selectCard = card => dispatch => {
     dispatch({ type: SELECTED_CARD, payload: card.id });
-};
-
-export const listCards = () => async dispatch => {
-    try {
-        dispatch({ type: LIST_CARDS_REQUEST });
-        const docRef = firebase
-            .firestore()
-            .collection('userOwned')
-            .doc(uid);
-        const doc = await docRef.get();
-        if (doc.exists) {
-            const data = doc.data();
-            dispatch({
-                type: LIST_CARDS_SUCCESS,
-                payload: data
-            });
-            selectCard(data);
-            return data;
-        }
-        throw new Error('No such record of payment info!');
-    } catch (error) {
-        dispatch(dropdownAlert(true, 'No payment record on file!'));
-        dispatch({
-            type: LIST_CARDS_FAIL,
-            error
-        });
-        throw error;
-    }
 };

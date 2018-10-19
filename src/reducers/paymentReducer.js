@@ -6,9 +6,6 @@ import {
     DELETE_CARD_REQUEST,
     DELETE_CARD_SUCCESS,
     DELETE_CARD_FAIL,
-    LIST_CARDS,
-    LIST_CARDS_SUCCESS,
-    LIST_CARDS_FAIL,
     SELECTED_CARD,
     SUBMIT_PAYMENT_REQUEST,
     SUBMIT_PAYMENT_SUCCESS,
@@ -73,26 +70,6 @@ export default function(state = initialState, action) {
                 pending: false
             };
         case DELETE_CARD_FAIL:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
-            };
-        case LIST_CARDS:
-            return {
-                ...state,
-                pending: true
-            };
-        case LIST_CARDS_SUCCESS:
-            return {
-                ...state,
-                pending: false,
-                cards: action.payload.paymentInfo
-                    ? action.payload.paymentInfo.data
-                    : [],
-                error: null
-            };
-        case LIST_CARDS_FAIL:
             return {
                 ...state,
                 pending: false,

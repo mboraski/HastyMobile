@@ -12,7 +12,7 @@ import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { unListenProductsRef } from '../actions/productActions';
+import { unListenCustomerBlock } from '../actions/productActions';
 import {
     unListenOrderStatus,
     unListenToOrderFulfillment,
@@ -74,7 +74,7 @@ class RootContainer extends Component {
     }
 
     componentWillUnMount() {
-        this.props.unListenProductsRef();
+        this.props.unListenCustomerBlock();
         this.props.unListenToOrderFulfillment(this.props.orderId);
         this.props.unListenOrderError(this.props.orderId);
         this.props.unListenOrderStatus(this.props.orderId);
@@ -146,7 +146,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    unListenProductsRef,
+    unListenCustomerBlock,
     closeCustomerPopup,
     dropdownAlert,
     listenToAuthChanges,

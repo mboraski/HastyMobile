@@ -29,7 +29,7 @@ import {
     orderCreationFailure
 } from '../actions/orderActions';
 import { getUserReadable } from '../actions/authActions';
-import { fetchProductsRequest } from '../actions/productActions';
+import { fetchCustomerBlock } from '../actions/productActions';
 
 import {
     getProductsPending,
@@ -149,7 +149,7 @@ class MapScreen extends Component {
     });
 
     confirmLocationPress = () => {
-        this.props.fetchProductsRequest();
+        this.props.fetchCustomerBlock();
         // TODO: handle resetting location after order creation
         // this.setState({ changeLocationPopupVisible: true });
     };
@@ -484,7 +484,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     nullifyError,
-    fetchProductsRequest,
+    fetchCustomerBlock,
     getUserReadable,
     saveAddress,
     toggleSearch,

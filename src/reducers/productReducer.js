@@ -31,6 +31,7 @@ export default function(state = initialState, action) {
                 pending: false
             };
         case FETCH_PRODUCTS_FAILURE:
+            console.error('fetch products failure: ', action.payload);
             return {
                 ...state,
                 error: action.payload,
