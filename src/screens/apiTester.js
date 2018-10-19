@@ -112,7 +112,7 @@ class ApiTester extends Component {
                     exp_month: '1',
                     exp_year: '2021',
                     cvc: '747',
-                    name: 'Mark Dick'
+                    name: 'Mark'
                 }
             })
             .then(card => {
@@ -120,13 +120,10 @@ class ApiTester extends Component {
                     stripeCustomerId: 'cus_CKpt5YLRKK2QSd',
                     source: card.id
                 };
-                console.log('args: ', args);
                 addStripeCustomerSource(args)
                     .then(response => {
-                        console.log('response: ', JSON.stringify(response));
                         this.setState({
-                            addStripeCustomerSource:
-                                'Stripe source added successfully'
+                            addStripeCustomerSource: response.data.defaultSource
                         });
                     })
                     .catch(error => {
