@@ -227,17 +227,13 @@ const formOptions = {
             throw new SubmissionError(error);
         }
         if (stripeCustomerId) {
-            dispatch(
-                addCard({ stripeCustomerId, source: newCard.id, dispatch })
-            );
+            addCard({ stripeCustomerId, source: newCard.id, dispatch });
         } else {
-            dispatch(
-                createStripeAccountWithCard({
-                    email,
-                    source: newCard.id,
-                    dispatch
-                })
-            );
+            createStripeAccountWithCard({
+                email,
+                source: newCard.id,
+                dispatch
+            });
         }
     }
 };

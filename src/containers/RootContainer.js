@@ -13,7 +13,16 @@ import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { unListenProductsRef } from '../actions/productActions';
-import { listenToOrder, unlistenToOrder } from '../actions/orderActions';
+import {
+    unListenOrderStatus,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    listenToOrderStatus,
+    listenToOrderFulfillment,
+    listenToOrderError
+} from '../actions/orderActions';
+
+import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
     async componentWillMount() {
@@ -25,10 +34,6 @@ class RootContainer extends Component {
         }
 
         this.props.listenToAuthChanges();
-
-        if (this.props.orderId) {
-            this.props.listenToOrder(this.props.orderId);
-        }
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -60,9 +65,19 @@ class RootContainer extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.orderId && nextProps.orderId) {
+            this.props.listenToOrderStatus(nextProps.orderId);
+            this.props.listenToOrderError(nextProps.orderId);
+            this.props.listenToOrderFulfillment(nextProps.orderId);
+        }
+    }
+
     componentWillUnMount() {
         this.props.unListenProductsRef();
-        this.props.unlistenToOrder(this.props.orderId);
+        this.props.unListenToOrderFulfillment(this.props.orderId);
+        this.props.unListenOrderError(this.props.orderId);
+        this.props.unListenOrderStatus(this.props.orderId);
     }
 
     // handleNotification = notification => {
@@ -126,6 +141,7 @@ const mapStateToProps = state => ({
     customerPopupVisible: state.ui.customerPopupVisible,
     dropdownAlertVisible: state.ui.dropdownAlertVisible,
     dropdownAlertText: state.ui.dropdownAlertText,
+    orderId: getOrderId(state),
     nav: state.nav
 });
 
@@ -135,8 +151,12 @@ const mapDispatchToProps = {
     dropdownAlert,
     listenToAuthChanges,
     signOut,
-    listenToOrder,
-    unlistenToOrder
+    unListenOrderStatus,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    listenToOrderStatus,
+    listenToOrderFulfillment,
+    listenToOrderError
 };
 
 export default connect(

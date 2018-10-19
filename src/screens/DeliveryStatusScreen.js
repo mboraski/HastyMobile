@@ -13,17 +13,22 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Style from '../constants/Style';
 import orderStatuses from '../constants/Order';
-import loaderGradient from '../assets/loader-gradient.png';
-import loaderTicks from '../assets/loader-ticks.png';
 
 import { emY } from '../utils/em';
 
-import { getorderId, getStatus, getPending } from '../selectors/orderSelectors';
+import {
+    getOrderId,
+    getStatus,
+    getPending,
+    getFullActualFulfillment,
+    getPartialActualFulfillment
+} from '../selectors/orderSelectors';
 
 import { clearCart } from '../actions/cartActions';
 import {
-    listenToOrder,
-    unlistenToOrder,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    unListenOrderStatus,
     clearOrder
 } from '../actions/orderActions';
 
@@ -36,6 +41,13 @@ class DeliveryStatusScreen extends Component {
         headerLeft: (
             <MenuButton navigation={navigation} style={Style.headerLeft} />
         ),
+        headerRight: (
+            <BrandButton
+                onPress={() => {
+                    /* contact Hero options */
+                }}
+            />
+        ),
         headerStyle: Style.headerBorderless,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
@@ -46,54 +58,56 @@ class DeliveryStatusScreen extends Component {
             if (nextProps.status === 'completed') {
                 this.props.clearCart();
                 this.props.clearOrder();
-                this.props.unlistenToOrder(this.props.orderId);
+                this.props.unListenToOrderFulfillment(this.props.orderId);
+                this.props.unListenOrderError(this.props.orderId);
+                this.props.unListenOrderStatus(this.props.orderId);
                 this.props.navigation.navigate('map');
             }
         }
     }
 
     renderHeroList() {
-        if (
-            this.props.status === orderStatuses.accepted ||
-            this.props.status === orderStatuses.arrived
-        ) {
-            return (
-                <View style={styles.container}>
-                    <View style={styles.label}>
-                        <Text style={styles.labelText}>Hero Details:</Text>
-                    </View>
-                    <HeroList />
+        return (
+            <View style={styles.container}>
+                <View style={styles.label}>
+                    <Text style={styles.labelText}>Hero Details:</Text>
                 </View>
-            );
-        }
+                <HeroList />
+            </View>
+        );
     }
 
-    renderArrived() {
-        if (this.props.status === orderStatuses.arrived) {
-            return (
-                <View style={styles.container}>
-                    <View style={styles.labelAlt}>
-                        <Text style={styles.labelText}>
-                            Note: Look for orange Hasty shirt!
-                        </Text>
-                    </View>
-                </View>
-            );
-        }
-    }
+    // renderArrived() { // TODO: remove?
+    //     if (this.props.status === orderStatuses.arrived) {
+    //         return (
+    //             <View style={styles.container}>
+    //                 <View style={styles.labelAlt}>
+    //                     <Text style={styles.labelText}>
+    //                         Note: Look for orange Hasty shirt!
+    //                     </Text>
+    //                 </View>
+    //             </View>
+    //         );
+    //     }
+    // }
 
     render() {
-        const { orderId } = this.props;
+        const { orderId, status } = this.props;
         return (
             <View style={styles.container}>
                 {orderId ? (
                     <View style={styles.container}>
-                        <View style={styles.spinner}>
-                            <ActivityIndicator size="large" color="#F5A623" />
-                        </View>
-                        <Notification onRef={ref => (this.notRef = ref)} />
-                        {/* {this.renderHeroList()} */}
-                        {this.renderArrived()}
+                        {status === orderStatuses.open && (
+                            <View style={styles.spinner}>
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#F5A623"
+                                />
+                            </View>
+                        )}
+                        {/*<Notification onRef={ref => (this.notRef = ref)} />*/}
+                        {status === orderStatuses.inProgress &&
+                            this.renderHeroList()}
                     </View>
                 ) : (
                     <View style={styles.container}>
@@ -187,16 +201,19 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     header: state.header,
-    orderId: getorderId(state),
+    orderId: getOrderId(state),
     status: getStatus(state),
-    pending: getPending(state)
+    pending: getPending(state),
+    full: getFullActualFulfillment(state),
+    partial: getPartialActualFulfillment(state)
 });
 
 const mapDispatchToProps = {
-    listenToOrder,
-    unlistenToOrder,
     clearCart,
-    clearOrder
+    clearOrder,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    unListenOrderStatus
 };
 
 export default connect(

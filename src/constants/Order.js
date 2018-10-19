@@ -1,7 +1,7 @@
 const orderStatuses = {
     open: 'open',
     cancelled: 'cancelled',
-    inProgress: 'inprogress',
+    inProgress: 'in_progress',
     completed: 'completed'
 };
 

@@ -1,7 +1,7 @@
 import * as api from '../api/hasty';
 import { dropdownAlert } from './uiActions';
 
-import { ORDER_CREATION_SUCCESS, listenToOrderRef } from './orderActions';
+import { ORDER_CREATION_SUCCESS } from './orderActions';
 
 export const UPDATE_STRIPE_INFO = 'update_stripe_info';
 export const ADD_CARD_REQUEST = 'add_card_request';
@@ -43,7 +43,6 @@ export const submitPayment = (
             const { orderId } = res.data;
             dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
             dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
-            listenToOrderRef(dispatch, orderId);
         } else {
             throw new Error('Charge customer api error code: ', res.status);
         }
@@ -62,7 +61,8 @@ export const addCard = async args => {
             stripeCustomerId,
             source
         });
-        const { defaultSource, sources } = res;
+        console.log('response: ', JSON.stringify(res));
+        const { defaultSource, sources } = res.data;
         dispatch({
             type: ADD_CARD_SUCCESS,
             payload: {
@@ -73,7 +73,7 @@ export const addCard = async args => {
         dispatch(dropdownAlert(true, 'Successfully added card!'));
         return res;
     } catch (error) {
-        dispatch(dropdownAlert(true, 'Failed to add card!'));
+        dispatch(dropdownAlert(true, 'Failed to add another card!'));
         dispatch({
             type: ADD_CARD_FAIL,
             error
@@ -87,7 +87,8 @@ export const createStripeAccountWithCard = async args => {
     dispatch({ type: CREATE_STRIPE_ACCOUNT_REQUEST });
     try {
         const res = await api.createStripeAccountWithCard({ email, source });
-        const { stripeCustomerId, defaultSource, sources } = res;
+        const { stripeCustomerId, defaultSource, sources } = res.data;
+        dispatch(dropdownAlert(true, 'Successfully added card!'));
         dispatch({
             type: CREATE_STRIPE_ACCOUNT_SUCCESS,
             payload: {
@@ -96,7 +97,6 @@ export const createStripeAccountWithCard = async args => {
                 sources
             }
         });
-        dispatch(dropdownAlert(true, 'Successfully added card!'));
         return res;
     } catch (error) {
         dispatch(dropdownAlert(true, 'Failed to add card!'));

@@ -1,11 +1,13 @@
 import {
     SET_CONTRACTORS,
-    ORDER_CREATION_SUCCESS,
-    LISTEN_ORDER_REQUEST,
-    ORDER_UPDATE,
-    SET_ORDER,
     CLEAR_ORDER,
-    ORDER_COMPLETE
+    ORDER_CREATION_SUCCESS,
+    // LISTEN_ORDER_FULFILLMENT,
+    LISTEN_ORDER_STATUS,
+    // LISTEN_ORDER_ERROR,
+    ORDER_STATUS_UPDATE,
+    UPDATE_ORDER_FULFILLMENT,
+    UPDATE_ORDER_ERROR
 } from '../actions/orderActions';
 
 const initialState = {
@@ -13,7 +15,8 @@ const initialState = {
     contactorIds: {},
     pending: false,
     status: '',
-    order: {}
+    order: {},
+    error: null
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -23,37 +26,35 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 contactorIds: action.payload
             };
+        case CLEAR_ORDER:
+            return {
+                ...state,
+                ...initialState
+            };
         case ORDER_CREATION_SUCCESS:
             return {
                 ...state,
                 orderId: action.payload
             };
-        case CLEAR_ORDER:
-            return {
-                ...state,
-                orderId: '',
-                pending: false,
-                hero: {}
-            };
-        case LISTEN_ORDER_REQUEST:
+        case LISTEN_ORDER_STATUS:
             return {
                 ...state,
                 pending: true
             };
-        case ORDER_UPDATE:
+        case ORDER_STATUS_UPDATE:
             return {
                 ...state,
                 status: action.payload
             };
-        case SET_ORDER:
+        case UPDATE_ORDER_FULFILLMENT:
             return {
                 ...state,
                 order: action.payload
             };
-        case ORDER_COMPLETE:
+        case UPDATE_ORDER_ERROR:
             return {
                 ...state,
-                status: action.payload,
+                error: action.payload,
                 pending: false
             };
         default:
