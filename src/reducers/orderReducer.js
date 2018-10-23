@@ -2,13 +2,13 @@ import {
     SET_CONTRACTORS,
     CLEAR_ORDER,
     ORDER_CREATION_SUCCESS,
-    // LISTEN_ORDER_FULFILLMENT,
     LISTEN_ORDER_STATUS,
-    // LISTEN_ORDER_ERROR,
     UPDATE_ORDER_STATUS,
     UPDATE_ORDER_FULFILLMENT,
     UPDATE_ORDER_ERROR
 } from '../actions/orderActions';
+
+import { orderStatuses } from '../constants/Order';
 
 const initialState = {
     orderId: '',
@@ -42,11 +42,10 @@ const orderReducer = (state = initialState, action) => {
                 pending: true
             };
         case UPDATE_ORDER_STATUS:
-            const
             return {
                 ...state,
                 status: action.payload,
-                pending: (action.payload !== orderStatuses.completed)
+                pending: action.payload !== orderStatuses.completed
             };
         case UPDATE_ORDER_FULFILLMENT:
             return {
