@@ -5,7 +5,7 @@ import {
     // LISTEN_ORDER_FULFILLMENT,
     LISTEN_ORDER_STATUS,
     // LISTEN_ORDER_ERROR,
-    ORDER_STATUS_UPDATE,
+    UPDATE_ORDER_STATUS,
     UPDATE_ORDER_FULFILLMENT,
     UPDATE_ORDER_ERROR
 } from '../actions/orderActions';
@@ -41,10 +41,12 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 pending: true
             };
-        case ORDER_STATUS_UPDATE:
+        case UPDATE_ORDER_STATUS:
+            const
             return {
                 ...state,
-                status: action.payload
+                status: action.payload,
+                pending: (action.payload !== orderStatuses.completed)
             };
         case UPDATE_ORDER_FULFILLMENT:
             return {

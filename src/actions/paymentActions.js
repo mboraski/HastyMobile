@@ -44,6 +44,10 @@ export const submitPayment = (
             notes: notes || '',
             cart
         });
+        console.log(
+            'chargeStripeCustomerSource Response: ',
+            JSON.stringify(res)
+        );
         if (res.status === 200) {
             const { orderId } = res.data;
             dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
@@ -59,7 +63,7 @@ export const submitPayment = (
                 'Error submitting payment. You will not be charged.'
             )
         );
-        console.error('Payment processing error: ', error);
+        console.log('Payment processing error: ', error);
         dispatch({ type: SUBMIT_PAYMENT_FAILURE, payload: error });
         return;
     }
