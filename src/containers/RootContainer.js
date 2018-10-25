@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Permissions } from 'expo';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
@@ -26,14 +27,15 @@ import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
     async componentWillMount() {
-        if (
-            this.props.user &&
-            moment().isAfter(moment(this.props.authExpirationDate))
-        ) {
-            this.props.signOut();
-        }
-
         this.props.listenToAuthChanges();
+
+        // if (
+        //     this.props.user || firebaseAuth.currentUser &&
+        //     moment().isAfter(moment(this.props.authExpirationDate))
+        // ) {
+        //     console.log('current moment: ', moment().toDate());
+        //     this.props.signOut();
+        // }
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -62,6 +64,14 @@ class RootContainer extends Component {
             // this.notificationSubscription = Notifications.addListener(
             //     this.handleNotification
             // );
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.orderId) {
+            this.props.listenToOrderStatus(this.props.orderId);
+            this.props.listenToOrderError(this.props.orderId);
+            this.props.listenToOrderFulfillment(this.props.orderId);
         }
     }
 

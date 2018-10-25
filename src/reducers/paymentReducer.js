@@ -14,6 +14,7 @@ import {
     CREATE_STRIPE_ACCOUNT_SUCCESS,
     CREATE_STRIPE_ACCOUNT_ERROR
 } from '../actions/paymentActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 const initialState = {
     cards: [],
@@ -26,6 +27,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case SUBMIT_PAYMENT_REQUEST:
             return {
                 ...state,

@@ -1,4 +1,4 @@
-import orderStatuses from '../constants/Order';
+import { orderStatuses } from '../constants/Order';
 import { rtdb } from '../../firebase';
 
 const ORDER_REF = 'activeProducts/US/TX/Austin/orders';
@@ -77,6 +77,7 @@ export const listenToOrderFulfillment = orderId => dispatch => {
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
             if (fulfillment) {
+                console.log('order fulfillment listener ran');
                 dispatch({
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment

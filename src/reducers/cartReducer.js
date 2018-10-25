@@ -10,6 +10,7 @@ import {
     UPDATE_CART,
     CLEAR_CART
 } from '../actions/cartActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 // function normalizeCurrency(currency) {
 //     if (typeof currency === 'string') return Number(currency.replace(/[^0-9\.-]+/g, ''));
@@ -30,6 +31,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case CLEAR_CART: {
             return {
                 ...state,

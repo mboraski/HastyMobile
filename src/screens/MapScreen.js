@@ -126,8 +126,6 @@ class MapScreen extends Component {
         }
         if (this.props.productsError) {
             this.props.dropdownAlert(true, ERRORS['001']);
-        } else {
-            this.props.dropdownAlert(false, '');
         }
         if (this.props.region !== nextProps.region) {
             this.debounceMarker(nextProps.region);

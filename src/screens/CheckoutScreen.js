@@ -190,6 +190,7 @@ class CheckoutScreen extends Component {
             ? (deliveryFee / 100).toFixed(2)
             : 0;
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
+        // TODO: fix this as the price is rounded ceil on server
         const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
 
         return (

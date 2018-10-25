@@ -159,12 +159,18 @@ class ProductsScreen extends Component {
                         >
                             {this.renderCategories()}
                         </ScrollView>
-                        {productsShown && (
+                        {productsShown ? (
                             <ProductList
                                 products={productsShown}
                                 productImages={productImages}
                                 callAddToCart={this.callAddToCart}
                             />
+                        ) : (
+                            <View style={styles.container}>
+                                <Text>
+                                    {'Set location on map screen for products'}
+                                </Text>
+                            </View>
                         )}
                     </View>
                 )}

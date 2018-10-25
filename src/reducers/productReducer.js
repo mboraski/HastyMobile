@@ -5,6 +5,7 @@ import {
     FETCH_CUSTOMER_BLOCK_ERROR,
     SET_IMAGE
 } from '../actions/productActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 export const initialState = {
     pending: false,
@@ -18,6 +19,8 @@ export const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case FETCH_CUSTOMER_BLOCK_REQUEST:
             return {
                 ...state,
@@ -43,7 +46,7 @@ export default function(state = initialState, action) {
                 category: action.payload
             };
         case SET_IMAGE: {
-            const { productName = '', url = '' } = action.payload;
+            const { productName, url } = action.payload;
             const productImages = Object.assign({}, state.productImages, {
                 [productName]: url
             });

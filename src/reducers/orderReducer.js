@@ -7,6 +7,7 @@ import {
     UPDATE_ORDER_FULFILLMENT,
     UPDATE_ORDER_ERROR
 } from '../actions/orderActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 import { orderStatuses } from '../constants/Order';
 
@@ -21,6 +22,8 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case SET_CONTRACTORS:
             return {
                 ...state,

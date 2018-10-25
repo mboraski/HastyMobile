@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification'; // TODO: fix linter error
-import HeroList from '../components/HeroList';
+import HeroListContainer from '../containers/HeroListContainer';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import orderStatuses from '../constants/Order';
+import { orderStatuses } from '../constants/Order';
 
 import { emY } from '../utils/em';
 
@@ -52,10 +52,18 @@ class DeliveryStatusScreen extends Component {
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
+    state = {
+        modalVisible: false
+    };
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.status !== nextProps.status) {
-            this.notRef.receiveNotification();
-            if (nextProps.status === 'completed') {
+            // this.notRef.receiveNotification();
+            if (nextProps.status === orderStatuses.completed) {
                 this.props.clearCart();
                 this.props.clearOrder();
                 this.props.unListenToOrderFulfillment(this.props.orderId);
@@ -68,36 +76,19 @@ class DeliveryStatusScreen extends Component {
 
     renderHeroList() {
         return (
-            <View style={styles.container}>
-                <View style={styles.label}>
-                    <Text style={styles.labelText}>Hero Details:</Text>
-                </View>
-                <HeroList />
+            <View style={styles.heroList}>
+                <HeroListContainer />
             </View>
         );
     }
-
-    // renderArrived() { // TODO: remove?
-    //     if (this.props.status === orderStatuses.arrived) {
-    //         return (
-    //             <View style={styles.container}>
-    //                 <View style={styles.labelAlt}>
-    //                     <Text style={styles.labelText}>
-    //                         Note: Look for orange Hasty shirt!
-    //                     </Text>
-    //                 </View>
-    //             </View>
-    //         );
-    //     }
-    // }
 
     render() {
         const { orderId, status } = this.props;
         return (
             <View style={styles.container}>
                 {orderId ? (
-                    <View style={styles.container}>
-                        {status === orderStatuses.open && (
+                    <View style={styles.statusContainer}>
+                        {status !== orderStatuses.satisfied && (
                             <View style={styles.spinner}>
                                 <ActivityIndicator
                                     size="large"
@@ -105,9 +96,12 @@ class DeliveryStatusScreen extends Component {
                                 />
                             </View>
                         )}
-                        {/*<Notification onRef={ref => (this.notRef = ref)} />*/}
-                        {status === orderStatuses.inProgress &&
-                            this.renderHeroList()}
+                        <View style={styles.notifications}>
+                            <Notification onRef={ref => (this.notRef = ref)} />
+                        </View>
+                        {status === orderStatuses.inProgress ||
+                            (status === orderStatuses.satisfied &&
+                                this.renderHeroList())}
                     </View>
                 ) : (
                     <View style={styles.container}>
@@ -123,6 +117,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    statusContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start'
+    },
+    heroList: {
+        position: 'absolute',
+        bottom: 30,
+        width: '100%'
     },
     profile: {
         alignItems: 'center',
@@ -158,6 +162,9 @@ const styles = StyleSheet.create({
         height: SIZE,
         transform: [{ translate: [0, -SIZE * 1] }, { scale: 1 }]
     },
+    notifications: {
+        paddingVertical: 40
+    },
     ticks: {
         position: 'absolute',
         top: '50%',
@@ -175,27 +182,6 @@ const styles = StyleSheet.create({
     spinner: {
         marginTop: 30,
         marginBottom: 20
-    },
-    label: {
-        borderBottomWidth: StyleSheet.hairlineWidth * 3,
-        borderColor: Color.GREY_300,
-        backgroundColor: Color.WHITE,
-        paddingBottom: 5,
-        marginLeft: 27,
-        marginRight: 27
-    },
-    labelAlt: {
-        borderColor: Color.GREY_300,
-        backgroundColor: Color.WHITE,
-        paddingBottom: 5,
-        marginLeft: 27,
-        marginRight: 27,
-        marginVertical: 10
-    },
-    labelText: {
-        color: Color.GREY_600,
-        fontSize: emY(1.0625),
-        letterSpacing: 0.5
     }
 });
 

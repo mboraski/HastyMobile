@@ -49,13 +49,14 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                 return resolve();
             })
             .catch(error => {
+                console.error('user creation error: ', error);
                 dispatch({
                     type: SIGNUP_FAIL,
                     payload: error
                 });
                 return reject(
                     new SubmissionError({
-                        _error: 'Crrrazy error'
+                        _error: 'Authentication error'
                     })
                 );
             });
@@ -92,6 +93,7 @@ export const signOut = () => async dispatch => {
     try {
         dispatch({ type: SIGNOUT_REQUEST });
         const result = await firebaseAuth.signOut();
+        dispatch({ type: SIGNOUT_SUCCESS });
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });
@@ -99,7 +101,7 @@ export const signOut = () => async dispatch => {
     }
 };
 
-export const listenToAuthChanges = () => dispatch =>
+export const listenToAuthChanges = () => dispatch => {
     firebaseAuth.onAuthStateChanged(async user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
@@ -108,6 +110,7 @@ export const listenToAuthChanges = () => dispatch =>
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });
+};
 
 export const getUserReadable = () => dispatch =>
     db

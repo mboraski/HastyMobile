@@ -26,11 +26,31 @@ Development:
 
     expo start --lan // For lan developing and use with phone
 
-In a separate terminal tab/window, run...
+Use mobile phone with expo or, in a separate terminal tab/window, run...
 
     expo ios // For ios
 
     expo android --offline // For android offline
+
+Debugging:
+
+    // react-native-debugger
+    $ brew update && brew cask install react-native-debugger
+
+    // for more...
+    https://github.com/jhen0409/react-native-debugger/blob/master/docs/getting-started.md
+    or other methods...
+    https://medium.com/reactnativeacademy/debugging-react-native-applications-6bff3f28c375
+
+    // Startup app using lan, allow remote debugging, open app in simulator
+    // run RND on expo port
+    $ unset ELECTRON_RUN_AS_NODE && open -g 'rndebugger://set-debugger-loc?port=19001'
+
+Performance:
+
+https://reactjs.org/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab
+
+Hot reloading v Live reloading:
 
 Release:
 

@@ -16,7 +16,9 @@ import {
 
 const initialState = {
     user: null,
-    userReadable: {},
+    userReadable: {
+        email: ''
+    },
     pending: false,
     error: null,
     expirationDate: null

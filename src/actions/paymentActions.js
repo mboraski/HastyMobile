@@ -48,13 +48,9 @@ export const submitPayment = (
             'chargeStripeCustomerSource Response: ',
             JSON.stringify(res)
         );
-        if (res.status === 200) {
-            const { orderId } = res.data;
-            dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-            dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
-        } else {
-            throw new Error('Charge customer api error code: ', res.status);
-        }
+        const { orderId } = res.data;
+        dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+        dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
         return;
     } catch (error) {
         dispatch(

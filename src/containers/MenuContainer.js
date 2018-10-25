@@ -26,7 +26,7 @@ const getRoute = (items, routeName) =>
 
 class MenuContent extends Component {
     orderPress = () => {
-        this.props.navigation.navigate('order');
+        this.props.navigation.navigate('deliveryStatus');
     };
 
     checkoutPress = () => {
@@ -48,6 +48,7 @@ class MenuContent extends Component {
     signOut = () => {
         this.props.signOut();
         this.props.navigation.closeDrawer();
+        this.props.navigation.navigate('auth');
     };
 
     render() {

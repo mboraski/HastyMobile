@@ -7,7 +7,7 @@ import Text from './Text';
 // import NotificationActions from '../actions/notificationActions';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-import orderStatuses from '../constants/Order';
+import { orderStatuses } from '../constants/Order';
 
 export class Notification extends Component {
     state = {
@@ -15,7 +15,7 @@ export class Notification extends Component {
         opacity: new Animated.Value(1),
         nextNotification: 'Searching the skies for a hero...',
         currNotification: 'Searching the skies for a hero...'
-    }
+    };
 
     componentDidMount() {
         this.props.onRef(this);
@@ -30,7 +30,7 @@ export class Notification extends Component {
 
     getNotification = () => {
         switch (this.props.status) {
-            case orderStatuses.unaccepted:
+            case orderStatuses.open:
                 return 'Searching the skies for a hero...';
             case orderStatuses.accepted:
                 return 'Found a hero!';
@@ -41,49 +41,44 @@ export class Notification extends Component {
             default:
                 break;
         }
-    }
+    };
 
     receiveNotification = () => {
         this.setState({ currNotification: this.state.currNotification });
         Animated.parallel([
-            Animated.timing(this.state.topValue,
-                {
-                    toValue: 0,
-                    duration: 500
-                }
-            ),
-            Animated.timing(this.state.opacity,
-                {
-                    toValue: 0,
-                    duration: 500
-                }
-            )
+            Animated.timing(this.state.topValue, {
+                toValue: 0,
+                duration: 500
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: 0,
+                duration: 500
+            })
         ]).start(() => {
             const newNotificaiton = this.getNotification();
             this.setState({ nextNotification: newNotificaiton });
             Animated.parallel([
-                Animated.timing(this.state.topValue,
-                    {
-                        toValue: emY(11),
-                        duration: 0
-                    }
-                ),
-                Animated.timing(this.state.opacity,
-                    {
-                        toValue: 1,
-                        duration: 0
-                    }
-                )
+                Animated.timing(this.state.topValue, {
+                    toValue: emY(11),
+                    duration: 0
+                }),
+                Animated.timing(this.state.opacity, {
+                    toValue: 1,
+                    duration: 0
+                })
             ]).start();
         });
-    }
+    };
 
     render() {
         const { nextNotification, currNotification } = this.state;
         return (
             <View style={styles.alertSection}>
                 <Animated.View
-                    style={[styles.alert, { opacity: this.state.opacity, top: 0 }]}
+                    style={[
+                        styles.alert,
+                        { opacity: this.state.opacity, top: 0 }
+                    ]}
                 >
                     <Text style={styles.alertText}>{nextNotification}</Text>
                 </Animated.View>
@@ -124,7 +119,7 @@ const styles = StyleSheet.create({
         fontSize: emY(1.0625),
         color: '#fff',
         textAlign: 'center'
-    },
+    }
 });
 
 const mapStateToProps = state => ({
@@ -134,4 +129,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notification);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Notification);
