@@ -103,7 +103,7 @@ export const addCard = async args => {
     }
 };
 
-export const createStripeAccountWithCard = async args => {
+export const createStripeCustomerWithCard = async args => {
     const { email, source, dispatch } = args;
     dispatch({ type: CREATE_STRIPE_ACCOUNT_REQUEST });
     console.log('args: ', args);
@@ -116,10 +116,9 @@ export const createStripeAccountWithCard = async args => {
                 error: missingDataError
             });
         }
-        const res = await api.createStripeAccountWithCard({ email, source });
-        console.log('res', JSON.stringify(res));
-        const { stripeCustomerId, defaultSource, sources } = res.data;
+        const res = await api.createStripeCustomerWithCard({ email, source });
         dispatch(dropdownAlert(true, 'Successfully added card!'));
+        const { stripeCustomerId, defaultSource, sources } = res.data;
         dispatch({
             type: CREATE_STRIPE_ACCOUNT_SUCCESS,
             payload: {

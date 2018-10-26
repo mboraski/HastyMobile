@@ -17,7 +17,7 @@ import stripeClient from 'stripe-client';
 import {
     addCard,
     deleteCard,
-    createStripeAccountWithCard
+    createStripeCustomerWithCard
 } from '../actions/paymentActions';
 
 import { getStripeCustomerId, getPending } from '../selectors/paymentSelectors';
@@ -232,14 +232,14 @@ const formOptions = {
                 addCard({ stripeCustomerId, source: newCard.id, dispatch });
             } else {
                 console.log('is create running? ');
-                createStripeAccountWithCard({
+                createStripeCustomerWithCard({
                     email,
-                    source: newCard.id,
+                    token: newCard,
                     dispatch
                 });
             }
         } catch (error) {
-            console.error('Credit Card Submit Error: ', error);
+            console.log('Credit Card Submit Error: ', error);
         }
     }
 };

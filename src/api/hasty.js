@@ -8,8 +8,8 @@ export const instance = axios.create({
 //     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
 // });
 
-export function createStripeAccountWithCard(args) {
-    const csawc = functions.httpsCallable('createStripeAccountWithCard');
+export function createStripeCustomerWithCard(args) {
+    const csawc = functions.httpsCallable('createStripeCustomerWithCard');
     return csawc(args);
 }
 

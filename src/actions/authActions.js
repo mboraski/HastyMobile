@@ -49,7 +49,7 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                 return resolve();
             })
             .catch(error => {
-                console.error('user creation error: ', error);
+                console.log('user creation error: ', error);
                 dispatch({
                     type: SIGNUP_FAIL,
                     payload: error
@@ -102,7 +102,7 @@ export const signOut = () => async dispatch => {
 };
 
 export const listenToAuthChanges = () => dispatch => {
-    firebaseAuth.onAuthStateChanged(async user => {
+    firebaseAuth.onAuthStateChanged(user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
             dispatch({ type: SIGNIN_SUCCESS });
@@ -112,27 +112,33 @@ export const listenToAuthChanges = () => dispatch => {
     });
 };
 
-export const getUserReadable = () => dispatch =>
-    db
-        .collection('userReadable')
-        .doc(firebaseAuth.currentUser.uid)
-        .get()
-        .then(snap => {
-            const userData = snap.data();
-            dispatch({
-                type: USER_READABLE_SUCCESS,
-                payload: userData
-            });
-            if (userData.stripeInfo && userData.stripeInfo.stripeCustomerId) {
+export const getUserReadable = () => dispatch => {
+    if (firebaseAuth.currentUser) {
+        return db
+            .collection('userReadable')
+            .doc(firebaseAuth.currentUser.uid)
+            .get()
+            .then(snap => {
+                const userData = snap.data();
                 dispatch({
-                    type: UPDATE_STRIPE_INFO,
-                    payload: userData.stripeInfo
+                    type: USER_READABLE_SUCCESS,
+                    payload: userData
                 });
-            }
-        })
-        .catch(error =>
-            dispatch({
-                type: USER_READABLE_ERROR,
-                payload: error
+                if (
+                    userData.stripeInfo &&
+                    userData.stripeInfo.stripeCustomerId
+                ) {
+                    dispatch({
+                        type: UPDATE_STRIPE_INFO,
+                        payload: userData.stripeInfo
+                    });
+                }
             })
-        );
+            .catch(error =>
+                dispatch({
+                    type: USER_READABLE_ERROR,
+                    payload: error
+                })
+            );
+    }
+};
