@@ -228,10 +228,8 @@ const formOptions = {
                 throw new SubmissionError(error);
             }
             if (stripeCustomerId) {
-                console.log('is add running? ', stripeCustomerId);
-                addCard({ stripeCustomerId, source: newCard.id, dispatch });
+                addCard({ stripeCustomerId, tokenId: newCard.id, dispatch });
             } else {
-                console.log('is create running? ');
                 createStripeCustomerWithCard({
                     email,
                     token: newCard,

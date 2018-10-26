@@ -66,10 +66,10 @@ export const submitPayment = (
 };
 
 export const addCard = async args => {
-    const { stripeCustomerId, source, dispatch } = args;
+    const { stripeCustomerId, tokenId, dispatch } = args;
     dispatch({ type: ADD_CARD_REQUEST });
     try {
-        if (!stripeCustomerId || !source) {
+        if (!stripeCustomerId || !tokenId) {
             dispatch(dropdownAlert(true, 'Missing customer data.'));
             const missingDataError = new Error(
                 'Missing customer data like id.'
@@ -81,7 +81,7 @@ export const addCard = async args => {
         }
         const res = await api.addStripeCustomerSource({
             stripeCustomerId,
-            source
+            source: tokenId
         });
         dispatch(dropdownAlert(true, 'Successfully added card!'));
         const { defaultSource, sources } = res.data;
@@ -104,11 +104,10 @@ export const addCard = async args => {
 };
 
 export const createStripeCustomerWithCard = async args => {
-    const { email, source, dispatch } = args;
+    const { email, token, dispatch } = args;
     dispatch({ type: CREATE_STRIPE_ACCOUNT_REQUEST });
-    console.log('args: ', args);
     try {
-        if (!email || !source) {
+        if (!email || !token) {
             dispatch(dropdownAlert(true, 'Missing user data like email.'));
             const missingDataError = new Error('Missing user data like email.');
             dispatch({
@@ -116,7 +115,7 @@ export const createStripeCustomerWithCard = async args => {
                 error: missingDataError
             });
         }
-        const res = await api.createStripeCustomerWithCard({ email, source });
+        const res = await api.createStripeCustomerWithCard({ email, token });
         dispatch(dropdownAlert(true, 'Successfully added card!'));
         const { stripeCustomerId, defaultSource, sources } = res.data;
         dispatch({
