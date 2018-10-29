@@ -105,29 +105,30 @@ class ApiTester extends Component {
             });
     };
     onAddStripeCustomerSource = () => {
-        const user = firebaseAuth.currentUser;
         stripe
             .createToken({
                 card: {
                     number: '4242 4242 4242 4242',
-                    exp_month: '12',
-                    exp_year: '2019',
+                    exp_month: '1',
+                    exp_year: '2021',
                     cvc: '747',
-                    name: 'Jenny Rosen'
+                    name: 'Mark'
                 }
             })
             .then(card => {
-                const args = { uid: user.uid, source: card.id };
+                const args = {
+                    stripeCustomerId: 'cus_CKpt5YLRKK2QSd',
+                    source: card.id
+                };
                 addStripeCustomerSource(args)
-                    .then(() => {
+                    .then(response => {
                         this.setState({
-                            addStripeCustomerSource:
-                                'Stripe source added successfully'
+                            addStripeCustomerSource: response.data.defaultSource
                         });
                     })
                     .catch(error => {
                         this.setState({
-                            addStripeCustomerSource: error
+                            addStripeCustomerSource: JSON.stringify(error)
                         });
                     });
             })

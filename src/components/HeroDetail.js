@@ -10,36 +10,53 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 // import chatIcon from '../assets/icons/chat.png';
+import profile from '../assets/profile.png';
 
 const IMAGE_SIZE = emY(4.25);
 const CHAT_SIZE = emY(3.375);
 const CHAT_IMAGE_SIZE = emY(1.3125);
 
 const HeroDetail = props => {
-    const { name, type, deliveryTime, image } = props.hero;
+    const { firstName, lastName, type, deliveryTime, heroStatus } = props;
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={{ uri: image }} />
+            <Image style={styles.image} source={profile} />
             <View style={styles.content}>
                 <View style={styles.contentPrimary}>
                     <View style={styles.meta}>
-                        <Text style={[styles.metaItem, styles.name]}>{name.toUpperCase()}</Text>
-                        <Text style={[styles.metaItem, styles.type]}>
-                            <MaterialIcons name="check" size={16} style={styles.check} /> Confirmed{' '}
-                            {type}
+                        <Text style={[styles.metaItem, styles.name]}>
+                            {firstName.toUpperCase()} {lastName.toUpperCase()}
+                        </Text>
+                        <Text style={[styles.metaItem, styles.deliveryTime]}>
+                            Estimated Delivery Time: {deliveryTime / 60} min
+                        </Text>
+                        <Text
+                            style={[
+                                styles.metaItem,
+                                styles.metaItemLast,
+                                styles.deliveryTime
+                            ]}
+                        >
+                            Status: {heroStatus}
                         </Text>
                     </View>
                     {/* <TouchableOpacity style={styles.chatButton}>
                         <Image source={chatIcon} style={styles.chatImage} />
                     </TouchableOpacity> */}
                 </View>
-                <Text style={[styles.metaItem, styles.metaItemLast, styles.deliveryTime]}>
-                    Estimated Delivery Time: {deliveryTime} min
-                </Text>
             </View>
         </View>
     );
 };
+
+// <TouchableOpacity
+//     onPress={() => {
+//     }}
+// >
+//     <Text style={[styles.metaItem, styles.link]}>
+//         <MaterialIcons name="check" size={16} style={styles.check} />{'Confirmed Order'}
+//     </Text>
+// </TouchableOpacity>
 
 const styles = StyleSheet.create({
     container: {
@@ -63,6 +80,9 @@ const styles = StyleSheet.create({
     },
     metaItemLast: {
         marginBottom: 0
+    },
+    link: {
+        color: Color.BLUE_500
     },
     name: {},
     type: {},

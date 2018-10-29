@@ -49,13 +49,14 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                 return resolve();
             })
             .catch(error => {
+                console.log('user creation error: ', error);
                 dispatch({
                     type: SIGNUP_FAIL,
                     payload: error
                 });
                 return reject(
                     new SubmissionError({
-                        _error: 'Crrrazy error'
+                        _error: 'Authentication error'
                     })
                 );
             });
@@ -92,6 +93,7 @@ export const signOut = () => async dispatch => {
     try {
         dispatch({ type: SIGNOUT_REQUEST });
         const result = await firebaseAuth.signOut();
+        dispatch({ type: SIGNOUT_SUCCESS });
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });
@@ -99,8 +101,8 @@ export const signOut = () => async dispatch => {
     }
 };
 
-export const listenToAuthChanges = () => dispatch =>
-    firebaseAuth.onAuthStateChanged(async user => {
+export const listenToAuthChanges = () => dispatch => {
+    firebaseAuth.onAuthStateChanged(user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
             dispatch({ type: SIGNIN_SUCCESS });
@@ -108,28 +110,35 @@ export const listenToAuthChanges = () => dispatch =>
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });
+};
 
-export const getUserReadable = () => dispatch =>
-    db
-        .collection('userReadable')
-        .doc(firebaseAuth.currentUser.uid)
-        .get()
-        .then(snap => {
-            const userData = snap.data();
-            dispatch({
-                type: USER_READABLE_SUCCESS,
-                payload: userData
-            });
-            if (userData.stripeInfo && userData.stripeInfo.stripeCustomerId) {
+export const getUserReadable = () => dispatch => {
+    if (firebaseAuth.currentUser) {
+        return db
+            .collection('userReadable')
+            .doc(firebaseAuth.currentUser.uid)
+            .get()
+            .then(snap => {
+                const userData = snap.data();
                 dispatch({
-                    type: UPDATE_STRIPE_INFO,
-                    payload: userData.stripeInfo
+                    type: USER_READABLE_SUCCESS,
+                    payload: userData
                 });
-            }
-        })
-        .catch(error =>
-            dispatch({
-                type: USER_READABLE_ERROR,
-                payload: error
+                if (
+                    userData.stripeInfo &&
+                    userData.stripeInfo.stripeCustomerId
+                ) {
+                    dispatch({
+                        type: UPDATE_STRIPE_INFO,
+                        payload: userData.stripeInfo
+                    });
+                }
             })
-        );
+            .catch(error =>
+                dispatch({
+                    type: USER_READABLE_ERROR,
+                    payload: error
+                })
+            );
+    }
+};

@@ -1,8 +1,16 @@
 const orderStatuses = {
-    unaccepted: 'unaccepted',
-    accepted: 'accepted',
-    arrived: 'arrived',
+    open: 'open',
+    cancelled: 'cancelled',
+    inProgress: 'in_progress',
+    satisfied: 'satisfied',
     completed: 'completed'
 };
 
-export default orderStatuses;
+const heroStatuses = {
+    available: 'Available',
+    en_route: 'En route...',
+    arrived: 'Arrived!',
+    completed: 'Completed order'
+};
+
+export { orderStatuses, heroStatuses };

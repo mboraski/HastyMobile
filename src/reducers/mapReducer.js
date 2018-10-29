@@ -12,7 +12,6 @@ import {
     MAPS_REVERSE_GEOCODE_SUCCESS,
     MAPS_REVERSE_GEOCODE_FAIL
 } from '../actions/googleMapsActions';
-
 import {
     SAVE_ADDRESS,
     SET_REGION,
@@ -22,6 +21,7 @@ import {
     NULLIFY_MAP_ERROR,
     NO_HEROES_AVAILABLE
 } from '../actions/mapActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
@@ -51,6 +51,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case REHYDRATE:
             if (action.payload && action.payload.map) {
                 return {

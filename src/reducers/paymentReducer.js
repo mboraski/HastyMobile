@@ -6,9 +6,6 @@ import {
     DELETE_CARD_REQUEST,
     DELETE_CARD_SUCCESS,
     DELETE_CARD_FAIL,
-    LIST_CARDS,
-    LIST_CARDS_SUCCESS,
-    LIST_CARDS_FAIL,
     SELECTED_CARD,
     SUBMIT_PAYMENT_REQUEST,
     SUBMIT_PAYMENT_SUCCESS,
@@ -17,6 +14,7 @@ import {
     CREATE_STRIPE_ACCOUNT_SUCCESS,
     CREATE_STRIPE_ACCOUNT_ERROR
 } from '../actions/paymentActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 const initialState = {
     cards: [],
@@ -29,6 +27,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case SUBMIT_PAYMENT_REQUEST:
             return {
                 ...state,
@@ -50,12 +50,11 @@ export default function(state = initialState, action) {
                 pending: true
             };
         case ADD_CARD_SUCCESS:
-            const { defaultSource, sources } = action.payload;
             return {
                 ...state,
                 pending: false,
-                cards: sources.data,
-                defaultSource
+                cards: action.payload.sources.data,
+                defaultSource: action.payload.defaultSource
             };
         case ADD_CARD_FAIL:
             return {
@@ -79,39 +78,18 @@ export default function(state = initialState, action) {
                 pending: false,
                 error: action.payload
             };
-        case LIST_CARDS:
-            return {
-                ...state,
-                pending: true
-            };
-        case LIST_CARDS_SUCCESS:
-            return {
-                ...state,
-                pending: false,
-                cards: action.payload.paymentInfo
-                    ? action.payload.paymentInfo.data
-                    : [],
-                error: null
-            };
-        case LIST_CARDS_FAIL:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
-            };
         case CREATE_STRIPE_ACCOUNT_REQUEST:
             return {
                 ...state,
                 pending: true
             };
         case CREATE_STRIPE_ACCOUNT_SUCCESS:
-            const { stripeCustomerId, defaultSource, sources } = action.payload;
             return {
                 ...state,
                 pending: false,
-                cards: sources.data,
-                defaultSource,
-                stripeCustomerId
+                cards: action.payload.sources.data,
+                defaultSource: action.payload.defaultSource,
+                stripeCustomerId: action.payload.stripeCustomerId
             };
         case CREATE_STRIPE_ACCOUNT_ERROR:
             return {
@@ -128,12 +106,11 @@ export default function(state = initialState, action) {
                 pending: false
             };
         case UPDATE_STRIPE_INFO:
-            const { stripeCustomerId, defaultSource, sources } = action.payload;
             return {
                 ...state,
-                cards: sources.data,
-                defaultSource,
-                stripeCustomerId
+                cards: action.payload.sources.data,
+                defaultSource: action.payload.defaultSource,
+                stripeCustomerId: action.payload.stripeCustomerId
             };
         default:
             return state;

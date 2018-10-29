@@ -7,23 +7,28 @@ import { connect } from 'react-redux';
 import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
 import Notification from '../components/Notification'; // TODO: fix linter error
-import HeroList from '../components/HeroList';
+import HeroListContainer from '../containers/HeroListContainer';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import orderStatuses from '../constants/Order';
-import loaderGradient from '../assets/loader-gradient.png';
-import loaderTicks from '../assets/loader-ticks.png';
+import { orderStatuses } from '../constants/Order';
 
 import { emY } from '../utils/em';
 
-import { getorderId, getStatus, getPending } from '../selectors/orderSelectors';
+import {
+    getOrderId,
+    getStatus,
+    getPending,
+    getFullActualFulfillment,
+    getPartialActualFulfillment
+} from '../selectors/orderSelectors';
 
 import { clearCart } from '../actions/cartActions';
 import {
-    listenToOrder,
-    unlistenToOrder,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    unListenOrderStatus,
     clearOrder
 } from '../actions/orderActions';
 
@@ -33,13 +38,13 @@ const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 class DeliveryStatusScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Order',
-        headerLeft: <MenuButton style={Style.headerLeft} />,
+        headerLeft: (
+            <MenuButton navigation={navigation} style={Style.headerLeft} />
+        ),
         headerRight: (
             <BrandButton
                 onPress={() => {
-                    clearCart();
-                    clearOrder();
-                    navigation.navigate('map');
+                    /* contact Hero options */
                 }}
             />
         ),
@@ -47,77 +52,56 @@ class DeliveryStatusScreen extends Component {
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });
 
-    componentDidMount() {
-        const orderId = this.props.orderId;
-        if (orderId) {
-            this.props.listenToOrder(orderId);
-        }
+    state = {
+        modalVisible: false
+    };
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.header.toggleState !== nextProps.header.toggleState) {
-            if (nextProps.header.isMenuOpen) {
-                this.props.navigation.navigate('DrawerOpen');
-            } else {
-                this.props.navigation.navigate('DrawerClose');
-            }
-        }
         if (this.props.status !== nextProps.status) {
-            this.notRef.receiveNotification();
-            if (nextProps.status === 'completed') {
+            // this.notRef.receiveNotification();
+            if (nextProps.status === orderStatuses.completed) {
                 this.props.clearCart();
                 this.props.clearOrder();
+                this.props.unListenToOrderFulfillment(this.props.orderId);
+                this.props.unListenOrderError(this.props.orderId);
+                this.props.unListenOrderStatus(this.props.orderId);
                 this.props.navigation.navigate('map');
             }
         }
     }
 
-    componentWillUnmount() {
-        this.props.unlistenToOrder(this.props.orderId);
-    }
-
     renderHeroList() {
-        if (
-            this.props.status === orderStatuses.accepted ||
-            this.props.status === orderStatuses.arrived
-        ) {
-            return (
-                <View style={styles.container}>
-                    <View style={styles.label}>
-                        <Text style={styles.labelText}>Hero Details:</Text>
-                    </View>
-                    <HeroList />
-                </View>
-            );
-        }
-    }
-
-    renderArrived() {
-        if (this.props.status === orderStatuses.arrived) {
-            return (
-                <View style={styles.container}>
-                    <View style={styles.labelAlt}>
-                        <Text style={styles.labelText}>
-                            Note: Look for orange Hasty shirt!
-                        </Text>
-                    </View>
-                </View>
-            );
-        }
+        return (
+            <View style={styles.heroList}>
+                <HeroListContainer />
+            </View>
+        );
     }
 
     render() {
-        const { orderId } = this.props;
+        const { orderId, status } = this.props;
         return (
             <View style={styles.container}>
                 {orderId ? (
-                    <View style={styles.container}>
-                        <View style={styles.spinner}>
-                            <ActivityIndicator size="large" color="#F5A623" />
+                    <View style={styles.statusContainer}>
+                        {status !== orderStatuses.satisfied && (
+                            <View style={styles.spinner}>
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#F5A623"
+                                />
+                            </View>
+                        )}
+                        <View style={styles.notifications}>
+                            <Notification onRef={ref => (this.notRef = ref)} />
                         </View>
-                        <Notification onRef={ref => (this.notRef = ref)} />
-                        {/* {this.renderHeroList()} */}
-                        {this.renderArrived()}
+                        {status === orderStatuses.inProgress ||
+                            (status === orderStatuses.satisfied &&
+                                this.renderHeroList())}
                     </View>
                 ) : (
                     <View style={styles.container}>
@@ -133,6 +117,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    statusContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start'
+    },
+    heroList: {
+        position: 'absolute',
+        bottom: 30,
+        width: '100%'
     },
     profile: {
         alignItems: 'center',
@@ -168,6 +162,9 @@ const styles = StyleSheet.create({
         height: SIZE,
         transform: [{ translate: [0, -SIZE * 1] }, { scale: 1 }]
     },
+    notifications: {
+        paddingVertical: 40
+    },
     ticks: {
         position: 'absolute',
         top: '50%',
@@ -185,42 +182,24 @@ const styles = StyleSheet.create({
     spinner: {
         marginTop: 30,
         marginBottom: 20
-    },
-    label: {
-        borderBottomWidth: StyleSheet.hairlineWidth * 3,
-        borderColor: Color.GREY_300,
-        backgroundColor: Color.WHITE,
-        paddingBottom: 5,
-        marginLeft: 27,
-        marginRight: 27
-    },
-    labelAlt: {
-        borderColor: Color.GREY_300,
-        backgroundColor: Color.WHITE,
-        paddingBottom: 5,
-        marginLeft: 27,
-        marginRight: 27,
-        marginVertical: 10
-    },
-    labelText: {
-        color: Color.GREY_600,
-        fontSize: emY(1.0625),
-        letterSpacing: 0.5
     }
 });
 
 const mapStateToProps = state => ({
     header: state.header,
-    orderId: getorderId(state),
+    orderId: getOrderId(state),
     status: getStatus(state),
-    pending: getPending(state)
+    pending: getPending(state),
+    full: getFullActualFulfillment(state),
+    partial: getPartialActualFulfillment(state)
 });
 
 const mapDispatchToProps = {
-    listenToOrder,
-    unlistenToOrder,
     clearCart,
-    clearOrder
+    clearOrder,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    unListenOrderStatus
 };
 
 export default connect(

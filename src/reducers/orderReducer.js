@@ -1,60 +1,64 @@
 import {
     SET_CONTRACTORS,
+    CLEAR_ORDER,
     ORDER_CREATION_SUCCESS,
-    LISTEN_ORDER_REQUEST,
-    LISTEN_ORDER_FAILURE,
-    ORDER_UPDATE,
-    NEW_HERO,
-    CLEAR_ORDER
+    LISTEN_ORDER_STATUS,
+    UPDATE_ORDER_STATUS,
+    UPDATE_ORDER_FULFILLMENT,
+    UPDATE_ORDER_ERROR
 } from '../actions/orderActions';
+import { SIGNOUT_SUCCESS } from '../actions/authActions';
+
+import { orderStatuses } from '../constants/Order';
 
 const initialState = {
     orderId: '',
-    contractors: null,
+    contactorIds: {},
     pending: false,
     status: '',
-    hero: {}
+    order: {},
+    error: null
 };
 
 const orderReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SIGNOUT_SUCCESS:
+            return initialState;
         case SET_CONTRACTORS:
             return {
                 ...state,
-                contractors: action.payload
+                contactorIds: action.payload
+            };
+        case CLEAR_ORDER:
+            return {
+                ...state,
+                ...initialState
             };
         case ORDER_CREATION_SUCCESS:
             return {
                 ...state,
                 orderId: action.payload
             };
-        case CLEAR_ORDER:
-            return {
-                ...state,
-                orderId: '',
-                pending: false,
-                hero: {}
-            };
-        case LISTEN_ORDER_REQUEST:
+        case LISTEN_ORDER_STATUS:
             return {
                 ...state,
                 pending: true
             };
-        case LISTEN_ORDER_FAILURE:
-            return {
-                ...state,
-                pending: false
-            };
-        case ORDER_UPDATE:
+        case UPDATE_ORDER_STATUS:
             return {
                 ...state,
                 status: action.payload,
-                pending: false
+                pending: action.payload !== orderStatuses.completed
             };
-        case NEW_HERO:
+        case UPDATE_ORDER_FULFILLMENT:
             return {
                 ...state,
-                hero: action.payload,
+                order: action.payload
+            };
+        case UPDATE_ORDER_ERROR:
+            return {
+                ...state,
+                error: action.payload,
                 pending: false
             };
         default:

@@ -76,7 +76,7 @@ class SignUpFormContainer extends Component {
                     />
                     <InlineLabelTextInputField
                         containerStyle={styles.fieldContainer}
-                        name="number"
+                        name="phoneNumber"
                         label="Phone Number"
                         keyboardType="phone-pad"
                         validate={[required, validPhoneNumber]}

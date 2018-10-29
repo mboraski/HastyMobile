@@ -7,30 +7,35 @@ import moment from 'moment';
 import { Permissions } from 'expo';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
 import { listenToAuthChanges, signOut } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { unListenProductsRef } from '../actions/productActions';
-// import { reduxBoundAddListener } from '../store';
+import { unListenCustomerBlock } from '../actions/productActions';
+import {
+    unListenOrderStatus,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    listenToOrderStatus,
+    listenToOrderFulfillment,
+    listenToOrderError
+} from '../actions/orderActions';
 
-// const initialValuesRef = firebase.database().ref('initialValues');
-//
-// const activeProductsRef = firebase
-//     .database()
-//     .ref('activeProducts/US/TX/Austin');
+import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
     async componentWillMount() {
-        if (
-            this.props.user &&
-            moment().isAfter(moment(this.props.authExpirationDate))
-        ) {
-            this.props.signOut();
-        }
-
         this.props.listenToAuthChanges();
+
+        // if (
+        //     this.props.user || firebaseAuth.currentUser &&
+        //     moment().isAfter(moment(this.props.authExpirationDate))
+        // ) {
+        //     console.log('current moment: ', moment().toDate());
+        //     this.props.signOut();
+        // }
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -62,8 +67,27 @@ class RootContainer extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.orderId) {
+            this.props.listenToOrderStatus(this.props.orderId);
+            this.props.listenToOrderError(this.props.orderId);
+            this.props.listenToOrderFulfillment(this.props.orderId);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.orderId && nextProps.orderId) {
+            this.props.listenToOrderStatus(nextProps.orderId);
+            this.props.listenToOrderError(nextProps.orderId);
+            this.props.listenToOrderFulfillment(nextProps.orderId);
+        }
+    }
+
     componentWillUnMount() {
-        this.props.unListenProductsRef();
+        this.props.unListenCustomerBlock();
+        this.props.unListenToOrderFulfillment(this.props.orderId);
+        this.props.unListenOrderError(this.props.orderId);
+        this.props.unListenOrderStatus(this.props.orderId);
     }
 
     // handleNotification = notification => {
@@ -127,15 +151,22 @@ const mapStateToProps = state => ({
     customerPopupVisible: state.ui.customerPopupVisible,
     dropdownAlertVisible: state.ui.dropdownAlertVisible,
     dropdownAlertText: state.ui.dropdownAlertText,
+    orderId: getOrderId(state),
     nav: state.nav
 });
 
 const mapDispatchToProps = {
-    unListenProductsRef,
+    unListenCustomerBlock,
     closeCustomerPopup,
     dropdownAlert,
     listenToAuthChanges,
-    signOut
+    signOut,
+    unListenOrderStatus,
+    unListenToOrderFulfillment,
+    unListenOrderError,
+    listenToOrderStatus,
+    listenToOrderFulfillment,
+    listenToOrderError
 };
 
 export default connect(

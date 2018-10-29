@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { functions } from '../../firebase';
 
 export const instance = axios.create({
     baseURL: 'https://us-central1-hasty-14d18.cloudfunctions.net/'
@@ -7,20 +8,24 @@ export const instance = axios.create({
 //     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
 // });
 
-export function createStripeAccountWithCard(args) {
-    return instance.post('createStripeAccountWithCard', args);
+export function createStripeCustomerWithCard(args) {
+    const csawc = functions.httpsCallable('createStripeCustomerWithCard');
+    return csawc(args);
 }
 
 export function addStripeCustomerSource(args) {
-    return instance.post('addStripeCustomerSource', args);
+    const ascs = functions.httpsCallable('addStripeCustomerSource');
+    return ascs(args);
 }
 
 export function removeStripeCustomerSource(args) {
-    return instance.post('removeStripeCustomerSource', args);
+    const rscs = functions.httpsCallable('removeStripeCustomerSource');
+    return rscs(args);
 }
 
 export function chargeStripeCustomerSource(args) {
-    return instance.post('chargeStripeCustomerSource', args);
+    const cscs = functions.httpsCallable('chargeStripeCustomerSource');
+    return cscs(args);
 }
 
 export function logCustomerError(args) {

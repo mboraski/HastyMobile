@@ -17,7 +17,7 @@ import stripeClient from 'stripe-client';
 import {
     addCard,
     deleteCard,
-    createStripeAccountWithCard
+    createStripeCustomerWithCard
 } from '../actions/paymentActions';
 
 import { getStripeCustomerId, getPending } from '../selectors/paymentSelectors';
@@ -196,48 +196,48 @@ const styles = StyleSheet.create({
 const formOptions = {
     form: 'CreditCard',
     async onSubmit(values, dispatch, props) {
-        const stripeCustomerId = props.stripeCustomerId;
-        const email = props.email;
-        const exp = values.exp.split('/');
-        const information = {
-            card: {
-                number: values.number.replace(' ', ''),
-                exp_month: Number(exp[0] || 0),
-                exp_year: Number(exp[1] || 0),
-                cvc: values.cvc,
-                name: values.name
-            }
-        };
-        const newCard = await stripe.createToken(information);
-        if (newCard.error) {
-            let error;
-            if (newCard.error.param) {
-                error = { _error: 'Card is invalid' };
-                if (
-                    newCard.error.param === 'exp_month' ||
-                    newCard.error.param === 'exp_year'
-                ) {
-                    error.exp = newCard.error.message;
-                } else {
-                    error[newCard.error.param] = newCard.error.message;
+        try {
+            const stripeCustomerId = props.stripeCustomerId;
+            const email = props.email;
+            const exp = values.exp.split('/');
+            const information = {
+                card: {
+                    number: values.number.replace(' ', ''),
+                    exp_month: Number(exp[0] || 0),
+                    exp_year: Number(exp[1] || 0),
+                    cvc: values.cvc,
+                    name: values.name
                 }
-            } else {
-                error = { _error: newCard.error.message };
+            };
+            const newCard = await stripe.createToken(information);
+            if (newCard.error) {
+                let error;
+                if (newCard.error.param) {
+                    error = { _error: 'Card is invalid' };
+                    if (
+                        newCard.error.param === 'exp_month' ||
+                        newCard.error.param === 'exp_year'
+                    ) {
+                        error.exp = newCard.error.message;
+                    } else {
+                        error[newCard.error.param] = newCard.error.message;
+                    }
+                } else {
+                    error = { _error: newCard.error.message };
+                }
+                throw new SubmissionError(error);
             }
-            throw new SubmissionError(error);
-        }
-        if (stripeCustomerId) {
-            dispatch(
-                addCard({ stripeCustomerId, source: newCard.id, dispatch })
-            );
-        } else {
-            dispatch(
-                createStripeAccountWithCard({
+            if (stripeCustomerId) {
+                addCard({ stripeCustomerId, tokenId: newCard.id, dispatch });
+            } else {
+                createStripeCustomerWithCard({
                     email,
-                    source: newCard.id,
+                    token: newCard,
                     dispatch
-                })
-            );
+                });
+            }
+        } catch (error) {
+            console.log('Credit Card Submit Error: ', error);
         }
     }
 };

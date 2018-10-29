@@ -1,8 +1,17 @@
 import { createSelector } from 'reselect';
 
 export const getOrder = state => state.order.order;
+export const getOrderId = state => state.order.orderId;
 export const getPending = state => state.order.pending;
 export const getStatus = state => state.order.status;
-export const getHero = state => state.order.hero;
+export const getContactorIds = state => state.order.contactorIds;
 
-export const getOrderId = createSelector([getOrder], order => order.id);
+export const getFullActualFulfillment = createSelector(
+    [getOrder],
+    order => order.full || {}
+);
+
+export const getPartialActualFulfillment = createSelector(
+    [getOrder],
+    order => order.partial || {}
+);

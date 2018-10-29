@@ -1,6 +1,6 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
@@ -14,9 +14,13 @@ import Color from '../constants/Color';
 import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
-import { listCards } from '../actions/paymentActions';
+import { getUserReadable } from '../actions/authActions';
 
-import { getCards, getStripeCustomerId } from '../selectors/paymentSelectors';
+import {
+    getCards,
+    getStripeCustomerId,
+    getPending
+} from '../selectors/paymentSelectors';
 import { getSignUpAddPaymentMethodText } from '../selectors/marketingSelectors';
 
 class PaymentMethodScreen extends Component {
@@ -37,10 +41,7 @@ class PaymentMethodScreen extends Component {
     };
 
     componentDidMount() {
-        const { stripeCustomerId } = this.props;
-        if (stripeCustomerId) {
-            this.props.listCards();
-        }
+        this.props.getUserReadable();
     }
 
     addCard = () => {
@@ -49,6 +50,16 @@ class PaymentMethodScreen extends Component {
 
     selectPaymentMethod = card => {
         this.props.navigation.navigate('creditCard', { card });
+    };
+
+    renderSignUpPaymentMethodText = signedUp => {
+        if (signedUp) {
+            return (
+                <Text style={styles.signUpAddPaymentMethodText}>
+                    {this.props.signUpAddPaymentMethodText}
+                </Text>
+            );
+        }
     };
 
     renderCard = (card, index) => {
@@ -64,15 +75,20 @@ class PaymentMethodScreen extends Component {
     };
 
     render() {
-        const { cards, navigation, signUpAddPaymentMethodText } = this.props;
+        const { cards, navigation, pending } = this.props;
         const signedUp = navigation.getParam('signedUp', false);
         return (
             <ScrollView style={styles.container}>
-                {signedUp && (
-                    <Text style={styles.signUpAddPaymentMethodText}>
-                        {signUpAddPaymentMethodText}
-                    </Text>
+                {pending && (
+                    <View style={styles.overlay}>
+                        <ActivityIndicator
+                            animating={pending}
+                            size="large"
+                            color="#f5a623"
+                        />
+                    </View>
                 )}
+                {this.renderSignUpPaymentMethodText(signedUp)}
                 <SectionTitle title="MY CARDS" />
                 {!signedUp && cards.map(this.renderCard)}
                 <PaymentMethod text="Add Card" onPress={this.addCard} />
@@ -101,11 +117,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     stripeCustomerId: getStripeCustomerId(state),
     cards: getCards(state),
-    signUpAddPaymentMethodText: getSignUpAddPaymentMethodText(state)
+    signUpAddPaymentMethodText: getSignUpAddPaymentMethodText(state),
+    pending: getPending(state)
 });
 
 const mapDispatchToProps = {
-    listCards
+    getUserReadable
 };
 
 export default connect(

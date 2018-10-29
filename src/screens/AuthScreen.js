@@ -34,12 +34,10 @@ class AuthScreen extends Component {
         openModal: false
     };
 
-    componentDidMount() {
-        // TODO: uncomment
-        // const { firstTimeOpened, navigation } = this.props;
-        // if (firstTimeOpened) {
-        //     navigation.dispatch(reset('welcome'));
-        // }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.user || nextProps.user) {
+            this.props.navigation.navigate('map');
+        }
     }
 
     openSignUpForm = () => {
