@@ -63,8 +63,10 @@ class RootContainer extends Component {
             finalStatus = status;
         }
 
-        const token = await Notifications.getExpoPushTokenAsync();
-        this.props.setUserExpoPushToken(token);
+        // Temp since iOS does not ask twice.
+        // const token = await Notifications.getExpoPushTokenAsync();
+        // this.props.setUserExpoPushToken(token);
+
         if (finalStatus === 'granted') {
             const token = await Notifications.getExpoPushTokenAsync();
             this.props.setUserExpoPushToken(token);

@@ -42,7 +42,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'deliveryStatus',
+        initialRouteName: 'feedback',
         navigationOptions: {
             tabBarVisible: false
         },

@@ -14,6 +14,7 @@ import Text from '../components/Text';
 import { showFeedbackForm, hideFeedbackForm } from '../actions/uiActions';
 
 import { getFeedbackFormVisible } from '../selectors/uiSelectors';
+import { getContractorName } from '../selectors/orderSelectors';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
@@ -61,12 +62,9 @@ class FeedbackScreen extends Component {
     };
 
     render() {
-        const { name, numProducts, feedbackFormVisible } = this.props;
+        const { name, feedbackFormVisible } = this.props;
         const { userRating, productRating, overallRating } = this.state;
-        const productTitle =
-            numProducts > 1
-                ? 'How were your products?'
-                : 'How was your product?';
+        const productTitle = 'How was the product condition?';
         return feedbackFormVisible ? (
             <KeyboardAvoidingView
                 style={styles.container}
@@ -153,7 +151,7 @@ FeedbackScreen.navigationOptions = ({ navigation }) => {
 };
 
 const mapStateToProps = state => ({
-    name: 'Jessica',
+    name: getContractorName(state),
     numProducts: 1,
     feedbackFormVisible: getFeedbackFormVisible(state)
 });
@@ -163,4 +161,7 @@ const mapDispatchToProps = {
     hideFeedbackForm
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedbackScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FeedbackScreen);

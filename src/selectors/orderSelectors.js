@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import map from 'lodash.map';
 
 export const getOrder = state => state.order.order;
 export const getOrderId = state => state.order.orderId;
@@ -14,4 +15,15 @@ export const getFullActualFulfillment = createSelector(
 export const getPartialActualFulfillment = createSelector(
     [getOrder],
     order => order.partial || {}
+);
+
+export const getContractorName = createSelector(
+    [getFullActualFulfillment],
+    full => {
+        const contractors = map(full, contractor => {
+            return `${contractor.firstName} ${contractor.lastName}`;
+        });
+        console.log('contractors names: ', contractors);
+        return contractors[0];
+    }
 );

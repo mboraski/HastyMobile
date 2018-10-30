@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // Relative Imports
 import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
-import Notification from '../components/Notification'; // TODO: fix linter error
+import NotificationContainer from '../containers/NotificationContainer'; // TODO: fix linter error
 import HeroListContainer from '../containers/HeroListContainer';
 import Text from '../components/Text';
 
@@ -62,14 +62,11 @@ class DeliveryStatusScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.status !== nextProps.status) {
-            // this.notRef.receiveNotification();
             if (nextProps.status === orderStatuses.completed) {
-                this.props.clearCart();
-                this.props.clearOrder();
-                this.props.unListenToOrderFulfillment(this.props.orderId);
-                this.props.unListenOrderError(this.props.orderId);
-                this.props.unListenOrderStatus(this.props.orderId);
-                this.props.navigation.navigate('map');
+                this.props.navigation.navigate('feedback');
+            }
+            if (nextProps.status === orderStatuses.cancelled) {
+                this.props.navigation.navigate('checkout');
             }
         }
     }
@@ -84,20 +81,24 @@ class DeliveryStatusScreen extends Component {
 
     render() {
         const { orderId, status } = this.props;
+        const activity =
+            status !== orderStatuses.completed &&
+            status !== orderStatuses.cancelled;
         return (
             <View style={styles.container}>
                 {orderId ? (
                     <View style={styles.statusContainer}>
-                        {status !== orderStatuses.satisfied && (
+                        {activity && (
                             <View style={styles.spinner}>
                                 <ActivityIndicator
+                                    animating={activity}
                                     size="large"
                                     color="#F5A623"
                                 />
                             </View>
                         )}
                         <View style={styles.notifications}>
-                            <Notification onRef={ref => (this.notRef = ref)} />
+                            <NotificationContainer />
                         </View>
                         {status === orderStatuses.inProgress ||
                             (status === orderStatuses.satisfied &&

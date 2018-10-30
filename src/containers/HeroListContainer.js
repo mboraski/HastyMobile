@@ -17,24 +17,27 @@ import { heroStatuses } from '../constants/Order';
 import { emY } from '../utils/em';
 
 class HeroListContainer extends Component {
-    contactContractor = contractorId =>
-        this.props.contactContractor(contractorId, this.props.phoneNumber);
+    contactContractor = contractorId => {
+        return this.props.contactContractor(
+            contractorId,
+            this.props.phoneNumber
+        );
+    };
 
     renderHeroes = () => {
         const { fullHeroes } = this.props;
-        return map(fullHeroes, (hero, i, contractorId) => {
+        return map(fullHeroes, (hero, i) => {
             const { firstName, lastName, deliveryTime, status } = hero;
-            const heroStatus = heroStatuses[status] || 'Saving the day!';
-            console.log('heroStatus: ', heroStatus);
+            const heroStatus = heroStatuses[status] || 'En route...';
             return (
                 <HeroDetail
-                    key={i}
+                    key={lastName}
                     firstName={firstName}
                     lastName={lastName}
                     deliveryTime={deliveryTime}
                     type={'Full Order'}
                     heroStatus={heroStatus}
-                    contractorId={contractorId}
+                    contractorId={i}
                     contactContractor={this.contactContractor}
                 />
             );
