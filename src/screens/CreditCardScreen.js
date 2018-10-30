@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 // Relative Imports
 import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
-import { listCards } from '../actions/paymentActions';
 import { getUser } from '../selectors/authSelectors';
 import { default as CreditCardFormContainer } from '../containers/CreditCardFormContainer';
 import Style from '../constants/Style';
@@ -29,13 +28,11 @@ const mapStateToProps = state => ({
     user: getUser(state)
 });
 
-const mapDispatchToProps = {
-    listCards
-};
+const mapDispatchToProps = {};
 
 CreditCardScreen.navigationOptions = ({ navigation }) => ({
     title:
-        navigation.state.params && navigation.state.params.card
+        navigation.state.params && navigation.state.params.source
             ? 'Edit Card'
             : 'Add Card',
     headerLeft: <BackButton onPress={() => navigation.pop()} />,

@@ -16,6 +16,7 @@ export const SIGNOUT_SUCCESS = 'signout_success';
 export const SIGNOUT_FAIL = 'signout_fail';
 export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
+export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
 
 export const createUserWithEmailAndPassword = (values, dispatch) =>
     new Promise((resolve, reject) => {
@@ -110,6 +111,19 @@ export const listenToAuthChanges = () => dispatch => {
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });
+};
+
+export const setUserExpoPushToken = token => dispatch => {
+    dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
+    const userDoc = db.collection('users').doc(firebaseAuth.currentUser.uid);
+    return userDoc
+        .update({ expoPushToken: token })
+        .then(() => {
+            console.log('set expo push token success');
+        })
+        .catch(error => {
+            console.log('set expo push token error: ', error);
+        });
 };
 
 export const getUserReadable = () => dispatch => {

@@ -2,16 +2,18 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// import { addNavigationHelpers, NavigationActions } from 'react-navigation';
-import moment from 'moment';
-import { Permissions } from 'expo';
+// import moment from 'moment';
+import { Permissions, Notifications } from 'expo';
 
 // Relative Imports
-import { firebaseAuth } from '../../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
-import { listenToAuthChanges, signOut } from '../actions/authActions';
+import {
+    listenToAuthChanges,
+    signOut,
+    setUserExpoPushToken
+} from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { unListenCustomerBlock } from '../actions/productActions';
 import {
@@ -26,7 +28,7 @@ import {
 import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
-    async componentWillMount() {
+    componentWillMount() {
         this.props.listenToAuthChanges();
 
         // if (
@@ -36,6 +38,14 @@ class RootContainer extends Component {
         //     console.log('current moment: ', moment().toDate());
         //     this.props.signOut();
         // }
+    }
+
+    async componentDidMount() {
+        if (this.props.orderId) {
+            this.props.listenToOrderStatus(this.props.orderId);
+            this.props.listenToOrderError(this.props.orderId);
+            this.props.listenToOrderFulfillment(this.props.orderId);
+        }
 
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -53,25 +63,14 @@ class RootContainer extends Component {
             finalStatus = status;
         }
 
+        const token = await Notifications.getExpoPushTokenAsync();
+        this.props.setUserExpoPushToken(token);
         if (finalStatus === 'granted') {
-            // Get the token that uniquely identifies this device
-            // let token = await Notifications.getExpoPushTokenAsync();
-            // Handle notifications that are received or selected while the app
-            // is open. If the app was closed and then opened by tapping the
-            // notification (rather than just tapping the app icon to open it),
-            // this function will fire on the next tick after the app starts
-            // with the notification data.
+            const token = await Notifications.getExpoPushTokenAsync();
+            this.props.setUserExpoPushToken(token);
             // this.notificationSubscription = Notifications.addListener(
             //     this.handleNotification
             // );
-        }
-    }
-
-    componentDidMount() {
-        if (this.props.orderId) {
-            this.props.listenToOrderStatus(this.props.orderId);
-            this.props.listenToOrderError(this.props.orderId);
-            this.props.listenToOrderFulfillment(this.props.orderId);
         }
     }
 
@@ -157,6 +156,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     unListenCustomerBlock,
+    setUserExpoPushToken,
     closeCustomerPopup,
     dropdownAlert,
     listenToAuthChanges,
