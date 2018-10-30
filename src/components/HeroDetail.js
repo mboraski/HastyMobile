@@ -2,14 +2,12 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Icon } from 'react-native-elements';
 
 // Relative Imports
 import Text from './Text';
 import Color from '../constants/Color';
-import Style from '../constants/Style';
 import { emY } from '../utils/em';
-// import chatIcon from '../assets/icons/chat.png';
+import chatIcon from '../assets/icons/chat.png';
 import profile from '../assets/profile.png';
 
 const IMAGE_SIZE = emY(4.25);
@@ -17,7 +15,17 @@ const CHAT_SIZE = emY(3.375);
 const CHAT_IMAGE_SIZE = emY(1.3125);
 
 const HeroDetail = props => {
-    const { firstName, lastName, type, deliveryTime, heroStatus } = props;
+    const {
+        firstName,
+        lastName,
+        deliveryTime,
+        heroStatus,
+        contractorId,
+        contactContractor
+    } = props;
+
+    const callContractor = () => contactContractor(contractorId);
+
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={profile} />
@@ -27,6 +35,12 @@ const HeroDetail = props => {
                         <Text style={[styles.metaItem, styles.name]}>
                             {firstName.toUpperCase()} {lastName.toUpperCase()}
                         </Text>
+                        <TouchableOpacity
+                            style={styles.chatButton}
+                            onPress={callContractor}
+                        >
+                            <Image source={chatIcon} style={styles.chatImage} />
+                        </TouchableOpacity>
                         <Text style={[styles.metaItem, styles.deliveryTime]}>
                             Estimated Delivery Time: {deliveryTime / 60} min
                         </Text>
@@ -40,9 +54,6 @@ const HeroDetail = props => {
                             Status: {heroStatus}
                         </Text>
                     </View>
-                    {/* <TouchableOpacity style={styles.chatButton}>
-                        <Image source={chatIcon} style={styles.chatImage} />
-                    </TouchableOpacity> */}
                 </View>
             </View>
         </View>

@@ -1,5 +1,6 @@
 import { orderStatuses } from '../constants/Order';
 import { rtdb } from '../../firebase';
+import * as api from '../api/hasty';
 
 const ORDER_REF = 'activeProducts/US/TX/Austin/orders';
 
@@ -10,6 +11,7 @@ export const LISTEN_ORDER_STATUS = 'listen_order_status';
 export const UPDATE_ORDER_STATUS = 'UPDATE_ORDER_STATUS';
 export const UPDATE_ORDER_FULFILLMENT = 'update_order_fulfillment';
 export const UPDATE_ORDER_ERROR = 'update_order_error';
+export const CALL_CONTRACTOR_REQUEST = 'call_contractor_request';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -102,3 +104,19 @@ export const listenToOrderError = orderId => dispatch => {
 
 export const unListenOrderError = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/error`).off();
+
+export const contactContractor = (
+    contractorId,
+    phoneNumber
+) => async dispatch => {
+    dispatch({ type: CALL_CONTRACTOR_REQUEST }); // TODO: nothing listening yet
+    try {
+        const call = await api.consumerCallsContractor({
+            contractorId,
+            phoneNumber
+        });
+        console.log('call to contractor started: ', call);
+    } catch (err) {
+        console.log('call to contractor errored: ', err);
+    }
+};
