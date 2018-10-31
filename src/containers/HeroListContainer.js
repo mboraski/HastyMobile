@@ -28,7 +28,7 @@ class HeroListContainer extends Component {
         const { fullHeroes } = this.props;
         return map(fullHeroes, (hero, i) => {
             const { firstName, lastName, deliveryTime, status } = hero;
-            const heroStatus = heroStatuses[status] || 'En route...';
+            const heroStatus = heroStatuses[status] || 'Pending...';
             return (
                 <HeroDetail
                     key={lastName}

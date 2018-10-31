@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 
 import Text from '../components/Text';
 // import NotificationActions from '../actions/notificationActions';
-import { orderStatuses } from '../constants/Order';
+import { orderStatuses, heroStatuses } from '../constants/Order';
 import { emY } from '../utils/em';
-import { getStatus, getPending } from '../selectors/orderSelectors';
+import {
+    getStatus,
+    getPending,
+    getContractorStatus
+} from '../selectors/orderSelectors';
 
 class NotificationContainer extends Component {
     state = {
@@ -36,12 +40,16 @@ class NotificationContainer extends Component {
                 return 'Contacting Heroes';
             case orderStatuses.satisfied:
                 return 'A Hero has answered your call!';
-            case orderStatuses.arrived:
-                return 'Hero has arrived!';
             case orderStatuses.completed:
                 return 'Order completed, see you again soon!';
             case orderStatuses.cancelled:
                 return 'No Heroes could answer your call.';
+            default:
+                break;
+        }
+        switch (this.props.contractorStatus) {
+            case heroStatuses.arrived:
+                return 'Hero has arrived!';
             default:
                 break;
         }
@@ -128,7 +136,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     status: getStatus(state),
-    pending: getPending(state)
+    pending: getPending(state),
+    contractorStatus: getContractorStatus(state)
 });
 
 const mapDispatchToProps = {};

@@ -7,10 +7,14 @@ const orderStatuses = {
 };
 
 const heroStatuses = {
-    available: 'Available',
+    accepted: 'Accepted order',
     en_route: 'En route...',
     arrived: 'Arrived!',
-    completed: 'Completed order'
+    delivered: 'Delivery complete'
 };
 
-export { orderStatuses, heroStatuses };
+const contractorStatuses = {
+    delivered: 'delivered'
+};
+
+export { orderStatuses, heroStatuses, contractorStatuses };

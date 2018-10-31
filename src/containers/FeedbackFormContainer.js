@@ -156,13 +156,14 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'Feedback',
-    async onSubmit() {
-        return new Promise(resolve => setTimeout(resolve, 1000));
-    }
+    submit: values => values
 };
 
 const mapDispatchToProps = {};
 
 export default reduxForm(formOptions)(
-    connect(null, mapDispatchToProps)(FeedbackFormContainer)
+    connect(
+        null,
+        mapDispatchToProps
+    )(FeedbackFormContainer)
 );

@@ -27,3 +27,14 @@ export const getContractorName = createSelector(
         return contractors[0];
     }
 );
+
+export const getContractorStatus = createSelector(
+    [getFullActualFulfillment],
+    full => {
+        const contractorStatuses = map(full, contractor => {
+            return contractor.status;
+        });
+        console.log('contractorStatuses: ', contractorStatuses);
+        return contractorStatuses[0];
+    }
+);

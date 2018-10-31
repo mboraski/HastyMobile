@@ -12,7 +12,7 @@ import Text from '../components/Text';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { orderStatuses } from '../constants/Order';
+import { orderStatuses, contractorStatuses } from '../constants/Order';
 
 import { emY } from '../utils/em';
 
@@ -21,7 +21,8 @@ import {
     getStatus,
     getPending,
     getFullActualFulfillment,
-    getPartialActualFulfillment
+    getPartialActualFulfillment,
+    getContractorStatus
 } from '../selectors/orderSelectors';
 
 import { clearCart } from '../actions/cartActions';
@@ -61,10 +62,13 @@ class DeliveryStatusScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.status !== nextProps.status) {
-            if (nextProps.status === orderStatuses.completed) {
-                this.props.navigation.navigate('feedback');
-            }
+        if (nextProps.contractorStatus === contractorStatuses.delivered) {
+            this.props.navigation.navigate('feedback');
+        } else if (this.props.status !== nextProps.status) {
+            // TODO: uncomment when users can X out of giving feedback
+            // if (nextProps.status === orderStatuses.completed) {
+            //     this.props.navigation.navigate('map');
+            // }
             if (nextProps.status === orderStatuses.cancelled) {
                 this.props.navigation.navigate('checkout');
             }
@@ -192,7 +196,8 @@ const mapStateToProps = state => ({
     status: getStatus(state),
     pending: getPending(state),
     full: getFullActualFulfillment(state),
-    partial: getPartialActualFulfillment(state)
+    partial: getPartialActualFulfillment(state),
+    contractorStatus: getContractorStatus(state)
 });
 
 const mapDispatchToProps = {
