@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 // Relative Imports
 import MenuButton from '../components/MenuButton';
 import BrandButton from '../components/BrandButton';
-import Notification from '../components/Notification'; // TODO: fix linter error
+import NotificationContainer from '../containers/NotificationContainer'; // TODO: fix linter error
 import HeroListContainer from '../containers/HeroListContainer';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
 import Style from '../constants/Style';
-import { orderStatuses } from '../constants/Order';
+import { orderStatuses, contractorStatuses } from '../constants/Order';
 
 import { emY } from '../utils/em';
 
@@ -21,7 +21,8 @@ import {
     getStatus,
     getPending,
     getFullActualFulfillment,
-    getPartialActualFulfillment
+    getPartialActualFulfillment,
+    getContractorStatus
 } from '../selectors/orderSelectors';
 
 import { clearCart } from '../actions/cartActions';
@@ -31,6 +32,7 @@ import {
     unListenOrderStatus,
     clearOrder
 } from '../actions/orderActions';
+import { dropdownAlert } from '../actions/uiActions';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -56,22 +58,26 @@ class DeliveryStatusScreen extends Component {
         modalVisible: false
     };
 
-    setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+    componentDidMount() {
+        this.props.dropdownAlert(false, '');
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.status !== nextProps.status) {
-            // this.notRef.receiveNotification();
-            if (nextProps.status === orderStatuses.completed) {
-                this.props.clearCart();
-                this.props.clearOrder();
-                this.props.unListenToOrderFulfillment(this.props.orderId);
-                this.props.unListenOrderError(this.props.orderId);
-                this.props.unListenOrderStatus(this.props.orderId);
-                this.props.navigation.navigate('map');
+        if (nextProps.contractorStatus === contractorStatuses.delivered) {
+            this.props.navigation.navigate('feedback');
+        } else if (this.props.status !== nextProps.status) {
+            // TODO: uncomment when users can X out of giving feedback
+            // if (nextProps.status === orderStatuses.completed) {
+            //     this.props.navigation.navigate('map');
+            // }
+            if (nextProps.status === orderStatuses.cancelled) {
+                this.props.navigation.navigate('checkout');
             }
         }
+    }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     renderHeroList() {
@@ -84,20 +90,24 @@ class DeliveryStatusScreen extends Component {
 
     render() {
         const { orderId, status } = this.props;
+        const activity =
+            status !== orderStatuses.completed &&
+            status !== orderStatuses.cancelled;
         return (
             <View style={styles.container}>
                 {orderId ? (
                     <View style={styles.statusContainer}>
-                        {status !== orderStatuses.satisfied && (
+                        {activity && (
                             <View style={styles.spinner}>
                                 <ActivityIndicator
+                                    animating={activity}
                                     size="large"
                                     color="#F5A623"
                                 />
                             </View>
                         )}
                         <View style={styles.notifications}>
-                            <Notification onRef={ref => (this.notRef = ref)} />
+                            <NotificationContainer />
                         </View>
                         {status === orderStatuses.inProgress ||
                             (status === orderStatuses.satisfied &&
@@ -191,7 +201,8 @@ const mapStateToProps = state => ({
     status: getStatus(state),
     pending: getPending(state),
     full: getFullActualFulfillment(state),
-    partial: getPartialActualFulfillment(state)
+    partial: getPartialActualFulfillment(state),
+    contractorStatus: getContractorStatus(state)
 });
 
 const mapDispatchToProps = {
@@ -199,7 +210,8 @@ const mapDispatchToProps = {
     clearOrder,
     unListenToOrderFulfillment,
     unListenOrderError,
-    unListenOrderStatus
+    unListenOrderStatus,
+    dropdownAlert
 };
 
 export default connect(

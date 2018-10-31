@@ -4,9 +4,15 @@ import { functions } from '../../firebase';
 export const instance = axios.create({
     baseURL: 'https://us-central1-hasty-14d18.cloudfunctions.net/'
 });
+// For testing:
 // const instance = axios.create({
 //     baseURL: 'http://localhost:5000/hasty-14d18/us-central1/'
 // });
+
+export function completeOrder(args) {
+    const co = functions.httpsCallable('completeOrder');
+    return co(args);
+}
 
 export function createStripeCustomerWithCard(args) {
     const csawc = functions.httpsCallable('createStripeCustomerWithCard');
@@ -26,6 +32,11 @@ export function removeStripeCustomerSource(args) {
 export function chargeStripeCustomerSource(args) {
     const cscs = functions.httpsCallable('chargeStripeCustomerSource');
     return cscs(args);
+}
+
+export function consumerCallsContractor(args) {
+    const ccc = functions.httpsCallable('consumerCallsContractor');
+    return ccc(args);
 }
 
 export function logCustomerError(args) {

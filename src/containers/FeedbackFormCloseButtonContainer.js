@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 
 import CloseButton from '../components/CloseButton';
 
-export class FeedbackFormCloseButtonContainer extends Component {
+class FeedbackFormCloseButtonContainer extends Component {
     render() {
-        const { feedbackFormVisible, ...rest } = this.props;
-        if (feedbackFormVisible) {
-            return <CloseButton {...rest} />;
-        }
-        return null;
+        const { ...rest } = this.props;
+        return <CloseButton {...rest} />;
     }
 }
 
@@ -19,6 +16,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    FeedbackFormCloseButtonContainer
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FeedbackFormCloseButtonContainer);

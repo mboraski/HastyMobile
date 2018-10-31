@@ -8,7 +8,12 @@
         "version": "0.1.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
-        "icon": "./src/assets/icons/HastyOrangeIcon.png",
+        "assetBundlePatterns": [
+            "src/assets/*",
+            "src/assets/fonts/*",
+            "src/assets/icons/*"
+        ],
+        "icon": "./src/assets/icons/HastyAppleStoreIcon.png",
         "splash": {
             "backgroundColor": "#f5a623",
             "resizeMode": "cover",
@@ -20,7 +25,7 @@
         "ios": {
             "bundleIdentifier": "com.spartanspeedofservice.hasty",
             "loadJSInBackgroundExperimental": true,
-            "supportsTablet": true
+            "supportsTablet": false
         },
         "android": {
             "package": "com.spartanspeedofservice.hasty"

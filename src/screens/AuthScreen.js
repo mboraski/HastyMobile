@@ -35,7 +35,7 @@ class AuthScreen extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.user || nextProps.user) {
+        if (nextProps.user) {
             this.props.navigation.navigate('map');
         }
     }

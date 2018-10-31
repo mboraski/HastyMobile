@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 
-import Text from './Text';
+import Text from '../components/Text';
 // import NotificationActions from '../actions/notificationActions';
-import Color from '../constants/Color';
+import { orderStatuses, contractorStatuses } from '../constants/Order';
 import { emY } from '../utils/em';
-import { orderStatuses } from '../constants/Order';
+import {
+    getStatus,
+    getPending,
+    getContractorStatus
+} from '../selectors/orderSelectors';
 
-export class Notification extends Component {
+class NotificationContainer extends Component {
     state = {
         topValue: new Animated.Value(emY(11)),
         opacity: new Animated.Value(1),
@@ -18,28 +21,41 @@ export class Notification extends Component {
     };
 
     componentDidMount() {
-        this.props.onRef(this);
         const newNotificaiton = this.getNotification();
         this.setState({ currNotification: newNotificaiton });
         this.setState({ nextNotification: newNotificaiton });
     }
 
-    componentWillUnmount() {
-        this.props.onRef(undefined);
+    componentWillReceiveProps(nextProps) {
+        if (
+            this.props.status !== nextProps.status ||
+            this.props.contractorStatus !== nextProps.contractorStatuses
+        ) {
+            this.receiveNotification();
+        }
     }
 
     getNotification = () => {
-        switch (this.props.status) {
-            case orderStatuses.open:
-                return 'Searching the skies for a hero...';
-            case orderStatuses.accepted:
-                return 'Found a hero!';
-            case orderStatuses.arrived:
-                return 'Hero has arrived!';
-            case orderStatuses.completed:
-                return 'Order complete';
-            default:
-                break;
+        if (
+            this.props.status === orderStatuses.satisfied &&
+            this.props.contractorStatus === contractorStatuses.arrived
+        ) {
+            return 'Hero has arrived!';
+        } else {
+            switch (this.props.status) {
+                case orderStatuses.open:
+                    return 'Searching the skies for a Hero...';
+                case orderStatuses.inProgress:
+                    return 'Contacting Heroes';
+                case orderStatuses.satisfied:
+                    return 'A Hero has answered your call!';
+                case orderStatuses.completed:
+                    return 'Order completed, see you again soon!';
+                case orderStatuses.cancelled:
+                    return 'No Heroes could answer your call.';
+                default:
+                    break;
+            }
         }
     };
 
@@ -123,8 +139,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    status: state.order.status,
-    pending: state.order.pending
+    status: getStatus(state),
+    pending: getPending(state),
+    contractorStatus: getContractorStatus(state)
 });
 
 const mapDispatchToProps = {};
@@ -132,4 +149,4 @@ const mapDispatchToProps = {};
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Notification);
+)(NotificationContainer);

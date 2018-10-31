@@ -58,6 +58,11 @@ import beaconIcon from '../assets/icons/beacon.png';
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
 
+const originRegion = {
+    latitude: 30.24063,
+    longitude: -97.78595
+};
+
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
@@ -146,8 +151,22 @@ class MapScreen extends Component {
         tailing: true
     });
 
-    confirmLocationPress = () => {
-        this.props.fetchCustomerBlock();
+    confirmLocationPress = async () => {
+        let resp;
+        const result = await this.props.distanceMatrix({
+            units: 'imperial',
+            origins: `${originRegion.latitude}, ${originRegion.longitude}`,
+            destinations: `${this.props.region.latitude},${
+                this.props.region.longitude
+            }`
+        });
+        if (result.rows[0].elements[0].duration.value > 60 * 15) {
+            this.props.dropdownAlert(true, 'Service is not available here');
+            resp = result;
+        } else {
+            this.props.fetchCustomerBlock();
+        }
+        return resp;
         // TODO: handle resetting location after order creation
         // this.setState({ changeLocationPopupVisible: true });
     };

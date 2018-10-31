@@ -44,12 +44,18 @@ class PaymentMethodScreen extends Component {
         this.props.getUserReadable();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.cards && nextProps.cards) {
+            this.props.navigation.navigate('map');
+        }
+    }
+
     addCard = () => {
         this.props.navigation.navigate('creditCard');
     };
 
-    selectPaymentMethod = card => {
-        this.props.navigation.navigate('creditCard', { card });
+    selectPaymentMethod = source => {
+        this.props.navigation.navigate('creditCard', { source });
     };
 
     renderSignUpPaymentMethodText = signedUp => {
@@ -62,13 +68,13 @@ class PaymentMethodScreen extends Component {
         }
     };
 
-    renderCard = (card, index) => {
-        const onPress = () => this.selectPaymentMethod(card);
+    renderCard = (source, index) => {
+        const onPress = () => this.selectPaymentMethod(source);
         return (
             <PaymentMethod
                 key={index}
-                type={card.brand}
-                text={card.last4}
+                type={source.card.brand}
+                text={source.card.last4}
                 onPress={onPress}
             />
         );

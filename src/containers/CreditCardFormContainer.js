@@ -47,7 +47,7 @@ export class CreditCardFormContainer extends Component {
 
     deleteCard = () =>
         this.props.deleteCard({
-            source: this.props.navigation.state.params.card.id,
+            source: this.props.navigation.state.params.source.id,
             stripeCustomerId: this.props.stripeCustomerId
         });
 
@@ -60,7 +60,8 @@ export class CreditCardFormContainer extends Component {
                 state: { params }
             }
         } = this.props;
-        const card = params && params.card;
+        const source = params && params.source;
+        const card = source && source.card;
         return (
             <KeyboardAvoidingView
                 style={styles.container}
@@ -243,13 +244,13 @@ const formOptions = {
 };
 
 const mapStateToProps = (state, props) => {
-    const card =
-        props.navigation.state.params && props.navigation.state.params.card;
+    const source =
+        props.navigation.state.params && props.navigation.state.params.source;
     return {
-        initialValues: card
+        initialValues: source
             ? {
-                  exp: `${card.exp_month}/${card.exp_year}`,
-                  name: card.name
+                  exp: `${source.card.exp_month}/${source.card.exp_year}`,
+                  name: source.owner.name
               }
             : {},
         pending: getPending(state),

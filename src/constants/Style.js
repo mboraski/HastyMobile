@@ -61,7 +61,8 @@ export default StyleSheet.create({
         borderBottomColor: 'transparent'
     },
     appBar: {
-        flex: 1
+        flex: 1,
+        paddingTop: 10
     },
     headerItem,
     headerTitleContainer: {

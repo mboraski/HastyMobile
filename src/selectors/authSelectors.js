@@ -10,3 +10,8 @@ export const getEmail = createSelector(
     [getUserReadable],
     userReadable => userReadable.email || ''
 );
+
+export const getPhoneNumber = createSelector(
+    [getUserReadable],
+    userReadable => userReadable.phoneNumber || ''
+);

@@ -1,5 +1,7 @@
 import { orderStatuses } from '../constants/Order';
 import { rtdb } from '../../firebase';
+import * as api from '../api/hasty';
+import { CLEAR_CART } from './cartActions';
 
 const ORDER_REF = 'activeProducts/US/TX/Austin/orders';
 
@@ -10,6 +12,10 @@ export const LISTEN_ORDER_STATUS = 'listen_order_status';
 export const UPDATE_ORDER_STATUS = 'UPDATE_ORDER_STATUS';
 export const UPDATE_ORDER_FULFILLMENT = 'update_order_fulfillment';
 export const UPDATE_ORDER_ERROR = 'update_order_error';
+export const CALL_CONTRACTOR_REQUEST = 'call_contractor_request';
+export const COMPLETE_ORDER_REQUEST = 'complete_order_request';
+export const COMPLETE_ORDER_SUCCESS = 'complete_order_success';
+export const COMPLETE_ORDER_ERROR = 'complete_order_error';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -18,8 +24,31 @@ export const setContractors = contractors => ({
 
 export const clearOrder = () => dispatch => dispatch({ type: CLEAR_ORDER });
 
-export const capturePayment = () => {
-    // TODO: capture the stripe payment for the order
+export const completeOrder = async values => {
+    const {
+        dispatch,
+        orderId,
+        userRating,
+        productRating,
+        overallRating,
+        message
+    } = values;
+    try {
+        const result = await api.completeOrder({
+            orderId,
+            userRating,
+            productRating,
+            overallRating,
+            message
+        });
+        console.log('completeOrder result: ', result.data);
+        dispatch({ type: CLEAR_CART });
+        dispatch({ type: CLEAR_ORDER });
+        return result;
+    } catch (error) {
+        console.log('error: ', error);
+        return;
+    }
 };
 
 export const listenToOrderStatus = orderId => dispatch => {
@@ -56,7 +85,6 @@ export const listenToOrderStatus = orderId => dispatch => {
                     });
                     break;
                 case orderStatuses.completed:
-                    capturePayment();
                     dispatch({
                         type: UPDATE_ORDER_STATUS,
                         payload: orderStatuses.completed
@@ -102,3 +130,19 @@ export const listenToOrderError = orderId => dispatch => {
 
 export const unListenOrderError = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/error`).off();
+
+export const contactContractor = (
+    contractorId,
+    phoneNumber
+) => async dispatch => {
+    dispatch({ type: CALL_CONTRACTOR_REQUEST }); // TODO: nothing listening yet
+    try {
+        const call = await api.consumerCallsContractor({
+            contractorId,
+            phoneNumber
+        });
+        console.log('call to contractor success: ', call.data);
+    } catch (err) {
+        console.log('call to contractor errored: ', err);
+    }
+};

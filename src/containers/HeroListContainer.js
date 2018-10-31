@@ -8,26 +8,37 @@ import map from 'lodash.map';
 import HeroDetail from '../components/HeroDetail';
 import Text from '../components/Text';
 import { getFullActualFulfillment } from '../selectors/orderSelectors';
+import { getPhoneNumber } from '../selectors/authSelectors';
+
+import { contactContractor } from '../actions/orderActions';
 
 import Color from '../constants/Color';
 import { heroStatuses } from '../constants/Order';
 import { emY } from '../utils/em';
 
 class HeroListContainer extends Component {
+    contactContractor = contractorId => {
+        return this.props.contactContractor(
+            contractorId,
+            this.props.phoneNumber
+        );
+    };
+
     renderHeroes = () => {
         const { fullHeroes } = this.props;
         return map(fullHeroes, (hero, i) => {
             const { firstName, lastName, deliveryTime, status } = hero;
-            const heroStatus = heroStatuses[status] || 'Saving the day!';
-            console.log('heroStatus: ', heroStatus);
+            const heroStatus = heroStatuses[status] || 'Pending...';
             return (
                 <HeroDetail
-                    key={i}
+                    key={lastName}
                     firstName={firstName}
                     lastName={lastName}
                     deliveryTime={deliveryTime}
                     type={'Full Order'}
                     heroStatus={heroStatus}
+                    contractorId={i}
+                    contactContractor={this.contactContractor}
                 />
             );
         });
@@ -81,10 +92,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    fullHeroes: getFullActualFulfillment(state)
+    fullHeroes: getFullActualFulfillment(state),
+    phoneNumber: getPhoneNumber(state)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    contactContractor
+};
 
 export default connect(
     mapStateToProps,
