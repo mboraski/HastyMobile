@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Text from '../components/Text';
 // import NotificationActions from '../actions/notificationActions';
-import { orderStatuses, heroStatuses } from '../constants/Order';
+import { orderStatuses, contractorStatuses } from '../constants/Order';
 import { emY } from '../utils/em';
 import {
     getStatus,
@@ -27,31 +27,35 @@ class NotificationContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.status !== nextProps.status) {
+        if (
+            this.props.status !== nextProps.status ||
+            this.props.contractorStatus !== nextProps.contractorStatuses
+        ) {
             this.receiveNotification();
         }
     }
 
     getNotification = () => {
-        switch (this.props.status) {
-            case orderStatuses.open:
-                return 'Searching the skies for a Hero...';
-            case orderStatuses.inProgress:
-                return 'Contacting Heroes';
-            case orderStatuses.satisfied:
-                return 'A Hero has answered your call!';
-            case orderStatuses.completed:
-                return 'Order completed, see you again soon!';
-            case orderStatuses.cancelled:
-                return 'No Heroes could answer your call.';
-            default:
-                break;
-        }
-        switch (this.props.contractorStatus) {
-            case heroStatuses.arrived:
-                return 'Hero has arrived!';
-            default:
-                break;
+        if (
+            this.props.status === orderStatuses.satisfied &&
+            this.props.contractorStatus === contractorStatuses.arrived
+        ) {
+            return 'Hero has arrived!';
+        } else {
+            switch (this.props.status) {
+                case orderStatuses.open:
+                    return 'Searching the skies for a Hero...';
+                case orderStatuses.inProgress:
+                    return 'Contacting Heroes';
+                case orderStatuses.satisfied:
+                    return 'A Hero has answered your call!';
+                case orderStatuses.completed:
+                    return 'Order completed, see you again soon!';
+                case orderStatuses.cancelled:
+                    return 'No Heroes could answer your call.';
+                default:
+                    break;
+            }
         }
     };
 

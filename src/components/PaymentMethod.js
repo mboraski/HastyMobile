@@ -13,9 +13,11 @@ import icon from '../assets/icons/keyboard-arrow-right.png';
 export default function PaymentMethod({ type, text, style, ...props }) {
     return (
         <TouchableOpacity {...props} style={[styles.container, style]}>
-            {type ? <CardImage type={type.toLowerCase()} style={styles.card} /> : null}
+            {type ? (
+                <CardImage type={type.toLowerCase()} style={styles.card} />
+            ) : null}
             <Text style={styles.text}>{text}</Text>
-            <Image source={icon} style={styles.icon} />
+            <Image source={icon} />
         </TouchableOpacity>
     );
 }
@@ -27,16 +29,13 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         backgroundColor: Color.GREY_100,
         borderColor: Color.GREY_300,
-        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: StyleSheet.hairlineWidth
     },
     card: {
         marginRight: 10
     },
     text: {
         flex: 1,
-        fontSize: emY(1),
-    },
-    icon: {
-
+        fontSize: emY(1)
     }
 });

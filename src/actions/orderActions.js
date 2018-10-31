@@ -1,7 +1,7 @@
 import { orderStatuses } from '../constants/Order';
 import { rtdb } from '../../firebase';
 import * as api from '../api/hasty';
-import { clearCart } from './cartActions';
+import { CLEAR_CART } from './cartActions';
 
 const ORDER_REF = 'activeProducts/US/TX/Austin/orders';
 
@@ -31,28 +31,23 @@ export const completeOrder = async values => {
         userRating,
         productRating,
         overallRating,
-        name,
-        email,
         message
     } = values;
-    dispatch();
     try {
         const result = await api.completeOrder({
             orderId,
             userRating,
             productRating,
             overallRating,
-            name,
-            email,
             message
         });
         console.log('completeOrder result: ', result.data);
-        dispatch(clearCart);
-        dispatch(clearOrder);
-        dispatch();
+        dispatch({ type: CLEAR_CART });
+        dispatch({ type: CLEAR_ORDER });
+        return result;
     } catch (error) {
         console.log('error: ', error);
-        dispatch();
+        return;
     }
 };
 

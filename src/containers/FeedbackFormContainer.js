@@ -12,7 +12,7 @@ import SuccessState from '../components/SuccessState';
 import Color from '../constants/Color';
 
 import required from '../validation/required';
-import validEmail from '../validation/validEmail';
+// import validEmail from '../validation/validEmail';
 import minLength from '../validation/minLength';
 
 import { emY } from '../utils/em';
@@ -41,25 +41,10 @@ export class FeedbackFormContainer extends Component {
             <DismissKeyboardView style={styles.container}>
                 <Text style={styles.title}>
                     We love feedback. Please help us understand your rating in
-                    more detail:
+                    more detail. Submitting nothing is also fine, but we will be
+                    sad.
                 </Text>
                 <View style={styles.formInputs}>
-                    <TextInputField
-                        name="name"
-                        placeholder="Name"
-                        validate={[required, minLength3]}
-                        containerStyle={styles.textInputContainer}
-                        style={styles.textInput}
-                    />
-                    <TextInputField
-                        name="email"
-                        placeholder="Email"
-                        keyboardType="email-address"
-                        validate={[required, validEmail]}
-                        containerStyle={styles.textInputContainer}
-                        style={styles.textInput}
-                        error
-                    />
                     <TextInputField
                         name="message"
                         label="MESSAGE"
@@ -156,7 +141,7 @@ const styles = StyleSheet.create({
 
 const formOptions = {
     form: 'Feedback',
-    submit: values => values
+    onSubmit: values => values
 };
 
 const mapDispatchToProps = {};

@@ -4,6 +4,8 @@ import { firebaseAuth, db } from '../../firebase';
 
 import { UPDATE_STRIPE_INFO } from './paymentActions';
 
+import { persistor } from '../store';
+
 export const AUTH_CHANGED = 'auth_changed';
 export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
@@ -95,6 +97,7 @@ export const signOut = () => async dispatch => {
         dispatch({ type: SIGNOUT_REQUEST });
         const result = await firebaseAuth.signOut();
         dispatch({ type: SIGNOUT_SUCCESS });
+        persistor.purge();
         return result;
     } catch (error) {
         dispatch({ type: SIGNOUT_FAIL, error });

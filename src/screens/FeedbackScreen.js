@@ -56,15 +56,11 @@ class FeedbackScreen extends Component {
         }
     };
 
-    onSubmit = (result, dispatch, props) => {
-        console.log('onSubmit ran: ', { result, props });
-        let name = '';
-        let email = '';
+    onSubmit = (result, dispatch) => {
+        console.log('onSubmit ran: ', { result, dispatch });
         let message = '';
         if (result) {
             // send name and message also
-            name = result.name;
-            email = result.email;
             message = result.message;
         }
         const userRating = this.state.userRating;
@@ -73,15 +69,13 @@ class FeedbackScreen extends Component {
         dispatch(dropdownAlert(true, 'Thanks! See you again soon!'));
         completeOrder({
             dispatch,
-            orderId: props.orderId,
+            orderId: this.props.orderId,
             userRating,
             productRating,
             overallRating,
-            name,
-            email,
             message
         });
-        props.navigation.navigate('map');
+        this.props.navigation.navigate('map');
     };
 
     render() {
@@ -163,7 +157,8 @@ FeedbackScreen.navigationOptions = () => {
     return {
         title: 'Feedback',
         headerStyle: Style.header,
-        headerTitleStyle: Style.headerTitle
+        headerTitleStyle: Style.headerTitle,
+        headerLeft: <FeedbackFormCloseButtonContainer />
     };
 };
 

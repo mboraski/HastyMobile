@@ -14,6 +14,7 @@ const heroStatuses = {
 };
 
 const contractorStatuses = {
+    arrived: 'arrived',
     delivered: 'delivered'
 };
 

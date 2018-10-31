@@ -44,6 +44,12 @@ class PaymentMethodScreen extends Component {
         this.props.getUserReadable();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.cards && nextProps.cards) {
+            this.props.navigation.navigate('map');
+        }
+    }
+
     addCard = () => {
         this.props.navigation.navigate('creditCard');
     };

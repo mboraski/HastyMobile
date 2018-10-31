@@ -32,6 +32,7 @@ import {
     unListenOrderStatus,
     clearOrder
 } from '../actions/orderActions';
+import { dropdownAlert } from '../actions/uiActions';
 
 const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
@@ -57,8 +58,8 @@ class DeliveryStatusScreen extends Component {
         modalVisible: false
     };
 
-    setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+    componentDidMount() {
+        this.props.dropdownAlert(false, '');
     }
 
     componentWillReceiveProps(nextProps) {
@@ -73,6 +74,10 @@ class DeliveryStatusScreen extends Component {
                 this.props.navigation.navigate('checkout');
             }
         }
+    }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     renderHeroList() {
@@ -205,7 +210,8 @@ const mapDispatchToProps = {
     clearOrder,
     unListenToOrderFulfillment,
     unListenOrderError,
-    unListenOrderStatus
+    unListenOrderStatus,
+    dropdownAlert
 };
 
 export default connect(
