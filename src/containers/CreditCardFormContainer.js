@@ -238,7 +238,7 @@ const formOptions = {
                 });
             }
         } catch (error) {
-            console.log('Credit Card Submit Error: ', error);
+            console.log('Credit Card Submit Error');
         }
     }
 };

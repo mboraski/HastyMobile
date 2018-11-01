@@ -44,10 +44,6 @@ export const submitPayment = (
             notes: notes || '',
             cart
         });
-        console.log(
-            'chargeStripeCustomerSource Response: ',
-            JSON.stringify(res)
-        );
         const { orderId } = res.data;
         dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
         dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
@@ -59,7 +55,6 @@ export const submitPayment = (
                 'Error submitting payment. You will not be charged.'
             )
         );
-        console.log('Payment processing error: ', error);
         dispatch({ type: SUBMIT_PAYMENT_FAILURE, payload: error });
         return;
     }
@@ -128,7 +123,6 @@ export const createStripeCustomerWithCard = async args => {
         });
         return;
     } catch (error) {
-        console.log('error', error);
         dispatch(dropdownAlert(true, 'Failed to add card!'));
         dispatch({
             type: CREATE_STRIPE_ACCOUNT_ERROR,

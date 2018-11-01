@@ -192,6 +192,7 @@ class CheckoutScreen extends Component {
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
         // TODO: fix this as the price is rounded ceil on server
         const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        const card = paymentMethod.card;
 
         return (
             <View style={styles.container}>
@@ -255,8 +256,8 @@ class CheckoutScreen extends Component {
                             </View>
                             <View style={styles.dropdownContainer}>
                                 <PaymentMethod
-                                    type={paymentMethod.brand}
-                                    text={paymentMethod.last4}
+                                    type={card.brand}
+                                    text={card.last4}
                                 />
                             </View>
                             <View style={styles.itemHeader}>

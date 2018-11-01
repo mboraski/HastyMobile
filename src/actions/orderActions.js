@@ -41,12 +41,10 @@ export const completeOrder = async values => {
             overallRating,
             message
         });
-        console.log('completeOrder result: ', result.data);
         dispatch({ type: CLEAR_CART });
         dispatch({ type: CLEAR_ORDER });
         return result;
     } catch (error) {
-        console.log('error: ', error);
         return;
     }
 };
@@ -105,7 +103,6 @@ export const listenToOrderFulfillment = orderId => dispatch => {
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
             if (fulfillment) {
-                console.log('order fulfillment listener ran');
                 dispatch({
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
@@ -137,12 +134,12 @@ export const contactContractor = (
 ) => async dispatch => {
     dispatch({ type: CALL_CONTRACTOR_REQUEST }); // TODO: nothing listening yet
     try {
-        const call = await api.consumerCallsContractor({
+        await api.consumerCallsContractor({
             contractorId,
             phoneNumber
         });
-        console.log('call to contractor success: ', call.data);
+        console.log('call to contractor success: ');
     } catch (err) {
-        console.log('call to contractor errored: ', err);
+        console.log('call to contractor errored: ');
     }
 };

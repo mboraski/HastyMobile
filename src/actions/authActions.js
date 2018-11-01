@@ -52,7 +52,6 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                 return resolve();
             })
             .catch(error => {
-                console.log('user creation error: ', error);
                 dispatch({
                     type: SIGNUP_FAIL,
                     payload: error
@@ -119,14 +118,7 @@ export const listenToAuthChanges = () => dispatch => {
 export const setUserExpoPushToken = token => dispatch => {
     dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
     const userDoc = db.collection('users').doc(firebaseAuth.currentUser.uid);
-    return userDoc
-        .update({ expoPushToken: token })
-        .then(() => {
-            console.log('set expo push token success');
-        })
-        .catch(error => {
-            console.log('set expo push token error: ', error);
-        });
+    return userDoc.update({ expoPushToken: token });
 };
 
 export const getUserReadable = () => dispatch => {

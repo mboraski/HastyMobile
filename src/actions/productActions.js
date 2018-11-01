@@ -80,9 +80,8 @@ export const fetchProductImages = (products, dispatch) => async () => {
                         payload: { productName: product.productName, url }
                     });
                 })
-                .catch(error => {
+                .catch(() => {
                     // TODO: use placeholder image if error, not empty string
-                    console.log('error getting image download url: ', error);
                     dispatch({
                         type: SET_IMAGE,
                         payload: { productName: product.productName, url: '' }
