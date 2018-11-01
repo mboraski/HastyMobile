@@ -30,7 +30,7 @@ class AuthScreen extends Component {
     static navigationOptions = statusBarOnly;
 
     state = {
-        signUp: false,
+        signUp: true,
         openModal: false
     };
 

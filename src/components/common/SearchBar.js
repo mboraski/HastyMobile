@@ -3,15 +3,7 @@ import { TextInput } from 'react-native';
 
 class SearchBar extends Component {
     render() {
-        return (
-            <TextInput
-                style={{ height: 40 }}
-                onChangeText={text => {
-                    console.log('SearchBar text: ', text);
-                }}
-                value={'Search Bah'}
-            />
-        );
+        return <TextInput style={{ height: 40 }} value={'Search Bah'} />;
     }
 }
 
