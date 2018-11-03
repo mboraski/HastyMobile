@@ -8,7 +8,8 @@ import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import callIcon from '../assets/icons/call.png';
-import logo from '../assets/icons/HastyOrangeIcon.png';
+import logo from '../assets/profile.png';
+// import logo from '../assets/icons/HastyOrangeIcon.png';
 
 const PROFILE_IMAGE_SIZE = emY(3.75);
 const CHAT_SIZE = emY(2.75);
