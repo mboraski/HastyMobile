@@ -192,7 +192,7 @@ class CheckoutScreen extends Component {
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
         // TODO: fix this as the price is rounded ceil on server
         const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
-        const card = paymentMethod.card;
+        const card = paymentMethod.card || {};
 
         return (
             <View style={styles.container}>
@@ -286,6 +286,7 @@ class CheckoutScreen extends Component {
                                     description="Your Delivery Location"
                                     anchor={{ x: 0.2, y: 1 }}
                                     centerOffset={{ x: 12, y: -25 }}
+                                    style={styles.beaconMarker}
                                 />
                             </MapView>
                             <View style={styles.itemHeader}>
@@ -411,6 +412,10 @@ const styles = StyleSheet.create({
     map: {
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
+    },
+    beaconMarker: {
+        maxWidth: 42,
+        maxHeight: 55
     },
     imageTitle: {
         color: 'white',
