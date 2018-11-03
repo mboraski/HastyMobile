@@ -13,6 +13,11 @@
             "src/assets/fonts/*",
             "src/assets/icons/*"
         ],
+        "updates": {
+            "enabled": true,
+            "checkAutomatically": "ON_LOAD",
+            "fallbackToCacheTimeout": 90000
+        },
         "icon": "./src/assets/icons/HastyAppleStoreIcon.png",
         "splash": {
             "backgroundColor": "#f5a623",
@@ -23,12 +28,12 @@
             "assetExts": ["ttf", "mp4"]
         },
         "ios": {
-            "bundleIdentifier": "com.spartanspeedofservice.hasty",
+            "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
             "loadJSInBackgroundExperimental": true,
             "supportsTablet": false
         },
         "android": {
-            "package": "com.spartanspeedofservice.hasty"
+            "package": "com.spartanspeedofservice.hastymobile"
         }
     }
 }
