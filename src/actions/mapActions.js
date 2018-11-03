@@ -2,6 +2,8 @@ import { Location, Permissions } from 'expo';
 
 import { geocode } from './googleMapsActions';
 
+import { dropdownAlert } from './uiActions';
+
 export const SAVE_ADDRESS = 'save_address';
 export const SET_REGION = 'set_region';
 export const SET_CURRENT_LOCATION = 'set_current_location';
@@ -68,17 +70,33 @@ export const getCurrentLocation = () => async dispatch => {
         dispatch({ type: GET_CURRENT_LOCATION_REQUEST });
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
+            dispatch(
+                dropdownAlert(true, 'Permission to access location denied!')
+            );
             throw new Error('Permission to access location was denied');
         } else {
             const locationServices = await Location.getProviderStatusAsync();
             if (!locationServices.locationServicesEnabled) {
+                dispatch(
+                    dropdownAlert(true, 'Location services need to be enabled')
+                );
                 throw new Error('Location services need to be enabled');
             }
             const location = await Location.getCurrentPositionAsync({
                 enableHighAccuracy: true,
-                maximumAge: 10000
+                maximumAge: 5000
             });
             // listenForLocationChanges(dispatch); // TODO: add back in
+            const coords = location.coords || {};
+            dispatch({
+                type: SET_REGION,
+                payload: {
+                    latitude: coords.latitude,
+                    longitude: coords.longitude,
+                    latitudeDelta: 0.0043,
+                    longitudeDelta: 0.0043
+                }
+            });
             dispatch({
                 type: GET_CURRENT_LOCATION_SUCCESS,
                 payload: {

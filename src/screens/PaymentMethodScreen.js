@@ -69,15 +69,17 @@ class PaymentMethodScreen extends Component {
     };
 
     renderCard = (source, index) => {
-        const onPress = () => this.selectPaymentMethod(source);
-        return (
-            <PaymentMethod
-                key={index}
-                type={source.card.brand}
-                text={source.card.last4}
-                onPress={onPress}
-            />
-        );
+        if (source && source.card) {
+            const onPress = () => this.selectPaymentMethod(source);
+            return (
+                <PaymentMethod
+                    key={index}
+                    type={source.card.brand}
+                    text={source.card.last4}
+                    onPress={onPress}
+                />
+            );
+        }
     };
 
     render() {

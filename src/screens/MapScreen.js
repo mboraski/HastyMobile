@@ -40,7 +40,8 @@ import {
     getPredictions,
     getRegion,
     getAddress,
-    getError
+    getError,
+    getPending
 } from '../selectors/mapSelectors';
 
 import ContinuePopup from '../components/ContinuePopup';
@@ -301,7 +302,14 @@ class MapScreen extends Component {
     };
 
     render() {
-        const { predictions, region, address, pending, error } = this.props;
+        const {
+            predictions,
+            region,
+            address,
+            pending,
+            error,
+            mapPending
+        } = this.props;
         const errorCode = error ? error.code : 'default';
         const errorMessage = ERRORS[errorCode];
 
@@ -328,10 +336,10 @@ class MapScreen extends Component {
                         style={styles.beaconMarker}
                     />
                 </MapView>
-                {pending && (
+                {(pending || mapPending) && (
                     <View style={styles.overlay}>
                         <ActivityIndicator
-                            animating={pending}
+                            animating={pending || mapPending}
                             size="large"
                             color="#f5a623"
                         />
@@ -479,8 +487,8 @@ const styles = StyleSheet.create({
         right: 0
     },
     beaconMarker: {
-        width: 42,
-        height: 55
+        maxWidth: 42,
+        maxHeight: 55
     }
 });
 
@@ -490,6 +498,7 @@ MapScreen.navigationOptions = {
 
 const mapStateToProps = state => ({
     pending: getProductsPending(state),
+    mapPending: getPending(state),
     predictions: getPredictions(state),
     searchVisible: getSearchVisible(state),
     header: state.header,
