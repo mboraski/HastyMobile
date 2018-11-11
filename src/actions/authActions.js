@@ -134,6 +134,7 @@ export const getUserReadable = () => dispatch => {
                     payload: userData
                 });
                 if (
+                    userData &&
                     userData.stripeInfo &&
                     userData.stripeInfo.stripeCustomerId
                 ) {

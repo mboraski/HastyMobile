@@ -51,7 +51,11 @@ import {
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getProductImages } from '../selectors/productSelectors';
 import { getNotes } from '../selectors/checkoutSelectors';
-import { getEmail } from '../selectors/authSelectors';
+import {
+    getEmail,
+    getFirstName,
+    getLastName
+} from '../selectors/authSelectors';
 import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -136,21 +140,29 @@ class CheckoutScreen extends Component {
         const {
             stripeCustomerId,
             paymentMethod,
+            firstName,
+            lastName,
             totalCost,
+            serviceFee,
             notes,
             cart,
-            email
+            email,
+            region
         } = this.props;
         if (paymentMethod) {
             const source = paymentMethod.id;
             const description = `Charge for ${email}`;
             this.props.submitPayment(
                 stripeCustomerId,
-                source,
                 description,
+                serviceFee,
                 totalCost,
+                source,
                 notes,
-                cart
+                cart,
+                firstName,
+                lastName,
+                region
             );
         } else {
             this.props.dropdownAlert(true, 'Go to Menu to add payment method');
@@ -524,7 +536,9 @@ const mapStateToProps = state => ({
     pending: getPending(state),
     stripeCustomerId: getStripeCustomerId(state),
     orderId: getOrderId(state),
-    productImages: getProductImages(state)
+    productImages: getProductImages(state),
+    firstName: getFirstName(state),
+    lastName: getLastName(state)
 });
 
 const mapDispatchToProps = {

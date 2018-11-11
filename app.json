@@ -30,7 +30,7 @@
         "ios": {
             "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
             "loadJSInBackgroundExperimental": true,
-            "supportsTablet": false
+            "supportsTablet": true
         },
         "android": {
             "package": "com.spartanspeedofservice.hastymobile"

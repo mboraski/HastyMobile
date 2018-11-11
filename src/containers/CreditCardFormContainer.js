@@ -33,8 +33,9 @@ import { emY } from '../utils/em';
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
+import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
 
-const stripe = stripeClient('pk_test_frUco17ktkWZBLsjBy6RPbUH');
+const stripe = stripeClient(STRIPE_CLIENT_KEY);
 const keyboardVerticalOffset = emY(1);
 
 export class CreditCardFormContainer extends Component {

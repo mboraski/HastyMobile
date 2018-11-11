@@ -24,7 +24,10 @@ export const submitPayment = (
     description,
     totalCost,
     notes,
-    cart
+    cart,
+    firstName,
+    lastName,
+    region
 ) => async dispatch => {
     dispatch({ type: SUBMIT_PAYMENT_REQUEST });
     try {
@@ -42,7 +45,10 @@ export const submitPayment = (
             description: description || '',
             totalCost: Math.ceil(totalCost),
             notes: notes || '',
-            cart
+            firstName,
+            lastName,
+            cart,
+            region
         });
         const { orderId } = res.data;
         dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
