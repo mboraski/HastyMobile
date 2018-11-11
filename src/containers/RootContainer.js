@@ -91,19 +91,6 @@ class RootContainer extends Component {
         this.props.unListenOrderStatus(this.props.orderId);
     }
 
-    // handleNotification = notification => {
-    //     if (notification.data) {
-    //         if (notification.data.type === 'feedback') {
-    //             this.props.dispatch(
-    //                 NavigationActions.navigate({
-    //                     routeName: 'notificationFeedback',
-    //                     params: notification.data
-    //                 })
-    //             );
-    //         }
-    //     }
-    // };
-
     handleCustomerPopupClose = () => {
         this.props.closeCustomerPopup();
     };
