@@ -37,10 +37,7 @@ import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
     getCartCostTotal,
-    getCartTaxTotal,
-    getCartServiceCharge,
-    getServiceFee,
-    getDeliveryFee
+    getCartTax
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -50,7 +47,7 @@ import {
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getProductImages } from '../selectors/productSelectors';
-import { getNotes } from '../selectors/checkoutSelectors';
+import { getNotes, getServiceFee } from '../selectors/checkoutSelectors';
 import {
     getEmail,
     getFirstName,
@@ -524,10 +521,8 @@ const mapStateToProps = state => ({
     email: getEmail(state),
     cart: getCartOrders(state),
     totalCost: getCartCostTotal(state),
-    tax: getCartTaxTotal(state),
+    tax: getCartTax(state),
     serviceFee: getServiceFee(state),
-    deliveryFee: getDeliveryFee(state),
-    serviceCharge: getCartServiceCharge(state),
     notes: getNotes(state),
     address: getAddress(state),
     region: getRegion(state),

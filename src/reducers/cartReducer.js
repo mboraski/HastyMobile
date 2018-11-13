@@ -22,11 +22,7 @@ const initialState = {
         instant: {}
     },
     itemCountUp: false,
-    itemCountDown: false,
-    serviceFee: 0,
-    deliveryFee: 200,
-    serviceRate: 0.1,
-    localSalesTaxRate: 0.0625
+    itemCountDown: false
 };
 
 export default (state = initialState, action) => {
