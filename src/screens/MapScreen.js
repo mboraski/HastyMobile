@@ -54,7 +54,7 @@ import ERRORS from '../constants/Errors';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 // TODO: how accurate is the center of the bottom point of the beacon?
-import beaconIcon from '../assets/icons/beacon.png';
+import beaconIcon from '../assets/icons/beacon2x.png';
 
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
@@ -71,13 +71,10 @@ const REVERSE_CONFIG = {
 };
 // TODO: needs to be changed to the bottom center of image
 const ANCHOR = {
-    x: 0.2,
-    y: 1
+    x: 0.5,
+    y: 0.5
 };
-const CENTER_OFFSET = {
-    x: 12,
-    y: -55 / 2
-};
+
 const MARKER_ANIMATION_DURATION = 0;
 
 const CHANGE_LOCATION_TITLE =
@@ -332,7 +329,6 @@ class MapScreen extends Component {
                         title="You"
                         description="Your Delivery Location"
                         anchor={ANCHOR}
-                        centerOffset={CENTER_OFFSET}
                         style={styles.beaconMarker}
                     />
                 </MapView>

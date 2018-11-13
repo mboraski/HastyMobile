@@ -287,14 +287,19 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <MapView region={region} style={styles.map}>
+                            <MapView
+                                region={region}
+                                style={styles.map}
+                                pitchEnabled={false}
+                                rotateEnabled={false}
+                                scrollEnabled={false}
+                            >
                                 <MapView.Marker
                                     image={beaconIcon}
                                     coordinate={region}
                                     title="You"
                                     description="Your Delivery Location"
-                                    anchor={{ x: 0.2, y: 1 }}
-                                    centerOffset={{ x: 12, y: -25 }}
+                                    anchor={{ x: 0.5, y: 0.5 }}
                                     style={styles.beaconMarker}
                                 />
                             </MapView>
