@@ -336,15 +336,6 @@ class MapScreen extends Component {
                         style={styles.beaconMarker}
                     />
                 </MapView>
-                {(pending || mapPending) && (
-                    <View style={styles.overlay}>
-                        <ActivityIndicator
-                            animating={pending || mapPending}
-                            size="large"
-                            color="#f5a623"
-                        />
-                    </View>
-                )}
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -361,8 +352,18 @@ class MapScreen extends Component {
                             }
                         ]}
                     >
-                        <Text style={styles.inputLabel}>To</Text>
-                        <Text style={styles.inputValue}>{address}</Text>
+                        {pending || mapPending ? (
+                            <ActivityIndicator
+                                animating={pending || mapPending}
+                                size="small"
+                                color="#f5a623"
+                            />
+                        ) : (
+                            <View>
+                                <Text style={styles.inputLabel}>To</Text>
+                                <Text style={styles.inputValue}>{address}</Text>
+                            </View>
+                        )}
                     </Animated.View>
                 </TouchableWithoutFeedback>
                 <Animated.View
