@@ -1,11 +1,11 @@
 {
     "expo": {
-        "name": "HastyMobile",
+        "name": "Hasty",
         "description": "Hasty Consumer Mobile App",
         "slug": "hasty-mobile",
         "privacy": "unlisted",
         "sdkVersion": "30.0.0",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
         "assetBundlePatterns": [
