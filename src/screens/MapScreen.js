@@ -12,7 +12,6 @@ import { MapView, PROVIDER_GOOGLE } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
-import { ref } from '../../firebase';
 
 // Relative Imports
 import {
@@ -22,14 +21,9 @@ import {
     nullifyError,
     determineDeliveryDistance
 } from '../actions/mapActions';
-import { setCurrentLocation } from '../actions/cartActions';
+import { reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
-import {
-    orderCreationSuccess,
-    orderCreationFailure
-} from '../actions/orderActions';
 import { getUserReadable } from '../actions/authActions';
-import { fetchCustomerBlock } from '../actions/productActions';
 
 import {
     getProductsPending,
@@ -301,11 +295,11 @@ class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
-                <ContinuePopup
+                {/*<ContinuePopup
                     isOpen={!!error}
                     closeModal={this.handleCloseContinuePopup}
                     message={errorMessage}
-                />
+                />*/}
             </View>
         );
     }
@@ -408,16 +402,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     nullifyError,
-    fetchCustomerBlock,
     getUserReadable,
     saveAddress,
     toggleSearch,
     dropdownAlert,
     setRegion,
-    setCurrentLocation,
+    reverseGeocode,
     getCurrentLocation,
-    orderCreationSuccess,
-    orderCreationFailure,
     determineDeliveryDistance
 };
 

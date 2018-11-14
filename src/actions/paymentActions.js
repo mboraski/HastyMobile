@@ -27,7 +27,8 @@ export const submitPayment = (
     cart,
     firstName,
     lastName,
-    region
+    region,
+    delivery
 ) => async dispatch => {
     dispatch({ type: SUBMIT_PAYMENT_REQUEST });
     try {
@@ -48,7 +49,8 @@ export const submitPayment = (
             firstName,
             lastName,
             cart,
-            region
+            region,
+            delivery
         });
         const { orderId } = res.data;
         dispatch({ type: SUBMIT_PAYMENT_SUCCESS });

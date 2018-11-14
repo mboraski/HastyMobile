@@ -25,13 +25,6 @@ import {
     getContractorStatus
 } from '../selectors/orderSelectors';
 
-import { clearCart } from '../actions/cartActions';
-import {
-    unListenToOrderFulfillment,
-    unListenOrderError,
-    unListenOrderStatus,
-    clearOrder
-} from '../actions/orderActions';
 import { dropdownAlert } from '../actions/uiActions';
 
 const SIZE = emY(7);
@@ -206,11 +199,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    clearCart,
-    clearOrder,
-    unListenToOrderFulfillment,
-    unListenOrderError,
-    unListenOrderStatus,
     dropdownAlert
 };
 
