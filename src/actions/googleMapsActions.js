@@ -111,7 +111,10 @@ export const reverseGeocode = props => async dispatch => {
 };
 
 // !!!! TODO: Mark you are here!!! get directions with region or address
-export const distanceMatrix = props => async dispatch => {
+// Get current contractorRegion and mode of transport
+// Determin if distance is more than 15min away
+// Swap deliveryTime from contractor to order specific in db for now.
+export const distanceMatrix = async props => {
     try {
         // dispatch({
         //     type: MAPS_DISTANCE_MATRIX_REQUEST,
@@ -120,8 +123,7 @@ export const distanceMatrix = props => async dispatch => {
         const res = await googleMapsClient.distanceMatrix({
             params: {
                 ...props,
-                key: KEY,
-                mode: 'walking'
+                key: KEY
             }
         });
         if (res.data.error_message) {

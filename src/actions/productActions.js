@@ -1,7 +1,6 @@
 import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 
-import { noHeroesAvailable } from './mapActions';
 import { setSalesTaxRate, setServiceFee } from './checkoutActions';
 import { updateCart } from './cartActions';
 import { rtdb, fire } from '../../firebase';
@@ -14,7 +13,7 @@ export const SET_IMAGE = 'set_image';
 
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
 
-export const fetchCustomerBlock = () => dispatch => {
+export const fetchCustomerBlock = dispatch => {
     dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
     return listenCustomerBlockRef(dispatch);
 };
@@ -31,21 +30,12 @@ export const listenCustomerBlockRef = dispatch =>
                 data.instant,
                 product => !!product
             );
-            if (Object.keys(filteredProducts.instant).length < 1) {
-                dispatch(
-                    noHeroesAvailable({
-                        code: '007',
-                        message: 'No Heroes Available'
-                    })
-                );
-            } else {
-                const { salesTaxRate, serviceFee } = data;
-                dispatch(fetchProductImages(filteredProducts, dispatch));
-                dispatch(fetchProductsSuccess(filteredProducts));
-                dispatch(updateCart(filteredProducts));
-                dispatch(setSalesTaxRate(salesTaxRate));
-                dispatch(setServiceFee(serviceFee));
-            }
+            const { salesTaxRate, serviceFee } = data;
+            dispatch(fetchProductImages(filteredProducts, dispatch));
+            dispatch(fetchProductsSuccess(filteredProducts));
+            dispatch(updateCart(filteredProducts));
+            dispatch(setSalesTaxRate(salesTaxRate));
+            dispatch(setServiceFee(serviceFee));
         },
         error => dispatch(fetchProductsFailure(error))
     );

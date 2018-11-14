@@ -1,7 +1,8 @@
 import { Location, Permissions } from 'expo';
+import { rtdb } from '../../firebase';
 
-import { geocode } from './googleMapsActions';
-
+import { geocode, distanceMatrix } from './googleMapsActions';
+import { fetchCustomerBlock } from './productActions';
 import { dropdownAlert } from './uiActions';
 
 export const SAVE_ADDRESS = 'save_address';
@@ -15,36 +16,62 @@ export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
 export const SET_INITIAL_REGION = 'set_initial_region';
 export const NULLIFY_MAP_ERROR = 'nullify_map_error';
 export const NO_HEROES_AVAILABLE = 'no_heroes_available';
+export const DETERMINE_DELIVERY_DISTANCE_REQUEST =
+    'determine_delivery_distance_request';
+export const DETERMINE_DELIVERY_DISTANCE_SUCCESS =
+    'determine_delivery_distance_success';
+export const DETERMINE_DELIVERY_DISTANCE_ERROR =
+    'determine_delivery_distance_error';
 
-// const listenForLocationChanges = dispatch => {
-//     const locationSubscription = Location.watchPositionAsync(
-//         {
-//             enableHighAccuracy: true,
-//             timeInterval: 5000,
-//             distanceInterval: 3
-//         },
-//         location => {
-//             dispatch({
-//                 type: GET_CURRENT_LOCATION_SUCCESS,
-//                 payload: {
-//                     timestamp: location.timestamp,
-//                     coords: location.coords
-//                 }
-//             });
-//         }
-//     );
-//     dispatch({
-//         type: ADD_LOCATION_SUBSCRIPTION,
-//         payload: locationSubscription
-//     })
-// };
-//
-// export const unlistenForProviderStatusChanges = subscription => dispatch => {
-//     subscription.remove();
-//     dispatch({
-//         type: REMOVE_LOCATION_SUBSCRIPTION
-//     })
-// };
+const CONTRACTOR_REGION_REF = 'activeProducts/US/TX/Austin/contractorRegion';
+
+export const determineDeliveryDistance = region => async dispatch => {
+    try {
+        dispatch({ type: DETERMINE_DELIVERY_DISTANCE_REQUEST });
+        const contractorRegionRef = rtdb.ref(CONTRACTOR_REGION_REF);
+        await contractorRegionRef.once(
+            'value',
+            async snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    const { latitude, longitude, mode } = data;
+                    const result = await distanceMatrix({
+                        units: 'imperial',
+                        origins: `${latitude}, ${longitude}`,
+                        mode,
+                        destinations: `${region.latitude},${region.longitude}`
+                    });
+                    console.log('result of distanceMatrix: ', result);
+                    const delivery = result.rows[0].elements[0];
+                    const duration = delivery.duration;
+                    if (duration.value > 60 * 15) {
+                        // TODO: log user wanted this region to the server
+                        dispatch(
+                            dropdownAlert(
+                                true,
+                                'No Heroes available in this area.'
+                            )
+                        );
+                        dispatch({ type: NO_HEROES_AVAILABLE });
+                    } else {
+                        dispatch({
+                            type: DETERMINE_DELIVERY_DISTANCE_SUCCESS,
+                            payload: delivery
+                        });
+                        fetchCustomerBlock(dispatch);
+                    }
+                    return;
+                }
+            },
+            error => dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR })
+        );
+    } catch (error) {
+        console.log('determineDeliveryDistance error: ', error);
+        dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR });
+    }
+    // TODO: handle resetting location after order creation
+};
+
 export const nullifyError = () => dispatch =>
     dispatch({ type: NULLIFY_MAP_ERROR });
 
@@ -57,12 +84,6 @@ export const setRegion = region => dispatch =>
     dispatch({
         type: SET_REGION,
         payload: region
-    });
-
-export const noHeroesAvailable = errObj => dispatch =>
-    dispatch({
-        type: NO_HEROES_AVAILABLE,
-        payload: errObj
     });
 
 export const getCurrentLocation = () => async dispatch => {
@@ -112,3 +133,33 @@ export const getCurrentLocation = () => async dispatch => {
         });
     }
 };
+
+// const listenForLocationChanges = dispatch => {
+//     const locationSubscription = Location.watchPositionAsync(
+//         {
+//             enableHighAccuracy: true,
+//             timeInterval: 5000,
+//             distanceInterval: 3
+//         },
+//         location => {
+//             dispatch({
+//                 type: GET_CURRENT_LOCATION_SUCCESS,
+//                 payload: {
+//                     timestamp: location.timestamp,
+//                     coords: location.coords
+//                 }
+//             });
+//         }
+//     );
+//     dispatch({
+//         type: ADD_LOCATION_SUBSCRIPTION,
+//         payload: locationSubscription
+//     })
+// };
+//
+// export const unlistenForProviderStatusChanges = subscription => dispatch => {
+//     subscription.remove();
+//     dispatch({
+//         type: REMOVE_LOCATION_SUBSCRIPTION
+//     })
+// };

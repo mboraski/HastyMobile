@@ -8,7 +8,7 @@ import {
     Animated,
     ActivityIndicator
 } from 'react-native';
-import { MapView, Constants, PROVIDER_GOOGLE } from 'expo';
+import { MapView, PROVIDER_GOOGLE } from 'expo';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import debounce from 'lodash.debounce';
@@ -19,10 +19,10 @@ import {
     saveAddress,
     setRegion,
     getCurrentLocation,
-    nullifyError
+    nullifyError,
+    determineDeliveryDistance
 } from '../actions/mapActions';
 import { setCurrentLocation } from '../actions/cartActions';
-import { distanceMatrix, reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import {
     orderCreationSuccess,
@@ -45,7 +45,6 @@ import {
 } from '../selectors/mapSelectors';
 
 import ContinuePopup from '../components/ContinuePopup';
-import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeaderContainer from '../containers/MapHeaderContainer';
@@ -59,11 +58,6 @@ import beaconIcon from '../assets/icons/beacon2x.png';
 // TODO: allow users to just click a button to ask for service in a particular area.
 // Make sure to rate limit by account or something, so it isn't abused
 
-const originRegion = {
-    latitude: 30.24063,
-    longitude: -97.78595
-};
-
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
@@ -76,11 +70,6 @@ const ANCHOR = {
 };
 
 const MARKER_ANIMATION_DURATION = 0;
-
-const CHANGE_LOCATION_TITLE =
-    'Are you sure you want to change your delivery location?';
-const CHANGE_LOCATION_MESSAGE =
-    'The available products/services at your new location may be different.';
 
 class MapScreen extends Component {
     state = {
@@ -96,12 +85,7 @@ class MapScreen extends Component {
     };
 
     componentDidMount() {
-        if (Platform.OS === 'android' && !Constants.isDevice) {
-            this.props.dropdownAlert(
-                true,
-                'Oops, this will only work on a device'
-            );
-        } else if (!this.props.coords) {
+        if (!this.props.coords) {
             this.props.getCurrentLocation();
         }
         // TODO: change to only fetch info that is needed
@@ -111,14 +95,6 @@ class MapScreen extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
-        }
-        // TODO: can I remove the drawer navigation here?
-        if (this.props.header.toggleState !== nextProps.header.toggleState) {
-            if (nextProps.header.isMenuOpen) {
-                this.props.navigation.navigate('DrawerOpen');
-            } else {
-                this.props.navigation.navigate('DrawerClose');
-            }
         }
         if (
             this.props.pending === true &&
@@ -149,74 +125,8 @@ class MapScreen extends Component {
         tailing: true
     });
 
-    confirmLocationPress = async () => {
-        let resp;
-        const result = await this.props.distanceMatrix({
-            units: 'imperial',
-            origins: `${originRegion.latitude}, ${originRegion.longitude}`,
-            destinations: `${this.props.region.latitude},${
-                this.props.region.longitude
-            }`
-        });
-        if (result.rows[0].elements[0].duration.value > 60 * 15) {
-            this.props.dropdownAlert(true, 'Service is not available here');
-            resp = result;
-        } else {
-            this.props.fetchCustomerBlock();
-        }
-        return resp;
-        // TODO: handle resetting location after order creation
-        // this.setState({ changeLocationPopupVisible: true });
-    };
-
-    changeLocationConfirmed = async confirmed => {
-        // close change location warning modal
-        this.setState({ changeLocationPopupVisible: false });
-
-        // if the user click 'Apply', continue with use current location
-        if (confirmed) {
-            let resp;
-            const result = await this.props.distanceMatrix({
-                units: 'imperial',
-                origins: '30.268066,-97.7450017', // 'E 6th St & Congress Ave, Austin, TX 78701'
-                destinations: `${this.props.region.latitude},${
-                    this.props.region.longitude
-                }`
-            });
-            if (result.rows[0].elements[0].duration.value > 60 * 30) {
-                this.props.dropdownAlert(true, ERRORS['007']);
-                resp = result;
-            } else {
-                this.props.dropdownAlert(false, '');
-                this.props.setCurrentLocation(
-                    this.props.address,
-                    this.props.region
-                );
-                try {
-                    resp = await ref('orders/US/TX/Austin').push({
-                        currentSetAddress: this.props.address,
-                        region: this.props.region,
-                        status: 'open'
-                    });
-                    if (resp) {
-                        const key = resp.path.pieces_.join('/'); // eslint-disable-line
-                        this.props.orderCreationSuccess(key);
-                        this.props.navigation.navigate('products');
-                    } else {
-                        throw new Error('Error setting location');
-                    }
-                } catch (error) {
-                    resp = error;
-                    const message =
-                        error.message || // just while dev TODO: remove
-                        'Error setting location, please change and try again';
-
-                    this.props.orderCreationFailure(error); // TODO: log this error to server
-                    this.props.dropdownAlert(true, message);
-                }
-            }
-            return resp;
-        }
+    confirmLocationPress = () => {
+        this.props.determineDeliveryDistance(this.props.region);
     };
 
     animateMarkerToCoordinate = coordinate => {
@@ -310,8 +220,6 @@ class MapScreen extends Component {
         const errorCode = error ? error.code : 'default';
         const errorMessage = ERRORS[errorCode];
 
-        const { changeLocationPopupVisible } = this.state;
-
         return (
             <View style={styles.container}>
                 <MapView
@@ -397,13 +305,6 @@ class MapScreen extends Component {
                     isOpen={!!error}
                     closeModal={this.handleCloseContinuePopup}
                     message={errorMessage}
-                />
-                <SuccessPopup
-                    openModal={changeLocationPopupVisible}
-                    closeModal={this.changeLocationConfirmed}
-                    title={CHANGE_LOCATION_TITLE}
-                    message={CHANGE_LOCATION_MESSAGE}
-                    showIcon={false}
                 />
             </View>
         );
@@ -515,10 +416,9 @@ const mapDispatchToProps = {
     setRegion,
     setCurrentLocation,
     getCurrentLocation,
-    distanceMatrix,
-    reverseGeocode,
     orderCreationSuccess,
-    orderCreationFailure
+    orderCreationFailure,
+    determineDeliveryDistance
 };
 
 export default connect(
