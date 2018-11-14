@@ -33,7 +33,7 @@ class PaymentMethodScreen extends Component {
                 <MenuAndBackButton navigation={navigation} />
             ),
             headerRight: signedUp ? (
-                <TextButton title="Skip" onPress={onPressHeaderRight} />
+                <TextButton title="Next" onPress={onPressHeaderRight} />
             ) : null,
             headerStyle: Style.header,
             headerTitleStyle: Style.headerTitle

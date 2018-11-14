@@ -8,7 +8,8 @@ import {
     Platform,
     Animated,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
@@ -133,6 +134,13 @@ class CheckoutScreen extends Component {
         this.setState({ changeLocationPopupVisible: false });
     };
 
+    confirmPurchase = () => {
+        Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
+            { text: 'Cancel' },
+            { text: 'Confirm', onPress: () => this.lightAbeacon() }
+        ]);
+    };
+
     lightAbeacon = () => {
         const {
             stripeCustomerId,
@@ -215,13 +223,10 @@ class CheckoutScreen extends Component {
                         <View style={styles.container}>
                             <TouchableOpacity
                                 style={styles.checkout}
-                                onPress={this.lightAbeacon}
+                                onPress={this.confirmPurchase}
                             >
                                 <Text style={styles.imageTitle}>
                                     {'LIGHT A BEACON!'}
-                                </Text>
-                                <Text style={styles.imageSubText}>
-                                    {'This confirms purchase'}
                                 </Text>
                                 <Text style={styles.imageSubText}>
                                     {`Total: $${totalCostFormatted}`}

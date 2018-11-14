@@ -116,9 +116,12 @@ export const listenToAuthChanges = () => dispatch => {
 };
 
 export const setUserExpoPushToken = token => dispatch => {
-    dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
-    const userDoc = db.collection('users').doc(firebaseAuth.currentUser.uid);
-    return userDoc.update({ expoPushToken: token });
+    if (firebaseAuth.currentUser) {
+        const user = firebaseAuth.currentUser;
+        dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
+        const userDoc = db.collection('users').doc(user.uid);
+        return userDoc.update({ expoPushToken: token });
+    }
 };
 
 export const getUserReadable = () => dispatch => {
