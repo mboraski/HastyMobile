@@ -19,6 +19,7 @@ import { unListenCustomerBlock } from '../actions/productActions';
 import {
     unListenOrderStatus,
     unListenToOrderFulfillment,
+    unListenOrderDelivery,
     unListenOrderError,
     listenToOrderStatus,
     listenToOrderFulfillment,
@@ -89,6 +90,7 @@ class RootContainer extends Component {
         this.props.unListenToOrderFulfillment(this.props.orderId);
         this.props.unListenOrderError(this.props.orderId);
         this.props.unListenOrderStatus(this.props.orderId);
+        this.props.unListenOrderDelivery(this.props.orderId);
     }
 
     handleCustomerPopupClose = () => {
@@ -153,6 +155,7 @@ const mapDispatchToProps = {
     unListenOrderStatus,
     unListenToOrderFulfillment,
     unListenOrderError,
+    unListenOrderDelivery,
     listenToOrderStatus,
     listenToOrderFulfillment,
     listenToOrderError

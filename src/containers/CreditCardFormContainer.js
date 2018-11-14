@@ -19,6 +19,7 @@ import {
     deleteCard,
     createStripeCustomerWithCard
 } from '../actions/paymentActions';
+import { dropdownAlert } from '../actions/uiActions';
 
 import { getStripeCustomerId, getPending } from '../selectors/paymentSelectors';
 import { getEmail } from '../selectors/authSelectors';
@@ -199,7 +200,6 @@ const formOptions = {
     form: 'CreditCard',
     async onSubmit(values, dispatch, props) {
         try {
-            const stripeCustomerId = props.stripeCustomerId;
             const email = props.email;
             const exp = values.exp.split('/');
             const information = {
@@ -229,8 +229,12 @@ const formOptions = {
                 }
                 throw new SubmissionError(error);
             }
-            if (stripeCustomerId) {
-                addCard({ stripeCustomerId, tokenId: newCard.id, dispatch });
+            if (props.stripeCustomerId) {
+                addCard({
+                    stripeCustomerId: props.stripeCustomerId,
+                    tokenId: newCard.id,
+                    dispatch
+                });
             } else {
                 createStripeCustomerWithCard({
                     email,
@@ -239,7 +243,8 @@ const formOptions = {
                 });
             }
         } catch (error) {
-            console.log('Credit Card Submit Error');
+            console.log('Credit Card Submit Error: ', error);
+            dispatch(dropdownAlert(true, 'Error submitting credit card.'));
         }
     }
 };

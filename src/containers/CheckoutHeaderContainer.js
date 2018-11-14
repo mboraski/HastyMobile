@@ -108,8 +108,8 @@ class MapHeaderContainer extends Component {
                         <View style={Style.headerTitleContainer}>
                             <Text
                                 style={[
-                                    Style.headerTitle,
-                                    Style.headerTitleLogo
+                                    Style.headerTitleLogo,
+                                    Style.headerTitle
                                 ]}
                             >
                                 Hasty

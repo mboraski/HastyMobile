@@ -63,7 +63,7 @@ export const determineDeliveryDistance = region => async dispatch => {
                     return;
                 }
             },
-            error => dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR })
+            () => dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR })
         );
     } catch (error) {
         console.log('determineDeliveryDistance error: ', error);

@@ -83,6 +83,10 @@ export const listenToOrderStatus = orderId => dispatch => {
                     });
                     break;
                 case orderStatuses.completed:
+                    unListenToOrderFulfillment(orderId);
+                    unListenToOrderError(orderId);
+                    unListenOrderStatus(orderId);
+                    unListenOrderDelivery(orderId);
                     dispatch({
                         type: UPDATE_ORDER_STATUS,
                         payload: orderStatuses.completed
@@ -115,8 +119,20 @@ export const unListenToOrderFulfillment = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`).off();
 
 export const listenToOrderError = orderId => dispatch => {
+    return rtdb.ref(`${ORDER_REF}/${orderId}/error`).on('value', snapshot => {
+        const error = snapshot.val();
+        if (error) {
+            //TODO:
+        }
+    });
+};
+
+export const unListenToOrderError = orderId =>
+    rtdb.ref(`${ORDER_REF}/${orderId}/error`).off();
+
+export const listenToOrderDelivery = orderId => dispatch => {
     return rtdb
-        .ref(`${ORDER_REF}/${orderId}/fulfillment/error`)
+        .ref(`${ORDER_REF}/${orderId}/delivery`)
         .on('value', snapshot => {
             const error = snapshot.val();
             if (error) {
@@ -125,8 +141,8 @@ export const listenToOrderError = orderId => dispatch => {
         });
 };
 
-export const unListenOrderError = orderId =>
-    rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/error`).off();
+export const unListenOrderDelivery = orderId =>
+    rtdb.ref(`${ORDER_REF}/${orderId}/delivery`).off();
 
 export const contactContractor = (
     contractorId,

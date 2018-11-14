@@ -85,7 +85,7 @@ export const signInWithEmailAndPassword = (values, dispatch) =>
                 });
                 return reject(
                     new SubmissionError({
-                        _error: 'Crrrazy error' // TODO: change
+                        _error: 'Invalid username or password'
                     })
                 );
             });
