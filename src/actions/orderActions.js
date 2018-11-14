@@ -144,18 +144,4 @@ export const listenToOrderDelivery = orderId => dispatch => {
 export const unListenOrderDelivery = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/delivery`).off();
 
-export const contactContractor = (
-    contractorId,
-    phoneNumber
-) => async dispatch => {
-    dispatch({ type: CALL_CONTRACTOR_REQUEST }); // TODO: nothing listening yet
-    try {
-        await api.consumerCallsContractor({
-            contractorId,
-            phoneNumber
-        });
-        console.log('call to contractor success: ');
-    } catch (err) {
-        console.log('call to contractor errored: ');
-    }
-};
+export const contactContractor = () => {};

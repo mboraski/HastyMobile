@@ -243,7 +243,6 @@ const formOptions = {
                 });
             }
         } catch (error) {
-            console.log('Credit Card Submit Error: ', error);
             dispatch(dropdownAlert(true, 'Error submitting credit card.'));
         }
     }

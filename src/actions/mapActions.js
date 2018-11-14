@@ -41,7 +41,6 @@ export const determineDeliveryDistance = region => async dispatch => {
                         mode,
                         destinations: `${region.latitude},${region.longitude}`
                     });
-                    console.log('result of distanceMatrix: ', result);
                     const delivery = result.rows[0].elements[0];
                     const duration = delivery.duration;
                     if (duration.value > 60 * 15) {
@@ -66,7 +65,6 @@ export const determineDeliveryDistance = region => async dispatch => {
             () => dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR })
         );
     } catch (error) {
-        console.log('determineDeliveryDistance error: ', error);
         dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR });
     }
     // TODO: handle resetting location after order creation
