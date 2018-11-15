@@ -52,7 +52,6 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                 return resolve();
             })
             .catch(error => {
-                console.log('user creation error: ', error);
                 dispatch({
                     type: SIGNUP_FAIL,
                     payload: error
@@ -86,7 +85,7 @@ export const signInWithEmailAndPassword = (values, dispatch) =>
                 });
                 return reject(
                     new SubmissionError({
-                        _error: 'Crrrazy error' // TODO: change
+                        _error: 'Invalid username or password'
                     })
                 );
             });
@@ -117,16 +116,12 @@ export const listenToAuthChanges = () => dispatch => {
 };
 
 export const setUserExpoPushToken = token => dispatch => {
-    dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
-    const userDoc = db.collection('users').doc(firebaseAuth.currentUser.uid);
-    return userDoc
-        .update({ expoPushToken: token })
-        .then(() => {
-            console.log('set expo push token success');
-        })
-        .catch(error => {
-            console.log('set expo push token error: ', error);
-        });
+    if (firebaseAuth.currentUser) {
+        const user = firebaseAuth.currentUser;
+        dispatch({ type: SET_EXPO_PUSH_TOKEN_REQUEST }); // TODO: NOT LISTENED TO
+        const userDoc = db.collection('users').doc(user.uid);
+        return userDoc.update({ expoPushToken: token });
+    }
 };
 
 export const getUserReadable = () => dispatch => {
@@ -142,6 +137,7 @@ export const getUserReadable = () => dispatch => {
                     payload: userData
                 });
                 if (
+                    userData &&
                     userData.stripeInfo &&
                     userData.stripeInfo.stripeCustomerId
                 ) {

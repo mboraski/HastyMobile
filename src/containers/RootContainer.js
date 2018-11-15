@@ -19,6 +19,7 @@ import { unListenCustomerBlock } from '../actions/productActions';
 import {
     unListenOrderStatus,
     unListenToOrderFulfillment,
+    unListenOrderDelivery,
     unListenOrderError,
     listenToOrderStatus,
     listenToOrderFulfillment,
@@ -89,20 +90,8 @@ class RootContainer extends Component {
         this.props.unListenToOrderFulfillment(this.props.orderId);
         this.props.unListenOrderError(this.props.orderId);
         this.props.unListenOrderStatus(this.props.orderId);
+        this.props.unListenOrderDelivery(this.props.orderId);
     }
-
-    // handleNotification = notification => {
-    //     if (notification.data) {
-    //         if (notification.data.type === 'feedback') {
-    //             this.props.dispatch(
-    //                 NavigationActions.navigate({
-    //                     routeName: 'notificationFeedback',
-    //                     params: notification.data
-    //                 })
-    //             );
-    //         }
-    //     }
-    // };
 
     handleCustomerPopupClose = () => {
         this.props.closeCustomerPopup();
@@ -166,6 +155,7 @@ const mapDispatchToProps = {
     unListenOrderStatus,
     unListenToOrderFulfillment,
     unListenOrderError,
+    unListenOrderDelivery,
     listenToOrderStatus,
     listenToOrderFulfillment,
     listenToOrderError

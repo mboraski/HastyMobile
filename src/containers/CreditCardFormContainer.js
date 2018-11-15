@@ -19,6 +19,7 @@ import {
     deleteCard,
     createStripeCustomerWithCard
 } from '../actions/paymentActions';
+import { dropdownAlert } from '../actions/uiActions';
 
 import { getStripeCustomerId, getPending } from '../selectors/paymentSelectors';
 import { getEmail } from '../selectors/authSelectors';
@@ -33,8 +34,9 @@ import { emY } from '../utils/em';
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
+import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
 
-const stripe = stripeClient('pk_test_frUco17ktkWZBLsjBy6RPbUH');
+const stripe = stripeClient(STRIPE_CLIENT_KEY);
 const keyboardVerticalOffset = emY(1);
 
 export class CreditCardFormContainer extends Component {
@@ -198,7 +200,6 @@ const formOptions = {
     form: 'CreditCard',
     async onSubmit(values, dispatch, props) {
         try {
-            const stripeCustomerId = props.stripeCustomerId;
             const email = props.email;
             const exp = values.exp.split('/');
             const information = {
@@ -228,8 +229,12 @@ const formOptions = {
                 }
                 throw new SubmissionError(error);
             }
-            if (stripeCustomerId) {
-                addCard({ stripeCustomerId, tokenId: newCard.id, dispatch });
+            if (props.stripeCustomerId) {
+                addCard({
+                    stripeCustomerId: props.stripeCustomerId,
+                    tokenId: newCard.id,
+                    dispatch
+                });
             } else {
                 createStripeCustomerWithCard({
                     email,
@@ -238,7 +243,7 @@ const formOptions = {
                 });
             }
         } catch (error) {
-            console.log('Credit Card Submit Error: ', error);
+            dispatch(dropdownAlert(true, 'Error submitting credit card.'));
         }
     }
 };

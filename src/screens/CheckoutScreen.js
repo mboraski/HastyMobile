@@ -8,7 +8,8 @@ import {
     Platform,
     Animated,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
@@ -37,10 +38,7 @@ import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
     getCartCostTotal,
-    getCartTaxTotal,
-    getCartServiceCharge,
-    getServiceFee,
-    getDeliveryFee
+    getCartTax
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -50,8 +48,12 @@ import {
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getProductImages } from '../selectors/productSelectors';
-import { getNotes } from '../selectors/checkoutSelectors';
-import { getEmail } from '../selectors/authSelectors';
+import { getNotes, getServiceFee } from '../selectors/checkoutSelectors';
+import {
+    getEmail,
+    getFirstName,
+    getLastName
+} from '../selectors/authSelectors';
 import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -132,25 +134,40 @@ class CheckoutScreen extends Component {
         this.setState({ changeLocationPopupVisible: false });
     };
 
+    confirmPurchase = () => {
+        Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
+            { text: 'Cancel' },
+            { text: 'Confirm', onPress: () => this.lightAbeacon() }
+        ]);
+    };
+
     lightAbeacon = () => {
         const {
             stripeCustomerId,
             paymentMethod,
+            firstName,
+            lastName,
             totalCost,
+            serviceFee,
             notes,
             cart,
-            email
+            email,
+            region
         } = this.props;
         if (paymentMethod) {
             const source = paymentMethod.id;
             const description = `Charge for ${email}`;
             this.props.submitPayment(
                 stripeCustomerId,
-                source,
                 description,
+                serviceFee,
                 totalCost,
+                source,
                 notes,
-                cart
+                cart,
+                firstName,
+                lastName,
+                region
             );
         } else {
             this.props.dropdownAlert(true, 'Go to Menu to add payment method');
@@ -192,6 +209,7 @@ class CheckoutScreen extends Component {
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
         // TODO: fix this as the price is rounded ceil on server
         const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        const card = paymentMethod.card || {};
 
         return (
             <View style={styles.container}>
@@ -205,13 +223,10 @@ class CheckoutScreen extends Component {
                         <View style={styles.container}>
                             <TouchableOpacity
                                 style={styles.checkout}
-                                onPress={this.lightAbeacon}
+                                onPress={this.confirmPurchase}
                             >
                                 <Text style={styles.imageTitle}>
                                     {'LIGHT A BEACON!'}
-                                </Text>
-                                <Text style={styles.imageSubText}>
-                                    {'This confirms purchase'}
                                 </Text>
                                 <Text style={styles.imageSubText}>
                                     {`Total: $${totalCostFormatted}`}
@@ -255,8 +270,8 @@ class CheckoutScreen extends Component {
                             </View>
                             <View style={styles.dropdownContainer}>
                                 <PaymentMethod
-                                    type={paymentMethod.brand}
-                                    text={paymentMethod.last4}
+                                    type={card.brand}
+                                    text={card.last4}
                                 />
                             </View>
                             <View style={styles.itemHeader}>
@@ -277,14 +292,20 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <MapView region={region} style={styles.map}>
+                            <MapView
+                                region={region}
+                                style={styles.map}
+                                pitchEnabled={false}
+                                rotateEnabled={false}
+                                scrollEnabled={false}
+                            >
                                 <MapView.Marker
                                     image={beaconIcon}
                                     coordinate={region}
                                     title="You"
                                     description="Your Delivery Location"
-                                    anchor={{ x: 0.2, y: 1 }}
-                                    centerOffset={{ x: 12, y: -25 }}
+                                    anchor={{ x: 0.5, y: 0.5 }}
+                                    style={styles.beaconMarker}
                                 />
                             </MapView>
                             <View style={styles.itemHeader}>
@@ -411,6 +432,10 @@ const styles = StyleSheet.create({
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
     },
+    beaconMarker: {
+        maxWidth: 42,
+        maxHeight: 55
+    },
     imageTitle: {
         color: 'white',
         backgroundColor: 'transparent',
@@ -506,10 +531,8 @@ const mapStateToProps = state => ({
     email: getEmail(state),
     cart: getCartOrders(state),
     totalCost: getCartCostTotal(state),
-    tax: getCartTaxTotal(state),
+    tax: getCartTax(state),
     serviceFee: getServiceFee(state),
-    deliveryFee: getDeliveryFee(state),
-    serviceCharge: getCartServiceCharge(state),
     notes: getNotes(state),
     address: getAddress(state),
     region: getRegion(state),
@@ -518,7 +541,9 @@ const mapStateToProps = state => ({
     pending: getPending(state),
     stripeCustomerId: getStripeCustomerId(state),
     orderId: getOrderId(state),
-    productImages: getProductImages(state)
+    productImages: getProductImages(state),
+    firstName: getFirstName(state),
+    lastName: getLastName(state)
 });
 
 const mapDispatchToProps = {

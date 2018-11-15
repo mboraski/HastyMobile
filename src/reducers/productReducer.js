@@ -34,7 +34,6 @@ export default function(state = initialState, action) {
                 pending: false
             };
         case FETCH_CUSTOMER_BLOCK_ERROR:
-            console.log('fetch products failure: ', action.payload);
             return {
                 ...state,
                 error: action.payload,
