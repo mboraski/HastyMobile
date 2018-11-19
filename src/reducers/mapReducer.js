@@ -19,10 +19,7 @@ import {
     GET_CURRENT_LOCATION_SUCCESS,
     GET_CURRENT_LOCATION_ERROR,
     NULLIFY_MAP_ERROR,
-    NO_HEROES_AVAILABLE,
-    DETERMINE_DELIVERY_DISTANCE_REQUEST,
-    DETERMINE_DELIVERY_DISTANCE_SUCCESS,
-    DETERMINE_DELIVERY_DISTANCE_ERROR
+    NO_HEROES_AVAILABLE
 } from '../actions/mapActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -49,18 +46,7 @@ const initialState = {
     coords: null, // This is the user's location
     timestamp: null,
     address: '', // This is the readable address of the delivery location
-    error: null,
-    delivery: {
-        distance: {
-            text: '',
-            value: 0
-        },
-        duration: {
-            text: '',
-            value: 0
-        },
-        status: ''
-    }
+    error: null
 };
 
 export default function(state = initialState, action) {
@@ -76,22 +62,6 @@ export default function(state = initialState, action) {
                 };
             }
             return state;
-        case DETERMINE_DELIVERY_DISTANCE_REQUEST:
-            return {
-                ...state,
-                pending: true
-            };
-        case DETERMINE_DELIVERY_DISTANCE_SUCCESS:
-            return {
-                ...state,
-                pending: false,
-                delivery: action.payload
-            };
-        case DETERMINE_DELIVERY_DISTANCE_ERROR:
-            return {
-                ...state,
-                pending: false
-            };
         case MAPS_PLACES_AUTOCOMPLETE_REQUEST:
             return {
                 ...state,
@@ -183,11 +153,7 @@ export default function(state = initialState, action) {
         case NO_HEROES_AVAILABLE:
             return {
                 ...state,
-                pending: false,
-                error: {
-                    code: '007',
-                    message: 'No Heroes Available'
-                }
+                error: action.payload
             };
         case NULLIFY_MAP_ERROR:
             return {

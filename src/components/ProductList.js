@@ -11,7 +11,7 @@ import { emY } from '../utils/em';
 class ProductList extends Component {
     renderProducts() {
         const { products, callAddToCart, productImages } = this.props;
-        return map(products, product => {
+        return map(products, (product) => {
             const image = productImages[product.productName] || '';
             const taken = product.quantityTaken;
             const consumed = taken >= product.quantityAvailable;
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     product: {
-        width: Dimensions.window.width / 2 - 21,
+        width: ((Dimensions.window.width / 2) - 21),
         marginRight: 8,
         marginBottom: emY(0.25)
     }

@@ -23,6 +23,7 @@ export const getContractorName = createSelector(
         const contractors = map(full, contractor => {
             return `${contractor.firstName} ${contractor.lastName}`;
         });
+        console.log('contractors names: ', contractors);
         return contractors[0];
     }
 );
@@ -33,6 +34,7 @@ export const getContractorStatus = createSelector(
         const contractorStatuses = map(full, contractor => {
             return contractor.status;
         });
+        console.log('contractorStatuses: ', contractorStatuses);
         return contractorStatuses[0];
     }
 );

@@ -10,7 +10,7 @@ import jcbIcon from '../assets/icons/cc-jcb.png';
 import maestroIcon from '../assets/icons/cc-maestro.png';
 
 const VISA = 'visa';
-const MASTERCARD = 'mastercard';
+const MASTERCARD = 'master-card';
 const AMERICAN_EXPRESS = 'american-express';
 const DINERS_CLUB = 'diners-club';
 const DISCOVER = 'discover';

@@ -116,12 +116,6 @@ class ProductsScreen extends Component {
                         onPress={this.goToCheckout}
                     >
                         <Text style={styles.imageTitle}>Go to Checkout</Text>
-                        <Text style={styles.imageSubText}>
-                            {'(Product counts and other details'}
-                        </Text>
-                        <Text style={styles.imageSubText}>
-                            {'adjustable at checkout)'}
-                        </Text>
                         <View style={styles.checkoutIconContainer}>
                             <MaterialIcons
                                 name="keyboard-arrow-right"
@@ -207,12 +201,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     imageMeta: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1),
-        textAlign: 'center'
-    },
-    imageSubText: {
         color: 'white',
         backgroundColor: 'transparent',
         fontSize: emY(1),
