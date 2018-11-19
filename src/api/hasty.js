@@ -34,6 +34,11 @@ export function chargeStripeCustomerSource(args) {
     return cscs(args);
 }
 
+export function consumerCallsContractor(args) {
+    const ccc = functions.httpsCallable('consumerCallsContractor');
+    return ccc(args);
+}
+
 export function logCustomerError(args) {
     return instance.post('logCustomerError', args);
 }

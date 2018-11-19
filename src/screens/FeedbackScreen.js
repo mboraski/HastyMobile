@@ -57,6 +57,7 @@ class FeedbackScreen extends Component {
     };
 
     onSubmit = (result, dispatch) => {
+        console.log('onSubmit ran: ', { result, dispatch });
         let message = '';
         if (result) {
             // send name and message also

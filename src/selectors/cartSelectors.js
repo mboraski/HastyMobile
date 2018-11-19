@@ -2,12 +2,14 @@ import { createSelector } from 'reselect';
 import reduce from 'lodash.reduce';
 import filter from 'lodash.filter';
 
-import { getSalesTaxRate, getServiceFee } from './checkoutSelectors';
-
 export const getCartProducts = state => state.cart.products;
 export const getCartImages = state => state.cart.images; //TODO: set images in this part of state
 export const getItemCountUp = state => state.cart.products;
 export const getItemCountDown = state => state.cart.products;
+export const getDeliveryFee = state => state.cart.deliveryFee;
+export const getTaxRate = state => state.cart.localSalesTaxRate;
+export const getServiceRate = state => state.cart.serviceRate;
+export const getServiceFee = state => state.cart.serviceFee;
 export const getCurrentSetAddress = state => state.cart.currentSetAddress;
 export const getRegion = state => state.cart.region;
 
@@ -38,14 +40,20 @@ export const getCartPureTotal = createSelector([getCartOrders], orders =>
     orders.reduce((acc, order) => acc + order.price * order.quantityTaken, 0)
 );
 
-export const getCartTax = createSelector(
-    [getCartPureTotal, getSalesTaxRate],
+export const getCartTaxTotal = createSelector(
+    [getCartPureTotal, getTaxRate],
     (total, taxRate) => total * taxRate
 );
 
+export const getCartServiceCharge = createSelector(
+    [getCartPureTotal, getServiceRate],
+    (total, serviceRate) => total * serviceRate
+);
+
 export const getCartCostTotal = createSelector(
-    [getCartPureTotal, getCartTax, getServiceFee],
-    (total, tax, serviceFee) => total + tax + serviceFee
+    [getCartPureTotal, getCartServiceCharge, getDeliveryFee, getServiceFee],
+    (total, serviceCharge, deliveryFee, serviceFee) =>
+        total + serviceCharge + deliveryFee + serviceFee
 );
 // export const getCartOrders = createSelector(
 //     getCartProducts,

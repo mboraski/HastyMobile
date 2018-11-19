@@ -2,13 +2,13 @@ import { StyleSheet, Platform, StatusBar } from 'react-native';
 
 import { emY } from '../utils/em';
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const TITLE_OFFSET = Platform.OS === 'ios' ? 70 : 56;
 
 const header = {
     paddingTop: STATUSBAR_HEIGHT,
     backgroundColor: '#fff',
-    height: emY(2.8),
+    height: emY(4.25),
     shadowRadius: 0,
     shadowOffset: {
         height: 0

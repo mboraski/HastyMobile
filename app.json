@@ -1,11 +1,11 @@
 {
     "expo": {
-        "name": "Hasty",
+        "name": "HastyMobile",
         "description": "Hasty Consumer Mobile App",
         "slug": "hasty-mobile",
         "privacy": "unlisted",
         "sdkVersion": "30.0.0",
-        "version": "0.2.0",
+        "version": "0.1.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
         "assetBundlePatterns": [
@@ -13,11 +13,6 @@
             "src/assets/fonts/*",
             "src/assets/icons/*"
         ],
-        "updates": {
-            "enabled": true,
-            "checkAutomatically": "ON_LOAD",
-            "fallbackToCacheTimeout": 90000
-        },
         "icon": "./src/assets/icons/HastyAppleStoreIcon.png",
         "splash": {
             "backgroundColor": "#f5a623",
@@ -28,12 +23,12 @@
             "assetExts": ["ttf", "mp4"]
         },
         "ios": {
-            "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
+            "bundleIdentifier": "com.spartanspeedofservice.hasty",
             "loadJSInBackgroundExperimental": true,
             "supportsTablet": false
         },
         "android": {
-            "package": "com.spartanspeedofservice.hastymobile"
+            "package": "com.spartanspeedofservice.hasty"
         }
     }
 }

@@ -11,10 +11,14 @@ export const getSelectedCard = state => state.payment.selectedCard;
 export const getPaymentMethod = createSelector(
     [getDefaultSource, getCards],
     (defaultSource, cards) => {
+        console.log('cards: ', cards);
+        console.log('defaultSource: ', defaultSource);
         const cardId = defaultSource || '';
+        console.log('cardId: ', cardId);
         const paymentMethod = find(cards, card => {
             return card.id === cardId;
         });
-        return paymentMethod || {};
+        console.log('paymentMethod: ', paymentMethod);
+        return paymentMethod || null;
     }
 );

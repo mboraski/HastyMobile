@@ -33,7 +33,7 @@ class PaymentMethodScreen extends Component {
                 <MenuAndBackButton navigation={navigation} />
             ),
             headerRight: signedUp ? (
-                <TextButton title="Next" onPress={onPressHeaderRight} />
+                <TextButton title="Skip" onPress={onPressHeaderRight} />
             ) : null,
             headerStyle: Style.header,
             headerTitleStyle: Style.headerTitle
@@ -69,17 +69,15 @@ class PaymentMethodScreen extends Component {
     };
 
     renderCard = (source, index) => {
-        if (source && source.card) {
-            const onPress = () => this.selectPaymentMethod(source);
-            return (
-                <PaymentMethod
-                    key={index}
-                    type={source.card.brand}
-                    text={source.card.last4}
-                    onPress={onPress}
-                />
-            );
-        }
+        const onPress = () => this.selectPaymentMethod(source);
+        return (
+            <PaymentMethod
+                key={index}
+                type={source.card.brand}
+                text={source.card.last4}
+                onPress={onPress}
+            />
+        );
     };
 
     render() {

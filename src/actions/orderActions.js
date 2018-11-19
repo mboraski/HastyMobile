@@ -41,10 +41,12 @@ export const completeOrder = async values => {
             overallRating,
             message
         });
+        console.log('completeOrder result: ', result.data);
         dispatch({ type: CLEAR_CART });
         dispatch({ type: CLEAR_ORDER });
         return result;
     } catch (error) {
+        console.log('error: ', error);
         return;
     }
 };
@@ -83,10 +85,6 @@ export const listenToOrderStatus = orderId => dispatch => {
                     });
                     break;
                 case orderStatuses.completed:
-                    unListenToOrderFulfillment(orderId);
-                    unListenToOrderError(orderId);
-                    unListenOrderStatus(orderId);
-                    unListenOrderDelivery(orderId);
                     dispatch({
                         type: UPDATE_ORDER_STATUS,
                         payload: orderStatuses.completed
@@ -107,6 +105,7 @@ export const listenToOrderFulfillment = orderId => dispatch => {
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
             if (fulfillment) {
+                console.log('order fulfillment listener ran');
                 dispatch({
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
@@ -119,20 +118,8 @@ export const unListenToOrderFulfillment = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`).off();
 
 export const listenToOrderError = orderId => dispatch => {
-    return rtdb.ref(`${ORDER_REF}/${orderId}/error`).on('value', snapshot => {
-        const error = snapshot.val();
-        if (error) {
-            //TODO:
-        }
-    });
-};
-
-export const unListenToOrderError = orderId =>
-    rtdb.ref(`${ORDER_REF}/${orderId}/error`).off();
-
-export const listenToOrderDelivery = orderId => dispatch => {
     return rtdb
-        .ref(`${ORDER_REF}/${orderId}/delivery`)
+        .ref(`${ORDER_REF}/${orderId}/fulfillment/error`)
         .on('value', snapshot => {
             const error = snapshot.val();
             if (error) {
@@ -141,7 +128,21 @@ export const listenToOrderDelivery = orderId => dispatch => {
         });
 };
 
-export const unListenOrderDelivery = orderId =>
-    rtdb.ref(`${ORDER_REF}/${orderId}/delivery`).off();
+export const unListenOrderError = orderId =>
+    rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/error`).off();
 
-export const contactContractor = () => {};
+export const contactContractor = (
+    contractorId,
+    phoneNumber
+) => async dispatch => {
+    dispatch({ type: CALL_CONTRACTOR_REQUEST }); // TODO: nothing listening yet
+    try {
+        const call = await api.consumerCallsContractor({
+            contractorId,
+            phoneNumber
+        });
+        console.log('call to contractor success: ', call.data);
+    } catch (err) {
+        console.log('call to contractor errored: ', err);
+    }
+};
