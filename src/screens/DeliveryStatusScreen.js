@@ -25,13 +25,6 @@ import {
     getContractorStatus
 } from '../selectors/orderSelectors';
 
-import { clearCart } from '../actions/cartActions';
-import {
-    unListenToOrderFulfillment,
-    unListenOrderError,
-    unListenOrderStatus,
-    clearOrder
-} from '../actions/orderActions';
 import { dropdownAlert } from '../actions/uiActions';
 
 const SIZE = emY(7);
@@ -114,8 +107,12 @@ class DeliveryStatusScreen extends Component {
                                 this.renderHeroList())}
                     </View>
                 ) : (
-                    <View style={styles.container}>
-                        <Text>No current orders</Text>
+                    <View style={styles.noOrderWrapper}>
+                        <Text style={styles.noOrderText}>
+                            There are no current orders. Please click the menu
+                            icon to go to the map screen. Then set a location to
+                            begin the order process.
+                        </Text>
                     </View>
                 )}
             </View>
@@ -132,6 +129,16 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start'
+    },
+    noOrderWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+    noOrderText: {
+        textAlign: 'center',
+        fontSize: emY(1.5)
     },
     heroList: {
         position: 'absolute',
@@ -206,11 +213,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    clearCart,
-    clearOrder,
-    unListenToOrderFulfillment,
-    unListenOrderError,
-    unListenOrderStatus,
     dropdownAlert
 };
 

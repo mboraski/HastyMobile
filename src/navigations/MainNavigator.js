@@ -3,7 +3,6 @@ import { createStackNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
 // Relative Imports
-import apiTester from '../screens/apiTester';
 import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
@@ -24,7 +23,6 @@ const getHeaderMode = () => (Platform.OS === 'ios' ? 'float' : 'screen');
 
 export default createStackNavigator(
     {
-        apiTester: { screen: apiTester },
         welcome: { screen: WelcomeScreen },
         auth: { screen: AuthScreen },
         profile: { screen: ProfileScreen },

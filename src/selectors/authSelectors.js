@@ -4,14 +4,24 @@ export const getUser = state => state.auth.user;
 export const getPending = state => state.auth.pending;
 export const getError = state => state.auth.error;
 export const getExpirationDate = state => state.auth.expirationDate;
-export const getUserReadable = state => state.auth.userReadable;
+export const getUserReadable = state => state.auth.userReadable || {};
 
 export const getEmail = createSelector(
     [getUserReadable],
-    userReadable => userReadable.email || ''
+    userReadable => userReadable.email || 'unavailable@unavailable.com'
 );
 
 export const getPhoneNumber = createSelector(
     [getUserReadable],
-    userReadable => userReadable.phoneNumber || ''
+    userReadable => userReadable.phoneNumber || 'unavailable'
+);
+
+export const getFirstName = createSelector(
+    [getUserReadable],
+    userReadable => userReadable.firstName || 'unavailable'
+);
+
+export const getLastName = createSelector(
+    [getUserReadable],
+    userReadable => userReadable.lastName || 'unavailable'
 );

@@ -8,7 +8,9 @@ import {
     Platform,
     Animated,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
+    Alert,
+    Image
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
@@ -37,10 +39,8 @@ import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
     getCartCostTotal,
-    getCartTaxTotal,
-    getCartServiceCharge,
-    getServiceFee,
-    getDeliveryFee
+    getCartTax,
+    getCartTotalQuantity
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -50,8 +50,12 @@ import {
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getProductImages } from '../selectors/productSelectors';
-import { getNotes } from '../selectors/checkoutSelectors';
-import { getEmail } from '../selectors/authSelectors';
+import { getNotes, getServiceFee } from '../selectors/checkoutSelectors';
+import {
+    getEmail,
+    getFirstName,
+    getLastName
+} from '../selectors/authSelectors';
 import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -64,6 +68,7 @@ const CHANGE_LOCATION_TITLE =
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
 const MAP_HEIGHT = emY(8.25);
+const beaconEdgeLength = emY(6);
 
 class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation, pending }) => ({
@@ -132,25 +137,40 @@ class CheckoutScreen extends Component {
         this.setState({ changeLocationPopupVisible: false });
     };
 
+    confirmPurchase = () => {
+        Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
+            { text: 'Cancel' },
+            { text: 'Confirm', onPress: () => this.lightAbeacon() }
+        ]);
+    };
+
     lightAbeacon = () => {
         const {
             stripeCustomerId,
             paymentMethod,
+            firstName,
+            lastName,
             totalCost,
+            serviceFee,
             notes,
             cart,
-            email
+            email,
+            region
         } = this.props;
         if (paymentMethod) {
             const source = paymentMethod.id;
             const description = `Charge for ${email}`;
             this.props.submitPayment(
                 stripeCustomerId,
-                source,
                 description,
+                serviceFee,
                 totalCost,
+                source,
                 notes,
-                cart
+                cart,
+                firstName,
+                lastName,
+                region
             );
         } else {
             this.props.dropdownAlert(true, 'Go to Menu to add payment method');
@@ -174,7 +194,8 @@ class CheckoutScreen extends Component {
             address,
             region,
             paymentMethod,
-            pending
+            pending,
+            cartQuantity
         } = this.props;
         const {
             removeOrderPopupVisible,
@@ -190,8 +211,11 @@ class CheckoutScreen extends Component {
             ? (deliveryFee / 100).toFixed(2)
             : 0;
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
-        // TODO: fix this as the price is rounded ceil on server
-        const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        let totalCostFormatted = 0;
+        if (cartQuantity > 0) {
+            totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        }
+        const card = paymentMethod.card || {};
 
         return (
             <View style={styles.container}>
@@ -205,13 +229,15 @@ class CheckoutScreen extends Component {
                         <View style={styles.container}>
                             <TouchableOpacity
                                 style={styles.checkout}
-                                onPress={this.lightAbeacon}
+                                onPress={this.confirmPurchase}
                             >
                                 <Text style={styles.imageTitle}>
-                                    {'LIGHT A BEACON!'}
+                                    {'CONFIRM PURCHASE'}
                                 </Text>
                                 <Text style={styles.imageSubText}>
-                                    {'This confirms purchase'}
+                                    {
+                                        'This notifies Heroes of your order request'
+                                    }
                                 </Text>
                                 <Text style={styles.imageSubText}>
                                     {`Total: $${totalCostFormatted}`}
@@ -255,8 +281,8 @@ class CheckoutScreen extends Component {
                             </View>
                             <View style={styles.dropdownContainer}>
                                 <PaymentMethod
-                                    type={paymentMethod.brand}
-                                    text={paymentMethod.last4}
+                                    type={card.brand}
+                                    text={card.last4}
                                 />
                             </View>
                             <View style={styles.itemHeader}>
@@ -277,16 +303,24 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <MapView region={region} style={styles.map}>
-                                <MapView.Marker
-                                    image={beaconIcon}
-                                    coordinate={region}
-                                    title="You"
-                                    description="Your Delivery Location"
-                                    anchor={{ x: 0.2, y: 1 }}
-                                    centerOffset={{ x: 12, y: -25 }}
+                            <View style={styles.container}>
+                                <MapView
+                                    region={region}
+                                    style={styles.map}
+                                    pitchEnabled={false}
+                                    rotateEnabled={false}
+                                    scrollEnabled={false}
                                 />
-                            </MapView>
+                                <View
+                                    pointerEvents="none"
+                                    style={styles.beaconWrapper}
+                                >
+                                    <Image
+                                        source={beaconIcon}
+                                        style={styles.beaconMarker}
+                                    />
+                                </View>
+                            </View>
                             <View style={styles.itemHeader}>
                                 <Text stye={styles.itemHeaderLabel}>
                                     PRODUCT SUMMARY
@@ -300,36 +334,39 @@ class CheckoutScreen extends Component {
                             />
                         </View>
                         <View style={styles.cart}>
-                            {!!serviceCharge && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Service Charge:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${serviceChargeFormatted}
-                                    </Text>
-                                </View>
-                            )}
-                            {!!serviceFee && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Service Fee:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${serviceFeeFormatted}
-                                    </Text>
-                                </View>
-                            )}
-                            {!!deliveryFee && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Delivery Fee:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${deliveryFeeFormatted}
-                                    </Text>
-                                </View>
-                            )}
+                            {!!serviceCharge &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Service Charge:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${serviceChargeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
+                            {!!serviceFee &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Service Fee:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${serviceFeeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
+                            {!!deliveryFee &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Delivery Fee:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${deliveryFeeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
                             <View style={styles.meta}>
                                 <Text style={styles.label}>Tax:</Text>
                                 <Text style={styles.cost}>${taxFormatted}</Text>
@@ -343,13 +380,13 @@ class CheckoutScreen extends Component {
                         </View>
                         <TouchableOpacity
                             style={styles.checkout}
-                            onPress={this.lightAbeacon}
+                            onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
-                                {'LIGHT A BEACON!'}
+                                {'CONFIRM PURCHASE'}
                             </Text>
                             <Text style={styles.imageSubText}>
-                                {'This confirms purchase'}
+                                {'This notifies Heroes of your order request'}
                             </Text>
                             <View style={styles.checkoutIconContainer}>
                                 <MaterialIcons
@@ -410,6 +447,17 @@ const styles = StyleSheet.create({
     map: {
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
+    },
+    beaconWrapper: {
+        left: '50%',
+        marginLeft: -(beaconEdgeLength / 2),
+        marginTop: -(beaconEdgeLength / 2),
+        position: 'absolute',
+        top: '50%'
+    },
+    beaconMarker: {
+        width: beaconEdgeLength,
+        height: beaconEdgeLength
     },
     imageTitle: {
         color: 'white',
@@ -506,10 +554,8 @@ const mapStateToProps = state => ({
     email: getEmail(state),
     cart: getCartOrders(state),
     totalCost: getCartCostTotal(state),
-    tax: getCartTaxTotal(state),
+    tax: getCartTax(state),
     serviceFee: getServiceFee(state),
-    deliveryFee: getDeliveryFee(state),
-    serviceCharge: getCartServiceCharge(state),
     notes: getNotes(state),
     address: getAddress(state),
     region: getRegion(state),
@@ -518,7 +564,10 @@ const mapStateToProps = state => ({
     pending: getPending(state),
     stripeCustomerId: getStripeCustomerId(state),
     orderId: getOrderId(state),
-    productImages: getProductImages(state)
+    productImages: getProductImages(state),
+    firstName: getFirstName(state),
+    lastName: getLastName(state),
+    cartQuantity: getCartTotalQuantity(state)
 });
 
 const mapDispatchToProps = {

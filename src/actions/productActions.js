@@ -1,7 +1,7 @@
 import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 
-import { noHeroesAvailable } from './mapActions';
+import { setSalesTaxRate, setServiceFee } from './checkoutActions';
 import { updateCart } from './cartActions';
 import { rtdb, fire } from '../../firebase';
 
@@ -11,43 +11,37 @@ export const FETCH_CUSTOMER_BLOCK_SUCCESS = 'fetch_customer_block_success';
 export const FETCH_CUSTOMER_BLOCK_ERROR = 'fetch_customer_block_error';
 export const SET_IMAGE = 'set_image';
 
-const CUSTOMER_BLOCK_REF = 'activeProducts/US/TX/Austin';
+const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
 
-export const fetchCustomerBlock = () => dispatch => {
+export const fetchCustomerBlock = dispatch => {
     dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
     return listenCustomerBlockRef(dispatch);
 };
 
 export const listenCustomerBlockRef = dispatch =>
-    rtdb.ref(CUSTOMER_BLOCK_REF).on(
+    rtdb.ref(CUSTOMER_BLOCK_PRODUCTS_REF).on(
         'value',
         snapshot => {
             const data = snapshot.val();
-            const products = data.products;
             // for some reason firebase has empty hashed database objects, this filters them
             // TODO: figure out why firebase did this
             const filteredProducts = {};
             filteredProducts.instant = filter(
-                products.instant,
+                data.instant,
                 product => !!product
             );
-            if (Object.keys(filteredProducts.instant).length < 1) {
-                dispatch(
-                    noHeroesAvailable({
-                        code: '007',
-                        message: 'No Heroes Available'
-                    })
-                );
-            } else {
-                dispatch(fetchProductsSuccess(filteredProducts));
-                dispatch(fetchProductImages(filteredProducts, dispatch));
-                dispatch(updateCart(filteredProducts));
-            }
+            const { salesTaxRate, serviceFee } = data;
+            dispatch(fetchProductImages(filteredProducts, dispatch));
+            dispatch(fetchProductsSuccess(filteredProducts));
+            dispatch(updateCart(filteredProducts));
+            dispatch(setSalesTaxRate(salesTaxRate));
+            dispatch(setServiceFee(serviceFee));
         },
         error => dispatch(fetchProductsFailure(error))
     );
 
-export const unListenCustomerBlock = () => rtdb.ref(CUSTOMER_BLOCK_REF).off();
+export const unListenCustomerBlock = () =>
+    rtdb.ref(CUSTOMER_BLOCK_PRODUCTS_REF).off();
 
 export const fetchProductsSuccess = products => ({
     type: FETCH_CUSTOMER_BLOCK_SUCCESS,
@@ -80,9 +74,8 @@ export const fetchProductImages = (products, dispatch) => async () => {
                         payload: { productName: product.productName, url }
                     });
                 })
-                .catch(error => {
+                .catch(() => {
                     // TODO: use placeholder image if error, not empty string
-                    console.log('error getting image download url: ', error);
                     dispatch({
                         type: SET_IMAGE,
                         payload: { productName: product.productName, url: '' }

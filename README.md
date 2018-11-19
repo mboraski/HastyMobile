@@ -50,8 +50,6 @@ Performance:
 
 https://reactjs.org/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab
 
-Hot reloading v Live reloading:
-
 Release:
 
     expo build:ios // For build standalone app
