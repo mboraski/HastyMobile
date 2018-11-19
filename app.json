@@ -5,7 +5,7 @@
         "slug": "hasty-mobile",
         "privacy": "unlisted",
         "sdkVersion": "30.0.0",
-        "version": "0.2.0",
+        "version": "1.0.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
         "assetBundlePatterns": [
@@ -30,7 +30,11 @@
         "ios": {
             "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
             "loadJSInBackgroundExperimental": true,
-            "supportsTablet": false
+            "supportsTablet": false,
+            "infoPlist": {
+                "NSLocationWhenInUseUsageDescription": "Your current location will be displayed on the map and will be used to provide delivery related services to your location.",
+                "NSLocationAlwaysAndWhenInUseUsageDescription": "Your current location will be displayed on the map and will be used to provide delivery related services to your location."
+            }
         },
         "android": {
             "package": "com.spartanspeedofservice.hastymobile"

@@ -6,6 +6,7 @@ import {
     TouchableWithoutFeedback,
     Platform,
     Animated,
+    Image,
     ActivityIndicator
 } from 'react-native';
 import { MapView, PROVIDER_GOOGLE } from 'expo';
@@ -46,24 +47,15 @@ import MapHeaderContainer from '../containers/MapHeaderContainer';
 import ERRORS from '../constants/Errors';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-// TODO: how accurate is the center of the bottom point of the beacon?
 import beaconIcon from '../assets/icons/beacon2x.png';
-
-// TODO: allow users to just click a button to ask for service in a particular area.
-// Make sure to rate limit by account or something, so it isn't abused
 
 const OPACITY_DURATION = 300;
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
-// TODO: needs to be changed to the bottom center of image
-const ANCHOR = {
-    x: 0.5,
-    y: 0.5
-};
 
-const MARKER_ANIMATION_DURATION = 0;
+const beaconEdgeLength = emY(10);
 
 class MapScreen extends Component {
     state = {
@@ -74,14 +66,12 @@ class MapScreen extends Component {
         searchRendered: false,
         getCurrentPositionPending: false,
         initialMessageVisible: false,
-        animatedRegion: new MapView.AnimatedRegion(this.props.region),
         changeLocationPopupVisible: false
     };
 
     componentDidMount() {
-        if (!this.props.coords) {
-            this.props.getCurrentLocation();
-        }
+        this.props.getCurrentLocation();
+
         // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
     }
@@ -99,9 +89,6 @@ class MapScreen extends Component {
         }
         if (this.props.productsError) {
             this.props.dropdownAlert(true, ERRORS['001']);
-        }
-        if (this.props.region !== nextProps.region) {
-            this.debounceMarker(nextProps.region);
         }
     }
 
@@ -123,34 +110,7 @@ class MapScreen extends Component {
         this.props.determineDeliveryDistance(this.props.region);
     };
 
-    animateMarkerToCoordinate = coordinate => {
-        if (Platform.OS === 'android') {
-            if (this.marker) {
-                /* eslint-disable no-underscore-dangle */
-                this.marker._component.animateMarkerToCoordinate(
-                    /* eslint-enable no-underscore-dangle */
-                    coordinate,
-                    MARKER_ANIMATION_DURATION
-                );
-            }
-        } else {
-            this.state.animatedRegion
-                .timing({
-                    ...coordinate,
-                    duration: MARKER_ANIMATION_DURATION
-                })
-                .start();
-        }
-    };
-
-    // This ensures the marker is set to new coords if user selects address prediction
-    debounceMarker = debounce(this.animateMarkerToCoordinate, 500, {
-        leading: false,
-        tailing: true
-    });
-
     handleRegionChange = region => {
-        this.animateMarkerToCoordinate(region);
         this.debounceRegion(region);
         this.getAddress({
             latlng: `${region.latitude},${region.longitude}`
@@ -224,16 +184,10 @@ class MapScreen extends Component {
                     provider={PROVIDER_GOOGLE}
                     onMapReady={this.onMapReady}
                     onRegionChange={this.handleRegionChange}
-                >
-                    <MapView.Marker.Animated
-                        image={beaconIcon}
-                        coordinate={this.state.animatedRegion}
-                        title="You"
-                        description="Your Delivery Location"
-                        anchor={ANCHOR}
-                        style={styles.beaconMarker}
-                    />
-                </MapView>
+                />
+                <View pointerEvents="none" style={styles.beaconWrapper}>
+                    <Image source={beaconIcon} style={styles.beaconMarker} />
+                </View>
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -274,7 +228,7 @@ class MapScreen extends Component {
                 >
                     <Button
                         large
-                        title="Confirm Location"
+                        title="Set Location"
                         onPress={this.confirmLocationPress}
                         buttonStyle={styles.button}
                         textStyle={styles.buttonText}
@@ -378,9 +332,16 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0
     },
+    beaconWrapper: {
+        left: '50%',
+        marginLeft: -(beaconEdgeLength / 2),
+        marginTop: -(beaconEdgeLength / 2),
+        position: 'absolute',
+        top: '50%'
+    },
     beaconMarker: {
-        maxWidth: 42,
-        maxHeight: 55
+        width: beaconEdgeLength,
+        height: beaconEdgeLength
     }
 });
 

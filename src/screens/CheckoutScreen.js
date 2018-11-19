@@ -9,7 +9,8 @@ import {
     Animated,
     ActivityIndicator,
     Dimensions,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
@@ -38,7 +39,8 @@ import { reset } from '../actions/navigationActions';
 import {
     getCartOrders,
     getCartCostTotal,
-    getCartTax
+    getCartTax,
+    getCartTotalQuantity
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -66,6 +68,7 @@ const CHANGE_LOCATION_TITLE =
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
 const MAP_HEIGHT = emY(8.25);
+const beaconEdgeLength = emY(6);
 
 class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation, pending }) => ({
@@ -191,7 +194,8 @@ class CheckoutScreen extends Component {
             address,
             region,
             paymentMethod,
-            pending
+            pending,
+            cartQuantity
         } = this.props;
         const {
             removeOrderPopupVisible,
@@ -207,8 +211,10 @@ class CheckoutScreen extends Component {
             ? (deliveryFee / 100).toFixed(2)
             : 0;
         const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
-        // TODO: fix this as the price is rounded ceil on server
-        const totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        let totalCostFormatted = 0;
+        if (cartQuantity > 0) {
+            totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+        }
         const card = paymentMethod.card || {};
 
         return (
@@ -226,7 +232,12 @@ class CheckoutScreen extends Component {
                                 onPress={this.confirmPurchase}
                             >
                                 <Text style={styles.imageTitle}>
-                                    {'LIGHT A BEACON!'}
+                                    {'CONFIRM PURCHASE'}
+                                </Text>
+                                <Text style={styles.imageSubText}>
+                                    {
+                                        'This notifies Heroes of your order request'
+                                    }
                                 </Text>
                                 <Text style={styles.imageSubText}>
                                     {`Total: $${totalCostFormatted}`}
@@ -292,22 +303,24 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <MapView
-                                region={region}
-                                style={styles.map}
-                                pitchEnabled={false}
-                                rotateEnabled={false}
-                                scrollEnabled={false}
-                            >
-                                <MapView.Marker
-                                    image={beaconIcon}
-                                    coordinate={region}
-                                    title="You"
-                                    description="Your Delivery Location"
-                                    anchor={{ x: 0.5, y: 0.5 }}
-                                    style={styles.beaconMarker}
+                            <View style={styles.container}>
+                                <MapView
+                                    region={region}
+                                    style={styles.map}
+                                    pitchEnabled={false}
+                                    rotateEnabled={false}
+                                    scrollEnabled={false}
                                 />
-                            </MapView>
+                                <View
+                                    pointerEvents="none"
+                                    style={styles.beaconWrapper}
+                                >
+                                    <Image
+                                        source={beaconIcon}
+                                        style={styles.beaconMarker}
+                                    />
+                                </View>
+                            </View>
                             <View style={styles.itemHeader}>
                                 <Text stye={styles.itemHeaderLabel}>
                                     PRODUCT SUMMARY
@@ -321,36 +334,39 @@ class CheckoutScreen extends Component {
                             />
                         </View>
                         <View style={styles.cart}>
-                            {!!serviceCharge && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Service Charge:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${serviceChargeFormatted}
-                                    </Text>
-                                </View>
-                            )}
-                            {!!serviceFee && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Service Fee:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${serviceFeeFormatted}
-                                    </Text>
-                                </View>
-                            )}
-                            {!!deliveryFee && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        Delivery Fee:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        ${deliveryFeeFormatted}
-                                    </Text>
-                                </View>
-                            )}
+                            {!!serviceCharge &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Service Charge:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${serviceChargeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
+                            {!!serviceFee &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Service Fee:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${serviceFeeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
+                            {!!deliveryFee &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Delivery Fee:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            ${deliveryFeeFormatted}
+                                        </Text>
+                                    </View>
+                                )}
                             <View style={styles.meta}>
                                 <Text style={styles.label}>Tax:</Text>
                                 <Text style={styles.cost}>${taxFormatted}</Text>
@@ -364,13 +380,13 @@ class CheckoutScreen extends Component {
                         </View>
                         <TouchableOpacity
                             style={styles.checkout}
-                            onPress={this.lightAbeacon}
+                            onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
-                                {'LIGHT A BEACON!'}
+                                {'CONFIRM PURCHASE'}
                             </Text>
                             <Text style={styles.imageSubText}>
-                                {'This confirms purchase'}
+                                {'This notifies Heroes of your order request'}
                             </Text>
                             <View style={styles.checkoutIconContainer}>
                                 <MaterialIcons
@@ -432,9 +448,16 @@ const styles = StyleSheet.create({
         height: MAP_HEIGHT,
         shadowColor: 'transparent'
     },
+    beaconWrapper: {
+        left: '50%',
+        marginLeft: -(beaconEdgeLength / 2),
+        marginTop: -(beaconEdgeLength / 2),
+        position: 'absolute',
+        top: '50%'
+    },
     beaconMarker: {
-        maxWidth: 42,
-        maxHeight: 55
+        width: beaconEdgeLength,
+        height: beaconEdgeLength
     },
     imageTitle: {
         color: 'white',
@@ -543,7 +566,8 @@ const mapStateToProps = state => ({
     orderId: getOrderId(state),
     productImages: getProductImages(state),
     firstName: getFirstName(state),
-    lastName: getLastName(state)
+    lastName: getLastName(state),
+    cartQuantity: getCartTotalQuantity(state)
 });
 
 const mapDispatchToProps = {
