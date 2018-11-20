@@ -5,6 +5,11 @@ import { firebaseAuth, db } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
 
 import { persistor } from '../store';
+import {
+    sanitizeAndValidateName,
+    sanitizeAndValidateEmail,
+    sanitizeAndValidatePhoneNumber
+} from '../utils/security';
 
 export const AUTH_CHANGED = 'auth_changed';
 export const SIGNUP_REQUEST = 'signup_request';
@@ -23,30 +28,34 @@ export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
 export const createUserWithEmailAndPassword = (values, dispatch) =>
     new Promise((resolve, reject) => {
         const { firstName, lastName, email, password, phoneNumber } = values;
+        const safeFirstName = sanitizeAndValidateName(firstName);
+        const safeLastName = sanitizeAndValidateName(lastName);
+        const safeEmail = sanitizeAndValidateEmail(email);
+        const safePhoneNumber = sanitizeAndValidatePhoneNumber(phoneNumber);
         dispatch({
             type: SIGNUP_REQUEST
         });
         return firebaseAuth
-            .createUserWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(safeEmail, password)
             .then(userCredential =>
                 db
                     .collection('users')
                     .doc(`${userCredential.user.uid}`)
                     .set({
-                        firstName,
-                        lastName,
-                        email,
-                        phoneNumber
+                        firstName: safeFirstName,
+                        lastName: safeLastName,
+                        email: safeEmail,
+                        phoneNumber: safePhoneNumber
                     })
             )
             .then(() => {
                 dispatch({
                     type: SIGNUP_SUCCESS,
                     payload: {
-                        firstName,
-                        lastName,
-                        email,
-                        phoneNumber
+                        firstName: safeFirstName,
+                        lastName: safeLastName,
+                        email: safeEmail,
+                        phoneNumber: safePhoneNumber
                     }
                 });
                 return resolve();
@@ -67,11 +76,12 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
 export const signInWithEmailAndPassword = (values, dispatch) =>
     new Promise((resolve, reject) => {
         const { email, password } = values;
+        const safeEmail = sanitizeAndValidateEmail(email);
         dispatch({
             type: SIGNIN_REQUEST
         });
         return firebaseAuth
-            .signInWithEmailAndPassword(email, password)
+            .signInWithEmailAndPassword(safeEmail, password)
             .then(() => {
                 dispatch({
                     type: SIGNIN_SUCCESS
