@@ -20,7 +20,9 @@ import {
     setRegion,
     getCurrentLocation,
     nullifyError,
-    determineDeliveryDistance
+    determineDeliveryDistance,
+    closeLocationFeedbackPopup,
+    sendLocationFeedback
 } from '../actions/mapActions';
 import { reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
@@ -36,10 +38,13 @@ import {
     getRegion,
     getAddress,
     getError,
-    getPending
+    getPending,
+    getTimestamp,
+    getLocationFeedbackPopupVisible
 } from '../selectors/mapSelectors';
 
-import ContinuePopup from '../components/ContinuePopup';
+// import ContinuePopup from '../components/ContinuePopup';
+import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeaderContainer from '../containers/MapHeaderContainer';
@@ -162,6 +167,15 @@ class MapScreen extends Component {
         this.props.nullifyError();
     };
 
+    sendLocationFeedback = agree => {
+        const { timestamp, region } = this.props;
+        const freshTimestamp = timestamp || new Date.now();
+        if (agree) {
+            this.props.sendLocationFeedback(region, freshTimestamp);
+        }
+        this.props.closeLocationFeedbackPopup();
+    };
+
     render() {
         const {
             predictions,
@@ -169,7 +183,8 @@ class MapScreen extends Component {
             address,
             pending,
             error,
-            mapPending
+            mapPending,
+            locationFeedbackPopupVisible
         } = this.props;
         const errorCode = error ? error.code : 'default';
         const errorMessage = ERRORS[errorCode];
@@ -249,6 +264,15 @@ class MapScreen extends Component {
                         ]}
                     />
                 ) : null}
+                <SuccessPopup
+                    openModal={locationFeedbackPopupVisible}
+                    closeModal={this.sendLocationFeedback}
+                    title={'REQUEST HEROES!'}
+                    message={errorMessage}
+                    confirmText={'Send'}
+                    logo
+                    showIcon
+                />
                 {/*<ContinuePopup
                     isOpen={!!error}
                     closeModal={this.handleCloseContinuePopup}
@@ -357,8 +381,10 @@ const mapStateToProps = state => ({
     header: state.header,
     region: getRegion(state),
     address: getAddress(state),
+    timestamp: getTimestamp(state),
     error: getError(state),
-    productsError: getProductsError(state)
+    productsError: getProductsError(state),
+    locationFeedbackPopupVisible: getLocationFeedbackPopupVisible(state)
 });
 
 const mapDispatchToProps = {
@@ -370,7 +396,9 @@ const mapDispatchToProps = {
     setRegion,
     reverseGeocode,
     getCurrentLocation,
-    determineDeliveryDistance
+    determineDeliveryDistance,
+    closeLocationFeedbackPopup,
+    sendLocationFeedback
 };
 
 export default connect(

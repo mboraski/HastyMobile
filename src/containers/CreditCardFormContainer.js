@@ -34,7 +34,7 @@ import { emY } from '../utils/em';
 import formatCardNumber from '../formatting/formatCardNumber';
 import formatCardExpiry from '../formatting/formatCardExpiry';
 import required from '../validation/required';
-import { STRIPE_CLIENT_KEY } from '../constants/Stripe';
+import { STRIPE_CLIENT_KEY } from '../keys/Stripe';
 
 const stripe = stripeClient(STRIPE_CLIENT_KEY);
 const keyboardVerticalOffset = emY(1);

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { signInWithEmailAndPassword } from '../actions/authActions';
 import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
-import LogoSpinner from '../components/LogoSpinner';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
 import { getUser } from '../selectors/authSelectors';
@@ -66,8 +70,9 @@ class SignInFormContainer extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <LogoSpinner
-                            style={[StyleSheet.absoluteFill, styles.spinner]}
+                        <ActivityIndicator
+                            size="large"
+                            color={Color.ORANGE_500}
                         />
                     ) : null}
                     {submitSucceeded ? (

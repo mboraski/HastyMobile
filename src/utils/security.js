@@ -1,8 +1,5 @@
 const validator = require('validator');
 
-export const escapeRegExpToStringLiteral = string =>
-    string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-
 export const sanitizeAndValidateEmail = dirtyEmail => {
     const sanitizedEmail = validator.escape(dirtyEmail);
     const normalizedEmail = validator.normalizeEmail(sanitizedEmail);

@@ -22,7 +22,8 @@ import {
     NO_HEROES_AVAILABLE,
     DETERMINE_DELIVERY_DISTANCE_REQUEST,
     DETERMINE_DELIVERY_DISTANCE_SUCCESS,
-    DETERMINE_DELIVERY_DISTANCE_ERROR
+    DETERMINE_DELIVERY_DISTANCE_ERROR,
+    LOCATION_FEEDBACK_POPUP_CLOSE
 } from '../actions/mapActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -60,7 +61,8 @@ const initialState = {
             value: 0
         },
         status: ''
-    }
+    },
+    locationFeedbackPopupVisible: false
 };
 
 export default function(state = initialState, action) {
@@ -187,12 +189,19 @@ export default function(state = initialState, action) {
                 error: {
                     code: '007',
                     message: 'No Heroes Available'
-                }
+                },
+                locationFeedbackPopupVisible: true
             };
         case NULLIFY_MAP_ERROR:
             return {
                 ...state,
                 error: null
+            };
+        case LOCATION_FEEDBACK_POPUP_CLOSE:
+            return {
+                ...state,
+                error: null,
+                locationFeedbackPopupVisible: false
             };
         default:
             return state;

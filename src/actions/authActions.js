@@ -1,15 +1,15 @@
+import { Google } from 'expo';
 import { SubmissionError } from 'redux-form';
 
 import { firebaseAuth, db } from '../../firebase';
-
 import { UPDATE_STRIPE_INFO } from './paymentActions';
-
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
     sanitizeAndValidateEmail,
     sanitizeAndValidatePhoneNumber
 } from '../utils/security';
+import { ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID } from '../keys/Google';
 
 export const AUTH_CHANGED = 'auth_changed';
 export const SIGNUP_REQUEST = 'signup_request';
@@ -24,6 +24,25 @@ export const SIGNOUT_FAIL = 'signout_fail';
 export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
+
+export const signInWithGoogleAsync = async () => {
+    try {
+        const result = await Google.logInAsync({
+            androidClientId: ANDROID_GOOGLE_CLIENT_ID,
+            iosClientId: IOS_GOOGLE_CLIENT_ID,
+            scopes: ['profile', 'email']
+        });
+
+        console.log('google details: ', result);
+        if (result.type === 'success') {
+            return result.accessToken;
+        } else {
+            return { cancelled: true };
+        }
+    } catch (e) {
+        return { error: true };
+    }
+};
 
 export const createUserWithEmailAndPassword = (values, dispatch) =>
     new Promise((resolve, reject) => {

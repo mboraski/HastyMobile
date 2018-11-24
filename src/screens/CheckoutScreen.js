@@ -345,17 +345,16 @@ class CheckoutScreen extends Component {
                                         </Text>
                                     </View>
                                 )}
-                            {!!serviceFee &&
-                                cartQuantity > 0 && (
-                                    <View style={styles.meta}>
-                                        <Text style={styles.label}>
-                                            Service Fee:
-                                        </Text>
-                                        <Text style={styles.cost}>
-                                            ${serviceFeeFormatted}
-                                        </Text>
-                                    </View>
-                                )}
+                            {!!serviceFee && (
+                                <View style={styles.meta}>
+                                    <Text style={styles.label}>
+                                        Service Fee:
+                                    </Text>
+                                    <Text style={styles.cost}>
+                                        ${serviceFeeFormatted}
+                                    </Text>
+                                </View>
+                            )}
                             {!!deliveryFee &&
                                 cartQuantity > 0 && (
                                     <View style={styles.meta}>
