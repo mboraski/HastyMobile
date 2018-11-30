@@ -8,6 +8,7 @@ import Color from '../constants/Color';
 import Popup, { styles as PopupStyles } from '../components/Popup';
 import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check.png';
+import logoIcon from '../assets/icons/logo-black.png';
 
 const SIZE = emY(3.44);
 type Props = {
@@ -32,25 +33,42 @@ class SuccessPopup extends Component {
     props: Props;
 
     render() {
-        const { title, message, showIcon, confirmText, cancelText, ...rest } = this.props;
+        const {
+            title,
+            message,
+            showIcon,
+            confirmText,
+            cancelText,
+            logo,
+            ...rest
+        } = this.props;
+        const icon = logo ? logoIcon : checkIcon;
         return (
             <Popup {...rest} closeModal={() => this.closeModal(false)}>
                 <Text style={PopupStyles.label}>{title}</Text>
                 {showIcon ? (
-                    <Image source={checkIcon} style={styles.checkIcon} resizeMode="contain" />
+                    <Image
+                        source={icon}
+                        style={styles.checkIcon}
+                        resizeMode="contain"
+                    />
                 ) : null}
                 <Text style={PopupStyles.label}>{message}</Text>
                 <TouchableOpacity
                     onPress={() => this.closeModal(true)}
                     style={[styles.button, { backgroundColor: Color.BLACK }]}
                 >
-                    <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>{confirmText}</Text>
+                    <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>
+                        {confirmText}
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => this.closeModal(false)}
                     style={[styles.button, { backgroundColor: Color.CLEAR }]}
                 >
-                    <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>{cancelText}</Text>
+                    <Text style={[styles.buttonLabel, { color: Color.BLACK }]}>
+                        {cancelText}
+                    </Text>
                 </TouchableOpacity>
             </Popup>
         );

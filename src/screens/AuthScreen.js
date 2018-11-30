@@ -58,6 +58,7 @@ class AuthScreen extends Component {
     render() {
         const { navigation } = this.props;
         const signUp = this.state.signUp;
+        const imageText = signUp ? 'SIGN UP' : 'LOG IN';
         const signUpButtonHighlighted = signUp
             ? styles.buttonHighlighted
             : null;
@@ -81,7 +82,7 @@ class AuthScreen extends Component {
                         source={AuthScreenBackground}
                         style={styles.image}
                     >
-                        <Text style={styles.imageText}>WELCOME</Text>
+                        <Text style={styles.imageText}>{imageText}</Text>
                     </ImageBackground>
                     <View style={styles.buttonsRow}>
                         <Button
@@ -109,11 +110,8 @@ class AuthScreen extends Component {
                             onPress={this.openSignInForm}
                         />
                     </View>
-                    {signUp ? (
-                        <SignUpFormContainer navigation={navigation} />
-                    ) : (
-                        <SignInFormContainer navigation={navigation} />
-                    )}
+                    {signUp && <SignUpFormContainer navigation={navigation} />}
+                    {!signUp && <SignInFormContainer navigation={navigation} />}
                 </KeyboardAvoidingView>
             </ScrollView>
         );
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        height: Dimensions.window.height / 4,
+        height: Dimensions.window.height / 6,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -148,7 +146,8 @@ const styles = StyleSheet.create({
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_500,
         backgroundColor: '#fff',
-        height: emY(3)
+        height: emY(3),
+        padding: 0
     },
     buttonText: {
         color: Color.GREY_500,
@@ -162,6 +161,26 @@ const styles = StyleSheet.create({
         color: '#fff'
     }
 });
+
+const formOptions = {
+    form: 'SignUp',
+    validate(values) {
+        const errors = {};
+        if (values.password !== values.confirmPassword) {
+            errors.confirmPassword = 'Passwords must match';
+        } else if (
+            !values.firstName ||
+            !values.lastName ||
+            !values.email ||
+            !values.number ||
+            !values.password ||
+            !values.confirmPassword
+        ) {
+            errors.missingValues = 'Some form field values are missing';
+        }
+        return errors;
+    }
+};
 
 const mapStateToProps = state => ({
     user: getUser(state),

@@ -1,5 +1,5 @@
 import { Location, Permissions } from 'expo';
-import { rtdb } from '../../firebase';
+import { rtdb, firebaseAuth } from '../../firebase';
 
 import { geocode, distanceMatrix } from './googleMapsActions';
 import { fetchCustomerBlock } from './productActions';
@@ -16,6 +16,7 @@ export const REMOVE_LOCATION_SUBSCRIPTION = 'remove_location_subscription';
 export const SET_INITIAL_REGION = 'set_initial_region';
 export const NULLIFY_MAP_ERROR = 'nullify_map_error';
 export const NO_HEROES_AVAILABLE = 'no_heroes_available';
+export const LOCATION_FEEDBACK_POPUP_CLOSE = 'location_feedback_popup_close';
 export const DETERMINE_DELIVERY_DISTANCE_REQUEST =
     'determine_delivery_distance_request';
 export const DETERMINE_DELIVERY_DISTANCE_SUCCESS =
@@ -24,6 +25,7 @@ export const DETERMINE_DELIVERY_DISTANCE_ERROR =
     'determine_delivery_distance_error';
 
 const CONTRACTOR_REGION_REF = 'activeProducts/US/TX/Austin/contractorRegion';
+const LOCATION_FEEDBACK_REF = 'locationFeedback';
 
 export const determineDeliveryDistance = region => async dispatch => {
     try {
@@ -59,15 +61,36 @@ export const determineDeliveryDistance = region => async dispatch => {
                         });
                         fetchCustomerBlock(dispatch);
                     }
-                    return;
+                } else {
+                    dispatch(
+                        dropdownAlert(true, 'No Heroes available in this area.')
+                    );
+                    dispatch({ type: NO_HEROES_AVAILABLE });
                 }
             },
-            () => dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR })
+            () => {
+                dispatch(
+                    dropdownAlert(true, 'No Heroes available in this area.')
+                );
+                dispatch({ type: NO_HEROES_AVAILABLE });
+            }
         );
     } catch (error) {
         dispatch({ type: DETERMINE_DELIVERY_DISTANCE_ERROR });
     }
     // TODO: handle resetting location after order creation
+};
+
+export const closeLocationFeedbackPopup = () => dispatch =>
+    dispatch({ type: LOCATION_FEEDBACK_POPUP_CLOSE });
+
+export const sendLocationFeedback = (region, timestamp) => dispatch => {
+    if (firebaseAuth.currentUser) {
+        const uid = firebaseAuth.currentUser.uid;
+        const locationFeedbackRef = rtdb.ref(`${LOCATION_FEEDBACK_REF}/${uid}`);
+        const newFeedback = locationFeedbackRef.push();
+        return newFeedback.set({ region, timestamp });
+    }
 };
 
 export const nullifyError = () => dispatch =>

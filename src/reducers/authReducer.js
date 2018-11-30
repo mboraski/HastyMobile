@@ -11,7 +11,8 @@ import {
     SIGNOUT_REQUEST,
     SIGNOUT_SUCCESS,
     SIGNOUT_FAIL,
-    USER_READABLE_SUCCESS
+    USER_READABLE_SUCCESS,
+    UPDATE_SIGNIN_DELAY
 } from '../actions/authActions';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
     },
     pending: false,
     error: null,
-    expirationDate: null
+    expirationDate: null,
+    signInDelay: 0
 };
 
 export default function(state = initialState, action) {
@@ -58,6 +60,10 @@ export default function(state = initialState, action) {
             return { ...state, error: payload, pending: false };
         case USER_READABLE_SUCCESS:
             return { ...state, userReadable: payload };
+        case UPDATE_SIGNIN_DELAY: {
+            const newValue = calculateSignInDelay(payload);
+            return { ...state, signInDelay: newValue };
+        }
         default:
             return state;
     }

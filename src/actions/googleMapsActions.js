@@ -1,7 +1,5 @@
 import googleMapsClient from '../api/googleMaps';
-
-// TODO: remove?
-const KEY = 'AIzaSyB6jHNd8EuHCPh0DG4dauA4ntSkAfJKF5I';
+import { MAPS_KEY } from '../keys/Google';
 
 export const MAPS_PLACES_AUTOCOMPLETE_REQUEST =
     'google_maps_places_autocomplete_request';
@@ -29,7 +27,7 @@ export const placesAutocomplete = input => async dispatch => {
         const res = await googleMapsClient.placesAutoComplete({
             params: {
                 input,
-                key: KEY
+                key: MAPS_KEY
             }
         });
         if (res.data.error_message) {
@@ -59,7 +57,7 @@ export const geocode = props => async dispatch => {
         const res = await googleMapsClient.geocode({
             params: {
                 ...props,
-                key: KEY
+                key: MAPS_KEY
             }
         });
         if (res.data.error_message) {
@@ -89,7 +87,7 @@ export const reverseGeocode = props => async dispatch => {
         const res = await googleMapsClient.geocode({
             params: {
                 ...props,
-                key: KEY
+                key: MAPS_KEY
             }
         });
         if (res.data.error_message) {
@@ -115,7 +113,7 @@ export const distanceMatrix = async props => {
         const res = await googleMapsClient.distanceMatrix({
             params: {
                 ...props,
-                key: KEY
+                key: MAPS_KEY
             }
         });
         if (res.data.error_message) {
