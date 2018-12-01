@@ -34,7 +34,14 @@ export const statusBarOnly = Platform.select({
         headerLeft: null,
         headerRight: null,
         headerStyle: {
-            height: 0
+            height: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#fff',
+            shadowColor: 'transparent',
+            shadowRadius: 0,
+            shadowOffset: {
+                height: 0
+            }
         },
         paddingTop: StatusBar.currentHeight,
         elevation: 0
@@ -43,9 +50,16 @@ export const statusBarOnly = Platform.select({
         headerLeft: null,
         headerRight: null,
         headerStyle: {
-            height: 0
+            height: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#fff',
+            shadowColor: 'transparent',
+            shadowRadius: 0,
+            shadowOffset: {
+                height: 0
+            }
         },
-        paddingTop: STATUSBAR_HEIGHT
+        paddingTop: StatusBar.currentHeight
     }
 });
 

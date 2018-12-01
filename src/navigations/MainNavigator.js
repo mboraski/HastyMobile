@@ -40,7 +40,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'auth',
+        initialRouteName: 'welcome',
         navigationOptions: {
             tabBarVisible: false
         },

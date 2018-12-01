@@ -33,7 +33,9 @@ export default function(state = initialState, action) {
         case AUTH_CHANGED:
             return {
                 ...state,
-                user: payload,
+                user: {
+                    uid: payload.uid
+                },
                 expirationDate: payload // Assumes firebase returns no payload if not authenticated
                     ? moment()
                           .add(1, 'months')
