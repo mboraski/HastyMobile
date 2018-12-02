@@ -34,8 +34,8 @@ class WelcomeScreen extends Component {
         }
     }
 
-    signIn = () => {
-        this.props.navigation.navigate('auth');
+    logIn = () => {
+        this.props.navigation.navigate('auth', { logIn: true });
     };
 
     signUp = () => {
@@ -50,7 +50,7 @@ class WelcomeScreen extends Component {
                 </View>
                 <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete} />
                 <Button
-                    onPress={this.signIn}
+                    onPress={this.logIn}
                     title="Login"
                     containerViewStyle={styles.buttonContainer}
                     buttonStyle={styles.signInButton}
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     },
     signInButton: {
         backgroundColor: '#fff',
+        borderRadius: 5,
         borderColor: '#000',
         borderWidth: 1,
         marginTop: 5,
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     },
     signUpButton: {
         backgroundColor: Color.DEFAULT,
+        borderRadius: 5,
         borderColor: Color.DEFAULT,
         borderWidth: 1,
         marginVertical: 15,

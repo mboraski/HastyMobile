@@ -34,7 +34,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 user: {
-                    uid: payload.uid
+                    uid: payload ? payload.uid : ''
                 },
                 expirationDate: payload // Assumes firebase returns no payload if not authenticated
                     ? moment()

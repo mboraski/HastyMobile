@@ -5,7 +5,9 @@ import {
     StyleSheet,
     KeyboardAvoidingView,
     ScrollView,
-    Text
+    Text,
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -18,6 +20,8 @@ import { listCards } from '../actions/paymentActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
+import googleLogo from '../assets/icons/google-logo-white.png';
+import facebookLogo from '../assets/icons/flogo-HexRBG-Wht.png';
 
 import Color from '../constants/Color';
 import { statusBarOnly } from '../constants/Style';
@@ -31,11 +35,22 @@ class AuthScreen extends Component {
         openModal: false
     };
 
+    componentWillMount() {
+        const navParams = this.props.navigation.state.params || {};
+        if (navParams && navParams.logIn) {
+            this.setState({ signUp: false });
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.user) {
             this.props.navigation.navigate('map');
         }
     }
+
+    facebookLogin = () => {};
+
+    googleLogin = () => {};
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -97,32 +112,37 @@ class AuthScreen extends Component {
                             onPress={this.openSignUpForm}
                         />
                     </View>
-                    <Button
-                        onPress={this.signIn}
-                        title="Continue with Google"
-                        icon={{
-                            type: 'material-community',
-                            name: 'facebook-box',
-                            color: '#fff',
-                            size: 25
-                        }}
-                        containerViewStyle={styles.socialContainer}
-                        buttonStyle={styles.socialButton}
-                        textStyle={styles.buttonText}
-                    />
-                    <Button
-                        onPress={this.signIn}
-                        title="Continue with Facebook"
-                        icon={{
-                            type: 'material-community',
-                            name: 'facebook-box',
-                            color: '#fff',
-                            size: 25
-                        }}
-                        containerViewStyle={styles.socialContainer}
-                        buttonStyle={styles.socialButton}
-                        textStyle={styles.buttonText}
-                    />
+                    <TouchableOpacity
+                        style={[
+                            styles.socialButton,
+                            styles.facebookSocialButton
+                        ]}
+                        onPress={this.facebookLogin}
+                    >
+                        <View style={styles.facebookItemWrapper}>
+                            <Image
+                                style={styles.facebookLogo}
+                                source={facebookLogo}
+                            />
+                            <Text style={styles.facebookText}>
+                                {'Continue with Facebook'}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.socialButton, styles.googleSocialButton]}
+                        onPress={this.googleLogin}
+                    >
+                        <View style={styles.googleItemWrapper}>
+                            <Image
+                                style={styles.googleLogo}
+                                source={googleLogo}
+                            />
+                            <Text style={styles.googleText}>
+                                {'Continue with Google'}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                     <Text style={styles.secondaryText}>
                         or continue with email
                     </Text>
@@ -150,19 +170,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: emY(1)
     },
-    socialContainer: {
-        marginLeft: 0,
-        marginRight: 0
-    },
-    socialButton: {
-        backgroundColor: '#000',
-        marginHorizontal: 25,
-        justifyContent: 'center',
-        height: emY(3)
-    },
     button: {
         minWidth: 120,
-        borderRadius: 25,
+        borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.GREY_500,
         backgroundColor: '#fff',
@@ -172,6 +182,53 @@ const styles = StyleSheet.create({
     buttonText: {
         color: Color.GREY_500,
         fontSize: emY(1)
+    },
+    socialButton: {
+        height: emY(3),
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 15,
+        paddingHorizontal: 5,
+        borderRadius: 5
+    },
+    googleSocialButton: {
+        backgroundColor: '#4285F4',
+        marginBottom: 10
+    },
+    googleItemWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    googleLogo: {
+        marginLeft: -emY(0.27),
+        width: emY(3.2),
+        height: emY(3)
+    },
+    googleText: {
+        flex: 1,
+        textAlign: 'center',
+        paddingRight: emY(3),
+        fontSize: emY(1.5),
+        color: '#fff'
+    },
+    facebookSocialButton: {
+        backgroundColor: '#4267B2',
+        marginBottom: 15
+    },
+    facebookItemWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    facebookLogo: {
+        width: emY(2.6),
+        height: emY(2.6)
+    },
+    facebookText: {
+        flex: 1,
+        textAlign: 'center',
+        paddingRight: emY(2.6),
+        fontSize: emY(1.5),
+        color: '#fff'
     },
     secondaryText: {
         color: Color.GREY_700,
