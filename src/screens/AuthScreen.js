@@ -13,10 +13,10 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
-// import { reset } from '../actions/navigationActions';
-import { listCards } from '../actions/paymentActions';
+import { facebookLogin, googleLogin } from '../actions/authActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
@@ -43,14 +43,14 @@ class AuthScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user) {
+        if (nextProps.user && firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');
         }
     }
 
-    facebookLogin = () => {};
+    facebookLogin = () => this.props.facebookLogin();
 
-    googleLogin = () => {};
+    googleLogin = () => this.props.googleLogin();
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     googleText: {
         flex: 1,
         textAlign: 'center',
-        paddingRight: emY(3),
+        paddingRight: emY(3.2),
         fontSize: emY(1.5),
         color: '#fff'
     },
@@ -275,7 +275,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    listCards
+    facebookLogin,
+    googleLogin
 };
 
 export default connect(

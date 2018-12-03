@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { View, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 
+import { firebaseAuth } from '../../firebase';
 import { statusBarOnly } from '../constants/Style';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import Slides from '../components/Slides';
 import { setFirstTimeOpened } from '../actions/uiActions';
+import { getUser } from '../selectors/authSelectors';
 import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 
 const SLIDE_DATA = [
@@ -29,7 +31,7 @@ class WelcomeScreen extends Component {
     static navigationOptions = statusBarOnly;
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user) {
+        if (nextProps.user && firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');
         }
     }
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     logoHeaderWrapper: {
-        marginTop: 10,
+        marginTop: 20,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center'
@@ -122,11 +124,15 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = state => ({
+    user: getUser(state)
+});
+
 const mapDispatchToProps = {
     setFirstTimeOpened
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(WelcomeScreen);

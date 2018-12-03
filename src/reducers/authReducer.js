@@ -1,6 +1,10 @@
 import moment from 'moment';
 
 import {
+    FACEBOOK_LOGIN_REQUEST,
+    FACEBOOK_LOGIN_SUCCESS,
+    FACEBOOK_LOGIN_ERROR,
+    GOOGLE_LOGIN_REQUEST,
     AUTH_CHANGED,
     SIGNUP_REQUEST,
     SIGNUP_SUCCESS,
@@ -23,13 +27,36 @@ const initialState = {
     pending: false,
     error: null,
     expirationDate: null,
-    signInDelay: 0
+    signInDelay: 0,
+    facebookAuthToken: '',
+    googleAuthToken: ''
 };
 
 export default function(state = initialState, action) {
     const payload = action.payload;
 
     switch (action.type) {
+        case FACEBOOK_LOGIN_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case FACEBOOK_LOGIN_SUCCESS:
+            return {
+                ...state,
+                facebookAuthToken: payload,
+                pending: false
+            };
+        case FACEBOOK_LOGIN_ERROR:
+            return {
+                ...state,
+                pending: false
+            };
+        case GOOGLE_LOGIN_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
         case AUTH_CHANGED:
             return {
                 ...state,

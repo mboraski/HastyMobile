@@ -19,7 +19,7 @@ import { store, persistor } from './src/store';
 
 class App extends Component {
     state = {
-        fontLoaded: false
+        loading: true
     };
 
     async componentDidMount() {
@@ -31,11 +31,15 @@ class App extends Component {
             fonts.Arial = require('./src/assets/fonts/arial.ttf'); // eslint-disable-line global-require
         }
         await Font.loadAsync(fonts);
-        this.setState({ fontLoaded: true });
+        this.setState({ loading: false });
     }
 
     render() {
-        return this.state.fontLoaded ? (
+        return this.state.loading ? (
+            <View style={styles.overlay}>
+                <ActivityIndicator size="large" color="#f5a623" />
+            </View>
+        ) : (
             <Provider store={store}>
                 <PersistGate
                     persistor={persistor}
@@ -50,10 +54,6 @@ class App extends Component {
                     <RootContainer />
                 </PersistGate>
             </Provider>
-        ) : (
-            <View style={styles.overlay}>
-                <ActivityIndicator size="large" color="#f5a623" />
-            </View>
         );
     }
 }
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
         zIndex: 100,
-        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        backgroundColor: 'rgba(52, 52, 52, 0.9)',
         justifyContent: 'center',
         top: 0,
         right: 0,
