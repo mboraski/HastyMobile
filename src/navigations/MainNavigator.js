@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
@@ -20,6 +21,7 @@ import PromotionShareScreen from '../screens/PromotionShareScreen';
 import NotificationFeedbackScreen from '../screens/NotificationFeedbackScreen';
 
 const getHeaderMode = () => (Platform.OS === 'ios' ? 'float' : 'screen');
+const getInitialRoute = () => (firebaseAuth.currentUser ? 'map' : 'welcome');
 
 export default createStackNavigator(
     {
@@ -40,7 +42,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'auth',
+        initialRouteName: getInitialRoute(),
         navigationOptions: {
             tabBarVisible: false
         },

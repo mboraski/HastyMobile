@@ -38,6 +38,9 @@
         },
         "android": {
             "package": "com.spartanspeedofservice.hastymobile"
-        }
+        },
+        "facebookScheme": "fb1873998396207588",
+        "facebookAppId": "1873998396207588",
+        "facebookDisplayName": "Hasty"
     }
 }

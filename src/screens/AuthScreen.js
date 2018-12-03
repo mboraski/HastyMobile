@@ -3,27 +3,28 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text,
-    ImageBackground,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
-// import { reset } from '../actions/navigationActions';
-import { listCards } from '../actions/paymentActions';
+import { facebookLogin, googleLogin } from '../actions/authActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
+import googleLogo from '../assets/icons/google-logo-white.png';
+import facebookLogo from '../assets/icons/flogo-HexRBG-Wht.png';
 
 import Color from '../constants/Color';
-import Dimensions from '../constants/Dimensions';
 import { statusBarOnly } from '../constants/Style';
-import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 // TODO: add width then use for drawer width. Save to store.
 
 class AuthScreen extends Component {
@@ -34,11 +35,22 @@ class AuthScreen extends Component {
         openModal: false
     };
 
+    componentWillMount() {
+        const navParams = this.props.navigation.state.params || {};
+        if (navParams && navParams.logIn) {
+            this.setState({ signUp: false });
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user) {
+        if (nextProps.user && firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');
         }
     }
+
+    facebookLogin = () => this.props.facebookLogin();
+
+    googleLogin = () => this.props.googleLogin();
 
     openSignUpForm = () => {
         this.setState({ signUp: true });
@@ -58,7 +70,6 @@ class AuthScreen extends Component {
     render() {
         const { navigation } = this.props;
         const signUp = this.state.signUp;
-        const imageText = signUp ? 'SIGN UP' : 'LOG IN';
         const signUpButtonHighlighted = signUp
             ? styles.buttonHighlighted
             : null;
@@ -73,30 +84,9 @@ class AuthScreen extends Component {
             : null;
 
         return (
-            <ScrollView style={styles.container} keyboardDismissMode="on-drag">
-                <KeyboardAvoidingView
-                    style={styles.container}
-                    behavior="position"
-                >
-                    <ImageBackground
-                        source={AuthScreenBackground}
-                        style={styles.image}
-                    >
-                        <Text style={styles.imageText}>{imageText}</Text>
-                    </ImageBackground>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <ScrollView style={styles.container} keyboardDismissMode="none">
                     <View style={styles.buttonsRow}>
-                        <Button
-                            title="Sign Up"
-                            buttonStyle={[
-                                styles.button,
-                                signUpButtonHighlighted
-                            ]}
-                            textStyle={[
-                                styles.buttonText,
-                                signUpButtonTextHighlighted
-                            ]}
-                            onPress={this.openSignUpForm}
-                        />
                         <Button
                             title="Log In"
                             buttonStyle={[
@@ -109,11 +99,63 @@ class AuthScreen extends Component {
                             ]}
                             onPress={this.openSignInForm}
                         />
+                        <Button
+                            title="Sign Up"
+                            buttonStyle={[
+                                styles.button,
+                                signUpButtonHighlighted
+                            ]}
+                            textStyle={[
+                                styles.buttonText,
+                                signUpButtonTextHighlighted
+                            ]}
+                            onPress={this.openSignUpForm}
+                        />
                     </View>
-                    {signUp && <SignUpFormContainer navigation={navigation} />}
-                    {!signUp && <SignInFormContainer navigation={navigation} />}
-                </KeyboardAvoidingView>
-            </ScrollView>
+                    <TouchableOpacity
+                        style={[
+                            styles.socialButton,
+                            styles.facebookSocialButton
+                        ]}
+                        onPress={this.facebookLogin}
+                    >
+                        <View style={styles.facebookItemWrapper}>
+                            <Image
+                                style={styles.facebookLogo}
+                                source={facebookLogo}
+                            />
+                            <Text style={styles.facebookText}>
+                                {'Continue with Facebook'}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.socialButton, styles.googleSocialButton]}
+                        onPress={this.googleLogin}
+                    >
+                        <View style={styles.googleItemWrapper}>
+                            <Image
+                                style={styles.googleLogo}
+                                source={googleLogo}
+                            />
+                            <Text style={styles.googleText}>
+                                {'Continue with Google'}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={styles.secondaryText}>
+                        or continue with email
+                    </Text>
+                    <View style={styles.emailForm}>
+                        {signUp && (
+                            <SignUpFormContainer navigation={navigation} />
+                        )}
+                        {!signUp && (
+                            <SignInFormContainer navigation={navigation} />
+                        )}
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -123,18 +165,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
-    image: {
-        height: Dimensions.window.height / 6,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    imageText: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: 35,
-        textAlign: 'center',
-        letterSpacing: 5
-    },
     buttonsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -142,23 +172,80 @@ const styles = StyleSheet.create({
     },
     button: {
         minWidth: 120,
-        borderRadius: 25,
+        borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500,
-        backgroundColor: '#fff',
+        borderColor: Color.DEFAULT,
+        backgroundColor: Color.DEFAULT,
         height: emY(3),
         padding: 0
     },
     buttonText: {
-        color: Color.GREY_500,
+        color: '#fff',
         fontSize: emY(1)
+    },
+    socialButton: {
+        height: emY(3),
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 15,
+        paddingHorizontal: 5,
+        borderRadius: 5
+    },
+    googleSocialButton: {
+        backgroundColor: '#4285F4',
+        marginBottom: 10
+    },
+    googleItemWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    googleLogo: {
+        marginLeft: -emY(0.27),
+        width: emY(3.2),
+        height: emY(3)
+    },
+    googleText: {
+        flex: 1,
+        textAlign: 'center',
+        paddingRight: emY(3.2),
+        fontSize: emY(1.5),
+        color: '#fff'
+    },
+    facebookSocialButton: {
+        backgroundColor: '#4267B2',
+        marginBottom: 15
+    },
+    facebookItemWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    facebookLogo: {
+        width: emY(2.6),
+        height: emY(2.6)
+    },
+    facebookText: {
+        flex: 1,
+        textAlign: 'center',
+        paddingRight: emY(2.6),
+        fontSize: emY(1.5),
+        color: '#fff'
+    },
+    secondaryText: {
+        color: Color.GREY_700,
+        fontSize: emY(1),
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginVertical: 10
     },
     buttonHighlighted: {
         backgroundColor: Color.GREY_500,
-        borderColor: '#fff'
+        borderColor: Color.GREY_500
     },
     buttonTextHighlighted: {
         color: '#fff'
+    },
+    emailForm: {
+        backgroundColor: '#fff'
     }
 });
 
@@ -188,7 +275,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    listCards
+    facebookLogin,
+    googleLogin
 };
 
 export default connect(

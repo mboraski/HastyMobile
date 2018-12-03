@@ -57,7 +57,7 @@ class SignUpFormContainer extends Component {
         } = this.props;
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
-        const submitText = 'Create Account';
+        const submitText = 'Sign Up';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
@@ -121,7 +121,7 @@ class SignUpFormContainer extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <Text style={styles.termsAndPrivacy}>
-                    {`By using the app or creating an account you agree to be bound by Hasty's `}
+                    {`By tapping Sign Up, Continue with Facebook, or Continue with Google you agree to Hasty's `}
                     <Text
                         onPress={this.linkToWebsiteTerms}
                         style={styles.termsAndPrivacyLink}
@@ -135,6 +135,7 @@ class SignUpFormContainer extends Component {
                     >
                         {'Privacy Policy'}
                     </Text>
+                    {' and you confirm you are 13 years of age or older.'}
                 </Text>
                 <TouchableOpacity
                     onPress={handleSubmit(createUserWithEmailAndPassword)}
@@ -159,13 +160,13 @@ const styles = StyleSheet.create({
     },
     termsAndPrivacy: {
         flex: 1,
-        marginBottom: 10,
+        marginBottom: 5,
         paddingBottom: 10,
         paddingHorizontal: 10,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        fontSize: emY(0.8)
+        fontSize: emY(0.9)
     },
     termsAndPrivacyLink: {
         color: Color.BLUE_500
@@ -177,13 +178,10 @@ const styles = StyleSheet.create({
     fieldContainer: {
         backgroundColor: '#fff'
     },
-    buttonContainer: {
-        marginLeft: 0,
-        marginRight: 0
-    },
     button: {
-        backgroundColor: '#000',
-        marginHorizontal: 25,
+        borderRadius: 5,
+        backgroundColor: Color.DEFAULT,
+        marginHorizontal: 15,
         justifyContent: 'center',
         height: emY(3)
     },
@@ -199,7 +197,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         textAlign: 'center',
-        fontSize: emY(0.9)
+        fontSize: emY(1)
     },
     buttonMargin: {
         marginBottom: 10

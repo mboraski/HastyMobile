@@ -1,6 +1,12 @@
 import moment from 'moment';
 
 import {
+    FACEBOOK_LOGIN_REQUEST,
+    FACEBOOK_LOGIN_SUCCESS,
+    FACEBOOK_LOGIN_ERROR,
+    GOOGLE_LOGIN_REQUEST,
+    GOOGLE_LOGIN_SUCCESS,
+    GOOGLE_LOGIN_ERROR,
     AUTH_CHANGED,
     SIGNUP_REQUEST,
     SIGNUP_SUCCESS,
@@ -18,22 +24,69 @@ import {
 const initialState = {
     user: null,
     userReadable: {
-        email: ''
+        firstName: '',
+        lastName: '',
+        email: '',
+        photoUrl: ''
     },
     pending: false,
     error: null,
     expirationDate: null,
-    signInDelay: 0
+    signInDelay: 0,
+    facebookAuthToken: '',
+    facebookAuthExpires: '',
+    googleIdToken: '',
+    googleAccessToken: '',
+    googleRefreshToken: ''
 };
 
 export default function(state = initialState, action) {
     const payload = action.payload;
 
     switch (action.type) {
+        case FACEBOOK_LOGIN_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case FACEBOOK_LOGIN_SUCCESS:
+            return {
+                ...state,
+                facebookAuthToken: payload.token,
+                facebookAuthExpires: payload.expires,
+                pending: false
+            };
+        case FACEBOOK_LOGIN_ERROR:
+            return {
+                ...state,
+                error: 'facebook login error',
+                pending: false
+            };
+        case GOOGLE_LOGIN_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case GOOGLE_LOGIN_SUCCESS:
+            return {
+                ...state,
+                googleIdToken: payload.token,
+                googleAccessToken: payload.accessToken,
+                googleRefreshToken: payload.refreshToken,
+                pending: false
+            };
+        case GOOGLE_LOGIN_ERROR:
+            return {
+                ...state,
+                error: 'google login error',
+                pending: false
+            };
         case AUTH_CHANGED:
             return {
                 ...state,
-                user: payload,
+                user: {
+                    uid: payload ? payload.uid : ''
+                },
                 expirationDate: payload // Assumes firebase returns no payload if not authenticated
                     ? moment()
                           .add(1, 'months')

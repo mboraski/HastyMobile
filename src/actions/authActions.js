@@ -1,16 +1,28 @@
-import { Google } from 'expo';
+import { Google, Facebook } from 'expo';
 import { SubmissionError } from 'redux-form';
 
-import { firebaseAuth, db } from '../../firebase';
+import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
+import { dropdownAlert } from './uiActions';
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
     sanitizeAndValidateEmail,
     sanitizeAndValidatePhoneNumber
 } from '../utils/security';
-import { ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID } from '../keys/Google';
+import {
+    ANDROID_GOOGLE_CLIENT_ID,
+    IOS_GOOGLE_CLIENT_ID,
+    WEB_CLIENT_ID
+} from '../keys/Google';
+import { APP_ID } from '../keys/Facebook';
 
+export const FACEBOOK_LOGIN_REQUEST = 'facebook_login_request';
+export const FACEBOOK_LOGIN_SUCCESS = 'facebook_login_success';
+export const FACEBOOK_LOGIN_ERROR = 'facebook_login_error';
+export const GOOGLE_LOGIN_REQUEST = 'google_login_request';
+export const GOOGLE_LOGIN_SUCCESS = 'google_login_success';
+export const GOOGLE_LOGIN_ERROR = 'google_login_error';
 export const AUTH_CHANGED = 'auth_changed';
 export const SIGNUP_REQUEST = 'signup_request';
 export const SIGNUP_SUCCESS = 'signup_success';
@@ -25,22 +37,254 @@ export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
 
-export const signInWithGoogleAsync = async () => {
+const firebaseFacebookAuth = async ({
+    dispatch,
+    token,
+    expires = 0,
+    permissions = [],
+    declinedPermissions = []
+}) => {
     try {
-        const result = await Google.logInAsync({
-            androidClientId: ANDROID_GOOGLE_CLIENT_ID,
-            iosClientId: IOS_GOOGLE_CLIENT_ID,
-            scopes: ['profile', 'email']
+        // Build Firebase credential with the Facebook access token.
+        const credential = fire.auth.FacebookAuthProvider.credential(token);
+        // Sign in with credential from the Facebook user.
+        const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
+            credential
+        );
+        console.log('firebaseFacebookAuth response: ', response);
+        const additionalUserInfo = response.additionalUserInfo;
+        const firebaseUser = response.user;
+        const {
+            email,
+            first_name,
+            id,
+            last_name,
+            name,
+            picture
+        } = additionalUserInfo.profile;
+        const safeFirstName = sanitizeAndValidateName(first_name);
+        const safeLastName = sanitizeAndValidateName(last_name);
+        const safeName = sanitizeAndValidateName(name);
+        const safeEmail = email ? sanitizeAndValidateEmail(email) : '';
+        const photoUrl = picture.data.url;
+        if (additionalUserInfo.isNewUser) {
+            console.log('firebaseFacebookAuth newUser if block ran');
+            await db
+                .collection('users')
+                .doc(`${firebaseUser.uid}`)
+                .set({
+                    firstName: safeFirstName,
+                    lastName: safeLastName,
+                    email: safeEmail,
+                    providerId: additionalUserInfo.providerId,
+                    name: safeName,
+                    photoUrl,
+                    picture,
+                    id,
+                    permissions,
+                    declinedPermissions
+                });
+        }
+        dispatch({
+            type: SIGNUP_SUCCESS,
+            payload: {
+                firstName: safeFirstName,
+                lastName: safeLastName,
+                email: safeEmail,
+                photoUrl
+            }
         });
+        dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload: { token, expires } });
+    } catch (error) {
+        console.log('firebaseFacebookAuth error: ', error);
+        dispatch({
+            type: SIGNUP_FAIL,
+            payload: error
+        });
+        // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // The email of the user's account used.
+        // var email = error.email;
+        // // The firebase.auth.AuthCredential type that was used.
+        // var credential = error.credential;
+    }
+};
 
-        console.log('google details: ', result);
-        if (result.type === 'success') {
-            return result.accessToken;
+export const facebookLogin = facebookAuthToken => async dispatch => {
+    const behavior = __DEV__ ? 'web' : 'native';
+    dispatch({ type: FACEBOOK_LOGIN_REQUEST });
+    try {
+        if (!facebookAuthToken) {
+            const response = await Facebook.logInWithReadPermissionsAsync(
+                APP_ID,
+                {
+                    permissions: ['public_profile', 'email'],
+                    behavior
+                }
+            );
+            console.log('fb auth response ', response);
+
+            if (response.type === 'cancel') {
+                console.log('fb login cancel');
+                dispatch(dropdownAlert('Facebook login cancelled.', true));
+                dispatch({ type: FACEBOOK_LOGIN_ERROR });
+            } else if (response.type === 'success') {
+                const {
+                    token,
+                    expires,
+                    permissions,
+                    declinedPermissions
+                } = response;
+                return firebaseFacebookAuth({
+                    dispatch,
+                    token,
+                    expires,
+                    permissions,
+                    declinedPermissions
+                });
+            }
         } else {
-            return { cancelled: true };
+            return firebaseFacebookAuth({
+                dispatch,
+                token: facebookAuthToken
+            });
         }
     } catch (e) {
-        return { error: true };
+        console.log('fb login error ', e);
+        dispatch(dropdownAlert('Facebook login error.', true));
+        dispatch({ type: FACEBOOK_LOGIN_ERROR });
+    }
+};
+
+const firebaseGoogleAuth = async ({
+    dispatch,
+    token,
+    accessToken = '',
+    refreshToken = '',
+    serverAuthCode = '',
+    user = {}
+}) => {
+    try {
+        // Build Firebase credential with the Facebook access token.
+        const credential = fire.auth.GoogleAuthProvider.credential(token);
+        // Sign in with credential from the Facebook user.
+        const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
+            credential
+        );
+        console.log('firebaseGoogleAuth response: ', response);
+        const additionalUserInfo = response.additionalUserInfo;
+        const firebaseUser = response.user;
+        // TODO: change to not user provider data as reuse of auth token will fail
+        const { email, givenName, id, familyName, name, photoUrl } = user;
+        const safeFirstName = sanitizeAndValidateName(givenName);
+        const safeLastName = sanitizeAndValidateName(familyName);
+        const safeName = sanitizeAndValidateName(name);
+        const safeEmail = email ? sanitizeAndValidateEmail(email) : '';
+        dispatch({
+            type: SIGNUP_SUCCESS,
+            payload: {
+                firstName: safeFirstName,
+                lastName: safeLastName,
+                email: safeEmail,
+                photoUrl
+            }
+        });
+        dispatch({
+            type: GOOGLE_LOGIN_SUCCESS,
+            payload: { token, accessToken, refreshToken }
+        });
+        if (additionalUserInfo.isNewUser) {
+            await db
+                .collection('users')
+                .doc(`${firebaseUser.uid}`)
+                .set({
+                    firstName: safeFirstName,
+                    lastName: safeLastName,
+                    email: safeEmail,
+                    providerId: additionalUserInfo.providerId,
+                    name: safeName,
+                    photoUrl,
+                    id,
+                    idToken: token,
+                    accessToken,
+                    refreshToken,
+                    serverAuthCode
+                });
+        }
+    } catch (error) {
+        console.log('firebaseFacebookAuth error: ', error);
+        dispatch({
+            type: SIGNUP_FAIL,
+            payload: error
+        });
+        // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // The email of the user's account used.
+        // var email = error.email;
+        // // The firebase.auth.AuthCredential type that was used.
+        // var credential = error.credential;
+    }
+};
+
+export const googleLogin = googleAuthToken => async dispatch => {
+    const behavior = __DEV__ ? 'web' : 'system';
+    dispatch({ type: GOOGLE_LOGIN_REQUEST });
+    try {
+        if (!googleAuthToken) {
+            // if (__DEV__) {
+            //     let result = await Expo.AuthSession.startAsync({
+            //     authUrl:
+            //         `https://accounts.google.com/o/oauth2/v2/auth?` +
+            //         `&client_id=${WEB_CLIENT_ID}` +
+            //         `&redirect_uri=${encodeURIComponent(redirectUrl)}` +
+            //         `&response_type=code` +
+            //         `&access_type=offline` +
+            //         `&scope=profile,email`,
+            //     });
+            //
+            // }
+            const response = await Google.logInAsync({
+                androidClientId: ANDROID_GOOGLE_CLIENT_ID,
+                iosClientId: IOS_GOOGLE_CLIENT_ID,
+                webClientId: WEB_CLIENT_ID,
+                scopes: ['profile', 'email'],
+                behavior
+            });
+            console.log('google auth response ', response);
+
+            if (response.type === 'cancel') {
+                console.log('google login cancel');
+                dispatch(dropdownAlert('Google login cancelled.', true));
+                dispatch({ type: GOOGLE_LOGIN_ERROR });
+            } else if (response.type === 'success') {
+                const {
+                    accessToken,
+                    idToken,
+                    refreshToken,
+                    serverAuthCode,
+                    user
+                } = response;
+                return firebaseGoogleAuth({
+                    dispatch,
+                    token: idToken,
+                    accessToken,
+                    refreshToken,
+                    serverAuthCode,
+                    user
+                });
+            }
+        } else {
+            return firebaseGoogleAuth({
+                dispatch,
+                token: googleAuthToken
+            });
+        }
+    } catch (e) {
+        console.log('google login error ', e);
+        dispatch(dropdownAlert('Google login error.', true));
+        dispatch({ type: GOOGLE_LOGIN_ERROR });
     }
 };
 

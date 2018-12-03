@@ -43,7 +43,7 @@ import {
     getLocationFeedbackPopupVisible
 } from '../selectors/mapSelectors';
 
-// import ContinuePopup from '../components/ContinuePopup';
+import { firebaseAuth } from '../../firebase';
 import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
@@ -74,9 +74,18 @@ class MapScreen extends Component {
         changeLocationPopupVisible: false
     };
 
-    componentDidMount() {
-        this.props.getCurrentLocation();
+    componentWillMount() {
+        if (!firebaseAuth.currentUser) {
+            this.props.navigation.navigate('welcome');
+        }
+    }
 
+    componentDidMount() {
+        const region = this.props.region;
+        this.getAddress({
+            latlng: `${region.latitude},${region.longitude}`
+        });
+        this.props.getCurrentLocation();
         // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
     }
