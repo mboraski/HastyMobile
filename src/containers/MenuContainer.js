@@ -63,7 +63,7 @@ class MenuContent extends Component {
         if (firebaseAuth.currentUser) {
             this.props.signOut();
             this.props.navigation.closeDrawer();
-            this.props.navigation.navigate('auth');
+            this.props.navigation.navigate('welcome');
         }
     };
 

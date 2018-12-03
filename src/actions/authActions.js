@@ -40,9 +40,49 @@ const firebaseFacebookAuth = async (token, dispatch) => {
             credential
         );
         console.log('firebaseFacebookAuth response: ', response);
+        const additionalUserInfo = response.additionalUserInfo;
+        const user = response.user;
+        const {
+            email,
+            first_name,
+            id,
+            last_name,
+            name
+        } = additionalUserInfo.profile;
+        const safeFirstName = sanitizeAndValidateName(first_name);
+        const safeLastName = sanitizeAndValidateName(last_name);
+        const safeName = sanitizeAndValidateName(name);
+        const safeEmail = sanitizeAndValidateEmail(email);
+        if (additionalUserInfo.isNewUser) {
+            await db
+                .collection('users')
+                .doc(`${user.uid}`)
+                .set({
+                    firstName: safeFirstName,
+                    lastName: safeLastName,
+                    email: safeEmail,
+                    providerId: additionalUserInfo.providerId,
+                    photoUrl: user.photoUrl,
+                    name: safeName,
+                    id
+                });
+        }
+        dispatch({
+            type: SIGNUP_SUCCESS,
+            payload: {
+                firstName: safeFirstName,
+                lastName: safeLastName,
+                email: safeEmail,
+                photoUrl: user.photoUrl
+            }
+        });
         dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload: token });
     } catch (error) {
         console.log('firebaseFacebookAuth error: ', error);
+        dispatch({
+            type: SIGNUP_FAIL,
+            payload: error
+        });
         // Handle Errors here.
         // var errorCode = error.code;
         // var errorMessage = error.message;
