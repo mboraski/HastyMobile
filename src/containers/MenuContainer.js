@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { firebaseAuth } from '../../firebase';
 
@@ -16,6 +16,7 @@ import cartIcon from '../assets/icons/cart.png';
 import paymentIcon from '../assets/icons/payment.png';
 import historyIcon from '../assets/icons/history.png';
 import locationIcon from '../assets/icons/location.png';
+// import profileImagePlaceholder from '../assets/profileImagePlaceholder';
 
 import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
@@ -71,13 +72,17 @@ class MenuContent extends Component {
         const { items, activeItemKey, userReadable } = this.props;
         return (
             <View style={styles.container}>
-                <View style={styles.profile}>
-                    {userReadable ? (
+                {userReadable && (
+                    <View style={styles.profile}>
+                        <Image
+                            source={userReadable.profileUrl}
+                            style={styles.image}
+                        />
                         <Text style={styles.name}>
                             {userReadable.firstName} {userReadable.lastName}
                         </Text>
-                    ) : null}
-                </View>
+                    </View>
+                )}
                 <ScrollView style={styles.menuItems}>
                     <MenuItem
                         route={getRoute(items, 'map')}

@@ -73,7 +73,7 @@ class WelcomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: 10,
+        paddingVertical: 10,
         flexDirection: 'column',
         justifyContent: 'center',
         backgroundColor: '#fff'
