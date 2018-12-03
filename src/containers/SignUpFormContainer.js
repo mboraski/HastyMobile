@@ -135,6 +135,7 @@ class SignUpFormContainer extends Component {
                     >
                         {'Privacy Policy'}
                     </Text>
+                    {' and you confirm you are 13 years of age or older.'}
                 </Text>
                 <TouchableOpacity
                     onPress={handleSubmit(createUserWithEmailAndPassword)}
@@ -178,6 +179,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     button: {
+        borderRadius: 5,
         backgroundColor: Color.DEFAULT,
         marginHorizontal: 15,
         justifyContent: 'center',

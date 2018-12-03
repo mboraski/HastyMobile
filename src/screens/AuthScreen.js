@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
         minWidth: 120,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: Color.GREY_500,
-        backgroundColor: '#fff',
+        borderColor: Color.DEFAULT,
+        backgroundColor: Color.DEFAULT,
         height: emY(3),
         padding: 0
     },
     buttonText: {
-        color: Color.GREY_500,
+        color: '#fff',
         fontSize: emY(1)
     },
     socialButton: {
@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     buttonHighlighted: {
-        backgroundColor: Color.DEFAULT,
-        borderColor: '#fff'
+        backgroundColor: Color.GREY_500,
+        borderColor: Color.GREY_500
     },
     buttonTextHighlighted: {
         color: '#fff'

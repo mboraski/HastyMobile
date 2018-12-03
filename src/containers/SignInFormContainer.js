@@ -46,10 +46,7 @@ class SignInFormContainer extends Component {
         } = this.props;
         const disabled =
             pending || submitting || asyncValidating || invalid || pristine;
-        const submitText =
-            anyTouched && invalid
-                ? 'Please fix issues before continuing'
-                : 'Continue';
+        const submitText = 'Log In';
         return (
             <View style={styles.container}>
                 <View style={styles.formInputs}>
@@ -70,10 +67,7 @@ class SignInFormContainer extends Component {
                         validate={[required, validPassword]}
                     />
                     {submitting ? (
-                        <ActivityIndicator
-                            size="large"
-                            color={Color.ORANGE_500}
-                        />
+                        <ActivityIndicator size="large" color={Color.DEFAULT} />
                     ) : null}
                     {submitSucceeded ? (
                         <SuccessState
@@ -97,11 +91,6 @@ class SignInFormContainer extends Component {
                 >
                     <Text style={styles.buttonText}>{submitText}</Text>
                 </TouchableOpacity>
-                {/* <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(promoCode) => this.setState({ promoCode })}
-                    value={this.state.promoCode}
-                /> */}
             </View>
         );
     }
@@ -128,7 +117,8 @@ const styles = StyleSheet.create({
         marginRight: 0
     },
     button: {
-        backgroundColor: '#000',
+        borderRadius: 5,
+        backgroundColor: Color.DEFAULT,
         marginHorizontal: 25,
         justifyContent: 'center',
         height: emY(3)
