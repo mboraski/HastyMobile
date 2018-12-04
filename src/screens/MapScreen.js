@@ -27,6 +27,7 @@ import {
 import { reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import { getUserReadable } from '../actions/authActions';
+import { fetchProducts } from '../actions/productActions';
 
 import {
     getProductsPending,
@@ -88,6 +89,7 @@ class MapScreen extends Component {
         this.props.getCurrentLocation();
         // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
+        this.props.fetchProducts();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -407,7 +409,8 @@ const mapDispatchToProps = {
     getCurrentLocation,
     determineDeliveryDistance,
     closeLocationFeedbackPopup,
-    sendLocationFeedback
+    sendLocationFeedback,
+    fetchProducts
 };
 
 export default connect(
