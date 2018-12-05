@@ -24,7 +24,7 @@ import { signOut } from '../actions/authActions';
 import { getUserReadable } from '../selectors/authSelectors';
 import { getOrderId } from '../selectors/orderSelectors';
 
-const IMAGE_CONTAINER_SIZE = emY(2);
+const IMAGE_CONTAINER_SIZE = 100;
 
 const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
@@ -74,10 +74,12 @@ class MenuContent extends Component {
             <View style={styles.container}>
                 {userReadable && (
                     <View style={styles.profile}>
-                        <Image
-                            source={userReadable.profileUrl}
-                            style={styles.image}
-                        />
+                        {userReadable.photoUrl && (
+                            <Image
+                                source={{ uri: userReadable.photoUrl }}
+                                style={styles.image}
+                            />
+                        )}
                         <Text style={styles.name}>
                             {userReadable.firstName} {userReadable.lastName}
                         </Text>

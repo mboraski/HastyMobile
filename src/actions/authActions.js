@@ -76,13 +76,15 @@ const firebaseFacebookAuth = async ({
                     firstName: safeFirstName,
                     lastName: safeLastName,
                     email: safeEmail,
-                    providerId: additionalUserInfo.providerId,
-                    name: safeName,
                     photoUrl,
-                    picture,
-                    id,
-                    permissions,
-                    declinedPermissions
+                    other: {
+                        providerId: additionalUserInfo.providerId,
+                        name: safeName,
+                        picture,
+                        id,
+                        permissions,
+                        declinedPermissions
+                    }
                 });
         }
         dispatch({
@@ -202,14 +204,16 @@ const firebaseGoogleAuth = async ({
                     firstName: safeFirstName,
                     lastName: safeLastName,
                     email: safeEmail,
-                    providerId: additionalUserInfo.providerId,
-                    name: safeName,
                     photoUrl,
-                    id,
-                    idToken: token,
-                    accessToken,
-                    refreshToken,
-                    serverAuthCode
+                    other: {
+                        providerId: additionalUserInfo.providerId,
+                        name: safeName,
+                        id,
+                        idToken: token,
+                        accessToken,
+                        refreshToken,
+                        serverAuthCode
+                    }
                 });
         }
     } catch (error) {
@@ -405,10 +409,12 @@ export const getUserReadable = () => dispatch => {
             .get()
             .then(snap => {
                 const userData = snap.data();
-                dispatch({
-                    type: USER_READABLE_SUCCESS,
-                    payload: userData
-                });
+                if (userData) {
+                    dispatch({
+                        type: USER_READABLE_SUCCESS,
+                        payload: userData
+                    });
+                }
                 if (
                     userData &&
                     userData.stripeInfo &&

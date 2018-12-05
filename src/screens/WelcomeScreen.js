@@ -50,7 +50,7 @@ class WelcomeScreen extends Component {
                 <View style={styles.logoHeaderWrapper}>
                     <Image style={styles.logoHeader} source={logoHeader} />
                 </View>
-                <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete} />
+                <Slides data={SLIDE_DATA} />
                 <Button
                     onPress={this.logIn}
                     title="Login"

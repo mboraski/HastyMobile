@@ -1,42 +1,11 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements';
 
 import Text from './Text';
 import Dimensions from '../constants/Dimensions';
 import Style from '../constants/Style';
 
 class Slides extends Component {
-    renderDots(index) {
-        if (index === this.props.data.length - 1) {
-            return (
-                <Button
-                    title="Onwards!"
-                    raised
-                    buttonStyle={styles.buttonStyle}
-                    onPress={this.props.onComplete}
-                    fontFamily={'goodtimes'}
-                    accessibilityLabel="Leave tutorial screens and go to app"
-                />
-            );
-        }
-    }
-
-    renderLastSlide(index) {
-        if (index === this.props.data.length - 1) {
-            return (
-                <Button
-                    title="Onwards!"
-                    raised
-                    buttonStyle={styles.buttonStyle}
-                    onPress={this.props.onComplete}
-                    fontFamily={'goodtimes'}
-                    accessibilityLabel="Leave tutorial screens and go to app"
-                />
-            );
-        }
-    }
-
     renderSlides() {
         return this.props.data.map((slide, index) => (
             <View

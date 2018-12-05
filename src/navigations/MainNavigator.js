@@ -21,7 +21,8 @@ import PromotionShareScreen from '../screens/PromotionShareScreen';
 import NotificationFeedbackScreen from '../screens/NotificationFeedbackScreen';
 
 const getHeaderMode = () => (Platform.OS === 'ios' ? 'float' : 'screen');
-const getInitialRoute = () => (firebaseAuth.currentUser ? 'map' : 'welcome');
+const getInitialRoute = () => 'checkout';
+// const getInitialRoute = () => (firebaseAuth.currentUser ? 'map' : 'welcome');
 
 export default createStackNavigator(
     {

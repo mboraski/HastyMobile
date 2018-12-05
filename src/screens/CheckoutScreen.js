@@ -40,7 +40,9 @@ import {
     getCartOrders,
     getCartCostTotal,
     getCartTax,
-    getCartTotalQuantity
+    getCartServiceFee,
+    getCartTotalQuantity,
+    getCartPureTotal
 } from '../selectors/cartSelectors';
 import {
     getCards,
@@ -50,7 +52,11 @@ import {
 } from '../selectors/paymentSelectors';
 import { getAddress, getRegion } from '../selectors/mapSelectors';
 import { getProductImages } from '../selectors/productSelectors';
-import { getNotes, getServiceFee } from '../selectors/checkoutSelectors';
+import {
+    getNotes,
+    getDeliveryFee,
+    getDiscount
+} from '../selectors/checkoutSelectors';
 import {
     getEmail,
     getFirstName,
@@ -67,7 +73,7 @@ const CHANGE_LOCATION_TITLE =
     'Are you sure you want to change your delivery location?';
 const CHANGE_LOCATION_MESSAGE =
     'The available products/services at your new location may be different.';
-const MAP_HEIGHT = emY(8.25);
+const MAP_HEIGHT = emY(12);
 const beaconEdgeLength = emY(6);
 
 class CheckoutScreen extends Component {
@@ -186,9 +192,10 @@ class CheckoutScreen extends Component {
             cart,
             productImages,
             tax,
-            serviceCharge,
             serviceFee,
             deliveryFee,
+            discount,
+            pureCartTotal,
             totalCost,
             notes,
             address,
@@ -201,9 +208,10 @@ class CheckoutScreen extends Component {
             removeOrderPopupVisible,
             changeLocationPopupVisible
         } = this.state;
-        const serviceChargeFormatted = serviceCharge
-            ? (serviceCharge / 100).toFixed(2)
+        const pureCartTotalFormatted = pureCartTotal
+            ? (pureCartTotal / 100).toFixed(2)
             : 0;
+        const discountFormatted = discount ? (discount / 100).toFixed(2) : 0;
         const serviceFeeFormatted = serviceFee
             ? (serviceFee / 100).toFixed(2)
             : 0;
@@ -303,7 +311,7 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.container}>
+                            <View>
                                 <MapView
                                     region={region}
                                     style={styles.map}
@@ -334,17 +342,21 @@ class CheckoutScreen extends Component {
                             />
                         </View>
                         <View style={styles.cart}>
-                            {!!serviceCharge &&
+                            {!!pureCartTotalFormatted &&
                                 cartQuantity > 0 && (
                                     <View style={styles.meta}>
                                         <Text style={styles.label}>
-                                            Service Charge:
+                                            Subtotal:
                                         </Text>
                                         <Text style={styles.cost}>
-                                            ${serviceChargeFormatted}
+                                            ${pureCartTotalFormatted}
                                         </Text>
                                     </View>
                                 )}
+                            <View style={styles.meta}>
+                                <Text style={styles.label}>Tax:</Text>
+                                <Text style={styles.cost}>${taxFormatted}</Text>
+                            </View>
                             {!!serviceFee && (
                                 <View style={styles.meta}>
                                     <Text style={styles.label}>
@@ -366,13 +378,20 @@ class CheckoutScreen extends Component {
                                         </Text>
                                     </View>
                                 )}
-                            <View style={styles.meta}>
-                                <Text style={styles.label}>Tax:</Text>
-                                <Text style={styles.cost}>${taxFormatted}</Text>
-                            </View>
-                            <View style={styles.meta}>
-                                <Text style={styles.label}>Order Total:</Text>
-                                <Text style={styles.cost}>
+                            {!!discount && (
+                                <View style={styles.meta}>
+                                    <Text style={styles.label}>
+                                        New User Discount:
+                                    </Text>
+                                    <Text style={styles.cost}>
+                                        -$
+                                        {discountFormatted}
+                                    </Text>
+                                </View>
+                            )}
+                            <View style={styles.metaTotal}>
+                                <Text style={styles.labelTotal}>Total:</Text>
+                                <Text style={styles.costTotal}>
                                     ${totalCostFormatted}
                                 </Text>
                             </View>
@@ -529,13 +548,33 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         alignItems: 'center'
     },
+    metaTotal: {
+        borderTopColor: Color.GREY_600,
+        borderTopWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 5,
+        alignItems: 'center'
+    },
     label: {
-        fontSize: 14,
+        fontSize: 12,
         color: Color.GREY_600,
         marginRight: 11
     },
     cost: {
-        fontSize: 14
+        fontSize: 12,
+        color: Color.GREY_600
+    },
+    labelTotal: {
+        fontSize: 13,
+        color: '#000',
+        marginRight: 11,
+        marginTop: 10
+    },
+    costTotal: {
+        fontSize: 13,
+        color: '#000',
+        marginTop: 10
     },
     buttonContainer: {
         marginTop: 10
@@ -552,9 +591,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     email: getEmail(state),
     cart: getCartOrders(state),
+    pureCartTotal: getCartPureTotal(state),
     totalCost: getCartCostTotal(state),
     tax: getCartTax(state),
-    serviceFee: getServiceFee(state),
+    serviceFee: getCartServiceFee(state),
+    deliveryFee: getDeliveryFee(state),
+    discount: getDiscount(state),
     notes: getNotes(state),
     address: getAddress(state),
     region: getRegion(state),
