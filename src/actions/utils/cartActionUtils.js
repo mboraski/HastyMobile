@@ -1,13 +1,13 @@
-"1":{
-  "categories" : {
-    "all" : true,
-    "electronics" : true
-  },
-  "imageFileName" : "Mexican_Coke_12_oz.jpg",
-  "price" : 1499,
-  "productName" : "USB Cable, 4 in 1 Universal",
-  "quantity" : 3
-},
+// "1":{
+//   "categories" : {
+//     "all" : true,
+//     "electronics" : true
+//   },
+//   "imageFileName" : "Mexican_Coke_12_oz.jpg",
+//   "price" : 1499,
+//   "productName" : "USB Cable, 4 in 1 Universal",
+//   "quantity" : 3
+// },
 
 import forEach from 'lodash.foreach';
 import reduce from 'lodash.reduce';
