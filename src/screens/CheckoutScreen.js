@@ -211,7 +211,6 @@ class CheckoutScreen extends Component {
         const pureCartTotalFormatted = pureCartTotal
             ? (pureCartTotal / 100).toFixed(2)
             : 0;
-        const discountFormatted = discount ? (discount / 100).toFixed(2) : 0;
         const serviceFeeFormatted = serviceFee
             ? (serviceFee / 100).toFixed(2)
             : 0;
@@ -224,6 +223,10 @@ class CheckoutScreen extends Component {
             totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
         }
         const card = paymentMethod.card || {};
+        const placeholderNotes = `(Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)`;
+        const discountStyles = discount
+            ? [styles.cost, styles.costDiscount]
+            : styles.cost;
 
         return (
             <View style={styles.container}>
@@ -234,113 +237,102 @@ class CheckoutScreen extends Component {
                     />
                 ) : (
                     <ScrollView style={styles.scrollContainer}>
-                        <View style={styles.container}>
+                        <TouchableOpacity
+                            style={styles.checkout}
+                            onPress={this.confirmPurchase}
+                        >
+                            <Text style={styles.imageTitle}>
+                                {'CONFIRM PURCHASE'}
+                            </Text>
+                            <Text style={styles.imageSubText}>
+                                {'This notifies Heroes of your order request'}
+                            </Text>
+                            <Text style={styles.imageSubText}>
+                                {`Total: $${totalCostFormatted}`}
+                            </Text>
+                            <View style={styles.checkoutIconContainer}>
+                                <MaterialIcons
+                                    name="keyboard-arrow-right"
+                                    color="#fff"
+                                    size={emY(3)}
+                                    style={styles.checkoutIcon}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.itemHeader}>
+                            <Text style={styles.itemHeaderLabel}>
+                                DELIVERY NOTES
+                            </Text>
+                        </View>
+                        <View style={styles.itemBody}>
+                            <Text style={styles.itemBodyLabel}>
+                                {notes ? `${notes}` : `${placeholderNotes}`}
+                            </Text>
                             <TouchableOpacity
-                                style={styles.checkout}
-                                onPress={this.confirmPurchase}
+                                style={styles.itemButton}
+                                onPress={this.openDeliveryNotes}
                             >
-                                <Text style={styles.imageTitle}>
-                                    {'CONFIRM PURCHASE'}
+                                <Text style={styles.itemButtonText}>
+                                    Change
                                 </Text>
-                                <Text style={styles.imageSubText}>
-                                    {
-                                        'This notifies Heroes of your order request'
-                                    }
-                                </Text>
-                                <Text style={styles.imageSubText}>
-                                    {`Total: $${totalCostFormatted}`}
-                                </Text>
-                                <View style={styles.checkoutIconContainer}>
-                                    <MaterialIcons
-                                        name="keyboard-arrow-right"
-                                        color="#fff"
-                                        size={50}
-                                        style={styles.checkoutIcon}
-                                    />
-                                </View>
                             </TouchableOpacity>
-                            <View style={styles.itemHeader}>
-                                <Text style={styles.itemHeaderLabel}>
-                                    DELIVERY NOTES
-                                </Text>
-                                <Text style={styles.itemHeaderLabelNotes}>
-                                    (Help your hero find you. What color shirt
-                                    are you wearing? What can help identify you
-                                    and your location?)
-                                </Text>
-                            </View>
-                            <View style={styles.itemBody}>
-                                <Text style={styles.itemBodyLabel}>
-                                    {notes}
-                                </Text>
-                                <TouchableOpacity
-                                    style={styles.itemButton}
-                                    onPress={this.openDeliveryNotes}
-                                >
-                                    <Text style={styles.itemButtonText}>
-                                        Change
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.itemHeader}>
-                                <Text stye={styles.itemHeaderLabel}>
-                                    PAYMENT METHOD
-                                </Text>
-                            </View>
-                            <View style={styles.dropdownContainer}>
-                                <PaymentMethod
-                                    type={card.brand}
-                                    text={card.last4}
-                                />
-                            </View>
-                            <View style={styles.itemHeader}>
-                                <Text stye={styles.itemHeaderLabel}>
-                                    DELIVERY LOCATION
-                                </Text>
-                            </View>
-                            <View style={styles.itemBody}>
-                                <Text style={styles.itemBodyLabel}>
-                                    {address}
-                                </Text>
-                                <TouchableOpacity
-                                    style={styles.itemButton}
-                                    onPress={this.changeLocation}
-                                >
-                                    <Text style={styles.itemButtonText}>
-                                        Change
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <MapView
-                                    region={region}
-                                    style={styles.map}
-                                    pitchEnabled={false}
-                                    rotateEnabled={false}
-                                    scrollEnabled={false}
-                                />
-                                <View
-                                    pointerEvents="none"
-                                    style={styles.beaconWrapper}
-                                >
-                                    <Image
-                                        source={beaconIcon}
-                                        style={styles.beaconMarker}
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.itemHeader}>
-                                <Text stye={styles.itemHeaderLabel}>
-                                    PRODUCT SUMMARY
-                                </Text>
-                            </View>
-                            <OrderList
-                                orders={cart}
-                                orderImages={productImages}
-                                onAddOrder={this.props.addToCart}
-                                onRemoveOrder={this.handleRemoveOrder}
+                        </View>
+                        <View style={styles.itemHeader}>
+                            <Text style={styles.itemHeaderLabel}>
+                                PAYMENT METHOD
+                            </Text>
+                        </View>
+                        <View style={styles.dropdownContainer}>
+                            <PaymentMethod
+                                type={card.brand}
+                                text={card.last4}
                             />
                         </View>
+                        <View style={styles.itemHeader}>
+                            <Text style={styles.itemHeaderLabel}>
+                                DELIVERY LOCATION
+                            </Text>
+                        </View>
+                        <View style={styles.itemBody}>
+                            <Text style={styles.itemBodyLabel}>{address}</Text>
+                            <TouchableOpacity
+                                style={styles.itemButton}
+                                onPress={this.changeLocation}
+                            >
+                                <Text style={styles.itemButtonText}>
+                                    Change
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <MapView
+                                region={region}
+                                style={styles.map}
+                                pitchEnabled={false}
+                                rotateEnabled={false}
+                                scrollEnabled={false}
+                            />
+                            <View
+                                pointerEvents="none"
+                                style={styles.beaconWrapper}
+                            >
+                                <Image
+                                    source={beaconIcon}
+                                    style={styles.beaconMarker}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.itemHeader}>
+                            <Text style={styles.itemHeaderLabel}>
+                                PRODUCT SUMMARY
+                            </Text>
+                        </View>
+                        <OrderList
+                            orders={cart}
+                            orderImages={productImages}
+                            onAddOrder={this.props.addToCart}
+                            onRemoveOrder={this.handleRemoveOrder}
+                        />
                         <View style={styles.cart}>
                             {!!pureCartTotalFormatted &&
                                 cartQuantity > 0 && (
@@ -350,6 +342,20 @@ class CheckoutScreen extends Component {
                                         </Text>
                                         <Text style={styles.cost}>
                                             ${pureCartTotalFormatted}
+                                        </Text>
+                                    </View>
+                                )}
+                            {!!deliveryFee &&
+                                cartQuantity > 0 && (
+                                    <View style={styles.meta}>
+                                        <Text style={styles.label}>
+                                            Delivery:
+                                        </Text>
+                                        <Text style={styles.cost}>
+                                            {!!discount && 'FREE '}
+                                            <Text style={discountStyles}>
+                                                {`$${deliveryFeeFormatted}`}
+                                            </Text>
                                         </Text>
                                     </View>
                                 )}
@@ -364,28 +370,6 @@ class CheckoutScreen extends Component {
                                     </Text>
                                     <Text style={styles.cost}>
                                         ${serviceFeeFormatted}
-                                    </Text>
-                                </View>
-                            )}
-                            {!!deliveryFee &&
-                                cartQuantity > 0 && (
-                                    <View style={styles.meta}>
-                                        <Text style={styles.label}>
-                                            Delivery Fee:
-                                        </Text>
-                                        <Text style={styles.cost}>
-                                            ${deliveryFeeFormatted}
-                                        </Text>
-                                    </View>
-                                )}
-                            {!!discount && (
-                                <View style={styles.meta}>
-                                    <Text style={styles.label}>
-                                        New User Discount:
-                                    </Text>
-                                    <Text style={styles.cost}>
-                                        -$
-                                        {discountFormatted}
                                     </Text>
                                 </View>
                             )}
@@ -440,27 +424,70 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
+    scrollContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingBottom: emY(13.81)
+    },
     checkout: {
         height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f5a623'
+        backgroundColor: Color.DEFAULT
+    },
+    imageTitle: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1.875),
+        textAlign: 'center'
+    },
+    imageSubText: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        fontSize: emY(1),
+        textAlign: 'center'
     },
     checkoutIconContainer: {
         position: 'absolute',
         top: 0,
         right: 0,
         bottom: 0,
-        width: 50,
+        alignSelf: 'flex-end',
         justifyContent: 'center'
     },
     checkoutIcon: {
         backgroundColor: 'transparent'
     },
-    scrollContainer: {
+    itemHeader: {
+        paddingHorizontal: 10,
+        marginTop: emY(1)
+    },
+    itemHeaderLabel: {
+        fontSize: emY(1.1),
+        color: '#000',
+        paddingBottom: emY(0.5),
+        textDecorationLine: 'underline'
+    },
+    itemBody: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        paddingVertical: emY(0.8),
+        backgroundColor: Color.GREY_100
+    },
+    itemBodyLabel: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingBottom: emY(13.81)
+        fontSize: emY(1),
+        color: Color.GREY_800
+    },
+    itemButton: {
+        width: 80,
+        height: emY(1.5),
+        alignItems: 'flex-end'
+    },
+    itemButtonText: {
+        fontSize: emY(1),
+        color: Color.BLUE_500
     },
     map: {
         height: MAP_HEIGHT,
@@ -477,53 +504,8 @@ const styles = StyleSheet.create({
         width: beaconEdgeLength,
         height: beaconEdgeLength
     },
-    imageTitle: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1.875),
-        textAlign: 'center'
-    },
-    imageSubText: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1),
-        textAlign: 'center'
-    },
-    itemHeader: {
-        paddingHorizontal: 20,
-        paddingVertical: emY(0.8)
-    },
-    itemHeaderLabel: {
-        fontSize: emY(0.83),
-        color: Color.GREY_600
-    },
-    itemHeaderLabelNotes: {
-        fontSize: emY(0.8),
-        color: Color.GREY_500
-    },
-    itemBody: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: emY(0.8),
-        backgroundColor: Color.GREY_100
-    },
-    itemBodyLabel: {
-        width: WINDOW_WIDTH - 160,
-        fontSize: emY(1.08),
-        color: Color.GREY_800
-    },
-    itemButton: {
-        width: 80,
-        height: emY(1.5),
-        alignItems: 'flex-end'
-    },
-    itemButtonText: {
-        fontSize: emY(1.08),
-        color: Color.BLUE_500
-    },
     dropdownContainer: {
-        marginBottom: emY(1.08)
+        marginBottom: emY(1)
     },
     cart: {
         position: 'relative',
@@ -565,14 +547,17 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: Color.GREY_600
     },
+    costDiscount: {
+        textDecorationLine: 'line-through'
+    },
     labelTotal: {
-        fontSize: 13,
+        fontSize: 14,
         color: '#000',
         marginRight: 11,
         marginTop: 10
     },
     costTotal: {
-        fontSize: 13,
+        fontSize: 14,
         color: '#000',
         marginTop: 10
     },
