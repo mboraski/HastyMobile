@@ -24,6 +24,7 @@ export const firebaseAuth = firebase.auth();
 // export const messaging = firebase.messaging();
 export const db = firebase.firestore();
 export const functions = firebase.functions();
+export const storage = firebase.storage();
 
 // Disable deprecated features
 db.settings({

@@ -3,8 +3,12 @@ import forEach from 'lodash.foreach';
 
 import { setSalesTaxRate, setServiceFee } from './checkoutActions';
 import { updateCart } from './cartActions';
+import { createCart, updateCartImageUrls } from './utils/cartActionUtils';
 import { rtdb, fire, db } from '../../firebase';
 
+export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
+export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
+export const FETCH_PRODUCTS_ERROR = 'fetch_products_error';
 export const SELECT_CATEGORY = 'select_category';
 export const FETCH_CUSTOMER_BLOCK_REQUEST = 'fetch_customer_block_request';
 export const FETCH_CUSTOMER_BLOCK_SUCCESS = 'fetch_customer_block_success';
@@ -14,12 +18,21 @@ export const SET_IMAGE = 'set_image';
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
 
 export const fetchProducts = () => async dispatch => {
-    // dispatch({ type: FETCH_PRODUCTS });
-    const querySnapshot = await db.collection('consumerProducts').get();
-    return querySnapshot.forEach(doc => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, ' => ', doc.data());
-    });
+    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    try {
+        const querySnapshot = await db.collection('consumerProducts').get();
+        // creates cart
+        const cart = createCart(querySnapshot);
+        console.log('created cart: ', cart);
+        // adds imageUrls to cart object
+        const cartWithImageUrls = await updateCartImageUrls(cart);
+        console.log('created cartWithImageUrls: ', cartWithImageUrls);
+
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: cartWithImageUrls });
+    } catch (error) {
+        console.log('fetch products error: ', error);
+        dispatch({ type: FETCH_PRODUCTS_ERROR });
+    }
 };
 
 export const fetchCustomerBlock = dispatch => {

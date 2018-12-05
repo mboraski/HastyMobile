@@ -29,6 +29,14 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case SIGNOUT_SUCCESS:
             return initialState;
+        case SET_CART: {
+            return {
+                ...state,
+                products: {
+                    instant: action.payload
+                }
+            };
+        }
         case CLEAR_CART: {
             return {
                 ...state,
