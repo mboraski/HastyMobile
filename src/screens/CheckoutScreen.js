@@ -470,6 +470,7 @@ const styles = StyleSheet.create({
     },
     itemBody: {
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
         paddingVertical: emY(0.8),
@@ -491,7 +492,8 @@ const styles = StyleSheet.create({
     },
     map: {
         height: MAP_HEIGHT,
-        shadowColor: 'transparent'
+        shadowColor: 'transparent',
+        marginBottom: 10
     },
     beaconWrapper: {
         left: '50%',
@@ -510,8 +512,9 @@ const styles = StyleSheet.create({
     cart: {
         position: 'relative',
         backgroundColor: '#fff',
-        paddingHorizontal: 23,
+        paddingHorizontal: 20,
         paddingVertical: 20,
+        marginTop: 10,
         ...Platform.select({
             ios: {
                 shadowColor: '#000',

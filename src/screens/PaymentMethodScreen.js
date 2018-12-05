@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
+import { Button } from 'react-native-elements';
 
 // Relative Imports
 import MenuAndBackButton from '../components/MenuAndBackButton';
@@ -75,7 +76,8 @@ class PaymentMethodScreen extends Component {
                 <PaymentMethod
                     key={index}
                     type={source.card.brand}
-                    text={source.card.last4}
+                    brand={source.card.brand}
+                    last4={source.card.last4}
                     onPress={onPress}
                 />
             );
@@ -99,7 +101,12 @@ class PaymentMethodScreen extends Component {
                 {this.renderSignUpPaymentMethodText(signedUp)}
                 <SectionTitle title="MY CARDS" />
                 {!signedUp && cards.map(this.renderCard)}
-                <PaymentMethod text="Add Card" onPress={this.addCard} />
+                <Button
+                    title="Add Card"
+                    buttonStyle={[styles.button]}
+                    textStyle={[styles.buttonText]}
+                    onPress={this.addCard}
+                />
             </ScrollView>
         );
     }
@@ -119,6 +126,20 @@ const styles = StyleSheet.create({
     },
     signUpAddPaymentMethodText: {
         fontFamily: 'goodtimes'
+    },
+    button: {
+        marginTop: 20,
+        minWidth: 120,
+        borderRadius: 5,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: Color.DEFAULT,
+        backgroundColor: Color.DEFAULT,
+        height: emY(3),
+        padding: 0
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: emY(1)
     }
 });
 
