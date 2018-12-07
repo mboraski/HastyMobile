@@ -89,8 +89,11 @@ class PaymentMethodScreen extends Component {
         const signedUp = navigation.getParam('signedUp', false);
         return (
             <ScrollView style={styles.container}>
+                {this.renderSignUpPaymentMethodText(signedUp)}
+                <SectionTitle title="MY CARDS" />
+                {!signedUp && cards.map(this.renderCard)}
                 {pending && (
-                    <View style={styles.overlay}>
+                    <View style={styles.activityIndicator}>
                         <ActivityIndicator
                             animating={pending}
                             size="large"
@@ -98,9 +101,6 @@ class PaymentMethodScreen extends Component {
                         />
                     </View>
                 )}
-                {this.renderSignUpPaymentMethodText(signedUp)}
-                <SectionTitle title="MY CARDS" />
-                {!signedUp && cards.map(this.renderCard)}
                 <Button
                     title="Add Card"
                     buttonStyle={[styles.button]}
@@ -126,6 +126,9 @@ const styles = StyleSheet.create({
     },
     signUpAddPaymentMethodText: {
         fontFamily: 'goodtimes'
+    },
+    activityIndicator: {
+        marginVertical: 15
     },
     button: {
         marginTop: 20,

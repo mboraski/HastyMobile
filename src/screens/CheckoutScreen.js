@@ -14,13 +14,15 @@ import {
 } from 'react-native';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
+import map from 'lodash.map';
 import { MaterialIcons } from '@expo/vector-icons';
 
 // Relative Imports
+import DropDown from '../components/DropDown';
+import PaymentDropDownItem from '../components/PaymentDropDownItem';
 import BackButton from '../components/BackButton';
 import TransparentButton from '../components/TransparentButton';
 import OrderList from '../components/OrderList';
-import PaymentMethod from '../components/PaymentMethod';
 import OopsPopup from '../components/OopsPopup';
 import SuccessPopup from '../components/SuccessPopup';
 import Text from '../components/Text';
@@ -94,8 +96,37 @@ class CheckoutScreen extends Component {
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         removeOrderPopupVisible: false,
-        changeLocationPopupVisible: false
+        changeLocationPopupVisible: false,
+        dropdownHeader: <PaymentDropDownItem isHeaderItem />
     };
+
+    componentWillMount() {
+        const { paymentMethod, cards } = this.props;
+        const firstCard = cards[0] || {};
+        if (paymentMethod) {
+            this.setState({
+                dropdownHeader: (
+                    <PaymentDropDownItem
+                        isHeaderItem
+                        type={paymentMethod.card.brand}
+                        brand={paymentMethod.card.brand}
+                        last4={paymentMethod.card.last4}
+                    />
+                )
+            });
+        } else {
+            this.setState({
+                dropdownHeader: (
+                    <PaymentDropDownItem
+                        isHeaderItem
+                        type={firstCard.card.brand}
+                        brand={firstCard.card.brand}
+                        last4={firstCard.card.last4}
+                    />
+                )
+            });
+        }
+    }
 
     componentWillReceiveProps(nextProps) {
         if (!this.props.orderId && nextProps.orderId) {
@@ -187,6 +218,23 @@ class CheckoutScreen extends Component {
         this.props.navigation.navigate('deliveryNotes');
     };
 
+    renderDropdownCards = () => {
+        const { paymentMethod, cards } = this.props;
+        return map(cards, (card, index) => {
+            if (paymentMethod.id !== card.id) {
+                return (
+                    <PaymentDropDownItem
+                        isHeaderItem={false}
+                        key={index}
+                        type={card.card.brand}
+                        brand={card.card.brand}
+                        last4={card.card.last4}
+                    />
+                );
+            }
+        });
+    };
+
     render() {
         const {
             cart,
@@ -200,7 +248,6 @@ class CheckoutScreen extends Component {
             notes,
             address,
             region,
-            paymentMethod,
             pending,
             cartQuantity
         } = this.props;
@@ -222,11 +269,11 @@ class CheckoutScreen extends Component {
         if (cartQuantity > 0) {
             totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
         }
-        const card = paymentMethod.card || {};
         const placeholderNotes = `(Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)`;
         const discountStyles = discount
             ? [styles.cost, styles.costDiscount]
             : styles.cost;
+        const dropdownCards = this.renderDropdownCards();
 
         return (
             <View style={styles.container}>
@@ -282,12 +329,9 @@ class CheckoutScreen extends Component {
                                 PAYMENT METHOD
                             </Text>
                         </View>
-                        <View style={styles.dropdownContainer}>
-                            <PaymentMethod
-                                type={card.brand}
-                                text={card.last4}
-                            />
-                        </View>
+                        <DropDown header={this.state.dropdownHeader}>
+                            {dropdownCards}
+                        </DropDown>
                         <View style={styles.itemHeader}>
                             <Text style={styles.itemHeaderLabel}>
                                 DELIVERY LOCATION
@@ -463,7 +507,7 @@ const styles = StyleSheet.create({
         marginTop: emY(1)
     },
     itemHeaderLabel: {
-        fontSize: emY(1.1),
+        fontSize: emY(1),
         color: '#000',
         paddingBottom: emY(0.5),
         textDecorationLine: 'underline'

@@ -2,13 +2,13 @@ import { StyleSheet, Platform, StatusBar } from 'react-native';
 
 import { emY } from '../utils/em';
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 const TITLE_OFFSET = Platform.OS === 'ios' ? 70 : 56;
+export const HEADER_ITEM_SIZE = emY(1.5);
 
 const header = {
-    paddingTop: STATUSBAR_HEIGHT,
+    paddingTop: StatusBar.currentHeight,
     backgroundColor: '#fff',
-    height: emY(2.8),
+    height: emY(3),
     shadowRadius: 0,
     shadowOffset: {
         height: 0
@@ -18,13 +18,13 @@ const header = {
     borderBottomColor: 'rgba(0, 0, 0, .3)',
     ...Platform.select({
         android: {
-            paddingTop: StatusBar.currentHeight,
             elevation: 0
         }
     })
 };
 
 const headerItem = {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
 };
@@ -109,13 +109,13 @@ export default StyleSheet.create({
         color: 'rgba(0, 0, 0, .9)',
         marginHorizontal: 16,
         fontWeight: '500',
-        fontSize: 17,
+        fontSize: emY(1.2),
         fontFamily: 'Arial'
     },
     headerTitleLogo: {
         fontFamily: 'goodtimes',
         fontWeight: 'normal',
-        fontSize: 21
+        fontSize: HEADER_ITEM_SIZE
     },
     headerLeft: {
         marginRight: 0,

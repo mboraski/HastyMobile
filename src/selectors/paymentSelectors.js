@@ -15,6 +15,7 @@ export const getPaymentMethod = createSelector(
         const paymentMethod = find(cards, card => {
             return card.id === cardId;
         });
+        console.log('paymentMethod: ', paymentMethod);
         return paymentMethod || {};
     }
 );

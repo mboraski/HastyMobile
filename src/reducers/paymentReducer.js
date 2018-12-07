@@ -18,7 +18,7 @@ import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 const initialState = {
     cards: [],
-    defaultSource: {},
+    defaultSource: '',
     pending: false,
     selectedCard: {},
     error: null,

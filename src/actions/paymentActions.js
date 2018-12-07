@@ -69,10 +69,10 @@ export const submitPayment = (
 };
 
 export const addCard = async args => {
-    const { stripeCustomerId, tokenId, dispatch } = args;
+    const { stripeCustomerId, token, dispatch } = args;
     dispatch({ type: ADD_CARD_REQUEST });
     try {
-        if (!stripeCustomerId || !tokenId) {
+        if (!stripeCustomerId || !token) {
             dispatch(dropdownAlert(true, 'Missing customer data.'));
             const missingDataError = new Error(
                 'Missing customer data like id.'
@@ -84,7 +84,7 @@ export const addCard = async args => {
         }
         const res = await api.addStripeCustomerSource({
             stripeCustomerId,
-            source: tokenId
+            token
         });
         dispatch(dropdownAlert(true, 'Successfully added card!'));
         const { defaultSource, sources } = res.data;
@@ -97,10 +97,11 @@ export const addCard = async args => {
         });
         return;
     } catch (error) {
-        dispatch(dropdownAlert(true, 'Failed to add another card!'));
+        dispatch(dropdownAlert(true, 'Failed to add another card.'));
+        // TODO: handle these errors like card declined
         dispatch({
             type: ADD_CARD_FAIL,
-            error
+            payload: error
         });
         return;
     }
@@ -134,7 +135,7 @@ export const createStripeCustomerWithCard = async args => {
         dispatch(dropdownAlert(true, 'Failed to add card!'));
         dispatch({
             type: CREATE_STRIPE_ACCOUNT_ERROR,
-            error
+            payload: error
         });
         return;
     }
@@ -149,7 +150,7 @@ export const deleteCard = args => async dispatch => {
             const missingDataError = new Error('Missing user data like id.');
             dispatch({
                 type: DELETE_CARD_FAIL,
-                error: missingDataError
+                payload: missingDataError
             });
         }
         const res = await api.removeStripeCustomerSource({
@@ -163,7 +164,7 @@ export const deleteCard = args => async dispatch => {
         dispatch(dropdownAlert(true, 'Failed to delete card!'));
         dispatch({
             type: DELETE_CARD_FAIL,
-            error
+            payload: error
         });
     }
 };

@@ -5,13 +5,14 @@ import { StyleSheet, View, TouchableOpacity, Animated } from 'react-native';
 // Relative Imports
 import { emY } from '../utils/em';
 import arrowIcon from '../assets/icons/disclosureIndicator.png';
+import Color from '../constants/Color';
 
 class DropDown extends Component {
     state = {
         expanded: true,
         animation: new Animated.Value(),
         maxHeight: 0,
-        minHeight: emY(3.3),
+        minHeight: emY(3) + 2 * StyleSheet.hairlineWidth,
         spinValue: new Animated.Value(0)
     };
 
@@ -67,53 +68,56 @@ class DropDown extends Component {
     };
 
     render() {
-        const { header } = this.props;
+        const { header, children } = this.props;
         const { animation } = this.state;
         const spin = this.state.spinValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '-90deg']
         });
         return (
-            <View style={styles.container}>
-                <Animated.View
-                    style={[styles.container, { height: animation }]}
-                >
-                    <View onLayout={this.setMinHeight}>
-                        <TouchableOpacity onPress={this.toggle}>
-                            {header}
-                            <View style={styles.arrowContainer}>
-                                <Animated.Image
-                                    source={arrowIcon}
-                                    style={[
-                                        styles.arrowIcon,
-                                        {
-                                            transform: [{ rotate: spin }]
-                                        }
-                                    ]}
-                                />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View onLayout={this.setMaxHeight}>
-                        {this.props.children}
-                    </View>
-                </Animated.View>
-            </View>
+            <Animated.View style={[styles.container, { height: animation }]}>
+                <View onLayout={this.setMinHeight}>
+                    <TouchableOpacity onPress={this.toggle}>
+                        {header}
+                        <View style={styles.arrowIconContainer}>
+                            <Animated.Image
+                                source={arrowIcon}
+                                style={[
+                                    styles.arrowIcon,
+                                    {
+                                        transform: [{ rotate: spin }]
+                                    }
+                                ]}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </Animated.View>
         );
     }
 }
+// <View onLayout={this.setMaxHeight}>
+//     {children && children}
+// </View>
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'hidden',
-        backgroundColor: 'white'
+        backgroundColor: Color.GREY_100,
+        borderColor: Color.DEFAULT,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        overflow: 'hidden'
     },
-    arrowContainer: {
+    cardContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    arrowIconContainer: {
         position: 'absolute',
-        right: 16,
         top: 0,
+        right: 0,
         bottom: 0,
-        alignItems: 'center',
+        alignSelf: 'flex-end',
         justifyContent: 'center'
     },
     arrowIcon: {

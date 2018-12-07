@@ -11,8 +11,10 @@ import maestroIcon from '../assets/icons/cc-maestro.png';
 
 const VISA = 'visa';
 const MASTERCARD = 'mastercard';
-const AMERICAN_EXPRESS = 'american-express';
-const DINERS_CLUB = 'diners-club';
+const AMERICAN_EXPRESS = 'american express';
+const DINERS_CLUB = 'diners club';
+const AMERICAN_EXPRESS2 = 'american-express';
+const DINERS_CLUB2 = 'diners-club';
 const DISCOVER = 'discover';
 const JCB = 'jcb';
 const MAESTRO = 'maestro';
@@ -21,6 +23,8 @@ const sources = {
     [MASTERCARD]: masterCardIcon,
     [AMERICAN_EXPRESS]: americanExpressIcon,
     [DINERS_CLUB]: dinersClubIcon,
+    [AMERICAN_EXPRESS2]: americanExpressIcon,
+    [DINERS_CLUB2]: dinersClubIcon,
     [DISCOVER]: discoverIcon,
     [JCB]: jcbIcon,
     [MAESTRO]: maestroIcon,

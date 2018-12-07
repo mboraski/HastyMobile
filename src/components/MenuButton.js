@@ -9,7 +9,7 @@ import { emY } from '../utils/em';
 // eslint-disable-next-line import/no-unresolved
 import mapIcon from '../assets/icons/menu.png';
 
-const SIZE = emY(1.5);
+const SIZE = emY(1.8);
 
 class MenuButton extends Component {
     render() {
