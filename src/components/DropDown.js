@@ -72,24 +72,26 @@ class DropDown extends Component {
         const { animation } = this.state;
         const spin = this.state.spinValue.interpolate({
             inputRange: [0, 1],
-            outputRange: ['0deg', '-90deg']
+            outputRange: ['-180deg', '0deg']
         });
         return (
             <Animated.View style={[styles.container, { height: animation }]}>
                 <View onLayout={this.setMinHeight}>
                     <TouchableOpacity onPress={this.toggle}>
                         {header}
-                        <View style={styles.arrowIconContainer}>
-                            <Animated.Image
-                                source={arrowIcon}
-                                style={[
-                                    styles.arrowIcon,
-                                    {
-                                        transform: [{ rotate: spin }]
-                                    }
-                                ]}
-                            />
-                        </View>
+                        {children && (
+                            <View style={styles.arrowIconContainer}>
+                                <Animated.Image
+                                    source={arrowIcon}
+                                    style={[
+                                        styles.arrowIcon,
+                                        {
+                                            transform: [{ rotate: spin }]
+                                        }
+                                    ]}
+                                />
+                            </View>
+                        )}
                     </TouchableOpacity>
                 </View>
                 <View onLayout={this.setMaxHeight}>{children && children}</View>
@@ -114,7 +116,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         alignSelf: 'flex-end',
         justifyContent: 'center',
-        paddingRight: 5
+        paddingRight: 10,
+        paddingLeft: 10
     },
     arrowIcon: {
         width: emY(0.9),

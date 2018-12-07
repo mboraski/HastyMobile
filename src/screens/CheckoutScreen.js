@@ -35,7 +35,7 @@ import { emY } from '../utils/em';
 
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
-import { submitPayment } from '../actions/paymentActions';
+import { submitPayment, changePaymentMethod } from '../actions/paymentActions';
 import { reset } from '../actions/navigationActions';
 
 import {
@@ -67,7 +67,6 @@ import {
 import { getOrderId } from '../selectors/orderSelectors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
-const WINDOW_WIDTH = Dimensions.get('window').width;
 
 const REMOVE_ORDER_MESSAGE =
     'Are you sure you want to remove this product from your cart?';
@@ -140,6 +139,19 @@ class CheckoutScreen extends Component {
                 'Some products are no longer available'
             );
         }
+        if (nextProps.paymentMethod) {
+            const paymentMethod = nextProps.paymentMethod;
+            this.setState({
+                dropdownHeader: (
+                    <PaymentDropDownItem
+                        isHeaderItem
+                        type={paymentMethod.card.brand}
+                        brand={paymentMethod.card.brand}
+                        last4={paymentMethod.card.last4}
+                    />
+                )
+            });
+        }
     }
 
     handleRemoveOrder = order => {
@@ -156,11 +168,11 @@ class CheckoutScreen extends Component {
     removeOrderConfirmed = confirmed => {
         if (confirmed) {
             this.props.removeFromCart(this.state.orderToRemove);
-            this.setState({
-                removeOrderPopupVisible: false,
-                orderToRemove: null
-            });
         }
+        this.setState({
+            removeOrderPopupVisible: false,
+            orderToRemove: null
+        });
     };
 
     changeLocation = () => {
@@ -224,6 +236,8 @@ class CheckoutScreen extends Component {
             if (paymentMethod.id !== card.id) {
                 return (
                     <PaymentDropDownItem
+                        id={card.id}
+                        onPress={this.props.changePaymentMethod}
                         isHeaderItem={false}
                         key={index}
                         type={card.card.brand}
@@ -647,7 +661,8 @@ const mapDispatchToProps = {
     addToCart,
     removeFromCart,
     dropdownAlert,
-    submitPayment
+    submitPayment,
+    changePaymentMethod
 };
 
 export default connect(

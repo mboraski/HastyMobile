@@ -11,6 +11,7 @@ export const DELETE_CARD_REQUEST = 'delete_card_request';
 export const DELETE_CARD_SUCCESS = 'delete_card_success';
 export const DELETE_CARD_FAIL = 'delete_card_fail';
 export const SELECTED_CARD = 'selected_card';
+export const CHANGE_PAYMENT_METHOD = 'change_payment_method';
 export const SUBMIT_PAYMENT_REQUEST = 'submit_payment_request';
 export const SUBMIT_PAYMENT_SUCCESS = 'submit_payment_success';
 export const SUBMIT_PAYMENT_FAILURE = 'submit_payment_failure';
@@ -171,4 +172,8 @@ export const deleteCard = args => async dispatch => {
 
 export const selectCard = card => dispatch => {
     dispatch({ type: SELECTED_CARD, payload: card.id });
+};
+
+export const changePaymentMethod = cardId => dispatch => {
+    dispatch({ type: CHANGE_PAYMENT_METHOD, payload: cardId });
 };

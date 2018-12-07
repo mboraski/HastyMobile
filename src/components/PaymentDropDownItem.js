@@ -6,7 +6,6 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import Text from './Text';
 import CardImage from '../components/CardImage';
 import Color from '../constants/Color';
-// import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 export default function PaymentDropDownItem({
@@ -15,14 +14,17 @@ export default function PaymentDropDownItem({
     last4,
     style,
     isHeaderItem,
-    ...props
+    id = '',
+    onPress = () => {}
 }) {
+    const selectCard = () => onPress(id);
+
     const nonHeaderBorder = isHeaderItem
         ? styles.headerBorder
         : styles.nonHeaderBorder;
     return (
         <TouchableOpacity
-            {...props}
+            onPress={selectCard}
             style={[styles.container, nonHeaderBorder, style]}
         >
             {type ? (
