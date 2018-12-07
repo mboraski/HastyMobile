@@ -4,10 +4,9 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import { emY } from '../utils/em';
 import closeIcon from '../assets/icons/close.png';
 
-const SIZE = emY(1.25);
+import { HEADER_ITEM_SIZE } from '../constants/Style';
 
 class CloseButton extends Component {
     render() {
@@ -31,8 +30,8 @@ const styles = StyleSheet.create({
         display: 'none'
     },
     image: {
-        width: SIZE,
-        height: SIZE
+        width: HEADER_ITEM_SIZE,
+        height: HEADER_ITEM_SIZE
     }
 });
 

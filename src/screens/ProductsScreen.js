@@ -41,7 +41,7 @@ import {
 import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 import { emY } from '../utils/em';
 
-import HomeHeaderContainer from '../containers/HomeHeaderContainer';
+import ProductsHeaderContainer from '../containers/ProductsHeaderContainer';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
 });
 
 ProductsScreen.navigationOptions = {
-    header: <HomeHeaderContainer />
+    header: <ProductsHeaderContainer />
 };
 
 const mapStateToProps = state => ({

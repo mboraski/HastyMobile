@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
+import { Constants } from 'expo';
 
 // Relative Imports
 import { placesAutocomplete } from '../actions/googleMapsActions';
@@ -12,6 +13,7 @@ import DebounceTextInput from '../components/DebounceTextInput';
 import BackButton from '../components/BackButton';
 import CloseButton from '../components/CloseButton';
 import MenuButton from '../components/MenuButton';
+import CartButton from '../components/CartButton';
 import Text from '../components/Text';
 
 import { getSearchVisible } from '../selectors/uiSelectors';
@@ -19,16 +21,14 @@ import { getPending } from '../selectors/mapSelectors';
 import { getProductsPending } from '../selectors/productSelectors';
 
 import Style from '../constants/Style';
-import { emY } from '../utils/em';
 
 const OPACITY_DURATION = 300;
-const APPBAR_HEIGHT = emY(5.25);
 const REVERSE_CONFIG = {
     inputRange: [0, 1],
     outputRange: [1, 0]
 };
 
-class HomeHeaderContainer extends Component {
+class ProductsHeaderContainer extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -87,42 +87,23 @@ class HomeHeaderContainer extends Component {
         });
     };
 
-    handleLocationPress = () => {
-        this.props.getCurrentLocation();
-    };
-
     render() {
         const { pending } = this.props;
         const { opacity, searchRendered, inputText } = this.state;
         return (
             <View style={styles.wrapper}>
-                <Animated.View
-                    style={[Style.header, styles.header, { opacity }]}
-                >
-                    <View style={Style.appBar}>
-                        <View style={Style.headerLeftContainer}>
-                            <MenuButton
-                                style={Style.headerLeft}
-                                disabled={pending}
-                            />
-                        </View>
-                        <View style={Style.headerTitleContainer}>
-                            <Text
-                                style={[
-                                    Style.headerTitle,
-                                    Style.headerTitleLogo
-                                ]}
-                            >
-                                Hasty
-                            </Text>
-                        </View>
-                        <View style={Style.headerRightContainer}>
-                            {/* <LocationButton
-                                style={Style.headerRight}
-                                onPress={this.handleLocationPress}
-                                disabled={pending}
-                            /> */}
-                        </View>
+                <Animated.View style={[Style.header, { opacity }]}>
+                    <View style={styles.headerRow}>
+                        <MenuButton
+                            style={styles.headerLeft}
+                            disabled={pending}
+                        />
+                        <Text
+                            style={[Style.headerTitle, Style.headerTitleLogo]}
+                        >
+                            Hasty
+                        </Text>
+                        <CartButton style={styles.headerRight} />
                     </View>
                 </Animated.View>
                 {searchRendered ? (
@@ -164,19 +145,22 @@ class HomeHeaderContainer extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: 'transparent',
-        height: APPBAR_HEIGHT
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Constants.statusBarHeight
     },
     header: {
         position: 'absolute',
-        top: 0,
+        top: Constants.statusBarHeight,
         left: 0,
         right: 0,
-        bottom: 0,
-        height: APPBAR_HEIGHT
+        bottom: 0
     },
-    title: {
-        flex: 1
+    headerRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     }
 });
 
@@ -191,6 +175,7 @@ const mapDispatchToProps = {
     getCurrentLocation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    HomeHeaderContainer
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductsHeaderContainer);
