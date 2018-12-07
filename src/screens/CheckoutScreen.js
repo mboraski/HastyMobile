@@ -504,7 +504,7 @@ const styles = StyleSheet.create({
     },
     itemHeader: {
         paddingHorizontal: 10,
-        marginTop: emY(1)
+        marginTop: emY(1.2)
     },
     itemHeaderLabel: {
         fontSize: emY(1),
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     map: {
         height: MAP_HEIGHT,
         shadowColor: 'transparent',
-        marginBottom: 10
+        marginBottom: 5
     },
     beaconWrapper: {
         left: '50%',

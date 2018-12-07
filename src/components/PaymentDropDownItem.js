@@ -17,8 +17,14 @@ export default function PaymentDropDownItem({
     isHeaderItem,
     ...props
 }) {
+    const nonHeaderBorder = isHeaderItem
+        ? styles.headerBorder
+        : styles.nonHeaderBorder;
     return (
-        <TouchableOpacity {...props} style={[styles.container, style]}>
+        <TouchableOpacity
+            {...props}
+            style={[styles.container, nonHeaderBorder, style]}
+        >
             {type ? (
                 <CardImage type={type.toLowerCase()} style={styles.card} />
             ) : null}
@@ -33,8 +39,17 @@ const styles = StyleSheet.create({
         height: emY(3),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         backgroundColor: Color.GREY_100
+    },
+    headerBorder: {
+        borderColor: Color.DEFAULT,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    nonHeaderBorder: {
+        borderColor: Color.GREY_300,
+        borderBottomWidth: StyleSheet.hairlineWidth
     },
     card: {
         marginRight: 10

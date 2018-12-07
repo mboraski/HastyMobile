@@ -92,20 +92,15 @@ class DropDown extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <View onLayout={this.setMaxHeight}>{children && children}</View>
             </Animated.View>
         );
     }
 }
-// <View onLayout={this.setMaxHeight}>
-//     {children && children}
-// </View>
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Color.GREY_100,
-        borderColor: Color.DEFAULT,
-        borderTopWidth: StyleSheet.hairlineWidth,
-        borderBottomWidth: StyleSheet.hairlineWidth,
         overflow: 'hidden'
     },
     cardContainer: {
@@ -118,7 +113,8 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         alignSelf: 'flex-end',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingRight: 5
     },
     arrowIcon: {
         width: emY(0.9),
