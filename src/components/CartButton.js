@@ -27,7 +27,7 @@ class CartButton extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginRight: 20
+        marginRight: 20 - HEADER_ITEM_SIZE * 0.3
     },
     image: {
         width: HEADER_ITEM_SIZE * 1.3,

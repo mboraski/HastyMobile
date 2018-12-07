@@ -95,7 +95,7 @@ class ProductsHeaderContainer extends Component {
                 <Animated.View style={[Style.header, { opacity }]}>
                     <View style={styles.headerRow}>
                         <MenuButton
-                            style={styles.headerLeft}
+                            style={Style.headerLeft}
                             disabled={pending}
                         />
                         <Text
@@ -103,7 +103,7 @@ class ProductsHeaderContainer extends Component {
                         >
                             Hasty
                         </Text>
-                        <CartButton style={styles.headerRight} />
+                        <CartButton />
                     </View>
                 </Animated.View>
                 {searchRendered ? (

@@ -79,7 +79,7 @@ const beaconEdgeLength = emY(6);
 
 class CheckoutScreen extends Component {
     static navigationOptions = ({ navigation, pending }) => ({
-        title: 'Checkout',
+        title: 'Hasty',
         headerLeft: (
             <BackButton
                 onPress={!pending ? () => navigation.pop() : () => {}}

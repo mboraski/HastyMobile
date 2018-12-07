@@ -97,7 +97,7 @@ class MapHeaderContainer extends Component {
                 <Animated.View style={[Style.header, { opacity }]}>
                     <View style={styles.headerRow}>
                         <MenuButton
-                            style={styles.headerLeft}
+                            style={Style.headerLeft}
                             disabled={pending}
                         />
                         <Text
@@ -106,7 +106,6 @@ class MapHeaderContainer extends Component {
                             Hasty
                         </Text>
                         <LocationButton
-                            style={styles.headerRight}
                             onPress={this.handleLocationPress}
                             disabled={pending}
                         />
