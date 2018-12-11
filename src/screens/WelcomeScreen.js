@@ -15,11 +15,11 @@ import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 const SLIDE_DATA = [
     {
         text:
-            'Welcome to Hasty, the FASTEST delivery network ever! Swipe left to continue!'
+            'Welcome to Hasty, the FASTEST delivery network ever! Swipe left to continue.'
     },
     {
         text:
-            'Just sign up, set your location, and fill your cart up with products. Swipe left to continue!'
+            'Just sign up, set your location, and fill your cart up with products. Swipe left to continue.'
     },
     {
         text:

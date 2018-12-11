@@ -10,12 +10,20 @@ import {
 import Expo, { Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import Sentry from 'sentry-expo';
 
 // Relative Imports
 import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
+
+// Remove this once Sentry is correctly setup.
+Sentry.enableInExpoDevelopment = true;
+
+Sentry.config(
+    'https://0472d73f988d48028a4675a1c59863dd@sentry.io/1342220'
+).install();
 
 class App extends Component {
     state = {

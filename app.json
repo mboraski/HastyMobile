@@ -27,6 +27,18 @@
         "packagerOpts": {
             "assetExts": ["ttf", "mp4"]
         },
+        "hooks": {
+            "postPublish": [
+                {
+                    "file": "sentry-expo/upload-sourcemaps",
+                    "config": {
+                        "organization": "hasty",
+                        "project": "hasty-mobile",
+                        "authToken": "6192b2b918884d659fd925bcca6051448f51b625b85c4839bbe3f5950fefc42b"
+                    }
+                }
+            ]
+        },
         "ios": {
             "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
             "loadJSInBackgroundExperimental": true,

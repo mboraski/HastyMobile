@@ -315,7 +315,7 @@ class CheckoutScreen extends Component {
                                 <MaterialIcons
                                     name="keyboard-arrow-right"
                                     color="#fff"
-                                    size={emY(3)}
+                                    size={emY(2.8)}
                                     style={styles.checkoutIcon}
                                 />
                             </View>
@@ -410,7 +410,7 @@ class CheckoutScreen extends Component {
                                             Delivery:
                                         </Text>
                                         <Text style={styles.cost}>
-                                            {!!discount && 'FREE '}
+                                            <Text>{!!discount && 'FREE '}</Text>
                                             <Text style={discountStyles}>
                                                 {`$${deliveryFeeFormatted}`}
                                             </Text>

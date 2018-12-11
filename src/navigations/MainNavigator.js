@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 
 // Relative Imports
 import { firebaseAuth } from '../../firebase';
-import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -30,7 +29,6 @@ export default createStackNavigator(
         profile: { screen: ProfileScreen },
         map: { screen: MapScreen },
         products: { screen: ProductsScreen },
-        searchForHero: { screen: SearchForHeroScreen },
         deliveryNotes: { screen: DeliveryNotesScreen },
         deliveryStatus: { screen: DeliveryStatusScreen },
         cart: { screen: CartScreen },

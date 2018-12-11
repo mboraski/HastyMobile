@@ -110,7 +110,7 @@ export class CreditCardFormContainer extends Component {
                             />
                         </View>
                     </View>
-                    {card ? (
+                    {card && (
                         <Button
                             title="Delete Card"
                             onPress={this.deleteCardConfirm}
@@ -118,7 +118,7 @@ export class CreditCardFormContainer extends Component {
                             buttonStyle={styles.button}
                             textStyle={styles.buttonText}
                         />
-                    ) : null}
+                    )}
                 </DismissKeyboardView>
                 {(submitting || pending) && (
                     <View style={styles.overlay}>

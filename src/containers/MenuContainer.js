@@ -72,9 +72,9 @@ class MenuContent extends Component {
         const { items, activeItemKey, userReadable } = this.props;
         return (
             <View style={styles.container}>
-                {userReadable && (
+                {!!userReadable && (
                     <View style={styles.profile}>
-                        {userReadable.photoUrl && (
+                        {!!userReadable.photoUrl && (
                             <Image
                                 source={{ uri: userReadable.photoUrl }}
                                 style={styles.image}

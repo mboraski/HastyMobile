@@ -12,15 +12,7 @@ class Slides extends Component {
                 key={slide.text}
                 style={[styles.slideStyle, { backgroundColor: slide.color }]}
             >
-                <Text
-                    style={[
-                        Style.headerTitle,
-                        Style.headerTitleLogo,
-                        styles.textStyle
-                    ]}
-                >
-                    {slide.text}
-                </Text>
+                <Text style={[styles.textStyle]}>{slide.text}</Text>
             </View>
         ));
     }

@@ -124,7 +124,7 @@ class MapHeaderContainer extends Component {
                         </View>
                     </View>
                 </Animated.View>
-                {searchRendered ? (
+                {searchRendered && (
                     <Animated.View
                         style={[
                             Style.header,
@@ -155,7 +155,7 @@ class MapHeaderContainer extends Component {
                             </View>
                         </View>
                     </Animated.View>
-                ) : null}
+                )}
             </View>
         );
     }

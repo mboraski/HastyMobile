@@ -128,14 +128,16 @@ class SignUpFormContainer extends Component {
                     >
                         {'Terms and Conditions'}
                     </Text>
-                    {' and '}
+                    <Text>{' and '}</Text>
                     <Text
                         onPress={this.linkToWebsitePrivacy}
                         style={styles.termsAndPrivacyLink}
                     >
-                        {'Privacy Policy'}
+                        <Text>{'Privacy Policy'}</Text>
                     </Text>
-                    {' and you confirm you are 13 years of age or older.'}
+                    <Text>
+                        {' and you confirm you are 13 years of age or older.'}
+                    </Text>
                 </Text>
                 <TouchableOpacity
                     onPress={handleSubmit(createUserWithEmailAndPassword)}
