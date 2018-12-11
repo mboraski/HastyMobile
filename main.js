@@ -17,13 +17,12 @@ import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
+import { SENTRY_PUBLIC_DSN } from './src/keys/Sentry';
 
 // Remove this once Sentry is correctly setup.
 Sentry.enableInExpoDevelopment = true;
 
-Sentry.config(
-    'https://0472d73f988d48028a4675a1c59863dd@sentry.io/1342220'
-).install();
+Sentry.config(SENTRY_PUBLIC_DSN).install();
 
 class App extends Component {
     state = {
