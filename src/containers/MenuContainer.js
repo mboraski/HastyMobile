@@ -90,6 +90,13 @@ class MenuContent extends Component {
                         route={getRoute(items, 'map')}
                         activeItemKey={activeItemKey}
                         onPress={this.mapPress}
+                        image={heroIcon}
+                        title="Become a Hero!"
+                    />
+                    <MenuItem
+                        route={getRoute(items, 'map')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.mapPress}
                         image={locationIcon}
                         title="Map"
                     />
@@ -105,7 +112,7 @@ class MenuContent extends Component {
                         activeItemKey={activeItemKey}
                         onPress={this.checkoutPress}
                         image={cartIcon}
-                        title="Checkout"
+                        title="Cart / Checkout"
                     />
                     <MenuItem
                         route={getRoute(items, 'order')}
@@ -122,12 +129,20 @@ class MenuContent extends Component {
                         image={paymentIcon}
                         title="Payment Methods"
                     />
-                    {/* <MenuItem
+                    <MenuItem
+                        route={getRoute(items, 'Feedback')}
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
-                        image={heroIcon}
-                        title="Heroes Needed!"
-                    /> */}
+                        onPress={this.paymentMethod}
+                        image={paymentIcon}
+                        title="Give Us Feedback"
+                    />
+                    <MenuItem
+                        route={getRoute(items, 'Feedback')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.paymentMethod}
+                        image={paymentIcon}
+                        title="Customer Support"
+                    />
                     {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}
@@ -198,6 +213,7 @@ const styles = StyleSheet.create({
         marginBottom: emY(1)
     },
     menuItems: {
+        marginTop: emY(1),
         paddingLeft: emY(1.2)
     },
     backButton: {

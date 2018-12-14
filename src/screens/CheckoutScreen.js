@@ -209,7 +209,7 @@ class CheckoutScreen extends Component {
         if (paymentMethod) {
             const source = paymentMethod.id;
             const description = `Charge for ${email}`;
-            this.props.submitPayment(
+            this.props.submitPayment({
                 stripeCustomerId,
                 description,
                 serviceFee,
@@ -220,7 +220,7 @@ class CheckoutScreen extends Component {
                 firstName,
                 lastName,
                 region
-            );
+            });
         } else {
             this.props.dropdownAlert(true, 'Go to Menu to add payment method');
         }

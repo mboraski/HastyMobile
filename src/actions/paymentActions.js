@@ -19,43 +19,49 @@ export const CREATE_STRIPE_ACCOUNT_REQUEST = 'create_stripe_account_request';
 export const CREATE_STRIPE_ACCOUNT_SUCCESS = 'create_stripe_account_success';
 export const CREATE_STRIPE_ACCOUNT_ERROR = 'create_stripe_account_error';
 
-export const submitPayment = (
-    stripeCustomerId,
-    source,
-    description,
-    totalCost,
-    notes,
-    cart,
-    firstName,
-    lastName,
-    region,
-    delivery
-) => async dispatch => {
+export const submitPayment = values => async dispatch => {
     dispatch({ type: SUBMIT_PAYMENT_REQUEST });
+    const {
+        stripeCustomerId,
+        source,
+        description,
+        totalCost,
+        notes,
+        cart,
+        firstName,
+        lastName,
+        region,
+        delivery
+    } = values;
     try {
         if (!stripeCustomerId || !source || !totalCost || !cart) {
-            dispatch(dropdownAlert(true, 'Missing payment data.'));
-            const missingDataError = new Error('Missing payment data.');
+            console.log(stripeCustomerId);
+            console.log(source);
+            console.log(totalCost);
+            console.log(cart);
+            dispatch(dropdownAlert(true, 'Missing payment related data.'));
+            const missingDataError = new Error('Missing payment related data.');
             dispatch({
                 type: SUBMIT_PAYMENT_FAILURE,
                 error: missingDataError
             });
+        } else {
+            const res = await api.chargeStripeCustomerSource({
+                customer: stripeCustomerId,
+                source,
+                description: description || '',
+                totalCost: Math.ceil(totalCost),
+                notes: notes || '',
+                firstName,
+                lastName,
+                cart,
+                region,
+                delivery
+            });
+            const { orderId } = res.data;
+            dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
+            dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
         }
-        const res = await api.chargeStripeCustomerSource({
-            customer: stripeCustomerId,
-            source,
-            description: description || '',
-            totalCost: Math.ceil(totalCost),
-            notes: notes || '',
-            firstName,
-            lastName,
-            cart,
-            region,
-            delivery
-        });
-        const { orderId } = res.data;
-        dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
-        dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
         return;
     } catch (error) {
         dispatch(
