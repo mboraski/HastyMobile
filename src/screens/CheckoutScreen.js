@@ -96,13 +96,24 @@ class CheckoutScreen extends Component {
         opacity: new Animated.Value(1),
         removeOrderPopupVisible: false,
         changeLocationPopupVisible: false,
-        dropdownHeader: <PaymentDropDownItem isHeaderItem />
+        dropdownHeader: (
+            <PaymentDropDownItem
+                isHeaderItem
+                onPress={this.goToPaymentMethodScreen}
+                type={''}
+                brand={'Card Missing'}
+                last4={''}
+            />
+        )
+    };
+
+    goToPaymentMethodScreen = () => {
+        this.props.navigation.navigate('paymentMethod');
     };
 
     componentWillMount() {
-        const { paymentMethod, cards } = this.props;
-        const firstCard = cards[0] || {};
-        if (paymentMethod) {
+        const { paymentMethod } = this.props;
+        if (paymentMethod && paymentMethod.card) {
             this.setState({
                 dropdownHeader: (
                     <PaymentDropDownItem
@@ -110,17 +121,6 @@ class CheckoutScreen extends Component {
                         type={paymentMethod.card.brand}
                         brand={paymentMethod.card.brand}
                         last4={paymentMethod.card.last4}
-                    />
-                )
-            });
-        } else {
-            this.setState({
-                dropdownHeader: (
-                    <PaymentDropDownItem
-                        isHeaderItem
-                        type={firstCard.card.brand}
-                        brand={firstCard.card.brand}
-                        last4={firstCard.card.last4}
                     />
                 )
             });
@@ -139,7 +139,7 @@ class CheckoutScreen extends Component {
                 'Some products are no longer available'
             );
         }
-        if (nextProps.paymentMethod) {
+        if (nextProps.paymentMethod && nextProps.paymentMethod.card) {
             const paymentMethod = nextProps.paymentMethod;
             this.setState({
                 dropdownHeader: (

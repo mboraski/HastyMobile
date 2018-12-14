@@ -3,7 +3,6 @@ import { SubmissionError } from 'redux-form';
 
 import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
-import { dropdownAlert } from './uiActions';
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
@@ -129,7 +128,6 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
 
             if (response.type === 'cancel') {
                 console.log('fb login cancel');
-                dispatch(dropdownAlert('Facebook login cancelled.', true));
                 dispatch({ type: FACEBOOK_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -154,7 +152,6 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
         }
     } catch (e) {
         console.log('fb login error ', e);
-        dispatch(dropdownAlert('Facebook login error.', true));
         dispatch({ type: FACEBOOK_LOGIN_ERROR });
     }
 };
@@ -260,7 +257,6 @@ export const googleLogin = googleAuthToken => async dispatch => {
 
             if (response.type === 'cancel') {
                 console.log('google login cancel');
-                dispatch(dropdownAlert('Google login cancelled.', true));
                 dispatch({ type: GOOGLE_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -287,7 +283,6 @@ export const googleLogin = googleAuthToken => async dispatch => {
         }
     } catch (e) {
         console.log('google login error ', e);
-        dispatch(dropdownAlert('Google login error.', true));
         dispatch({ type: GOOGLE_LOGIN_ERROR });
     }
 };
