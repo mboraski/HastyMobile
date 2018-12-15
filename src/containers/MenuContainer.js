@@ -86,13 +86,13 @@ class MenuContent extends Component {
                     </View>
                 )}
                 <ScrollView style={styles.menuItems}>
-                    <MenuItem
+                    {/*<MenuItem
                         route={getRoute(items, 'map')}
                         activeItemKey={activeItemKey}
                         onPress={this.mapPress}
                         image={heroIcon}
                         title="Become a Hero!"
-                    />
+                    /> */}
                     <MenuItem
                         route={getRoute(items, 'map')}
                         activeItemKey={activeItemKey}
@@ -129,7 +129,7 @@ class MenuContent extends Component {
                         image={paymentIcon}
                         title="Payment Methods"
                     />
-                    <MenuItem
+                    {/* <MenuItem
                         route={getRoute(items, 'Feedback')}
                         activeItemKey={activeItemKey}
                         onPress={this.paymentMethod}
@@ -142,7 +142,7 @@ class MenuContent extends Component {
                         onPress={this.paymentMethod}
                         image={paymentIcon}
                         title="Customer Support"
-                    />
+                    /> */}
                     {/* <MenuItem
                         activeItemKey={activeItemKey}
                         onPress={onItemPress}

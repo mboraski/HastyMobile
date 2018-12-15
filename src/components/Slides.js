@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 
 import Text from './Text';
 import Dimensions from '../constants/Dimensions';
-import Style from '../constants/Style';
+import { emY } from '../utils/em';
 
 class Slides extends Component {
     renderSlides() {
@@ -19,7 +19,7 @@ class Slides extends Component {
 
     render() {
         return (
-            <ScrollView horizontal style={{ flex: 1 }} pagingEnabled>
+            <ScrollView horizontal pagingEnabled>
                 {this.renderSlides()}
             </ScrollView>
         );
@@ -31,10 +31,14 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: Dimensions.window.width
+        width: Dimensions.window.width,
+        paddingHorizontal: 10
+    },
+    slideScrollView: {
+        flex: 1
     },
     textStyle: {
-        fontSize: 30,
+        fontSize: emY(2.2),
         color: 'black',
         textAlign: 'center'
     },

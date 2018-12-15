@@ -1,18 +1,19 @@
-import { Platform } from 'react-native';
+// import { Platform } from 'react-native';
 
 import googleMapsClient from '../api/googleMaps';
-import {
-    TEST_GOOGLE_PLACES_KEY,
-    IOS_GOOGLE_PLACES_KEY,
-    ANDROID_GOOGLE_PLACES_KEY
-} from '../keys/Google';
+// import {
+//     TEST_GOOGLE_PLACES_KEY,
+//     IOS_GOOGLE_PLACES_KEY,
+//     ANDROID_GOOGLE_PLACES_KEY
+// } from '../keys/Google';
 
-const MAP_KEY = __DEV__
-    ? TEST_GOOGLE_PLACES_KEY
-    : Platform.select({
-          ios: IOS_GOOGLE_PLACES_KEY,
-          android: ANDROID_GOOGLE_PLACES_KEY
-      });
+// const MAP_KEY = __DEV__
+//     ? TEST_GOOGLE_PLACES_KEY
+//     : Platform.select({
+//           ios: IOS_GOOGLE_PLACES_KEY,
+//           android: ANDROID_GOOGLE_PLACES_KEY
+//       });
+const MAP_KEY = 'AIzaSyDIWPUcmiBJyjI1Ro7LlrWEJXcdxBhNbtQ';
 
 export const MAPS_PLACES_AUTOCOMPLETE_REQUEST =
     'google_maps_places_autocomplete_request';
