@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         paddingRight: emY(3.2),
-        fontSize: emY(1.5),
+        fontSize: emY(1.3),
         color: '#fff'
     },
     facebookSocialButton: {
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         paddingRight: emY(2.6),
-        fontSize: emY(1.5),
+        fontSize: emY(1.3),
         color: '#fff'
     },
     secondaryText: {

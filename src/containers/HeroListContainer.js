@@ -18,10 +18,7 @@ import { emY } from '../utils/em';
 
 class HeroListContainer extends Component {
     contactContractor = contractorId => {
-        return this.props.contactContractor(
-            contractorId,
-            this.props.phoneNumber
-        );
+        // send messages to eachother
     };
 
     renderHeroes = () => {

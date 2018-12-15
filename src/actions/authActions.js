@@ -10,6 +10,8 @@ import {
     sanitizeAndValidatePhoneNumber
 } from '../utils/security';
 import {
+    STANDALONE_ANDROID_GOOGLE_OAUTH_ID,
+    STANDALONE_IOS_GOOGLE_OAUTH_ID,
     ANDROID_GOOGLE_CLIENT_ID,
     IOS_GOOGLE_CLIENT_ID,
     WEB_CLIENT_ID
@@ -247,6 +249,8 @@ export const googleLogin = googleAuthToken => async dispatch => {
             //
             // }
             const response = await Google.logInAsync({
+                androidStandaloneAppClientId: STANDALONE_ANDROID_GOOGLE_OAUTH_ID,
+                iosStandaloneAppClientId: STANDALONE_IOS_GOOGLE_OAUTH_ID,
                 androidClientId: ANDROID_GOOGLE_CLIENT_ID,
                 iosClientId: IOS_GOOGLE_CLIENT_ID,
                 webClientId: WEB_CLIENT_ID,

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     logoHeaderWrapper: {
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center'
