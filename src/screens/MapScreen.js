@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: emY(1.25),
-        fontFamily: 'Arial'
+        fontFamily: 'roboto'
     },
     inputContainer: {
         position: 'absolute',

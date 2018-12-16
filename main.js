@@ -1,12 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    View,
-    StyleSheet,
-    Image,
-    Platform,
-    ActivityIndicator
-} from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import Expo, { Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
@@ -31,12 +25,10 @@ class App extends Component {
 
     async componentDidMount() {
         const fonts = {
-            goodtimes: require('./src/assets/fonts/goodtimes.ttf') // eslint-disable-line global-require
+            goodtimes: require('./src/assets/fonts/goodtimes.ttf'), // eslint-disable-line global-require
+            roboto: require('./src/assets/fonts/roboto.ttf') // eslint-disable-line global-require
         };
 
-        if (Platform.OS === 'android') {
-            fonts.Arial = require('./src/assets/fonts/arial.ttf'); // eslint-disable-line global-require
-        }
         await Font.loadAsync(fonts);
         this.setState({ loading: false });
     }

@@ -102,10 +102,10 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        paddingHorizontal: 20,
         marginBottom: 15
     },
     formInputs: {
-        paddingHorizontal: 15,
         marginBottom: emY(2.0),
         marginTop: emY(1.7)
     },
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 5,
         backgroundColor: Color.DEFAULT,
-        marginHorizontal: 25,
         justifyContent: 'center',
         height: emY(3)
     },
@@ -144,7 +143,6 @@ const styles = StyleSheet.create({
         color: Color.RED_500,
         textAlign: 'center',
         fontSize: emY(0.9),
-        paddingHorizontal: 15,
         paddingBottom: emY(1.5)
     }
 });

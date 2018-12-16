@@ -19,13 +19,24 @@ export const InlineLabelTextInput = ({
 }) => (
     <View style={[styles.container, containerStyle]}>
         <View style={styles.formInputGroup}>
-            <Text style={[styles.label, labelStyle, touched && invalid && styles.labelInvalid]}>
+            <Text
+                style={[
+                    styles.label,
+                    labelStyle,
+                    touched && invalid && styles.labelInvalid
+                ]}
+            >
                 {label}
             </Text>
             <View style={[styles.textInputContainer, inputContainerStyle]}>
                 <TextInput
-                    style={[styles.textInput, style, touched && invalid && styles.textInputInvalid]}
+                    style={[
+                        styles.textInput,
+                        style,
+                        touched && invalid && styles.textInputInvalid
+                    ]}
                     onChangeText={onChange}
+                    underlineColorAndroid={'#fff'}
                     {...restInput}
                     {...props}
                 />

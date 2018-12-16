@@ -111,7 +111,7 @@ export default StyleSheet.create({
         marginHorizontal: 16,
         fontWeight: '500',
         fontSize: emY(1.2),
-        fontFamily: 'Arial'
+        fontFamily: 'roboto'
     },
     headerTitleLogo: {
         fontFamily: 'goodtimes',

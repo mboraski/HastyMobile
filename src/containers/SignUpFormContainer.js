@@ -158,6 +158,7 @@ class SignUpFormContainer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingHorizontal: 20,
         marginBottom: 15
     },
     termsAndPrivacy: {
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
         color: Color.BLUE_500
     },
     formInputs: {
-        paddingHorizontal: 15,
         paddingBottom: emY(1.5)
     },
     fieldContainer: {
@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 5,
         backgroundColor: Color.DEFAULT,
-        marginHorizontal: 15,
         justifyContent: 'center',
         height: emY(3)
     },
@@ -211,7 +210,6 @@ const styles = StyleSheet.create({
         color: Color.RED_500,
         textAlign: 'center',
         fontSize: emY(0.9),
-        paddingHorizontal: 15,
         paddingBottom: emY(1.5)
     }
 });
