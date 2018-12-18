@@ -18,20 +18,18 @@ class NotificationContainer extends Component {
         opacity: new Animated.Value(1),
         nextTopValue: new Animated.Value(emY(11)),
         nextOpacity: new Animated.Value(0),
-        nextNotification: 'Searching the skies for a hero...',
+        nextNotification: 'Searching the skies for a Hero...',
         currNotification: 'Searching the skies for a hero...'
     };
 
     componentDidMount() {
         const newNotificaiton = this.getNotification();
         this.setState({ currNotification: newNotificaiton });
-        this.setState({ nextNotification: newNotificaiton });
-        setInterval(() => {
-            this.receiveNotification();
-        }, 1500);
     }
 
     componentWillReceiveProps(nextProps) {
+        const newNotificaiton = this.getNotification();
+        this.setState({ nextNotification: newNotificaiton });
         if (
             this.props.status !== nextProps.status ||
             this.props.contractorStatus !== nextProps.contractorStatuses
@@ -43,13 +41,18 @@ class NotificationContainer extends Component {
     getNotification = () => {
         if (
             this.props.status === orderStatuses.satisfied &&
+            this.props.contractorStatus === contractorStatuses.en_route
+        ) {
+            return 'Hero is en route to you!';
+        } else if (
+            this.props.status === orderStatuses.satisfied &&
             this.props.contractorStatus === contractorStatuses.arrived
         ) {
             return 'Hero has arrived!';
         } else {
             switch (this.props.status) {
                 case orderStatuses.open:
-                    return 'Searching the skies for a Hero...';
+                    return 'Contacting Heroes...';
                 case orderStatuses.inProgress:
                     return 'Contacting Heroes...';
                 case orderStatuses.satisfied:
@@ -59,14 +62,12 @@ class NotificationContainer extends Component {
                 case orderStatuses.cancelled:
                     return 'No Heroes could answer your call.';
                 default:
-                    break;
+                    return 'Searching the skies for a Hero...';
             }
         }
     };
 
     receiveNotification = () => {
-        const newNotificaiton = this.getNotification();
-        this.setState({ nextNotification: newNotificaiton });
         Animated.parallel([
             Animated.timing(this.state.opacity, {
                 toValue: 0,
@@ -81,7 +82,8 @@ class NotificationContainer extends Component {
                 duration: 500
             })
         ]).start(() => {
-            this.setState({ currNotification: this.state.nextNotification });
+            const newNotificaiton = this.getNotification();
+            this.setState({ currNotification: newNotificaiton });
             this.setState({ opacity: new Animated.Value(1) });
             this.setState({ nextOpacity: new Animated.Value(0) });
             this.setState({ nextTopValue: new Animated.Value(emY(11)) });
