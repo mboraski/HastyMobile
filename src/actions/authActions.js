@@ -52,7 +52,6 @@ const firebaseFacebookAuth = async ({
         const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
             credential
         );
-        console.log('firebaseFacebookAuth response: ', response);
         const additionalUserInfo = response.additionalUserInfo;
         const firebaseUser = response.user;
         const {
@@ -69,7 +68,6 @@ const firebaseFacebookAuth = async ({
         const safeEmail = email ? sanitizeAndValidateEmail(email) : '';
         const photoUrl = picture.data.url;
         if (additionalUserInfo.isNewUser) {
-            console.log('firebaseFacebookAuth newUser if block ran');
             await db
                 .collection('users')
                 .doc(`${firebaseUser.uid}`)
@@ -99,7 +97,6 @@ const firebaseFacebookAuth = async ({
         });
         dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload: { token, expires } });
     } catch (error) {
-        console.log('firebaseFacebookAuth error: ', error);
         dispatch({
             type: SIGNUP_FAIL,
             payload: error
@@ -126,10 +123,8 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
                     behavior
                 }
             );
-            console.log('fb auth response ', response);
 
             if (response.type === 'cancel') {
-                console.log('fb login cancel');
                 dispatch({ type: FACEBOOK_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -153,7 +148,6 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
             });
         }
     } catch (e) {
-        console.log('fb login error ', e);
         dispatch({ type: FACEBOOK_LOGIN_ERROR });
     }
 };
@@ -173,7 +167,6 @@ const firebaseGoogleAuth = async ({
         const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
             credential
         );
-        console.log('firebaseGoogleAuth response: ', response);
         const additionalUserInfo = response.additionalUserInfo;
         const firebaseUser = response.user;
         // TODO: change to not user provider data as reuse of auth token will fail
@@ -216,7 +209,6 @@ const firebaseGoogleAuth = async ({
                 });
         }
     } catch (error) {
-        console.log('firebaseFacebookAuth error: ', error);
         dispatch({
             type: SIGNUP_FAIL,
             payload: error
@@ -257,10 +249,8 @@ export const googleLogin = googleAuthToken => async dispatch => {
                 scopes: ['profile', 'email'],
                 behavior
             });
-            console.log('google auth response ', response);
 
             if (response.type === 'cancel') {
-                console.log('google login cancel');
                 dispatch({ type: GOOGLE_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -286,7 +276,6 @@ export const googleLogin = googleAuthToken => async dispatch => {
             });
         }
     } catch (e) {
-        console.log('google login error ', e);
         dispatch({ type: GOOGLE_LOGIN_ERROR });
     }
 };

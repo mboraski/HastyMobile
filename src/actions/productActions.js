@@ -65,8 +65,6 @@ export const selectCategory = category => ({
 
 export const fetchProductImages = (products, dispatch) => async () => {
     const storageRef = fire.storage();
-    // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
-    // console.log('products: ', products);
     forEach(products.instant, product => {
         const imageUrl = product.imageUrl || '';
         if (imageUrl) {

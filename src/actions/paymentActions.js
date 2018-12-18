@@ -35,10 +35,6 @@ export const submitPayment = values => async dispatch => {
     } = values;
     try {
         if (!stripeCustomerId || !source || !totalCost || !cart) {
-            console.log(stripeCustomerId);
-            console.log(source);
-            console.log(totalCost);
-            console.log(cart);
             dispatch(dropdownAlert(true, 'Missing payment related data.'));
             const missingDataError = new Error('Missing payment related data.');
             dispatch({

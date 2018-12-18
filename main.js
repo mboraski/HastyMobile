@@ -13,8 +13,8 @@ import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
 import { SENTRY_PUBLIC_DSN } from './src/keys/Sentry';
 
-// Remove this once Sentry is correctly setup.
-Sentry.enableInExpoDevelopment = true;
+// To test dev logging, change to "true."
+Sentry.enableInExpoDevelopment = false;
 
 Sentry.config(SENTRY_PUBLIC_DSN).install();
 

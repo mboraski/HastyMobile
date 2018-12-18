@@ -5,7 +5,7 @@
         "slug": "hasty-mobile",
         "privacy": "unlisted",
         "sdkVersion": "30.0.0",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
         "assetBundlePatterns": [
@@ -16,7 +16,7 @@
         "updates": {
             "enabled": true,
             "checkAutomatically": "ON_LOAD",
-            "fallbackToCacheTimeout": 60000
+            "fallbackToCacheTimeout": 10000
         },
         "icon": "./src/assets/icons/HastyAppleStoreIcon.png",
         "splash": {
@@ -39,13 +39,20 @@
                 }
             ]
         },
+        "notification": {
+            "icon": "./src/assets/icons/HastyNotificationIcon.png",
+            "color": "#f5a623"
+        },
         "ios": {
             "bundleIdentifier": "com.spartanspeedofservice.hastymobile",
             "loadJSInBackgroundExperimental": true,
             "supportsTablet": false,
             "config": {
+                "googleMapsApiKey": {
+                    "apiKey": "AIzaSyD_g0GcW15y3NlXYeaZ3XgAtKu0wBNzITY"
+                },
                 "googleSignIn": {
-                    "reservedClientId": ""
+                    "reservedClientId": "734280961973-4qgsq3pfrb07n48r7r4hrs5dp81sgp17.apps.googleusercontent.com"
                 }
             },
             "infoPlist": {
@@ -55,12 +62,22 @@
         },
         "android": {
             "package": "com.spartanspeedofservice.hastymobile",
+            "versionCode": 2,
             "config": {
+                "googleMaps": {
+                    "apiKey": "AIzaSyCK4OMLhwGsATQtxrwQG5MV5HadfIwG5z8"
+                },
                 "googleSignIn": {
                     "apiKey": "734280961973-q113jg9iu3r9qckse1du0umn591o33u5.apps.googleusercontent.com",
                     "certificateHash": "FAE4F0142FC62047EAEBB0DE0D798979276ED28F"
                 }
-            }
+            },
+            "adaptiveIcon": {
+                "backgroundColor": "#f5a623",
+                "backgroundImage": "./src/assets/AndroidAdaptiveBackground1024.png",
+                "foregroundImage": "./src/assets/AndroidAdaptiveForeground1024.png"
+            },
+            "icon": "./src/assets/AndroidAdaptiveIcon1024.png"
         },
         "facebookScheme": "fb1873998396207588",
         "facebookAppId": "1873998396207588",
