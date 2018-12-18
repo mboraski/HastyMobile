@@ -259,7 +259,7 @@ class MapScreen extends Component {
                         disabled={pending}
                     />
                 </Animated.View>
-                {this.state.searchRendered ? (
+                {!!this.state.searchRendered && (
                     <PredictionList
                         predictions={predictions}
                         selectPrediction={this.selectPrediction}
@@ -272,7 +272,7 @@ class MapScreen extends Component {
                             }
                         ]}
                     />
-                ) : null}
+                )}
                 <SuccessPopup
                     openModal={locationFeedbackPopupVisible}
                     closeModal={this.sendLocationFeedback}

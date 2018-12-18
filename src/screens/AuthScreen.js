@@ -135,7 +135,7 @@ class AuthScreen extends Component {
                         <Image
                             style={styles.googleLogo}
                             source={googleLogo}
-                            resizeMode={'center'}
+                            resizeMode={'contain'}
                         />
                         <Text style={styles.googleText}>
                             {'Continue with Google'}

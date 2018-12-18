@@ -181,7 +181,7 @@ class CheckoutScreen extends Component {
 
     changeLocationConfirmed = confirmed => {
         if (confirmed) {
-            this.props.navigation.dispatch(reset('map'));
+            this.props.navigation.navigate('map');
         }
         this.setState({ changeLocationPopupVisible: false });
     };

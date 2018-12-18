@@ -150,7 +150,6 @@ class MapHeaderContainer extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        flex: 1,
         backgroundColor: '#fff',
         paddingTop: Constants.statusBarHeight
     },
