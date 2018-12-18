@@ -14,8 +14,10 @@ import {
 
 class NotificationContainer extends Component {
     state = {
-        topValue: new Animated.Value(emY(11)),
+        topValue: new Animated.Value(0),
         opacity: new Animated.Value(1),
+        nextTopValue: new Animated.Value(emY(11)),
+        nextOpacity: new Animated.Value(0),
         nextNotification: 'Searching the skies for a hero...',
         currNotification: 'Searching the skies for a hero...'
     };
@@ -24,6 +26,9 @@ class NotificationContainer extends Component {
         const newNotificaiton = this.getNotification();
         this.setState({ currNotification: newNotificaiton });
         this.setState({ nextNotification: newNotificaiton });
+        setInterval(() => {
+            this.receiveNotification();
+        }, 1500);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -46,7 +51,7 @@ class NotificationContainer extends Component {
                 case orderStatuses.open:
                     return 'Searching the skies for a Hero...';
                 case orderStatuses.inProgress:
-                    return 'Contacting Heroes';
+                    return 'Contacting Heroes...';
                 case orderStatuses.satisfied:
                     return 'A Hero has answered your call!';
                 case orderStatuses.completed:
@@ -60,29 +65,26 @@ class NotificationContainer extends Component {
     };
 
     receiveNotification = () => {
-        this.setState({ currNotification: this.state.currNotification });
+        const newNotificaiton = this.getNotification();
+        this.setState({ nextNotification: newNotificaiton });
         Animated.parallel([
-            Animated.timing(this.state.topValue, {
-                toValue: 0,
-                duration: 500
-            }),
             Animated.timing(this.state.opacity, {
                 toValue: 0,
                 duration: 500
+            }),
+            Animated.timing(this.state.nextTopValue, {
+                toValue: 0,
+                duration: 500
+            }),
+            Animated.timing(this.state.nextOpacity, {
+                toValue: 1,
+                duration: 500
             })
         ]).start(() => {
-            const newNotificaiton = this.getNotification();
-            this.setState({ nextNotification: newNotificaiton });
-            Animated.parallel([
-                Animated.timing(this.state.topValue, {
-                    toValue: emY(11),
-                    duration: 0
-                }),
-                Animated.timing(this.state.opacity, {
-                    toValue: 1,
-                    duration: 0
-                })
-            ]).start();
+            this.setState({ currNotification: this.state.nextNotification });
+            this.setState({ opacity: new Animated.Value(1) });
+            this.setState({ nextOpacity: new Animated.Value(0) });
+            this.setState({ nextTopValue: new Animated.Value(emY(11)) });
         });
     };
 
@@ -93,15 +95,24 @@ class NotificationContainer extends Component {
                 <Animated.View
                     style={[
                         styles.alert,
-                        { opacity: this.state.opacity, top: 0 }
+                        {
+                            opacity: this.state.opacity,
+                            top: this.state.topValue
+                        }
+                    ]}
+                >
+                    <Text style={styles.alertText}>{currNotification}</Text>
+                </Animated.View>
+                <Animated.View
+                    style={[
+                        styles.alert,
+                        {
+                            opacity: this.state.nextOpacity,
+                            top: this.state.nextTopValue
+                        }
                     ]}
                 >
                     <Text style={styles.alertText}>{nextNotification}</Text>
-                </Animated.View>
-                <Animated.View
-                    style={[styles.alert, { top: this.state.topValue }]}
-                >
-                    <Text style={styles.alertText}>{currNotification}</Text>
                 </Animated.View>
             </View>
         );

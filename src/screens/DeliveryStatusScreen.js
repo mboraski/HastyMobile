@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 // Relative Imports
 import MenuButton from '../components/MenuButton';
-import BrandButton from '../components/BrandButton';
+import TransparentButton from '../components/TransparentButton';
 import NotificationContainer from '../containers/NotificationContainer'; // TODO: fix linter error
 import HeroListContainer from '../containers/HeroListContainer';
 import Text from '../components/Text';
@@ -36,13 +36,7 @@ class DeliveryStatusScreen extends Component {
         headerLeft: (
             <MenuButton navigation={navigation} style={Style.headerLeft} />
         ),
-        headerRight: (
-            <BrandButton
-                onPress={() => {
-                    /* contact Hero options */
-                }}
-            />
-        ),
+        headerRight: <TransparentButton />,
         headerStyle: Style.headerBorderless,
         headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
     });

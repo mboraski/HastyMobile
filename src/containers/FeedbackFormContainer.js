@@ -19,7 +19,7 @@ import { emY } from '../utils/em';
 
 const minLength3 = minLength(3);
 
-export class FeedbackFormContainer extends Component {
+class FeedbackFormContainer extends Component {
     render() {
         const {
             submit,

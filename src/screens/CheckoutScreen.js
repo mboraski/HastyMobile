@@ -107,10 +107,6 @@ class CheckoutScreen extends Component {
         )
     };
 
-    goToPaymentMethodScreen = () => {
-        this.props.navigation.navigate('paymentMethod');
-    };
-
     componentWillMount() {
         const { paymentMethod } = this.props;
         if (paymentMethod && paymentMethod.card) {
@@ -118,6 +114,7 @@ class CheckoutScreen extends Component {
                 dropdownHeader: (
                     <PaymentDropDownItem
                         isHeaderItem
+                        onPress={() => this.dropDownRef.toggle()}
                         type={paymentMethod.card.brand}
                         brand={paymentMethod.card.brand}
                         last4={paymentMethod.card.last4}
@@ -145,6 +142,7 @@ class CheckoutScreen extends Component {
                 dropdownHeader: (
                     <PaymentDropDownItem
                         isHeaderItem
+                        onPress={() => this.dropDownRef.toggle()}
                         type={paymentMethod.card.brand}
                         brand={paymentMethod.card.brand}
                         last4={paymentMethod.card.last4}
@@ -153,6 +151,10 @@ class CheckoutScreen extends Component {
             });
         }
     }
+
+    goToPaymentMethodScreen = () => {
+        this.props.navigation.navigate('paymentMethod');
+    };
 
     handleRemoveOrder = order => {
         if (order.quantityTaken === 1) {
@@ -343,7 +345,10 @@ class CheckoutScreen extends Component {
                                 PAYMENT METHOD
                             </Text>
                         </View>
-                        <DropDown header={this.state.dropdownHeader}>
+                        <DropDown
+                            header={this.state.dropdownHeader}
+                            dropDownRef={ref => (this.dropDownRef = ref)}
+                        >
                             {dropdownCards}
                         </DropDown>
                         <View style={styles.itemHeader}>

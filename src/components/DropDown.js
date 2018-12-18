@@ -18,6 +18,7 @@ class DropDown extends Component {
 
     componentDidMount() {
         const { minHeight } = this.state;
+        this.props.dropDownRef(this);
         this.state.animation.setValue(0);
         Animated.spring(this.state.animation, {
             toValue: minHeight
@@ -30,6 +31,10 @@ class DropDown extends Component {
         this.setState({
             expanded: false
         });
+    }
+
+    componentWillUnmount() {
+        this.props.dropDownRef(undefined);
     }
 
     setMaxHeight = event => {

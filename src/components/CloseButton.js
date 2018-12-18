@@ -4,7 +4,7 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import closeIcon from '../assets/icons/close.png';
+import leftArrowIcon from '../assets/icons/left-arrow.png';
 
 import { HEADER_ITEM_SIZE } from '../constants/Style';
 
@@ -14,7 +14,7 @@ class CloseButton extends Component {
         return (
             <TouchableOpacity {...props} style={[styles.container, style]}>
                 <Image
-                    source={closeIcon}
+                    source={leftArrowIcon}
                     style={styles.image}
                     resizeMode="contain"
                 />
@@ -26,8 +26,7 @@ class CloseButton extends Component {
 // TODO: remove display none when X functionality implemented
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 20,
-        display: 'none'
+        marginLeft: 20
     },
     image: {
         width: HEADER_ITEM_SIZE,

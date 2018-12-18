@@ -27,7 +27,7 @@ const REVERSE_CONFIG = {
     outputRange: [1, 0]
 };
 
-class MapHeaderContainer extends Component {
+class CheckoutHeaderContainer extends Component {
     state = {
         opacity: new Animated.Value(1),
         inputText: '',
@@ -193,4 +193,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MapHeaderContainer);
+)(CheckoutHeaderContainer);

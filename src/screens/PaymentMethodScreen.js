@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements';
 
 // Relative Imports
 import MenuAndBackButton from '../components/MenuAndBackButton';
+import TransparentButton from '../components/TransparentButton';
 import Text from '../components/Text';
 import SectionTitle from '../components/SectionTitle';
 import PaymentMethod from '../components/PaymentMethod';
@@ -30,12 +31,16 @@ class PaymentMethodScreen extends Component {
         const onPressHeaderRight = () => navigation.goBack();
         return {
             title: 'Payment Method',
-            headerLeft: signedUp ? null : (
+            headerLeft: signedUp ? (
+                <TransparentButton />
+            ) : (
                 <MenuAndBackButton navigation={navigation} />
             ),
             headerRight: signedUp ? (
                 <TextButton title="Next" onPress={onPressHeaderRight} />
-            ) : null,
+            ) : (
+                <TransparentButton />
+            ),
             headerStyle: Style.header,
             headerTitleStyle: Style.headerTitle
         };
