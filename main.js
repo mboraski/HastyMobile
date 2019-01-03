@@ -1,21 +1,25 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import {
-    View,
-    StyleSheet,
-    Image,
-    Platform,
-    ActivityIndicator
-} from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import Expo, { Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import Sentry from 'sentry-expo';
 
 // Relative Imports
 import splashImage from './src/assets/splash.png';
 import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
 import { store, persistor } from './src/store';
+import { SENTRY_PUBLIC_DSN } from './src/keys/Sentry';
+
+// To test dev logging, change to "true."
+Sentry.enableInExpoDevelopment = false;
+
+Sentry.config(SENTRY_PUBLIC_DSN).install();
+
+// TODO: Here until a solution can be found.
+console.ignoredYellowBox = ['Setting a timer'];
 
 class App extends Component {
     state = {
@@ -24,12 +28,10 @@ class App extends Component {
 
     async componentDidMount() {
         const fonts = {
-            goodtimes: require('./src/assets/fonts/goodtimes.ttf') // eslint-disable-line global-require
+            goodtimes: require('./src/assets/fonts/goodtimes.ttf'), // eslint-disable-line global-require
+            roboto: require('./src/assets/fonts/roboto.ttf') // eslint-disable-line global-require
         };
 
-        if (Platform.OS === 'android') {
-            fonts.Arial = require('./src/assets/fonts/arial.ttf'); // eslint-disable-line global-require
-        }
         await Font.loadAsync(fonts);
         this.setState({ loading: false });
     }

@@ -7,12 +7,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
-import callIcon from '../assets/icons/call.png';
+import messageIcon from '../assets/icons/multi_message.png';
 import logo from '../assets/icons/HastyOrangeIcon.png';
 
 const PROFILE_IMAGE_SIZE = emY(3.75);
-const CHAT_SIZE = emY(2.75);
-const CHAT_IMAGE_SIZE = emY(1.25);
+const CHAT_SIZE = emY(2.8);
+const CHAT_IMAGE_SIZE = emY(1.65);
 
 const HeroDetail = props => {
     const {
@@ -64,7 +64,7 @@ const HeroDetail = props => {
                 style={styles.chatButton}
                 onPress={callContractor}
             >
-                <Image source={callIcon} style={styles.chatImage} />
+                <Image source={messageIcon} style={styles.chatImage} />
             </TouchableOpacity>
         </View>
     );
@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
         marginTop: emY(0.7)
     },
     chatImage: {
+        borderRadius: 0,
         width: CHAT_IMAGE_SIZE,
-        height: CHAT_IMAGE_SIZE
+        height: (CHAT_IMAGE_SIZE * 13) / 15
     },
     profileImage: {
         marginTop: emY(0.7),

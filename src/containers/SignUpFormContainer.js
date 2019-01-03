@@ -128,14 +128,16 @@ class SignUpFormContainer extends Component {
                     >
                         {'Terms and Conditions'}
                     </Text>
-                    {' and '}
+                    <Text>{' and '}</Text>
                     <Text
                         onPress={this.linkToWebsitePrivacy}
                         style={styles.termsAndPrivacyLink}
                     >
-                        {'Privacy Policy'}
+                        <Text>{'Privacy Policy'}</Text>
                     </Text>
-                    {' and you confirm you are 13 years of age or older.'}
+                    <Text>
+                        {' and you confirm you are 13 years of age or older.'}
+                    </Text>
                 </Text>
                 <TouchableOpacity
                     onPress={handleSubmit(createUserWithEmailAndPassword)}
@@ -156,6 +158,7 @@ class SignUpFormContainer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingHorizontal: 20,
         marginBottom: 15
     },
     termsAndPrivacy: {
@@ -172,7 +175,6 @@ const styles = StyleSheet.create({
         color: Color.BLUE_500
     },
     formInputs: {
-        paddingHorizontal: 15,
         paddingBottom: emY(1.5)
     },
     fieldContainer: {
@@ -181,7 +183,6 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 5,
         backgroundColor: Color.DEFAULT,
-        marginHorizontal: 15,
         justifyContent: 'center',
         height: emY(3)
     },
@@ -209,7 +210,6 @@ const styles = StyleSheet.create({
         color: Color.RED_500,
         textAlign: 'center',
         fontSize: emY(0.9),
-        paddingHorizontal: 15,
         paddingBottom: emY(1.5)
     }
 });

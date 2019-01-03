@@ -1,5 +1,18 @@
+import { Platform } from 'react-native';
+
 import googleMapsClient from '../api/googleMaps';
-import { MAP_KEY } from '../keys/Google';
+import {
+    TEST_GOOGLE_PLACES_KEY,
+    IOS_GOOGLE_PLACES_KEY,
+    ANDROID_GOOGLE_PLACES_KEY
+} from '../keys/Google';
+
+const MAP_KEY = __DEV__
+    ? TEST_GOOGLE_PLACES_KEY
+    : Platform.select({
+          ios: IOS_GOOGLE_PLACES_KEY,
+          android: ANDROID_GOOGLE_PLACES_KEY
+      });
 
 export const MAPS_PLACES_AUTOCOMPLETE_REQUEST =
     'google_maps_places_autocomplete_request';

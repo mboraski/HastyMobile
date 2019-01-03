@@ -61,6 +61,7 @@
         "redux-persist-expo-securestore": "^0.1.1",
         "redux-thunk": "^2.3.0",
         "reselect": "^3.0.1",
+        "sentry-expo": "^1.10.0",
         "stripe-client": "^1.1.5",
         "validator": "^10.9.0"
     },

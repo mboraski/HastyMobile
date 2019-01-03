@@ -3,7 +3,6 @@ import { SubmissionError } from 'redux-form';
 
 import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
-import { dropdownAlert } from './uiActions';
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
@@ -11,6 +10,8 @@ import {
     sanitizeAndValidatePhoneNumber
 } from '../utils/security';
 import {
+    STANDALONE_ANDROID_GOOGLE_OAUTH_ID,
+    STANDALONE_IOS_GOOGLE_OAUTH_ID,
     ANDROID_GOOGLE_CLIENT_ID,
     IOS_GOOGLE_CLIENT_ID,
     WEB_CLIENT_ID
@@ -51,7 +52,6 @@ const firebaseFacebookAuth = async ({
         const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
             credential
         );
-        console.log('firebaseFacebookAuth response: ', response);
         const additionalUserInfo = response.additionalUserInfo;
         const firebaseUser = response.user;
         const {
@@ -68,7 +68,6 @@ const firebaseFacebookAuth = async ({
         const safeEmail = email ? sanitizeAndValidateEmail(email) : '';
         const photoUrl = picture.data.url;
         if (additionalUserInfo.isNewUser) {
-            console.log('firebaseFacebookAuth newUser if block ran');
             await db
                 .collection('users')
                 .doc(`${firebaseUser.uid}`)
@@ -76,13 +75,15 @@ const firebaseFacebookAuth = async ({
                     firstName: safeFirstName,
                     lastName: safeLastName,
                     email: safeEmail,
-                    providerId: additionalUserInfo.providerId,
-                    name: safeName,
                     photoUrl,
-                    picture,
-                    id,
-                    permissions,
-                    declinedPermissions
+                    other: {
+                        providerId: additionalUserInfo.providerId,
+                        name: safeName,
+                        picture,
+                        id,
+                        permissions,
+                        declinedPermissions
+                    }
                 });
         }
         dispatch({
@@ -96,7 +97,6 @@ const firebaseFacebookAuth = async ({
         });
         dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload: { token, expires } });
     } catch (error) {
-        console.log('firebaseFacebookAuth error: ', error);
         dispatch({
             type: SIGNUP_FAIL,
             payload: error
@@ -123,11 +123,8 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
                     behavior
                 }
             );
-            console.log('fb auth response ', response);
 
             if (response.type === 'cancel') {
-                console.log('fb login cancel');
-                dispatch(dropdownAlert('Facebook login cancelled.', true));
                 dispatch({ type: FACEBOOK_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -151,8 +148,6 @@ export const facebookLogin = facebookAuthToken => async dispatch => {
             });
         }
     } catch (e) {
-        console.log('fb login error ', e);
-        dispatch(dropdownAlert('Facebook login error.', true));
         dispatch({ type: FACEBOOK_LOGIN_ERROR });
     }
 };
@@ -172,7 +167,6 @@ const firebaseGoogleAuth = async ({
         const response = await firebaseAuth.signInAndRetrieveDataWithCredential(
             credential
         );
-        console.log('firebaseGoogleAuth response: ', response);
         const additionalUserInfo = response.additionalUserInfo;
         const firebaseUser = response.user;
         // TODO: change to not user provider data as reuse of auth token will fail
@@ -202,18 +196,19 @@ const firebaseGoogleAuth = async ({
                     firstName: safeFirstName,
                     lastName: safeLastName,
                     email: safeEmail,
-                    providerId: additionalUserInfo.providerId,
-                    name: safeName,
                     photoUrl,
-                    id,
-                    idToken: token,
-                    accessToken,
-                    refreshToken,
-                    serverAuthCode
+                    other: {
+                        providerId: additionalUserInfo.providerId,
+                        name: safeName,
+                        id,
+                        idToken: token,
+                        accessToken,
+                        refreshToken,
+                        serverAuthCode
+                    }
                 });
         }
     } catch (error) {
-        console.log('firebaseFacebookAuth error: ', error);
         dispatch({
             type: SIGNUP_FAIL,
             payload: error
@@ -246,17 +241,16 @@ export const googleLogin = googleAuthToken => async dispatch => {
             //
             // }
             const response = await Google.logInAsync({
+                androidStandaloneAppClientId: STANDALONE_ANDROID_GOOGLE_OAUTH_ID,
+                iosStandaloneAppClientId: STANDALONE_IOS_GOOGLE_OAUTH_ID,
                 androidClientId: ANDROID_GOOGLE_CLIENT_ID,
                 iosClientId: IOS_GOOGLE_CLIENT_ID,
                 webClientId: WEB_CLIENT_ID,
                 scopes: ['profile', 'email'],
                 behavior
             });
-            console.log('google auth response ', response);
 
             if (response.type === 'cancel') {
-                console.log('google login cancel');
-                dispatch(dropdownAlert('Google login cancelled.', true));
                 dispatch({ type: GOOGLE_LOGIN_ERROR });
             } else if (response.type === 'success') {
                 const {
@@ -282,8 +276,6 @@ export const googleLogin = googleAuthToken => async dispatch => {
             });
         }
     } catch (e) {
-        console.log('google login error ', e);
-        dispatch(dropdownAlert('Google login error.', true));
         dispatch({ type: GOOGLE_LOGIN_ERROR });
     }
 };
@@ -405,10 +397,12 @@ export const getUserReadable = () => dispatch => {
             .get()
             .then(snap => {
                 const userData = snap.data();
-                dispatch({
-                    type: USER_READABLE_SUCCESS,
-                    payload: userData
-                });
+                if (userData) {
+                    dispatch({
+                        type: USER_READABLE_SUCCESS,
+                        payload: userData
+                    });
+                }
                 if (
                     userData &&
                     userData.stripeInfo &&

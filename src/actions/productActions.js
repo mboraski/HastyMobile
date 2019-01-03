@@ -1,9 +1,13 @@
 import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 
-import { setSalesTaxRate, setServiceFee } from './checkoutActions';
+import {
+    setSalesTaxRate,
+    setServiceFeeRate,
+    setDeliveryFee
+} from './checkoutActions';
 import { updateCart } from './cartActions';
-import { rtdb, fire, db } from '../../firebase';
+import { rtdb, fire } from '../../firebase';
 
 export const SELECT_CATEGORY = 'select_category';
 export const FETCH_CUSTOMER_BLOCK_REQUEST = 'fetch_customer_block_request';
@@ -12,15 +16,6 @@ export const FETCH_CUSTOMER_BLOCK_ERROR = 'fetch_customer_block_error';
 export const SET_IMAGE = 'set_image';
 
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
-
-export const fetchProducts = () => async dispatch => {
-    // dispatch({ type: FETCH_PRODUCTS });
-    const querySnapshot = await db.collection('consumerProducts').get();
-    return querySnapshot.forEach(doc => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, ' => ', doc.data());
-    });
-};
 
 export const fetchCustomerBlock = dispatch => {
     dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
@@ -39,12 +34,13 @@ export const listenCustomerBlockRef = dispatch =>
                 data.instant,
                 product => !!product
             );
-            const { salesTaxRate, serviceFee } = data;
+            const { salesTaxRate, serviceFeeRate, deliveryFee } = data;
             dispatch(fetchProductImages(filteredProducts, dispatch));
             dispatch(fetchProductsSuccess(filteredProducts));
             dispatch(updateCart(filteredProducts));
             dispatch(setSalesTaxRate(salesTaxRate));
-            dispatch(setServiceFee(serviceFee));
+            dispatch(setServiceFeeRate(serviceFeeRate));
+            dispatch(setDeliveryFee(deliveryFee));
         },
         error => dispatch(fetchProductsFailure(error))
     );
@@ -69,8 +65,6 @@ export const selectCategory = category => ({
 
 export const fetchProductImages = (products, dispatch) => async () => {
     const storageRef = fire.storage();
-    // this.productImage = 'gs://hasty-14d18.appspot.com/productImages/advil-packet.jpg'
-    // console.log('products: ', products);
     forEach(products.instant, product => {
         const imageUrl = product.imageUrl || '';
         if (imageUrl) {

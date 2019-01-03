@@ -1,64 +1,25 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements';
 
 import Text from './Text';
 import Dimensions from '../constants/Dimensions';
-import Style from '../constants/Style';
+import { emY } from '../utils/em';
 
 class Slides extends Component {
-    renderDots(index) {
-        if (index === this.props.data.length - 1) {
-            return (
-                <Button
-                    title="Onwards!"
-                    raised
-                    buttonStyle={styles.buttonStyle}
-                    onPress={this.props.onComplete}
-                    fontFamily={'goodtimes'}
-                    accessibilityLabel="Leave tutorial screens and go to app"
-                />
-            );
-        }
-    }
-
-    renderLastSlide(index) {
-        if (index === this.props.data.length - 1) {
-            return (
-                <Button
-                    title="Onwards!"
-                    raised
-                    buttonStyle={styles.buttonStyle}
-                    onPress={this.props.onComplete}
-                    fontFamily={'goodtimes'}
-                    accessibilityLabel="Leave tutorial screens and go to app"
-                />
-            );
-        }
-    }
-
     renderSlides() {
         return this.props.data.map((slide, index) => (
             <View
                 key={slide.text}
                 style={[styles.slideStyle, { backgroundColor: slide.color }]}
             >
-                <Text
-                    style={[
-                        Style.headerTitle,
-                        Style.headerTitleLogo,
-                        styles.textStyle
-                    ]}
-                >
-                    {slide.text}
-                </Text>
+                <Text style={[styles.textStyle]}>{slide.text}</Text>
             </View>
         ));
     }
 
     render() {
         return (
-            <ScrollView horizontal style={{ flex: 1 }} pagingEnabled>
+            <ScrollView horizontal pagingEnabled>
                 {this.renderSlides()}
             </ScrollView>
         );
@@ -70,10 +31,14 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: Dimensions.window.width
+        width: Dimensions.window.width,
+        paddingHorizontal: 10
+    },
+    slideScrollView: {
+        flex: 1
     },
     textStyle: {
-        fontSize: 30,
+        fontSize: emY(2.2),
         color: 'black',
         textAlign: 'center'
     },

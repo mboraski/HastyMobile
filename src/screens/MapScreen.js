@@ -27,7 +27,6 @@ import {
 import { reverseGeocode } from '../actions/googleMapsActions';
 import { toggleSearch, dropdownAlert } from '../actions/uiActions';
 import { getUserReadable } from '../actions/authActions';
-import { fetchProducts } from '../actions/productActions';
 
 import {
     getProductsPending,
@@ -89,7 +88,6 @@ class MapScreen extends Component {
         this.props.getCurrentLocation();
         // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
-        this.props.fetchProducts();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -261,7 +259,7 @@ class MapScreen extends Component {
                         disabled={pending}
                     />
                 </Animated.View>
-                {this.state.searchRendered ? (
+                {!!this.state.searchRendered && (
                     <PredictionList
                         predictions={predictions}
                         selectPrediction={this.selectPrediction}
@@ -274,7 +272,7 @@ class MapScreen extends Component {
                             }
                         ]}
                     />
-                ) : null}
+                )}
                 <SuccessPopup
                     openModal={locationFeedbackPopupVisible}
                     closeModal={this.sendLocationFeedback}
@@ -324,7 +322,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: emY(1.25),
-        fontFamily: 'Arial'
+        fontFamily: 'roboto'
     },
     inputContainer: {
         position: 'absolute',
@@ -409,8 +407,7 @@ const mapDispatchToProps = {
     getCurrentLocation,
     determineDeliveryDistance,
     closeLocationFeedbackPopup,
-    sendLocationFeedback,
-    fetchProducts
+    sendLocationFeedback
 };
 
 export default connect(

@@ -24,7 +24,7 @@ import { signOut } from '../actions/authActions';
 import { getUserReadable } from '../selectors/authSelectors';
 import { getOrderId } from '../selectors/orderSelectors';
 
-const IMAGE_CONTAINER_SIZE = emY(2);
+const IMAGE_CONTAINER_SIZE = 100;
 
 const getRoute = (items, routeName) =>
     items.find(item => item.key === routeName);
@@ -72,18 +72,27 @@ class MenuContent extends Component {
         const { items, activeItemKey, userReadable } = this.props;
         return (
             <View style={styles.container}>
-                {userReadable && (
+                {!!userReadable && (
                     <View style={styles.profile}>
-                        <Image
-                            source={userReadable.profileUrl}
-                            style={styles.image}
-                        />
+                        {!!userReadable.photoUrl && (
+                            <Image
+                                source={{ uri: userReadable.photoUrl }}
+                                style={styles.image}
+                            />
+                        )}
                         <Text style={styles.name}>
                             {userReadable.firstName} {userReadable.lastName}
                         </Text>
                     </View>
                 )}
                 <ScrollView style={styles.menuItems}>
+                    {/*<MenuItem
+                        route={getRoute(items, 'map')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.mapPress}
+                        image={heroIcon}
+                        title="Become a Hero!"
+                    /> */}
                     <MenuItem
                         route={getRoute(items, 'map')}
                         activeItemKey={activeItemKey}
@@ -103,7 +112,7 @@ class MenuContent extends Component {
                         activeItemKey={activeItemKey}
                         onPress={this.checkoutPress}
                         image={cartIcon}
-                        title="Checkout"
+                        title="Cart / Checkout"
                     />
                     <MenuItem
                         route={getRoute(items, 'order')}
@@ -121,10 +130,18 @@ class MenuContent extends Component {
                         title="Payment Methods"
                     />
                     {/* <MenuItem
+                        route={getRoute(items, 'Feedback')}
                         activeItemKey={activeItemKey}
-                        onPress={onItemPress}
-                        image={heroIcon}
-                        title="Heroes Needed!"
+                        onPress={this.paymentMethod}
+                        image={paymentIcon}
+                        title="Give Us Feedback"
+                    />
+                    <MenuItem
+                        route={getRoute(items, 'Feedback')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.paymentMethod}
+                        image={paymentIcon}
+                        title="Customer Support"
                     /> */}
                     {/* <MenuItem
                         activeItemKey={activeItemKey}
@@ -196,6 +213,7 @@ const styles = StyleSheet.create({
         marginBottom: emY(1)
     },
     menuItems: {
+        marginTop: emY(1),
         paddingLeft: emY(1.2)
     },
     backButton: {

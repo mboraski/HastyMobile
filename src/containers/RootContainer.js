@@ -1,9 +1,9 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 // import moment from 'moment';
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Updates } from 'expo';
 
 // Relative Imports
 import MenuNavigator from '../navigations/MenuNavigator';
@@ -31,14 +31,6 @@ import { getOrderId } from '../selectors/orderSelectors';
 class RootContainer extends Component {
     componentWillMount() {
         this.props.listenToAuthChanges();
-
-        // if (
-        //     this.props.user || firebaseAuth.currentUser &&
-        //     moment().isAfter(moment(this.props.authExpirationDate))
-        // ) {
-        //     console.log('current moment: ', moment().toDate());
-        //     this.props.signOut();
-        // }
     }
 
     async componentDidMount() {
@@ -48,11 +40,11 @@ class RootContainer extends Component {
             this.props.listenToOrderFulfillment(this.props.orderId);
         }
 
+        /* Push Notification Permissions Start */
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
         );
         let finalStatus = existingStatus;
-
         // only ask if permissions have not already been determined, because
         // iOS won't necessarily prompt the user a second time.
         if (existingStatus !== 'granted') {
@@ -63,17 +55,24 @@ class RootContainer extends Component {
             );
             finalStatus = status;
         }
-
         // Temp since iOS does not ask twice.
         // const token = await Notifications.getExpoPushTokenAsync();
         // this.props.setUserExpoPushToken(token);
-
         if (finalStatus === 'granted') {
             const token = await Notifications.getExpoPushTokenAsync();
             this.props.setUserExpoPushToken(token);
             // this.notificationSubscription = Notifications.addListener(
             //     this.handleNotification
             // );
+        }
+        /* Push Notification Permissions End */
+
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+            Alert.alert('This app is out of date.', 'Update?', [
+                { text: 'Cancel' },
+                { text: 'Confirm', onPress: () => Updates.reload() }
+            ]);
         }
     }
 
@@ -132,7 +131,9 @@ class RootContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1 }
+    container: {
+        flex: 1
+    }
 });
 
 const mapStateToProps = state => ({

@@ -21,7 +21,7 @@ import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
 import googleLogo from '../assets/icons/google-logo-white.png';
-import facebookLogo from '../assets/icons/flogo-HexRBG-Wht.png';
+import facebookLogo from '../assets/icons/facebook_white.png';
 
 import Color from '../constants/Color';
 import { statusBarOnly } from '../constants/Style';
@@ -39,6 +39,12 @@ class AuthScreen extends Component {
         const navParams = this.props.navigation.state.params || {};
         if (navParams && navParams.logIn) {
             this.setState({ signUp: false });
+        }
+    }
+
+    componentDidMount() {
+        if (firebaseAuth.currentUser) {
+            this.props.navigation.navigate('map');
         }
     }
 
@@ -119,29 +125,27 @@ class AuthScreen extends Component {
                         ]}
                         onPress={this.facebookLogin}
                     >
-                        <View style={styles.facebookItemWrapper}>
-                            <Image
-                                style={styles.facebookLogo}
-                                source={facebookLogo}
-                            />
-                            <Text style={styles.facebookText}>
-                                {'Continue with Facebook'}
-                            </Text>
-                        </View>
+                        <Image
+                            style={styles.facebookLogo}
+                            source={facebookLogo}
+                            resizeMode={'contain'}
+                        />
+                        <Text style={styles.facebookText}>
+                            {'Continue with Facebook'}
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.socialButton, styles.googleSocialButton]}
                         onPress={this.googleLogin}
                     >
-                        <View style={styles.googleItemWrapper}>
-                            <Image
-                                style={styles.googleLogo}
-                                source={googleLogo}
-                            />
-                            <Text style={styles.googleText}>
-                                {'Continue with Google'}
-                            </Text>
-                        </View>
+                        <Image
+                            style={styles.googleLogo}
+                            source={googleLogo}
+                            resizeMode={'contain'}
+                        />
+                        <Text style={styles.googleText}>
+                            {'Continue with Google'}
+                        </Text>
                     </TouchableOpacity>
                     <Text style={styles.secondaryText}>
                         or continue with email
@@ -187,48 +191,44 @@ const styles = StyleSheet.create({
         height: emY(3),
         flexDirection: 'row',
         alignItems: 'center',
-        marginHorizontal: 15,
-        paddingHorizontal: 5,
+        marginHorizontal: 20,
         borderRadius: 5
     },
     googleSocialButton: {
-        backgroundColor: '#4285F4',
+        backgroundColor: Color.GOOGLE_BLUE,
         marginBottom: 10
     },
-    googleItemWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
     googleLogo: {
-        marginLeft: -emY(0.27),
-        width: emY(3.2),
-        height: emY(3)
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        height: emY(3),
+        width: emY(3),
+        borderRadius: 5
     },
     googleText: {
         flex: 1,
         textAlign: 'center',
-        paddingRight: emY(3.2),
-        fontSize: emY(1.5),
-        color: '#fff'
+        fontSize: emY(1.3),
+        color: '#fff',
+        fontFamily: 'roboto'
     },
     facebookSocialButton: {
-        backgroundColor: '#4267B2',
+        backgroundColor: Color.FACEBOOK_BLUE,
         marginBottom: 15
     },
-    facebookItemWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
     facebookLogo: {
-        width: emY(2.6),
-        height: emY(2.6)
+        position: 'absolute',
+        left: emY(3) / 2 - emY(2) / 2.138 / 2,
+        top: emY(0.5),
+        height: emY(2)
     },
     facebookText: {
         flex: 1,
         textAlign: 'center',
-        paddingRight: emY(2.6),
-        fontSize: emY(1.5),
-        color: '#fff'
+        fontSize: emY(1.3),
+        color: '#fff',
+        fontFamily: 'roboto'
     },
     secondaryText: {
         color: Color.GREY_700,

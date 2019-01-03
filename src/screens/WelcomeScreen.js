@@ -15,15 +15,19 @@ import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 const SLIDE_DATA = [
     {
         text:
-            'Welcome to Hasty, the FASTEST delivery network ever! Swipe left to continue!'
+            'Welcome to Hasty, the FASTEST delivery network ever! Swipe left to continue...'
     },
     {
         text:
-            'Just sign up, set your location, and fill your cart up with products. Swipe left to continue!'
+            'Just set your location. Then fill your cart up with products. Swipe left to continue...'
     },
     {
         text:
-            'Light a beacon and a Hero will arrive with your products shortly!'
+            'When ready, light a beacon, placing your order. This will notify local Heroes of your order request. Swipe left to continue...'
+    },
+    {
+        text:
+            'Heroes will answer your call and arrive with your products shortly!'
     }
 ];
 
@@ -50,7 +54,7 @@ class WelcomeScreen extends Component {
                 <View style={styles.logoHeaderWrapper}>
                     <Image style={styles.logoHeader} source={logoHeader} />
                 </View>
-                <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete} />
+                <Slides data={SLIDE_DATA} />
                 <Button
                     onPress={this.logIn}
                     title="Login"
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     logoHeaderWrapper: {
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center'

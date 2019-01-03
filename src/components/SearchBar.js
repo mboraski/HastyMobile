@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Image, TouchableOpacity, Platform } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    TextInput,
+    Image,
+    TouchableOpacity,
+    Platform
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import Style from '../constants/Style';
@@ -44,16 +51,18 @@ class SearchBar extends Component {
                     onBlur={this.handleBlur}
                     underlineColorAndroid="transparent"
                 />
-                {!this.state.focused && !this.state.value &&
-                    <TouchableOpacity
-                        onPress={this.focusInput}
-                        style={[StyleSheet.absoluteFill, styles.imageContainer]}
-                    >
-                        <Image
-                            source={searchIcon}
-                            style={styles.image}
-                        />
-                    </TouchableOpacity>}
+                {!this.state.focused &&
+                    !this.state.value && (
+                        <TouchableOpacity
+                            onPress={this.focusInput}
+                            style={[
+                                StyleSheet.absoluteFill,
+                                styles.imageContainer
+                            ]}
+                        >
+                            <Image source={searchIcon} style={styles.image} />
+                        </TouchableOpacity>
+                    )}
             </View>
         );
     }
@@ -79,7 +88,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         height: SIZE,
-        fontFamily: 'Arial'
+        fontFamily: 'roboto'
     },
     imageContainer: {
         alignItems: 'center',
@@ -91,8 +100,11 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
     return {};
 };
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(
+    null,
+    mapDispatchToProps
+)(SearchBar);

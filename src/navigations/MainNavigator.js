@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 
 // Relative Imports
 import { firebaseAuth } from '../../firebase';
-import SearchForHeroScreen from '../screens/SearchForHeroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -20,7 +19,7 @@ import FeedbackScreen from '../screens/FeedbackScreen';
 import PromotionShareScreen from '../screens/PromotionShareScreen';
 import NotificationFeedbackScreen from '../screens/NotificationFeedbackScreen';
 
-const getHeaderMode = () => (Platform.OS === 'ios' ? 'float' : 'screen');
+const getHeaderMode = () => (Platform.OS === 'ios' ? 'screen' : 'screen');
 const getInitialRoute = () => (firebaseAuth.currentUser ? 'map' : 'welcome');
 
 export default createStackNavigator(
@@ -30,7 +29,6 @@ export default createStackNavigator(
         profile: { screen: ProfileScreen },
         map: { screen: MapScreen },
         products: { screen: ProductsScreen },
-        searchForHero: { screen: SearchForHeroScreen },
         deliveryNotes: { screen: DeliveryNotesScreen },
         deliveryStatus: { screen: DeliveryStatusScreen },
         cart: { screen: CartScreen },
