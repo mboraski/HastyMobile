@@ -4,7 +4,7 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import leftArrowIcon from '../assets/icons/left-arrow.png';
+import closeIcon from '../assets/icons/close.png';
 
 import { HEADER_ITEM_SIZE } from '../constants/Style';
 
@@ -14,7 +14,7 @@ class CloseButton extends Component {
         return (
             <TouchableOpacity {...props} style={[styles.container, style]}>
                 <Image
-                    source={leftArrowIcon}
+                    source={closeIcon}
                     style={styles.image}
                     resizeMode="contain"
                 />

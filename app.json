@@ -48,9 +48,7 @@
             "loadJSInBackgroundExperimental": true,
             "supportsTablet": false,
             "config": {
-                "googleMapsApiKey": {
-                    "apiKey": "AIzaSyD_g0GcW15y3NlXYeaZ3XgAtKu0wBNzITY"
-                },
+                "googleMapsApiKey": "AIzaSyD_g0GcW15y3NlXYeaZ3XgAtKu0wBNzITY",
                 "googleSignIn": {
                     "reservedClientId": "734280961973-4qgsq3pfrb07n48r7r4hrs5dp81sgp17.apps.googleusercontent.com"
                 }
@@ -76,8 +74,7 @@
                 "backgroundColor": "#f5a623",
                 "backgroundImage": "./src/assets/AndroidAdaptiveBackground1024.png",
                 "foregroundImage": "./src/assets/AndroidAdaptiveForeground1024.png"
-            },
-            "icon": "./src/assets/AndroidAdaptiveIcon1024.png"
+            }
         },
         "facebookScheme": "fb1873998396207588",
         "facebookAppId": "1873998396207588",

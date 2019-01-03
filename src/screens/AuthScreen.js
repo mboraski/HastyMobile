@@ -42,6 +42,12 @@ class AuthScreen extends Component {
         }
     }
 
+    componentDidMount() {
+        if (firebaseAuth.currentUser) {
+            this.props.navigation.navigate('map');
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.user && firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');

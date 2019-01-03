@@ -18,7 +18,7 @@ Sentry.enableInExpoDevelopment = false;
 
 Sentry.config(SENTRY_PUBLIC_DSN).install();
 
-// Here until a solution can be found.
+// TODO: Here until a solution can be found.
 console.ignoredYellowBox = ['Setting a timer'];
 
 class App extends Component {
