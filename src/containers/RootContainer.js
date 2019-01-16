@@ -66,13 +66,14 @@ class RootContainer extends Component {
             // );
         }
         /* Push Notification Permissions End */
-
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-            Alert.alert('This app is out of date.', 'Update?', [
-                { text: 'Cancel' },
-                { text: 'Confirm', onPress: () => Updates.reload() }
-            ]);
+        if (!__DEV__) {
+            const update = await Updates.checkForUpdateAsync();
+            if (update.isAvailable) {
+                Alert.alert('This app is out of date.', 'Update?', [
+                    { text: 'Cancel' },
+                    { text: 'Confirm', onPress: () => Updates.reload() }
+                ]);
+            }
         }
     }
 
