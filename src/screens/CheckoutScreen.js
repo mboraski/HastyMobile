@@ -36,7 +36,6 @@ import { emY } from '../utils/em';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import { submitPayment, changePaymentMethod } from '../actions/paymentActions';
-import { reset } from '../actions/navigationActions';
 
 import {
     getCartOrders,
