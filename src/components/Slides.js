@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         width: WINDOW_WIDTH,
-        paddingHorizontal: 10
+        paddingHorizontal: 20
     },
     slideScrollView: {
         flex: 1
@@ -85,16 +85,13 @@ const styles = StyleSheet.create({
         fontSize: emY(1.8),
         color: Color.DEFAULT,
         textAlign: 'center',
-        marginVertical: 5
+        marginTop: emY(0.8),
+        marginBottom: emY(0.2)
     },
     textStyle: {
         fontSize: emY(1.6),
         color: Color.GREY_700,
         textAlign: 'center'
-    },
-    buttonStyle: {
-        backgroundColor: '#000',
-        marginTop: 15
     },
     image: {
         width: emY(15),
@@ -103,14 +100,14 @@ const styles = StyleSheet.create({
     dotsWrapper: {
         flexDirection: 'row',
         alignSelf: 'center',
-        marginTop: 15,
-        marginBottom: 10
+        marginTop: emY(1),
+        marginBottom: emY(0.8)
     },
     dots: {
         height: emY(0.6),
         width: emY(0.6),
         backgroundColor: Color.GREY_700,
-        margin: 5,
+        margin: emY(0.5),
         borderRadius: emY(0.3)
     }
 });

@@ -1,13 +1,14 @@
 // 3rd Party Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Modal } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
-import MenuButton from '../components/MenuButton';
-import TransparentButton from '../components/TransparentButton';
 import NotificationContainer from '../containers/NotificationContainer'; // TODO: fix linter error
 import HeroListContainer from '../containers/HeroListContainer';
+import ChatModalContainer from '../containers/ChatModalContainer';
+import MenuButton from '../components/MenuButton';
+import TransparentButton from '../components/TransparentButton';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
@@ -22,7 +23,8 @@ import {
     getPending,
     getFullActualFulfillment,
     getPartialActualFulfillment,
-    getContractorStatus
+    getContractorStatus,
+    getChatModalVisible
 } from '../selectors/orderSelectors';
 
 import { dropdownAlert } from '../actions/uiActions';
@@ -76,12 +78,19 @@ class DeliveryStatusScreen extends Component {
     }
 
     render() {
-        const { orderId, status } = this.props;
+        const { orderId, status, modalVisible } = this.props;
         const activity =
             status !== orderStatuses.completed &&
             status !== orderStatuses.cancelled;
         return (
             <View style={styles.container}>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                >
+                    <ChatModalContainer />
+                </Modal>
                 {orderId ? (
                     <View style={styles.statusContainer}>
                         {activity && (
@@ -203,7 +212,8 @@ const mapStateToProps = state => ({
     pending: getPending(state),
     full: getFullActualFulfillment(state),
     partial: getPartialActualFulfillment(state),
-    contractorStatus: getContractorStatus(state)
+    contractorStatus: getContractorStatus(state),
+    modalVisible: getChatModalVisible(state)
 });
 
 const mapDispatchToProps = {

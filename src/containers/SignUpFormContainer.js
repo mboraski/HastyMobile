@@ -121,7 +121,7 @@ class SignUpFormContainer extends Component {
                 </View>
                 {error && <Text style={styles.signUpError}>{error}</Text>}
                 <Text style={styles.termsAndPrivacy}>
-                    {`By tapping Sign Up, Continue with Facebook, or Continue with Google you agree to Hasty's `}
+                    {`By tapping Sign Up you agree to Hasty's `}
                     <Text
                         onPress={this.linkToWebsiteTerms}
                         style={styles.termsAndPrivacyLink}

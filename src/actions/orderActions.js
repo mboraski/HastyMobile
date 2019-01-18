@@ -16,6 +16,8 @@ export const CALL_CONTRACTOR_REQUEST = 'call_contractor_request';
 export const COMPLETE_ORDER_REQUEST = 'complete_order_request';
 export const COMPLETE_ORDER_SUCCESS = 'complete_order_success';
 export const COMPLETE_ORDER_ERROR = 'complete_order_error';
+export const OPEN_CHAT_MODAL = 'open_chat_modal';
+export const CLOSE_CHAT_MODAL = 'close_chat_modal';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -144,4 +146,8 @@ export const listenToOrderDelivery = orderId => dispatch => {
 export const unListenOrderDelivery = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/delivery`).off();
 
-export const contactContractor = () => {};
+export const openChatModal = contractorId => dispatch =>
+    dispatch({ type: OPEN_CHAT_MODAL, payload: contractorId });
+
+export const closeChatModal = () => dispatch =>
+    dispatch({ type: CLOSE_CHAT_MODAL });

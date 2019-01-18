@@ -87,7 +87,7 @@ class WelcomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 10,
+        paddingBottom: 10,
         flexDirection: 'column',
         justifyContent: 'space-between',
         backgroundColor: '#fff'
@@ -102,7 +102,9 @@ const styles = StyleSheet.create({
         width: 223,
         height: 40
     },
-    buttonWrapper: {},
+    buttonWrapper: {
+        marginHorizontal: 20
+    },
     buttonContainer: {
         marginLeft: 0,
         marginRight: 0
@@ -110,18 +112,21 @@ const styles = StyleSheet.create({
     signInButton: {
         backgroundColor: '#fff',
         borderColor: '#000',
-        borderBottomWidth: 1,
-        borderTopWidth: 1,
-        marginTop: 2,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginTop: 5,
         justifyContent: 'center',
-        height: emY(4)
+        height: emY(3.8),
+        padding: 0
     },
     signUpButton: {
         backgroundColor: Color.DEFAULT,
         borderColor: Color.DEFAULT,
         borderWidth: 1,
+        borderRadius: 5,
         justifyContent: 'center',
-        height: emY(4)
+        height: emY(3.8),
+        padding: 0
     },
     signInButtonText: {
         color: '#000',

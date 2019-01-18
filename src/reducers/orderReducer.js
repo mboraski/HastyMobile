@@ -5,7 +5,9 @@ import {
     LISTEN_ORDER_STATUS,
     UPDATE_ORDER_STATUS,
     UPDATE_ORDER_FULFILLMENT,
-    UPDATE_ORDER_ERROR
+    UPDATE_ORDER_ERROR,
+    OPEN_CHAT_MODAL,
+    CLOSE_CHAT_MODAL
 } from '../actions/orderActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -17,7 +19,9 @@ const initialState = {
     pending: false,
     status: '',
     order: {},
-    error: null
+    error: null,
+    chatModalVisible: false,
+    chatId: ''
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -60,6 +64,18 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 pending: false
+            };
+        case OPEN_CHAT_MODAL:
+            return {
+                ...state,
+                chatId: action.payload,
+                chatModalVisible: true
+            };
+        case CLOSE_CHAT_MODAL:
+            return {
+                ...state,
+                chatId: '',
+                chatModalVisible: false
             };
         default:
             return state;

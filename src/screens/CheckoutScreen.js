@@ -304,7 +304,7 @@ class CheckoutScreen extends Component {
                             onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
-                                {'CONFIRM PURCHASE'}
+                                {'LIGHT A BEACON!'}
                             </Text>
                             <Text style={styles.imageSubText}>
                                 {'This notifies Heroes of your order request'}
@@ -447,7 +447,7 @@ class CheckoutScreen extends Component {
                             onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
-                                {'CONFIRM PURCHASE'}
+                                {'LIGHT A BEACON!'}
                             </Text>
                             <Text style={styles.imageSubText}>
                                 {'This notifies Heroes of your order request'}
