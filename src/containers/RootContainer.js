@@ -23,7 +23,8 @@ import {
     unListenOrderError,
     listenToOrderStatus,
     listenToOrderFulfillment,
-    listenToOrderError
+    listenToOrderError,
+    checkOpenOrders
 } from '../actions/orderActions';
 
 import { getOrderId } from '../selectors/orderSelectors';
@@ -35,9 +36,9 @@ class RootContainer extends Component {
 
     async componentDidMount() {
         if (this.props.orderId) {
+            this.props.listenToOrderFulfillment(this.props.orderId);
             this.props.listenToOrderStatus(this.props.orderId);
             this.props.listenToOrderError(this.props.orderId);
-            this.props.listenToOrderFulfillment(this.props.orderId);
         }
 
         /* Push Notification Permissions Start */
@@ -79,9 +80,9 @@ class RootContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (!this.props.orderId && nextProps.orderId) {
+            this.props.listenToOrderFulfillment(nextProps.orderId);
             this.props.listenToOrderStatus(nextProps.orderId);
             this.props.listenToOrderError(nextProps.orderId);
-            this.props.listenToOrderFulfillment(nextProps.orderId);
         }
     }
 
@@ -160,7 +161,8 @@ const mapDispatchToProps = {
     unListenOrderDelivery,
     listenToOrderStatus,
     listenToOrderFulfillment,
-    listenToOrderError
+    listenToOrderError,
+    checkOpenOrders
 };
 
 export default connect(

@@ -1,5 +1,5 @@
 import { orderStatuses } from '../constants/Order';
-import { rtdb } from '../../firebase';
+import { rtdb, db, firebaseAuth } from '../../firebase';
 import * as api from '../api/hasty';
 import { CLEAR_CART } from './cartActions';
 
@@ -18,6 +18,7 @@ export const COMPLETE_ORDER_SUCCESS = 'complete_order_success';
 export const COMPLETE_ORDER_ERROR = 'complete_order_error';
 export const OPEN_CHAT_MODAL = 'open_chat_modal';
 export const CLOSE_CHAT_MODAL = 'close_chat_modal';
+export const OPEN_ORDER_FOUND = 'open_order_found';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -151,3 +152,17 @@ export const openChatModal = contractorId => dispatch =>
 
 export const closeChatModal = () => dispatch =>
     dispatch({ type: CLOSE_CHAT_MODAL });
+
+// WARNING!!! This we only store the last id as the only open order.
+// TODO: Build out multiple open order handling.
+export const checkOpenOrders = async dispatch => {
+    const openOrders = await db
+        .collection('userReadable')
+        .doc(firebaseAuth.currentUser.uid)
+        .collection('orders')
+        .where('status', '==', 'satisfied')
+        .get();
+    openOrders.forEach(doc => {
+        dispatch({ type: OPEN_ORDER_FOUND, payload: doc.id });
+    });
+};

@@ -7,7 +7,8 @@ import {
     UPDATE_ORDER_FULFILLMENT,
     UPDATE_ORDER_ERROR,
     OPEN_CHAT_MODAL,
-    CLOSE_CHAT_MODAL
+    CLOSE_CHAT_MODAL,
+    OPEN_ORDER_FOUND
 } from '../actions/orderActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -39,6 +40,11 @@ const orderReducer = (state = initialState, action) => {
                 ...initialState
             };
         case ORDER_CREATION_SUCCESS:
+            return {
+                ...state,
+                orderId: action.payload
+            };
+        case OPEN_ORDER_FOUND:
             return {
                 ...state,
                 orderId: action.payload

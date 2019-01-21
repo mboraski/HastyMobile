@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         fontSize: emY(1.8),
         color: Color.DEFAULT,
         textAlign: 'center',
-        marginTop: emY(0.8),
+        marginTop: emY(0.4),
         marginBottom: emY(0.2)
     },
     textStyle: {
