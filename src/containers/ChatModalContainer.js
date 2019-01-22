@@ -1,12 +1,14 @@
 // Third Party Imports
 import React, { Component } from 'react';
+import { Constants } from 'expo';
 import {
     ScrollView,
     View,
     StyleSheet,
     KeyboardAvoidingView,
     Image,
-    TextInput
+    TextInput,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import map from 'lodash.map';
@@ -23,8 +25,18 @@ import logo from '../assets/icons/HastyOrangeIcon.png';
 
 import { emY } from '../utils/em';
 
-import { getMessageList } from '../selectors/orderSelectors';
-import { closeChatModal } from '../actions/orderActions';
+import {
+    getMessageList,
+    getNewMessageValue,
+    getOrderId,
+    getChatId,
+    getChatPending
+} from '../selectors/orderSelectors';
+import {
+    closeChatModal,
+    sendMessage,
+    setNewMessageValue
+} from '../actions/orderActions';
 
 const WINDOW_WIDTH = Dimensions.window.width;
 const PROFILE_IMAGE_SIZE = emY(2);
@@ -34,24 +46,37 @@ class ChatModalContainer extends Component {
         this.scroll.scrollToEnd();
     }
 
+    setNewMessageValue = newValue => {
+        console.log('setNewMessageValue ran');
+        this.props.setNewMessageValue(newValue);
+    };
+
     scroll = null;
 
     closeModal = () => {
         this.props.closeChatModal();
     };
 
+    sendMessage = () => {
+        this.props.sendMessage(
+            this.props.newMessageValue,
+            this.props.orderId,
+            this.props.chatId
+        );
+    };
+
     renderMessageList = () => {
-        const messageList = this.props.messageList;
+        const { messageList } = this.props;
         const profileImage = this.props.profileImage || logo;
         console.log('messageList: ', messageList);
         if (messageList) {
             return map(messageList, (message, i) => {
-                if (message.sender === firebaseAuth.currentUser.uid) {
+                if (message.uid === firebaseAuth.currentUser.uid) {
                     return (
                         <View key={i} style={styles.messageRowConsumer}>
                             <View style={styles.message}>
                                 <Text style={styles.messageText}>
-                                    {message.text}
+                                    {message.content}
                                 </Text>
                             </View>
                         </View>
@@ -65,7 +90,7 @@ class ChatModalContainer extends Component {
                             />
                             <View style={styles.message}>
                                 <Text style={styles.messageText}>
-                                    {message.text}
+                                    {message.content}
                                 </Text>
                             </View>
                         </View>
@@ -78,6 +103,7 @@ class ChatModalContainer extends Component {
     };
 
     render() {
+        const { newMessageValue, chatPending } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <CloseButton
@@ -94,22 +120,30 @@ class ChatModalContainer extends Component {
                     {this.renderMessageList()}
                 </ScrollView>
                 <TextInput
-                    ref={value => {
-                        this.textInputValue = value;
-                    }}
                     placeholder={'Type a comment'}
                     placeholderTextColor={Color.GREY_600}
                     maxLength={1000}
                     spellCheck
                     style={styles.textInput}
-                    onTextChange={() => {}}
+                    onChangeText={this.setNewMessageValue}
+                    value={newMessageValue}
                 />
-                <Button
-                    title="Submit"
-                    buttonStyle={[styles.buttonSend]}
-                    textStyle={[styles.buttonSendText]}
-                    onPress={() => {}}
-                />
+                {chatPending ? (
+                    <View style={styles.activityIndicator}>
+                        <ActivityIndicator
+                            animating={chatPending}
+                            size="small"
+                            color="#f5a623"
+                        />
+                    </View>
+                ) : (
+                    <Button
+                        title="Submit"
+                        buttonStyle={[styles.buttonSend]}
+                        textStyle={[styles.buttonSendText]}
+                        onPress={this.sendMessage}
+                    />
+                )}
             </KeyboardAvoidingView>
         );
     }
@@ -119,7 +153,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        marginTop: 20
+        marginTop: Constants.statusBarHeight
     },
     scrollableContent: {
         flex: 1,
@@ -163,15 +197,21 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_200,
         borderRadius: 10,
         margin: 15,
-        height: emY(2.2),
+        height: emY(2.4),
         paddingVertical: emY(0.1),
         paddingHorizontal: emY(0.5)
+    },
+    activityIndicator: {
+        height: emY(2.4),
+        padding: 0,
+        marginBottom: 20
     },
     buttonSend: {
         borderRadius: 5,
         backgroundColor: Color.DEFAULT,
-        height: emY(2.2),
-        padding: 0
+        height: emY(2.4),
+        padding: 0,
+        marginBottom: 20
     },
     buttonSendText: {
         color: '#fff',
@@ -180,11 +220,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    messageList: getMessageList(state)
+    messageList: getMessageList(state),
+    newMessageValue: getNewMessageValue(state),
+    orderId: getOrderId(state),
+    chatId: getChatId(state),
+    chatPending: getChatPending(state)
 });
 
 const mapDispatchToProps = {
-    closeChatModal
+    closeChatModal,
+    sendMessage,
+    setNewMessageValue
 };
 
 export default connect(

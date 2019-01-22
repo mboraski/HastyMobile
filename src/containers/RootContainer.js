@@ -35,12 +35,6 @@ class RootContainer extends Component {
     }
 
     async componentDidMount() {
-        if (this.props.orderId) {
-            this.props.listenToOrderFulfillment(this.props.orderId);
-            this.props.listenToOrderStatus(this.props.orderId);
-            this.props.listenToOrderError(this.props.orderId);
-        }
-
         /* Push Notification Permissions Start */
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -79,7 +73,8 @@ class RootContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.orderId && nextProps.orderId) {
+        if (nextProps.orderId) {
+            console.log('new order id: ', nextProps.orderId);
             this.props.listenToOrderFulfillment(nextProps.orderId);
             this.props.listenToOrderStatus(nextProps.orderId);
             this.props.listenToOrderError(nextProps.orderId);

@@ -1,6 +1,7 @@
 import { orderStatuses } from '../constants/Order';
 import { rtdb, db, firebaseAuth } from '../../firebase';
 import * as api from '../api/hasty';
+import { dropdownAlert } from './uiActions';
 import { CLEAR_CART } from './cartActions';
 
 const ORDER_REF = 'activeProducts/US/TX/Austin/orders';
@@ -19,6 +20,10 @@ export const COMPLETE_ORDER_ERROR = 'complete_order_error';
 export const OPEN_CHAT_MODAL = 'open_chat_modal';
 export const CLOSE_CHAT_MODAL = 'close_chat_modal';
 export const OPEN_ORDER_FOUND = 'open_order_found';
+export const SET_NEW_MESSAGE_VALUE = 'set_new_message_value';
+export const SEND_CHAT_MESSAGE_REQUEST = 'send_chat_message_request';
+export const SEND_CHAT_MESSAGE_SUCCESS = 'send_chat_message_success';
+export const SEND_CHAT_MESSAGE_ERROR = 'send_chat_message_error';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -105,10 +110,12 @@ export const unListenOrderStatus = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/status`).off();
 
 export const listenToOrderFulfillment = orderId => dispatch => {
+    console.log('listenToOrderFulfillment ran: ', orderId);
     return rtdb
         .ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`)
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
+            console.log('fulfillment of order: ', fulfillment);
             if (fulfillment) {
                 dispatch({
                     type: UPDATE_ORDER_FULFILLMENT,
@@ -165,4 +172,32 @@ export const checkOpenOrders = async dispatch => {
     openOrders.forEach(doc => {
         dispatch({ type: OPEN_ORDER_FOUND, payload: doc.id });
     });
+};
+
+export const sendMessage = (content, orderId, chatId) => async dispatch => {
+    console.log('new message to send: ', content);
+    dispatch({ type: SEND_CHAT_MESSAGE_REQUEST });
+    const timeStamp = Date.now();
+    const message = {
+        timeStamp,
+        content,
+        uid: firebaseAuth.currentUser.uid
+    };
+    try {
+        await rtdb
+            .ref(
+                `${ORDER_REF}/${orderId}/fulfillment/actualFulfillment/full/${chatId}`
+            )
+            .child('chat')
+            .update({ [timeStamp]: message });
+        dispatch({ type: SEND_CHAT_MESSAGE_SUCCESS });
+    } catch (error) {
+        console.log('sendMessage error: ', error);
+        dispatch(dropdownAlert(true, 'Error sending message.'));
+        dispatch({ type: SEND_CHAT_MESSAGE_ERROR });
+    }
+};
+
+export const setNewMessageValue = message => dispatch => {
+    dispatch({ type: SET_NEW_MESSAGE_VALUE, payload: message });
 };
