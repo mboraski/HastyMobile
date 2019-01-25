@@ -178,7 +178,7 @@ class MapScreen extends Component {
 
     sendLocationFeedback = agree => {
         const { timestamp, region } = this.props;
-        const freshTimestamp = timestamp || new Date.now();
+        const freshTimestamp = timestamp || Date.now();
         if (agree) {
             this.props.sendLocationFeedback(region, freshTimestamp);
         }

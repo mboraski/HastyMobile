@@ -10,7 +10,7 @@ import Text from '../components/Text';
 import { getFullActualFulfillment } from '../selectors/orderSelectors';
 import { getPhoneNumber } from '../selectors/authSelectors';
 
-import { contactContractor } from '../actions/orderActions';
+import { contactContractor, openChatModal } from '../actions/orderActions';
 
 import Color from '../constants/Color';
 import { heroStatuses } from '../constants/Order';
@@ -18,7 +18,7 @@ import { emY } from '../utils/em';
 
 class HeroListContainer extends Component {
     contactContractor = contractorId => {
-        // send messages to eachother
+        this.props.openChatModal(contractorId);
     };
 
     renderHeroes = () => {
@@ -35,7 +35,7 @@ class HeroListContainer extends Component {
                     type={'Full Order'}
                     heroStatus={heroStatus}
                     contractorId={i}
-                    contactContractor={this.contactContractor}
+                    contactContractor={() => this.contactContractor(i)}
                 />
             );
         });
@@ -94,7 +94,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    contactContractor
+    contactContractor,
+    openChatModal
 };
 
 export default connect(

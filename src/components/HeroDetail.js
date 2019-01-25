@@ -9,6 +9,7 @@ import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import messageIcon from '../assets/icons/multi_message.png';
 import logo from '../assets/icons/HastyOrangeIcon.png';
+import mark from '../assets/mark.png';
 
 const PROFILE_IMAGE_SIZE = emY(3.75);
 const CHAT_SIZE = emY(2.8);
@@ -26,7 +27,7 @@ const HeroDetail = props => {
 
     const callContractor = () => contactContractor(contractorId);
 
-    const profileImage = props.profileImage || logo;
+    const profileImage = props.profileImage || mark || logo;
 
     return (
         <View style={styles.container}>

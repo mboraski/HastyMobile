@@ -5,8 +5,6 @@ import {
     StyleSheet,
     KeyboardAvoidingView,
     ScrollView,
-    Text,
-    TouchableOpacity,
     Image
 } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -19,9 +17,9 @@ import SignUpFormContainer from '../containers/SignUpFormContainer';
 import { facebookLogin, googleLogin } from '../actions/authActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
+import BackButton from '../components/BackButton';
 import { emY } from '../utils/em';
-import googleLogo from '../assets/icons/google-logo-white.png';
-import facebookLogo from '../assets/icons/facebook_white.png';
+import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 
 import Color from '../constants/Color';
 import { statusBarOnly } from '../constants/Style';
@@ -94,6 +92,12 @@ class AuthScreen extends Component {
                 <ScrollView style={styles.container} keyboardDismissMode="none">
                     <View style={styles.buttonsRow}>
                         <Button
+                            title="Back"
+                            buttonStyle={[styles.buttonBack]}
+                            textStyle={[styles.buttonBackText]}
+                            onPress={() => navigation.pop()}
+                        />
+                        <Button
                             title="Log In"
                             buttonStyle={[
                                 styles.button,
@@ -118,38 +122,9 @@ class AuthScreen extends Component {
                             onPress={this.openSignUpForm}
                         />
                     </View>
-                    <TouchableOpacity
-                        style={[
-                            styles.socialButton,
-                            styles.facebookSocialButton
-                        ]}
-                        onPress={this.facebookLogin}
-                    >
-                        <Image
-                            style={styles.facebookLogo}
-                            source={facebookLogo}
-                            resizeMode={'contain'}
-                        />
-                        <Text style={styles.facebookText}>
-                            {'Continue with Facebook'}
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.socialButton, styles.googleSocialButton]}
-                        onPress={this.googleLogin}
-                    >
-                        <Image
-                            style={styles.googleLogo}
-                            source={googleLogo}
-                            resizeMode={'contain'}
-                        />
-                        <Text style={styles.googleText}>
-                            {'Continue with Google'}
-                        </Text>
-                    </TouchableOpacity>
-                    <Text style={styles.secondaryText}>
-                        or continue with email
-                    </Text>
+                    <View style={styles.logoHeaderWrapper}>
+                        <Image style={styles.logoHeader} source={logoHeader} />
+                    </View>
                     <View style={styles.emailForm}>
                         {signUp && (
                             <SignUpFormContainer navigation={navigation} />
@@ -171,17 +146,31 @@ const styles = StyleSheet.create({
     },
     buttonsRow: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
+        alignItems: 'center',
         paddingVertical: emY(1)
     },
     button: {
-        minWidth: 120,
+        minWidth: 90,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: Color.DEFAULT,
         backgroundColor: Color.DEFAULT,
         height: emY(3),
         padding: 0
+    },
+    buttonBack: {
+        minWidth: 90,
+        borderRadius: 5,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: '#000',
+        backgroundColor: '#fff',
+        height: emY(3),
+        padding: 0
+    },
+    buttonBackText: {
+        color: '#000',
+        fontSize: emY(1)
     },
     buttonText: {
         color: '#fff',
@@ -244,30 +233,20 @@ const styles = StyleSheet.create({
     buttonTextHighlighted: {
         color: '#fff'
     },
+    logoHeaderWrapper: {
+        marginTop: 10,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    logoHeader: {
+        width: 223,
+        height: 40
+    },
     emailForm: {
         backgroundColor: '#fff'
     }
 });
-
-const formOptions = {
-    form: 'SignUp',
-    validate(values) {
-        const errors = {};
-        if (values.password !== values.confirmPassword) {
-            errors.confirmPassword = 'Passwords must match';
-        } else if (
-            !values.firstName ||
-            !values.lastName ||
-            !values.email ||
-            !values.number ||
-            !values.password ||
-            !values.confirmPassword
-        ) {
-            errors.missingValues = 'Some form field values are missing';
-        }
-        return errors;
-    }
-};
 
 const mapStateToProps = state => ({
     user: getUser(state),

@@ -14,20 +14,28 @@ import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 
 const SLIDE_DATA = [
     {
+        textTitle: 'Step 1',
         text:
-            'Welcome to Hasty, the FASTEST delivery network ever! Swipe left to continue...'
+            'Welcome! We deliver in as little as 4 minutes...wow, right?! Start by setting your delivery location.'
     },
     {
+        textTitle: 'Step 2',
         text:
-            'Just set your location. Then fill your cart up with products. Swipe left to continue...'
+            'Next, fill your cart up. We carry products specifically catered to you, so let us know what you like!'
     },
     {
+        textTitle: 'Step 3',
         text:
-            'When ready, light a beacon, placing your order. This will notify local Heroes of your order request. Swipe left to continue...'
+            'When ready, light a beacon! This places your order and notifies local Hasty Heroes of your order request.'
     },
     {
+        textTitle: 'Step 4',
         text:
-            'Heroes will answer your call and arrive with your products shortly!'
+            'Look for updates and notifications from available Heroes. Communicate with them from directly within the app!'
+    },
+    {
+        textTitle: 'Step 5',
+        text: 'A Hero will arrive with your products shortly. Enjoy!'
     }
 ];
 
@@ -55,20 +63,22 @@ class WelcomeScreen extends Component {
                     <Image style={styles.logoHeader} source={logoHeader} />
                 </View>
                 <Slides data={SLIDE_DATA} />
-                <Button
-                    onPress={this.logIn}
-                    title="Login"
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.signInButton}
-                    textStyle={styles.signInButtonText}
-                />
-                <Button
-                    onPress={this.signUp}
-                    title="Get Started"
-                    containerViewStyle={styles.buttonContainer}
-                    buttonStyle={styles.signUpButton}
-                    textStyle={styles.signUpButtonText}
-                />
+                <View style={styles.buttonWrapper}>
+                    <Button
+                        onPress={this.signUp}
+                        title="Get Started"
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.signUpButton}
+                        textStyle={styles.signUpButtonText}
+                    />
+                    <Button
+                        onPress={this.logIn}
+                        title="Login"
+                        containerViewStyle={styles.buttonContainer}
+                        buttonStyle={styles.signInButton}
+                        textStyle={styles.signInButtonText}
+                    />
+                </View>
             </View>
         );
     }
@@ -77,9 +87,9 @@ class WelcomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 10,
+        paddingBottom: 15,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         backgroundColor: '#fff'
     },
     logoHeaderWrapper: {
@@ -92,29 +102,31 @@ const styles = StyleSheet.create({
         width: 223,
         height: 40
     },
+    buttonWrapper: {
+        marginHorizontal: 20
+    },
     buttonContainer: {
         marginLeft: 0,
         marginRight: 0
     },
     signInButton: {
         backgroundColor: '#fff',
-        borderRadius: 5,
         borderColor: '#000',
         borderWidth: 1,
+        borderRadius: 5,
         marginTop: 5,
-        marginHorizontal: 15,
         justifyContent: 'center',
-        height: emY(4)
+        height: emY(3.8),
+        padding: 0
     },
     signUpButton: {
         backgroundColor: Color.DEFAULT,
-        borderRadius: 5,
         borderColor: Color.DEFAULT,
         borderWidth: 1,
-        marginVertical: 15,
-        marginHorizontal: 15,
+        borderRadius: 5,
         justifyContent: 'center',
-        height: emY(4)
+        height: emY(3.8),
+        padding: 0
     },
     signInButtonText: {
         color: '#000',
