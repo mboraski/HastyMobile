@@ -22,6 +22,7 @@ import Text from '../components/Text';
 import CloseButton from '../components/CloseButton';
 import Dimensions from '../constants/Dimensions';
 import logo from '../assets/icons/HastyOrangeIcon.png';
+import mark from '../assets/mark.png';
 
 import { emY } from '../utils/em';
 
@@ -40,19 +41,18 @@ import {
 } from '../actions/orderActions';
 
 const WINDOW_WIDTH = Dimensions.window.width;
+const WINDOW_HEIGHT = Dimensions.window.height;
 const PROFILE_IMAGE_SIZE = emY(2);
 
 class ChatModalContainer extends Component {
     componentDidMount() {
-        this.scroll.scrollToEnd();
+        this.scrollView.scrollToEnd();
     }
 
     setNewMessageValue = newValue => {
         console.log('setNewMessageValue ran');
         this.props.setNewMessageValue(newValue);
     };
-
-    scroll = null;
 
     closeModal = () => {
         this.props.closeChatModal();
@@ -69,7 +69,7 @@ class ChatModalContainer extends Component {
 
     renderMessageList = () => {
         const { messageList } = this.props;
-        const profileImage = this.props.profileImage || logo;
+        const profileImage = this.props.profileImage || mark || logo;
         console.log('messageList: ', messageList);
         if (messageList) {
             return map(messageList, (message, i) => {
@@ -113,9 +113,10 @@ class ChatModalContainer extends Component {
                     style={styles.closeModalButton}
                 />
                 <ScrollView
-                    ref={scroll => {
-                        this.scroll = scroll;
+                    ref={scrollView => {
+                        this.scrollView = scrollView;
                     }}
+                    style={styles.messageList}
                     contentContainerStyle={styles.scrollableContent}
                     keyboardDismissMode="none"
                 >
@@ -218,6 +219,9 @@ const styles = StyleSheet.create({
     buttonSendText: {
         color: '#fff',
         fontSize: emY(1)
+    },
+    messageList: {
+        flex: 1
     }
 });
 

@@ -85,7 +85,7 @@ class DeliveryStatusScreen extends Component {
         return (
             <View style={styles.container}>
                 <Modal
-                    animationType="slide"
+                    animationType={'slide'}
                     transparent={false}
                     visible={modalVisible}
                 >

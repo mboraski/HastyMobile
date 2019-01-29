@@ -10,7 +10,7 @@ import { SIGNOUT_SUCCESS } from '../actions/authActions';
 export const initialState = {
     notes: '',
     salesTaxRate: 0.0825,
-    serviceFeeRate: 0.2,
+    serviceFeeRate: 0.15,
     deliveryFee: 899,
     discount: 899
 };
