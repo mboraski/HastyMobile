@@ -24,6 +24,9 @@ export const SET_NEW_MESSAGE_VALUE = 'set_new_message_value';
 export const SEND_CHAT_MESSAGE_REQUEST = 'send_chat_message_request';
 export const SEND_CHAT_MESSAGE_SUCCESS = 'send_chat_message_success';
 export const SEND_CHAT_MESSAGE_ERROR = 'send_chat_message_error';
+export const INCREASE_CHAT_NOTIFICATION_COUNT =
+    'increase_chat_notification_count';
+export const CLEAR_CHAT_NOTIFICATION_COUNT = 'clear_chat_notification_count';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -109,6 +112,7 @@ export const listenToOrderStatus = orderId => dispatch => {
 export const unListenOrderStatus = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/status`).off();
 
+// TODO: change to just creating other listeners
 export const listenToOrderFulfillment = orderId => dispatch => {
     console.log('listenToOrderFulfillment ran: ', orderId);
     return rtdb
@@ -121,6 +125,11 @@ export const listenToOrderFulfillment = orderId => dispatch => {
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
                 });
+                if (fulfillment.full) {
+                    dispatch({
+                        type: INCREASE_CHAT_NOTIFICATION_COUNT
+                    });
+                }
             }
         });
 };
@@ -200,4 +209,8 @@ export const sendMessage = (content, orderId, chatId) => async dispatch => {
 
 export const setNewMessageValue = message => dispatch => {
     dispatch({ type: SET_NEW_MESSAGE_VALUE, payload: message });
+};
+
+export const clearChatNotificationCount = () => dispatch => {
+    dispatch({ type: CLEAR_CHAT_NOTIFICATION_COUNT });
 };

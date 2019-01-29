@@ -22,7 +22,8 @@ const HeroDetail = props => {
         deliveryTime,
         heroStatus,
         contractorId,
-        contactContractor
+        contactContractor,
+        notificationCount
     } = props;
 
     const callContractor = () => contactContractor(contractorId);
@@ -66,19 +67,17 @@ const HeroDetail = props => {
                 onPress={callContractor}
             >
                 <Image source={messageIcon} style={styles.chatImage} />
+                {notificationCount > 0 && (
+                    <View style={styles.notificationIcon}>
+                        <Text style={styles.notificationNumber}>
+                            {notificationCount}
+                        </Text>
+                    </View>
+                )}
             </TouchableOpacity>
         </View>
     );
 };
-
-// <TouchableOpacity
-//     onPress={() => {
-//     }}
-// >
-//     <Text style={[styles.metaItem, styles.link]}>
-//         <MaterialIcons name="check" size={16} style={styles.check} />{'Confirmed Order'}
-//     </Text>
-// </TouchableOpacity>
 
 const styles = StyleSheet.create({
     container: {
@@ -130,6 +129,20 @@ const styles = StyleSheet.create({
         width: PROFILE_IMAGE_SIZE,
         height: PROFILE_IMAGE_SIZE,
         borderRadius: PROFILE_IMAGE_SIZE / 2
+    },
+    notificationIcon: {
+        position: 'absolute',
+        top: -3,
+        right: -3,
+        width: CHAT_IMAGE_SIZE / 1.5,
+        height: CHAT_IMAGE_SIZE / 1.5,
+        backgroundColor: 'red',
+        borderRadius: CHAT_IMAGE_SIZE / 3
+    },
+    notificationNumber: {
+        fontSize: emY(0.9),
+        color: '#fff',
+        textAlign: 'center'
     }
 });
 
