@@ -12,7 +12,9 @@ import DropdownAlert from '../components/DropdownAlert';
 import {
     listenToAuthChanges,
     signOut,
-    setUserExpoPushToken
+    setUserExpoPushToken,
+    sendAppMountRecord,
+    sendAppUnmountRecord
 } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
 import { unListenCustomerBlock } from '../actions/productActions';
@@ -35,6 +37,7 @@ class RootContainer extends Component {
     }
 
     async componentDidMount() {
+        this.props.sendAppMountRecord();
         /* Push Notification Permissions Start */
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -74,7 +77,6 @@ class RootContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.orderId) {
-            console.log('new order id: ', nextProps.orderId);
             this.props.listenToOrderFulfillment(nextProps.orderId);
             this.props.listenToOrderStatus(nextProps.orderId);
             this.props.listenToOrderError(nextProps.orderId);
@@ -87,6 +89,7 @@ class RootContainer extends Component {
         this.props.unListenOrderError(this.props.orderId);
         this.props.unListenOrderStatus(this.props.orderId);
         this.props.unListenOrderDelivery(this.props.orderId);
+        this.props.sendAppUnmountRecord();
     }
 
     handleCustomerPopupClose = () => {
@@ -157,7 +160,9 @@ const mapDispatchToProps = {
     listenToOrderStatus,
     listenToOrderFulfillment,
     listenToOrderError,
-    checkOpenOrders
+    checkOpenOrders,
+    sendAppMountRecord,
+    sendAppUnmountRecord
 };
 
 export default connect(

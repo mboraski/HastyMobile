@@ -50,7 +50,6 @@ class ChatModalContainer extends Component {
     }
 
     setNewMessageValue = newValue => {
-        console.log('setNewMessageValue ran');
         this.props.setNewMessageValue(newValue);
     };
 
@@ -70,7 +69,6 @@ class ChatModalContainer extends Component {
     renderMessageList = () => {
         const { messageList } = this.props;
         const profileImage = this.props.profileImage || mark || logo;
-        console.log('messageList: ', messageList);
         if (messageList) {
             return map(messageList, (message, i) => {
                 if (message.uid === firebaseAuth.currentUser.uid) {

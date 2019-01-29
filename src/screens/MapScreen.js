@@ -101,9 +101,9 @@ class MapScreen extends Component {
         ) {
             this.props.navigation.navigate('products');
         }
-        if (this.props.productsError) {
-            this.props.dropdownAlert(true, ERRORS['001']);
-        }
+        // if (this.props.productsError) {
+        //     this.props.dropdownAlert(true, ERRORS['001']);
+        // }
     }
 
     onMapReady = () => {

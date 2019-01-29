@@ -45,7 +45,7 @@ export const determineDeliveryDistance = region => async dispatch => {
                     });
                     const delivery = result.rows[0].elements[0];
                     const duration = delivery.duration;
-                    if (duration.value > 60 * 15) {
+                    if (duration.value > 60 * 20) {
                         // TODO: log user wanted this region to the server
                         dispatch(
                             dropdownAlert(

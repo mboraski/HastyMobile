@@ -1,7 +1,7 @@
 import { Google, Facebook } from 'expo';
 import { SubmissionError } from 'redux-form';
 
-import { firebaseAuth, db, fire } from '../../firebase';
+import { firebaseAuth, db, fire, rtdb } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
 import { checkOpenOrders } from './orderActions';
 import { persistor } from '../store';
@@ -38,6 +38,9 @@ export const SIGNOUT_FAIL = 'signout_fail';
 export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
+
+const LOGIN_LOGOUT_RECORD_REF = 'loginLogoutRecord';
+const APP_MOUNT_UNMOUNT_REF = 'mountUnmountRecord';
 
 const firebaseFacebookAuth = async ({
     dispatch,
@@ -360,6 +363,7 @@ export const signInWithEmailAndPassword = (values, dispatch) =>
 export const signOut = () => async dispatch => {
     try {
         dispatch({ type: SIGNOUT_REQUEST });
+        sendLogoutRecord();
         const result = await firebaseAuth.signOut();
         dispatch({ type: SIGNOUT_SUCCESS });
         persistor.purge();
@@ -375,6 +379,7 @@ export const listenToAuthChanges = () => dispatch => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
             dispatch({ type: SIGNIN_SUCCESS });
+            sendLoginRecord(user);
             checkOpenOrders(dispatch);
         } else {
             dispatch({ type: SIGNOUT_SUCCESS });
@@ -422,5 +427,46 @@ export const getUserReadable = () => dispatch => {
                     payload: error
                 })
             );
+    }
+};
+
+export const sendLoginRecord = user => {
+    const timestamp = Date.now();
+    if (user.uid) {
+        const loginRecordRef = rtdb.ref(
+            `${LOGIN_LOGOUT_RECORD_REF}/${user.uid}`
+        );
+        const newFeedback = loginRecordRef.push();
+        return newFeedback.set({ type: 'login', timestamp });
+    }
+};
+
+export const sendLogoutRecord = () => {
+    const timestamp = Date.now();
+    if (firebaseAuth.currentUser) {
+        const uid = firebaseAuth.currentUser.uid;
+        const logoutRecordRef = rtdb.ref(`${LOGIN_LOGOUT_RECORD_REF}/${uid}`);
+        const newFeedback = logoutRecordRef.push();
+        return newFeedback.set({ type: 'logout', timestamp });
+    }
+};
+
+export const sendAppMountRecord = () => () => {
+    const timestamp = Date.now();
+    if (firebaseAuth.currentUser) {
+        const uid = firebaseAuth.currentUser.uid;
+        const appMountRef = rtdb.ref(`${APP_MOUNT_UNMOUNT_REF}/${uid}`);
+        const newFeedback = appMountRef.push();
+        return newFeedback.set({ type: 'mount', timestamp });
+    }
+};
+
+export const sendAppUnmountRecord = () => () => {
+    const timestamp = Date.now();
+    if (firebaseAuth.currentUser) {
+        const uid = firebaseAuth.currentUser.uid;
+        const unmountRef = rtdb.ref(`${APP_MOUNT_UNMOUNT_REF}/${uid}`);
+        const newFeedback = unmountRef.push();
+        return newFeedback.set({ type: 'unmount', timestamp });
     }
 };
