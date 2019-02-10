@@ -1,5 +1,5 @@
 // Third Party Imports
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { Constants } from 'expo';
 import {
     ScrollView,
@@ -42,16 +42,33 @@ const WINDOW_WIDTH = Dimensions.window.width;
 const PROFILE_IMAGE_SIZE = emY(2);
 
 class ChatModalContainer extends Component {
+    scroll = createRef();
+
     componentDidMount() {
-        this.scroll.scrollToEnd();
+        console.log('this.scroll: ', this.scroll.current.scrollToEnd);
+        // TODO: figure out why we need to use setTimeout
+        // https://stackoverflow.com/questions/42313308/react-native-listview-scrolltoend-it-doesnt-work
+        setTimeout(() => {
+            this.scroll.current.scrollToEnd();
+        }, 50);
+    }
+
+    componentDidUpdate(prevProps) {
+        // scroll to bottom when a new message is added
+        if (
+            Object.keys(prevProps.messageList).length !==
+            Object.keys(this.props.messageList).length
+        ) {
+            setTimeout(() => {
+                this.scroll.current.scrollToEnd();
+            }, 50);
+        }
     }
 
     setNewMessageValue = newValue => {
         console.log('setNewMessageValue ran');
         this.props.setNewMessageValue(newValue);
     };
-
-    scroll = null;
 
     closeModal = () => {
         this.props.closeChatModal();
@@ -111,9 +128,7 @@ class ChatModalContainer extends Component {
                     style={styles.closeModalButton}
                 />
                 <ScrollView
-                    ref={scroll => {
-                        this.scroll = scroll;
-                    }}
+                    ref={this.scroll}
                     contentContainerStyle={styles.scrollableContent}
                     keyboardDismissMode="none"
                 >
@@ -156,9 +171,6 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight
     },
     scrollableContent: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
         padding: 10
     },
     messageRowContractor: {
