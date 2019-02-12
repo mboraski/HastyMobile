@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { testConfig, prodConfig } from 'firebase-configs';
+import { testConfig, prodConfig } from './firebase-configs';
+
 require('firebase/firestore');
 require('firebase/functions');
 

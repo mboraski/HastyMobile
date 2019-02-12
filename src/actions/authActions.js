@@ -66,7 +66,7 @@ const firebaseFacebookAuth = async ({
         const safeFirstName = sanitizeAndValidateName(first_name);
         const safeLastName = sanitizeAndValidateName(last_name);
         const safeName = sanitizeAndValidateName(name);
-        const safeEmail = email ? sanitizeAndValidateEmail(email) : '';
+        const safeEmail = sanitizeAndValidateEmail(email);
         const photoUrl = picture.data.url;
         if (additionalUserInfo.isNewUser) {
             await db
