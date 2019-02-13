@@ -90,7 +90,7 @@ class ChatModalContainer extends Component {
                 if (message.uid === firebaseAuth.currentUser.uid) {
                     return (
                         <View key={i} style={styles.messageRowConsumer}>
-                            <View style={styles.message}>
+                            <View style={[styles.message, styles.userMessage]}>
                                 <Text style={styles.messageText}>
                                     {message.content}
                                 </Text>
@@ -104,8 +104,8 @@ class ChatModalContainer extends Component {
                                 style={styles.profileImage}
                                 source={profileImage}
                             />
-                            <View style={styles.message}>
-                                <Text style={styles.messageText}>
+                            <View style={[styles.message, styles.heroMessage]}>
+                                <Text style={styles.heroMessageText}>
                                     {message.content}
                                 </Text>
                             </View>
@@ -156,6 +156,7 @@ class ChatModalContainer extends Component {
                         buttonStyle={[styles.buttonSend]}
                         textStyle={[styles.buttonSendText]}
                         onPress={this.sendMessage}
+                        disabled={!newMessageValue.length}
                     />
                 )}
             </KeyboardAvoidingView>
@@ -184,11 +185,20 @@ const styles = StyleSheet.create({
     },
     message: {
         maxWidth: WINDOW_WIDTH - PROFILE_IMAGE_SIZE * 3.5,
-        backgroundColor: Color.GREY_200,
         borderRadius: 10,
         paddingVertical: 6,
         paddingHorizontal: 8,
         marginVertical: 10
+    },
+    userMessage: {
+        backgroundColor: Color.GREY_200
+    },
+    heroMessage: {
+        backgroundColor: Color.ORANGE_500
+    },
+    heroMessageText: {
+        color: Color.WHITE,
+        fontSize: emY(1.1)
     },
     messageText: {
         color: '#000',
