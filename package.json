@@ -21,7 +21,11 @@
     "scripts": {
         "precommit": "pretty-quick --staged",
         "package": "npm prune --production && npm dedupe",
-        "test": "node_modules/.bin/jest"
+        "test": "node_modules/.bin/jest",
+        "start": "ENV=test expo start --lan --dev",
+        "start-localhost": "ENV=test expo start --localhost --dev",
+        "start-offline": "ENV=test expo start --offline",
+        "publish": "ENV=prod expo publish"
     },
     "jest": {
         "preset": "jest-expo",

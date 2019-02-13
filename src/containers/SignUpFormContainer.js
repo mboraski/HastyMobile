@@ -18,6 +18,7 @@ import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
 
 import required from '../validation/required';
+import validName from '../validation/validName';
 import validEmail from '../validation/validEmail';
 import validPhoneNumber from '../validation/validPhoneNumber';
 import validPassword from '../validation/validPassword';
@@ -66,14 +67,14 @@ class SignUpFormContainer extends Component {
                         containerStyle={styles.fieldContainer}
                         name="firstName"
                         label="First Name"
-                        validate={[required]}
+                        validate={[required, validName]}
                     />
                     <InlineLabelTextInputField
                         autoCapitalize={'words'}
                         containerStyle={styles.fieldContainer}
                         name="lastName"
                         label="Last Name"
-                        validate={[required]}
+                        validate={[required, validName]}
                     />
                     <InlineLabelTextInputField
                         autoCapitalize={'none'}
