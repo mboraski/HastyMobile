@@ -45,7 +45,6 @@ class ChatModalContainer extends Component {
     scroll = createRef();
 
     componentDidMount() {
-        console.log('this.scroll: ', this.scroll.current.scrollToEnd);
         // TODO: figure out why we need to use setTimeout
         // https://stackoverflow.com/questions/42313308/react-native-listview-scrolltoend-it-doesnt-work
         setTimeout(() => {
