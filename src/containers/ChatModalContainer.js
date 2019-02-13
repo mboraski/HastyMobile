@@ -91,7 +91,7 @@ class ChatModalContainer extends Component {
                     return (
                         <View key={i} style={styles.messageRowConsumer}>
                             <View style={[styles.message, styles.userMessage]}>
-                                <Text style={styles.messageText}>
+                                <Text style={styles.userMessageText}>
                                     {message.content}
                                 </Text>
                             </View>
@@ -114,7 +114,7 @@ class ChatModalContainer extends Component {
                 }
             });
         } else {
-            return <Text style={styles.messageText}>No messages...</Text>;
+            return <Text style={styles.heroMessageText}>No messages...</Text>;
         }
     };
 
@@ -191,17 +191,17 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     userMessage: {
-        backgroundColor: Color.GREY_200
-    },
-    heroMessage: {
         backgroundColor: Color.ORANGE_500
     },
+    heroMessage: {
+        backgroundColor: Color.GREY_200
+    },
     heroMessageText: {
-        color: Color.WHITE,
+        color: '#000',
         fontSize: emY(1.1)
     },
-    messageText: {
-        color: '#000',
+    userMessageText: {
+        color: Color.WHITE,
         fontSize: emY(1.1)
     },
     closeModalButton: {
