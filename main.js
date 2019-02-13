@@ -16,9 +16,6 @@ import { SENTRY_PUBLIC_DSN } from './src/keys/Sentry';
 // To test dev logging, change to "true."
 Sentry.enableInExpoDevelopment = true;
 Sentry.config(SENTRY_PUBLIC_DSN).install();
-// Sentry.init({
-//     environment: process.env.ENV === 'prod' ? 'production' : 'staging'
-// });
 
 // TODO: Here until a solution can be found. (Android specific)
 console.ignoredYellowBox = ['Setting a timer'];
