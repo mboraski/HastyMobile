@@ -37,7 +37,7 @@ const HeroDetail = props => {
                 <View style={styles.contentPrimary}>
                     <View style={styles.meta}>
                         <Text style={[styles.metaItem, styles.name]}>
-                            {/* {firstName.toUpperCase()} {lastName.toUpperCase()} */}
+                            {firstName.toUpperCase()} {lastName.toUpperCase()}
                         </Text>
                         <Text style={[styles.metaItem, styles.link]}>
                             <MaterialIcons
