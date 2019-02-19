@@ -55,6 +55,7 @@ export class CreditCardFormContainer extends Component {
 
     render() {
         const {
+            submit,
             pending,
             error,
             submitting,
@@ -109,6 +110,12 @@ export class CreditCardFormContainer extends Component {
                                 placeholder={card ? '***' : ''}
                             />
                         </View>
+                        <Button
+                            title="Save"
+                            buttonStyle={[styles.submitButton]}
+                            textStyle={[styles.submitButtonText]}
+                            onPress={submit}
+                        />
                     </View>
                     {card && (
                         <Button
@@ -156,13 +163,13 @@ const styles = StyleSheet.create({
         flex: 1
     },
     expiryContainer: {
-        width: 120
+        width: 140
     },
     smallInputText: {
         textAlign: 'center'
     },
     cvcContainer: {
-        width: 100
+        width: 110
     },
     buttonContainer: {
         marginLeft: 0,
@@ -180,6 +187,20 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#000',
+        fontSize: emY(1)
+    },
+    submitButton: {
+        marginTop: 20,
+        minWidth: 120,
+        borderRadius: 5,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: Color.DEFAULT,
+        backgroundColor: Color.DEFAULT,
+        height: emY(3),
+        padding: 0
+    },
+    subitButtonText: {
+        color: '#fff',
         fontSize: emY(1)
     },
     error: {
