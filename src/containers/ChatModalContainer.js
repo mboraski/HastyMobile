@@ -45,8 +45,6 @@ class ChatModalContainer extends Component {
     scroll = createRef();
 
     componentDidMount() {
-        // TODO: figure out why we need to use setTimeout
-        // https://stackoverflow.com/questions/42313308/react-native-listview-scrolltoend-it-doesnt-work
         setTimeout(() => {
             this.scroll.current.scrollToEnd();
         }, 50);
@@ -84,9 +82,11 @@ class ChatModalContainer extends Component {
     renderMessageList = () => {
         const { messageList } = this.props;
         const profileImage = this.props.profileImage || logo;
-        console.log('messageList: ', messageList);
+        const timeStamps = Object.keys(messageList);
+        timeStamps.sort();
         if (messageList) {
-            return map(messageList, (message, i) => {
+            return map(timeStamps, (timeStamp, i) => {
+                const message = messageList[timeStamp];
                 if (message.uid === firebaseAuth.currentUser.uid) {
                     return (
                         <View key={i} style={styles.messageRowConsumer}>
@@ -167,7 +167,7 @@ class ChatModalContainer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Color.WHITE,
         marginTop: Constants.statusBarHeight
     },
     scrollableContent: {
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.GREY_200
     },
     heroMessageText: {
-        color: '#000',
+        color: Color.BLACK,
         fontSize: emY(1.1)
     },
     userMessageText: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     buttonSendText: {
-        color: '#fff',
+        color: Color.WHITE,
         fontSize: emY(1)
     }
 });
