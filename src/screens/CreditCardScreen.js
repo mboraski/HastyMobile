@@ -11,21 +11,14 @@ import { default as CreditCardFormContainer } from '../containers/CreditCardForm
 import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
-    componentDidMount() {
-        this.props.navigation.setParams({ cards: this.props.cards });
+    componentDidUpdate(prevProps) {
+        if (prevProps.cards.length < this.props.cards.length) {
+            this.props.navigation.navigate('map');
+        }
     }
 
-    handleSubmitSuccess = () => {
-        this.props.navigation.pop();
-    };
-
     render() {
-        return (
-            <CreditCardFormContainer
-                navigation={this.props.navigation}
-                onSubmitSuccess={this.handleSubmitSuccess}
-            />
-        );
+        return <CreditCardFormContainer navigation={this.props.navigation} />;
     }
 }
 
@@ -36,9 +29,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-CreditCardScreen.navigationOptions = props => {
-    console.log('~~~~~~', props);
-    const { navigation } = props;
+CreditCardScreen.navigationOptions = ({ navigation }) => {
     return {
         title:
             navigation.state.params && navigation.state.params.source
