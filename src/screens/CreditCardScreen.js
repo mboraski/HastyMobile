@@ -29,20 +29,16 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-CreditCardScreen.navigationOptions = ({ navigation }) => {
-    return {
-        title:
-            navigation.state.params && navigation.state.params.source
-                ? 'Edit Card'
-                : 'Add Card',
-        headerLeft: <BackButton onPress={() => navigation.pop()} />,
-        headerRight: (
-            <RemoteSubmitTextButton title="Save" formName="CreditCard" />
-        ),
-        headerStyle: Style.header,
-        headerTitleStyle: Style.headerTitle
-    };
-};
+CreditCardScreen.navigationOptions = ({ navigation }) => ({
+    title:
+        navigation.state.params && navigation.state.params.source
+            ? 'Edit Card'
+            : 'Add Card',
+    headerLeft: <BackButton onPress={() => navigation.pop()} />,
+    headerRight: <RemoteSubmitTextButton title="Save" formName="CreditCard" />,
+    headerStyle: Style.header,
+    headerTitleStyle: Style.headerTitle
+});
 
 export default connect(
     mapStateToProps,
