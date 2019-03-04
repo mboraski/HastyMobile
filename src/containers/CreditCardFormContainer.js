@@ -156,13 +156,13 @@ const styles = StyleSheet.create({
         flex: 1
     },
     expiryContainer: {
-        width: 140
+        width: 120
     },
     smallInputText: {
         textAlign: 'center'
     },
     cvcContainer: {
-        width: 110
+        width: 100
     },
     buttonContainer: {
         marginLeft: 0,
