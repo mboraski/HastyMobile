@@ -1,5 +1,5 @@
 // Third Party Imports
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import { Constants } from 'expo';
 import {
     ScrollView,
@@ -42,30 +42,16 @@ const WINDOW_WIDTH = Dimensions.window.width;
 const PROFILE_IMAGE_SIZE = emY(2);
 
 class ChatModalContainer extends Component {
-    scroll = createRef();
-
     componentDidMount() {
-        setTimeout(() => {
-            this.scroll.current.scrollToEnd();
-        }, 50);
-    }
-
-    componentDidUpdate(prevProps) {
-        // scroll to bottom when a new message is added
-        if (
-            Object.keys(prevProps.messageList).length !==
-            Object.keys(this.props.messageList).length
-        ) {
-            setTimeout(() => {
-                this.scroll.current.scrollToEnd();
-            }, 50);
-        }
+        this.scroll.scrollToEnd();
     }
 
     setNewMessageValue = newValue => {
         console.log('setNewMessageValue ran');
         this.props.setNewMessageValue(newValue);
     };
+
+    scroll = null;
 
     closeModal = () => {
         this.props.closeChatModal();
@@ -82,16 +68,14 @@ class ChatModalContainer extends Component {
     renderMessageList = () => {
         const { messageList } = this.props;
         const profileImage = this.props.profileImage || logo;
-        const timeStamps = Object.keys(messageList);
-        timeStamps.sort();
+        console.log('messageList: ', messageList);
         if (messageList) {
-            return map(timeStamps, (timeStamp, i) => {
-                const message = messageList[timeStamp];
+            return map(messageList, (message, i) => {
                 if (message.uid === firebaseAuth.currentUser.uid) {
                     return (
                         <View key={i} style={styles.messageRowConsumer}>
-                            <View style={[styles.message, styles.userMessage]}>
-                                <Text style={styles.userMessageText}>
+                            <View style={styles.message}>
+                                <Text style={styles.messageText}>
                                     {message.content}
                                 </Text>
                             </View>
@@ -104,8 +88,8 @@ class ChatModalContainer extends Component {
                                 style={styles.profileImage}
                                 source={profileImage}
                             />
-                            <View style={[styles.message, styles.heroMessage]}>
-                                <Text style={styles.heroMessageText}>
+                            <View style={styles.message}>
+                                <Text style={styles.messageText}>
                                     {message.content}
                                 </Text>
                             </View>
@@ -114,7 +98,7 @@ class ChatModalContainer extends Component {
                 }
             });
         } else {
-            return <Text style={styles.heroMessageText}>No messages...</Text>;
+            return <Text style={styles.messageText}>No messages...</Text>;
         }
     };
 
@@ -127,7 +111,9 @@ class ChatModalContainer extends Component {
                     style={styles.closeModalButton}
                 />
                 <ScrollView
-                    ref={this.scroll}
+                    ref={scroll => {
+                        this.scroll = scroll;
+                    }}
                     contentContainerStyle={styles.scrollableContent}
                     keyboardDismissMode="none"
                 >
@@ -156,7 +142,6 @@ class ChatModalContainer extends Component {
                         buttonStyle={[styles.buttonSend]}
                         textStyle={[styles.buttonSendText]}
                         onPress={this.sendMessage}
-                        disabled={!newMessageValue.length}
                     />
                 )}
             </KeyboardAvoidingView>
@@ -167,10 +152,13 @@ class ChatModalContainer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Color.WHITE,
+        backgroundColor: '#fff',
         marginTop: Constants.statusBarHeight
     },
     scrollableContent: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
         padding: 10
     },
     messageRowContractor: {
@@ -185,23 +173,14 @@ const styles = StyleSheet.create({
     },
     message: {
         maxWidth: WINDOW_WIDTH - PROFILE_IMAGE_SIZE * 3.5,
+        backgroundColor: Color.GREY_200,
         borderRadius: 10,
         paddingVertical: 6,
         paddingHorizontal: 8,
         marginVertical: 10
     },
-    userMessage: {
-        backgroundColor: Color.ORANGE_500
-    },
-    heroMessage: {
-        backgroundColor: Color.GREY_200
-    },
-    heroMessageText: {
-        color: Color.BLACK,
-        fontSize: emY(1.1)
-    },
-    userMessageText: {
-        color: Color.WHITE,
+    messageText: {
+        color: '#000',
         fontSize: emY(1.1)
     },
     closeModalButton: {
@@ -235,7 +214,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     buttonSendText: {
-        color: Color.WHITE,
+        color: '#fff',
         fontSize: emY(1)
     }
 });
