@@ -51,15 +51,18 @@ class DeliveryStatusScreen extends Component {
         this.props.dropdownAlert(false, '');
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.contractorStatus === contractorStatuses.delivered) {
+    componentDidUpdate(prevProps) {
+        if (
+            this.props.contractorStatus === contractorStatuses.delivered &&
+            prevProps.contractorStatus !== contractorStatuses.delivered
+        ) {
             this.props.navigation.navigate('feedback');
-        } else if (this.props.status !== nextProps.status) {
+        } else if (this.props.status !== prevProps.status) {
             // TODO: uncomment when users can X out of giving feedback
-            // if (nextProps.status === orderStatuses.completed) {
+            // if (prevProps.status === orderStatuses.completed) {
             //     this.props.navigation.navigate('map');
             // }
-            if (nextProps.status === orderStatuses.cancelled) {
+            if (prevProps.status === orderStatuses.cancelled) {
                 this.props.navigation.navigate('checkout');
             }
         }
