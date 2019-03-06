@@ -131,14 +131,18 @@ export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
                 });
+                // make sure fullfillment has a chat object
                 if (
                     fulfillment.full &&
                     fulfillment.full[heroId] &&
                     fulfillment.full[heroId].chat
                 ) {
+                    // calculate length of new chat
                     const newChatLength = Object.keys(
                         fulfillment.full[heroId].chat
                     ).length;
+
+                    // if new chat has a longer length, increase chat notification count
                     if (prevChatLength < newChatLength) {
                         dispatch({
                             type: INCREASE_CHAT_NOTIFICATION_COUNT,

@@ -33,21 +33,31 @@ const SIZE = emY(7);
 const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 
 class DeliveryStatusScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: 'Order',
-        headerLeft: (
-            <MenuButton navigation={navigation} style={Style.headerLeft} />
-        ),
-        headerRight: <TransparentButton />,
-        headerStyle: Style.headerBorderless,
-        headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
-    });
+    static navigationOptions = ({ navigation }) => {
+        const { params } = navigation.state;
+        return {
+            title: 'Order',
+            headerLeft:
+                params && params.pending === false ? (
+                    <MenuButton
+                        navigation={navigation}
+                        style={Style.headerLeft}
+                    />
+                ) : (
+                    <TransparentButton />
+                ),
+            headerRight: <TransparentButton />,
+            headerStyle: Style.headerBorderless,
+            headerTitleStyle: [Style.headerTitle, Style.headerTitleLogo]
+        };
+    };
 
     state = {
         modalVisible: false
     };
 
     componentDidMount() {
+        this.props.navigation.setParams({ pending: this.props.pending });
         this.props.dropdownAlert(false, '');
     }
 
