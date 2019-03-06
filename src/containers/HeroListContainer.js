@@ -7,10 +7,17 @@ import map from 'lodash.map';
 // Relative Imports
 import HeroDetail from '../components/HeroDetail';
 import Text from '../components/Text';
-import { getFullActualFulfillment } from '../selectors/orderSelectors';
+import {
+    getFullActualFulfillment,
+    getNotificationCount
+} from '../selectors/orderSelectors';
 import { getPhoneNumber } from '../selectors/authSelectors';
 
-import { contactContractor, openChatModal } from '../actions/orderActions';
+import {
+    contactContractor,
+    openChatModal,
+    clearChatNotificationCount
+} from '../actions/orderActions';
 
 import Color from '../constants/Color';
 import { heroStatuses } from '../constants/Order';
@@ -22,7 +29,7 @@ class HeroListContainer extends Component {
     };
 
     renderHeroes = () => {
-        const { fullHeroes } = this.props;
+        const { fullHeroes, notificationCount } = this.props;
         return map(fullHeroes, (hero, i) => {
             const { firstName, lastName, deliveryTime, status } = hero;
             const heroStatus = heroStatuses[status] || 'Pending...';
@@ -36,6 +43,7 @@ class HeroListContainer extends Component {
                     heroStatus={heroStatus}
                     contractorId={i}
                     contactContractor={() => this.contactContractor(i)}
+                    notificationCount={notificationCount}
                 />
             );
         });
@@ -90,12 +98,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     fullHeroes: getFullActualFulfillment(state),
-    phoneNumber: getPhoneNumber(state)
+    phoneNumber: getPhoneNumber(state),
+    notificationCount: getNotificationCount(state)
 });
 
 const mapDispatchToProps = {
     contactContractor,
-    openChatModal
+    openChatModal,
+    clearChatNotificationCount
 };
 
 export default connect(

@@ -22,6 +22,7 @@ import Text from '../components/Text';
 import CloseButton from '../components/CloseButton';
 import Dimensions from '../constants/Dimensions';
 import logo from '../assets/icons/HastyOrangeIcon.png';
+import mark from '../assets/mark.png';
 
 import { emY } from '../utils/em';
 
@@ -35,7 +36,8 @@ import {
 import {
     closeChatModal,
     sendMessage,
-    setNewMessageValue
+    setNewMessageValue,
+    clearChatNotificationCount
 } from '../actions/orderActions';
 
 const WINDOW_WIDTH = Dimensions.window.width;
@@ -69,6 +71,7 @@ class ChatModalContainer extends Component {
 
     closeModal = () => {
         this.props.closeChatModal();
+        this.props.clearChatNotificationCount();
     };
 
     sendMessage = () => {
@@ -251,7 +254,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     closeChatModal,
     sendMessage,
-    setNewMessageValue
+    setNewMessageValue,
+    clearChatNotificationCount
 };
 
 export default connect(

@@ -24,6 +24,9 @@ export const SET_NEW_MESSAGE_VALUE = 'set_new_message_value';
 export const SEND_CHAT_MESSAGE_REQUEST = 'send_chat_message_request';
 export const SEND_CHAT_MESSAGE_SUCCESS = 'send_chat_message_success';
 export const SEND_CHAT_MESSAGE_ERROR = 'send_chat_message_error';
+export const INCREASE_CHAT_NOTIFICATION_COUNT =
+    'increase_chat_notification_count';
+export const CLEAR_CHAT_NOTIFICATION_COUNT = 'clear_chat_notification_count';
 
 export const setContractors = contractors => ({
     type: SET_CONTRACTORS,
@@ -49,8 +52,8 @@ export const completeOrder = async values => {
             overallRating,
             message
         });
-        dispatch({ type: CLEAR_CART });
-        dispatch({ type: CLEAR_ORDER });
+        // dispatch({ type: CLEAR_CART });
+        // dispatch({ type: CLEAR_ORDER });
         return result;
     } catch (error) {
         return;
@@ -91,10 +94,10 @@ export const listenToOrderStatus = orderId => dispatch => {
                     });
                     break;
                 case orderStatuses.completed:
-                    unListenToOrderFulfillment(orderId);
-                    unListenToOrderError(orderId);
-                    unListenOrderStatus(orderId);
-                    unListenOrderDelivery(orderId);
+                    // unListenToOrderFulfillment(orderId);
+                    // unListenToOrderError(orderId);
+                    // unListenOrderStatus(orderId);
+                    // unListenOrderDelivery(orderId);
                     dispatch({
                         type: UPDATE_ORDER_STATUS,
                         payload: orderStatuses.completed
@@ -109,8 +112,11 @@ export const listenToOrderStatus = orderId => dispatch => {
 export const unListenOrderStatus = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/status`).off();
 
-export const listenToOrderFulfillment = orderId => dispatch => {
+export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
     console.log('listenToOrderFulfillment ran: ', orderId);
+    const orderState = getState().order;
+    const { chatId, order } = orderState;
+    const prevChat = order.full[chatId].chat;
     return rtdb
         .ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`)
         .on('value', snapshot => {
@@ -121,6 +127,23 @@ export const listenToOrderFulfillment = orderId => dispatch => {
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
                 });
+                if (
+                    fulfillment.full &&
+                    fulfillment.full[chatId] &&
+                    fulfillment.full[chatId].chat
+                ) {
+                    console.log('~~~~~', fulfillment);
+                    const prevChatLength = Object.keys(prevChat).length;
+                    const newChatLength = Object.keys(
+                        fulfillment.full[chatId].chat
+                    ).length;
+                    if (prevChatLength < newChatLength) {
+                        dispatch({
+                            type: INCREASE_CHAT_NOTIFICATION_COUNT,
+                            payload: newChatLength - prevChatLength
+                        });
+                    }
+                }
             }
         });
 };
@@ -200,4 +223,8 @@ export const sendMessage = (content, orderId, chatId) => async dispatch => {
 
 export const setNewMessageValue = message => dispatch => {
     dispatch({ type: SET_NEW_MESSAGE_VALUE, payload: message });
+};
+
+export const clearChatNotificationCount = () => dispatch => {
+    dispatch({ type: CLEAR_CHAT_NOTIFICATION_COUNT });
 };
