@@ -115,8 +115,12 @@ export const unListenOrderStatus = orderId =>
 export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
     console.log('listenToOrderFulfillment ran: ', orderId);
     const orderState = getState().order;
-    const { chatId, order } = orderState;
-    const prevChat = order.full[chatId].chat;
+    const { order } = orderState;
+    const heroId = Object.keys(order.full)[0];
+    let prevChatLength = 0;
+    if (order.full[heroId].chat) {
+        prevChatLength = Object.keys(order.full[heroId].chat).length;
+    }
     return rtdb
         .ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`)
         .on('value', snapshot => {
@@ -129,13 +133,11 @@ export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
                 });
                 if (
                     fulfillment.full &&
-                    fulfillment.full[chatId] &&
-                    fulfillment.full[chatId].chat
+                    fulfillment.full[heroId] &&
+                    fulfillment.full[heroId].chat
                 ) {
-                    console.log('~~~~~', fulfillment);
-                    const prevChatLength = Object.keys(prevChat).length;
                     const newChatLength = Object.keys(
-                        fulfillment.full[chatId].chat
+                        fulfillment.full[heroId].chat
                     ).length;
                     if (prevChatLength < newChatLength) {
                         dispatch({

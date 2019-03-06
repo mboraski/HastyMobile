@@ -30,19 +30,19 @@ class HeroListContainer extends Component {
 
     renderHeroes = () => {
         const { fullHeroes, notificationCount } = this.props;
-        return map(fullHeroes, (hero, i) => {
+        return map(fullHeroes, (hero, id) => {
             const { firstName, lastName, deliveryTime, status } = hero;
             const heroStatus = heroStatuses[status] || 'Pending...';
             return (
                 <HeroDetail
-                    key={lastName}
+                    key={id}
                     firstName={firstName}
                     lastName={lastName}
                     deliveryTime={deliveryTime}
                     type={'Full Order'}
                     heroStatus={heroStatus}
-                    contractorId={i}
-                    contactContractor={() => this.contactContractor(i)}
+                    contractorId={id}
+                    contactContractor={() => this.contactContractor(id)}
                     notificationCount={notificationCount}
                 />
             );
