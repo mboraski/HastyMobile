@@ -52,8 +52,8 @@ export const completeOrder = async values => {
             overallRating,
             message
         });
-        // dispatch({ type: CLEAR_CART });
-        // dispatch({ type: CLEAR_ORDER });
+        dispatch({ type: CLEAR_CART });
+        dispatch({ type: CLEAR_ORDER });
         return result;
     } catch (error) {
         return;
@@ -94,10 +94,10 @@ export const listenToOrderStatus = orderId => dispatch => {
                     });
                     break;
                 case orderStatuses.completed:
-                    // unListenToOrderFulfillment(orderId);
-                    // unListenToOrderError(orderId);
-                    // unListenOrderStatus(orderId);
-                    // unListenOrderDelivery(orderId);
+                    unListenToOrderFulfillment(orderId);
+                    unListenToOrderError(orderId);
+                    unListenOrderStatus(orderId);
+                    unListenOrderDelivery(orderId);
                     dispatch({
                         type: UPDATE_ORDER_STATUS,
                         payload: orderStatuses.completed
