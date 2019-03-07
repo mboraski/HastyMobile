@@ -119,38 +119,40 @@ export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
             console.log('fulfillment of order: ', fulfillment);
-
-            // Calculate previous chat length before dispatching UPDATE_ORDER_FULFILLMENT
-            const orderState = getState().order;
-            const { order } = orderState;
-            let heroId;
-            let prevChatLength = 0;
-            if (order.full) {
-                heroId = Object.keys(order.full)[0];
-                if (order.full[heroId].chat) {
-                    prevChatLength = Object.keys(order.full[heroId].chat)
-                        .length;
+            if (fulfillment) {
+                // Calculate previous chat length before dispatching UPDATE_ORDER_FULFILLMENT
+                const orderState = getState().order;
+                const { order } = orderState;
+                let heroId;
+                let prevChatLength = 0;
+                if (order.full) {
+                    heroId = Object.keys(order.full)[0];
+                    if (order.full[heroId].chat) {
+                        prevChatLength = Object.keys(order.full[heroId].chat)
+                            .length;
+                    }
                 }
-            }
 
-            dispatch({
-                type: UPDATE_ORDER_FULFILLMENT,
-                payload: fulfillment
-            });
+                dispatch({
+                    type: UPDATE_ORDER_FULFILLMENT,
+                    payload: fulfillment
+                });
 
-            // make sure fullfillment has a chat object
-            if (
-                heroId &&
-                fulfillment.full &&
-                fulfillment.full[heroId] &&
-                fulfillment.full[heroId].chat
-            ) {
-                // calculate length of new chat
-                const newChatLength = Object.keys(fulfillment.full[heroId].chat)
-                    .length;
-                // if new chat has a longer length, increase chat notification count
-                if (prevChatLength < newChatLength) {
-                    dispatch({ type: INCREASE_CHAT_NOTIFICATION_COUNT });
+                // make sure fullfillment has a chat object
+                if (
+                    heroId &&
+                    fulfillment.full &&
+                    fulfillment.full[heroId] &&
+                    fulfillment.full[heroId].chat
+                ) {
+                    // calculate length of new chat
+                    const newChatLength = Object.keys(
+                        fulfillment.full[heroId].chat
+                    ).length;
+                    // if new chat has a longer length, increase chat notification count
+                    if (prevChatLength < newChatLength) {
+                        dispatch({ type: INCREASE_CHAT_NOTIFICATION_COUNT });
+                    }
                 }
             }
         });
