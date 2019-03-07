@@ -35,7 +35,6 @@ const IMAGE_CONTAINER_SIZE = SIZE + emY(1.25);
 class DeliveryStatusScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         const { params } = navigation.state;
-        console.log('params~~~~~', params);
         return {
             title: 'Order',
             headerLeft:
