@@ -116,7 +116,7 @@ const orderReducer = (state = initialState, action) => {
         case INCREASE_CHAT_NOTIFICATION_COUNT:
             return {
                 ...state,
-                notificationCount: action.payload
+                notificationCount: state.notificationCount + 1
             };
         case CLEAR_CHAT_NOTIFICATION_COUNT:
             return {

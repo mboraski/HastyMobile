@@ -114,25 +114,33 @@ export const unListenOrderStatus = orderId =>
 
 export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
     console.log('listenToOrderFulfillment ran: ', orderId);
-    const orderState = getState().order;
-    const { order } = orderState;
-    const heroId = Object.keys(order.full)[0];
-    let prevChatLength = 0;
-    if (order.full[heroId].chat) {
-        prevChatLength = Object.keys(order.full[heroId].chat).length;
-    }
     return rtdb
         .ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`)
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
             console.log('fulfillment of order: ', fulfillment);
             if (fulfillment) {
+                const orderState = getState().order;
+                const { order } = orderState;
+                let heroId;
+                let prevChatLength = 0;
+                if (order.full) {
+                    heroId = Object.keys(order.full)[0];
+                    if (order.full[heroId].chat) {
+                        prevChatLength = Object.keys(order.full[heroId].chat)
+                            .length;
+                        console.log('~~~~1', prevChatLength);
+                    }
+                }
+                console.log('~~~~~~2', prevChatLength);
+
                 dispatch({
                     type: UPDATE_ORDER_FULFILLMENT,
                     payload: fulfillment
                 });
                 // make sure fullfillment has a chat object
                 if (
+                    heroId &&
                     fulfillment.full &&
                     fulfillment.full[heroId] &&
                     fulfillment.full[heroId].chat
@@ -144,9 +152,11 @@ export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
 
                     // if new chat has a longer length, increase chat notification count
                     if (prevChatLength < newChatLength) {
+                        console.log('prevChatLength: ', prevChatLength);
+                        console.log('newChatLength', newChatLength);
                         dispatch({
-                            type: INCREASE_CHAT_NOTIFICATION_COUNT,
-                            payload: newChatLength - prevChatLength
+                            type: INCREASE_CHAT_NOTIFICATION_COUNT
+                            // payload: newChatLength - prevChatLength
                         });
                     }
                 }
