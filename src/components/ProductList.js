@@ -11,8 +11,6 @@ class ProductList extends Component {
     renderProducts() {
         const { products, callAddToCart, productImages } = this.props;
         return map(products, product => {
-            console.log('ProductList; productImages: ', productImages);
-            console.log('ProductList; product: ', product);
             const image = productImages[product.id] || '';
             const quantityTaken = product.quantityTaken;
             const quantityAvailable = product.quantityAvailable;

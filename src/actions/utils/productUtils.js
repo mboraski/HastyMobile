@@ -4,7 +4,6 @@ const mutateProductsIntoCart = products => {
     const newInstantCart = reduce(
         products,
         (accum, product, id) => {
-            console.log('productUtils; newInstantCart; id of product: ', id);
             const cartProduct = {
                 id,
                 category: product.category,

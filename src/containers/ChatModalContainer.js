@@ -64,7 +64,6 @@ class ChatModalContainer extends Component {
     }
 
     setNewMessageValue = newValue => {
-        console.log('setNewMessageValue ran');
         this.props.setNewMessageValue(newValue);
     };
 

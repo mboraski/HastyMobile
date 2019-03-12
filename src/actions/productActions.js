@@ -1,6 +1,5 @@
 import { Image } from 'react-native';
 import filter from 'lodash.filter';
-import map from 'lodash.map';
 import forEach from 'lodash.foreach';
 import reduce from 'lodash.reduce';
 
@@ -92,25 +91,14 @@ export const fetchProducts = () => async dispatch => {
             {}
         );
         const productIdList = Object.keys(extractedData);
-        console.log(
-            'productActions; fetchProducts; extractedData: ',
-            extractedData
-        );
+
         // start fetching and caching product images
-        console.log(
-            'productActions; fetchProducts; productIdList: ',
-            productIdList
-        );
         forEach(productIdList, productId => {
             fetchProductImage(productId, dispatch);
         });
 
         // mutate the product objects into cart product objects
         const newCartProducts = mutateProductsIntoCart(extractedData);
-        console.log(
-            'productActions; fetchProducts; newCartProducts: ',
-            newCartProducts
-        );
         // send mutated products to be merged with current cart
         dispatch(updateCart(newCartProducts));
         // save a copy of the products fetched to the store
@@ -142,7 +130,6 @@ export const fetchProductImage = async (productId, dispatch) => {
     // Get the download URL
     const url = await ref.getDownloadURL();
 
-    console.log('productActions; fetchProductImage; url: ', url);
     // set image url in store
     dispatch({
         type: SET_IMAGE,

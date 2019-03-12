@@ -113,12 +113,10 @@ export const unListenOrderStatus = orderId =>
     rtdb.ref(`${ORDER_REF}/${orderId}/fulfillment/status`).off();
 
 export const listenToOrderFulfillment = orderId => (dispatch, getState) => {
-    console.log('listenToOrderFulfillment ran: ', orderId);
     return rtdb
         .ref(`${ORDER_REF}/${orderId}/fulfillment/actualFulfillment`)
         .on('value', snapshot => {
             const fulfillment = snapshot.val();
-            console.log('fulfillment of order: ', fulfillment);
             if (fulfillment) {
                 // Calculate previous chat length before dispatching UPDATE_ORDER_FULFILLMENT
                 const orderState = getState().order;
@@ -208,7 +206,6 @@ export const checkOpenOrders = async dispatch => {
 };
 
 export const sendMessage = (content, orderId, chatId) => async dispatch => {
-    console.log('new message to send: ', content);
     dispatch({ type: SEND_CHAT_MESSAGE_REQUEST });
     const timeStamp = Date.now();
     const message = {
@@ -225,7 +222,6 @@ export const sendMessage = (content, orderId, chatId) => async dispatch => {
             .update({ [timeStamp]: message });
         dispatch({ type: SEND_CHAT_MESSAGE_SUCCESS });
     } catch (error) {
-        console.log('sendMessage error: ', error);
         dispatch(dropdownAlert(true, 'Error sending message.'));
         dispatch({ type: SEND_CHAT_MESSAGE_ERROR });
     }

@@ -3,7 +3,6 @@ import {
     FETCH_CUSTOMER_BLOCK_REQUEST,
     FETCH_CUSTOMER_BLOCK_SUCCESS,
     FETCH_CUSTOMER_BLOCK_ERROR,
-    FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_ERROR,
     SET_IMAGE
@@ -42,23 +41,16 @@ export default function(state = initialState, action) {
                 error: action.payload,
                 pending: false
             };
-        case FETCH_PRODUCTS_REQUEST:
-            return {
-                ...state,
-                pending: true
-            };
         case FETCH_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 availableProducts: action.payload,
-                error: null,
-                pending: false
+                error: null
             };
         case FETCH_PRODUCTS_ERROR:
             return {
                 ...state,
-                error: action.payload,
-                pending: false
+                error: action.payload
             };
         case SELECT_CATEGORY:
             return {

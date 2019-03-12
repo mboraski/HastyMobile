@@ -27,8 +27,6 @@ const ProductDetail = ({
     const callToAction = available ? 'Add to Cart' : 'Request We Stock';
     const formattedPrice = `${Number.parseFloat(price).toFixed(2)}`;
     const productImage = image ? { uri: image } : defaultImage;
-    console.log('ProductDetail; image: ', image);
-    console.log('ProductDetail; productImage: ', productImage);
     const limitReached = () => {};
     const onClickHandler = () => {
         if (consumed) {

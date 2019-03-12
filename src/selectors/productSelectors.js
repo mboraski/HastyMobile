@@ -28,10 +28,6 @@ export const getCategories = createSelector(
                 },
                 []
             );
-            console.log(
-                'productSelectors; getCategories; uniqueCategories: ',
-                uniqueCategories
-            );
             return uniqueCategories;
         }
     }
