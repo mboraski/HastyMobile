@@ -10,12 +10,6 @@ import Color from '../constants/Color';
 const SIZE = emY(1.44);
 const BADGE_SIZE = emY(1.69);
 
-type Props = {
-    image: any,
-    title: string,
-    badge: string
-};
-
 class MenuItem extends Component {
     onPress = () => {
         const { route, activeItemKey, onPress } = this.props;
@@ -23,21 +17,27 @@ class MenuItem extends Component {
         onPress({ route, focused });
     };
 
-    props: Props;
-
     render() {
         const { image, title, badge, ...props } = this.props;
         let badgeElement = null;
 
         if (badge) {
             badgeElement = (
-                <TouchableOpacity {...props} onPress={this.onPress} style={styles.badgeContainer}>
+                <TouchableOpacity
+                    {...props}
+                    onPress={this.onPress}
+                    style={styles.badgeContainer}
+                >
                     <Text style={styles.badge}>{badge}</Text>
                 </TouchableOpacity>
             );
         }
         return (
-            <TouchableOpacity {...props} onPress={this.onPress} style={styles.container}>
+            <TouchableOpacity
+                {...props}
+                onPress={this.onPress}
+                style={styles.container}
+            >
                 <Image style={styles.image} source={image} />
                 <Text style={styles.title}>{title}</Text>
                 {badgeElement}

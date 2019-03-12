@@ -120,7 +120,6 @@ class MenuContent extends Component {
                         onPress={this.orderPress}
                         image={notificationIcon}
                         title="Order Details"
-                        // badge="0"
                     />
                     <MenuItem
                         route={getRoute(items, 'paymentMethod')}
