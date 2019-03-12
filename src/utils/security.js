@@ -12,7 +12,6 @@ export const sanitizeToken = dirtyToken => validator.escape(dirtyToken);
 export const sanitizeAndValidateName = dirtyName => {
     const sanitizedName = validator.escape(dirtyName);
     const isAlpha = validator.isAlpha(sanitizedName);
-    console.log('sanitizedName: ', sanitizedName);
     return isAlpha ? sanitizedName : '';
 };
 

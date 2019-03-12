@@ -38,6 +38,7 @@ export const SIGNOUT_FAIL = 'signout_fail';
 export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
+export const AUTH_NO_LOADED = 'auth_no_loaded';
 
 const firebaseFacebookAuth = async ({
     dispatch,

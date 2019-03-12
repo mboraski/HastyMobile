@@ -64,18 +64,3 @@ export const getCartCostTotal = createSelector(
     (total, tax, serviceFee, deliveryFee, discount) =>
         total + tax + serviceFee + deliveryFee - discount
 );
-// export const getCartOrders = createSelector(
-//     getCartProducts,
-//     getDeliveryTypes,
-//     (products, deliveryTypes) =>
-//         deliveryTypes
-//             .map(deliveryType =>
-//                 Object.keys(products[deliveryType]).map(productCode => ({
-//                     ...products[deliveryType][productCode],
-//                     productCode,
-//                     deliveryType
-//                 }))
-//             )
-//             .reduce((a, b) => a.concat(b), [])
-//             .filter(order => order.quantity > 0)
-// );

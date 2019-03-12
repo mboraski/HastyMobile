@@ -1,27 +1,45 @@
+import { Image } from 'react-native';
 import filter from 'lodash.filter';
+import map from 'lodash.map';
 import forEach from 'lodash.foreach';
+import reduce from 'lodash.reduce';
 
+import { rtdb, storage, db } from '../../firebase';
 import {
     setSalesTaxRate,
     setServiceFeeRate,
     setDeliveryFee
 } from './checkoutActions';
 import { updateCart } from './cartActions';
-import { rtdb, fire } from '../../firebase';
+import {
+    getDocsFromCollection,
+    getRefIdFromDoc,
+    getDataFromDoc
+} from '../utils/firebase_utils/firestoreUtils';
+import { mutateProductsIntoCart } from './utils/productUtils';
 
 export const SELECT_CATEGORY = 'select_category';
+export const FETCH_PRODUCTS_REQUEST = 'fetch_products_request';
+export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
+export const FETCH_PRODUCTS_ERROR = 'fetch_products_error';
 export const FETCH_CUSTOMER_BLOCK_REQUEST = 'fetch_customer_block_request';
 export const FETCH_CUSTOMER_BLOCK_SUCCESS = 'fetch_customer_block_success';
 export const FETCH_CUSTOMER_BLOCK_ERROR = 'fetch_customer_block_error';
 export const SET_IMAGE = 'set_image';
 
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
+const TEST_STORAGE_REF = 'gs://hasty-test.appspot.com/product_images';
+const PROD_STORAGE_REF = 'gs://hasty-14d18.appspot.com/product_images';
+const PRODUCTS_REF = 'products';
+const STORAGE_REF =
+    process.env.ENV === 'prod' ? PROD_STORAGE_REF : TEST_STORAGE_REF;
 
 export const fetchCustomerBlock = dispatch => {
     dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
     return listenCustomerBlockRef(dispatch);
 };
 
+// Listen to product & hero availability details related to region set by consumer
 export const listenCustomerBlockRef = dispatch =>
     rtdb.ref(CUSTOMER_BLOCK_PRODUCTS_REF).on(
         'value',
@@ -35,26 +53,80 @@ export const listenCustomerBlockRef = dispatch =>
                 product => !!product
             );
             const { salesTaxRate, serviceFeeRate, deliveryFee } = data;
-            dispatch(fetchProductImages(filteredProducts, dispatch));
-            dispatch(fetchProductsSuccess(filteredProducts));
-            dispatch(updateCart(filteredProducts));
+            // dispatch(fetchProductImages(filteredProducts, dispatch));
+            // dispatch(fetchProductsSuccess(filteredProducts));
+            // dispatch(updateCart(filteredProducts));
             dispatch(setSalesTaxRate(salesTaxRate));
             dispatch(setServiceFeeRate(serviceFeeRate));
             dispatch(setDeliveryFee(deliveryFee));
         },
-        error => dispatch(fetchProductsFailure(error))
+        error => dispatch(fetchProductsError(error))
     );
 
 export const unListenCustomerBlock = () =>
     rtdb.ref(CUSTOMER_BLOCK_PRODUCTS_REF).off();
 
-export const fetchProductsSuccess = products => ({
+export const fetchCustomerBlockSuccess = block => ({
     type: FETCH_CUSTOMER_BLOCK_SUCCESS,
+    payload: block
+});
+
+export const fetchCustomerBlockFailure = error => ({
+    type: FETCH_CUSTOMER_BLOCK_ERROR,
+    payload: error
+});
+
+// Fetches all products the company offers
+export const fetchProducts = () => async dispatch => {
+    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    try {
+        const allProducts = await db.collection(PRODUCTS_REF).get();
+        const docs = getDocsFromCollection(allProducts);
+        const extractedData = reduce(
+            docs,
+            (accum, doc) => {
+                const id = getRefIdFromDoc(doc);
+                const data = getDataFromDoc(doc);
+                return Object.assign({}, accum, { [id]: data });
+            },
+            {}
+        );
+        const productIdList = Object.keys(extractedData);
+        console.log(
+            'productActions; fetchProducts; extractedData: ',
+            extractedData
+        );
+        // start fetching and caching product images
+        console.log(
+            'productActions; fetchProducts; productIdList: ',
+            productIdList
+        );
+        forEach(productIdList, productId => {
+            fetchProductImage(productId, dispatch);
+        });
+
+        // mutate the product objects into cart product objects
+        const newCartProducts = mutateProductsIntoCart(extractedData);
+        console.log(
+            'productActions; fetchProducts; newCartProducts: ',
+            newCartProducts
+        );
+        // send mutated products to be merged with current cart
+        dispatch(updateCart(newCartProducts));
+        // save a copy of the products fetched to the store
+        dispatch(fetchProductsSuccess({ instant: extractedData }));
+    } catch (error) {
+        dispatch(fetchProductsError(error));
+    }
+};
+
+export const fetchProductsSuccess = products => ({
+    type: FETCH_PRODUCTS_SUCCESS,
     payload: products
 });
 
-export const fetchProductsFailure = error => ({
-    type: FETCH_CUSTOMER_BLOCK_ERROR,
+export const fetchProductsError = error => ({
+    type: FETCH_PRODUCTS_ERROR,
     payload: error
 });
 
@@ -63,32 +135,19 @@ export const selectCategory = category => ({
     payload: category
 });
 
-export const fetchProductImages = (products, dispatch) => async () => {
-    const storageRef = fire.storage();
-    forEach(products.instant, product => {
-        const imageUrl = product.imageUrl || '';
-        if (imageUrl) {
-            const imageRef = storageRef.refFromURL(imageUrl);
-            imageRef
-                .getDownloadURL()
-                .then(url => {
-                    dispatch({
-                        type: SET_IMAGE,
-                        payload: { productName: product.productName, url }
-                    });
-                })
-                .catch(() => {
-                    // TODO: use placeholder image if error, not empty string
-                    dispatch({
-                        type: SET_IMAGE,
-                        payload: { productName: product.productName, url: '' }
-                    });
-                });
-        } else {
-            dispatch({
-                type: SET_IMAGE,
-                payload: { productName: product.productName, url: '' }
-            });
-        }
+export const fetchProductImage = async (productId, dispatch) => {
+    // Create a reference to the file
+    const ref = storage.refFromURL(`${STORAGE_REF}/${productId}.jpg`);
+
+    // Get the download URL
+    const url = await ref.getDownloadURL();
+
+    console.log('productActions; fetchProductImage; url: ', url);
+    // set image url in store
+    dispatch({
+        type: SET_IMAGE,
+        payload: { productId, url }
     });
+    // cache image
+    Image.prefetch(`${url}`);
 };

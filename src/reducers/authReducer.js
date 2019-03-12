@@ -18,7 +18,8 @@ import {
     SIGNOUT_SUCCESS,
     SIGNOUT_FAIL,
     USER_READABLE_SUCCESS,
-    UPDATE_SIGNIN_DELAY
+    UPDATE_SIGNIN_DELAY,
+    AUTH_NO_LOADED
 } from '../actions/authActions';
 
 const initialState = {
@@ -37,7 +38,8 @@ const initialState = {
     facebookAuthExpires: '',
     googleIdToken: '',
     googleAccessToken: '',
-    googleRefreshToken: ''
+    googleRefreshToken: '',
+    loaded: false
 };
 
 export default function(state = initialState, action) {
@@ -84,15 +86,16 @@ export default function(state = initialState, action) {
         case AUTH_CHANGED:
             return {
                 ...state,
-                user: {
-                    uid: payload ? payload.uid : ''
-                },
+                user: payload ? { uid: payload.uid } : null,
+                loaded: true,
                 expirationDate: payload // Assumes firebase returns no payload if not authenticated
                     ? moment()
                           .add(1, 'months')
                           .toDate()
                     : null
             };
+        case AUTH_NO_LOADED:
+            return { ...state, loaded: false };
         case SIGNUP_REQUEST:
             return { ...state, pending: true };
         case SIGNUP_SUCCESS:
@@ -102,13 +105,13 @@ export default function(state = initialState, action) {
         case SIGNIN_REQUEST:
             return { ...state, pending: true };
         case SIGNIN_SUCCESS:
-            return { ...state, pending: false };
+            return { ...state, pending: false, loaded: true };
         case SIGNIN_FAIL:
             return { ...state, pending: false, error: payload };
         case SIGNOUT_REQUEST:
             return { ...state, pending: true };
         case SIGNOUT_SUCCESS:
-            return initialState;
+            return { ...initialState, loaded: true };
         case SIGNOUT_FAIL:
             return { ...state, error: payload, pending: false };
         case USER_READABLE_SUCCESS:

@@ -1,7 +1,6 @@
 import {
     addProductToCart,
     removeProductFromCart,
-    mutateProductsIntoCart,
     mergeCarts
 } from './utils/cartReducerUtils';
 import {
@@ -61,8 +60,7 @@ export default (state = initialState, action) => {
             };
         }
         case UPDATE_CART: {
-            const translate = mutateProductsIntoCart(action.payload);
-            const merge = mergeCarts(translate, state.products);
+            const merge = mergeCarts(action.payload, state.products);
             return {
                 ...state,
                 products: merge.netCart,

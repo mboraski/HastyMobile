@@ -3,6 +3,9 @@ import {
     FETCH_CUSTOMER_BLOCK_REQUEST,
     FETCH_CUSTOMER_BLOCK_SUCCESS,
     FETCH_CUSTOMER_BLOCK_ERROR,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_ERROR,
     SET_IMAGE
 } from '../actions/productActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
@@ -39,15 +42,33 @@ export default function(state = initialState, action) {
                 error: action.payload,
                 pending: false
             };
+        case FETCH_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                pending: true
+            };
+        case FETCH_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                availableProducts: action.payload,
+                error: null,
+                pending: false
+            };
+        case FETCH_PRODUCTS_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                pending: false
+            };
         case SELECT_CATEGORY:
             return {
                 ...state,
                 category: action.payload
             };
         case SET_IMAGE: {
-            const { productName, url } = action.payload;
+            const { productId, url } = action.payload;
             const productImages = Object.assign({}, state.productImages, {
-                [productName]: url
+                [productId]: url
             });
             return {
                 ...state,

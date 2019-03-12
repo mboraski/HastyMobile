@@ -8,7 +8,7 @@ import Color from '../constants/Color';
 import Popup, { styles as PopupStyles } from '../components/Popup';
 import { emY } from '../utils/em';
 import checkIcon from '../assets/icons/check.png';
-import logoIcon from '../assets/icons/logo-black.png';
+import logoIcon from '../assets/icons/logo-orange.png';
 
 const SIZE = emY(3.44);
 type Props = {

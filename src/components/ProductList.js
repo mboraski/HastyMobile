@@ -5,26 +5,29 @@ import map from 'lodash.map';
 
 // Relative Imports
 import ProductDetail from './ProductDetail';
-import Dimensions from '../constants/Dimensions';
 import { emY } from '../utils/em';
 
 class ProductList extends Component {
     renderProducts() {
         const { products, callAddToCart, productImages } = this.props;
         return map(products, product => {
-            const image = productImages[product.productName] || '';
-            const taken = product.quantityTaken;
-            const consumed = taken >= product.quantityAvailable;
+            console.log('ProductList; productImages: ', productImages);
+            console.log('ProductList; product: ', product);
+            const image = productImages[product.id] || '';
+            const quantityTaken = product.quantityTaken;
+            const quantityAvailable = product.quantityAvailable;
+            const consumed = quantityTaken >= quantityAvailable;
+            const inCart = quantityTaken > 0;
             return (
                 <ProductDetail
-                    key={product.productName}
+                    key={product.id}
                     consumed={consumed}
-                    quantity={taken}
+                    quantityAvailable={quantityAvailable}
+                    quantityTaken={quantityTaken}
                     product={product}
-                    inCart={taken > 0}
+                    inCart={inCart}
                     image={image}
                     onPress={callAddToCart}
-                    style={styles.product}
                 />
             );
         });
@@ -43,14 +46,10 @@ const styles = StyleSheet.create({
     container: {
         flexWrap: 'wrap',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'flex-start',
-        paddingLeft: 20,
-        paddingRight: 5
-    },
-    product: {
-        width: Dimensions.window.width / 2 - 21,
-        marginRight: 8,
-        marginBottom: emY(0.25)
+        paddingBottom: emY(6), // to put the last products over checkout button
+        margin: 5
     }
 });
 

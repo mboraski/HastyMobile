@@ -5,11 +5,11 @@ import {
     ScrollView,
     StyleSheet,
     View,
-    ImageBackground,
     TouchableOpacity,
     Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import map from 'lodash.map';
 
@@ -33,12 +33,10 @@ import {
     getProductsPending,
     getProductsByCategory,
     getCategories,
-    getNumberOfProducts,
     getProductImages,
     getHeader
 } from '../selectors/productSelectors';
 
-import AuthScreenBackground from '../assets/AuthScreenBackground.jpg';
 import { emY } from '../utils/em';
 
 import ProductsHeaderContainer from '../containers/ProductsHeaderContainer';
@@ -104,51 +102,13 @@ class ProductsScreen extends Component {
             cartQuantity,
             productPending,
             productsShown,
-            category,
-            numberOfProducts,
             productImages
         } = this.props;
+        const cartFill =
+            cartQuantity > 0 ? { backgroundColor: Color.GREEN_500 } : {};
+
         return (
             <View style={styles.container}>
-                {cartQuantity > 0 ? (
-                    <TouchableOpacity
-                        style={styles.checkout}
-                        onPress={this.goToCheckout}
-                    >
-                        <Text style={styles.imageTitle}>Go to Checkout</Text>
-                        <Text style={styles.imageSubText}>
-                            {'(Product counts and other details'}
-                        </Text>
-                        <Text style={styles.imageSubText}>
-                            {'adjustable at checkout)'}
-                        </Text>
-                        <View style={styles.checkoutIconContainer}>
-                            <MaterialIcons
-                                name="keyboard-arrow-right"
-                                color="#fff"
-                                size={50}
-                                style={styles.checkoutIcon}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ) : (
-                    <ImageBackground
-                        source={AuthScreenBackground}
-                        style={styles.image}
-                    >
-                        <View
-                            style={[StyleSheet.absoluteFill, styles.imageTint]}
-                        />
-                        <View>
-                            <Text style={styles.imageTitle}>
-                                {this.formatCategory(category)}
-                            </Text>
-                            <Text style={styles.imageMeta}>
-                                {numberOfProducts} items
-                            </Text>
-                        </View>
-                    </ImageBackground>
-                )}
                 {productPending ? (
                     <View style={styles.overlay}>
                         <ActivityIndicator
@@ -178,6 +138,15 @@ class ProductsScreen extends Component {
                                 </Text>
                             </View>
                         )}
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                large
+                                title="Go to Checkout"
+                                onPress={this.goToCheckout}
+                                buttonStyle={[styles.button, cartFill]}
+                                textStyle={styles.buttonText}
+                            />
+                        </View>
                     </View>
                 )}
             </View>
@@ -192,48 +161,23 @@ const styles = StyleSheet.create({
         maxWidth: WINDOW_WIDTH,
         maxHeight: WINDOW_HEIGHT
     },
-    image: {
-        height: WINDOW_HEIGHT / 5,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    imageTint: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    imageTitle: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1.875),
-        textAlign: 'center'
-    },
-    imageMeta: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1),
-        textAlign: 'center'
-    },
-    imageSubText: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontSize: emY(1),
-        textAlign: 'center'
-    },
-    checkout: {
-        height: WINDOW_HEIGHT / 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Color.GREEN_500
-    },
-    checkoutIconContainer: {
+    buttonContainer: {
         position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 50,
-        justifyContent: 'center'
+        bottom: emY(1.25),
+        left: 0,
+        right: 0
     },
-    checkoutIcon: {
-        backgroundColor: 'transparent'
+    button: {
+        backgroundColor: Color.DEFAULT,
+        borderRadius: 5,
+        justifyContent: 'center',
+        height: emY(3.9),
+        padding: 0
+    },
+    buttonText: {
+        color: Color.WHITE,
+        fontSize: emY(1.5),
+        textAlign: 'center'
     },
     filtersContent: {
         maxHeight: emY(2.5),
@@ -245,23 +189,25 @@ const styles = StyleSheet.create({
     filterButton: {
         minWidth: 120,
         height: emY(2),
-        borderColor: Color.GREY_400,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderRadius: 25,
-        marginRight: 6,
+        borderColor: Color.DEFAULT,
+        borderBottomWidth: StyleSheet.hairlineWidth,
         justifyContent: 'center'
     },
     filterButtonSelected: {
-        borderColor: Color.GREY_300,
-        backgroundColor: Color.GREY_300
+        borderColor: Color.DEFAULT,
+        borderRightWidth: StyleSheet.hairlineWidth,
+        borderLeftWidth: StyleSheet.hairlineWidth,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: 0,
+        backgroundColor: Color.WHITE
     },
     filterButtonText: {
-        color: Color.GREY_400,
+        color: Color.DEFAULT,
         fontSize: emY(1.125),
         textAlign: 'center'
     },
     filterButtonTextSelected: {
-        color: '#fff'
+        color: Color.GREY_600
     },
     overlay: {
         position: 'absolute',
@@ -288,7 +234,6 @@ const mapStateToProps = state => ({
     productsShown: getProductsByCategory(state),
     category: getCategory(state),
     categories: getCategories(state),
-    numberOfProducts: getNumberOfProducts(state),
     productImages: getProductImages(state),
     header: getHeader(state)
 });
