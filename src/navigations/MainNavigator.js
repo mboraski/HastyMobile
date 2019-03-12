@@ -3,7 +3,6 @@ import { createStackNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
 // Relative Imports
-import { firebaseAuth } from '../../firebase';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -15,12 +14,12 @@ import CartScreen from '../screens/CartScreen';
 import CreditCardScreen from '../screens/CreditCardScreen';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
+import OpenFeedbackScreen from '../screens/OpenFeedbackScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PromotionShareScreen from '../screens/PromotionShareScreen';
 import NotificationFeedbackScreen from '../screens/NotificationFeedbackScreen';
 
 const getHeaderMode = () => (Platform.OS === 'ios' ? 'screen' : 'screen');
-const getInitialRoute = () => (firebaseAuth.currentUser ? 'map' : 'welcome');
 
 export default createStackNavigator(
     {
@@ -35,12 +34,12 @@ export default createStackNavigator(
         creditCard: { screen: CreditCardScreen },
         paymentMethod: { screen: PaymentMethodScreen },
         checkout: { screen: CheckoutScreen },
+        openFeedback: { screen: OpenFeedbackScreen },
         feedback: { screen: FeedbackScreen },
         promotionShare: { screen: PromotionShareScreen },
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: getInitialRoute(),
         navigationOptions: {
             tabBarVisible: false
         },

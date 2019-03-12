@@ -13,6 +13,7 @@ import ToggleBackButton from '../components/ToggleBackButton';
 import heroIcon from '../assets/icons/logo-black.png';
 import notificationIcon from '../assets/icons/notification.png';
 import cartIcon from '../assets/icons/cart.png';
+import infoIcon from '../assets/icons/info.png';
 import paymentIcon from '../assets/icons/payment.png';
 import historyIcon from '../assets/icons/history.png';
 import locationIcon from '../assets/icons/location.png';
@@ -57,6 +58,12 @@ class MenuContent extends Component {
     paymentMethod = () => {
         if (firebaseAuth.currentUser) {
             this.props.navigation.navigate('paymentMethod');
+        }
+    };
+
+    feedbackPress = () => {
+        if (firebaseAuth.currentUser) {
+            this.props.navigation.navigate('openFeedback');
         }
     };
 
@@ -128,14 +135,14 @@ class MenuContent extends Component {
                         image={paymentIcon}
                         title="Payment Methods"
                     />
-                    {/* <MenuItem
-                        route={getRoute(items, 'Feedback')}
-                        activeItemKey={activeItemKey}
-                        onPress={this.paymentMethod}
-                        image={paymentIcon}
-                        title="Give Us Feedback"
-                    />
                     <MenuItem
+                        route={getRoute(items, 'openFeedback')}
+                        activeItemKey={activeItemKey}
+                        onPress={this.feedbackPress}
+                        image={infoIcon}
+                        title="Help & Feedback"
+                    />
+                    {/*}<MenuItem
                         route={getRoute(items, 'Feedback')}
                         activeItemKey={activeItemKey}
                         onPress={this.paymentMethod}
@@ -226,7 +233,10 @@ const mapStateToProps = state => ({
     userReadable: getUserReadable(state),
     orderId: getOrderId(state)
 });
-const mapDispatchToProps = { openCustomerPopup, signOut };
+const mapDispatchToProps = {
+    openCustomerPopup,
+    signOut
+};
 
 export default connect(
     mapStateToProps,
