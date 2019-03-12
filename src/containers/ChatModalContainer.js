@@ -22,7 +22,6 @@ import Text from '../components/Text';
 import CloseButton from '../components/CloseButton';
 import Dimensions from '../constants/Dimensions';
 import logo from '../assets/icons/HastyOrangeIcon.png';
-import mark from '../assets/mark.png';
 
 import { emY } from '../utils/em';
 
