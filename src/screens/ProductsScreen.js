@@ -14,13 +14,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 import map from 'lodash.map';
 
 // Relative Imports
+import RequestPopup from '../components/RequestPopup';
 import ProductList from '../components/ProductList';
 import Text from '../components/Text';
 
 import Color from '../constants/Color';
+import Marketing from '../constants/Marketing';
 import { addToCart } from '../actions/cartActions';
 import { selectCategory } from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
+import {
+    sendProductRequest,
+    openRequestPopup,
+    closeRequestPopup
+} from '../actions/feedbackActions';
 
 import {
     getCartTotalQuantity,
@@ -36,6 +43,10 @@ import {
     getProductImages,
     getHeader
 } from '../selectors/productSelectors';
+import {
+    getRequestPopupVisible,
+    getRequestProduct
+} from '../selectors/feedbackSelectors';
 
 import { emY } from '../utils/em';
 
@@ -56,14 +67,30 @@ class ProductsScreen extends Component {
         }
     }
 
-    callAddToCart = product => {
+    handleAddToCart = product => {
         this.props.addToCart(product);
+    };
+
+    handleRequestProduct = product => {
+        this.props.openRequestPopup(product);
     };
 
     formatCategory = category => (category ? category.toUpperCase() : '');
 
     goToCheckout = () => {
         this.props.navigation.navigate('checkout');
+    };
+
+    closeRequestPopup = agree => {
+        const { product } = this.props;
+        const timestamp = Date.now();
+        if (agree) {
+            this.props.sendProductRequest(product.id, timestamp);
+            // If boosted, add to cart
+            // this.props.addToCart(product);
+            this.props.dropdownAlert(true, 'Thanks for the feedback!');
+        }
+        this.props.closeRequestPopup();
     };
 
     renderCategories = () => {
@@ -102,8 +129,11 @@ class ProductsScreen extends Component {
             cartQuantity,
             productPending,
             productsShown,
-            productImages
+            productImages,
+            requestPopupVisible,
+            product
         } = this.props;
+        const requestMessage = Marketing.requestProductMessage;
         const cartFill =
             cartQuantity > 0 ? { backgroundColor: Color.GREEN_500 } : {};
 
@@ -129,7 +159,8 @@ class ProductsScreen extends Component {
                             <ProductList
                                 products={productsShown}
                                 productImages={productImages}
-                                callAddToCart={this.callAddToCart}
+                                handleAddToCart={this.handleAddToCart}
+                                handleRequestProduct={this.handleRequestProduct}
                             />
                         ) : (
                             <View style={styles.container}>
@@ -149,6 +180,16 @@ class ProductsScreen extends Component {
                         </View>
                     </View>
                 )}
+                <RequestPopup
+                    openModal={requestPopupVisible}
+                    closeModal={this.closeRequestPopup}
+                    title={'Request to stock product'}
+                    message={requestMessage}
+                    confirmText={'Request Product'}
+                    productImages={productImages}
+                    product={product}
+                    showIcon
+                />
             </View>
         );
     }
@@ -235,16 +276,20 @@ const mapStateToProps = state => ({
     category: getCategory(state),
     categories: getCategories(state),
     productImages: getProductImages(state),
-    header: getHeader(state)
+    header: getHeader(state),
+    requestPopupVisible: getRequestPopupVisible(state),
+    product: getRequestProduct(state)
 });
 
 // TODO: Change formatting of mapDispatchToProps?
-const mapDispatchToProps = dispatch => ({
-    selectFilter: category => dispatch(selectCategory(category)),
-    addToCart: productInfo => dispatch(addToCart(productInfo)),
-    dropdownAlert: (visible, message) =>
-        dispatch(dropdownAlert(visible, message))
-});
+const mapDispatchToProps = {
+    selectFilter: selectCategory,
+    addToCart,
+    sendProductRequest,
+    dropdownAlert,
+    openRequestPopup,
+    closeRequestPopup
+};
 
 export default connect(
     mapStateToProps,

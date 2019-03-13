@@ -9,7 +9,12 @@ import { emY } from '../utils/em';
 
 class ProductList extends Component {
     renderProducts() {
-        const { products, callAddToCart, productImages } = this.props;
+        const {
+            products,
+            handleAddToCart,
+            handleRequestProduct,
+            productImages
+        } = this.props;
         return map(products, product => {
             const image = productImages[product.id] || '';
             const quantityTaken = product.quantityTaken;
@@ -25,7 +30,8 @@ class ProductList extends Component {
                     product={product}
                     inCart={inCart}
                     image={image}
-                    onPress={callAddToCart}
+                    handleAddToCart={handleAddToCart}
+                    handleRequestProduct={handleRequestProduct}
                 />
             );
         });

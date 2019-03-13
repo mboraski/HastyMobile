@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Button } from 'react-native-elements';
 
 // Relative Imports
 import Text from './Text';
@@ -20,7 +19,8 @@ const ProductDetail = ({
     product,
     inCart,
     image,
-    onPress
+    handleRequestProduct,
+    handleAddToCart
 }) => {
     const { productName, price } = product;
     const available = quantityAvailable > 0;
@@ -29,10 +29,12 @@ const ProductDetail = ({
     const productImage = image ? { uri: image } : defaultImage;
     const limitReached = () => {};
     const onClickHandler = () => {
-        if (consumed) {
+        if (consumed && available) {
             limitReached();
+        } else if (available) {
+            handleAddToCart(product);
         } else {
-            onPress(product);
+            handleRequestProduct(product);
         }
     };
 
