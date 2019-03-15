@@ -1,5 +1,4 @@
 import { Image } from 'react-native';
-import filter from 'lodash.filter';
 import forEach from 'lodash.foreach';
 import reduce from 'lodash.reduce';
 
@@ -9,7 +8,7 @@ import {
     setServiceFeeRate,
     setDeliveryFee
 } from './checkoutActions';
-import { updateCart } from './cartActions';
+import { updateCart, updateAvailableProducts } from './cartActions';
 import {
     getDocsFromCollection,
     getRefIdFromDoc,
@@ -44,17 +43,13 @@ export const listenCustomerBlockRef = dispatch =>
         'value',
         snapshot => {
             const data = snapshot.val();
-            // for some reason firebase has empty hashed database objects, this filters them
-            // TODO: figure out why firebase did this
-            const filteredProducts = {};
-            filteredProducts.instant = filter(
-                data.instant,
-                product => !!product
-            );
-            const { salesTaxRate, serviceFeeRate, deliveryFee } = data;
-            // dispatch(fetchProductImages(filteredProducts, dispatch));
-            // dispatch(fetchProductsSuccess(filteredProducts));
-            // dispatch(updateCart(filteredProducts));
+            const {
+                salesTaxRate,
+                serviceFeeRate,
+                deliveryFee,
+                products
+            } = data;
+            dispatch(updateAvailableProducts(products));
             dispatch(setSalesTaxRate(salesTaxRate));
             dispatch(setServiceFeeRate(serviceFeeRate));
             dispatch(setDeliveryFee(deliveryFee));
