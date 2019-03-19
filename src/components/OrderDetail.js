@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 import Text from './Text';
 import Color from '../constants/Color';
 import { emY } from '../utils/em';
+import defaultImage from '../assets/icons/logo-orange.png';
 
 const ICON_CONTAINER_SIZE = emY(2.1875);
 const ICON_SIZE = emY(0.75);
@@ -14,12 +15,13 @@ const ICON_SIZE = emY(0.75);
 const OrderDetail = props => {
     const { onAddOrder, onRemoveOrder, order, image } = props;
     const { productName, price, quantityTaken } = order;
-    const formattedPrice = `${Number.parseFloat(price / 100).toFixed(2)}`;
+    const formattedPrice = `${Number.parseFloat(price).toFixed(2)}`;
+    const productImage = image ? { uri: image } : defaultImage;
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={{ uri: image }}
+                source={productImage}
                 resizeMode="contain"
             />
             <View style={styles.content}>

@@ -21,7 +21,7 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Marketing from '../constants/Marketing';
 import { addToCart } from '../actions/cartActions';
-import { selectCategory } from '../actions/productActions';
+import { selectCategory, fetchProducts } from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     sendProductRequest,
@@ -36,7 +36,6 @@ import {
 import {
     getCategory,
     getItemCountUp,
-    getItemCountDown,
     getProductsPending,
     getProductsByCategory,
     getCategories,
@@ -56,14 +55,13 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
+    componentDidMount() {
+        this.props.fetchProducts();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
-        } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
-            this.props.dropdownAlert(
-                true,
-                'Some products are no longer available'
-            );
         }
     }
 
@@ -151,6 +149,7 @@ class ProductsScreen extends Component {
                     <View style={styles.container}>
                         <ScrollView
                             horizontal
+                            showsHorizontalScrollIndicator
                             contentContainerStyle={styles.filtersContent}
                         >
                             {this.renderCategories()}
@@ -183,7 +182,7 @@ class ProductsScreen extends Component {
                 <RequestPopup
                     openModal={requestPopupVisible}
                     closeModal={this.closeRequestPopup}
-                    title={'Request to stock product'}
+                    title={'Request we stock this product for you'}
                     message={requestMessage}
                     confirmText={'Request Product'}
                     productImages={productImages}
@@ -270,7 +269,6 @@ const mapStateToProps = state => ({
     cart: getCartInstantProducts(state),
     cartQuantity: getCartTotalQuantity(state),
     itemCountUp: getItemCountUp(state),
-    itemCountDown: getItemCountDown(state),
     productPending: getProductsPending(state),
     productsShown: getProductsByCategory(state),
     category: getCategory(state),
@@ -288,7 +286,8 @@ const mapDispatchToProps = {
     sendProductRequest,
     dropdownAlert,
     openRequestPopup,
-    closeRequestPopup
+    closeRequestPopup,
+    fetchProducts
 };
 
 export default connect(

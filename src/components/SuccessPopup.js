@@ -56,7 +56,7 @@ class SuccessPopup extends Component {
                 <Text style={PopupStyles.label}>{message}</Text>
                 <TouchableOpacity
                     onPress={() => this.closeModal(true)}
-                    style={[styles.button, { backgroundColor: Color.BLACK }]}
+                    style={[styles.button, { backgroundColor: Color.DEFAULT }]}
                 >
                     <Text style={[styles.buttonLabel, { color: Color.WHITE }]}>
                         {confirmText}

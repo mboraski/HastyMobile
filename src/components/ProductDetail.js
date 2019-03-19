@@ -12,19 +12,29 @@ import defaultImage from '../assets/icons/logo-orange.png';
 import Dimensions from '../constants/Dimensions';
 
 const ICON_SIZE = emY(1.3);
+
+const determineCta = (consumed, available) => {
+    let cta = 'Request We Stock';
+    if (consumed && available) {
+        cta = 'Limit Reached';
+    } else if (available) {
+        cta = 'Add to Cart';
+    }
+    return cta;
+};
+
 const ProductDetail = ({
     consumed,
     quantityAvailable,
     quantityTaken,
     product,
-    inCart,
     image,
     handleRequestProduct,
     handleAddToCart
 }) => {
     const { productName, price } = product;
     const available = quantityAvailable > 0;
-    const callToAction = available ? 'Add to Cart' : 'Request We Stock';
+    const callToAction = determineCta(consumed, available);
     const formattedPrice = `${Number.parseFloat(price).toFixed(2)}`;
     const productImage = image ? { uri: image } : defaultImage;
     const limitReached = () => {};
@@ -44,14 +54,8 @@ const ProductDetail = ({
             style={[Style.shadow, styles.container]}
         >
             <View style={[styles.quantityRow]}>
-                <Text
-                    style={[
-                        styles.quantity,
-                        available && styles.available,
-                        inCart && styles.inCart
-                    ]}
-                >
-                    {quantityTaken}
+                <Text style={[styles.quantity, available && styles.available]}>
+                    {available && quantityTaken}
                 </Text>
                 <Foundation
                     name={'plus'}
@@ -59,7 +63,7 @@ const ProductDetail = ({
                     style={[
                         styles.plusIcon,
                         available && styles.available,
-                        inCart && styles.inCart
+                        consumed && available && styles.consumed
                     ]}
                 />
             </View>
@@ -74,13 +78,7 @@ const ProductDetail = ({
                 </Text>
                 <Text style={[styles.price]}>${formattedPrice}</Text>
             </View>
-            <View
-                style={[
-                    styles.ctaButton,
-                    available && styles.ctaAvailable,
-                    inCart && styles.ctaInCart
-                ]}
-            >
+            <View style={[styles.ctaButton, available && styles.ctaAvailable]}>
                 <Text style={[styles.ctaButtonText]}>{callToAction}</Text>
             </View>
         </TouchableOpacity>
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
         marginBottom: emY(0.25)
     },
     button: {
-        backgroundColor: Color.BLUE_500
+        backgroundColor: Color.DEFAULT
     },
     ctaButton: {
         flex: 1,
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         justifyContent: 'center',
         paddingHorizontal: 3,
-        backgroundColor: Color.BLUE_500
+        backgroundColor: Color.DEFAULT
     },
     ctaButtonText: {
         color: Color.WHITE,
@@ -138,24 +136,21 @@ const styles = StyleSheet.create({
     },
     quantity: {
         fontSize: emY(1.1),
-        color: Color.BLUE_500,
+        color: Color.DEFAULT,
         right: 3
     },
     plusIcon: {
         marginRight: 5,
-        color: Color.BLUE_500
-    },
-    inCart: {
-        color: Color.GREEN_500
-    },
-    available: {
         color: Color.DEFAULT
     },
-    ctaInCart: {
-        backgroundColor: Color.GREEN_500
+    available: {
+        color: Color.GREEN_500
+    },
+    consumed: {
+        color: Color.GREY_300
     },
     ctaAvailable: {
-        backgroundColor: Color.DEFAULT
+        backgroundColor: Color.GREEN_500
     },
     image: {
         paddingTop: 10,

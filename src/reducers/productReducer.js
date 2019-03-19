@@ -15,7 +15,7 @@ export const initialState = {
     availableProducts: {
         instant: {}
     },
-    category: 'all',
+    category: 'beverage',
     productImages: {}
 };
 
@@ -31,7 +31,6 @@ export default function(state = initialState, action) {
         case FETCH_CUSTOMER_BLOCK_SUCCESS:
             return {
                 ...state,
-                availableProducts: action.payload,
                 error: null,
                 pending: false
             };

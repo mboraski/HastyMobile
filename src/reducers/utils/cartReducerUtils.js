@@ -60,38 +60,39 @@ const mergeCarts = (newCart, oldCart) => {
 };
 
 // TODO: finish
-const updateCartAvailables = (availableProducts, oldCart) => {
-    const netCart = { instant: {} };
+const updateCartAvailables = (availableInstantProducts, oldCart) => {
+    const netCart = { instant: oldCart.instant };
+    console.log('cartReducerUtils; updateCartAvailables; netCart: ', netCart);
     let itemCountUp = false;
     let itemCountDown = false;
-    forEach(availableProducts.instant, item => {
-        const oldItem = oldCart.instant[item.id];
+    forEach(availableInstantProducts, item => {
+        const oldItem = netCart.instant[item.id];
         if (oldItem) {
             // did the quantity available go up or down
-            const upOrDown = oldItem.quantityAvailable - item.quantityAvailable;
+            const upOrDown = item.quantityAvailable - oldItem.quantityAvailable;
             let newQuantityTaken = 0;
             if (item.quantityAvailable < oldItem.quantityTaken) {
                 newQuantityTaken = item.quantityAvailable;
             } else {
                 newQuantityTaken = oldItem.quantityTaken;
             }
-            if (upOrDown < 0) {
+            if (upOrDown >= 0) {
                 itemCountUp = true;
-            } else {
+            } else if (upOrDown < 0) {
                 itemCountDown = true;
-                netCart.instant[item.id] = {
-                    id: item.id,
-                    category: item.category,
-                    subCategories: item.subcategories || {},
-                    price: item.price,
-                    productName: item.productName,
-                    size: item.size || '',
-                    brand: item.brand || '',
-                    contractors: item.contractors || {},
-                    quantityAvailable: oldItem.quantityAvailable,
-                    quantityTaken: newQuantityTaken
-                };
             }
+            netCart.instant[item.id] = {
+                id: oldItem.id,
+                category: oldItem.category,
+                subCategories: oldItem.subcategories || {},
+                price: oldItem.price,
+                productName: oldItem.productName,
+                size: oldItem.size || '',
+                brand: oldItem.brand || '',
+                contractors: item.contractors || {},
+                quantityAvailable: item.quantityAvailable,
+                quantityTaken: newQuantityTaken
+            };
         } else {
             // Log Sentry
             console.warn('Contractor has product that consumer does not');

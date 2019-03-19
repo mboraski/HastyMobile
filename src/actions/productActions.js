@@ -33,7 +33,7 @@ const STORAGE_REF =
     process.env.ENV === 'prod' ? PROD_STORAGE_REF : TEST_STORAGE_REF;
 
 export const fetchCustomerBlock = dispatch => {
-    dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
+    // dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });
     return listenCustomerBlockRef(dispatch);
 };
 
@@ -43,29 +43,24 @@ export const listenCustomerBlockRef = dispatch =>
         'value',
         snapshot => {
             const data = snapshot.val();
-            const {
-                salesTaxRate,
-                serviceFeeRate,
-                deliveryFee,
-                products
-            } = data;
-            dispatch(updateAvailableProducts(products));
+            const { salesTaxRate, serviceFeeRate, deliveryFee, instant } = data;
+            dispatch(updateAvailableProducts(instant));
             dispatch(setSalesTaxRate(salesTaxRate));
             dispatch(setServiceFeeRate(serviceFeeRate));
             dispatch(setDeliveryFee(deliveryFee));
+            dispatch(fetchCustomerBlockSuccess());
         },
-        error => dispatch(fetchProductsError(error))
+        error => dispatch(fetchCustomerBlockError(error))
     );
 
 export const unListenCustomerBlock = () =>
     rtdb.ref(CUSTOMER_BLOCK_PRODUCTS_REF).off();
 
-export const fetchCustomerBlockSuccess = block => ({
-    type: FETCH_CUSTOMER_BLOCK_SUCCESS,
-    payload: block
+export const fetchCustomerBlockSuccess = () => ({
+    type: FETCH_CUSTOMER_BLOCK_SUCCESS
 });
 
-export const fetchCustomerBlockFailure = error => ({
+export const fetchCustomerBlockError = error => ({
     type: FETCH_CUSTOMER_BLOCK_ERROR,
     payload: error
 });

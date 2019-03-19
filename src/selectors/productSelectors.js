@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import filter from 'lodash.filter';
 import reduce from 'lodash.reduce';
+import map from 'lodash.map';
 
 import { getCartInstantProducts } from './cartSelectors';
 
@@ -36,12 +37,34 @@ export const getCategories = createSelector(
 export const getProductsByCategory = createSelector(
     [getCategory, getCartInstantProducts],
     (category, instantProducts) => {
+        let result = [];
         if (instantProducts) {
-            return filter(
-                instantProducts,
-                product => product.category === category.toLowerCase()
-            );
+            if (category) {
+                result = filter(
+                    instantProducts,
+                    product => product.category === category.toLowerCase()
+                ).sort(a => {
+                    let sortValue;
+                    if (a.quantityAvailable) {
+                        sortValue = -1;
+                    } else {
+                        sortValue = 1;
+                    }
+                    return sortValue;
+                });
+            } else {
+                result = map(instantProducts, product => product).sort(a => {
+                    let sortValue;
+                    if (a.quantityAvailable) {
+                        sortValue = -1;
+                    } else {
+                        sortValue = 1;
+                    }
+                    return sortValue;
+                });
+            }
         }
+        return result;
     }
 );
 

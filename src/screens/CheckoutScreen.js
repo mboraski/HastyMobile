@@ -124,7 +124,7 @@ class CheckoutScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.orderId && nextProps.orderId) {
+        if (nextProps.orderId) {
             this.props.navigation.navigate('deliveryStatus');
         }
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
@@ -271,18 +271,14 @@ class CheckoutScreen extends Component {
             changeLocationPopupVisible
         } = this.state;
         const pureCartTotalFormatted = pureCartTotal
-            ? (pureCartTotal / 100).toFixed(2)
+            ? pureCartTotal.toFixed(2)
             : 0;
-        const serviceFeeFormatted = serviceFee
-            ? (serviceFee / 100).toFixed(2)
-            : 0;
-        const deliveryFeeFormatted = deliveryFee
-            ? (deliveryFee / 100).toFixed(2)
-            : 0;
-        const taxFormatted = tax ? (tax / 100).toFixed(2) : 0;
+        const serviceFeeFormatted = serviceFee ? serviceFee.toFixed(2) : 0;
+        const deliveryFeeFormatted = deliveryFee ? deliveryFee.toFixed(2) : 0;
+        const taxFormatted = tax ? tax.toFixed(2) : 0;
         let totalCostFormatted = 0;
         if (cartQuantity > 0) {
-            totalCostFormatted = totalCost ? (totalCost / 100).toFixed(2) : 0;
+            totalCostFormatted = totalCost ? totalCost.toFixed(2) : 0;
         }
         const placeholderNotes = `(Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)`;
         const discountStyles = discount

@@ -38,7 +38,7 @@ class MenuContent extends Component {
     };
 
     checkoutPress = () => {
-        if (firebaseAuth.currentUser && !this.props.orderId) {
+        if (firebaseAuth.currentUser) {
             this.props.navigation.navigate('checkout');
         }
     };
