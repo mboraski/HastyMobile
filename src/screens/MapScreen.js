@@ -140,6 +140,10 @@ class MapScreen extends Component {
         this.props.toggleSearch();
     };
 
+    handleCloseContinuePopup = () => {
+        this.props.nullifyError();
+    };
+
     selectPrediction = prediction => {
         this.props.saveAddress(prediction.description);
         this.props.toggleSearch();
@@ -170,10 +174,6 @@ class MapScreen extends Component {
                 searchRendered: searchVisible
             });
         });
-    };
-
-    handleCloseContinuePopup = () => {
-        this.props.nullifyError();
     };
 
     sendLocationFeedback = agree => {
@@ -282,11 +282,6 @@ class MapScreen extends Component {
                     logo
                     showIcon
                 />
-                {/*<ContinuePopup
-                    isOpen={!!error}
-                    closeModal={this.handleCloseContinuePopup}
-                    message={errorMessage}
-                />*/}
             </View>
         );
     }
@@ -316,13 +311,16 @@ const styles = StyleSheet.create({
         right: 0
     },
     button: {
-        backgroundColor: '#000',
-        paddingVertical: emY(1.25)
+        backgroundColor: Color.DEFAULT,
+        borderRadius: 5,
+        justifyContent: 'center',
+        height: emY(3.9),
+        padding: 0
     },
     buttonText: {
-        fontWeight: 'bold',
-        fontSize: emY(1.25),
-        fontFamily: 'roboto'
+        color: Color.WHITE,
+        fontSize: emY(1.5),
+        textAlign: 'center'
     },
     inputContainer: {
         position: 'absolute',

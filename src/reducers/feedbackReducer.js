@@ -1,16 +1,32 @@
 import {
     OPEN_FEEDBACK_REQUEST,
     OPEN_FEEDBACK_SUCCESS,
-    OPEN_FEEDBACK_ERROR
+    OPEN_FEEDBACK_ERROR,
+    OPEN_REQUEST_POPUP,
+    CLOSE_REQUEST_POPUP
 } from '../actions/feedbackActions';
 
 const initialState = {
     pending: false,
-    error: {}
+    error: {},
+    requestPopupVisible: false,
+    product: {}
 };
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case OPEN_REQUEST_POPUP:
+            return {
+                ...state,
+                requestPopupVisible: true,
+                product: action.payload
+            };
+        case CLOSE_REQUEST_POPUP:
+            return {
+                ...state,
+                requestPopupVisible: false,
+                product: {}
+            };
         case OPEN_FEEDBACK_REQUEST:
             return {
                 ...state,

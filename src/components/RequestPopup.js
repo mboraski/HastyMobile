@@ -39,10 +39,12 @@ class SuccessPopup extends Component {
             showIcon,
             confirmText,
             cancelText,
-            logo,
+            productImages,
+            product,
             ...rest
         } = this.props;
-        const icon = logo ? logoIcon : checkIcon;
+        const productImageUrl = productImages[product.id];
+        const icon = product ? { uri: productImageUrl } : logoIcon;
         return (
             <Popup {...rest} closeModal={() => this.closeModal(false)}>
                 <Text style={PopupStyles.label}>{title}</Text>

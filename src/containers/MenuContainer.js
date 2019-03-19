@@ -10,7 +10,7 @@ import MenuItem from '../components/MenuItem';
 import Text from '../components/Text';
 import ToggleBackButton from '../components/ToggleBackButton';
 
-import heroIcon from '../assets/icons/logo-black.png';
+import heroIcon from '../assets/icons/logo-orange.png';
 import notificationIcon from '../assets/icons/notification.png';
 import cartIcon from '../assets/icons/cart.png';
 import infoIcon from '../assets/icons/info.png';
@@ -38,7 +38,7 @@ class MenuContent extends Component {
     };
 
     checkoutPress = () => {
-        if (firebaseAuth.currentUser && !this.props.orderId) {
+        if (firebaseAuth.currentUser) {
             this.props.navigation.navigate('checkout');
         }
     };

@@ -11,8 +11,8 @@ export const initialState = {
     notes: '',
     salesTaxRate: 0.0825,
     serviceFeeRate: 0.2,
-    deliveryFee: 899,
-    discount: 899
+    deliveryFee: 8.99,
+    discount: 8.99
 };
 
 export default (state = initialState, action) => {

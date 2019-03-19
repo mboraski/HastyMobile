@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
 // Relative Imports
+import LoadingScreen from '../screens/LoadingScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -23,6 +24,7 @@ const getHeaderMode = () => (Platform.OS === 'ios' ? 'screen' : 'screen');
 
 export default createStackNavigator(
     {
+        loading: { screen: LoadingScreen },
         welcome: { screen: WelcomeScreen },
         auth: { screen: AuthScreen },
         profile: { screen: ProfileScreen },
@@ -40,6 +42,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
+        initialRouteName: 'loading',
         navigationOptions: {
             tabBarVisible: false
         },

@@ -1,14 +1,15 @@
 import {
     addProductToCart,
     removeProductFromCart,
-    mutateProductsIntoCart,
-    mergeCarts
+    mergeCarts,
+    updateCartAvailables
 } from './utils/cartReducerUtils';
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     UPDATE_CART,
-    CLEAR_CART
+    CLEAR_CART,
+    UPDATE_AVAILABLE_PRODUCTS
 } from '../actions/cartActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -61,8 +62,16 @@ export default (state = initialState, action) => {
             };
         }
         case UPDATE_CART: {
-            const translate = mutateProductsIntoCart(action.payload);
-            const merge = mergeCarts(translate, state.products);
+            const merge = mergeCarts(action.payload, state.products);
+            return {
+                ...state,
+                products: merge.netCart,
+                itemCountUp: merge.itemCountUp,
+                itemCountDown: merge.itemCountDown
+            };
+        }
+        case UPDATE_AVAILABLE_PRODUCTS: {
+            const merge = updateCartAvailables(action.payload, state.products);
             return {
                 ...state,
                 products: merge.netCart,

@@ -30,6 +30,7 @@ const LOCATION_FEEDBACK_REF = 'locationFeedback';
 export const determineDeliveryDistance = region => async dispatch => {
     try {
         dispatch({ type: DETERMINE_DELIVERY_DISTANCE_REQUEST });
+        // bc there is only one Hero, we are looking at his current set location
         const contractorRegionRef = rtdb.ref(CONTRACTOR_REGION_REF);
         await contractorRegionRef.once(
             'value',
@@ -45,8 +46,8 @@ export const determineDeliveryDistance = region => async dispatch => {
                     });
                     const delivery = result.rows[0].elements[0];
                     const duration = delivery.duration;
-                    if (duration.value > 60 * 15) {
-                        // TODO: log user wanted this region to the server
+                    // Is user within 20 min delivery distance of Hero?
+                    if (duration.value > 60 * 20) {
                         dispatch(
                             dropdownAlert(
                                 true,
@@ -55,10 +56,12 @@ export const determineDeliveryDistance = region => async dispatch => {
                         );
                         dispatch({ type: NO_HEROES_AVAILABLE });
                     } else {
+                        // Save estimated delivery distance and time
                         dispatch({
                             type: DETERMINE_DELIVERY_DISTANCE_SUCCESS,
                             payload: delivery
                         });
+                        // Fetch the products made available by Hero(es) to this location
                         fetchCustomerBlock(dispatch);
                     }
                 } else {

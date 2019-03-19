@@ -17,7 +17,6 @@ import SignUpFormContainer from '../containers/SignUpFormContainer';
 import { facebookLogin, googleLogin } from '../actions/authActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
-import BackButton from '../components/BackButton';
 import { emY } from '../utils/em';
 import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 

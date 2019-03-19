@@ -15,7 +15,10 @@ import {
     setUserExpoPushToken
 } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import { unListenCustomerBlock } from '../actions/productActions';
+import {
+    unListenCustomerBlock,
+    fetchProducts
+} from '../actions/productActions';
 import {
     unListenOrderStatus,
     unListenToOrderFulfillment,
@@ -26,12 +29,12 @@ import {
     listenToOrderError,
     checkOpenOrders
 } from '../actions/orderActions';
-
 import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
     componentWillMount() {
         this.props.listenToAuthChanges();
+        // this.props.fetchProducts();
     }
 
     async componentDidMount() {
@@ -74,7 +77,6 @@ class RootContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.orderId) {
-            console.log('new order id: ', nextProps.orderId);
             this.props.listenToOrderFulfillment(nextProps.orderId);
             this.props.listenToOrderStatus(nextProps.orderId);
             this.props.listenToOrderError(nextProps.orderId);
@@ -103,11 +105,7 @@ class RootContainer extends Component {
             dropdownAlertVisible,
             dropdownAlertText
         } = this.props;
-        // const navigation = addNavigationHelpers({
-        //     dispatch,
-        //     state: nav
-        //     // addListener: reduxBoundAddListener
-        // });
+
         return (
             <View style={styles.container}>
                 <MenuNavigator />
@@ -134,7 +132,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    user: state.auth.user,
     authExpirationDate: state.auth.expirationDate,
     customerPopupVisible: state.ui.customerPopupVisible,
     dropdownAlertVisible: state.ui.dropdownAlertVisible,
@@ -157,7 +154,8 @@ const mapDispatchToProps = {
     listenToOrderStatus,
     listenToOrderFulfillment,
     listenToOrderError,
-    checkOpenOrders
+    checkOpenOrders,
+    fetchProducts
 };
 
 export default connect(

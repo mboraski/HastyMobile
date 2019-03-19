@@ -21,8 +21,8 @@
         "icon": "./src/assets/icons/HastyAppleStoreIcon.png",
         "splash": {
             "backgroundColor": "#f5a623",
-            "resizeMode": "cover",
-            "image": "./src/assets/splash.png"
+            "resizeMode": "contain",
+            "image": "./src/assets/splash-screen.png"
         },
         "packagerOpts": {
             "assetExts": ["ttf", "mp4"]

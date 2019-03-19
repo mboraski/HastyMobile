@@ -15,7 +15,7 @@ class OrderList extends Component {
         let prevDeliveryType;
         return map(orders, order => {
             // TODO: this is a bandaid
-            const image = orderImages ? orderImages[order.productName] : '';
+            const image = orderImages[order.id] || '';
             let renderMark;
             if (prevDeliveryType !== 'instant') {
                 renderMark = (
@@ -27,6 +27,7 @@ class OrderList extends Component {
                             <Text style={styles.valueLabel}>{'Instant'}</Text>
                         </View>
                         <OrderDetail
+                            key={order.id}
                             order={order}
                             image={image}
                             onAddOrder={() => onAddOrder(order)}
@@ -39,6 +40,7 @@ class OrderList extends Component {
                 renderMark = (
                     <View key={`instant-${order.productName}`}>
                         <OrderDetail
+                            key={order.id}
                             order={order}
                             image={image}
                             onAddOrder={() => onAddOrder(order)}
