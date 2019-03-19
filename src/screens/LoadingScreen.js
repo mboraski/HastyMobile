@@ -21,7 +21,7 @@ class LoadingScreen extends Component {
         }
     }
 
-    componentWillUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         const { authLoaded, user, navigation } = this.props;
         if (!prevProps.authLoaded && authLoaded) {
             return user && firebaseAuth.currentUser
