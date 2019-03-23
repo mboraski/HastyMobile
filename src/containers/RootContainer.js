@@ -32,12 +32,10 @@ import {
 import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
-    componentWillMount() {
-        this.props.listenToAuthChanges();
-        // this.props.fetchProducts();
-    }
-
     async componentDidMount() {
+        this.props.listenToAuthChanges();
+        this.props.fetchProducts();
+
         /* Push Notification Permissions Start */
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
