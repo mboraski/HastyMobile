@@ -118,7 +118,10 @@ class MapScreen extends Component {
     });
 
     confirmLocationPress = () => {
-        this.props.determineDeliveryDistance(this.props.region);
+        this.props.determineDeliveryDistance(
+            this.props.region,
+            this.props.navigation
+        );
     };
 
     handleRegionChange = region => {

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Permissions, Notifications, Updates } from 'expo';
 
 // Relative Imports
+import { persistor } from '../store';
 import MenuNavigator from '../navigations/MenuNavigator';
 import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
@@ -65,6 +66,7 @@ class RootContainer extends Component {
         if (!__DEV__) {
             const update = await Updates.checkForUpdateAsync();
             if (update.isAvailable) {
+                persistor.purge();
                 Alert.alert('This app is out of date.', 'Update?', [
                     { text: 'Cancel' },
                     { text: 'Confirm', onPress: () => Updates.reload() }

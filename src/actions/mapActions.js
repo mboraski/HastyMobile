@@ -27,7 +27,10 @@ export const DETERMINE_DELIVERY_DISTANCE_ERROR =
 const CONTRACTOR_REGION_REF = 'activeProducts/US/TX/Austin/contractorRegion';
 const LOCATION_FEEDBACK_REF = 'locationFeedback';
 
-export const determineDeliveryDistance = region => async dispatch => {
+export const determineDeliveryDistance = (
+    region,
+    navigation
+) => async dispatch => {
     try {
         dispatch({ type: DETERMINE_DELIVERY_DISTANCE_REQUEST });
         // bc there is only one Hero, we are looking at his current set location
@@ -63,6 +66,8 @@ export const determineDeliveryDistance = region => async dispatch => {
                         });
                         // Fetch the products made available by Hero(es) to this location
                         fetchCustomerBlock(dispatch);
+                        // navigate to product screen
+                        navigation.navigate('products');
                     }
                 } else {
                     dispatch(

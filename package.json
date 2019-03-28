@@ -22,10 +22,12 @@
         "precommit": "pretty-quick --staged",
         "package": "npm prune --production && npm dedupe",
         "test": "node_modules/.bin/jest",
-        "start": "ENV=test expo start --lan --dev",
-        "start-localhost": "ENV=test expo start --localhost --dev",
-        "start-offline": "ENV=test expo start --offline",
-        "publish": "ENV=prod expo publish"
+        "start": "expo start --lan --dev",
+        "start-localhost": "expo start --localhost --dev",
+        "start-offline": "expo start --offline",
+        "publish": "expo publish --release-channel",
+        "publish-prod-v1": "expo publish --release-channel prod-v1",
+        "build-prod-v1": "expo build --release-channel prod-v1"
     },
     "jest": {
         "preset": "jest-expo",
