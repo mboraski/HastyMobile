@@ -124,6 +124,17 @@ class CheckoutScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.orderId) {
+            this.props.navigation.navigate('deliveryStatus');
+        }
+        if (!this.props.itemCountUp && nextProps.itemCountUp) {
+            this.props.dropdownAlert(true, 'More products available!');
+        } else if (!this.props.itemCountDown && nextProps.itemCountDown) {
+            this.props.dropdownAlert(
+                true,
+                'Some products are no longer available'
+            );
+        }
         if (nextProps.paymentMethod && nextProps.paymentMethod.card) {
             const paymentMethod = nextProps.paymentMethod;
             this.setState({
@@ -137,15 +148,6 @@ class CheckoutScreen extends Component {
                     />
                 )
             });
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!prevProps.orderId && this.props.orderId) {
-            this.props.navigation.navigate('deliveryStatus');
-        }
-        if (!prevProps.itemCountUp && this.props.itemCountUp) {
-            this.props.dropdownAlert(true, 'More products available!');
         }
     }
 
@@ -206,14 +208,13 @@ class CheckoutScreen extends Component {
             region
         } = this.props;
         if (paymentMethod) {
-            const total = Math.round(totalCost * 100); // remove and replace with storing all in cents
             const source = paymentMethod.id;
             const description = `Charge for ${email}`;
             this.props.submitPayment({
                 stripeCustomerId,
                 description,
                 serviceFee,
-                totalCost: total,
+                totalCost,
                 source,
                 notes,
                 cart,
@@ -416,6 +417,10 @@ class CheckoutScreen extends Component {
                                         </Text>
                                     </View>
                                 )}
+                            <View style={styles.meta}>
+                                <Text style={styles.label}>Tax:</Text>
+                                <Text style={styles.cost}>${taxFormatted}</Text>
+                            </View>
                             {!!serviceFee && (
                                 <View style={styles.meta}>
                                     <Text style={styles.label}>
@@ -426,10 +431,6 @@ class CheckoutScreen extends Component {
                                     </Text>
                                 </View>
                             )}
-                            <View style={styles.meta}>
-                                <Text style={styles.label}>Tax:</Text>
-                                <Text style={styles.cost}>${taxFormatted}</Text>
-                            </View>
                             <View style={styles.metaTotal}>
                                 <Text style={styles.labelTotal}>Total:</Text>
                                 <Text style={styles.costTotal}>

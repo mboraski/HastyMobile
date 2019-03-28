@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         paddingBottom: emY(1)
     },
     signUpAddPaymentMethodText: {
-        textAlign: 'center'
+        fontFamily: 'goodtimes'
     },
     activityIndicator: {
         marginVertical: 15
