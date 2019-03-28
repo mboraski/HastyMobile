@@ -43,23 +43,24 @@ export const getCartPureTotal = createSelector([getCartOrders], orders =>
     orders.reduce((acc, order) => acc + order.price * order.quantityTaken, 0)
 );
 
-export const getCartServiceFee = createSelector(
-    [getCartPureTotal, getServiceFeeRate],
-    (total, serviceFeeRate) => total * serviceFeeRate
-);
-
-export const getCartPreTaxTotal = createSelector(
-    [getCartPureTotal, getCartServiceFee, getDeliveryFee, getDiscount],
-    (total, serviceFee, deliveryFee, discount) =>
-        total + serviceFee + deliveryFee - discount
-);
-
 export const getCartTax = createSelector(
     [getCartPureTotal, getSalesTaxRate],
     (total, taxRate) => total * taxRate
 );
 
+export const getCartServiceFee = createSelector(
+    [getCartPureTotal, getCartTax, getServiceFeeRate],
+    (total, tax, serviceFeeRate) => (total + tax) * serviceFeeRate
+);
+
 export const getCartCostTotal = createSelector(
-    [getCartPreTaxTotal, getCartTax],
-    (total, tax) => total + tax
+    [
+        getCartPureTotal,
+        getCartTax,
+        getCartServiceFee,
+        getDeliveryFee,
+        getDiscount
+    ],
+    (total, tax, serviceFee, deliveryFee, discount) =>
+        total + tax + serviceFee + deliveryFee - discount
 );
