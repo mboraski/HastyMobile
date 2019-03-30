@@ -1,9 +1,10 @@
 import { Image } from 'react-native';
-// import { Constants } from 'expo';
+import { Constants } from 'expo';
 import forEach from 'lodash.foreach';
 import reduce from 'lodash.reduce';
 
 import { rtdb, storage, db } from '../../firebase';
+import { getConfig } from '../../config-utils';
 import {
     setSalesTaxRate,
     setServiceFeeRate,
@@ -27,10 +28,13 @@ export const FETCH_CUSTOMER_BLOCK_ERROR = 'fetch_customer_block_error';
 export const SET_IMAGE = 'set_image';
 
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
-// const TEST_STORAGE_REF = 'gs://hasty-test.appspot.com/product_images';
+const TEST_STORAGE_REF = 'gs://hasty-test.appspot.com/product_images';
 const PROD_STORAGE_REF = 'gs://hasty-14d18.appspot.com/product_images';
 const PRODUCTS_REF = 'products';
-const STORAGE_REF = PROD_STORAGE_REF;
+const STORAGE_REF =
+    getConfig(Constants.manifest.releaseChannel) === 'prod'
+        ? PROD_STORAGE_REF
+        : TEST_STORAGE_REF;
 
 export const fetchCustomerBlock = dispatch => {
     // dispatch({ type: FETCH_CUSTOMER_BLOCK_REQUEST });

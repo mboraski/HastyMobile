@@ -141,9 +141,6 @@ class CheckoutScreen extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!prevProps.orderId && this.props.orderId) {
-            this.props.navigation.navigate('deliveryStatus');
-        }
         if (!prevProps.itemCountUp && this.props.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
         }
@@ -203,7 +200,8 @@ class CheckoutScreen extends Component {
             notes,
             cart,
             email,
-            region
+            region,
+            navigation
         } = this.props;
         if (paymentMethod) {
             const total = Math.round(totalCost * 100); // remove and replace with storing all in cents
@@ -219,7 +217,8 @@ class CheckoutScreen extends Component {
                 cart,
                 firstName,
                 lastName,
-                region
+                region,
+                navigation
             });
         } else {
             this.props.dropdownAlert(true, 'Go to Menu to add payment method');

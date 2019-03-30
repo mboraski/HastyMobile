@@ -31,7 +31,8 @@ export const submitPayment = values => async dispatch => {
         firstName,
         lastName,
         region,
-        delivery
+        delivery,
+        navigation
     } = values;
     try {
         if (!stripeCustomerId || !source || !totalCost || !cart) {
@@ -57,6 +58,7 @@ export const submitPayment = values => async dispatch => {
             const { orderId } = res.data;
             dispatch({ type: SUBMIT_PAYMENT_SUCCESS });
             dispatch({ type: ORDER_CREATION_SUCCESS, payload: orderId });
+            navigation.navigate('deliveryStatus');
         }
         return;
     } catch (error) {

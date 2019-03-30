@@ -1,6 +1,6 @@
 {
     "name": "HastyMobile",
-    "version": "2.1.0",
+    "version": "3.0.0",
     "description": "Hasty Consumer Mobile App",
     "license": "UNLICENSED",
     "author": {
@@ -25,10 +25,10 @@
         "start": "expo start --lan --dev",
         "start-localhost": "expo start --localhost --dev",
         "start-offline": "expo start --offline",
-        "publish-test-v1": "expo publish --release-channel test-v1",
-        "publish-prod-v1": "expo publish --release-channel prod-v1",
-        "build-test-v1": "expo build --release-channel test-v1",
-        "build-prod-v1": "expo build --release-channel prod-v1"
+        "publish-test-v3": "expo publish --release-channel test-v3",
+        "publish-prod-v3": "expo publish --release-channel prod-v3",
+        "build-test-v3": "expo build --release-channel test-v3",
+        "build-prod-v3": "expo build --release-channel prod-v3"
     },
     "jest": {
         "preset": "jest-expo",

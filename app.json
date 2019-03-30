@@ -5,7 +5,7 @@
         "slug": "hasty-mobile",
         "privacy": "unlisted",
         "sdkVersion": "30.0.0",
-        "version": "2.1.0",
+        "version": "3.0.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",
         "assetBundlePatterns": [
@@ -60,7 +60,7 @@
         },
         "android": {
             "package": "com.spartanspeedofservice.hastymobile",
-            "versionCode": 2,
+            "versionCode": 3,
             "config": {
                 "googleMaps": {
                     "apiKey": "AIzaSyCK4OMLhwGsATQtxrwQG5MV5HadfIwG5z8"
