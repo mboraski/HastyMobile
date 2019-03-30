@@ -1,6 +1,6 @@
 {
     "name": "HastyMobile",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "Hasty Consumer Mobile App",
     "license": "UNLICENSED",
     "author": {
@@ -22,10 +22,13 @@
         "precommit": "pretty-quick --staged",
         "package": "npm prune --production && npm dedupe",
         "test": "node_modules/.bin/jest",
-        "start": "ENV=test expo start --lan --dev",
-        "start-localhost": "ENV=test expo start --localhost --dev",
-        "start-offline": "ENV=test expo start --offline",
-        "publish": "ENV=prod expo publish"
+        "start": "expo start --lan --dev",
+        "start-localhost": "expo start --localhost --dev",
+        "start-offline": "expo start --offline",
+        "publish-test-v3": "expo publish --release-channel test-v3",
+        "publish-prod-v3": "expo publish --release-channel prod-v3",
+        "build-test-v3": "expo build --release-channel test-v3",
+        "build-prod-v3": "expo build --release-channel prod-v3"
     },
     "jest": {
         "preset": "jest-expo",

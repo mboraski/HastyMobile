@@ -101,9 +101,6 @@ class MapScreen extends Component {
         ) {
             this.props.navigation.navigate('products');
         }
-        if (this.props.productsError) {
-            this.props.dropdownAlert(true, ERRORS['001']);
-        }
     }
 
     onMapReady = () => {
@@ -121,7 +118,10 @@ class MapScreen extends Component {
     });
 
     confirmLocationPress = () => {
-        this.props.determineDeliveryDistance(this.props.region);
+        this.props.determineDeliveryDistance(
+            this.props.region,
+            this.props.navigation
+        );
     };
 
     handleRegionChange = region => {

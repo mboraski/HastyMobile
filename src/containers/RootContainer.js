@@ -15,10 +15,7 @@ import {
     setUserExpoPushToken
 } from '../actions/authActions';
 import { closeCustomerPopup, dropdownAlert } from '../actions/uiActions';
-import {
-    unListenCustomerBlock,
-    fetchProducts
-} from '../actions/productActions';
+import { unListenCustomerBlock } from '../actions/productActions';
 import {
     unListenOrderStatus,
     unListenToOrderFulfillment,
@@ -32,12 +29,9 @@ import {
 import { getOrderId } from '../selectors/orderSelectors';
 
 class RootContainer extends Component {
-    componentWillMount() {
-        this.props.listenToAuthChanges();
-        // this.props.fetchProducts();
-    }
-
     async componentDidMount() {
+        this.props.listenToAuthChanges();
+
         /* Push Notification Permissions Start */
         const { status: existingStatus } = await Permissions.getAsync(
             Permissions.NOTIFICATIONS
@@ -154,8 +148,7 @@ const mapDispatchToProps = {
     listenToOrderStatus,
     listenToOrderFulfillment,
     listenToOrderError,
-    checkOpenOrders,
-    fetchProducts
+    checkOpenOrders
 };
 
 export default connect(

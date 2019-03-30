@@ -62,7 +62,6 @@ const mergeCarts = (newCart, oldCart) => {
 // TODO: finish
 const updateCartAvailables = (availableInstantProducts, oldCart) => {
     const netCart = { instant: oldCart.instant };
-    console.log('cartReducerUtils; updateCartAvailables; netCart: ', netCart);
     let itemCountUp = false;
     let itemCountDown = false;
     forEach(availableInstantProducts, item => {
