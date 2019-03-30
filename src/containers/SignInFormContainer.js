@@ -3,8 +3,7 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    ActivityIndicator,
-    Modal
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';

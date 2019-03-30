@@ -19,7 +19,10 @@ import {
     SIGNOUT_FAIL,
     USER_READABLE_SUCCESS,
     UPDATE_SIGNIN_DELAY,
-    AUTH_NO_LOADED
+    AUTH_NO_LOADED,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSSWORD_SUCCESS,
+    RESET_PASSSWORD_ERROR
 } from '../actions/authActions';
 
 const initialState = {
@@ -120,6 +123,12 @@ export default function(state = initialState, action) {
             const newValue = calculateSignInDelay(payload);
             return { ...state, signInDelay: newValue };
         }
+        case RESET_PASSWORD_REQUEST:
+            return { ...state, pending: true };
+        case RESET_PASSSWORD_SUCCESS:
+            return { ...state, pending: false };
+        case RESET_PASSSWORD_ERROR:
+            return { ...state, pending: false, error: payload };
         default:
             return state;
     }

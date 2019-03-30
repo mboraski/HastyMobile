@@ -23,18 +23,23 @@ import validEmail from '../validation/validEmail';
 import { emY } from '../utils/em';
 import { formatError } from '../utils/errors';
 
-class ResetPasswordContainer extends Component {
+class ResetPasswordFormContainer extends Component {
+    state = { resetModalVisible: false };
     toggleResetModal = () => {
         this.setState(prevState => ({
             resetModalVisible: !prevState.resetModalVisible
         }));
     };
     render() {
+        const { handleSubmit } = this.props;
         return (
             <View>
                 <Text>Forgot your password?</Text>
-                <TouchableOpacity onPress={this.toggleResetModal}>
-                    <Text>Reset</Text>
+                <TouchableOpacity
+                    style={[styles.button, styles.buttonMargin]}
+                    onPress={this.toggleResetModal}
+                >
+                    <Text style={styles.buttonText}>Reset</Text>
                 </TouchableOpacity>
                 <Modal
                     animationType="slide"
@@ -44,31 +49,32 @@ class ResetPasswordContainer extends Component {
                     <View
                         style={{
                             flex: 1,
-                            justifyContent: 'center',
-                            alignItems: 'center'
+                            justifyContent: 'center'
                         }}
                     >
-                        <TextInput
-                            style={{
-                                height: 40,
-                                width: 300,
-                                borderColor: 'gray',
-                                borderWidth: 1,
-                                textAlign: 'center'
-                            }}
-                            onChangeText={text =>
-                                this.setState({ resetEmail: text })
-                            }
-                            value={this.state.resetEmail}
-                            keyboardType="email-address"
-                        />
+                        <View style={styles.formInputs}>
+                            <InlineLabelTextInputField
+                                autoCapitalize={'none'}
+                                containerStyle={styles.fieldContainer}
+                                name="email"
+                                label="Email"
+                                keyboardType="email-address"
+                                validate={[required, validEmail]}
+                            />
+                        </View>
                         <TouchableOpacity
-                            onPress={() => resetPassword(this.state.resetEmail)}
+                            style={[styles.button, styles.buttonMargin]}
+                            onPress={handleSubmit(resetPassword)}
                         >
-                            <Text>Send Reset Email</Text>
+                            <Text style={styles.buttonText}>
+                                Send Reset Email
+                            </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this.toggleResetModal}>
-                            <Text>Cancel</Text>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonMargin]}
+                            onPress={this.toggleResetModal}
+                        >
+                            <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </Modal>
@@ -76,3 +82,67 @@ class ResetPasswordContainer extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    authState: {
+        paddingBottom: emY(2)
+    },
+    container: {
+        flex: 1,
+        paddingHorizontal: 20,
+        marginBottom: 15
+    },
+    formInputs: {
+        marginBottom: emY(2.0),
+        marginTop: emY(1.7)
+    },
+    fieldContainer: {
+        backgroundColor: '#fff'
+    },
+    buttonContainer: {
+        marginLeft: 0,
+        marginRight: 0
+    },
+    button: {
+        borderRadius: 5,
+        backgroundColor: Color.DEFAULT,
+        justifyContent: 'center',
+        height: emY(3)
+    },
+    buttonDisabled: {
+        backgroundColor: Color.GREY_500
+    },
+    buttonInvalid: {
+        backgroundColor: Color.RED_500
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: emY(0.9)
+    },
+    buttonMargin: {
+        marginBottom: 10
+    },
+    spinner: {
+        backgroundColor: Color.WHITE
+    },
+    signUpError: {
+        color: Color.RED_500,
+        textAlign: 'center',
+        fontSize: emY(0.9),
+        paddingBottom: emY(1.5)
+    }
+});
+
+const formOptions = {
+    form: 'ResetPassword',
+    validate(values) {
+        const errors = {};
+        if (!values.email) {
+            errors.missingValues = 'Please provide a valid email address';
+        }
+        return errors;
+    }
+};
+
+export default reduxForm(formOptions)(ResetPasswordFormContainer);

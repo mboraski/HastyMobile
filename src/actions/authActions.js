@@ -39,6 +39,9 @@ export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
 export const AUTH_NO_LOADED = 'auth_no_loaded';
+export const RESET_PASSWORD_REQUEST = 'reset_password_request';
+export const RESET_PASSSWORD_SUCCESS = 'reset_password_success';
+export const RESET_PASSSWORD_ERROR = 'reset_password_error';
 
 const firebaseFacebookAuth = async ({
     dispatch,
@@ -426,16 +429,26 @@ export const getUserReadable = () => dispatch => {
     }
 };
 
-export const resetPassword = email => dispatch => {
+/**
+ * Sends email to reset password
+ * @param {string} email
+ */
+export const resetPassword = ({ email }, dispatch) => {
     console.log('GOT HERE', email);
+    dispatch({ type: RESET_PASSWORD_REQUEST });
     firebaseAuth
         .sendPasswordResetEmail(email)
         .then(response => {
             // email sent
             console.log('RESET RESPONSE', response);
+            dispatch({ type: RESET_PASSSWORD_SUCCESS });
         })
         .catch(error => {
             // error
             console.log('RESET ERROR', error);
+            dispatch({
+                type: RESET_PASSSWORD_ERROR,
+                payload: error
+            });
         });
 };
