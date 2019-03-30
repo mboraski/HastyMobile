@@ -425,3 +425,17 @@ export const getUserReadable = () => dispatch => {
             );
     }
 };
+
+export const resetPassword = email => dispatch => {
+    console.log('GOT HERE', email);
+    firebaseAuth
+        .sendPasswordResetEmail(email)
+        .then(response => {
+            // email sent
+            console.log('RESET RESPONSE', response);
+        })
+        .catch(error => {
+            // error
+            console.log('RESET ERROR', error);
+        });
+};
