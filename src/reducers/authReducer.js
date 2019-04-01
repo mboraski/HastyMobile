@@ -124,11 +124,16 @@ export default function(state = initialState, action) {
             return { ...state, signInDelay: newValue };
         }
         case RESET_PASSWORD_REQUEST:
-            return { ...state, pending: true };
+            return {
+                ...state,
+                pending: true,
+                error: null,
+                resetEmailSent: false
+            };
         case RESET_PASSSWORD_SUCCESS:
-            return { ...state, pending: false };
+            return { ...state, pending: false, resetEmailSent: true };
         case RESET_PASSSWORD_ERROR:
-            return { ...state, pending: false, error: payload };
+            return { ...state, error: payload, pending: false };
         default:
             return state;
     }

@@ -15,7 +15,6 @@ import Color from '../constants/Color';
 import InlineLabelTextInputField from '../components/InlineLabelTextInputField';
 import SuccessState from '../components/SuccessState';
 import Text from '../components/Text';
-import TextInput from '../components/TextInput';
 
 import required from '../validation/required';
 import validEmail from '../validation/validEmail';
@@ -31,52 +30,107 @@ class ResetPasswordFormContainer extends Component {
         }));
     };
     render() {
-        const { handleSubmit } = this.props;
+        const {
+            handleSubmit,
+            requestError,
+            pending,
+            resetEmailSent
+        } = this.props;
+
+        let errorMessage = '';
+        if (requestError === 'auth/user-not-found') {
+            errorMessage =
+                'There is no user corresponding to this email address';
+        }
         return (
-            <View>
-                <Text>Forgot your password?</Text>
+            <View style={{ paddingHorizontal: 20 }}>
+                <Text style={{ textAlign: 'center' }}>
+                    Forgot your password?
+                </Text>
                 <TouchableOpacity
-                    style={[styles.button, styles.buttonMargin]}
+                    style={[styles.resetButton, styles.buttonMargin]}
                     onPress={this.toggleResetModal}
                 >
-                    <Text style={styles.buttonText}>Reset</Text>
+                    <Text style={styles.resetText}>Reset</Text>
                 </TouchableOpacity>
                 <Modal
                     animationType="slide"
                     transparent={false}
                     visible={this.state.resetModalVisible}
                 >
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <View style={styles.formInputs}>
-                            <InlineLabelTextInputField
-                                autoCapitalize={'none'}
-                                containerStyle={styles.fieldContainer}
-                                name="email"
-                                label="Email"
-                                keyboardType="email-address"
-                                validate={[required, validEmail]}
-                            />
-                        </View>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonMargin]}
-                            onPress={handleSubmit(resetPassword)}
-                        >
-                            <Text style={styles.buttonText}>
-                                Send Reset Email
+                    {resetEmailSent ? (
+                        <View style={styles.container}>
+                            <SuccessState />
+                            <Text style={styles.emailText}>
+                                An email to reset your password has been sent to
+                                that address
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonMargin]}
-                            onPress={this.toggleResetModal}
-                        >
-                            <Text style={styles.buttonText}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
+                            <TouchableOpacity
+                                style={[styles.button, styles.buttonMargin]}
+                                onPress={this.toggleResetModal}
+                            >
+                                <Text style={styles.buttonText}>Done</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.button, styles.buttonMargin]}
+                                onPress={handleSubmit(resetPassword)}
+                            >
+                                <Text style={styles.buttonText}>
+                                    Send Again
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <View style={styles.container}>
+                            <View
+                                style={{ flex: 1, justifyContent: 'flex-end' }}
+                            >
+                                <Text>{errorMessage}</Text>
+                                <View style={styles.formInputs}>
+                                    <InlineLabelTextInputField
+                                        autoCapitalize={'none'}
+                                        containerStyle={styles.fieldContainer}
+                                        name="email"
+                                        label="Email"
+                                        keyboardType="email-address"
+                                        validate={[required, validEmail]}
+                                    />
+                                </View>
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                {pending ? (
+                                    <ActivityIndicator />
+                                ) : (
+                                    <View>
+                                        <TouchableOpacity
+                                            style={[
+                                                styles.button,
+                                                styles.buttonMargin
+                                            ]}
+                                            onPress={handleSubmit(
+                                                resetPassword
+                                            )}
+                                        >
+                                            <Text style={styles.buttonText}>
+                                                Send Password Reset Email
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={[
+                                                styles.button,
+                                                styles.buttonMargin
+                                            ]}
+                                            onPress={this.toggleResetModal}
+                                        >
+                                            <Text style={styles.buttonText}>
+                                                Cancel
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+                            </View>
+                        </View>
+                    )}
                 </Modal>
             </View>
         );
@@ -84,13 +138,11 @@ class ResetPasswordFormContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-    authState: {
-        paddingBottom: emY(2)
-    },
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        marginBottom: 15
+        marginBottom: 15,
+        justifyContent: 'center'
     },
     formInputs: {
         marginBottom: emY(2.0),
@@ -99,9 +151,13 @@ const styles = StyleSheet.create({
     fieldContainer: {
         backgroundColor: '#fff'
     },
-    buttonContainer: {
-        marginLeft: 0,
-        marginRight: 0
+    resetButton: {
+        backgroundColor: Color.WHITE
+    },
+    resetText: {
+        color: Color.GREY_500,
+        textAlign: 'center',
+        fontSize: emY(0.9)
     },
     button: {
         borderRadius: 5,
@@ -123,14 +179,9 @@ const styles = StyleSheet.create({
     buttonMargin: {
         marginBottom: 10
     },
-    spinner: {
-        backgroundColor: Color.WHITE
-    },
-    signUpError: {
-        color: Color.RED_500,
+    emailText: {
         textAlign: 'center',
-        fontSize: emY(0.9),
-        paddingBottom: emY(1.5)
+        marginVertical: 20
     }
 });
 
@@ -145,4 +196,14 @@ const formOptions = {
     }
 };
 
-export default reduxForm(formOptions)(ResetPasswordFormContainer);
+const mapStateToProps = state => ({
+    requestError: state.auth.error,
+    pending: state.auth.pending,
+    resetEmailSent: state.auth.resetEmailSent
+});
+
+export default connect(mapStateToProps)(
+    reduxForm(formOptions)(ResetPasswordFormContainer)
+);
+
+// export default reduxForm(formOptions)(ResetPasswordFormContainer);

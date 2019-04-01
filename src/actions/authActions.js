@@ -434,21 +434,16 @@ export const getUserReadable = () => dispatch => {
  * @param {string} email
  */
 export const resetPassword = ({ email }, dispatch) => {
-    console.log('GOT HERE', email);
     dispatch({ type: RESET_PASSWORD_REQUEST });
     firebaseAuth
         .sendPasswordResetEmail(email)
         .then(response => {
-            // email sent
-            console.log('RESET RESPONSE', response);
             dispatch({ type: RESET_PASSSWORD_SUCCESS });
         })
         .catch(error => {
-            // error
-            console.log('RESET ERROR', error);
             dispatch({
                 type: RESET_PASSSWORD_ERROR,
-                payload: error
+                payload: error.code
             });
         });
 };

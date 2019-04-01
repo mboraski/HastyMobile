@@ -132,7 +132,7 @@ class AuthScreen extends Component {
                         {!signUp && (
                             <SignInFormContainer navigation={navigation} />
                         )}
-                        <ResetPasswordFormContainer />
+                        {!signUp && <ResetPasswordFormContainer />}
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
