@@ -34,7 +34,9 @@ class ResetPasswordFormContainer extends Component {
             handleSubmit,
             requestError,
             pending,
-            resetEmailSent
+            resetEmailSent,
+            anyTouched,
+            invalid
         } = this.props;
 
         let errorMessage = '';
@@ -105,7 +107,13 @@ class ResetPasswordFormContainer extends Component {
                                         <TouchableOpacity
                                             style={[
                                                 styles.button,
-                                                styles.buttonMargin
+                                                styles.buttonMargin,
+                                                !anyTouched &&
+                                                    invalid &&
+                                                    styles.buttonDisabled,
+                                                anyTouched &&
+                                                    invalid &&
+                                                    styles.buttonInvalid
                                             ]}
                                             onPress={handleSubmit(
                                                 resetPassword

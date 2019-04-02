@@ -458,7 +458,7 @@ export const getUserReadable = () => dispatch => {
  */
 export const resetPassword = ({ email }, dispatch) => {
     dispatch({ type: RESET_PASSWORD_REQUEST });
-    firebaseAuth
+    return firebaseAuth
         .sendPasswordResetEmail(email)
         .then(response => {
             dispatch({ type: RESET_PASSSWORD_SUCCESS });
