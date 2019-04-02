@@ -43,6 +43,23 @@ export const RESET_PASSWORD_REQUEST = 'reset_password_request';
 export const RESET_PASSSWORD_SUCCESS = 'reset_password_success';
 export const RESET_PASSSWORD_ERROR = 'reset_password_error';
 
+/**
+ * Sends verification email to new users
+ */
+const sendEmailVerification = () => {
+    return firebaseAuth.currentUser
+        .sendEmailVerification()
+        .then(() => {
+            // no response is returned, if we get here it was a success
+            return null;
+        })
+        .catch(function(error) {
+            // email failed
+            // when we set up sentry, is this one place we want to put it?
+            return null;
+        });
+};
+
 const firebaseFacebookAuth = async ({
     dispatch,
     token,
@@ -90,6 +107,8 @@ const firebaseFacebookAuth = async ({
                         declinedPermissions
                     }
                 });
+            // Send sign up email
+            sendEmailVerification();
         }
         dispatch({
             type: SIGNUP_SUCCESS,
@@ -212,6 +231,8 @@ const firebaseGoogleAuth = async ({
                         serverAuthCode
                     }
                 });
+            // Send sign up email
+            sendEmailVerification();
         }
     } catch (error) {
         dispatch({
@@ -318,6 +339,8 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                         phoneNumber: safePhoneNumber
                     }
                 });
+                // Send sign up email
+                sendEmailVerification();
                 return resolve();
             })
             .catch(error => {
