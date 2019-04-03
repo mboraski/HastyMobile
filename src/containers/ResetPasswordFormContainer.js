@@ -125,12 +125,14 @@ class ResetPasswordFormContainer extends Component {
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             style={[
-                                                styles.button,
+                                                styles.signInButton,
                                                 styles.buttonMargin
                                             ]}
                                             onPress={this.toggleResetModal}
                                         >
-                                            <Text style={styles.buttonText}>
+                                            <Text
+                                                style={styles.signInButtonText}
+                                            >
                                                 Cancel
                                             </Text>
                                         </TouchableOpacity>
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.WHITE
     },
     resetText: {
-        color: Color.GREY_500,
+        color: Color.BLUE_500,
         textAlign: 'center',
         fontSize: emY(0.9)
     },
@@ -190,6 +192,21 @@ const styles = StyleSheet.create({
     emailText: {
         textAlign: 'center',
         marginVertical: 20
+    },
+    signInButton: {
+        backgroundColor: '#fff',
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginTop: 5,
+        justifyContent: 'center',
+        height: emY(3),
+        padding: 0
+    },
+    signInButtonText: {
+        color: '#000',
+        textAlign: 'center',
+        fontSize: emY(0.9)
     }
 });
 

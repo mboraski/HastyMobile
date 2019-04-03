@@ -47,17 +47,11 @@ export const RESET_PASSSWORD_ERROR = 'reset_password_error';
  * Sends verification email to new users
  */
 const sendEmailVerification = () => {
-    return firebaseAuth.currentUser
-        .sendEmailVerification()
-        .then(() => {
-            // no response is returned, if we get here it was a success
-            return null;
-        })
-        .catch(function(error) {
-            // email failed
-            // when we set up sentry, is this one place we want to put it?
-            return null;
-        });
+    return firebaseAuth.currentUser.sendEmailVerification().catch(error => {
+        // email failed
+        console.warn('Email verification failed: ', error);
+        return null;
+    });
 };
 
 const firebaseFacebookAuth = async ({
