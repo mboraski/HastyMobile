@@ -183,10 +183,12 @@ class CheckoutScreen extends Component {
     };
 
     confirmPurchase = () => {
-        Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
-            { text: 'Cancel' },
-            { text: 'Confirm', onPress: () => this.lightAbeacon() }
-        ]);
+        if (this.props.cartQuantity > 0) {
+            Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
+                { text: 'Cancel' },
+                { text: 'Confirm', onPress: () => this.lightAbeacon() }
+            ]);
+        }
     };
 
     lightAbeacon = () => {
