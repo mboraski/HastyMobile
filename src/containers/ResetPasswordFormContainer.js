@@ -236,5 +236,3 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(
     reduxForm(formOptions)(ResetPasswordFormContainer)
 );
-
-// export default reduxForm(formOptions)(ResetPasswordFormContainer);
