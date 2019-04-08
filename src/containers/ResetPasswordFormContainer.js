@@ -74,10 +74,13 @@ class ResetPasswordFormContainer extends Component {
                                 <Text style={styles.buttonText}>Done</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.button, styles.buttonMargin]}
+                                style={[
+                                    styles.secondaryButton,
+                                    styles.buttonMargin
+                                ]}
                                 onPress={handleSubmit(resetPassword)}
                             >
-                                <Text style={styles.buttonText}>
+                                <Text style={styles.secondaryButtonText}>
                                     Send Again
                                 </Text>
                             </TouchableOpacity>
@@ -125,13 +128,15 @@ class ResetPasswordFormContainer extends Component {
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             style={[
-                                                styles.signInButton,
+                                                styles.secondaryButton,
                                                 styles.buttonMargin
                                             ]}
                                             onPress={this.toggleResetModal}
                                         >
                                             <Text
-                                                style={styles.signInButtonText}
+                                                style={
+                                                    styles.secondaryButtonText
+                                                }
                                             >
                                                 Cancel
                                             </Text>
@@ -162,7 +167,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     resetButton: {
-        backgroundColor: Color.WHITE
+        backgroundColor: Color.WHITE,
+        padding: 5
     },
     resetText: {
         color: Color.BLUE_500,
@@ -193,7 +199,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 20
     },
-    signInButton: {
+    secondaryButton: {
         backgroundColor: '#fff',
         borderColor: '#000',
         borderWidth: 1,
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
         height: emY(3),
         padding: 0
     },
-    signInButtonText: {
+    secondaryButtonText: {
         color: '#000',
         textAlign: 'center',
         fontSize: emY(0.9)
