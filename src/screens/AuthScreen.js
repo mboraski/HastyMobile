@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { firebaseAuth } from '../../firebase';
 import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
+import ResetPasswordFormContainer from '../containers/ResetPasswordFormContainer';
 import { facebookLogin, googleLogin } from '../actions/authActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
@@ -131,6 +132,7 @@ class AuthScreen extends Component {
                         {!signUp && (
                             <SignInFormContainer navigation={navigation} />
                         )}
+                        {!signUp && <ResetPasswordFormContainer />}
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

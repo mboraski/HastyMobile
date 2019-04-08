@@ -39,6 +39,20 @@ export const USER_READABLE_SUCCESS = 'user_readable_success';
 export const USER_READABLE_ERROR = 'user_readable_fail';
 export const SET_EXPO_PUSH_TOKEN_REQUEST = 'set_expo_push_token_request';
 export const AUTH_NO_LOADED = 'auth_no_loaded';
+export const RESET_PASSWORD_REQUEST = 'reset_password_request';
+export const RESET_PASSSWORD_SUCCESS = 'reset_password_success';
+export const RESET_PASSSWORD_ERROR = 'reset_password_error';
+
+/**
+ * Sends verification email to new users
+ */
+const sendEmailVerification = () => {
+    return firebaseAuth.currentUser.sendEmailVerification().catch(error => {
+        // email failed
+        console.warn('Email verification failed: ', error);
+        return null;
+    });
+};
 
 const firebaseFacebookAuth = async ({
     dispatch,
@@ -87,6 +101,8 @@ const firebaseFacebookAuth = async ({
                         declinedPermissions
                     }
                 });
+            // Send sign up email
+            sendEmailVerification();
         }
         dispatch({
             type: SIGNUP_SUCCESS,
@@ -209,6 +225,8 @@ const firebaseGoogleAuth = async ({
                         serverAuthCode
                     }
                 });
+            // Send sign up email
+            sendEmailVerification();
         }
     } catch (error) {
         dispatch({
@@ -315,6 +333,8 @@ export const createUserWithEmailAndPassword = (values, dispatch) =>
                         phoneNumber: safePhoneNumber
                     }
                 });
+                // Send sign up email
+                sendEmailVerification();
                 return resolve();
             })
             .catch(error => {
@@ -424,4 +444,23 @@ export const getUserReadable = () => dispatch => {
                 })
             );
     }
+};
+
+/**
+ * Sends email to reset password
+ * @param {string} email
+ */
+export const resetPassword = ({ email }, dispatch) => {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+    return firebaseAuth
+        .sendPasswordResetEmail(email)
+        .then(response => {
+            dispatch({ type: RESET_PASSSWORD_SUCCESS });
+        })
+        .catch(error => {
+            dispatch({
+                type: RESET_PASSSWORD_ERROR,
+                payload: error.code
+            });
+        });
 };

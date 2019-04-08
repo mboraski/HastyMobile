@@ -21,11 +21,11 @@ const middlewares = [thunk];
 //     middlewares.push(logger);
 // }
 
-// // Enable debugging remotely in real device
-// import { NativeModules } from 'react-native'
-//
+// Enable debugging remotely in real device
+// import { NativeModules } from 'react-native';
+
 // if (__DEV__) {
-//   NativeModules.DevSettings.setIsDebuggingRemotely(true)
+//     NativeModules.DevSettings.setIsDebuggingRemotely(true);
 // }
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
