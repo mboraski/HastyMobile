@@ -42,7 +42,7 @@ export default createStackNavigator(
         notificationFeedback: { screen: NotificationFeedbackScreen }
     },
     {
-        initialRouteName: 'loading',
+        initialRouteName: 'checkout',
         navigationOptions: {
             tabBarVisible: false
         },

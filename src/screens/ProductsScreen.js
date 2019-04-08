@@ -21,7 +21,7 @@ import Text from '../components/Text';
 import Color from '../constants/Color';
 import Marketing from '../constants/Marketing';
 import { addToCart } from '../actions/cartActions';
-import { selectCategory, fetchProducts } from '../actions/productActions';
+import { selectCategory } from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     sendProductRequest,
@@ -55,10 +55,6 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
-    componentDidMount() {
-        this.props.fetchProducts();
-    }
-
     componentWillReceiveProps(nextProps) {
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
@@ -286,8 +282,7 @@ const mapDispatchToProps = {
     sendProductRequest,
     dropdownAlert,
     openRequestPopup,
-    closeRequestPopup,
-    fetchProducts
+    closeRequestPopup
 };
 
 export default connect(

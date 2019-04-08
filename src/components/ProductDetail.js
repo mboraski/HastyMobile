@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     },
     quantityRow: {
         zIndex: 10,
+        paddingHorizontal: 5,
         position: 'absolute',
         top: 5,
         right: 0,
