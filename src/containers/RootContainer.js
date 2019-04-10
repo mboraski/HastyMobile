@@ -6,9 +6,10 @@ import { connect } from 'react-redux';
 import { Permissions, Notifications, Updates } from 'expo';
 
 // Relative Imports
+import { firebaseAuth } from '../../firebase';
 import MenuNavigator from '../navigations/MenuNavigator';
-import CommunicationPopup from '../components/CommunicationPopup';
 import DropdownAlert from '../components/DropdownAlert';
+import LoadingApp from '../components/LoadingApp';
 import {
     listenToAuthChanges,
     signOut,
@@ -27,6 +28,7 @@ import {
     checkOpenOrders
 } from '../actions/orderActions';
 import { getOrderId } from '../selectors/orderSelectors';
+import { getAuthLoadingMessages } from '../selectors/marketingSelectors';
 
 class RootContainer extends Component {
     async componentDidMount() {
@@ -93,20 +95,22 @@ class RootContainer extends Component {
         this.props.dropdownAlert(false);
     };
 
+    renderComponents = () => {
+        let result;
+        if (firebaseAuth.currentUser) {
+            result = <MenuNavigator />;
+        } else {
+            result = <LoadingApp messages={this.props.authLoadingMessages} />;
+        }
+        return result;
+    };
+
     render() {
-        const {
-            customerPopupVisible,
-            dropdownAlertVisible,
-            dropdownAlertText
-        } = this.props;
+        const { dropdownAlertVisible, dropdownAlertText } = this.props;
 
         return (
             <View style={styles.container}>
-                <MenuNavigator />
-                <CommunicationPopup
-                    openModal={customerPopupVisible}
-                    closeModal={this.handleCustomerPopupClose}
-                />
+                {this.renderComponents()}
                 <DropdownAlert
                     visible={dropdownAlertVisible}
                     text={dropdownAlertText}
@@ -126,8 +130,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+    authLoadingMessages: getAuthLoadingMessages(state),
     authExpirationDate: state.auth.expirationDate,
-    customerPopupVisible: state.ui.customerPopupVisible,
     dropdownAlertVisible: state.ui.dropdownAlertVisible,
     dropdownAlertText: state.ui.dropdownAlertText,
     orderId: getOrderId(state),
