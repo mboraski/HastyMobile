@@ -50,7 +50,6 @@ class ProductDetail extends PureComponent {
                 handleRequestProduct(product);
             }
         };
-        console.log('render', product.id);
 
         return (
             <TouchableOpacity
