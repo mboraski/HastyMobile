@@ -18,7 +18,7 @@ export const initialState = {
     },
     category: 'beverage',
     productImages: {},
-    searchText: '~~~~~~~~~'
+    searchText: ''
 };
 
 export default function(state = initialState, action) {
@@ -56,7 +56,8 @@ export default function(state = initialState, action) {
         case SELECT_CATEGORY:
             return {
                 ...state,
-                category: action.payload
+                category: action.payload,
+                searchText: ''
             };
         case SET_IMAGE: {
             const { productId, url } = action.payload;

@@ -152,25 +152,22 @@ class ProductsScreen extends Component {
                         />
                     </View>
                 ) : (
-                    <View
-                        style={[styles.container, styles.productListContainer]}
-                    >
-                        <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator
-                            contentContainerStyle={styles.filtersContent}
-                        >
-                            {this.renderCategories()}
-                        </ScrollView>
+                    <View style={styles.productListContainer}>
+                        <View style={styles.ScrollViewHeightWrapper}>
+                            <ScrollView
+                                horizontal
+                                showsHorizontalScrollIndicator
+                                contentContainerStyle={styles.filtersContent}
+                            >
+                                {this.renderCategories()}
+                            </ScrollView>
+                        </View>
                         <TextInput
-                            style={{
-                                width: WINDOW_WIDTH,
-                                height: 50,
-                                paddingHorizontal: 20
-                            }}
+                            style={styles.searchBar}
                             onChangeText={editSearchText}
                             value={searchText}
                             placeholder="Type to search this category"
+                            clearButtonMode="always"
                         />
                         {productsShown ? (
                             <ProductList
@@ -221,6 +218,7 @@ const styles = StyleSheet.create({
         maxHeight: WINDOW_HEIGHT
     },
     productListContainer: {
+        flex: 1,
         justifyContent: 'flex-start'
     },
     buttonContainer: {
@@ -241,8 +239,10 @@ const styles = StyleSheet.create({
         fontSize: emY(1.5),
         textAlign: 'center'
     },
+    ScrollViewHeightWrapper: {
+        maxHeight: emY(2.5)
+    },
     filtersContent: {
-        maxHeight: emY(2.5),
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -280,6 +280,11 @@ const styles = StyleSheet.create({
         right: 0,
         left: 0,
         bottom: 0
+    },
+    searchBar: {
+        width: WINDOW_WIDTH,
+        height: 50,
+        paddingHorizontal: 20
     }
 });
 

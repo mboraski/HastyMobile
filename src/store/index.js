@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import createSecureStore from 'redux-persist-expo-securestore';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 import * as reducers from '../reducers';
 
@@ -17,16 +17,16 @@ const persistConfig = {
 
 const middlewares = [thunk];
 
-if (__DEV__) {
-    middlewares.push(logger);
-}
+// if (__DEV__) {
+//     middlewares.push(logger);
+// }
 
 // Enable debugging remotely in real device
-import { NativeModules } from 'react-native';
+// import { NativeModules } from 'react-native';
 
-if (__DEV__) {
-    NativeModules.DevSettings.setIsDebuggingRemotely(true);
-}
+// if (__DEV__) {
+//     NativeModules.DevSettings.setIsDebuggingRemotely(true);
+// }
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
 /* eslint-disable no-underscore-dangle */
