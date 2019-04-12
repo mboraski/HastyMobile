@@ -16,7 +16,8 @@ export const initialState = {
         instant: {}
     },
     category: 'beverage',
-    productImages: {}
+    productImages: {},
+    searchText: ''
 };
 
 export default function(state = initialState, action) {

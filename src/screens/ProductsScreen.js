@@ -6,7 +6,8 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
@@ -91,6 +92,15 @@ class ProductsScreen extends Component {
         this.props.closeRequestPopup();
     };
 
+    filterProducts = () => {
+        const { productsShown, searchText } = this.props;
+        return productsShown.filter(
+            product =>
+                product.name.toLowerCase().indexOf(searchText.toLowerCase()) >
+                -1
+        );
+    };
+
     renderCategories = () => {
         const selectedCategory = this.props.category;
         return map(this.props.categories, (category, i) => {
@@ -129,7 +139,8 @@ class ProductsScreen extends Component {
             productsShown,
             productImages,
             requestPopupVisible,
-            product
+            product,
+            editSearchText
         } = this.props;
         const requestMessage = Marketing.requestProductMessage;
         const cartFill =
@@ -147,6 +158,7 @@ class ProductsScreen extends Component {
                     </View>
                 ) : (
                     <View style={styles.container}>
+                        <TextInput onChangeText={editSearchText} />
                         <ScrollView
                             horizontal
                             showsHorizontalScrollIndicator
