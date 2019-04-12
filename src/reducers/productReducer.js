@@ -5,7 +5,8 @@ import {
     FETCH_CUSTOMER_BLOCK_ERROR,
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_ERROR,
-    SET_IMAGE
+    SET_IMAGE,
+    EDIT_PRODUCT_SEARCH_TEXT
 } from '../actions/productActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -17,7 +18,7 @@ export const initialState = {
     },
     category: 'beverage',
     productImages: {},
-    searchText: ''
+    searchText: '~~~~~~~~~'
 };
 
 export default function(state = initialState, action) {
@@ -67,6 +68,8 @@ export default function(state = initialState, action) {
                 productImages
             };
         }
+        case EDIT_PRODUCT_SEARCH_TEXT:
+            return { ...state, searchText: action.searchText };
         default:
             return state;
     }

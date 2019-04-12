@@ -134,7 +134,8 @@ export const fetchProductImage = async (productId, dispatch) => {
     Image.prefetch(`${url}`);
 };
 
-export const editSearchText = text => dispatch => ({
-    type: EDIT_PRODUCT_SEARCH_TEXT,
-    text
-});
+export const editSearchText = searchText => dispatch =>
+    dispatch({
+        type: EDIT_PRODUCT_SEARCH_TEXT,
+        searchText
+    });

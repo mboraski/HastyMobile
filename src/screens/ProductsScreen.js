@@ -6,8 +6,7 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Dimensions,
-    TextInput
+    Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
@@ -18,11 +17,15 @@ import map from 'lodash.map';
 import RequestPopup from '../components/RequestPopup';
 import ProductList from '../components/ProductList';
 import Text from '../components/Text';
-
+import TextInput from '../components/TextInput';
 import Color from '../constants/Color';
 import Marketing from '../constants/Marketing';
 import { addToCart } from '../actions/cartActions';
-import { selectCategory, fetchProducts } from '../actions/productActions';
+import {
+    selectCategory,
+    fetchProducts,
+    editSearchText
+} from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     sendProductRequest,
@@ -41,7 +44,8 @@ import {
     getProductsByCategory,
     getCategories,
     getProductImages,
-    getHeader
+    getHeader,
+    getSearchText
 } from '../selectors/productSelectors';
 import {
     getRequestPopupVisible,
@@ -92,15 +96,6 @@ class ProductsScreen extends Component {
         this.props.closeRequestPopup();
     };
 
-    filterProducts = () => {
-        const { productsShown, searchText } = this.props;
-        return productsShown.filter(
-            product =>
-                product.name.toLowerCase().indexOf(searchText.toLowerCase()) >
-                -1
-        );
-    };
-
     renderCategories = () => {
         const selectedCategory = this.props.category;
         return map(this.props.categories, (category, i) => {
@@ -140,12 +135,12 @@ class ProductsScreen extends Component {
             productImages,
             requestPopupVisible,
             product,
-            editSearchText
+            editSearchText,
+            searchText
         } = this.props;
         const requestMessage = Marketing.requestProductMessage;
         const cartFill =
             cartQuantity > 0 ? { backgroundColor: Color.GREEN_500 } : {};
-
         return (
             <View style={styles.container}>
                 {productPending ? (
@@ -157,8 +152,9 @@ class ProductsScreen extends Component {
                         />
                     </View>
                 ) : (
-                    <View style={styles.container}>
-                        <TextInput onChangeText={editSearchText} />
+                    <View
+                        style={[styles.container, styles.productListContainer]}
+                    >
                         <ScrollView
                             horizontal
                             showsHorizontalScrollIndicator
@@ -166,12 +162,23 @@ class ProductsScreen extends Component {
                         >
                             {this.renderCategories()}
                         </ScrollView>
+                        <TextInput
+                            style={{
+                                width: WINDOW_WIDTH,
+                                height: 50,
+                                paddingHorizontal: 20
+                            }}
+                            onChangeText={editSearchText}
+                            value={searchText}
+                            placeholder="Type to search this category"
+                        />
                         {productsShown ? (
                             <ProductList
                                 products={productsShown}
                                 productImages={productImages}
                                 handleAddToCart={this.handleAddToCart}
                                 handleRequestProduct={this.handleRequestProduct}
+                                searchText={searchText}
                             />
                         ) : (
                             <View style={styles.container}>
@@ -212,6 +219,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         maxWidth: WINDOW_WIDTH,
         maxHeight: WINDOW_HEIGHT
+    },
+    productListContainer: {
+        justifyContent: 'flex-start'
     },
     buttonContainer: {
         position: 'absolute',
@@ -288,7 +298,8 @@ const mapStateToProps = state => ({
     productImages: getProductImages(state),
     header: getHeader(state),
     requestPopupVisible: getRequestPopupVisible(state),
-    product: getRequestProduct(state)
+    product: getRequestProduct(state),
+    searchText: getSearchText(state)
 });
 
 // TODO: Change formatting of mapDispatchToProps?
@@ -299,7 +310,8 @@ const mapDispatchToProps = {
     dropdownAlert,
     openRequestPopup,
     closeRequestPopup,
-    fetchProducts
+    fetchProducts,
+    editSearchText
 };
 
 export default connect(
