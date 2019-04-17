@@ -26,6 +26,7 @@ export const FETCH_CUSTOMER_BLOCK_REQUEST = 'fetch_customer_block_request';
 export const FETCH_CUSTOMER_BLOCK_SUCCESS = 'fetch_customer_block_success';
 export const FETCH_CUSTOMER_BLOCK_ERROR = 'fetch_customer_block_error';
 export const SET_IMAGE = 'set_image';
+export const EDIT_PRODUCT_SEARCH_TEXT = 'edit_product_search_text';
 
 const CUSTOMER_BLOCK_PRODUCTS_REF = 'activeProducts/US/TX/Austin/products';
 const TEST_STORAGE_REF = 'gs://hasty-test.appspot.com/product_images';
@@ -132,3 +133,9 @@ export const fetchProductImage = async (productId, dispatch) => {
     // cache image
     Image.prefetch(`${url}`);
 };
+
+export const editSearchText = searchText => dispatch =>
+    dispatch({
+        type: EDIT_PRODUCT_SEARCH_TEXT,
+        searchText
+    });

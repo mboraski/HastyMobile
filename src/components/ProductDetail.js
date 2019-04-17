@@ -1,5 +1,5 @@
 // Third Part Imports
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -23,67 +23,75 @@ const determineCta = (consumed, available) => {
     return cta;
 };
 
-const ProductDetail = ({
-    consumed,
-    quantityAvailable,
-    quantityTaken,
-    product,
-    image,
-    handleRequestProduct,
-    handleAddToCart
-}) => {
-    const { productName, price } = product;
-    const available = quantityAvailable > 0;
-    const callToAction = determineCta(consumed, available);
-    const formattedPrice = `${Number.parseFloat(price).toFixed(2)}`;
-    const productImage = image ? { uri: image } : defaultImage;
-    const limitReached = () => {};
-    const onClickHandler = () => {
-        if (consumed && available) {
-            limitReached();
-        } else if (available) {
-            handleAddToCart(product);
-        } else {
-            handleRequestProduct(product);
-        }
-    };
+class ProductDetail extends PureComponent {
+    render() {
+        const {
+            consumed,
+            quantityAvailable,
+            quantityTaken,
+            product,
+            image,
+            handleRequestProduct,
+            handleAddToCart
+        } = this.props;
 
-    return (
-        <TouchableOpacity
-            onPress={onClickHandler}
-            style={[Style.shadow, styles.container]}
-        >
-            <View style={[styles.quantityRow]}>
-                <Text style={[styles.quantity, available && styles.available]}>
-                    {available && quantityTaken}
-                </Text>
-                <Foundation
-                    name={'plus'}
-                    size={ICON_SIZE}
-                    style={[
-                        styles.plusIcon,
-                        available && styles.available,
-                        consumed && available && styles.consumed
-                    ]}
+        const { productName, price } = product;
+        const available = quantityAvailable > 0;
+        const callToAction = determineCta(consumed, available);
+        const formattedPrice = `${Number.parseFloat(price).toFixed(2)}`;
+        const productImage = image ? { uri: image } : defaultImage;
+        const limitReached = () => {};
+        const onClickHandler = () => {
+            if (consumed && available) {
+                limitReached();
+            } else if (available) {
+                handleAddToCart(product);
+            } else {
+                handleRequestProduct(product);
+            }
+        };
+
+        return (
+            <TouchableOpacity
+                onPress={onClickHandler}
+                style={[Style.shadow, styles.container]}
+            >
+                <View style={[styles.quantityRow]}>
+                    <Text
+                        style={[styles.quantity, available && styles.available]}
+                    >
+                        {available && quantityTaken}
+                    </Text>
+                    <Foundation
+                        name={'plus'}
+                        size={ICON_SIZE}
+                        style={[
+                            styles.plusIcon,
+                            available && styles.available,
+                            consumed && available && styles.consumed
+                        ]}
+                    />
+                </View>
+                <Image
+                    style={styles.image}
+                    source={productImage}
+                    resizeMode="contain"
                 />
-            </View>
-            <Image
-                style={styles.image}
-                source={productImage}
-                resizeMode="contain"
-            />
-            <View style={styles.meta}>
-                <Text style={[styles.title]} numberOfLines={2}>
-                    {productName}
-                </Text>
-                <Text style={[styles.price]}>${formattedPrice}</Text>
-            </View>
-            <View style={[styles.ctaButton, available && styles.ctaAvailable]}>
-                <Text style={[styles.ctaButtonText]}>{callToAction}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
+                <View style={styles.meta}>
+                    <Text style={[styles.title]} numberOfLines={2}>
+                        {productName}
+                    </Text>
+                    <Text style={[styles.price]}>${formattedPrice}</Text>
+                </View>
+                <View
+                    style={[styles.ctaButton, available && styles.ctaAvailable]}
+                >
+                    <Text style={[styles.ctaButtonText]}>{callToAction}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {

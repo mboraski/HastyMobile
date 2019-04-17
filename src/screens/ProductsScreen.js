@@ -17,11 +17,15 @@ import map from 'lodash.map';
 import RequestPopup from '../components/RequestPopup';
 import ProductList from '../components/ProductList';
 import Text from '../components/Text';
-
+import TextInput from '../components/TextInput';
 import Color from '../constants/Color';
 import Marketing from '../constants/Marketing';
 import { addToCart } from '../actions/cartActions';
-import { selectCategory, fetchProducts } from '../actions/productActions';
+import {
+    selectCategory,
+    fetchProducts,
+    editSearchText
+} from '../actions/productActions';
 import { dropdownAlert } from '../actions/uiActions';
 import {
     sendProductRequest,
@@ -40,7 +44,8 @@ import {
     getProductsByCategory,
     getCategories,
     getProductImages,
-    getHeader
+    getHeader,
+    getSearchText
 } from '../selectors/productSelectors';
 import {
     getRequestPopupVisible,
@@ -129,12 +134,13 @@ class ProductsScreen extends Component {
             productsShown,
             productImages,
             requestPopupVisible,
-            product
+            product,
+            editSearchText,
+            searchText
         } = this.props;
         const requestMessage = Marketing.requestProductMessage;
         const cartFill =
             cartQuantity > 0 ? { backgroundColor: Color.GREEN_500 } : {};
-
         return (
             <View style={styles.container}>
                 {productPending ? (
@@ -146,20 +152,30 @@ class ProductsScreen extends Component {
                         />
                     </View>
                 ) : (
-                    <View style={styles.container}>
-                        <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator
-                            contentContainerStyle={styles.filtersContent}
-                        >
-                            {this.renderCategories()}
-                        </ScrollView>
+                    <View style={styles.productListContainer}>
+                        <View style={styles.ScrollViewHeightWrapper}>
+                            <ScrollView
+                                horizontal
+                                showsHorizontalScrollIndicator
+                                contentContainerStyle={styles.filtersContent}
+                            >
+                                {this.renderCategories()}
+                            </ScrollView>
+                        </View>
+                        <TextInput
+                            style={styles.searchBar}
+                            onChangeText={editSearchText}
+                            value={searchText}
+                            placeholder="Type to search this category"
+                            clearButtonMode="always"
+                        />
                         {productsShown ? (
                             <ProductList
                                 products={productsShown}
                                 productImages={productImages}
                                 handleAddToCart={this.handleAddToCart}
                                 handleRequestProduct={this.handleRequestProduct}
+                                searchText={searchText}
                             />
                         ) : (
                             <View style={styles.container}>
@@ -201,6 +217,10 @@ const styles = StyleSheet.create({
         maxWidth: WINDOW_WIDTH,
         maxHeight: WINDOW_HEIGHT
     },
+    productListContainer: {
+        flex: 1,
+        justifyContent: 'flex-start'
+    },
     buttonContainer: {
         position: 'absolute',
         bottom: emY(1.25),
@@ -219,8 +239,10 @@ const styles = StyleSheet.create({
         fontSize: emY(1.5),
         textAlign: 'center'
     },
+    ScrollViewHeightWrapper: {
+        maxHeight: emY(2.5)
+    },
     filtersContent: {
-        maxHeight: emY(2.5),
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -258,6 +280,11 @@ const styles = StyleSheet.create({
         right: 0,
         left: 0,
         bottom: 0
+    },
+    searchBar: {
+        width: WINDOW_WIDTH,
+        height: 50,
+        paddingHorizontal: 20
     }
 });
 
@@ -276,7 +303,8 @@ const mapStateToProps = state => ({
     productImages: getProductImages(state),
     header: getHeader(state),
     requestPopupVisible: getRequestPopupVisible(state),
-    product: getRequestProduct(state)
+    product: getRequestProduct(state),
+    searchText: getSearchText(state)
 });
 
 // TODO: Change formatting of mapDispatchToProps?
@@ -287,7 +315,8 @@ const mapDispatchToProps = {
     dropdownAlert,
     openRequestPopup,
     closeRequestPopup,
-    fetchProducts
+    fetchProducts,
+    editSearchText
 };
 
 export default connect(

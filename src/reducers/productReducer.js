@@ -5,7 +5,8 @@ import {
     FETCH_CUSTOMER_BLOCK_ERROR,
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_ERROR,
-    SET_IMAGE
+    SET_IMAGE,
+    EDIT_PRODUCT_SEARCH_TEXT
 } from '../actions/productActions';
 import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
@@ -16,7 +17,8 @@ export const initialState = {
         instant: {}
     },
     category: 'beverage',
-    productImages: {}
+    productImages: {},
+    searchText: ''
 };
 
 export default function(state = initialState, action) {
@@ -54,7 +56,8 @@ export default function(state = initialState, action) {
         case SELECT_CATEGORY:
             return {
                 ...state,
-                category: action.payload
+                category: action.payload,
+                searchText: ''
             };
         case SET_IMAGE: {
             const { productId, url } = action.payload;
@@ -66,6 +69,8 @@ export default function(state = initialState, action) {
                 productImages
             };
         }
+        case EDIT_PRODUCT_SEARCH_TEXT:
+            return { ...state, searchText: action.searchText };
         default:
             return state;
     }

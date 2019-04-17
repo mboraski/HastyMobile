@@ -14,6 +14,7 @@ export const getError = state => state.product.error;
 export const getAvailableProducts = state => state.product.instantProducts;
 export const getCategory = state => state.product.category.toUpperCase();
 export const getProductImages = state => state.product.productImages;
+export const getSearchText = state => state.product.searchText;
 
 export const getCategories = createSelector(
     [getCartInstantProducts],
