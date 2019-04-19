@@ -4,6 +4,7 @@ import { SubmissionError } from 'redux-form';
 import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
 import { checkOpenOrders } from './orderActions';
+import { listenProducts } from './productActions';
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
@@ -395,9 +396,12 @@ export const listenToAuthChanges = () => dispatch => {
     firebaseAuth.onAuthStateChanged(user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
+            // listen to shit
+            listenProducts(dispatch);
             dispatch({ type: SIGNIN_SUCCESS });
             checkOpenOrders(dispatch);
         } else {
+            // stop listening to shit
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });

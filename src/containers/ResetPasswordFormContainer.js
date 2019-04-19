@@ -59,6 +59,7 @@ class ResetPasswordFormContainer extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={this.state.resetModalVisible}
+                    onRequestClose={this.toggleResetModal}
                 >
                     {resetEmailSent ? (
                         <View style={styles.container}>

@@ -99,9 +99,9 @@ class CheckoutScreen extends Component {
             <PaymentDropDownItem
                 isHeaderItem
                 onPress={this.goToPaymentMethodScreen}
-                type={''}
+                type={'n/a'}
                 brand={'Card Missing'}
-                last4={''}
+                last4={'n/a'}
             />
         )
     };
@@ -183,10 +183,12 @@ class CheckoutScreen extends Component {
     };
 
     confirmPurchase = () => {
-        Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
-            { text: 'Cancel' },
-            { text: 'Confirm', onPress: () => this.lightAbeacon() }
-        ]);
+        if (this.props.cartQuantity > 0) {
+            Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
+                { text: 'Cancel' },
+                { text: 'Confirm', onPress: () => this.lightAbeacon() }
+            ]);
+        }
     };
 
     lightAbeacon = () => {
@@ -294,7 +296,10 @@ class CheckoutScreen extends Component {
                 ) : (
                     <ScrollView style={styles.scrollContainer}>
                         <TouchableOpacity
-                            style={styles.checkout}
+                            style={[
+                                styles.checkout,
+                                cartQuantity && styles.checkoutClickable
+                            ]}
                             onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
@@ -338,12 +343,31 @@ class CheckoutScreen extends Component {
                                 PAYMENT METHOD
                             </Text>
                         </View>
-                        <DropDown
-                            header={this.state.dropdownHeader}
-                            dropDownRef={ref => (this.dropDownRef = ref)}
-                        >
-                            {dropdownCards}
-                        </DropDown>
+                        {dropdownCards.length > 0 ? (
+                            <DropDown
+                                header={this.state.dropdownHeader}
+                                dropDownRef={ref => (this.dropDownRef = ref)}
+                            >
+                                {dropdownCards}
+                            </DropDown>
+                        ) : (
+                            <TouchableOpacity
+                                style={styles.paymentMethodBanner}
+                                onPress={this.goToPaymentMethodScreen}
+                            >
+                                <Text style={styles.paymentMethodBannerText}>
+                                    Add Payment Method
+                                </Text>
+                                <View style={styles.checkoutIconContainer}>
+                                    <MaterialIcons
+                                        name="keyboard-arrow-right"
+                                        color="#fff"
+                                        size={emY(1.5)}
+                                        style={styles.checkoutIcon}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        )}
                         <View style={styles.itemHeader}>
                             <Text style={styles.itemHeaderLabel}>
                                 DELIVERY LOCATION
@@ -437,7 +461,10 @@ class CheckoutScreen extends Component {
                             </View>
                         </View>
                         <TouchableOpacity
-                            style={styles.checkout}
+                            style={[
+                                styles.checkout,
+                                cartQuantity && styles.checkoutClickable
+                            ]}
                             onPress={this.confirmPurchase}
                         >
                             <Text style={styles.imageTitle}>
@@ -489,6 +516,9 @@ const styles = StyleSheet.create({
         height: WINDOW_HEIGHT / 5,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: Color.GREY_500
+    },
+    checkoutClickable: {
         backgroundColor: Color.DEFAULT
     },
     imageTitle: {
@@ -545,6 +575,15 @@ const styles = StyleSheet.create({
     itemButtonText: {
         fontSize: emY(1),
         color: Color.BLUE_500
+    },
+    paymentMethodBanner: {
+        paddingHorizontal: 10,
+        paddingVertical: emY(0.8),
+        backgroundColor: Color.DEFAULT
+    },
+    paymentMethodBannerText: {
+        fontSize: emY(1),
+        color: Color.WHITE
     },
     map: {
         height: MAP_HEIGHT,

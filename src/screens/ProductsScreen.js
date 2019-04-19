@@ -60,10 +60,6 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
-    componentDidMount() {
-        this.props.fetchProducts();
-    }
-
     componentWillReceiveProps(nextProps) {
         if (!this.props.itemCountUp && nextProps.itemCountUp) {
             this.props.dropdownAlert(true, 'More products available!');
