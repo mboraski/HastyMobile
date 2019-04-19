@@ -55,13 +55,14 @@ import {
 import { emY } from '../utils/em';
 
 import ProductsHeaderContainer from '../containers/ProductsHeaderContainer';
+import { logScreenView, logCategoryClick } from '../actions/analyticsActions';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 class ProductsScreen extends Component {
     componentDidMount() {
-        this.props.fetchProducts();
+        this.props.logScreenView('products', Date.now());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -107,7 +108,11 @@ class ProductsScreen extends Component {
             const filterButtonTextSelected = selectedFilter
                 ? styles.filterButtonTextSelected
                 : null;
-            const onPress = () => this.props.selectFilter(category);
+            const onPress = () => {
+                this.props.selectFilter(category);
+                this.props.logCategoryClick(category, Date.now());
+            };
+
             return (
                 <TouchableOpacity
                     key={i}
@@ -135,7 +140,6 @@ class ProductsScreen extends Component {
             productImages,
             requestPopupVisible,
             product,
-            editSearchText,
             searchText
         } = this.props;
         const requestMessage = Marketing.requestProductMessage;
@@ -164,7 +168,7 @@ class ProductsScreen extends Component {
                         </View>
                         <TextInput
                             style={styles.searchBar}
-                            onChangeText={editSearchText}
+                            onChangeText={this.props.editSearchText}
                             value={searchText}
                             placeholder="Type to search this category"
                             clearButtonMode="always"
@@ -316,7 +320,9 @@ const mapDispatchToProps = {
     openRequestPopup,
     closeRequestPopup,
     fetchProducts,
-    editSearchText
+    editSearchText,
+    logScreenView,
+    logCategoryClick
 };
 
 export default connect(

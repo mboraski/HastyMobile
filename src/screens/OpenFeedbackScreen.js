@@ -15,6 +15,7 @@ import TransparentButton from '../components/TransparentButton';
 
 import { dropdownAlert } from '../actions/uiActions';
 import { sendOpenFeedback } from '../actions/feedbackActions';
+import { logScreenView } from '../actions/analyticsActions';
 
 import { getPending } from '../selectors/feedbackSelectors';
 
@@ -36,6 +37,10 @@ class OpenFeedbackScreen extends Component {
         dispatch(dropdownAlert(true, 'Thanks for the feedback!'));
         this.props.navigation.navigate('map');
     };
+
+    componentDidMount() {
+        this.props.logScreenView('openFeedbackScreen', Date.now());
+    }
 
     render() {
         const pending = this.props.pending;
@@ -114,7 +119,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    sendOpenFeedback
+    sendOpenFeedback,
+    logScreenView
 };
 
 export default connect(

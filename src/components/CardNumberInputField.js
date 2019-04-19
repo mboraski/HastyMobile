@@ -34,8 +34,15 @@ const renderInput = ({
                     {label}
                 </Text>
             ) : null}
-            <View style={[baseStyles.textInputContainer, styles.textInputContainer]}>
-                {card ? <CardImage type={card.type} style={styles.card} /> : null}
+            <View
+                style={[
+                    baseStyles.textInputContainer,
+                    styles.textInputContainer
+                ]}
+            >
+                {card ? (
+                    <CardImage type={card.type} style={styles.card} />
+                ) : null}
                 <TextInput
                     style={[
                         baseStyles.textInput,
@@ -47,17 +54,22 @@ const renderInput = ({
                     editable={editable}
                     onChangeText={onChange}
                     normalize={formatCardNumber}
+                    underlineColorAndroid="transparent"
                     keyboardType="number-pad"
                     {...restInput}
                     {...props}
                 />
             </View>
-            {touched && error ? <Text style={[baseStyles.error, errorStyle]}>{error}</Text> : null}
+            {touched && error ? (
+                <Text style={[baseStyles.error, errorStyle]}>{error}</Text>
+            ) : null}
         </View>
     );
 };
 
-const CardNumberInputField = ({ ...props }) => <Field component={renderInput} {...props} />;
+const CardNumberInputField = ({ ...props }) => (
+    <Field component={renderInput} {...props} />
+);
 
 const styles = StyleSheet.create({
     textInputContainer: {

@@ -19,7 +19,6 @@ import historyIcon from '../assets/icons/history.png';
 import locationIcon from '../assets/icons/location.png';
 // import profileImagePlaceholder from '../assets/profileImagePlaceholder';
 
-import { openCustomerPopup } from '../actions/uiActions';
 import { signOut } from '../actions/authActions';
 
 import { getUserReadable } from '../selectors/authSelectors';
@@ -234,7 +233,6 @@ const mapStateToProps = state => ({
     orderId: getOrderId(state)
 });
 const mapDispatchToProps = {
-    openCustomerPopup,
     signOut
 };
 

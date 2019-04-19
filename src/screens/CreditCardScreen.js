@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { logScreenView } from '../actions/analyticsActions';
 import BackButton from '../components/BackButton';
 import RemoteSubmitTextButton from '../components/RemoteSubmitTextButton';
 import { getUser } from '../selectors/authSelectors';
@@ -11,6 +12,10 @@ import { default as CreditCardFormContainer } from '../containers/CreditCardForm
 import Style from '../constants/Style';
 
 class CreditCardScreen extends Component {
+    componentDidMount() {
+        this.props.logScreenView('creditCardScreen', Date.now());
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.cards.length < this.props.cards.length) {
             this.props.navigation.navigate('map');
@@ -27,7 +32,9 @@ const mapStateToProps = state => ({
     cards: getCards(state)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    logScreenView
+};
 
 CreditCardScreen.navigationOptions = ({ navigation }) => ({
     title:

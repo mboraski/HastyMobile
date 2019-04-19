@@ -45,7 +45,7 @@ export const getCartPureTotal = createSelector([getCartOrders], orders =>
 
 export const getCartServiceFee = createSelector(
     [getCartPureTotal, getServiceFeeRate],
-    (total, serviceFeeRate) => total * serviceFeeRate
+    (total, serviceFeeRate) => total * serviceFeeRate + 1
 );
 
 export const getCartPreTaxTotal = createSelector(

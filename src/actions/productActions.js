@@ -11,6 +11,7 @@ import {
     setDeliveryFee
 } from './checkoutActions';
 import { updateCart, updateAvailableProducts } from './cartActions';
+import { setProductsObserver, removeProductsObserver } from './observerActions';
 import {
     getDocsFromCollection,
     getRefIdFromDoc,
@@ -71,36 +72,46 @@ export const fetchCustomerBlockError = error => ({
 });
 
 // Fetches all products the company offers
-export const fetchProducts = () => async dispatch => {
+export const listenProducts = async dispatch => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
     try {
-        const allProducts = await db.collection(PRODUCTS_REF).get();
-        const docs = getDocsFromCollection(allProducts);
-        const extractedData = reduce(
-            docs,
-            (accum, doc) => {
-                const id = getRefIdFromDoc(doc);
-                const data = getDataFromDoc(doc);
-                return Object.assign({}, accum, { [id]: data });
-            },
-            {}
-        );
-        const productIdList = Object.keys(extractedData);
+        const productsObserver = await db
+            .collection(PRODUCTS_REF)
+            .onSnapshot(allProducts => {
+                const docs = getDocsFromCollection(allProducts);
+                const extractedData = reduce(
+                    docs,
+                    (accum, doc) => {
+                        const id = getRefIdFromDoc(doc);
+                        const data = getDataFromDoc(doc);
+                        return Object.assign({}, accum, { [id]: data });
+                    },
+                    {}
+                );
+                const productIdList = Object.keys(extractedData);
 
-        // start fetching and caching product images
-        forEach(productIdList, productId => {
-            fetchProductImage(productId, dispatch);
-        });
+                // start fetching and caching product images
+                forEach(productIdList, productId => {
+                    fetchProductImage(productId, dispatch);
+                });
 
-        // mutate the product objects into cart product objects
-        const newCartProducts = mutateProductsIntoCart(extractedData);
-        // send mutated products to be merged with current cart
-        dispatch(updateCart(newCartProducts));
-        // save a copy of the products fetched to the store
-        dispatch(fetchProductsSuccess({ instant: extractedData }));
+                // mutate the product objects into cart product objects
+                const newCartProducts = mutateProductsIntoCart(extractedData);
+                // send mutated products to be merged with current cart
+                dispatch(updateCart(newCartProducts));
+                // save a copy of the products fetched to the store
+                dispatch(fetchProductsSuccess({ instant: extractedData }));
+            });
+        // dispatch this listener to store to unlisten when needed
+        dispatch(setProductsObserver(productsObserver));
+        return productsObserver;
     } catch (error) {
-        dispatch(fetchProductsError(error));
+        return dispatch(fetchProductsError(error));
     }
+};
+
+export const unListenProducts = dispatch => {
+    dispatch(removeProductsObserver());
 };
 
 export const fetchProductsSuccess = products => ({

@@ -18,6 +18,7 @@ import {
     dropdownAlert
 } from '../actions/uiActions';
 import { completeOrder } from '../actions/orderActions';
+import { logScreenView } from '../actions/analyticsActions';
 
 import { getFeedbackFormVisible } from '../selectors/uiSelectors';
 import { getContractorName, getOrderId } from '../selectors/orderSelectors';
@@ -34,6 +35,10 @@ class FeedbackScreen extends Component {
         productRating: 0,
         overallRating: 0
     };
+
+    componentDidMount() {
+        this.props.logScreenView('feedbackScreen', Date.now());
+    }
 
     componentWillUnmount() {
         this.props.hideFeedbackForm();
@@ -172,7 +177,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     showFeedbackForm,
     hideFeedbackForm,
-    completeOrder
+    completeOrder,
+    logScreenView
 };
 
 export default connect(

@@ -4,6 +4,7 @@ import { StyleSheet, View, ActivityIndicator, Modal } from 'react-native';
 import { connect } from 'react-redux';
 
 // Relative Imports
+import { logScreenView } from '../actions/analyticsActions';
 import NotificationContainer from '../containers/NotificationContainer'; // TODO: fix linter error
 import HeroListContainer from '../containers/HeroListContainer';
 import ChatModalContainer from '../containers/ChatModalContainer';
@@ -59,6 +60,7 @@ class DeliveryStatusScreen extends Component {
     componentDidMount() {
         this.props.navigation.setParams({ pending: this.props.pending });
         this.props.dropdownAlert(false, '');
+        this.props.logScreenView('deliveryStatusScreen', Date.now());
     }
 
     componentDidUpdate(prevProps) {
@@ -230,7 +232,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    dropdownAlert
+    dropdownAlert,
+    logScreenView
 };
 
 export default connect(

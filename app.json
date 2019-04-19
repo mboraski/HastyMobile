@@ -4,7 +4,7 @@
         "description": "Hasty Consumer Mobile App",
         "slug": "hasty-mobile",
         "privacy": "unlisted",
-        "sdkVersion": "30.0.0",
+        "sdkVersion": "32.0.0",
         "version": "3.0.0",
         "orientation": "portrait",
         "primaryColor": "#f5a623",

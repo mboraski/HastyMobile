@@ -1,7 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import { StyleSheet, Image } from 'react-native';
-import Expo, { Font, Asset, AppLoading } from 'expo';
+import { Font, Asset, AppLoading, registerRootComponent } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import Sentry from 'sentry-expo';
@@ -9,9 +8,8 @@ import { FontAwesome } from '@expo/vector-icons';
 
 // Relative Imports
 import cachableImages from './src/utils/cachableImages';
-import splashScreen from './src/assets/splash-screen.png';
-import Color from './src/constants/Color';
 import RootContainer from './src/containers/RootContainer';
+import LoadingApp from './src/components/LoadingApp';
 import { store, persistor } from './src/store';
 import { SENTRY_PUBLIC_DSN } from './src/keys/Sentry';
 
@@ -26,6 +24,17 @@ const cacheImages = images =>
     images.map(image => Asset.fromModule(image).downloadAsync());
 
 const cacheFonts = fonts => fonts.map(font => Font.loadAsync(font));
+
+const appLoadingMessages = [
+    'Loading app assets...',
+    'Changing into Super Hero costume...',
+    'Looking for telephone booth to change...',
+    'Saving kittens from trees...',
+    'Stopping global warming...',
+    'Using mind reading powers...',
+    'Hmm...the force is strong with you...',
+    'Thinking really hard...'
+];
 
 class App extends Component {
     state = {
@@ -64,13 +73,7 @@ class App extends Component {
             <Provider store={store}>
                 <PersistGate
                     persistor={persistor}
-                    loading={
-                        <Image
-                            source={splashScreen}
-                            style={[StyleSheet.absoluteFill, styles.splash]}
-                            resizeMode="contain"
-                        />
-                    }
+                    loading={<LoadingApp messages={appLoadingMessages} />}
                 >
                     <RootContainer />
                 </PersistGate>
@@ -79,10 +82,4 @@ class App extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    splash: {
-        backgroundColor: Color.DEFAULT
-    }
-});
-
-Expo.registerRootComponent(App);
+registerRootComponent(App);
