@@ -36,7 +36,10 @@ import { emY } from '../utils/em';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import { submitPayment, changePaymentMethod } from '../actions/paymentActions';
-import { logScreenView } from '../actions/analyticsActions';
+import {
+    logScreenView,
+    logLightBeaconClick
+} from '../actions/analyticsActions';
 
 import {
     getCartOrders,
@@ -188,6 +191,7 @@ class CheckoutScreen extends Component {
     };
 
     confirmPurchase = () => {
+        this.props.logLightBeaconClick(this.props.cart, Date.now());
         if (this.props.cartQuantity > 0) {
             Alert.alert('Confirm Purchase?', 'Woo-hoo! Send me a Hero!', [
                 { text: 'Cancel' },
@@ -285,7 +289,7 @@ class CheckoutScreen extends Component {
         if (cartQuantity > 0) {
             totalCostFormatted = totalCost ? totalCost.toFixed(2) : 0;
         }
-        const placeholderNotes = `(Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)`;
+        const placeholderNotes = `(What apt # or unit? Help your hero find you. What color shirt are you wearing? What can help identify you and your location?)`;
         const discountStyles = discount
             ? [styles.cost, styles.costDiscount]
             : styles.cost;
@@ -705,7 +709,8 @@ const mapDispatchToProps = {
     dropdownAlert,
     submitPayment,
     changePaymentMethod,
-    logScreenView
+    logScreenView,
+    logLightBeaconClick
 };
 
 export default connect(

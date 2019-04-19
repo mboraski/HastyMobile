@@ -1,6 +1,6 @@
 // Third Party Imports
 import React, { Component } from 'react';
-import Expo, { Font, Asset, AppLoading } from 'expo';
+import { Font, Asset, AppLoading, registerRootComponent } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import Sentry from 'sentry-expo';
@@ -82,4 +82,4 @@ class App extends Component {
     }
 }
 
-Expo.registerRootComponent(App);
+registerRootComponent(App);

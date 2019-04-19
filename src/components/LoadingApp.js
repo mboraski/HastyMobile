@@ -8,41 +8,8 @@ import logo from '../assets/icons/logo-white.png';
 
 class LoadingApp extends Component {
     state = {
-        looping: false,
-        message: this.props.messages[0],
-        index: 0
+        message: this.props.messages[0]
     };
-
-    componentDidMount() {
-        const { messages } = this.props;
-        this.setState(state => {
-            if (state.looping) {
-                clearInterval(this.interval);
-            } else {
-                this.interval = setInterval(() => {
-                    console.log('index: ', this.state.index);
-                    if (this.state.index >= messages.length - 1) {
-                        this.setState({
-                            message: messages[0],
-                            index: 0
-                        });
-                    } else {
-                        const newIndex = this.state.index + 1;
-                        this.setState({
-                            message: messages[newIndex],
-                            index: newIndex
-                        });
-                    }
-                }, 4000);
-            }
-            return { looping: !state.looping };
-        });
-    }
-
-    componentWillUnMount() {
-        this.setState({ looping: false });
-        clearInterval(this.interval);
-    }
 
     render() {
         return (

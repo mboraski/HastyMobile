@@ -9,6 +9,7 @@ import Color from '../constants/Color';
 import { emY } from '../utils/em';
 import Slides from '../components/Slides';
 import { setFirstTimeOpened } from '../actions/uiActions';
+import { logUnauthScreenView } from '../actions/analyticsActions';
 import { getUser } from '../selectors/authSelectors';
 import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 
@@ -43,7 +44,7 @@ class WelcomeScreen extends Component {
     static navigationOptions = statusBarOnly;
 
     componentDidMount() {
-        this.props.logScreenView('welcome', Date.now());
+        this.props.logUnauthScreenView('welcome', Date.now());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -149,7 +150,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setFirstTimeOpened
+    setFirstTimeOpened,
+    logUnauthScreenView
 };
 
 export default connect(

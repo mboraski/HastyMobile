@@ -1,5 +1,6 @@
 import { Google, Facebook } from 'expo';
 import { SubmissionError } from 'redux-form';
+import { NavigationActions } from 'react-navigation';
 
 import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';

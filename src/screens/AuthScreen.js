@@ -16,7 +16,7 @@ import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
 import ResetPasswordFormContainer from '../containers/ResetPasswordFormContainer';
 import { facebookLogin, googleLogin } from '../actions/authActions';
-import { logScreenView } from '../actions/analyticsActions';
+import { logUnauthScreenView } from '../actions/analyticsActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
@@ -44,7 +44,7 @@ class AuthScreen extends Component {
         if (firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');
         } else {
-            this.props.logScreenView('auth', Date.now());
+            this.props.logUnauthScreenView('auth', Date.now());
         }
     }
 
@@ -259,7 +259,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     facebookLogin,
     googleLogin,
-    logScreenView
+    logUnauthScreenView
 };
 
 export default connect(

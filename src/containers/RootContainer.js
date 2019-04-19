@@ -96,13 +96,14 @@ class RootContainer extends Component {
     };
 
     renderComponents = () => {
-        let result;
-        if (firebaseAuth.currentUser) {
-            result = <MenuNavigator />;
-        } else {
-            result = <LoadingApp messages={this.props.authLoadingMessages} />;
-        }
-        return result;
+        return <MenuNavigator />;
+        // let result;
+        // if (firebaseAuth.currentUser) {
+        //     result = <MenuNavigator />;
+        // } else {
+        //     result = <LoadingApp messages={this.props.authLoadingMessages} />;
+        // }
+        // return result;
     };
 
     render() {
