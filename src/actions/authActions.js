@@ -397,12 +397,10 @@ export const listenToAuthChanges = () => dispatch => {
     firebaseAuth.onAuthStateChanged(user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
-            // listen to shit
             listenProducts(dispatch);
             dispatch({ type: SIGNIN_SUCCESS });
             checkOpenOrders(dispatch);
         } else {
-            // stop listening to shit
             unListenProducts(dispatch);
             dispatch({ type: SIGNOUT_SUCCESS });
         }
