@@ -42,6 +42,10 @@ const SLIDE_DATA = [
 class WelcomeScreen extends Component {
     static navigationOptions = statusBarOnly;
 
+    componentDidMount() {
+        this.props.logScreenView('welcome', Date.now());
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.user && firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');

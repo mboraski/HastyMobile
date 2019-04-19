@@ -10,6 +10,7 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 import defaultImage from '../assets/icons/logo-orange.png';
 import Dimensions from '../constants/Dimensions';
+import { logProductClick } from '../actions/analyticsActions';
 
 const ICON_SIZE = emY(1.3);
 
@@ -42,6 +43,7 @@ class ProductDetail extends PureComponent {
         const productImage = image ? { uri: image } : defaultImage;
         const limitReached = () => {};
         const onClickHandler = () => {
+            logProductClick(product.id, Date.now());
             if (consumed && available) {
                 limitReached();
             } else if (available) {

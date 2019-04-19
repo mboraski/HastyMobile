@@ -92,7 +92,7 @@ export const determineDeliveryDistance = (
 export const closeLocationFeedbackPopup = () => dispatch =>
     dispatch({ type: LOCATION_FEEDBACK_POPUP_CLOSE });
 
-export const sendLocationFeedback = (region, timestamp) => dispatch => {
+export const sendLocationFeedback = (region, timestamp) => () => {
     if (firebaseAuth.currentUser) {
         const uid = firebaseAuth.currentUser.uid;
         const locationFeedbackRef = rtdb.ref(`${LOCATION_FEEDBACK_REF}/${uid}`);

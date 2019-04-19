@@ -17,6 +17,7 @@ import Style from '../constants/Style';
 import { emY } from '../utils/em';
 
 import { getUserReadable } from '../actions/authActions';
+import { logScreenView } from '../actions/analyticsActions';
 
 import {
     getCards,
@@ -48,6 +49,7 @@ class PaymentMethodScreen extends Component {
 
     componentDidMount() {
         this.props.getUserReadable();
+        this.props.logScreenView('paymentMethod', Date.now());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -159,7 +161,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    getUserReadable
+    getUserReadable,
+    logScreenView
 };
 
 export default connect(

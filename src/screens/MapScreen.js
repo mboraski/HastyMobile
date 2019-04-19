@@ -48,6 +48,7 @@ import SuccessPopup from '../components/SuccessPopup';
 import PredictionList from '../components/PredictionList';
 import Text from '../components/Text';
 import MapHeaderContainer from '../containers/MapHeaderContainer';
+import { logScreenView, logLocationSet } from '../actions/analyticsActions';
 
 import ERRORS from '../constants/Errors';
 import Color from '../constants/Color';
@@ -81,10 +82,11 @@ class MapScreen extends Component {
     }
 
     componentDidMount() {
-        const region = this.props.region;
-        this.getAddress({
-            latlng: `${region.latitude},${region.longitude}`
-        });
+        // const region = this.props.region;
+        this.props.logScreenView('map', Date.now());
+        // this.getAddress({
+        //     latlng: `${region.latitude},${region.longitude}`
+        // });
         this.props.getCurrentLocation();
         // TODO: change to only fetch info that is needed
         this.props.getUserReadable();
@@ -118,6 +120,7 @@ class MapScreen extends Component {
     });
 
     confirmLocationPress = () => {
+        this.props.logLocationSet(this.props.region, Date.now());
         this.props.determineDeliveryDistance(
             this.props.region,
             this.props.navigation
@@ -405,7 +408,9 @@ const mapDispatchToProps = {
     getCurrentLocation,
     determineDeliveryDistance,
     closeLocationFeedbackPopup,
-    sendLocationFeedback
+    sendLocationFeedback,
+    logScreenView,
+    logLocationSet
 };
 
 export default connect(

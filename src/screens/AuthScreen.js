@@ -16,6 +16,7 @@ import SignInFormContainer from '../containers/SignInFormContainer';
 import SignUpFormContainer from '../containers/SignUpFormContainer';
 import ResetPasswordFormContainer from '../containers/ResetPasswordFormContainer';
 import { facebookLogin, googleLogin } from '../actions/authActions';
+import { logScreenView } from '../actions/analyticsActions';
 import { getUser } from '../selectors/authSelectors';
 import { getFirstTimeOpened } from '../selectors/uiSelectors';
 import { emY } from '../utils/em';
@@ -23,7 +24,6 @@ import logoHeader from '../assets/LogoWithIconOrangeWithWhiteBackground.png';
 
 import Color from '../constants/Color';
 import { statusBarOnly } from '../constants/Style';
-// TODO: add width then use for drawer width. Save to store.
 
 class AuthScreen extends Component {
     static navigationOptions = statusBarOnly;
@@ -43,6 +43,8 @@ class AuthScreen extends Component {
     componentDidMount() {
         if (firebaseAuth.currentUser) {
             this.props.navigation.navigate('map');
+        } else {
+            this.props.logScreenView('auth', Date.now());
         }
     }
 
@@ -256,7 +258,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     facebookLogin,
-    googleLogin
+    googleLogin,
+    logScreenView
 };
 
 export default connect(

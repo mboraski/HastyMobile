@@ -36,6 +36,7 @@ import { emY } from '../utils/em';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { dropdownAlert } from '../actions/uiActions';
 import { submitPayment, changePaymentMethod } from '../actions/paymentActions';
+import { logScreenView } from '../actions/analyticsActions';
 
 import {
     getCartOrders,
@@ -121,6 +122,10 @@ class CheckoutScreen extends Component {
                 )
             });
         }
+    }
+
+    componentDidMount() {
+        this.props.logScreenView('checkoutScreen', Date.now());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -699,7 +704,8 @@ const mapDispatchToProps = {
     removeFromCart,
     dropdownAlert,
     submitPayment,
-    changePaymentMethod
+    changePaymentMethod,
+    logScreenView
 };
 
 export default connect(
