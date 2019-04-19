@@ -11,6 +11,7 @@ import {
     setDeliveryFee
 } from './checkoutActions';
 import { updateCart, updateAvailableProducts } from './cartActions';
+import { setProductsObserver, removeProductsObserver } from './observerActions';
 import {
     getDocsFromCollection,
     getRefIdFromDoc,
@@ -102,11 +103,15 @@ export const listenProducts = async dispatch => {
                 dispatch(fetchProductsSuccess({ instant: extractedData }));
             });
         // dispatch this listener to store to unlisten when needed
-        // dispatch()
+        dispatch(setProductsObserver(productsObserver));
         return productsObserver;
     } catch (error) {
         return dispatch(fetchProductsError(error));
     }
+};
+
+export const unListenProducts = dispatch => {
+    dispatch(removeProductsObserver());
 };
 
 export const fetchProductsSuccess = products => ({

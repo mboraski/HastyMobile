@@ -4,7 +4,7 @@ import { SubmissionError } from 'redux-form';
 import { firebaseAuth, db, fire } from '../../firebase';
 import { UPDATE_STRIPE_INFO } from './paymentActions';
 import { checkOpenOrders } from './orderActions';
-import { listenProducts } from './productActions';
+import { listenProducts, unListenProducts } from './productActions';
 import { persistor } from '../store';
 import {
     sanitizeAndValidateName,
@@ -402,6 +402,7 @@ export const listenToAuthChanges = () => dispatch => {
             checkOpenOrders(dispatch);
         } else {
             // stop listening to shit
+            unListenProducts(dispatch);
             dispatch({ type: SIGNOUT_SUCCESS });
         }
     });
