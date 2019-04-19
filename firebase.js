@@ -10,7 +10,7 @@ try {
     const config =
         getConfig(Constants.manifest.releaseChannel) === 'prod'
             ? prodConfig
-            : testConfig;
+            : prodConfig;
     firebase.initializeApp(config);
 } catch (err) {
     console.error('Firebase initialization error: ', err);

@@ -3,6 +3,6 @@ export const getConfig = version => {
         case 'prod-v3':
             return 'prod';
         default:
-            return 'dev';
+            return 'prod';
     }
 };
