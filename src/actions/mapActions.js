@@ -1,4 +1,5 @@
 import { Location, Permissions } from 'expo';
+import { NavigationActions } from 'react-navigation';
 import { rtdb, firebaseAuth } from '../../firebase';
 
 import { geocode, distanceMatrix } from './googleMapsActions';
@@ -151,7 +152,7 @@ export const getCurrentLocation = () => async dispatch => {
                 type: GET_CURRENT_LOCATION_SUCCESS,
                 payload: {
                     timestamp: location.timestamp,
-                    coords: location.coords
+                    coords
                 }
             });
         }

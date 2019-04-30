@@ -1,10 +1,28 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { connect } from 'react-redux';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import createSecureStore from 'redux-persist-expo-securestore';
-// import logger from 'redux-logger';
+import {
+    reduxifyNavigator,
+    createReactNavigationReduxMiddleware
+} from 'react-navigation-redux-helpers';
 
+import logger from 'redux-logger';
+// import MainNavigator from '../navigations/MainNavigator';
+import MenuNavigator from '../navigations/MenuNavigator';
 import * as reducers from '../reducers';
+
+// Note: createReactNavigationReduxMiddleware must be run before reduxifyNavigator
+const navMiddleware = createReactNavigationReduxMiddleware(
+    'root',
+    state => state.nav
+);
+const App = reduxifyNavigator(MenuNavigator, 'root');
+const mapStateToProps = state => ({
+    state: state.nav
+});
+export const AppWithNavigationState = connect(mapStateToProps)(App);
 
 const storage = createSecureStore();
 const persistConfig = {
@@ -17,16 +35,18 @@ const persistConfig = {
 
 const middlewares = [thunk];
 
-// if (__DEV__) {
-//     middlewares.push(logger);
-// }
+middlewares.push(navMiddleware);
+
+if (__DEV__) {
+    middlewares.push(logger);
+}
 
 // Enable debugging remotely in real device
-// import { NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 
-// if (__DEV__) {
-//     NativeModules.DevSettings.setIsDebuggingRemotely(true);
-// }
+if (__DEV__) {
+    NativeModules.DevSettings.setIsDebuggingRemotely(true);
+}
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
 /* eslint-disable no-underscore-dangle */

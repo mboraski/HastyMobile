@@ -7,7 +7,8 @@ import { Permissions, Notifications, Updates } from 'expo';
 
 // Relative Imports
 import { firebaseAuth } from '../../firebase';
-import MenuNavigator from '../navigations/MenuNavigator';
+// import MenuNavigator from '../navigations/MenuNavigator';
+import { AppWithNavigationState } from '../store/index';
 import DropdownAlert from '../components/DropdownAlert';
 import LoadingApp from '../components/LoadingApp';
 import {
@@ -96,7 +97,8 @@ class RootContainer extends Component {
     };
 
     renderComponents = () => {
-        return <MenuNavigator />;
+        // return <MenuNavigator />;
+        return <AppWithNavigationState />;
         // let result;
         // if (firebaseAuth.currentUser) {
         //     result = <MenuNavigator />;

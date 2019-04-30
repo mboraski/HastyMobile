@@ -40,7 +40,8 @@ import {
     getError,
     getPending,
     getTimestamp,
-    getLocationFeedbackPopupVisible
+    getLocationFeedbackPopupVisible,
+    getCoords
 } from '../selectors/mapSelectors';
 
 import { firebaseAuth } from '../../firebase';
@@ -65,23 +66,21 @@ const beaconEdgeLength = emY(10);
 
 class MapScreen extends Component {
     state = {
-        mapReady: false,
-        address: '',
+        mapReady: false, // not used anywhere
+        address: '', // not used anywhere
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
-        getCurrentPositionPending: false,
-        initialMessageVisible: false,
+        getCurrentPositionPending: false, // not used anywhere
+        initialMessageVisible: false, // not used anywhere
         changeLocationPopupVisible: false
     };
 
-    componentWillMount() {
+    componentDidMount() {
         if (!firebaseAuth.currentUser) {
+            console.log('map screen did mount');
             this.props.navigation.navigate('welcome');
         }
-    }
-
-    componentDidMount() {
         // const region = this.props.region;
         this.props.logScreenView('map', Date.now());
         // this.getAddress({
@@ -92,16 +91,14 @@ class MapScreen extends Component {
         this.props.getUserReadable();
     }
 
+    componentDidUpdate() {
+        // console.log('COORDS', this.props.coords.latitude, this.props.coords.longitude)
+        // console.log('REGION', this.props.region.latitude, this.props.region.longitude)
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.searchVisible !== nextProps.searchVisible) {
             this.animate(nextProps.searchVisible);
-        }
-        if (
-            this.props.pending === true &&
-            nextProps.pending === false &&
-            !nextProps.error
-        ) {
-            this.props.navigation.navigate('products');
         }
     }
 
@@ -129,6 +126,7 @@ class MapScreen extends Component {
 
     handleRegionChange = region => {
         this.debounceRegion(region);
+        console.log('region change', region.latitude, region.longitude);
         this.getAddress({
             latlng: `${region.latitude},${region.longitude}`
         });
@@ -210,7 +208,7 @@ class MapScreen extends Component {
                     showsPointsOfInterest
                     provider={PROVIDER_GOOGLE}
                     onMapReady={this.onMapReady}
-                    onRegionChange={this.handleRegionChange}
+                    onRegionChangeComplete={this.handleRegionChange}
                 />
                 <View pointerEvents="none" style={styles.beaconWrapper}>
                     <Image source={beaconIcon} style={styles.beaconMarker} />
@@ -394,7 +392,8 @@ const mapStateToProps = state => ({
     timestamp: getTimestamp(state),
     error: getError(state),
     productsError: getProductsError(state),
-    locationFeedbackPopupVisible: getLocationFeedbackPopupVisible(state)
+    locationFeedbackPopupVisible: getLocationFeedbackPopupVisible(state),
+    coords: getCoords(state)
 });
 
 const mapDispatchToProps = {

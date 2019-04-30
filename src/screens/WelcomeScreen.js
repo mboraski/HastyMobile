@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -41,16 +42,15 @@ const SLIDE_DATA = [
 ];
 
 class WelcomeScreen extends Component {
+    // static propTypes = {
+    //     user: PropTypes.oneOfType([null, PropTypes.shape({})]).isRequired,
+    // }
+
     static navigationOptions = statusBarOnly;
 
     componentDidMount() {
+        console.log('Welcome screen did mount');
         this.props.logUnauthScreenView('welcome', Date.now());
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.user && firebaseAuth.currentUser) {
-            this.props.navigation.navigate('map');
-        }
     }
 
     logIn = () => {

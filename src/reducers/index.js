@@ -11,3 +11,4 @@ export { default as notification } from './notificationReducer';
 export { default as feedback } from './feedbackReducer';
 export { default as order } from './orderReducer';
 export { default as marketing } from './marketingReducer';
+export { default as nav } from './navReducer';

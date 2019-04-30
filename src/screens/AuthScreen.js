@@ -42,15 +42,10 @@ class AuthScreen extends Component {
 
     componentDidMount() {
         if (firebaseAuth.currentUser) {
+            console.log('AUTH DID MOUNT - map');
             this.props.navigation.navigate('map');
         } else {
             this.props.logUnauthScreenView('auth', Date.now());
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.user && firebaseAuth.currentUser) {
-            this.props.navigation.navigate('map');
         }
     }
 
@@ -131,9 +126,7 @@ class AuthScreen extends Component {
                         {signUp && (
                             <SignUpFormContainer navigation={navigation} />
                         )}
-                        {!signUp && (
-                            <SignInFormContainer navigation={navigation} />
-                        )}
+                        {!signUp && <SignInFormContainer />}
                         {!signUp && <ResetPasswordFormContainer />}
                     </View>
                 </ScrollView>

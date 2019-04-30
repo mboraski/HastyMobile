@@ -44,6 +44,7 @@ export const AUTH_NO_LOADED = 'auth_no_loaded';
 export const RESET_PASSWORD_REQUEST = 'reset_password_request';
 export const RESET_PASSSWORD_SUCCESS = 'reset_password_success';
 export const RESET_PASSSWORD_ERROR = 'reset_password_error';
+export const CHECK_AUTH_STATUS = 'check_auth_status';
 
 /**
  * Sends verification email to new users
@@ -365,6 +366,8 @@ export const signInWithEmailAndPassword = (values, dispatch) =>
                 dispatch({
                     type: SIGNIN_SUCCESS
                 });
+
+                dispatch(NavigationActions.navigate({ routeName: 'map' }));
                 return resolve();
             })
             .catch(error => {
@@ -394,15 +397,18 @@ export const signOut = () => async dispatch => {
 };
 
 export const listenToAuthChanges = () => dispatch => {
+    dispatch({ type: CHECK_AUTH_STATUS });
     firebaseAuth.onAuthStateChanged(user => {
         dispatch({ type: AUTH_CHANGED, payload: user });
         if (user) {
             listenProducts(dispatch);
             dispatch({ type: SIGNIN_SUCCESS });
             checkOpenOrders(dispatch);
+            dispatch(NavigationActions.navigate({ routeName: 'map' }));
         } else {
             unListenProducts(dispatch);
             dispatch({ type: SIGNOUT_SUCCESS });
+            dispatch(NavigationActions.navigate({ routeName: 'welcome' }));
         }
     });
 };

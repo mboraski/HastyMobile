@@ -24,16 +24,6 @@ import { emY } from '../utils/em';
 import { formatError } from '../utils/errors';
 
 class SignInFormContainer extends Component {
-    componentWillReceiveProps(nextProps) {
-        this.onAuthComplete(nextProps);
-    }
-
-    onAuthComplete = props => {
-        if (props.user && !this.props.user) {
-            this.props.navigation.navigate('map');
-        }
-    };
-
     render() {
         // TODO: Show correctly login failure notice. Part of store.
         const {
