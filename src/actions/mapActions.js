@@ -2,7 +2,7 @@ import { Location, Permissions } from 'expo';
 import { NavigationActions } from 'react-navigation';
 import { rtdb, firebaseAuth } from '../../firebase';
 
-import { geocode, distanceMatrix } from './googleMapsActions';
+import { geocode, distanceMatrix, reverseGeocode } from './googleMapsActions';
 import { fetchCustomerBlock } from './productActions';
 import { dropdownAlert } from './uiActions';
 
@@ -28,10 +28,7 @@ export const DETERMINE_DELIVERY_DISTANCE_ERROR =
 const CONTRACTOR_REGION_REF = 'activeProducts/US/TX/Austin/contractorRegion';
 const LOCATION_FEEDBACK_REF = 'locationFeedback';
 
-export const determineDeliveryDistance = (
-    region,
-    navigation
-) => async dispatch => {
+export const determineDeliveryDistance = region => async dispatch => {
     try {
         dispatch({ type: DETERMINE_DELIVERY_DISTANCE_REQUEST });
         // bc there is only one Hero, we are looking at his current set location
@@ -68,7 +65,11 @@ export const determineDeliveryDistance = (
                         // Fetch the products made available by Hero(es) to this location
                         fetchCustomerBlock(dispatch);
                         // navigate to product screen
-                        navigation.navigate('products');
+                        dispatch(
+                            NavigationActions.navigate({
+                                routeName: 'products'
+                            })
+                        );
                     }
                 } else {
                     dispatch(
@@ -139,6 +140,12 @@ export const getCurrentLocation = () => async dispatch => {
             });
             // listenForLocationChanges(dispatch); // TODO: add back in
             const coords = location.coords || {};
+
+            // Use coords to set address before updating map
+            await reverseGeocode({
+                latlng: `${coords.latitude},${coords.longitude}`
+            })(dispatch);
+
             dispatch({
                 type: SET_REGION,
                 payload: {

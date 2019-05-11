@@ -91,6 +91,10 @@ export const geocode = props => async dispatch => {
     }
 };
 
+/**
+ * Uses the users coords to find their address
+ * @param {*} props
+ */
 export const reverseGeocode = props => async dispatch => {
     try {
         dispatch({

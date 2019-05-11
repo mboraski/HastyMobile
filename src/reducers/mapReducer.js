@@ -29,25 +29,18 @@ import { SIGNOUT_SUCCESS } from '../actions/authActions';
 
 import { getFormattedAddress, getLocation } from './utils/mapReducerUtils';
 
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE = 30.2666247;
-const LONGITUDE = -97.7405174;
-const LATITUDE_DELTA = 0.0043;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const initialRegion = {
-    latitude: LATITUDE,
-    longitude: LONGITUDE,
-    latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA || 0.0043
-};
-
 const initialState = {
     pending: false,
     predictions: [],
     saved: [],
-    region: initialRegion, // This is the user set delivery location
-    coords: null, // This is the user's location
+    region: {
+        // Region is the center location on the map. If the user presses "Set Location" deliveries will be sent here
+        latitude: null,
+        longitude: null,
+        latitudeDelta: null,
+        longitudeDelta: null
+    },
+    coords: null, // Coords is the user's real physical location
     timestamp: null,
     address: '', // This is the readable address of the delivery location
     error: null,

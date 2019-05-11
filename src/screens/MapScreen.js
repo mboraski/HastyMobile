@@ -66,19 +66,15 @@ const beaconEdgeLength = emY(10);
 
 class MapScreen extends Component {
     state = {
-        mapReady: false, // not used anywhere
-        address: '', // not used anywhere
         translateY: new Animated.Value(0),
         opacity: new Animated.Value(1),
         searchRendered: false,
-        getCurrentPositionPending: false, // not used anywhere
-        initialMessageVisible: false, // not used anywhere
-        changeLocationPopupVisible: false
+        changeLocationPopupVisible: false,
+        showSetLocationButton: false
     };
 
     componentDidMount() {
         if (!firebaseAuth.currentUser) {
-            console.log('map screen did mount');
             this.props.navigation.navigate('welcome');
         }
         // const region = this.props.region;
@@ -91,9 +87,20 @@ class MapScreen extends Component {
         this.props.getUserReadable();
     }
 
-    componentDidUpdate() {
-        // console.log('COORDS', this.props.coords.latitude, this.props.coords.longitude)
-        // console.log('REGION', this.props.region.latitude, this.props.region.longitude)
+    componentDidUpdate(prevProps, prevState) {
+        const prevLat = prevProps.region.latitude;
+        const lat = this.props.region.latitude;
+        // if lat is null and then has a value, it was the first load of this screen
+        // invoke determineDeliveryDistance to take the user to the products screen
+        if (prevLat === null && lat > 0) {
+            this.setState({ showSetLocationButton: false }, () => {
+                this.props.determineDeliveryDistance(this.props.region);
+            });
+        }
+
+        if (prevProps.address !== this.props.address) {
+            this.setState({ showSetLocationButton: true });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -101,10 +108,6 @@ class MapScreen extends Component {
             this.animate(nextProps.searchVisible);
         }
     }
-
-    onMapReady = () => {
-        this.setState({ mapReady: true });
-    };
 
     getAddress = debounce(this.props.reverseGeocode, 500, {
         leading: false,
@@ -118,22 +121,22 @@ class MapScreen extends Component {
 
     confirmLocationPress = () => {
         this.props.logLocationSet(this.props.region, Date.now());
-        this.props.determineDeliveryDistance(
-            this.props.region,
-            this.props.navigation
-        );
-    };
-
-    handleRegionChange = region => {
-        this.debounceRegion(region);
-        console.log('region change', region.latitude, region.longitude);
-        this.getAddress({
-            latlng: `${region.latitude},${region.longitude}`
+        this.setState({ showSetLocationButton: false }, () => {
+            this.props.determineDeliveryDistance(
+                this.props.region,
+                this.props.navigation
+            );
         });
     };
 
-    handleAddress = address => {
-        this.setState({ address });
+    handleRegionChange = region => {
+        // this function is being needlessly called after the first map load because of this bug
+        // https://github.com/react-native-community/react-native-maps/pull/1597
+        // as of May 2019, the PR is still not merged in
+        this.debounceRegion(region);
+        this.getAddress({
+            latlng: `${region.latitude},${region.longitude}`
+        });
     };
 
     handleAddressFocus = () => {
@@ -196,23 +199,40 @@ class MapScreen extends Component {
             mapPending,
             locationFeedbackPopupVisible
         } = this.props;
+
+        const { showSetLocationButton } = this.state;
+
         const errorCode = error ? error.code : 'default';
         const errorMessage = ERRORS[errorCode];
+        const noRegion = region.latitude === null || region.longitude === null;
 
         return (
             <View style={styles.container}>
-                <MapView
-                    style={styles.map}
-                    region={region}
-                    showsCompass
-                    showsPointsOfInterest
-                    provider={PROVIDER_GOOGLE}
-                    onMapReady={this.onMapReady}
-                    onRegionChangeComplete={this.handleRegionChange}
-                />
-                <View pointerEvents="none" style={styles.beaconWrapper}>
-                    <Image source={beaconIcon} style={styles.beaconMarker} />
-                </View>
+                {noRegion ? (
+                    <View style={[styles.container, styles.loadingContainer]}>
+                        <Text style={styles.loadingText}>
+                            One moment while we find your location
+                        </Text>
+                        <ActivityIndicator size="large" color="#f5a623" />
+                    </View>
+                ) : (
+                    <View style={styles.container}>
+                        <MapView
+                            style={styles.map}
+                            region={region}
+                            showsCompass
+                            showsPointsOfInterest
+                            provider={PROVIDER_GOOGLE}
+                            onRegionChangeComplete={this.handleRegionChange}
+                        />
+                        <View pointerEvents="none" style={styles.beaconWrapper}>
+                            <Image
+                                source={beaconIcon}
+                                style={styles.beaconMarker}
+                            />
+                        </View>
+                    </View>
+                )}
                 <TouchableWithoutFeedback
                     onPress={this.handleAddressFocus}
                     disabled={pending}
@@ -243,23 +263,25 @@ class MapScreen extends Component {
                         )}
                     </Animated.View>
                 </TouchableWithoutFeedback>
-                <Animated.View
-                    style={[
-                        styles.buttonContainer,
-                        {
-                            opacity: this.state.opacity
-                        }
-                    ]}
-                >
-                    <Button
-                        large
-                        title="Set Location"
-                        onPress={this.confirmLocationPress}
-                        buttonStyle={styles.button}
-                        textStyle={styles.buttonText}
-                        disabled={pending}
-                    />
-                </Animated.View>
+                {showSetLocationButton ? (
+                    <Animated.View
+                        style={[
+                            styles.buttonContainer,
+                            {
+                                opacity: this.state.opacity
+                            }
+                        ]}
+                    >
+                        <Button
+                            large
+                            title="Set Location"
+                            onPress={this.confirmLocationPress}
+                            buttonStyle={styles.button}
+                            textStyle={styles.buttonText}
+                            disabled={pending}
+                        />
+                    </Animated.View>
+                ) : null}
                 {!!this.state.searchRendered && (
                     <PredictionList
                         predictions={predictions}
@@ -374,6 +396,14 @@ const styles = StyleSheet.create({
     beaconMarker: {
         width: beaconEdgeLength,
         height: beaconEdgeLength
+    },
+    loadingContainer: {
+        justifyContent: 'center'
+    },
+    loadingText: {
+        textAlign: 'center',
+        fontSize: emY(1.25),
+        padding: 30
     }
 });
 
