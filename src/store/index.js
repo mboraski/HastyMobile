@@ -8,8 +8,8 @@ import {
     createReactNavigationReduxMiddleware
 } from 'react-navigation-redux-helpers';
 
-import logger from 'redux-logger';
-// import MainNavigator from '../navigations/MainNavigator';
+// import logger from 'redux-logger';
+
 import MenuNavigator from '../navigations/MenuNavigator';
 import * as reducers from '../reducers';
 
@@ -18,6 +18,8 @@ const navMiddleware = createReactNavigationReduxMiddleware(
     'root',
     state => state.nav
 );
+// This code in here instead of another file to ensure
+// createReactNavigationReduxMiddleware runs first
 const App = reduxifyNavigator(MenuNavigator, 'root');
 const mapStateToProps = state => ({
     state: state.nav
@@ -37,16 +39,16 @@ const middlewares = [thunk];
 
 middlewares.push(navMiddleware);
 
-if (__DEV__) {
-    middlewares.push(logger);
-}
+// if (__DEV__) {
+//     middlewares.push(logger);
+// }
 
 // Enable debugging remotely in real device
-import { NativeModules } from 'react-native';
+// import { NativeModules } from 'react-native';
 
-if (__DEV__) {
-    NativeModules.DevSettings.setIsDebuggingRemotely(true);
-}
+// if (__DEV__) {
+//     NativeModules.DevSettings.setIsDebuggingRemotely(true);
+// }
 
 const Reducer = persistCombineReducers(persistConfig, reducers);
 /* eslint-disable no-underscore-dangle */

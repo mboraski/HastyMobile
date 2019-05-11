@@ -5,7 +5,6 @@ import { createDrawerNavigator } from 'react-navigation';
 // Relative Imports
 import MenuContainer from '../containers/MenuContainer';
 import MainNavigator from './MainNavigator';
-// import { AppWithNavigationState } from '../store/index';
 import Dimensions from '../constants/Dimensions';
 
 export default createDrawerNavigator(

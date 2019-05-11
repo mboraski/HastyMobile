@@ -16,9 +16,6 @@ class LoadingScreen extends Component {
         pending: PropTypes.bool.isRequired
     };
     static navigationOptions = statusBarOnly;
-    componentDidMount() {
-        console.log('loading screen did mount');
-    }
 
     render() {
         return (

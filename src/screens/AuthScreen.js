@@ -42,7 +42,6 @@ class AuthScreen extends Component {
 
     componentDidMount() {
         if (firebaseAuth.currentUser) {
-            console.log('AUTH DID MOUNT - map');
             this.props.navigation.navigate('map');
         } else {
             this.props.logUnauthScreenView('auth', Date.now());

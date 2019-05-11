@@ -97,7 +97,6 @@ class RootContainer extends Component {
     };
 
     renderComponents = () => {
-        // return <MenuNavigator />;
         return <AppWithNavigationState />;
         // let result;
         // if (firebaseAuth.currentUser) {
