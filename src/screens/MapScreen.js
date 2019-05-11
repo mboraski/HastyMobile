@@ -75,7 +75,7 @@ class MapScreen extends Component {
 
     componentDidMount() {
         if (!firebaseAuth.currentUser) {
-            this.props.navigation.navigate('welcome');
+            this.props.navigation.navigate('loading');
         }
         // const region = this.props.region;
         this.props.logScreenView('map', Date.now());
