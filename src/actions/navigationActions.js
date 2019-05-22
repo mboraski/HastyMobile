@@ -15,7 +15,7 @@ export const closeToggle = () => dispatch => {
     });
 };
 
-export function reset(routeName: string) {
+export function reset(routeName) {
     return NavigationActions.reset({
         index: 0,
         key: null,

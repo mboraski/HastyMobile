@@ -48,12 +48,6 @@ class AuthScreen extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.user && firebaseAuth.currentUser) {
-            this.props.navigation.navigate('map');
-        }
-    }
-
     facebookLogin = () => this.props.facebookLogin();
 
     googleLogin = () => this.props.googleLogin();
@@ -131,9 +125,7 @@ class AuthScreen extends Component {
                         {signUp && (
                             <SignUpFormContainer navigation={navigation} />
                         )}
-                        {!signUp && (
-                            <SignInFormContainer navigation={navigation} />
-                        )}
+                        {!signUp && <SignInFormContainer />}
                         {!signUp && <ResetPasswordFormContainer />}
                     </View>
                 </ScrollView>

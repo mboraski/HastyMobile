@@ -1,4 +1,8 @@
-// import AppNavigator from '../navigations/MenuNavigator';
+import { createNavigationReducer } from 'react-navigation-redux-helpers';
+import MenuNavigator from '../navigations/MenuNavigator';
+
+export default createNavigationReducer(MenuNavigator);
+
 // import { AUTH_RESET_STATE } from '../actions/authActions';
 // import { reset } from '../actions/navigationActions';
 //

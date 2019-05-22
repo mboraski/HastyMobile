@@ -22,7 +22,8 @@ import {
     AUTH_NO_LOADED,
     RESET_PASSWORD_REQUEST,
     RESET_PASSSWORD_SUCCESS,
-    RESET_PASSSWORD_ERROR
+    RESET_PASSSWORD_ERROR,
+    CHECK_AUTH_STATUS
 } from '../actions/authActions';
 
 const initialState = {
@@ -86,6 +87,8 @@ export default function(state = initialState, action) {
                 error: 'google login error',
                 pending: false
             };
+        case CHECK_AUTH_STATUS:
+            return { ...state, pending: true };
         case AUTH_CHANGED:
             return {
                 ...state,
@@ -114,7 +117,7 @@ export default function(state = initialState, action) {
         case SIGNOUT_REQUEST:
             return { ...state, pending: true };
         case SIGNOUT_SUCCESS:
-            return { ...initialState, loaded: true };
+            return { ...initialState, pending: false, loaded: true };
         case SIGNOUT_FAIL:
             return { ...state, error: payload, pending: false };
         case USER_READABLE_SUCCESS:

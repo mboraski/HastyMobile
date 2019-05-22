@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -45,12 +46,6 @@ class WelcomeScreen extends Component {
 
     componentDidMount() {
         this.props.logUnauthScreenView('welcome', Date.now());
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.user && firebaseAuth.currentUser) {
-            this.props.navigation.navigate('map');
-        }
     }
 
     logIn = () => {

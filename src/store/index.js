@@ -1,10 +1,30 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { connect } from 'react-redux';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import createSecureStore from 'redux-persist-expo-securestore';
+import {
+    reduxifyNavigator,
+    createReactNavigationReduxMiddleware
+} from 'react-navigation-redux-helpers';
+
 // import logger from 'redux-logger';
 
+import MenuNavigator from '../navigations/MenuNavigator';
 import * as reducers from '../reducers';
+
+// Note: createReactNavigationReduxMiddleware must be run before reduxifyNavigator
+const navMiddleware = createReactNavigationReduxMiddleware(
+    'root',
+    state => state.nav
+);
+// This code in here instead of another file to ensure
+// createReactNavigationReduxMiddleware runs first
+const App = reduxifyNavigator(MenuNavigator, 'root');
+const mapStateToProps = state => ({
+    state: state.nav
+});
+export const AppWithNavigationState = connect(mapStateToProps)(App);
 
 const storage = createSecureStore();
 const persistConfig = {
@@ -16,6 +36,8 @@ const persistConfig = {
 };
 
 const middlewares = [thunk];
+
+middlewares.push(navMiddleware);
 
 // if (__DEV__) {
 //     middlewares.push(logger);
